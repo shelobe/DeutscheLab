@@ -790,9 +790,9 @@ function gameHub(){
  let stats=state.gameStats||{played:0,correct:0};
  app.innerHTML=illustratedHero('Practice games','Short, varied activities to build German skills.','village','hund.png')+
  `<section class="card"><h2>Choose an activity</h2><p class="muted">${stats.played} answers · ${stats.correct} correct</p><div class="game-grid">
- <button onclick="gameStart('build')">🧩 Build a sentence<br><small>Tap words in order</small></button>
- <button onclick="gameStart('match')">🔗 Match the pairs<br><small>German ↔ English</small></button>
- <button onclick="gameStart('listen')">🔊 Listen and choose<br><small>Hear German phrases</small></button>
+ <button onclick="gameStart(&quot;build&quot;)">🧩 Build a sentence<br><small>Tap words in order</small></button>
+ <button onclick="gameStart(&quot;match&quot;)">🔗 Match the pairs<br><small>German ↔ English</small></button>
+ <button onclick="gameStart(&quot;listen&quot;)">🔊 Listen and choose<br><small>Hear German phrases</small></button>
  <button onclick="pictureHome()">🖼️ Name the picture<br><small>Choose or type</small></button></div>
  <p class="muted">Exercises use different sentences from the lesson examples.</p></section>`;
  window.scrollTo(0,0);
@@ -981,6 +981,33 @@ document.addEventListener('click',e=>{let b=e.target.closest('#screenBack');if(!
   window.scrollTo(0,0);
  });
  new MutationObserver(sync).observe(appNode,{childList:true,subtree:false});sync();
+})();
+</script>
+
+<style>
+#picturePersistentBack{display:none!important}
+#screenBack{position:static!important;top:auto!important;z-index:1!important;margin:0 0 12px!important}
+#app .picture-card{padding:10px!important;min-height:0!important;overflow:hidden}
+#app .picture-card img{display:block;width:100%;height:210px;object-fit:contain;background:transparent}
+#app .picture-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+#app .picture-choices button{min-height:62px;font-size:.94rem;padding:10px;text-align:center}
+#app .game-grid button{font-size:1rem}
+#app .card{margin-top:10px}
+</style>
+<script>
+(function(){
+const CURATED_IDS=[25, 43, 44, 45, 46, 50, 51, 70, 73, 99, 105, 111, 114, 116, 122, 123, 124, 128, 138, 139, 140, 152, 156, 157, 159, 163, 170, 175, 176, 184, 188, 189, 199];
+const oldHome=home;
+home=function(){oldHome();let first=app.querySelector('.dashboard-primary');if(first){const card=document.createElement('section');card.className='card';card.innerHTML='<h2>Practice like a game</h2><p>Build German sentences, match word pairs, listen and choose, or identify pictures.</p><div class="game-grid"><button onclick="gameStart(&quot;build&quot;)">Build sentences →</button><button onclick="gameStart(&quot;match&quot;)">Match pairs →</button><button onclick="gameStart(&quot;listen&quot;)">Listening →</button><button onclick="photoMenu()">Picture practice →</button></div>';first.after(card)}};
+const originalPhotoMenu=photoMenu;
+photoMenu=function(){pictureSession=null;originalPhotoMenu();let card=app.querySelector('.card');if(card){let note=card.querySelector('.muted:last-child');if(note)note.textContent='Illustrations are bundled with the app and work offline. Only visually clear vocabulary is used in picture quizzes.';let count=card.querySelector('p');if(count)count.textContent=CURATED_IDS.length+' illustrated words available for picture quizzes; 200 vocabulary words in the full bank.';}}
+photoStart=function(mode){let pool=CURATED_IDS.filter(i=>photoCategory==='All topics'||PHOTO_WORDS[i][2]===photoCategory);if(!pool.length){photoCategory='All topics';pool=[...CURATED_IDS]}for(let i=pool.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[pool[i],pool[j]]=[pool[j],pool[i]]}pictureSession={mode,queue:pool.slice(0,Math.min(10,pool.length)),index:0,correct:0,answered:false,photo:true};photoShow()};
+photoLoad=function(i){let img=document.getElementById('photoActual');if(!img)return;img.src='./illustrations/'+i+'.svg';img.hidden=false;let loading=document.getElementById('photoLoading');if(loading)loading.remove();};
+// Correctly placed back button, within the content below the sticky app header.
+function navSync(){let b=document.getElementById('screenBack');if(!b)return;let isPhoto=!!app.querySelector('#photoActual')||app.textContent.includes('Choose a topic')&&app.textContent.includes('Picture practice');let isGame=!!gameSession||app.textContent.includes('Choose an activity');if(isPhoto||isGame){b.style.display='inline-flex';b.onclick=function(e){e.preventDefault();e.stopImmediatePropagation();if(isPhoto){if(pictureSession?.photo){pictureSession=null;photoMenu()}else home()}else if(gameSession){gameHub()}else home();window.scrollTo(0,0)};let persistent=document.getElementById('picturePersistentBack');if(persistent)persistent.style.display='none'}}
+new MutationObserver(navSync).observe(app,{childList:true,subtree:false});navSync();
+// Keep the new games accessible through the menu even when the original home is re-rendered.
+const menu=document.getElementById('sideMenu');if(menu&&!Array.from(menu.querySelectorAll('button')).some(x=>x.textContent.includes('Practice games'))){let b=document.createElement('button');b.textContent='Practice games';b.onclick=()=>navigateTo('gameHub');menu.appendChild(b)}
 })();
 </script>
 </body></html>
