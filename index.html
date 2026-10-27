@@ -2153,6 +2153,15 @@ fullBegin=async function(id){
     const options=(q?.options||[]).map(String);
     const all=(prompt+' '+options.join(' ')).toLowerCase();
     // Hints describe transferable grammar, never reveal the selected answer.
+    // Classify the actual task before inspecting distractor answers.
+    // Vocabulary recognition should not trigger conjugation rules merely because
+    // a distractor contains a pronoun or a verb.
+    if(/choose the german for|what is the german for|translate (?:the word|\")/i.test(prompt)){
+      if(/\b(i|you|he|she|it|we|they)\b[”"'.?! ]*$/i.test(prompt))return 'This is a personal-pronoun question. Pronouns stand in for people or things. German distinguishes the speaker (first person), the person being addressed (second person), and someone being talked about (third person). Match the English pronoun by person and number; no verb ending is needed here.';
+      if(/\b(who|what|where|when|why|how)\b[”"'.?! ]*$/i.test(prompt))return 'This is a question-word vocabulary question. Decide whether the English word asks about a person, thing, place, time, reason, or manner. Then choose the corresponding German question word; you do not need to conjugate a verb.';
+      if(/\b(?:zero|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|thirteen|fourteen|fifteen|sixteen|seventeen|eighteen|nineteen|twenty|thirty|forty|fifty|sixty|seventy|eighty|ninety|hundred|[0-9]+)\b/i.test(prompt))return 'This is a number-recognition question. Focus on the number itself rather than sentence grammar. German numbers from 13–19 often combine a unit with -zehn; from 21 onward, many numbers place the unit before und and the tens.';
+      return 'This is a vocabulary question. Identify what the English word means and compare the meanings of the German choices. No verb conjugation or sentence word-order rule is needed.';
+    }
     if(/where do you live|wo wohnst|wo wohnen/i.test(all))return 'Question-word questions use: question word + conjugated verb + subject. Wohnen means “to live.” With du (informal you), regular verbs usually end in -st; with Sie (formal you), they use the infinitive form. Compare: Wo arbeitest du? (Where do you work?)';
     if(/wie heißt|what is your name|heiße|heißen/i.test(all))return 'Heißen means “to be called.” Verb endings change with the subject: ich commonly takes -e, du commonly takes -st (with spelling adjustments), and wir/Sie take -en. In a question, the verb usually comes before the subject.';
     if(/nicht|kein/i.test(all))return 'Nicht negates verbs, adjectives, or a whole statement; kein negates nouns that would otherwise use ein/eine or no article. Compare: Ich komme nicht. (I am not coming.) / Ich habe kein Auto. (I have no car.)';
@@ -2306,8 +2315,6 @@ fullBegin=async function(id){
   const a=current();
   const image=menu.querySelector('.dl-menu-avatar');
   if(image){image.src='avatar_'+a.id+'.webp';image.alt=a.name;}
-  const name=menu.querySelector('.dl-menu-avatar-name');
-  if(name)name.textContent=a.name;
  }
  if(menu){
   const heading=menu.querySelector('.menu-heading');
@@ -2320,7 +2327,7 @@ fullBegin=async function(id){
 
   const btn=document.createElement('button');
   btn.className='dl-menu-profile-link';
-  btn.innerHTML='<span class="dl-menu-avatar-name">My profile</span><span class="dl-menu-profile-sub">Profile & rewards</span>';
+  btn.textContent='Profile';
   btn.onclick=function(){toggleMenu(false);dlProfile()};
   const placementButton=[...menu.querySelectorAll('button')].find(b=>b.textContent.includes('Placement test'));
   if(placementButton)menu.insertBefore(btn,placementButton);else menu.appendChild(btn);
