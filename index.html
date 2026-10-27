@@ -3504,16 +3504,16 @@ body.dl-home-banner .app-header .menu-toggle {width:58px!important;height:58px!i
 /* DeutschLab Find It mini-game v1. Ten unique objects, three hearts, captioned Minka feedback. */
 (function(){
 const items=[
- {de:'die Lampe',en:'lamp',x:66,y:45,w:13,h:26},
- {de:'das Fenster',en:'window',x:34,y:16,w:24,h:36},
- {de:'das Buch',en:'book',x:70,y:79,w:13,h:5},
- {de:'der Stuhl',en:'chair',x:18,y:55,w:28,h:30},
- {de:'das Sofa',en:'sofa',x:77,y:54,w:22,h:27},
- {de:'die Pflanze',en:'plant',x:50,y:45,w:15,h:26},
- {de:'die Tasse',en:'cup',x:57,y:77,w:9,h:7},
- {de:'der Teppich',en:'rug',x:47,y:89,w:24,h:8},
- {de:'das Bild',en:'picture',x:77,y:17,w:20,h:23},
- {de:'die Katze',en:'cat',x:5,y:75,w:19,h:23}
+ {de:'die Lampe',en:'lamp',x:63,y:29,w:14,h:25},
+ {de:'das Fenster',en:'window',x:35,y:15,w:22,h:30},
+ {de:'das Buch',en:'book',x:73,y:72,w:16,h:6},
+ {de:'der Stuhl',en:'chair',x:23,y:44,w:34,h:36},
+ {de:'das Sofa',en:'sofa',x:71,y:44,w:29,h:28},
+ {de:'die Pflanze',en:'plant',x:54,y:40,w:13,h:14},
+ {de:'die Tasse',en:'cup',x:65,y:67,w:9,h:10},
+ {de:'der Teppich',en:'rug',x:48,y:86,w:23,h:10},
+ {de:'das Bild',en:'picture',x:78,y:11,w:21,h:29},
+ {de:'die Katze',en:'cat',x:3,y:69,w:20,h:31}
 ];
 const praises=[['Sehr gut!','Very good!'],['Richtig!','Correct!'],['Toll gemacht!','Well done!'],['Du hast es gefunden!','You found it!']];
 let session=null,advance=null;
@@ -3533,7 +3533,7 @@ const scene=String.raw`<svg viewBox="0 0 600 620" role="img" aria-label="Illustr
 <!-- trim --><path d="M0 402H600" stroke="#8b634b" stroke-width="12"/>
 </svg>`;
 function order(){return items.slice().sort(()=>Math.random()-.5)}
-function sceneMarkup(){return '<div class="findit-scene">'+scene+items.map((o,i)=>'<button class="findit-target" data-fi="'+i+'" aria-label="Select object '+(i+1)+'" style="left:'+o.x+'%;top:'+o.y+'%;width:'+o.w+'%;height:'+o.h+'%" onclick="findItTap('+i+')"></button>').join('')+'<img class="findit-cat" src="./katze.png" alt="Minka the cat"></div>'}
+function sceneMarkup(){return '<div class="findit-scene"><img class="findit-room-art" src="./deutschlab_findit_room.png" alt="Illustrated living room with Minka, furniture, plants, window and objects to find">'+items.map((o,i)=>'<button class="findit-target" data-fi="'+i+'" aria-label="Select object '+(i+1)+'" style="left:'+o.x+'%;top:'+o.y+'%;width:'+o.w+'%;height:'+o.h+'%" onclick="findItTap('+i+')"></button>').join('')+'</div>'}
 function feedback(message,translation,voice){const el=document.getElementById('findit-feedback');if(!el)return;el.innerHTML='<strong>'+message+'</strong> <span>'+translation+'</span>'+(voice?'<button class="secondary" onclick="findItPraise()">🔊 Hear phrase</button>':'')}
 window.findItPraise=function(){if(session&&session.phrase&&typeof speak==='function')speak(session.phrase)};
 window.findItHome=function(){
@@ -3556,7 +3556,7 @@ window.findItTap=function(i){
  const target=session.queue[session.idx],picked=items[i],node=app.querySelector('.findit-target[data-fi="'+i+'"]');
  if(picked===target){
   session.locked=true;node&&node.classList.add('findit-hit');
-  const cat=app.querySelector('.findit-cat');if(cat)cat.classList.add('findit-happy');
+  const cat=app.querySelector('.findit-scene');if(cat){cat.classList.add('findit-celebrate');setTimeout(()=>cat.classList.remove('findit-celebrate'),1100)}
   const phrase=praises[session.idx%praises.length];session.phrase=phrase[0];
   feedback(phrase[0],phrase[1]+' · '+target.de+' = '+target.en,true);
   const bubble=document.createElement('div');bubble.className='findit-cat-speech';bubble.innerHTML='<strong>'+phrase[0]+'</strong>';const room=app.querySelector('.findit-scene');if(room)room.appendChild(bubble);
@@ -3635,4 +3635,11 @@ html body.dl-home-banner.dl-compact-header .app-header .menu-toggle {
 .findit-cat-speech:before{content:"";position:absolute;left:-12px;bottom:12px;border-width:10px 12px 10px 0;border-style:solid;border-color:transparent #217b83 transparent transparent}
 .findit-cat-speech button{background:#1b6577!important;color:white!important;border:0!important;border-radius:10px!important;padding:5px 8px!important;margin:0!important;min-height:34px!important}
 @keyframes findit-bubble-in{from{opacity:0;transform:translateY(12px) scale(.9)}to{opacity:1;transform:none}}
+</style><style id="dl-findit-illustrated-room">
+.findit-room-art{display:block;width:100%;height:auto;aspect-ratio:1143/888;object-fit:contain}
+.findit-scene{line-height:0}
+.findit-scene .findit-cat{display:none!important}
+.findit-scene.findit-celebrate .findit-room-art{animation:dl-room-celebrate .45s ease-in-out 2}
+@keyframes dl-room-celebrate{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+.findit-cat-speech{left:23%!important;bottom:11%!important;min-width:28%;justify-content:center}
 </style></body></html>
