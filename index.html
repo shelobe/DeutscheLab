@@ -1862,18 +1862,83 @@ gameStart=function(mode){
 </script>
 
 <script>
-/* Unified lesson tracking for the guided course and Practice Hub. */
+/* A1 foundations data pack. Keep the rest of the app and existing lesson IDs unchanged. */
+const dlA1Pack = {loaded:false, promise:null, byTitle:new Map()};
+async function dlLoadA1Pack(){
+ if(dlA1Pack.loaded)return true;
+ if(!dlA1Pack.promise)dlA1Pack.promise=fetch('./a1_foundations.json',{cache:'no-cache'})
+  .then(r=>{if(!r.ok)throw Error('HTTP '+r.status);return r.json()})
+  .then(data=>{
+    if(data.schemaVersion!==1||data.level!=='A1'||!Array.isArray(data.lessons))throw Error('Invalid A1 course data');
+    for(const lesson of data.lessons){
+      if(!lesson.title||!Array.isArray(lesson.questions)||lesson.questions.length<10)throw Error('Incomplete lesson '+lesson.title);
+      for(const q of lesson.questions){if(!Array.isArray(q.options)||q.options.length!==3||!Number.isInteger(q.answer)||q.answer<0||q.answer>2||!q.german||!q.english)throw Error('Invalid question in '+lesson.title)}
+      dlA1Pack.byTitle.set(lesson.title,lesson.questions);
+    }
+    dlA1Pack.loaded=true;return true;
+  }).catch(e=>{console.error('A1 data pack failed to load:',e);dlA1Pack.promise=null;return false});
+ return dlA1Pack.promise;
+}
+const dlA1PreviousQuestions=fullQuestions;
+fullQuestions=function(unit){
+ const bank=unit?.level==='A1'?dlA1Pack.byTitle.get(unit.title):null;
+ if(!bank)return dlA1PreviousQuestions(unit);
+ const questions=bank.map(q=>{
+   const options=[...q.options];
+   for(let i=options.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[options[i],options[j]]=[options[j],options[i]];}
+   return {...q,options,answer:options.indexOf(q.options[q.answer])};
+ });
+ for(let i=questions.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[questions[i],questions[j]]=[questions[j],questions[i]];}
+ return questions.slice(0,12);
+};
+const dlA1PreviousBegin=fullBegin;
+fullBegin=async function(id){
+ const unit=FULL_UNITS[id];
+ if(unit?.level==='A1' && ['Greetings and introductions','Nouns and articles','Present-tense verbs','Basic word order'].includes(unit.title)){
+   const loaded=await dlLoadA1Pack();
+   if(!loaded){alert('The new A1 course file is missing. Upload a1_foundations.json alongside index.html to GitHub.');return;}
+ }
+ return dlA1PreviousBegin(id);
+};
+const dlA1PreviousCheck=dlCheck;
+dlCheck=function(){
+ const s=fullSession, q=s?.questions?.[s.idx];
+ dlA1PreviousCheck();
+ if(!q?.german||!q?.english||!dlAnswered)return;
+ const feedback=document.querySelector('#dl-result .dl-flow-feedback');
+ if(!feedback)return;
+ feedback.querySelectorAll('.dl-a1-translation,.dl-article-translation').forEach(el=>el.remove());
+ const div=document.createElement('div');div.className='dl-a1-translation';
+ const de=document.createElement('p'),en=document.createElement('p');
+ const deLabel=document.createElement('strong');deLabel.textContent='German: ';
+ const enLabel=document.createElement('strong');enLabel.textContent='English: ';
+ de.append(deLabel,document.createTextNode(q.german));
+ en.append(enLabel,document.createTextNode(q.english));
+ div.append(de,en);feedback.append(div);
+};
+</script>
+<script>
+/* Review snapshots: persist the question, never an unstable shuffled index. */
 (function(){
- const oldCheck=dlCheck;
+ const previousCheck=dlCheck;
+ const stableKey=q=> 'snap:'+encodeURIComponent([q.prompt||'',(q.options||[])[q.answer]||''].join('|'));
+ const snapshot=q=>({prompt:q.prompt,options:[...q.options],answer:q.answer,why:q.why||'',german:q.german||'',english:q.english||''});
+ function pruneLegacy(p){
+   // Legacy full:id:index records cannot be mapped reliably after randomization.
+   for(const k of new Set([...Object.keys(p.mistakes||{}),...Object.keys(p.reviews||{})])){
+     if(/^full:\d+:\d+$/.test(k)){delete p.mistakes[k];delete p.reviews[k];}
+   }
+ }
  dlCheck=function(){
-   const session=fullSession;
-   if(session && !dlAnswered && dlSelected!==null && session.questions && session.questions[session.idx]){
-     const q=session.questions[session.idx],ok=dlSelected===q.answer;
-     const p=practiceState(),key='full:'+session.id+':'+session.idx;
-     p.reviews??={};p.mistakes??={};p.activity??={};p.xp??=0;
+   const s=fullSession,q=s?.questions?.[s.idx];
+   if(q&&!dlAnswered&&dlSelected!==null){
+     const p=practiceState();p.snapshots??={};p.mistakes??={};p.reviews??={};
+     pruneLegacy(p);
+     const key=stableKey(q),ok=dlSelected===q.answer;
+     p.snapshots[key]=snapshot(q);
      if(ok){
        delete p.mistakes[key];
-       const step=Math.min(((p.reviews[key]||{}).step||0)+1,5);
+       const step=Math.min((p.reviews[key]?.step||0)+1,5);
        p.reviews[key]={step,due:Date.now()+[0,1,3,7,14,30][step]*86400000};
      }else{
        p.mistakes[key]=(p.mistakes[key]||0)+1;
@@ -1881,28 +1946,30 @@ gameStart=function(mode){
      }
      practiceLog(ok?10:2);
    }
-   return oldCheck();
+   return previousCheck();
  };
- const oldQuiz=practiceQuiz;
+ const oldHub=practiceHub,oldQuiz=practiceQuiz;
+ function validKeys(p,mode){return (mode==='mistakes'?Object.keys(p.mistakes):Object.keys(p.reviews).filter(k=>p.reviews[k]?.due<=Date.now())).filter(k=>!k.startsWith('full:'));}
+ practiceHub=function(){const p=practiceState();pruneLegacy(p);save();return oldHub();};
+ let reviewSession=null;
  practiceQuiz=function(mode){
-   const p=practiceState();
-   const keys=(mode==='mistakes'?Object.keys(p.mistakes):Object.keys(p.reviews).filter(k=>p.reviews[k].due<=Date.now()));
-   const fullKey=keys.find(k=>k.startsWith('full:'));
-   if(!fullKey)return oldQuiz(mode);
-   const [,idText,idxText]=fullKey.split(':'),id=Number(idText),idx=Number(idxText),unit=FULL_UNITS[id];
-   if(!unit){delete p.mistakes[fullKey];delete p.reviews[fullKey];save();return practiceQuiz(mode)}
-   const q=fullQuestions(unit)[idx];
-   if(!q){delete p.mistakes[fullKey];delete p.reviews[fullKey];save();return practiceQuiz(mode)}
-   app.innerHTML=illustratedHero('Review a lesson question',unit.level+' · '+unit.title,'forest','katze.png')+
-    `<section class="card"><h3>${safeText(q.prompt)}</h3>${q.options.map((o,i)=>`<button class="secondary" onclick="dlReviewAnswer(${id},${idx},${i},'${mode}')">${safeText(o)}</button>`).join('')}<div id="practiceFeedback"></div></section>`;
+   const p=practiceState();pruneLegacy(p);save();
+   const keys=validKeys(p,mode),key=keys.find(k=>k.startsWith('snap:')&&p.snapshots?.[k]);
+   if(!key)return oldQuiz(mode);
+   const q=p.snapshots[key];reviewSession={key,mode,q};
+   app.innerHTML=illustratedHero('Review a lesson question','Practice the exact question you missed','forest','katze.png')+
+    `<section class="card"><h3>${safeText(q.prompt)}</h3>${q.options.map((o,i)=>`<button class="secondary" onclick="dlSnapshotAnswer(${i})">${safeText(o)}</button>`).join('')}<div id="practiceFeedback"></div></section>`;
  };
- window.dlReviewAnswer=function(id,idx,answer,mode){
-   const key='full:'+id+':'+idx,p=practiceState(),q=fullQuestions(FULL_UNITS[id])[idx],ok=answer===q.answer;
-   if(ok){delete p.mistakes[key];const step=Math.min(((p.reviews[key]||{}).step||0)+1,5);p.reviews[key]={step,due:Date.now()+[0,1,3,7,14,30][step]*86400000};}
-   else{p.mistakes[key]=(p.mistakes[key]||0)+1;p.reviews[key]={step:0,due:Date.now()}}
+ window.dlSnapshotAnswer=function(i){
+   const r=reviewSession;if(!r)return;
+   const {q,key,mode}=r,p=practiceState(),ok=i===q.answer;
+   if(ok){delete p.mistakes[key];const step=Math.min((p.reviews[key]?.step||0)+1,5);p.reviews[key]={step,due:Date.now()+[0,1,3,7,14,30][step]*86400000};}
+   else{p.mistakes[key]=(p.mistakes[key]||0)+1;p.reviews[key]={step:0,due:Date.now()};}
    practiceLog(ok?10:2);
    app.querySelectorAll('.card button').forEach(b=>b.disabled=true);
-   document.getElementById('practiceFeedback').innerHTML=`<p class="${ok?'correct':'wrong'}">${ok?'Correct!':'Correct answer: '+safeText(q.options[q.answer])}</p><p>${safeText(q.why||FULL_UNITS[id].rule)}</p><button onclick="practiceQuiz('${mode}')">Next</button><button class="secondary" onclick="practiceHub()">Finish</button>`;
+   const complete=q.prompt.replace('___',q.options[q.answer]);
+   document.getElementById('practiceFeedback').innerHTML=`<p class="${ok?'correct':'wrong'}">${ok?'Correct!':'Correct answer: '+safeText(q.options[q.answer])}</p><p>${safeText(q.why)}</p>${q.german||q.english?`<p><strong>German:</strong> ${safeText(q.german||complete)}</p><p><strong>English:</strong> ${safeText(q.english||'')}</p>`:''}<button onclick="practiceQuiz('${mode}')">Next</button><button class="secondary" onclick="practiceHub()">Finish</button>`;
+   reviewSession=null;
  };
 })();
 </script>

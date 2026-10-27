@@ -1,0 +1,807 @@
+{
+  "schemaVersion": 1,
+  "level": "A1",
+  "phase": "Foundation expansion 1",
+  "lessons": [
+    {
+      "title": "Greetings and introductions",
+      "questions": [
+        {
+          "type": "grammar",
+          "prompt": "Ich ___ Anna.",
+          "options": [
+            "heiße",
+            "heißt",
+            "heißen"
+          ],
+          "answer": 0,
+          "why": "Ich takes heiße.",
+          "german": "Ich heiße Anna.",
+          "english": "My name is Anna."
+        },
+        {
+          "type": "grammar",
+          "prompt": "Wie ___ du?",
+          "options": [
+            "heißt",
+            "heiße",
+            "heißen"
+          ],
+          "answer": 0,
+          "why": "Du takes heißt.",
+          "german": "Wie heißt du?",
+          "english": "What is your name?"
+        },
+        {
+          "type": "grammar",
+          "prompt": "Er ___ aus Berlin.",
+          "options": [
+            "kommt",
+            "komme",
+            "kommen"
+          ],
+          "answer": 0,
+          "why": "Er takes kommt.",
+          "german": "Er kommt aus Berlin.",
+          "english": "He comes from Berlin."
+        },
+        {
+          "type": "grammar",
+          "prompt": "Wir ___ aus Kanada.",
+          "options": [
+            "kommen",
+            "kommt",
+            "komme"
+          ],
+          "answer": 0,
+          "why": "Wir takes kommen.",
+          "german": "Wir kommen aus Kanada.",
+          "english": "We come from Canada."
+        },
+        {
+          "type": "grammar",
+          "prompt": "Ich ___ in Hamburg.",
+          "options": [
+            "wohne",
+            "wohnt",
+            "wohnen"
+          ],
+          "answer": 0,
+          "why": "Ich takes wohne.",
+          "german": "Ich wohne in Hamburg.",
+          "english": "I live in Hamburg."
+        },
+        {
+          "type": "grammar",
+          "prompt": "Woher ___ ihr?",
+          "options": [
+            "kommt",
+            "kommen",
+            "kommst"
+          ],
+          "answer": 0,
+          "why": "Ihr takes kommt.",
+          "german": "Woher kommt ihr?",
+          "english": "Where are you all from?"
+        },
+        {
+          "type": "grammar",
+          "prompt": "Sie ___ Maria.",
+          "options": [
+            "heißt",
+            "heiße",
+            "heißen"
+          ],
+          "answer": 0,
+          "why": "Sie (she) takes heißt.",
+          "german": "Sie heißt Maria.",
+          "english": "Her name is Maria."
+        },
+        {
+          "type": "grammar",
+          "prompt": "___ Morgen!",
+          "options": [
+            "Guten",
+            "Gute",
+            "Gutes"
+          ],
+          "answer": 0,
+          "why": "The standard greeting is Guten Morgen.",
+          "german": "Guten Morgen!",
+          "english": "Good morning!"
+        },
+        {
+          "type": "grammar",
+          "prompt": "___ geht es dir?",
+          "options": [
+            "Wie",
+            "Wo",
+            "Wer"
+          ],
+          "answer": 0,
+          "why": "Wie asks how.",
+          "german": "Wie geht es dir?",
+          "english": "How are you?"
+        },
+        {
+          "type": "grammar",
+          "prompt": "Ich ___ gut, danke.",
+          "options": [
+            "bin",
+            "bist",
+            "ist"
+          ],
+          "answer": 0,
+          "why": "Ich takes bin, from sein.",
+          "german": "Ich bin gut, danke.",
+          "english": "I am well, thank you."
+        },
+        {
+          "type": "grammar",
+          "prompt": "___ du Deutsch?",
+          "options": [
+            "Sprichst",
+            "Spreche",
+            "Sprechen"
+          ],
+          "answer": 0,
+          "why": "Du takes sprichst, with the vowel change e → i.",
+          "german": "Sprichst du Deutsch?",
+          "english": "Do you speak German?"
+        },
+        {
+          "type": "grammar",
+          "prompt": "Wir ___ Deutsch.",
+          "options": [
+            "lernen",
+            "lernt",
+            "lerne"
+          ],
+          "answer": 0,
+          "why": "Wir takes the infinitive-shaped ending -en.",
+          "german": "Wir lernen Deutsch.",
+          "english": "We are learning German."
+        },
+        {
+          "type": "grammar",
+          "prompt": "Ich ___ aus den USA.",
+          "options": [
+            "komme",
+            "kommt",
+            "kommen"
+          ],
+          "answer": 0,
+          "why": "Ich takes komme.",
+          "german": "Ich komme aus den USA.",
+          "english": "I come from the USA."
+        },
+        {
+          "type": "grammar",
+          "prompt": "___ Wiedersehen!",
+          "options": [
+            "Auf",
+            "Am",
+            "Im"
+          ],
+          "answer": 0,
+          "why": "Auf Wiedersehen is a formal goodbye.",
+          "german": "Auf Wiedersehen!",
+          "english": "Goodbye!"
+        },
+        {
+          "type": "grammar",
+          "prompt": "Du ___ sehr nett.",
+          "options": [
+            "bist",
+            "bin",
+            "ist"
+          ],
+          "answer": 0,
+          "why": "Du takes bist, from sein.",
+          "german": "Du bist sehr nett.",
+          "english": "You are very nice."
+        }
+      ]
+    },
+    {
+      "title": "Nouns and articles",
+      "questions": [
+        {
+          "type": "grammar",
+          "prompt": "___ Hund bellt.",
+          "options": [
+            "Der",
+            "Das",
+            "Die"
+          ],
+          "answer": 0,
+          "why": "Hund is masculine in the nominative: der Hund.",
+          "german": "Der Hund bellt.",
+          "english": "The dog barks."
+        },
+        {
+          "type": "grammar",
+          "prompt": "___ Katze schläft.",
+          "options": [
+            "Die",
+            "Der",
+            "Das"
+          ],
+          "answer": 0,
+          "why": "Katze is feminine: die Katze.",
+          "german": "Die Katze schläft.",
+          "english": "The cat is sleeping."
+        },
+        {
+          "type": "grammar",
+          "prompt": "___ Kind spielt.",
+          "options": [
+            "Das",
+            "Der",
+            "Die"
+          ],
+          "answer": 0,
+          "why": "Kind is neuter: das Kind.",
+          "german": "Das Kind spielt.",
+          "english": "The child is playing."
+        },
+        {
+          "type": "grammar",
+          "prompt": "___ Buch ist neu.",
+          "options": [
+            "Das",
+            "Die",
+            "Der"
+          ],
+          "answer": 0,
+          "why": "Buch is neuter: das Buch.",
+          "german": "Das Buch ist neu.",
+          "english": "The book is new."
+        },
+        {
+          "type": "grammar",
+          "prompt": "___ Tisch ist groß.",
+          "options": [
+            "Der",
+            "Die",
+            "Das"
+          ],
+          "answer": 0,
+          "why": "Tisch is masculine: der Tisch.",
+          "german": "Der Tisch ist groß.",
+          "english": "The table is big."
+        },
+        {
+          "type": "grammar",
+          "prompt": "___ Lampe ist hell.",
+          "options": [
+            "Die",
+            "Das",
+            "Der"
+          ],
+          "answer": 0,
+          "why": "Lampe is feminine: die Lampe.",
+          "german": "Die Lampe ist hell.",
+          "english": "The lamp is bright."
+        },
+        {
+          "type": "grammar",
+          "prompt": "___ Fenster ist offen.",
+          "options": [
+            "Das",
+            "Die",
+            "Der"
+          ],
+          "answer": 0,
+          "why": "Fenster is neuter: das Fenster.",
+          "german": "Das Fenster ist offen.",
+          "english": "The window is open."
+        },
+        {
+          "type": "grammar",
+          "prompt": "___ Stuhl steht hier.",
+          "options": [
+            "Der",
+            "Die",
+            "Das"
+          ],
+          "answer": 0,
+          "why": "Stuhl is masculine: der Stuhl.",
+          "german": "Der Stuhl steht hier.",
+          "english": "The chair is here."
+        },
+        {
+          "type": "grammar",
+          "prompt": "___ Tür ist zu.",
+          "options": [
+            "Die",
+            "Der",
+            "Das"
+          ],
+          "answer": 0,
+          "why": "Tür is feminine: die Tür.",
+          "german": "Die Tür ist zu.",
+          "english": "The door is closed."
+        },
+        {
+          "type": "grammar",
+          "prompt": "___ Auto ist rot.",
+          "options": [
+            "Das",
+            "Der",
+            "Die"
+          ],
+          "answer": 0,
+          "why": "Auto is neuter: das Auto.",
+          "german": "Das Auto ist rot.",
+          "english": "The car is red."
+        },
+        {
+          "type": "grammar",
+          "prompt": "___ Mann liest.",
+          "options": [
+            "Der",
+            "Das",
+            "Die"
+          ],
+          "answer": 0,
+          "why": "Mann is masculine: der Mann.",
+          "german": "Der Mann liest.",
+          "english": "The man is reading."
+        },
+        {
+          "type": "grammar",
+          "prompt": "___ Frau kocht.",
+          "options": [
+            "Die",
+            "Das",
+            "Der"
+          ],
+          "answer": 0,
+          "why": "Frau is feminine: die Frau.",
+          "german": "Die Frau kocht.",
+          "english": "The woman is cooking."
+        },
+        {
+          "type": "grammar",
+          "prompt": "___ Mädchen singt.",
+          "options": [
+            "Das",
+            "Die",
+            "Der"
+          ],
+          "answer": 0,
+          "why": "Mädchen is grammatically neuter: das Mädchen.",
+          "german": "Das Mädchen singt.",
+          "english": "The girl is singing."
+        },
+        {
+          "type": "grammar",
+          "prompt": "___ Häuser sind alt.",
+          "options": [
+            "Die",
+            "Das",
+            "Der"
+          ],
+          "answer": 0,
+          "why": "Nominative plural uses die.",
+          "german": "Die Häuser sind alt.",
+          "english": "The houses are old."
+        },
+        {
+          "type": "grammar",
+          "prompt": "___ Äpfel sind frisch.",
+          "options": [
+            "Die",
+            "Der",
+            "Das"
+          ],
+          "answer": 0,
+          "why": "Nominative plural uses die.",
+          "german": "Die Äpfel sind frisch.",
+          "english": "The apples are fresh."
+        }
+      ]
+    },
+    {
+      "title": "Present-tense verbs",
+      "questions": [
+        {
+          "type": "grammar",
+          "prompt": "Ich ___ Wasser.",
+          "options": [
+            "trinke",
+            "trinkt",
+            "trinken"
+          ],
+          "answer": 0,
+          "why": "Ich takes trinke.",
+          "german": "Ich trinke Wasser.",
+          "english": "I drink water."
+        },
+        {
+          "type": "grammar",
+          "prompt": "Du ___ in Berlin.",
+          "options": [
+            "wohnst",
+            "wohnt",
+            "wohnen"
+          ],
+          "answer": 0,
+          "why": "Du takes wohnst.",
+          "german": "Du wohnst in Berlin.",
+          "english": "You live in Berlin."
+        },
+        {
+          "type": "grammar",
+          "prompt": "Er ___ ein Buch.",
+          "options": [
+            "liest",
+            "lese",
+            "lesen"
+          ],
+          "answer": 0,
+          "why": "Lesen changes e to ie with er: liest.",
+          "german": "Er liest ein Buch.",
+          "english": "He is reading a book."
+        },
+        {
+          "type": "grammar",
+          "prompt": "Wir ___ Brot.",
+          "options": [
+            "essen",
+            "esst",
+            "isst"
+          ],
+          "answer": 0,
+          "why": "Wir takes essen.",
+          "german": "Wir essen Brot.",
+          "english": "We eat bread."
+        },
+        {
+          "type": "grammar",
+          "prompt": "Ihr ___ Deutsch.",
+          "options": [
+            "sprecht",
+            "spricht",
+            "sprechen"
+          ],
+          "answer": 0,
+          "why": "Ihr takes sprecht.",
+          "german": "Ihr sprecht Deutsch.",
+          "english": "You all speak German."
+        },
+        {
+          "type": "grammar",
+          "prompt": "Sie (they) ___ nach Hause.",
+          "options": [
+            "fahren",
+            "fährt",
+            "fahre"
+          ],
+          "answer": 0,
+          "why": "Plural sie takes fahren.",
+          "german": "Sie fahren nach Hause.",
+          "english": "They are going home."
+        },
+        {
+          "type": "grammar",
+          "prompt": "Du ___ einen Apfel.",
+          "options": [
+            "isst",
+            "esst",
+            "essen"
+          ],
+          "answer": 0,
+          "why": "Essen changes e to i with du: isst.",
+          "german": "Du isst einen Apfel.",
+          "english": "You eat an apple."
+        },
+        {
+          "type": "grammar",
+          "prompt": "Sie (she) ___ Kaffee.",
+          "options": [
+            "trinkt",
+            "trinke",
+            "trinken"
+          ],
+          "answer": 0,
+          "why": "Sie (she) takes trinkt.",
+          "german": "Sie trinkt Kaffee.",
+          "english": "She drinks coffee."
+        },
+        {
+          "type": "grammar",
+          "prompt": "Ich ___ müde.",
+          "options": [
+            "bin",
+            "bist",
+            "ist"
+          ],
+          "answer": 0,
+          "why": "Ich bin is the first-person form of sein.",
+          "german": "Ich bin müde.",
+          "english": "I am tired."
+        },
+        {
+          "type": "grammar",
+          "prompt": "Du ___ Zeit.",
+          "options": [
+            "hast",
+            "hat",
+            "haben"
+          ],
+          "answer": 0,
+          "why": "Du hast is the second-person form of haben.",
+          "german": "Du hast Zeit.",
+          "english": "You have time."
+        },
+        {
+          "type": "grammar",
+          "prompt": "Er ___ heute.",
+          "options": [
+            "arbeitet",
+            "arbeite",
+            "arbeiten"
+          ],
+          "answer": 0,
+          "why": "Arbeiten adds -et with er.",
+          "german": "Er arbeitet heute.",
+          "english": "He is working today."
+        },
+        {
+          "type": "grammar",
+          "prompt": "Wir ___ Musik.",
+          "options": [
+            "hören",
+            "hört",
+            "höre"
+          ],
+          "answer": 0,
+          "why": "Wir takes hören.",
+          "german": "Wir hören Musik.",
+          "english": "We listen to music."
+        },
+        {
+          "type": "grammar",
+          "prompt": "Ich ___ nach Hause.",
+          "options": [
+            "gehe",
+            "geht",
+            "gehen"
+          ],
+          "answer": 0,
+          "why": "Ich takes gehe.",
+          "german": "Ich gehe nach Hause.",
+          "english": "I am going home."
+        },
+        {
+          "type": "grammar",
+          "prompt": "Sie (she) ___ schnell.",
+          "options": [
+            "läuft",
+            "laufe",
+            "laufen"
+          ],
+          "answer": 0,
+          "why": "Laufen changes au to äu with sie: läuft.",
+          "german": "Sie läuft schnell.",
+          "english": "She runs fast."
+        },
+        {
+          "type": "grammar",
+          "prompt": "Ihr ___ Fußball.",
+          "options": [
+            "spielt",
+            "spiele",
+            "spielen"
+          ],
+          "answer": 0,
+          "why": "Ihr takes spielt.",
+          "german": "Ihr spielt Fußball.",
+          "english": "You all play soccer."
+        },
+        {
+          "type": "grammar",
+          "prompt": "Wir ___ morgen.",
+          "options": [
+            "kommen",
+            "kommt",
+            "komme"
+          ],
+          "answer": 0,
+          "why": "Wir takes kommen.",
+          "german": "Wir kommen morgen.",
+          "english": "We are coming tomorrow."
+        },
+        {
+          "type": "grammar",
+          "prompt": "Er ___ eine Frage.",
+          "options": [
+            "hat",
+            "habe",
+            "haben"
+          ],
+          "answer": 0,
+          "why": "Er takes hat.",
+          "german": "Er hat eine Frage.",
+          "english": "He has a question."
+        },
+        {
+          "type": "grammar",
+          "prompt": "Ich ___ gern.",
+          "options": [
+            "koche",
+            "kocht",
+            "kochen"
+          ],
+          "answer": 0,
+          "why": "Ich takes koche.",
+          "german": "Ich koche gern.",
+          "english": "I like cooking."
+        }
+      ]
+    },
+    {
+      "title": "Basic word order",
+      "questions": [
+        {
+          "type": "grammar",
+          "prompt": "Heute ___ ich Deutsch.",
+          "options": [
+            "lerne",
+            "lernen",
+            "lernt"
+          ],
+          "answer": 0,
+          "why": "When Heute comes first, the finite verb is still in position two.",
+          "german": "Heute lerne ich Deutsch.",
+          "english": "Today I am learning German."
+        },
+        {
+          "type": "grammar",
+          "prompt": "Morgen ___ wir nach Berlin.",
+          "options": [
+            "fahren",
+            "fährt",
+            "fahre"
+          ],
+          "answer": 0,
+          "why": "Morgen is first; the finite verb follows in second position.",
+          "german": "Morgen fahren wir nach Berlin.",
+          "english": "Tomorrow we are going to Berlin."
+        },
+        {
+          "type": "grammar",
+          "prompt": "Am Abend ___ sie ein Buch.",
+          "options": [
+            "liest",
+            "lesen",
+            "lese"
+          ],
+          "answer": 0,
+          "why": "After the initial time phrase, the verb comes before the subject.",
+          "german": "Am Abend liest sie ein Buch.",
+          "english": "In the evening she reads a book."
+        },
+        {
+          "type": "grammar",
+          "prompt": "Ich ___ heute Kaffee.",
+          "options": [
+            "trinke",
+            "trinkt",
+            "trinken"
+          ],
+          "answer": 0,
+          "why": "In a statement beginning with Ich, the finite verb comes next.",
+          "german": "Ich trinke heute Kaffee.",
+          "english": "I am drinking coffee today."
+        },
+        {
+          "type": "grammar",
+          "prompt": "Jetzt ___ er nach Hause.",
+          "options": [
+            "geht",
+            "gehe",
+            "gehen"
+          ],
+          "answer": 0,
+          "why": "Jetzt is first, so geht is second.",
+          "german": "Jetzt geht er nach Hause.",
+          "english": "He is going home now."
+        },
+        {
+          "type": "grammar",
+          "prompt": "Am Montag ___ wir.",
+          "options": [
+            "arbeiten",
+            "arbeitet",
+            "arbeite"
+          ],
+          "answer": 0,
+          "why": "After the initial time phrase, wir takes arbeiten.",
+          "german": "Am Montag arbeiten wir.",
+          "english": "We work on Monday."
+        },
+        {
+          "type": "grammar",
+          "prompt": "Im Park ___ die Kinder.",
+          "options": [
+            "spielen",
+            "spielt",
+            "spiele"
+          ],
+          "answer": 0,
+          "why": "The verb follows the initial location phrase; plural Kinder takes spielen.",
+          "german": "Im Park spielen die Kinder.",
+          "english": "The children play in the park."
+        },
+        {
+          "type": "grammar",
+          "prompt": "Heute ___ du Zeit.",
+          "options": [
+            "hast",
+            "hat",
+            "haben"
+          ],
+          "answer": 0,
+          "why": "Heute occupies first position, so hast follows.",
+          "german": "Heute hast du Zeit.",
+          "english": "You have time today."
+        },
+        {
+          "type": "grammar",
+          "prompt": "Nachmittags ___ ich Musik.",
+          "options": [
+            "höre",
+            "hört",
+            "hören"
+          ],
+          "answer": 0,
+          "why": "The finite verb comes second after Nachmittags.",
+          "german": "Nachmittags höre ich Musik.",
+          "english": "In the afternoons I listen to music."
+        },
+        {
+          "type": "grammar",
+          "prompt": "Am Wochenende ___ sie Freunde.",
+          "options": [
+            "besucht",
+            "besuchen",
+            "besuche"
+          ],
+          "answer": 0,
+          "why": "The initial time phrase is followed by besucht.",
+          "german": "Am Wochenende besucht sie Freunde.",
+          "english": "She visits friends on the weekend."
+        },
+        {
+          "type": "grammar",
+          "prompt": "Ich ___ am Morgen Brot.",
+          "options": [
+            "esse",
+            "isst",
+            "essen"
+          ],
+          "answer": 0,
+          "why": "Ich takes esse; the time phrase follows later.",
+          "german": "Ich esse am Morgen Brot.",
+          "english": "I eat bread in the morning."
+        },
+        {
+          "type": "grammar",
+          "prompt": "Dort ___ ein Hund.",
+          "options": [
+            "schläft",
+            "schlafen",
+            "schlafe"
+          ],
+          "answer": 0,
+          "why": "Dort occupies first position; schläft is second.",
+          "german": "Dort schläft ein Hund.",
+          "english": "A dog is sleeping there."
+        }
+      ]
+    }
+  ]
+}
