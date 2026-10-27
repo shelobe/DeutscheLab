@@ -1226,11 +1226,10 @@ function curriculumView(level){
  ${st.groups.map((g,n)=>{
   const done=g.ids.filter(id=>st.scores[id]?.passed).length;
   const complete=done===g.ids.length;
-  const startNumber=st.groups.slice(0,n).reduce((sum,x)=>sum+x.ids.length,0);
   return `<details class="curriculum-module curriculum-path-module" ${n===openIndex?'open':''}>
    <summary><div class="curriculum-module-heading"><span class="curriculum-module-number">${n+1}</span><div><div class="curriculum-pill">MODULE ${n+1} · ${done}/${g.ids.length} LESSONS</div><h3>${safeText(g.title)}</h3><p>${safeText(g.goal)}</p></div></div><span class="curriculum-chevron" aria-hidden="true">${complete?'✓':'⌄'}</span></summary>
    <div class="curriculum-module-content">
-   ${g.ids.map((id,j)=>{const passed=!!st.scores[id]?.passed;const isNext=id===next&&!passed;return `<div class="curriculum-lesson curriculum-path-lesson ${isNext?'curriculum-next-lesson':''}"><div class="curriculum-lesson-number">${startNumber+j+1}</div><div class="text"><strong>${safeText(FULL_UNITS[id].title)}</strong><small>${passed?'✓ Completed':isNext?'Up next':'Not completed'}</small></div><button class="${passed?'secondary':''}" onclick="curriculumLesson(${id})">${passed?'Review':'Start'}</button></div>`}).join('')}
+   ${g.ids.map((id,j)=>{const passed=!!st.scores[id]?.passed;const isNext=id===next&&!passed;return `<div class="curriculum-lesson curriculum-path-lesson ${isNext?'curriculum-next-lesson':''}"><div class="curriculum-lesson-number" aria-label="Lesson ${j+1}">${j+1}</div><div class="text"><strong>Lesson ${j+1} · ${safeText(FULL_UNITS[id].title)}</strong><small>${passed?'✓ Completed':isNext?'Up next':'Not completed'}</small></div><button class="${passed?'secondary':''}" onclick="curriculumLesson(${id})">${passed?'Review':'Start'}</button></div>`}).join('')}
    <div class="curriculum-check"><strong>Module ${n+1} review</strong><p>Practice material from this module.</p><button class="secondary" onclick="curriculumReview('${curriculumSelected}',${n})">Practice module</button></div>
    </div>
   </details>`}).join('')}
@@ -2226,5 +2225,55 @@ fullBegin=async function(id){
  window.playDialogueLine=function(){if(selected&&selected.turns[step])speak(selected.turns[step].de)};
  window.answerDialogue=function(i){const t=selected&&selected.turns[step];if(!t)return;const f=document.getElementById('dialogue-feedback');if(i!==t.correct){misses++;f.innerHTML='<p class="wrong">Not quite. Try another response.</p>';return}document.querySelectorAll('#app button').forEach(b=>{if(b.textContent.trim()===t.answers[0]||b.textContent.trim()===t.answers[1])b.disabled=true});speak(t.answers[t.correct]);f.innerHTML=`<p class="correct">Correct! ${escapeHTML(t.answers[t.correct])}</p><button onclick="nextDialogueStep()">Continue</button>`};
  window.nextDialogueStep=function(){step++;showStep()};
+})();
+</script><style>
+/* XP rewards and selectable animal profile avatars */
+.dl-profile-top{display:flex;gap:16px;align-items:center;flex-wrap:wrap}.dl-avatar-large{width:94px;height:94px;border-radius:24px;background:#244a59;display:grid;place-items:center;border:2px solid #74cfc1;overflow:hidden}.dl-avatar-large svg{width:85%;height:85%}.dl-avatar-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.dl-avatar-option{min-height:154px!important;display:flex!important;flex-direction:column;align-items:center;justify-content:center;gap:6px!important;background:#203b50!important;border:2px solid #4a7380!important;color:#eefaf8!important;border-radius:18px!important;white-space:normal!important}.dl-avatar-option.selected{border-color:#76dec7!important;background:#295c60!important}.dl-avatar-option.locked{opacity:.66}.dl-avatar-option svg{width:70px;height:70px}.dl-rank-track{height:13px;border-radius:12px;background:#385064;overflow:hidden;margin:12px 0}.dl-rank-track>div{height:100%;background:#6bd0b9;border-radius:12px}.dl-badge{padding:12px;border-radius:14px;border:1px solid #54717d;background:#21394c;margin:9px 0}.dl-badge.locked{opacity:.6}.dl-profile-button{width:100%;margin-top:12px}
+</style>
+<script>
+/* Local-only profile rewards: no account or network service required. */
+(function(){
+ const animals=[
+  {id:'dog',name:'Fritzi · Dog',min:0,kind:'dog',color:'#df9a4d'},
+  {id:'cat',name:'Minka · Cat',min:0,kind:'cat',color:'#b9b7c7'},
+  {id:'fox',name:'Fox',min:250,kind:'fox',color:'#e99149'},
+  {id:'owl',name:'Owl',min:500,kind:'owl',color:'#b58c68'},
+  {id:'rabbit',name:'Rabbit',min:1000,kind:'rabbit',color:'#d4c3d2'},
+  {id:'panda',name:'Red panda',min:2000,kind:'panda',color:'#cb754f'}
+ ];
+ const ranks=[['Beginner',0],['Explorer',100],['Apprentice',250],['Conversationalist',500],['Skilled Speaker',1000],['German Enthusiast',2000],['Language Master',5000]];
+ const esc=t=>String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ function xp(){return Math.max(0,Number(practiceState().xp)||0)}
+ function profile(){ensureLearning();state.learning.profile??={avatar:'dog',badges:{}};return state.learning.profile}
+ function avatarSVG(a){
+  const ears=a.kind==='rabbit'?'<ellipse cx="24" cy="18" rx="10" ry="25" fill="'+a.color+'"/><ellipse cx="76" cy="18" rx="10" ry="25" fill="'+a.color+'"/>':a.kind==='owl'?'<path d="M12 37 L15 10 37 24 63 24 85 10 88 37" fill="'+a.color+'"/>':'<path d="M12 43 L17 9 39 29 61 29 83 9 88 43" fill="'+a.color+'"/>';
+  const mask=a.kind==='panda'?'<path d="M15 51 Q50 78 85 51 L78 81 Q50 102 22 81Z" fill="#fff0d6"/>':a.kind==='fox'?'<path d="M16 57 L50 91 84 57 Q50 72 16 57Z" fill="#ffe4bb"/>':'';
+  const eyes=a.kind==='owl'?'<circle cx="34" cy="50" r="16" fill="#f6e8cf"/><circle cx="66" cy="50" r="16" fill="#f6e8cf"/><circle cx="34" cy="51" r="6" fill="#243444"/><circle cx="66" cy="51" r="6" fill="#243444"/>':'<ellipse cx="35" cy="51" rx="5" ry="6" fill="#202b37"/><ellipse cx="65" cy="51" rx="5" ry="6" fill="#202b37"/>';
+  const nose=a.kind==='owl'?'<path d="M45 64 L55 64 50 75Z" fill="#efb955"/>':'<path d="M44 67 Q50 62 56 67 L50 73Z" fill="#2c3541"/><path d="M50 72 Q44 79 40 75 M50 72 Q56 79 60 75" fill="none" stroke="#2c3541" stroke-width="2.4" stroke-linecap="round"/>';
+  return '<svg viewBox="0 0 100 100" role="img" aria-label="'+esc(a.name)+'" xmlns="http://www.w3.org/2000/svg">'+ears+'<ellipse cx="50" cy="59" rx="39" ry="37" fill="'+a.color+'"/>'+mask+eyes+nose+'<circle cx="28" cy="68" r="3" fill="#f7b5a3" opacity=".7"/><circle cx="72" cy="68" r="3" fill="#f7b5a3" opacity=".7"/></svg>';
+ }
+ function current(){return animals.find(a=>a.id===profile().avatar&&xp()>=a.min)||animals[0]}
+ function achievements(){
+  const scores=state.learning?.fullScores||{};
+  const completed=Object.values(scores).filter(s=>s?.passed).length;
+  const streak=practiceStreak();
+  const p=profile();
+  const specs=[['first','First Steps','Earn your first 10 XP',xp()>=10],['hundred','XP Explorer','Earn 100 XP',xp()>=100],['lessons','Getting Started','Complete 10 lessons',completed>=10],['streak','On a Roll','Practice 7 days in a row',streak>=7],['dialogues','Conversation Starter','Complete 5 different dialogues',Object.keys(p.dialogues||{}).length>=5],['perfect','Perfect Round','Complete a dialogue with no mistakes',!!p.perfectDialogue]];
+  let changed=false;for(const [id,,,earned] of specs){if(earned&&!p.badges[id]){p.badges[id]=true;changed=true}}if(changed)save();return specs.map(([id,name,description])=>({name,description,earned:!!p.badges[id]}));
+ }
+ window.dlProfile=function(){
+  const total=xp(),a=current(),r=ranks.filter(x=>total>=x[1]).at(-1),next=ranks.find(x=>x[1]>total),pct=next?Math.round((total-r[1])/(next[1]-r[1])*100):100;
+  app.innerHTML='<section class="card"><h2>My German profile</h2><div class="dl-profile-top"><div class="dl-avatar-large">'+avatarSVG(a)+'</div><div><h3 style="margin:0">'+esc(a.name)+'</h3><p class="muted">'+esc(r[0])+' · '+total+' total XP</p></div></div><h3>Next rank</h3><p>'+(next?esc(next[0])+' · '+(next[1]-total)+' XP to go':'Highest rank achieved')+'</p><div class="dl-rank-track"><div style="width:'+pct+'%"></div></div><p class="muted">XP unlocks avatars and ranks. Lessons stay open at every rank.</p></section><section class="card"><h2>Choose your animal</h2><div class="dl-avatar-grid">'+animals.map(v=>'<button class="dl-avatar-option '+(a.id===v.id?'selected ':'')+(total<v.min?'locked':'')+'" onclick="dlChooseAvatar(\''+v.id+'\')" '+(total<v.min?'disabled':'')+'>'+avatarSVG(v)+'<strong>'+esc(v.name)+'</strong><small>'+(total<v.min?'Unlock at '+v.min+' XP':a.id===v.id?'Selected':'Choose avatar')+'</small></button>').join('')+'</div></section><section class="card"><h2>Achievements</h2>'+achievements().map(b=>'<div class="dl-badge '+(b.earned?'':'locked')+'"><strong>'+(b.earned?'✓ ':'○ ')+esc(b.name)+'</strong><div class="muted">'+esc(b.description)+'</div></div>').join('')+'</section><button class="secondary dl-profile-button" onclick="practiceHub()">Back to practice</button>';
+  window.scrollTo(0,0);
+ };
+ window.dlChooseAvatar=function(id){const a=animals.find(x=>x.id===id);if(!a||xp()<a.min)return;profile().avatar=id;save();dlProfile()};
+ // Add profile to the navigation without changing existing navigation handlers.
+ const menu=document.getElementById('sideMenu');if(menu){const btn=document.createElement('button');btn.textContent='My profile & rewards';btn.onclick=function(){toggleMenu(false);dlProfile()};menu.appendChild(btn)}
+ const oldHub=practiceHub;practiceHub=function(){oldHub();const card=app.querySelector('.card');if(card){const a=current();const b=document.createElement('button');b.className='secondary dl-profile-button';b.innerHTML=avatarSVG(a)+' My profile, ranks & rewards';b.querySelector('svg').style.cssText='height:36px;width:36px;vertical-align:middle;margin-right:8px';b.onclick=dlProfile;card.appendChild(b)}};
+ const oldLog=practiceLog;practiceLog=function(points){const before=xp();oldLog(points);const after=xp();if(ranks.some(r=>r[1]>before&&r[1]<=after)||animals.some(a=>a.min>before&&a.min<=after)){profile().newUnlock=true;save()}};
+ // Count unique completed dialogues and record perfect attempts for badges.
+ const oldStart=window.startDialogue;window.startDialogue=function(id){window.dlDialogueStarted=id;window.dlDialogueMissed=false;return oldStart(id)};
+ const oldAnswer=window.answerDialogue;window.answerDialogue=function(i){const before=document.getElementById('dialogue-feedback');const old=before?.textContent||'';oldAnswer(i);const now=document.getElementById('dialogue-feedback')?.textContent||'';if(now.includes('Not quite')&&now!==old)window.dlDialogueMissed=true};
+ const oldNext=window.nextDialogueStep;window.nextDialogueStep=function(){oldNext();if(app.textContent.includes('Conversation complete')&&window.dlDialogueStarted){const p=profile();p.dialogues??={};p.dialogues[window.dlDialogueStarted]=true;if(!window.dlDialogueMissed)p.perfectDialogue=true;save();window.dlDialogueStarted=null}};
 })();
 </script></body></html>
