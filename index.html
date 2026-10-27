@@ -2804,4 +2804,32 @@ curriculumModuleIntro=function(level,n){
  };
 })();
 </script>
+
+<!-- Native-speaker audio pilot: Mutter/Mütter. The single audio file is stored beside index.html. -->
+<script>
+(function(){
+ const clips={Mutter:[0,1.46], 'Mütter':[1.96,3.44]};
+ // Two clips separated by 0.5 seconds of silence.
+ const sprite='deutschlab-native-audio.ogg';
+ let active=null;
+ const oldSpeak=speak;
+ speak=function(text){
+  const word=String(text||'').trim();
+  const range=clips[word];
+  if(!range)return oldSpeak(text);
+  try{
+   if(active){active.pause();active=null;}
+   if('speechSynthesis' in window)speechSynthesis.cancel();
+   const player=new Audio(sprite);active=player;
+   player.preload='auto';
+   const start=range[0],end=range[1];
+   const begin=()=>{player.currentTime=start;player.play().catch(()=>oldSpeak(text));};
+   player.addEventListener('loadedmetadata',begin,{once:true});
+   player.addEventListener('timeupdate',()=>{if(player.currentTime>=end){player.pause();if(active===player)active=null;}});
+   player.addEventListener('error',()=>{if(active===player)active=null;oldSpeak(text);},{once:true});
+   player.load();
+  }catch(e){oldSpeak(text);}
+ };
+})();
+</script>
 </body></html>
