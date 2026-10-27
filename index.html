@@ -879,19 +879,57 @@ function photoStart(mode){
  for(let i=pool.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[pool[i],pool[j]]=[pool[j],pool[i]]}
  pictureSession={mode,queue:pool.slice(0,10),index:0,correct:0,answered:false,photo:true};photoShow();
 }
+const PHOTO_SEARCH_OVERRIDES={
+ 'computer mouse':'computer mouse peripheral isolated', 'mouse':'animal mouse rodent',
+ 'orange fruit':'orange citrus fruit isolated','glass of water':'glass filled with drinking water',
+ 'computer':'desktop computer monitor keyboard','ball':'soccer ball','key':'metal house key isolated',
+ 'train ticket':'railway train ticket','bank building':'bank building exterior',
+ 'police station':'police station building exterior', 'clock':'clock face',
+ 'bicycle helmet':'cycling helmet','photograph':'printed photograph',
+ 'timetable':'railway timetable board', 'road':'empty paved road',
+ 'cup':'ceramic cup isolated', 'tea cup':'cup of tea', 'coffee cup':'cup of coffee'
+};
+const PHOTO_BAD_TERMS={
+ 'computer mouse':['amiga','commodore','keyboard','computer system','laptop','mouse animal','rodent','museum'],
+ 'mouse':['computer','keyboard','peripheral','amiga','commodore','laptop'],
+ 'computer':['mouse only','computer mouse'],
+ 'key':['keyboard','piano key'],
+ 'orange fruit':['orange car','orange flower']
+};
 async function photoLoad(i){
- let img=document.getElementById('photoActual');if(!img)return;
- let w=PHOTO_WORDS[i],term=w[1];
- if(photoCache[term]){img.src=photoCache[term];return}
- try{
-  const q=new URLSearchParams({action:'query',generator:'search',gsrsearch:'filetype:bitmap '+term,gsrnamespace:'6',gsrlimit:'8',prop:'imageinfo',iiprop:'url|mime',iiurlwidth:'600',format:'json',origin:'*'});
-  const r=await fetch('https://commons.wikimedia.org/w/api.php?'+q.toString());if(!r.ok)throw Error('Image unavailable');
-  const d=await r.json(),pages=Object.values(d.query?.pages||{});
-  const pic=pages.find(p=>p.imageinfo?.[0]?.mime?.startsWith('image/')&&p.imageinfo?.[0]?.thumburl);
-  if(!pic)throw Error('No photo');
-  photoCache[term]=pic.imageinfo[0].thumburl;
-  if(img.dataset.word===term){img.src=photoCache[term];img.hidden=false;document.getElementById('photoLoading').hidden=true}
- }catch(e){let loading=document.getElementById('photoLoading');if(loading)loading.textContent='Photo unavailable. Try the next picture.'}
+ const word=PHOTO_WORDS[i],term=word[1],image=document.getElementById('photoActual');
+ const holder=document.getElementById('photoLoading');
+ if(!image||!holder)return;
+ let candidates=[];
+ if(photoCache[term])candidates=[photoCache[term]];
+ else {
+  try{
+   const q=new URLSearchParams({action:'query',generator:'search',gsrsearch:'filetype:bitmap '+(PHOTO_SEARCH_OVERRIDES[term]||term)+' photo',gsrnamespace:'6',gsrlimit:'25',prop:'imageinfo',iiprop:'url|mime',iiurlwidth:'650',format:'json',origin:'*'});
+   const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),8500);
+   let response;
+   try{response=await fetch('https://commons.wikimedia.org/w/api.php?'+q,{signal:controller.signal})}finally{clearTimeout(timer)}
+   if(!response.ok)throw Error('Photo search unavailable');
+   const data=await response.json(),pages=Object.values(data.query?.pages||{});
+   const bad=PHOTO_BAD_TERMS[term]||[];
+   candidates=pages.filter(p=>{
+    const info=p.imageinfo?.[0],title=(p.title||'').toLowerCase();
+    return info?.mime?.startsWith('image/')&&info.thumburl&&!bad.some(t=>title.includes(t));
+   }).map(p=>p.imageinfo[0].thumburl);
+  }catch(e){candidates=[]}
+ }
+ if(!document.getElementById('photoActual')||image.dataset.word!==term)return;
+ for(const url of candidates.slice(0,5)){
+  try{
+   await new Promise((resolve,reject)=>{const preload=new Image();const timer=setTimeout(()=>reject(Error('timeout')),7000);preload.onload=()=>{clearTimeout(timer);resolve()};preload.onerror=()=>{clearTimeout(timer);reject(Error('broken'))};preload.src=url});
+   if(!image.isConnected||image.dataset.word!==term)return;
+   image.src=url;image.hidden=false;holder.remove();photoCache[term]=url;
+   document.querySelectorAll('#photoAnswerArea button,#photoAnswerArea input').forEach(el=>el.disabled=false);
+   return;
+  }catch(e){}
+ }
+ if(!image.isConnected||image.dataset.word!==term)return;
+ holder.textContent='No reliable photo available for this word.';
+ const skip=document.createElement('button');skip.textContent='Skip to next picture →';skip.onclick=()=>{pictureSession.index++;photoShow()};holder.appendChild(skip);
 }
 function photoShow(){
  let g=pictureSession;if(!g||!g.photo)return photoMenu();
@@ -899,8 +937,8 @@ function photoShow(){
  g.answered=false;let id=g.queue[g.index],w=PHOTO_WORDS[id];
  let others=PHOTO_WORDS.map((x,i)=>i).filter(i=>i!==id&&PHOTO_WORDS[i][2]===w[2]).sort(()=>Math.random()-.5).slice(0,3);
  let choices=[id,...others].sort(()=>Math.random()-.5);
- app.innerHTML=`<section class="card"><p class="muted">${safeText(w[2])} · ${g.index+1} of ${g.queue.length}</p><div class="game-progress"><div style="width:${g.index/g.queue.length*100}%"></div></div><div class="picture-card"><div id="photoLoading" class="photo-placeholder">Loading photo…</div><img id="photoActual" class="photo-image" data-word="${safeText(w[1])}" alt="Identify the pictured object" hidden></div><h2>What is this in German?</h2><p class="muted">Include der, die or das.</p>${g.mode==='choice'?`<div class="picture-choices">${choices.map(i=>`<button class="secondary" onclick="photoGrade(${id},${i})">${safeText(PHOTO_WORDS[i][0])}</button>`).join('')}</div>`:`<form onsubmit="event.preventDefault();photoGrade(${id},null)"><input class="picture-input" id="photoInput" placeholder="e.g. der Hund" autocomplete="off" autocapitalize="none" spellcheck="false"><button>Check answer →</button></form>`}<div id="pictureFeedback" aria-live="polite"></div></section>`;
- photoLoad(id);window.scrollTo(0,0);
+ app.innerHTML=`<section class="card"><p class="muted">${safeText(w[2])} · ${g.index+1} of ${g.queue.length}</p><div class="game-progress"><div style="width:${g.index/g.queue.length*100}%"></div></div><div class="picture-card"><div id="photoLoading" class="photo-placeholder">Finding a picture…</div><img id="photoActual" class="photo-image" data-word="${safeText(w[1])}" alt="Identify the pictured object" hidden></div><h2>What is this in German?</h2><p class="muted">Include der, die or das.</p>${g.mode==='choice'?`<div id="photoAnswerArea" class="picture-choices">${choices.map(i=>`<button class="secondary" onclick="photoGrade(${id},${i})">${safeText(PHOTO_WORDS[i][0])}</button>`).join('')}</div>`:`<form id="photoAnswerArea" onsubmit="event.preventDefault();photoGrade(${id},null)"><input class="picture-input" id="photoInput" placeholder="e.g. der Hund" autocomplete="off" autocapitalize="none" spellcheck="false"><button>Check answer →</button></form>`}<div id="pictureFeedback" aria-live="polite"></div></section>`;
+ document.querySelectorAll('#photoAnswerArea button,#photoAnswerArea input').forEach(el=>el.disabled=true);photoLoad(id);window.scrollTo(0,0);
 }
 function photoGrade(id,choice){
  let g=pictureSession;if(!g||g.answered)return;
@@ -915,5 +953,34 @@ pictureHome=photoMenu;
 pictureStart=photoStart;
 // Preserve the picture practice top back behavior.
 document.addEventListener('click',e=>{let b=e.target.closest('#screenBack');if(!b)return;if(pictureSession?.photo){e.preventDefault();e.stopImmediatePropagation();pictureSession=null;photoMenu()}},true);
+</script>
+
+<style>
+#picturePersistentBack{display:none;position:sticky;top:8px;z-index:9999;margin:12px 14px 8px;padding:12px 20px;background:#28485b;border:1px solid #6ba9a4;color:white;border-radius:13px;font-weight:700;box-shadow:0 3px 15px #07111d99}
+#picturePersistentBack:focus-visible{outline:3px solid #7fe1c9}
+#photoLoading.photo-placeholder{min-height:220px;height:auto;display:flex;flex-direction:column;gap:14px;justify-content:center}
+.picture-card:has(.photo-image:not([hidden])){padding:10px}
+</style>
+<script>
+(function(){
+ const appNode=document.getElementById('app');
+ const back=document.createElement('button');back.id='picturePersistentBack';back.type='button';back.textContent='← Back';
+ appNode.parentNode.insertBefore(back,appNode);
+ let current='none';
+ function sync(){
+  const round=!!appNode.querySelector('#photoActual');
+  const menu=appNode.textContent.includes('Choose a topic')&&appNode.textContent.includes('Picture practice');
+  const complete=!!(typeof pictureSession!=='undefined'&&pictureSession?.photo&&appNode.textContent.includes('Round complete'));
+  current=round||complete?'round':menu?'menu':'none';
+  back.style.display=current==='none'?'none':'inline-flex';
+  const older=document.getElementById('screenBack');if(older&&current!=='none')older.style.display='none';
+ }
+ back.addEventListener('click',()=>{
+  if(current==='round'){pictureSession=null;photoMenu()}
+  else if(current==='menu'){pictureSession=null;home()}
+  window.scrollTo(0,0);
+ });
+ new MutationObserver(sync).observe(appNode,{childList:true,subtree:false});sync();
+})();
 </script>
 </body></html>
