@@ -1,0 +1,521 @@
+{
+  "version": 1,
+  "dialogues": [
+    {
+      "id": "dialogue-01",
+      "level": "A1",
+      "title": "Meeting someone",
+      "turns": [
+        {
+          "de": "Hallo! Wie heißt du?",
+          "en": "Hello! What is your name?",
+          "answers": [
+            "Ich heiße Lena.",
+            "Ich bin Kaffee."
+          ],
+          "correct": 0
+        },
+        {
+          "de": "Woher kommst du?",
+          "en": "Where are you from?",
+          "answers": [
+            "Ich bin zwanzig Uhr.",
+            "Ich komme aus Kanada."
+          ],
+          "correct": 1
+        },
+        {
+          "de": "Wohnst du hier?",
+          "en": "Do you live here?",
+          "answers": [
+            "Ja, ich wohne hier.",
+            "Ja, ich trinke hier."
+          ],
+          "correct": 0
+        },
+        {
+          "de": "Schön, dich kennenzulernen!",
+          "en": "Nice to meet you!",
+          "answers": [
+            "Ich habe keinen Namen.",
+            "Freut mich auch!"
+          ],
+          "correct": 1
+        }
+      ]
+    },
+    {
+      "id": "dialogue-02",
+      "level": "A1",
+      "title": "At a café",
+      "turns": [
+        {
+          "de": "Guten Tag! Was möchten Sie?",
+          "en": "Hello! What would you like?",
+          "answers": [
+            "Einen Tee, bitte.",
+            "Ich bin ein Tee."
+          ],
+          "correct": 0
+        },
+        {
+          "de": "Mit Milch oder Zitrone?",
+          "en": "With milk or lemon?",
+          "answers": [
+            "Ich komme aus Zitrone.",
+            "Mit Zitrone, bitte."
+          ],
+          "correct": 1
+        },
+        {
+          "de": "Möchten Sie auch Kuchen?",
+          "en": "Would you also like cake?",
+          "answers": [
+            "Ja, ein Stück, bitte.",
+            "Nein, ich heiße Kuchen."
+          ],
+          "correct": 0
+        },
+        {
+          "de": "Das macht sechs Euro.",
+          "en": "That will be six euros.",
+          "answers": [
+            "Ich wohne sechs Euro.",
+            "Hier, bitte."
+          ],
+          "correct": 1
+        }
+      ]
+    },
+    {
+      "id": "dialogue-03",
+      "level": "A1",
+      "title": "Finding the station",
+      "turns": [
+        {
+          "de": "Entschuldigung, wo ist der Bahnhof?",
+          "en": "Excuse me, where is the train station?",
+          "answers": [
+            "Er ist geradeaus.",
+            "Ich bin ein Bahnhof."
+          ],
+          "correct": 0
+        },
+        {
+          "de": "Ist es weit von hier?",
+          "en": "Is it far from here?",
+          "answers": [
+            "Ja, ich heiße weit.",
+            "Nein, nur fünf Minuten."
+          ],
+          "correct": 1
+        },
+        {
+          "de": "Muss ich links abbiegen?",
+          "en": "Do I need to turn left?",
+          "answers": [
+            "Ja, an der Ampel.",
+            "Ja, ich trinke links."
+          ],
+          "correct": 0
+        },
+        {
+          "de": "Vielen Dank für Ihre Hilfe!",
+          "en": "Thank you for your help!",
+          "answers": [
+            "Ich bin der Bahnhof.",
+            "Gern geschehen!"
+          ],
+          "correct": 1
+        }
+      ]
+    },
+    {
+      "id": "dialogue-04",
+      "level": "A1",
+      "title": "Making plans",
+      "turns": [
+        {
+          "de": "Hast du am Samstag Zeit?",
+          "en": "Are you free on Saturday?",
+          "answers": [
+            "Ja, am Nachmittag.",
+            "Ich bin Samstag."
+          ],
+          "correct": 0
+        },
+        {
+          "de": "Möchtest du ins Kino gehen?",
+          "en": "Would you like to go to the cinema?",
+          "answers": [
+            "Ich habe ein Kino.",
+            "Ja, sehr gern!"
+          ],
+          "correct": 1
+        },
+        {
+          "de": "Wann beginnt der Film?",
+          "en": "When does the movie start?",
+          "answers": [
+            "Um sieben Uhr.",
+            "Der Film ist ein Apfel."
+          ],
+          "correct": 0
+        },
+        {
+          "de": "Treffen wir uns um halb sieben?",
+          "en": "Shall we meet at six thirty?",
+          "answers": [
+            "Ich komme aus sieben.",
+            "Ja, bis dann!"
+          ],
+          "correct": 1
+        }
+      ]
+    },
+    {
+      "id": "dialogue-05",
+      "level": "A2",
+      "title": "Shopping for clothes",
+      "turns": [
+        {
+          "de": "Kann ich Ihnen helfen?",
+          "en": "Can I help you?",
+          "answers": [
+            "Ja, ich suche eine Jacke.",
+            "Ich bin eine Jacke."
+          ],
+          "correct": 0
+        },
+        {
+          "de": "Welche Größe brauchen Sie?",
+          "en": "What size do you need?",
+          "answers": [
+            "Gestern war es M.",
+            "Größe M, bitte."
+          ],
+          "correct": 1
+        },
+        {
+          "de": "Möchten Sie sie anprobieren?",
+          "en": "Would you like to try it on?",
+          "answers": [
+            "Ja, wo ist die Umkleidekabine?",
+            "Ja, ich habe anprobieren."
+          ],
+          "correct": 0
+        },
+        {
+          "de": "Passt Ihnen die Jacke?",
+          "en": "Does the jacket fit you?",
+          "answers": [
+            "Nein, ich wohne in der Jacke.",
+            "Ja, aber sie ist etwas teuer."
+          ],
+          "correct": 1
+        }
+      ]
+    },
+    {
+      "id": "dialogue-06",
+      "level": "A2",
+      "title": "At the doctor",
+      "turns": [
+        {
+          "de": "Was fehlt Ihnen?",
+          "en": "What seems to be the problem?",
+          "answers": [
+            "Ich habe seit gestern Kopfschmerzen.",
+            "Ich bin gestern ein Kopf."
+          ],
+          "correct": 0
+        },
+        {
+          "de": "Haben Sie auch Fieber?",
+          "en": "Do you also have a fever?",
+          "answers": [
+            "Ja, ich bin Fieber.",
+            "Nein, ich habe kein Fieber."
+          ],
+          "correct": 1
+        },
+        {
+          "de": "Haben Sie genug Wasser getrunken?",
+          "en": "Have you drunk enough water?",
+          "answers": [
+            "Wahrscheinlich nicht.",
+            "Ich habe Wasser gewesen."
+          ],
+          "correct": 0
+        },
+        {
+          "de": "Ruhen Sie sich heute aus.",
+          "en": "Rest today.",
+          "answers": [
+            "Ich ruhe gestern.",
+            "Danke, das mache ich."
+          ],
+          "correct": 1
+        }
+      ]
+    },
+    {
+      "id": "dialogue-07",
+      "level": "A2",
+      "title": "A weekend trip",
+      "turns": [
+        {
+          "de": "Wie war dein Wochenende?",
+          "en": "How was your weekend?",
+          "answers": [
+            "Sehr schön! Ich war in Berlin.",
+            "Ich bin morgen in Berlin gewesen."
+          ],
+          "correct": 0
+        },
+        {
+          "de": "Wie bist du hingefahren?",
+          "en": "How did you get there?",
+          "answers": [
+            "Ich habe mit dem Zug gegangen.",
+            "Ich bin mit dem Zug gefahren."
+          ],
+          "correct": 1
+        },
+        {
+          "de": "Was hast du dort gemacht?",
+          "en": "What did you do there?",
+          "answers": [
+            "Ich habe ein Museum besucht.",
+            "Ich besuche gestern morgen."
+          ],
+          "correct": 0
+        },
+        {
+          "de": "Hat dir die Stadt gefallen?",
+          "en": "Did you like the city?",
+          "answers": [
+            "Ja, ich bin gefallen die Stadt.",
+            "Ja, sie hat mir sehr gefallen."
+          ],
+          "correct": 1
+        }
+      ]
+    },
+    {
+      "id": "dialogue-08",
+      "level": "A2",
+      "title": "Changing an appointment",
+      "turns": [
+        {
+          "de": "Ich muss meinen Termin verschieben.",
+          "en": "I need to reschedule my appointment.",
+          "answers": [
+            "Kein Problem. Wann passt es Ihnen?",
+            "Ich bin ein Termin."
+          ],
+          "correct": 0
+        },
+        {
+          "de": "Haben Sie am Donnerstag Zeit?",
+          "en": "Are you available Thursday?",
+          "answers": [
+            "Donnerstag habe ich gestern.",
+            "Leider nicht, erst am Freitag."
+          ],
+          "correct": 1
+        },
+        {
+          "de": "Geht es um zehn Uhr?",
+          "en": "Would ten o’clock work?",
+          "answers": [
+            "Ja, das passt gut.",
+            "Ich gehe zehn Uhr."
+          ],
+          "correct": 0
+        },
+        {
+          "de": "Dann sehen wir uns am Freitag.",
+          "en": "Then we’ll see each other Friday.",
+          "answers": [
+            "Ich war Freitag morgen.",
+            "Vielen Dank, bis Freitag!"
+          ],
+          "correct": 1
+        }
+      ]
+    },
+    {
+      "id": "dialogue-09",
+      "level": "B1",
+      "title": "Discussing remote work",
+      "turns": [
+        {
+          "de": "Arbeitest du lieber zu Hause oder im Büro?",
+          "en": "Do you prefer working from home or at the office?",
+          "answers": [
+            "Zu Hause, weil ich mich besser konzentrieren kann.",
+            "Zu Hause, obwohl ich kann besser konzentrieren."
+          ],
+          "correct": 0
+        },
+        {
+          "de": "Fehlt dir der Kontakt zu Kollegen?",
+          "en": "Do you miss contact with colleagues?",
+          "answers": [
+            "Manchmal, weil wir planen Treffen regelmäßig deshalb.",
+            "Manchmal, deshalb planen wir regelmäßige Treffen."
+          ],
+          "correct": 1
+        },
+        {
+          "de": "Welche Vorteile hat das Büro?",
+          "en": "What advantages does the office have?",
+          "answers": [
+            "Man kann Probleme oft schneller gemeinsam lösen.",
+            "Man kann gemeinsam schneller Probleme oft gelöst."
+          ],
+          "correct": 0
+        },
+        {
+          "de": "Was wäre für dich ideal?",
+          "en": "What would be ideal for you?",
+          "answers": [
+            "Eine Mischung, obwohl das Büro ich gehe.",
+            "Eine Mischung aus Büro und Homeoffice."
+          ],
+          "correct": 1
+        }
+      ]
+    },
+    {
+      "id": "dialogue-10",
+      "level": "B1",
+      "title": "Handling a hotel problem",
+      "turns": [
+        {
+          "de": "Entschuldigung, in meinem Zimmer funktioniert die Heizung nicht.",
+          "en": "Excuse me, the heating in my room isn’t working.",
+          "answers": [
+            "Das tut mir leid. Seit wann besteht das Problem?",
+            "Das ist gut, weil Heizung nicht."
+          ],
+          "correct": 0
+        },
+        {
+          "de": "Seit gestern Abend, und es ist sehr kalt.",
+          "en": "Since yesterday evening, and it’s very cold.",
+          "answers": [
+            "Ich habe gestern jemanden schicken.",
+            "Ich schicke sofort jemanden vorbei."
+          ],
+          "correct": 1
+        },
+        {
+          "de": "Wie lange wird die Reparatur dauern?",
+          "en": "How long will the repair take?",
+          "answers": [
+            "Voraussichtlich etwa eine halbe Stunde.",
+            "Die Reparatur hat eine Stunde gewesen."
+          ],
+          "correct": 0
+        },
+        {
+          "de": "Und falls sie nicht repariert werden kann?",
+          "en": "And if it cannot be repaired?",
+          "answers": [
+            "Dann Sie müssen kalt bleiben weil.",
+            "Dann bieten wir Ihnen ein anderes Zimmer an."
+          ],
+          "correct": 1
+        }
+      ]
+    },
+    {
+      "id": "dialogue-11",
+      "level": "B1",
+      "title": "Planning a community event",
+      "turns": [
+        {
+          "de": "Wir sollten ein Fest für die Nachbarschaft organisieren.",
+          "en": "We should organize a party for the neighborhood.",
+          "answers": [
+            "Gute Idee! Wir brauchen zuerst einen Termin.",
+            "Gute Idee! Wir brauchen ein Termin zuerst zu haben gewesen."
+          ],
+          "correct": 0
+        },
+        {
+          "de": "Wen könnten wir um Hilfe bitten?",
+          "en": "Who could we ask for help?",
+          "answers": [
+            "Vielleicht die Nachbarn, wer letztes Jahr helfen.",
+            "Vielleicht die Nachbarn, die letztes Jahr geholfen haben."
+          ],
+          "correct": 1
+        },
+        {
+          "de": "Was machen wir, falls es regnet?",
+          "en": "What will we do if it rains?",
+          "answers": [
+            "Wir könnten den Gemeindesaal reservieren.",
+            "Wir werden draußen bleiben, obwohl regnet es."
+          ],
+          "correct": 0
+        },
+        {
+          "de": "Kannst du die Einladungen schreiben?",
+          "en": "Can you write the invitations?",
+          "answers": [
+            "Ja, bevor wir haben festgelegt den Termin.",
+            "Ja, sobald wir den Termin festgelegt haben."
+          ],
+          "correct": 1
+        }
+      ]
+    },
+    {
+      "id": "dialogue-12",
+      "level": "B1",
+      "title": "Explaining a decision",
+      "turns": [
+        {
+          "de": "Warum hast du dich für diesen Kurs entschieden?",
+          "en": "Why did you decide on this course?",
+          "answers": [
+            "Weil ich meine Deutschkenntnisse verbessern möchte.",
+            "Weil ich möchte verbessern meine Deutschkenntnisse."
+          ],
+          "correct": 0
+        },
+        {
+          "de": "Was findest du besonders hilfreich?",
+          "en": "What do you find especially helpful?",
+          "answers": [
+            "Dass wir üben viele Alltagssituationen.",
+            "Dass wir viele Alltagssituationen üben."
+          ],
+          "correct": 1
+        },
+        {
+          "de": "Ist der Kurs schwieriger als erwartet?",
+          "en": "Is the course harder than expected?",
+          "answers": [
+            "Ja, obwohl ich schon einige Grundlagen kenne.",
+            "Ja, obwohl kenne ich schon einige Grundlagen."
+          ],
+          "correct": 0
+        },
+        {
+          "de": "Würdest du ihn weiterempfehlen?",
+          "en": "Would you recommend it?",
+          "answers": [
+            "Ja, sofern man übt regelmäßig nicht.",
+            "Ja, sofern man regelmäßig übt."
+          ],
+          "correct": 1
+        }
+      ]
+    }
+  ]
+}
