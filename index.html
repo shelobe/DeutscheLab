@@ -1280,7 +1280,7 @@ gameMark=function(ok,answer){let s=gameSession;if(!s||s.answered)return;feedback
 const soundOldPhotoGrade=photoGrade;
 photoGrade=function(id,choice){let s=pictureSession;if(!s||s.answered)return;let w=PHOTO_WORDS[id],answer=choice===null?document.getElementById('photoInput')?.value:PHOTO_WORDS[choice]?.[0];if(answer!==undefined)feedbackSound(answer.toLocaleLowerCase('de-DE').trim().replace(/\s+/g,' ')===w[0].toLocaleLowerCase('de-DE').trim().replace(/\s+/g,' '));return soundOldPhotoGrade(id,choice)};
 const soundOldPictureGrade=pictureGrade;
-pictureGrade=function(...args){let s=pictureSession;if(s?.photo)return soundOldPictureGrade(...args);let before=s?.answered;if(!before){let correct=args[0],chosen=args[1];feedbackSound(String(correct).trim().toLowerCase()===String(chosen).trim().toLowerCase())}return soundOldPictureGrade(...args)};
+pictureGrade=function(...args){let s=pictureSession;if(s?.photo)return soundOldPictureGrade(...args);let before=s?.answered;if(!before){let correct=args[0],chosen=args[1];feedbackSound(String(PICTURE_WORDS[correct]?.[0]||'').toLocaleLowerCase('de-DE').trim().replace(/\s+/g,' ')===String(chosen||'').toLocaleLowerCase('de-DE').trim().replace(/\s+/g,' '))}return soundOldPictureGrade(...args)};
 const soundOldReviewAnswer=curriculumReviewAnswer;
 curriculumReviewAnswer=function(i){let s=moduleSession;if(s&&!s.answered)feedbackSound(i===s.questions[s.idx].answer);return soundOldReviewAnswer(i)};
 const soundOldHome=home;
