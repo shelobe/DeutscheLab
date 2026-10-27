@@ -2457,7 +2457,7 @@ curriculumModuleIntro=function(level,n){
  fullBegin=function(id){
   priorBegin(id);
   const s=fullSession,u=FULL_UNITS[id];
-  if(!s||!u||u.level!=='A1'||!/(umlaut|pronunc|sounds? of|alphabet|spelling|ß)/i.test(String(u.title||''))||!Array.isArray(s.questions)||s.questions.some(q=>q.type==='sound-choice'))return;
+  if(!s||!u||u.level!=='A1'||!/(umlaut|pronunc|sounds? of|alphabet|spelling)/i.test(String(u.title||''))||!Array.isArray(s.questions)||s.questions.some(q=>q.type==='sound-choice'))return;
   const index=Math.abs(Number(id)||0)%soundSets.length;
   const entry=soundSets[index];
   // Rotate the correct answer's position so the learner cannot use a fixed button position.
@@ -2528,7 +2528,7 @@ curriculumModuleIntro=function(level,n){
  fullBegin=function(id){
   previousBegin(id);
   const s=fullSession,u=FULL_UNITS[id];
-  if(!s||!u||u.level!=='A1'||!/(umlaut|pronunc|sounds? of|alphabet|spelling|ß)/i.test(String(u.title||''))||!Array.isArray(s.questions)||s.questions.some(q=>q.type==='speak-word'))return;
+  if(!s||!u||u.level!=='A1'||!/(umlaut|pronunc|sounds? of|alphabet|spelling)/i.test(String(u.title||''))||!Array.isArray(s.questions)||s.questions.some(q=>q.type==='speak-word'))return;
   const n=Math.abs(Number(id)||0)%speechWords.length;
   const [word,meaning,tip]=speechWords[n];
   s.questions.splice(Math.min(4,s.questions.length),0,{type:'speak-word',prompt:'Say this German word aloud',options:['Recognized','Try again'],answer:0,dlSpeakWord:word,dlSpeakMeaning:meaning,why:tip});
@@ -2763,7 +2763,7 @@ curriculumModuleIntro=function(level,n){
   const title=String(unit?.title||'');
   if(!q||!unit||unit.level!=='A1'||q.type==='sound-choice'||q.type==='speak-word'||q.type==='listen')return result;
   // Only use audio for pronunciation-focused lessons, not general translation quizzes.
-  if(!/(umlaut|pronunc|sounds? of|alphabet|spelling|\bß\b)/i.test(title))return result;
+  if(!/(umlaut|pronunc|sounds? of|alphabet|spelling)/i.test(title))return result;
   const buttons=[...document.querySelectorAll('.dl-flow-options button')];
   if(!buttons.length||buttons.length!==q.options?.length)return result;
   const instruction=document.createElement('p');
@@ -2802,7 +2802,7 @@ curriculumModuleIntro=function(level,n){
  fullBegin=function(id){
   priorBegin.apply(this,arguments);
   const session=fullSession,unit=FULL_UNITS[id];
-  if(!session||!unit||unit.level!=='A1'||!/(umlaut|pronunc|sounds? of|alphabet|spelling|ß)/i.test(String(unit.title||'')))return;
+  if(!session||!unit||unit.level!=='A1'||!/(umlaut|pronunc|sounds? of|alphabet|spelling)/i.test(String(unit.title||'')))return;
   // Replace translation/definition questions: a sound lesson should assess listening, not English meanings.
   let changed=0;
   session.questions=session.questions.map((q,i)=>{
