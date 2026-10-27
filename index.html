@@ -3658,4 +3658,27 @@ html body.dl-home-banner.dl-compact-header .app-header .menu-toggle {
 .findit-scene.findit-cat-sad::after{content:none;display:none}
 @keyframes dl-cat-pop{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-9px) scale(1.12)}}
 @keyframes dl-cat-no{0%,100%{transform:rotate(0)}30%{transform:rotate(-13deg)}70%{transform:rotate(13deg)}}
-</style><style>.dl-pronunciation h3{font-size:2rem;margin-bottom:0}.dl-pronunciation button{margin:5px}.dl-sound-navigation{display:flex;justify-content:space-between;gap:8px;margin-top:20px}.dl-sound-navigation button{flex:1}</style><style id="dl-findit-dynamic-bubbles">.findit-cat-speech{left:24%!important;bottom:15%!important;max-width:52%!important;min-width:0!important;z-index:8!important;font-weight:700}.findit-cat-speech-wrong{font-size:clamp(12px,3vw,18px)!important}</style></body></html>
+</style><style>.dl-pronunciation h3{font-size:2rem;margin-bottom:0}.dl-pronunciation button{margin:5px}.dl-sound-navigation{display:flex;justify-content:space-between;gap:8px;margin-top:20px}.dl-sound-navigation button{flex:1}</style><style id="dl-findit-dynamic-bubbles">.findit-cat-speech{left:24%!important;bottom:15%!important;max-width:52%!important;min-width:0!important;z-index:8!important;font-weight:700}.findit-cat-speech-wrong{font-size:clamp(12px,3vw,18px)!important}</style><script>
+/* Organize navigation consistently after all feature buttons have been registered. */
+(function(){
+ const nav=document.getElementById('sideMenu');
+ if(!nav)return;
+ const buttons=Array.from(nav.querySelectorAll('button'));
+ const pick=(needle)=>buttons.find(b=>b.textContent.toLowerCase().includes(needle.toLowerCase()));
+ const makeHeading=(name)=>{const p=document.createElement('p');p.className='muted dl-menu-group';p.textContent=name;return p};
+ const items=[
+ ['ACCOUNT',['Profile']],
+ ['LEARNING',['Home','Lessons','Placement test']],
+ ['PRACTICE',['Practice Hub','Find It!','Noun Articles','Picture practice','Dialogue','Review','Practice games']],
+ ['AI TOOLS',['AI Tutor & Voice']]
+ ];
+ const frag=document.createDocumentFragment();
+ for(const [title,names] of items){
+  frag.appendChild(makeHeading(title));
+  for(const name of names){const btn=pick(name);if(btn){frag.appendChild(btn)}}
+ }
+ const heading=nav.querySelector('.menu-heading');
+ nav.querySelectorAll('p.muted').forEach(p=>p.remove());
+ heading.after(frag);
+})();
+</script></body></html>
