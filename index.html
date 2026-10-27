@@ -2797,7 +2797,7 @@ curriculumModuleIntro=function(level,n){
   const q=session?.questions?.[session.idx];
   const unit=FULL_UNITS[session?.id];
   const title=String(unit?.title||'');
-  if(!q||!unit||unit.level!=='A1'||q.type!=='sound-choice')return result;
+  if(!q||!unit||unit.level!=='A1'||q.type==='sound-choice')return result;
   // Only use audio for pronunciation-focused lessons, not general translation quizzes.
   if(!/(umlaut|pronunc|sounds? of|alphabet|spelling)/i.test(title))return result;
   const buttons=[...document.querySelectorAll('.dl-flow-options button')];
