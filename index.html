@@ -1511,6 +1511,7 @@ function dlCheck(){
 <script>
 /* Minimum six varied questions in each guided lesson; keep original bank and progress. */
 (function(){
+ const shuffle = arr => { const a=[...arr]; for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; };
  const previousQuestions=fullQuestions;
  const focused={
   8:[
@@ -1625,7 +1626,19 @@ function dlSentenceHelpToggle(){
  const box=document.getElementById('dlSentenceHelp');if(!box)return;
  const g=typeof gameSession!=='undefined'?gameSession:null;
  const key=g&&g.mode==='build'&&g.seq&&g.idx<g.seq.length?GAME_ITEMS[g.seq[g.idx]].de:(typeof sentenceTarget!=='undefined'?sentenceTarget.join(' '):'');
- box.textContent=dlSentenceGrammar[key]||'In a German statement, the conjugated verb normally occupies the second position.';
+ const level=(g&&g.level)||'A1';
+ const explanation=dlSentenceGrammar[key] || (
+  /\b(weil|dass|obwohl|wenn|damit)\b/i.test(key) ? 'This sentence includes a subordinate clause. In German, the conjugated verb normally moves to the end of that clause.' :
+  /\b(habe|hat|haben|bin|ist|sind)\b.*\b(ge\w+|\w+t)\b/i.test(key) ? 'The perfect tense combines a form of haben or sein with a past participle, usually placed at the end.' :
+  /\b(würde|wäre|hätte|könnte)\b/i.test(key) ? 'These are subjunctive forms used for hypothetical situations, wishes, or polite requests.' :
+  /\b(muss|müssen|kann|können|will|möchte|soll)\b/i.test(key) ? 'With a modal verb, the modal is conjugated and the main verb stays in the infinitive at the end.' :
+  /\b(heute|morgen|gestern|danach|trotzdem)\b/i.test(key) ? 'When a time word or adverb begins the main clause, the conjugated verb still stays in second position, before the subject.' :
+  level==='B2' ? 'Look at how the clauses connect and how the verb forms express the relationship between events.' :
+  level==='B1' ? 'Pay attention to clause order, the conjugated verb, and any prepositions or case endings.' :
+  level==='A2' ? 'In a main clause, the conjugated verb takes second position. Check the verb ending and word order.' :
+  'In a German main clause, the conjugated verb normally takes second position. Check that the subject and verb agree.'
+ );
+ box.textContent=explanation;
  box.hidden=!box.hidden;
  const btn=[...box.parentElement.querySelectorAll('button')].find(b=>b.textContent==='Show grammar help'||b.textContent==='Hide grammar help');if(btn)btn.textContent=box.hidden?'Show grammar help':'Hide grammar help';
 }
