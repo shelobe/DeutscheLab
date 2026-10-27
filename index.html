@@ -2457,7 +2457,7 @@ curriculumModuleIntro=function(level,n){
  fullBegin=function(id){
   priorBegin(id);
   const s=fullSession,u=FULL_UNITS[id];
-  if(!s||!u||u.level!=='A1'||!Array.isArray(s.questions)||s.questions.some(q=>q.type==='sound-choice'))return;
+  if(!s||!u||u.level!=='A1'||!/(umlaut|pronunc|sounds? of|alphabet|spelling|ß)/i.test(String(u.title||''))||!Array.isArray(s.questions)||s.questions.some(q=>q.type==='sound-choice'))return;
   const index=Math.abs(Number(id)||0)%soundSets.length;
   const entry=soundSets[index];
   // Rotate the correct answer's position so the learner cannot use a fixed button position.
@@ -2528,7 +2528,7 @@ curriculumModuleIntro=function(level,n){
  fullBegin=function(id){
   previousBegin(id);
   const s=fullSession,u=FULL_UNITS[id];
-  if(!s||!u||u.level!=='A1'||!Array.isArray(s.questions)||s.questions.some(q=>q.type==='speak-word'))return;
+  if(!s||!u||u.level!=='A1'||!/(umlaut|pronunc|sounds? of|alphabet|spelling|ß)/i.test(String(u.title||''))||!Array.isArray(s.questions)||s.questions.some(q=>q.type==='speak-word'))return;
   const n=Math.abs(Number(id)||0)%speechWords.length;
   const [word,meaning,tip]=speechWords[n];
   s.questions.splice(Math.min(4,s.questions.length),0,{type:'speak-word',prompt:'Say this German word aloud',options:['Recognized','Try again'],answer:0,dlSpeakWord:word,dlSpeakMeaning:meaning,why:tip});
