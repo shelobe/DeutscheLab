@@ -477,4 +477,50 @@ function a12Next(){if(!a12Session)return;a12Session.idx++;a12Render()}
 function a12Finish(){let s=a12Session,c=A12_CONTENT[s.id];ensureLearning();state.learning.a12Scores??={};let old=state.learning.a12Scores[s.id];state.learning.a12Scores[s.id]={best:Math.max(s.score,old?.best||0),last:s.score,date:new Date().toISOString()};state.learning.a12Misses??=[];s.results.forEach((ok,i)=>{if(!ok)state.learning.a12Misses.push({unit:s.id,question:i,date:Date.now()})});state.learning.a12Misses=state.learning.a12Misses.slice(-300);save();app.innerHTML=illustratedHero('Deep dive complete',c.title,'village','hund.png')+`<section class="card"><h2>${s.score}/8 correct</h2><p>Review missed answers and try again to strengthen recall.</p><button onclick="a12Extra(${s.id})">Review lesson</button><button onclick="a12Begin(${s.id})">Try again</button><button class="secondary" onclick="fullMenu('${c.level}')">All ${c.level} units</button></section>`;a12Session=null}
 const a12OldStudy=fullStudy;fullStudy=function(id){a12OldStudy(id);if(A12_CONTENT[id]){let card=app.querySelector('.card');if(card)card.insertAdjacentHTML('beforeend',`<div class="unit-explain"><h3>Expanded A1–A2 course</h3><p>Original reading story, spoken dialogue, listening comprehension, dictation, grammar and active recall. Eight additional exercises with answer explanations.</p><button onclick="a12Extra(${id})">Open deep-dive lesson →</button></div>`);}}
 const a12OldMenu=fullMenu;fullMenu=function(level){a12OldMenu(level);app.querySelectorAll('.unit-card').forEach(card=>{let btn=card.querySelector('button[onclick^="fullStudy("]');if(!btn)return;let id=Number((btn.getAttribute('onclick').match(/\d+/)||[])[0]);if(A12_CONTENT[id]){let v=state.learning?.a12Scores?.[id];card.insertAdjacentHTML('beforeend',`<p class="muted">Deep dive: ${v?v.best+'/8 best':'not started'}</p>`);}})};
-</script></body></html>
+</script>
+<style>
+.path-panel{background:linear-gradient(155deg,#18394b,#183046);border:1px solid #3a6171;border-radius:22px;padding:20px;margin:14px 0}
+.path-eyebrow{color:#8be0c9;font-size:.82rem;letter-spacing:.06em;text-transform:uppercase;font-weight:700}
+.path-panel h2{font-size:1.6rem;margin:12px 0 8px}
+.path-panel p{line-height:1.55}
+.path-track{height:10px;border-radius:20px;background:#345066;overflow:hidden;margin:14px 0}.path-track>div{height:100%;background:#69cdbb}
+.path-small{font-size:.91rem;color:#bbcad7}
+.path-list{border:1px solid #3a5267;border-radius:18px;padding:0 16px;margin:18px 0;background:#1a3045}
+.path-list summary{padding:17px 0;cursor:pointer;font-weight:700;list-style:none}.path-list summary::-webkit-details-marker{display:none}
+.path-item{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 0;border-top:1px solid #385066}
+.path-item button{padding:9px 13px;font-size:.85rem;margin:0;flex-shrink:0}
+.path-item span{font-size:.9rem}.path-done{color:#87dbc1}
+.path-steps{display:flex;gap:8px;margin:18px 0}.path-step{flex:1;text-align:center;font-size:.76rem;padding:10px 4px;border-radius:12px;background:#2b475b;color:#e4f2f3}
+.path-panel button{margin-top:10px}
+</style>
+<script>
+function friendlyCourse(level){
+ ensureLearning();level=LEVELS.includes(level)?level:(state.learning.placement?.recommended||'A1');
+ const units=FULL_UNITS.map((u,id)=>({...u,id})).filter(u=>u.level===level);
+ const scores=state.learning.fullScores||{};
+ const first=units.findIndex(u=>!scores[u.id]?.passed),currentIndex=first<0?units.length-1:first;
+ const unit=units[currentIndex],done=units.filter(u=>scores[u.id]?.passed).length;
+ const pct=Math.round(done/units.length*100),completed=done===units.length;
+ const label=completed?'Review your lessons':(done===0?'Start lesson 1':'Continue lesson '+(currentIndex+1));
+ const title=completed?'You completed '+level+'!':unit.title;
+ app.innerHTML=illustratedHero('Your '+level+' learning journey','One lesson at a time, at your own pace.','village','hund.png')+
+ `<section class="card"><label for="friendlyLevel">Your level</label><select id="friendlyLevel" onchange="friendlyCourse(this.value)">${LEVELS.map(l=>`<option ${l===level?'selected':''}>${l}</option>`).join('')}</select><div class="path-track"><div style="width:${pct}%"></div></div><p class="path-small">${done} of ${units.length} lessons completed</p></section>`+
+ `<section class="path-panel"><div class="path-eyebrow">${completed?'Course complete':level+' · Lesson '+(currentIndex+1)+' of '+units.length}</div><h2>${safeText(title)}</h2><p>${completed?'Well done! You can revisit any lesson below.':safeText(unit.rule)}</p><div class="path-steps"><div class="path-step">Learn</div><div class="path-step">Practice</div><div class="path-step">Review</div></div><button onclick="friendlyLesson(${unit.id})">${label} →</button></section>`+
+ `<details class="path-list"><summary>See all ${units.length} lessons ▾</summary>${units.map((u,i)=>`<div class="path-item"><span>${scores[u.id]?.passed?'<span class="path-done">✓ </span>':''}${i+1}. ${safeText(u.title)}</span><button class="secondary" onclick="friendlyLesson(${u.id})">${scores[u.id]?.passed?'Review':'Open'}</button></div>`).join('')}</details>`+
+ `<section class="card"><p class="path-small">Not sure about your level?</p><button class="secondary" onclick="placementResults()">View placement results</button></section>`;
+}
+function friendlyLesson(id){fullStudy(id);const card=app.querySelector('.card');if(!card)return;
+ // Preserve all lesson content and practice options, but use a single clear learning flow.
+ card.querySelectorAll('button').forEach(b=>{
+ const label=b.textContent.trim();
+ if(/^(Study unit|Start unit|Begin exercises|Practice unit|Start exercises)/i.test(label))b.textContent='Try what you learned →';
+ if(/Extended practice|Deep dive|Expanded A1|A1–A2 practice/i.test(label))b.textContent='More practice →';
+ });
+}
+// Keep the existing lesson engine, scores, review and expanded exercises.
+fullMenu=friendlyCourse;
+courseMenu=friendlyCourse;
+const oldFullFinishFriendly=fullFinish;
+fullFinish=function(){oldFullFinishFriendly();let btn=app.querySelector('button[onclick^="fullMenu("]');if(btn)btn.textContent='Back to my learning path';};
+</script>
+</body></html>
