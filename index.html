@@ -2148,11 +2148,24 @@ fullBegin=async function(id){
     }
     return isTranslationOnly(q)?'':String(q.why||'').trim();
   }
+  function teachingHint(q){
+    const prompt=String(q?.prompt||'');
+    const options=(q?.options||[]).map(String);
+    const all=(prompt+' '+options.join(' ')).toLowerCase();
+    // Hints describe transferable grammar, never reveal the selected answer.
+    if(/where do you live|wo wohnst|wo wohnen/i.test(all))return 'Question-word questions use: question word + conjugated verb + subject. Wohnen means “to live.” With du (informal you), regular verbs usually end in -st; with Sie (formal you), they use the infinitive form. Compare: Wo arbeitest du? (Where do you work?)';
+    if(/wie heißt|what is your name|heiße|heißen/i.test(all))return 'Heißen means “to be called.” Verb endings change with the subject: ich commonly takes -e, du commonly takes -st (with spelling adjustments), and wir/Sie take -en. In a question, the verb usually comes before the subject.';
+    if(/nicht|kein/i.test(all))return 'Nicht negates verbs, adjectives, or a whole statement; kein negates nouns that would otherwise use ein/eine or no article. Compare: Ich komme nicht. (I am not coming.) / Ich habe kein Auto. (I have no car.)';
+    if(/\b(der|die|das|ein|eine)\b/i.test(all)&&/___|article|choose/i.test(prompt))return 'German nouns have grammatical gender: der (masculine), die (feminine), das (neuter). The article also changes with grammatical case. Learn the article together with each noun rather than guessing from its English meaning.';
+    if(/\b(ich|du|er|sie|wir|ihr)\b/i.test(all)&&/___|correct|choose/i.test(prompt))return 'Look at the subject first, then choose the matching verb ending. For most regular present-tense verbs: ich → -e, du → -st, er/sie/es → -t, wir/sie/Sie → -en. Example: ich lerne, du lernst, er lernt.';
+    if(/where|when|what|who|why|how|\bwo\b|\bwann\b|\bwer\b|\bwarum\b/i.test(all))return 'For a German question with a question word, use question word + conjugated verb + subject. For yes/no questions, put the conjugated verb first. Example: Wann kommst du? / Kommst du morgen?';
+    if(/word order|sentence|___/i.test(prompt))return 'In a normal German main clause, the conjugated verb takes the second position. If a time expression comes first, the subject moves after the verb: Heute lerne ich Deutsch. (Today I study German.)';
+    return 'Look for the grammatical subject and the verb, then check their agreement and word order. In German main clauses, the conjugated verb normally occupies the second position; in yes/no questions, it comes first.';
+  }
   function updateHelp(){
     const q=current(),tip=document.getElementById('dl-tip'),btn=document.getElementById('dl-help-btn');
     if(!tip||!btn||!q)return;
-    const detail=explanation(q);
-    if(!detail){tip.hidden=true;btn.hidden=true;return;}
+    const detail=teachingHint(q);
     btn.hidden=false;
     const paragraph=tip.querySelector('p');if(paragraph)paragraph.textContent=detail;
   }
