@@ -3427,4 +3427,12 @@ body.lesson-screen .dl-flow-card:has(> .vocab-row) > .dl-flow-action {
  margin: 0; box-shadow: 0 8px 30px rgba(0,0,0,.45);
 }
 </style>
+
+<!-- Keep sticky branding at a constant size to prevent scroll-threshold jitter. -->
+<style>
+body .app-header, body.dl-compact-header .app-header {padding:12px 14px!important;transition:none!important;}
+body .app-header p, body.dl-compact-header .app-header p {display:block!important;}
+body .app-header .menu-toggle, body.dl-compact-header .app-header .menu-toggle {width:46px!important;height:46px!important;min-width:46px!important;}
+@media (max-width:800px) {.app-header {backdrop-filter:none!important;-webkit-backdrop-filter:none!important;}}
+</style>
 </body></html>
