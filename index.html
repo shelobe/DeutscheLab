@@ -1268,7 +1268,7 @@ function curriculumView(level){
    <summary><div class="curriculum-module-heading"><span class="curriculum-module-number">${n+1}</span><div><div class="curriculum-pill">MODULE ${n+1} · ${done}/${g.ids.length} LESSONS</div><h3>${safeText(g.title)}</h3><p>${safeText(g.goal)}</p></div></div><span class="curriculum-chevron" aria-hidden="true">${complete?'✓':'⌄'}</span></summary>
    <div class="curriculum-module-content">
    ${g.ids.map((id,j)=>{const passed=!!st.scores[id]?.passed;const isNext=id===next&&!passed;return `<div class="curriculum-lesson curriculum-path-lesson ${isNext?'curriculum-next-lesson':''}"><div class="curriculum-lesson-number" aria-label="Lesson ${j+1}">${j+1}</div><div class="text"><strong>Lesson ${j+1} · ${safeText(FULL_UNITS[id].title)}</strong><small>${passed?'✓ Completed':isNext?'Up next':'Not completed'}</small></div><button class="${passed?'secondary':''}" onclick="curriculumLesson(${id})">${passed?'Review':'Start'}</button></div>`}).join('')}
-   <div class="curriculum-check"><strong>Module ${n+1} review</strong><p>Practice material from this module.</p><button class="secondary" onclick="curriculumReview('${curriculumSelected}',${n})">Practice module</button></div>
+   <div class="curriculum-check"><strong>Module ${n+1} review</strong><p>Check what you remember from these lessons.</p><button class="secondary" onclick="curriculumReview('${curriculumSelected}',${n})">Review what you learned</button></div>
    </div>
   </details>`}).join('')}
  <section class="card"><p>Modules organize related lessons. Complete the lessons in order, then use the module review to reinforce what you've learned.</p><button class="secondary" onclick="home()">Home</button></section>`;
@@ -1803,7 +1803,7 @@ gameRender = function(){
   g.bankWords=[...g.reverseWords,...distractors.slice(0,Math.min(3,Math.max(2,Math.ceil(g.reverseWords.length/3))))];
   g.order=g.bankWords.map((_,i)=>i);
   for(let i=g.order.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[g.order[i],g.order[j]]=[g.order[j],g.order[i]];}
-  app.innerHTML=`<section class="card"><p class="muted">Translate into English · ${g.idx+1} of ${g.seq.length}</p><div class="game-progress"><div style="width:${g.idx/g.seq.length*100}%"></div></div><p>Build the English translation:</p><h3>${safeText(item.de)}</h3><button class="secondary" onclick="speak(GAME_ITEMS[gameSession.seq[gameSession.idx]].de)">Listen to German</button><div id="gameBuilt" class="game-built">Tap the English words below</div><div id="gameBank" class="game-wordbank">${g.order.map((n,i)=>`<button class="secondary" id="gb${i}" onclick="dlReversePick(${i})">${safeText(g.bankWords[n])}</button>`).join('')}</div><button class="secondary" onclick="dlReverseUndo()">Undo last word</button><button class="secondary" onclick="gameRender()">Start over</button><button onclick="dlReverseCheck()">Check translation</button><div id="gameFeedback" aria-live="polite"></div></section>`;
+  app.innerHTML=`<section class="card"><p class="muted">Translate into English · ${g.idx+1} of ${g.seq.length}</p><div class="game-progress"><div style="width:${g.idx/g.seq.length*100}%"></div></div><p>Build the English translation:</p><h3>${safeText(item.de)}</h3><button class="secondary" onclick="speak(GAME_ITEMS[gameSession.seq[gameSession.idx]].de)">Listen to German</button><div id="gameBuilt" class="game-built">Tap the English words below</div><div class="dl-bank-label">WORD BANK</div><div id="gameBank" class="game-wordbank">${g.order.map((n,i)=>`<button class="secondary" id="gb${i}" onclick="dlReversePick(${i})">${safeText(g.bankWords[n])}</button>`).join('')}</div><div class="dl-reverse-controls"><button class="secondary" onclick="dlReverseUndo()">↶ Undo last word</button><button class="secondary" onclick="gameRender()">↺ Start over</button></div><button onclick="dlReverseCheck()">Check translation</button><div id="gameFeedback" aria-live="polite"></div></section>`;
   window.scrollTo(0,0);
 };
 function dlReversePick(i){
@@ -2895,14 +2895,16 @@ curriculumModuleIntro=function(level,n){
   // A module review must never draw its bonus from the following module.
   s.questions=s.questions.filter(q=>!q.dlStretch);
   const clean=[];
+  const seen=new Set();
   for(const id of g.ids){
    const u=FULL_UNITS[id];if(!u)continue;
-   const qs=fullQuestions(u).filter(q=>Array.isArray(q.options)&&q.options.length>=2&&q.answer>=0&&q.answer<q.options.length);
-   const grammar=qs.find(q=>q.type==='grammar');
-   if(grammar)clean.push({...grammar,unitId:id});
-   // Only use translations with alternatives of the same kind; do not mix in phonetic notes.
-   const translations=qs.filter(q=>q.type==='translate'&&!q.options.some(isSoundGloss));
-   if(translations.length)clean.push({...translations[Math.floor(Math.random()*translations.length)],unitId:id});
+   const qs=fullQuestions(u).filter(q=>Array.isArray(q.options)&&q.options.length>=2&&q.answer>=0&&q.answer<q.options.length&&q.type!=='listen'&&!q.options.some(isSoundGloss));
+   for(const q of shuffle(qs)){
+    const key=String(q.prompt).trim().toLowerCase()+'|'+q.options.join('|').toLowerCase();
+    if(seen.has(key))continue;
+    seen.add(key);
+    clean.push({...q,unitId:id});
+   }
   }
   // Generalization: apply the already-taught regular present-tense pattern to a new verb.
   const taughtRule=g.ids.some(id=>/regular (?:present|verb)|present.tense (?:verb|ending)|verb endings|conjugat(?:e|ion|ing)/i.test(FULL_UNITS[id]?.rule||''));
@@ -2913,7 +2915,7 @@ curriculumModuleIntro=function(level,n){
    clean.push({type:'grammar',unitId:g.ids[0],prompt:`Apply the verb ending you learned: ${target.subject} ___ (spielen = to play)`,options:opts,answer:opts.indexOf(target.form),why:`Spielen means “to play.” The subject ${target.subject} takes the regular present-tense ending ${target.ending}, so spiel- becomes ${target.form}.`,dlTransfer:true});
   }
   if(clean.length){
-   s.questions=shuffle(clean).slice(0,9);
+   s.questions=shuffle(clean).slice(0,10);
    s.idx=0;s.score=0;s.answered=false;s.dlCoreScore=0;s.dlCoreCount=s.questions.length;s.dlMissed=[];
   }else{
    s.dlCoreCount=s.questions.length;
@@ -2922,4 +2924,12 @@ curriculumModuleIntro=function(level,n){
  };
 })();
 </script>
+<style>
+/* Keep word choices visually separate from editing controls. */
+.dl-bank-label{margin:22px 0 4px;font-size:.8rem;font-weight:800;letter-spacing:.12em;color:#9fdacf}
+.game-wordbank{padding:14px 10px 18px;border:1px solid #54877f;border-radius:16px;background:rgba(28,77,76,.25);margin-top:8px;margin-bottom:18px}
+.game-wordbank button{background:#3a5570;border:1px solid #6a859c}
+.dl-reverse-controls{display:flex;gap:10px;flex-wrap:wrap;padding:12px 0 20px;border-top:1px solid #456779}
+.dl-reverse-controls button{background:transparent;border:1px solid #668195;color:#c6d4dd;font-size:.9rem}
+</style>
 </body></html>
