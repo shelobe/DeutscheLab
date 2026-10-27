@@ -3416,4 +3416,15 @@ button:not(.secondary):not(.menu-toggle):not(.menu-close){box-shadow:0 3px 0 rgb
  };
 })();
 </script>
+
+<!-- Keep the lesson introduction action visible while browsing examples. -->
+<style>
+body.lesson-screen .dl-flow-card:has(> .vocab-row) { padding-bottom: 100px; }
+body.lesson-screen .dl-flow-card:has(> .vocab-row) > .dl-flow-action {
+ position: fixed; bottom: max(12px, env(safe-area-inset-bottom));
+ left: 50%; transform: translateX(-50%);
+ width: min(calc(100vw - 48px), 640px); z-index: 1000;
+ margin: 0; box-shadow: 0 8px 30px rgba(0,0,0,.45);
+}
+</style>
 </body></html>
