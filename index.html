@@ -2187,7 +2187,12 @@ fullBegin=async function(id){
       }
       if(!block.querySelector('p'))block.remove();
     });
-    updateHelp();
+    // After checking, the feedback card already provides the grammar explanation.
+    // Do not show the same explanation a second time below it.
+    const grammarTip=document.getElementById('dl-tip');
+    const grammarButton=document.getElementById('dl-help-btn');
+    if(grammarTip)grammarTip.hidden=true;
+    if(grammarButton)grammarButton.hidden=true;
     return result;
   };
 })();
