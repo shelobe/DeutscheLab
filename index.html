@@ -2776,7 +2776,7 @@ curriculumModuleIntro=function(level,n){
    <div class="dl-review-summary"><h3>What you practiced</h3><p>${esc(g?.goal||'The key skills from this module.')}</p><p>${esc(g?.context||'')}</p>
    ${examples.length?'<h4>Key examples</h4><ul>'+examples.map(x=>'<li><strong>'+esc(x[0])+'</strong> — '+esc(x[1])+'</li>').join('')+'</ul>':''}
    ${s.dlMissed.length?'<h4>Answers to revisit</h4><ul>'+s.dlMissed.slice(0,4).map(x=>'<li>'+esc(x.prompt)+' — <strong>'+esc(x.correct)+'</strong></li>').join('')+'</ul>':'<p>You answered all the core review questions correctly.</p>'}
-   <p class="muted">The new-vocabulary bonus is excluded from your percentage.</p></div>
+   <p class="muted">Bonus questions are just for practice. They don’t affect your score.</p></div>
    <button onclick="curriculumView('${s.level}')">Learning path</button><button class="secondary" onclick="curriculumReview('${s.level}',${s.n})">Practice again</button></section>`;
   moduleSession=null;window.scrollTo(0,0);
  };
@@ -2887,7 +2887,23 @@ curriculumModuleIntro=function(level,n){
 (function(){
  const prior=curriculumReview;
  function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
- function isSoundGloss(x){return /\([^)]*(sounds? like|pronounced|letter|vowel)[^)]*\)/i.test(String(x));}
+ function isSoundGloss(x){return /\([^)]*(sounds? like|pronounced|letter|vowel|different from|compare|unlike)[^)]*\)/i.test(String(x));}
+ function cleanAnswer(x){return String(x).replace(/\s*\([^)]*\)/g,'').trim();}
+ function soundReview(id){
+  const make=(prompt,options,correct,why)=>{const opts=shuffle(options.slice());return {type:'grammar',unitId:id,prompt,options:opts,answer:opts.indexOf(correct),why};};
+  return [
+   make('Which German letter usually sounds like English Y?', ['J','W','V'],'J','German J usually sounds like the Y in yes.'),
+   make('Which German letter is pronounced like English V?', ['W','J','S'],'W','German W is pronounced like English V.'),
+   make('In Vater, what sound does V make?', ['F','English V','Y'],'F','At the start of Vater, V sounds like English F.'),
+   make('Which spelling contains an umlaut?', ['schön','schon','Schule'],'schön','The two dots over ö are an umlaut. Schon and schön are different words.'),
+   make('Which spelling means “already”?', ['schon','schön','fünf'],'schon','Schon means already. Schön, with ö, means beautiful or nice.'),
+   make('Which spelling means “beautiful” or “nice”?', ['schön','schon','fünf'],'schön','The umlaut changes the vowel and meaning: schön means beautiful or nice.'),
+   make('Which German character represents a sharp S sound?', ['ß','ä','ü'],'ß','The character ß is called Eszett or sharp S.'),
+   make('Which word contains the German Ü sound?', ['fünf','Vogel','Vater'],'fünf','Fünf contains ü, a rounded front vowel.'),
+   make('Which spelling has the German Ä vowel?', ['Mädchen','Mutter','Wasser'],'Mädchen','Mädchen contains ä, one of the three German umlauts.'),
+   make('Which German letter usually sounds like English F in words such as Vogel?', ['V','W','J'],'V','German V often sounds like English F, as in Vogel.')
+  ];
+ }
  curriculumReview=function(level,n){
   prior(level,n);
   const s=moduleSession,g=STRUCTURED_PATH[level]?.[n];
@@ -2900,10 +2916,12 @@ curriculumModuleIntro=function(level,n){
    const u=FULL_UNITS[id];if(!u)continue;
    const qs=fullQuestions(u).filter(q=>Array.isArray(q.options)&&q.options.length>=2&&q.answer>=0&&q.answer<q.options.length&&q.type!=='listen'&&!q.options.some(isSoundGloss));
    for(const q of shuffle(qs)){
-    const key=String(q.prompt).trim().toLowerCase()+'|'+q.options.join('|').toLowerCase();
+    const key=String(q.prompt).trim().toLowerCase();
     if(seen.has(key))continue;
     seen.add(key);
-    clean.push({...q,unitId:id});
+    const opts=q.options.map(cleanAnswer);
+    if(opts.some(x=>!x)||new Set(opts.map(x=>x.toLowerCase())).size!==opts.length)continue;
+    clean.push({...q,options:opts,unitId:id});
    }
   }
   // Generalization: apply the already-taught regular present-tense pattern to a new verb.
@@ -2915,7 +2933,20 @@ curriculumModuleIntro=function(level,n){
    clean.push({type:'grammar',unitId:g.ids[0],prompt:`Apply the verb ending you learned: ${target.subject} ___ (spielen = to play)`,options:opts,answer:opts.indexOf(target.form),why:`Spielen means “to play.” The subject ${target.subject} takes the regular present-tense ending ${target.ending}, so spiel- becomes ${target.form}.`,dlTransfer:true});
   }
   if(clean.length){
-   s.questions=shuffle(clean).slice(0,10);
+   const isAlphabet=n===0&&/alphabet|spelling/i.test(g.title||'');
+   const candidates=isAlphabet?soundReview(g.ids[0]):clean;
+   // Interleave different exercise types instead of repeating one prompt pattern.
+   const buckets=new Map();
+   for(const q of shuffle(candidates)){
+    const kind=q.type==='grammar'?'grammar':/what does|translate|mean\?/i.test(q.prompt)?'translation':/which|choose|select/i.test(q.prompt)?'recognition':'other';
+    if(!buckets.has(kind))buckets.set(kind,[]);
+    buckets.get(kind).push(q);
+   }
+   const mixed=[];
+   while(mixed.length<10&&[...buckets.values()].some(a=>a.length)){
+    for(const bucket of buckets.values())if(bucket.length&&mixed.length<10)mixed.push(bucket.shift());
+   }
+   s.questions=mixed;
    s.idx=0;s.score=0;s.answered=false;s.dlCoreScore=0;s.dlCoreCount=s.questions.length;s.dlMissed=[];
   }else{
    s.dlCoreCount=s.questions.length;
