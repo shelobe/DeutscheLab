@@ -3584,13 +3584,13 @@ window.findItTap=function(i){
   session.locked=true;node&&node.classList.add('findit-hit');
   const roomCat=app.querySelector('.findit-scene');if(roomCat){roomCat.classList.add('findit-cat-happy');setTimeout(()=>roomCat.classList.remove('findit-cat-happy'),1100)}
   const phrase=praises[session.idx%praises.length];session.phrase=phrase[0];
-  feedback(phrase[0],phrase[1]+' · '+target.de+' = '+target.en,true);
+  feedback(phrase[0],phrase[1]+' · '+target.de+' = '+target.en,true);const bubble=document.createElement('div');bubble.className='findit-cat-speech';bubble.textContent=phrase[0];const scene=app.querySelector('.findit-scene');if(scene)scene.appendChild(bubble);
   
   if(advance)clearTimeout(advance);
   advance=setTimeout(()=>{if(!session)return;session.idx++;render()},1800);
  }else{
   session.hearts--;node&&node.classList.add('findit-miss');
-  session.phrase='';feedback('Fast!','Not quite — try another object.',false);const roomCat=app.querySelector('.findit-scene');if(roomCat){roomCat.classList.remove('findit-cat-sad');void roomCat.offsetWidth;roomCat.classList.add('findit-cat-sad');setTimeout(()=>roomCat.classList.remove('findit-cat-sad'),850)}
+  session.phrase='';feedback('Fast!','Not quite — try another object.',false);const oldBubble=app.querySelector('.findit-cat-speech');if(oldBubble)oldBubble.remove();const bubble=document.createElement('div');bubble.className='findit-cat-speech findit-cat-speech-wrong';bubble.textContent='Versuch es noch einmal!';const scene=app.querySelector('.findit-scene');if(scene){scene.appendChild(bubble);setTimeout(()=>bubble.remove(),1100)}const roomCat=app.querySelector('.findit-scene');if(roomCat){roomCat.classList.remove('findit-cat-sad');void roomCat.offsetWidth;roomCat.classList.add('findit-cat-sad');setTimeout(()=>roomCat.classList.remove('findit-cat-sad'),850)}
   if(session.hearts<=0){session.locked=true;if(advance)clearTimeout(advance);advance=setTimeout(render,1400)}
   else setTimeout(()=>{if(node)node.classList.remove('findit-miss')},650);
   const h=app.querySelector('.findit-hearts');if(h)h.innerHTML='♥'.repeat(session.hearts)+'<span style="opacity:.22">'+'♥'.repeat(3-session.hearts)+'</span>';
@@ -3678,4 +3678,4 @@ html body.dl-home-banner.dl-compact-header .app-header .menu-toggle {
 .findit-scene.findit-cat-sad::after{content:none;display:none}
 @keyframes dl-cat-pop{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-9px) scale(1.12)}}
 @keyframes dl-cat-no{0%,100%{transform:rotate(0)}30%{transform:rotate(-13deg)}70%{transform:rotate(13deg)}}
-</style><style>.dl-pronunciation h3{font-size:2rem;margin-bottom:0}.dl-pronunciation button{margin:5px}.dl-sound-navigation{display:flex;justify-content:space-between;gap:8px;margin-top:20px}.dl-sound-navigation button{flex:1}</style></body></html>
+</style><style>.dl-pronunciation h3{font-size:2rem;margin-bottom:0}.dl-pronunciation button{margin:5px}.dl-sound-navigation{display:flex;justify-content:space-between;gap:8px;margin-top:20px}.dl-sound-navigation button{flex:1}</style><style id="dl-findit-dynamic-bubbles">.findit-cat-speech{left:24%!important;bottom:15%!important;max-width:52%!important;min-width:0!important;z-index:8!important;font-weight:700}.findit-cat-speech-wrong{font-size:clamp(12px,3vw,18px)!important}</style></body></html>
