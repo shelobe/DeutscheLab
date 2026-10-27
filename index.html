@@ -2237,6 +2237,8 @@ fullBegin=async function(id){
 /* Current avatar in hamburger navigation */
 #sideMenu .menu-heading{display:flex;align-items:center;gap:10px}
 #sideMenu .menu-heading .menu-close{margin-left:auto}
+#sideMenu .menu-heading .dl-menu-avatar{width:52px;height:52px;order:-1}
+#sideMenu .dl-menu-profile-link{position:relative;min-height:76px}
 .dl-menu-avatar{width:48px;height:48px;object-fit:cover;border-radius:14px;border:2px solid #6bd0b9;background:#244a59;flex-shrink:0}
 #sideMenu .dl-menu-profile-link{display:flex;flex-direction:column;align-items:flex-start;gap:7px;text-align:left;padding-top:15px;padding-bottom:15px}
 #sideMenu .dl-menu-profile-link .dl-menu-avatar{width:38px;height:38px;border-radius:11px}
@@ -2291,10 +2293,16 @@ fullBegin=async function(id){
  }
  if(menu){
   const heading=menu.querySelector('.menu-heading');
+  if(heading && !heading.querySelector('.dl-menu-avatar')){
+   const headerAvatar=document.createElement('img');
+   headerAvatar.className='dl-menu-avatar';
+   headerAvatar.alt='Current animal avatar';
+   heading.prepend(headerAvatar);
+  }
 
   const btn=document.createElement('button');
   btn.className='dl-menu-profile-link';
-  btn.innerHTML='<span class="dl-menu-avatar-name">My profile</span><span class="dl-menu-profile-top"><img class="dl-menu-avatar" alt="Current animal avatar"><span class="dl-menu-profile-sub">Profile & rewards</span></span>';
+  btn.innerHTML='<span class="dl-menu-avatar-name">My profile</span><span class="dl-menu-profile-sub">Profile & rewards</span>';
   btn.onclick=function(){toggleMenu(false);dlProfile()};
   const placementButton=[...menu.querySelectorAll('button')].find(b=>b.textContent.includes('Placement test'));
   if(placementButton)menu.insertBefore(btn,placementButton);else menu.appendChild(btn);
