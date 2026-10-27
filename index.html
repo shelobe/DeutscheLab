@@ -1490,7 +1490,7 @@ function dlChoose(i){
  app.querySelectorAll('.dl-flow-options button').forEach((b,j)=>b.classList.toggle('dl-selected',i===j));
  document.getElementById('dl-check').disabled=false;
 }
-function dlToggleTip(){let tip=document.getElementById('dl-tip'),btn=document.getElementById('dl-help-btn');tip.hidden=!tip.hidden;btn.textContent=tip.hidden?'Show grammar help':'Hide grammar help'}
+function dlToggleTip(){let tip=document.getElementById('dl-tip'),btn=document.getElementById('dl-help-btn');tip.hidden=!tip.hidden;btn.textContent=tip.hidden?'Show grammar explanation':'Hide grammar explanation'}
 function dlCheck(){
  const s=fullSession;if(!s||dlAnswered||dlSelected===null)return;
  const q=s.questions[s.idx],ok=dlSelected===q.answer;dlAnswered=true;
@@ -2187,9 +2187,20 @@ fullBegin=async function(id){
   function updateHelp(){
     const q=current(),tip=document.getElementById('dl-tip'),btn=document.getElementById('dl-help-btn');
     if(!tip||!btn||!q)return;
-    const detail=teachingHint(q);
-    btn.hidden=false;
-    const paragraph=tip.querySelector('p');if(paragraph)paragraph.textContent=detail;
+    const prompt=String(q.prompt||'');
+    const target=(prompt.match(/what does\s+[“"']([^”"']+)[”"']\s+mean/i)||[])[1]||'';
+    // Vocabulary recognition and straightforward phrase translation do not need grammar help.
+    // Only show an explanation when the task tests a grammatical choice.
+    const isRecall=/what does\s+[“"']|choose the german for|what is the german for|what is the english for|translate (?:this|the|into|to)|what does .* mean|match the (?:word|meaning)|which word means/i.test(prompt);
+    const isGrammar=/\b(?:article|accusative|dative|nominative|plural form|possessive|conjugat|verb form|word order|correct sentence|correct ending|negat|separable|modal verb|fill in the blank)\b/i.test(prompt)
+      || /_{2,}/.test(prompt)
+      || /\b(?:der|die|das|den|dem|des|ein|eine|einen|einem|kein|keine|nicht)\b/i.test(prompt) && /\b(?:choose|correct|complete|fill)\b/i.test(prompt);
+    const show=!isRecall && isGrammar;
+    btn.hidden=!show;
+    tip.hidden=true;
+    btn.textContent='Show grammar explanation';
+    const heading=tip.querySelector('strong');if(heading)heading.textContent='Grammar explanation';
+    const paragraph=tip.querySelector('p');if(paragraph&&show)paragraph.textContent=teachingHint(q);
   }
   const previousRender=fullRender;
   fullRender=function(){const result=previousRender.apply(this,arguments);updateHelp();return result;};
@@ -2416,4 +2427,163 @@ curriculumModuleIntro=function(level,n){
 })();
 </script>
 <style>.a1-expanded-guide{padding:14px 17px;margin:14px 0;border-radius:14px;background:#173e48;border:1px solid #4e928a}.a1-expanded-guide h3{margin:0 0 8px}.a1-expanded-guide h4{margin:12px 0 5px}.a1-expanded-guide li{margin:6px 0}.a1-expanded-guide p{line-height:1.55}</style>
+
+<!-- A1 listening discrimination: audio-only choices, with explicit pronunciation teaching. -->
+<style>
+.dl-audio-choice{display:flex!important;align-items:center;gap:12px;justify-content:flex-start}
+.dl-audio-choice .dl-audio-icon{font-size:1.4rem}
+.dl-audio-note{margin:0 0 18px;color:#c2d7e3;line-height:1.5}
+</style>
+<script>
+(function(){
+ const soundSets=[
+  {words:['ich','ach','auch'],target:0,note:'German ich has a soft ch sound, unlike the throaty ch in ach. Listen for the difference.'},
+  {words:['schon','schön','Sohn'],target:1,note:'ö is a rounded front vowel. It sounds different from the o in schon or Sohn.'},
+  {words:['Mutter','Mütter','Meter'],target:1,note:'ü is not the same as u. Keep your lips rounded while shaping the front vowel.'},
+  {words:['weiß','weise','Wasser'],target:0,note:'German ei sounds like the vowel in English eye. The ß represents an s sound.'},
+  {words:['mein','Mann','Miene'],target:0,note:'The German combination ei sounds like English eye, whereas ie is a long ee sound.'},
+  {words:['Zeit','seit','sieht'],target:2,note:'ie usually signals a long ee vowel. ei is pronounced like English eye.'},
+  {words:['Schule','Stuhl','Spule'],target:0,note:'At the start of a German word, sch represents a sh sound; st and sp often begin with sht and shp.'},
+  {words:['zwei','drei','frei'],target:0,note:'German z begins with a ts sound, so zwei starts differently from drei and frei.'},
+  {words:['Vater','Wasser','Farbe'],target:1,note:'German w is pronounced like English v. German v is often pronounced like f.'},
+  {words:['Buch','Bücher','Bach'],target:1,note:'The ch in Bücher is softer than the back-of-the-throat ch in Buch or Bach.'},
+  {words:['Hose','Hase','Haus'],target:2,note:'au is a diphthong, similar to ow in English cow. It differs from simple o and a vowels.'},
+  {words:['Bett','Beet','bitte'],target:1,note:'A doubled vowel, as in Beet, usually indicates a long vowel; compare the short e in Bett.'},
+  {words:['Küche','Kuchen','Kirche'],target:0,note:'Compare Küche (ü), Kuchen (u), and Kirche (i). These vowels are distinct in German.'},
+  {words:['neun','nun','nein'],target:0,note:'eu and äu sound like oy in English boy; ei sounds like eye.'},
+  {words:['Straße','Strauß','Stress'],target:0,note:'At the beginning of German words, str is pronounced with a sh sound; ß is an s sound.'}
+ ];
+ const priorBegin=fullBegin;
+ fullBegin=function(id){
+  priorBegin(id);
+  const s=fullSession,u=FULL_UNITS[id];
+  if(!s||!u||u.level!=='A1'||!Array.isArray(s.questions)||s.questions.some(q=>q.type==='sound-choice'))return;
+  const index=Math.abs(Number(id)||0)%soundSets.length;
+  const entry=soundSets[index];
+  // Rotate the correct answer's position so the learner cannot use a fixed button position.
+  const shift=index%3;
+  const words=entry.words.map((_,i)=>entry.words[(i+shift)%3]);
+  const correct=words.indexOf(entry.words[entry.target]);
+  const q={type:'sound-choice',prompt:'Which audio says “'+entry.words[entry.target]+'”?',options:['Audio 1','Audio 2','Audio 3'],answer:correct,why:entry.note,dlAudioWords:words,dlTarget:entry.words[entry.target]};
+  s.questions.splice(Math.min(3,s.questions.length),0,q);
+  fullRender();
+ };
+ const priorRender=fullRender;
+ fullRender=function(){
+  priorRender();
+  const s=fullSession,q=s&&s.questions&&s.questions[s.idx];
+  if(!q||q.type!=='sound-choice')return;
+  const card=document.querySelector('.dl-flow-card');if(!card)return;
+  const label=card.querySelector('.dl-flow-label');if(label)label.textContent='LISTEN AND IDENTIFY THE SOUND';
+  const options=card.querySelectorAll('.dl-flow-options button');
+  options.forEach((b,i)=>{
+   b.classList.add('dl-audio-choice');
+   b.innerHTML='<span class="dl-audio-icon" aria-hidden="true">🔊</span><span>Play audio '+(i+1)+'</span>';
+   b.addEventListener('click',()=>{if(!dlAnswered&&typeof speak==='function')speak(q.dlAudioWords[i])});
+  });
+  const group=card.querySelector('.dl-flow-options');
+  if(group){const note=document.createElement('p');note.className='dl-audio-note';note.textContent='Tap each choice to hear a German word, then select the audio that matches the written word. You can replay each option.';group.before(note)}
+  const tip=document.getElementById('dl-tip'),help=document.getElementById('dl-help-btn');
+  if(tip)tip.hidden=true;if(help)help.hidden=true;
+ };
+ const priorCheck=dlCheck;
+ dlCheck=function(){
+  const s=fullSession,q=s&&s.questions&&s.questions[s.idx];
+  if(!q||q.type!=='sound-choice')return priorCheck();
+  if(dlAnswered||dlSelected===null)return;
+  const choice=dlSelected;
+  priorCheck();
+  const result=document.getElementById('dl-result');
+  if(result){const extra=document.createElement('p');extra.textContent='Audio '+(q.answer+1)+' says “'+q.dlTarget+'”. '+q.why;result.appendChild(extra)}
+ };
+})();
+</script>
+
+<!-- A1 guided speaking exercises: browser speech recognition, with honest feedback. -->
+<style>
+.dl-speak-panel{padding:18px;border:1px solid #537c87;border-radius:18px;margin:18px 0;background:#203b50}
+.dl-speak-panel p{line-height:1.5}.dl-speak-panel button{margin:6px 8px 6px 0}
+.dl-speak-status{min-height:2.8em;color:#e0f1f2}.dl-speak-panel .dl-speak-target{font-size:1.55rem;font-weight:700}
+</style>
+<script>
+(function(){
+ const speechWords=[
+  ['ich','I','Focus on the soft ch sound at the end.'],
+  ['wir','we','German w sounds like English v.'],
+  ['ihr','you (plural)','The vowel is long, like the ee sound.'],
+  ['sprechen','to speak','The initial sp sounds like shp.'],
+  ['Schule','school','The sch combination sounds like English sh.'],
+  ['zwei','two','German z begins with a ts sound.'],
+  ['mein','my','The ei combination sounds like English eye.'],
+  ['Liebe','love','The ie combination is a long ee sound.'],
+  ['Bücher','books','Listen for the ü vowel and the soft ch.'],
+  ['Mädchen','girl','The ch here is soft; -chen is a diminutive ending.'],
+  ['Wasser','water','German w sounds like v; the first a is short.'],
+  ['aufstehen','to get up','Notice the au diphthong and the stressed first syllable.'],
+  ['Frühstück','breakfast','Pay attention to ü and the consonant cluster.'],
+  ['Entschuldigung','excuse me','Say the word in syllables, then together.'],
+  ['Guten Morgen','good morning','Practice the natural rhythm of the greeting.']
+ ];
+ const previousBegin=fullBegin;
+ fullBegin=function(id){
+  previousBegin(id);
+  const s=fullSession,u=FULL_UNITS[id];
+  if(!s||!u||u.level!=='A1'||!Array.isArray(s.questions)||s.questions.some(q=>q.type==='speak-word'))return;
+  const n=Math.abs(Number(id)||0)%speechWords.length;
+  const [word,meaning,tip]=speechWords[n];
+  s.questions.splice(Math.min(4,s.questions.length),0,{type:'speak-word',prompt:'Say this German word aloud',options:['Recognized','Try again'],answer:0,dlSpeakWord:word,dlSpeakMeaning:meaning,why:tip});
+  fullRender();
+ };
+ let currentRecognition=null;
+ const previousRender=fullRender;
+ fullRender=function(){
+  if(currentRecognition){try{currentRecognition.abort()}catch(e){}currentRecognition=null}
+  previousRender();
+  const s=fullSession,q=s?.questions?.[s.idx];if(!q||q.type!=='speak-word')return;
+  const card=document.querySelector('.dl-flow-card');if(!card)return;
+  const label=card.querySelector('.dl-flow-label');if(label)label.textContent='SPEAK THE GERMAN WORD';
+  const heading=card.querySelector('h2');if(heading)heading.textContent='Pronounce this word:';
+  const choices=card.querySelector('.dl-flow-options');if(choices)choices.hidden=true;
+  const check=document.getElementById('dl-check');if(check)check.hidden=true;
+  const tip=document.getElementById('dl-tip'),help=document.getElementById('dl-help-btn');if(tip)tip.hidden=true;if(help)help.hidden=true;
+  const panel=document.createElement('div');panel.className='dl-speak-panel';
+  panel.innerHTML='<div class="dl-speak-target"></div><p class="dl-speak-meaning"></p><button class="secondary" id="dl-speak-listen">🔊 Hear it</button><button id="dl-speak-start">🎤 Speak now</button><p id="dl-speak-status" class="dl-speak-status" aria-live="polite">Listen to the word, then say it into your microphone.</p><button class="secondary" id="dl-speak-skip">Skip speaking</button>';
+  panel.querySelector('.dl-speak-target').textContent=q.dlSpeakWord;
+  panel.querySelector('.dl-speak-meaning').textContent=q.dlSpeakMeaning;
+  panel.querySelector('#dl-speak-listen').onclick=()=>speak(q.dlSpeakWord);
+  panel.querySelector('#dl-speak-skip').onclick=()=>finish(false,true);
+  panel.querySelector('#dl-speak-start').onclick=()=>{
+   const Rec=window.SpeechRecognition||window.webkitSpeechRecognition;
+   const status=panel.querySelector('#dl-speak-status');
+   if(!Rec){status.textContent='Speech recognition is unavailable in this browser. You can listen and practice, then skip this speaking check.';return}
+   if(currentRecognition){try{currentRecognition.stop()}catch(e){}return}
+   const rec=new Rec();currentRecognition=rec;rec.lang='de-DE';rec.continuous=false;rec.interimResults=false;rec.maxAlternatives=5;
+   const start=panel.querySelector('#dl-speak-start');start.textContent='Listening… tap to stop';status.textContent='Listening for German speech…';
+   rec.onresult=e=>{
+    if(fullSession!==s||s.questions[s.idx]!==q)return;
+    const alternatives=Array.from(e.results[0]||[]).map(x=>x.transcript);
+    const norm=t=>String(t).toLocaleLowerCase('de').normalize('NFC').replace(/[.,!?„“"']/g,'').replace(/\s+/g,' ').trim();
+    const recognized=alternatives[0]||'';
+    const match=alternatives.some(t=>norm(t)===norm(q.dlSpeakWord));
+    status.textContent='Heard: “'+recognized+'”. '+(match?'The speech recognizer matched the target.':'That did not match the target. Listen and try again.');
+    if(match)finish(true,false,recognized);
+   };
+   rec.onerror=e=>{if(fullSession===s&&s.questions[s.idx]===q)status.textContent='Microphone: '+e.error+'. You can retry or skip.'};
+   rec.onend=()=>{if(currentRecognition===rec)currentRecognition=null;if(start.isConnected)start.textContent='🎤 Speak again'};
+   try{rec.start()}catch(e){currentRecognition=null;status.textContent='Could not start microphone: '+e.message}
+  };
+  card.querySelector('.dl-flow-options')?.before(panel);
+  function finish(matched,skipped,heard){
+   if(dlAnswered)return;
+   dlAnswered=true;
+   s.results.push(!!matched);if(matched)s.score++;
+   panel.querySelector('#dl-speak-start').disabled=true;
+   panel.querySelector('#dl-speak-skip').hidden=true;
+   const result=document.getElementById('dl-result');
+   if(result){const wrap=document.createElement('div');wrap.className='dl-flow-feedback';const strong=document.createElement('strong');strong.textContent=skipped?'Speaking exercise skipped':matched?'Recognized!':'Not recognized';const p=document.createElement('p');p.textContent=(matched?'The browser recognized “'+(heard||q.dlSpeakWord)+'”. ':'')+q.why+' Speech recognition checks the words it hears, not the precision of your accent.';wrap.append(strong,p);result.replaceChildren(wrap)}
+   if(check){check.hidden=false;check.disabled=false;check.textContent=s.idx===s.questions.length-1?'Finish lesson':'Continue';check.onclick=()=>{s.idx++;fullRender()}}
+  }
+ };
+})();
+</script>
 </body></html>
