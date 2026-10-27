@@ -763,4 +763,157 @@ const picNav=document.createElement('button');picNav.textContent='▧ Picture pr
   },true);
 })();
 </script>
+
+<style>
+.game-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.game-grid button{min-height:75px;padding:12px;white-space:normal}
+.game-wordbank{display:flex;flex-wrap:wrap;gap:9px;margin:15px 0}.game-wordbank button{width:auto;min-width:65px}
+.game-built{min-height:70px;padding:14px;border:2px dashed #83bdb4;border-radius:14px;line-height:2}
+.game-feedback{background:#204d4d;padding:14px;border-radius:12px;margin-top:12px}
+.game-progress{height:9px;border-radius:9px;background:#254c60;overflow:hidden;margin:10px 0}.game-progress>div{height:100%;background:#81d6b8;transition:width .2s}
+</style>
+<script>
+const GAME_ITEMS=[
+{en:'The cat sleeps on the bed.',de:'Die Katze schläft auf dem Bett.',tokens:['Die','Katze','schläft','auf','dem','Bett.']},
+{en:'I drink water in the morning.',de:'Ich trinke morgens Wasser.',tokens:['Ich','trinke','morgens','Wasser.']},
+{en:'We are going to the train station.',de:'Wir gehen zum Bahnhof.',tokens:['Wir','gehen','zum','Bahnhof.']},
+{en:'My brother has a bicycle.',de:'Mein Bruder hat ein Fahrrad.',tokens:['Mein','Bruder','hat','ein','Fahrrad.']},
+{en:'Tomorrow I am buying apples.',de:'Morgen kaufe ich Äpfel.',tokens:['Morgen','kaufe','ich','Äpfel.']},
+{en:'She is reading a book.',de:'Sie liest ein Buch.',tokens:['Sie','liest','ein','Buch.']},
+{en:'The children are playing outside.',de:'Die Kinder spielen draußen.',tokens:['Die','Kinder','spielen','draußen.']},
+{en:'I am looking for my keys.',de:'Ich suche meine Schlüssel.',tokens:['Ich','suche','meine','Schlüssel.']},
+{en:'We are eating bread and cheese.',de:'Wir essen Brot und Käse.',tokens:['Wir','essen','Brot','und','Käse.']},
+{en:'The dog is sitting under the table.',de:'Der Hund sitzt unter dem Tisch.',tokens:['Der','Hund','sitzt','unter','dem','Tisch.']}
+];
+let gameSession=null;
+function gameHub(){
+ gameSession=null;
+ let stats=state.gameStats||{played:0,correct:0};
+ app.innerHTML=illustratedHero('Practice games','Short, varied activities to build German skills.','village','hund.png')+
+ `<section class="card"><h2>Choose an activity</h2><p class="muted">${stats.played} answers · ${stats.correct} correct</p><div class="game-grid">
+ <button onclick="gameStart('build')">🧩 Build a sentence<br><small>Tap words in order</small></button>
+ <button onclick="gameStart('match')">🔗 Match the pairs<br><small>German ↔ English</small></button>
+ <button onclick="gameStart('listen')">🔊 Listen and choose<br><small>Hear German phrases</small></button>
+ <button onclick="pictureHome()">🖼️ Name the picture<br><small>Choose or type</small></button></div>
+ <p class="muted">Exercises use different sentences from the lesson examples.</p></section>`;
+ window.scrollTo(0,0);
+}
+function gameStart(mode){
+ let seq=[...GAME_ITEMS.keys()];
+ for(let i=seq.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[seq[i],seq[j]]=[seq[j],seq[i]]}
+ gameSession={mode,seq:seq.slice(0,6),idx:0,correct:0,answered:false,picked:[],matches:[],selected:null};
+ gameRender();
+}
+function gameRender(){
+ let g=gameSession;if(!g)return gameHub();
+ if(g.idx>=g.seq.length){
+  app.innerHTML=illustratedHero('Round complete!',`${g.correct} of ${g.seq.length} correct.`,'forest','katze.png')+
+  `<section class="card"><h2>${g.correct}/${g.seq.length} correct</h2><button onclick="gameStart('${g.mode}')">Try another round →</button><button class="secondary" onclick="gameHub()">All practice games</button></section>`;window.scrollTo(0,0);return;
+ }
+ g.answered=false;g.picked=[];g.matches=[];g.selected=null;
+ let item=GAME_ITEMS[g.seq[g.idx]],body='';
+ if(g.mode==='build'){
+ let order=[...item.tokens.keys()].sort(()=>Math.random()-.5);
+ g.order=order;
+ body=`<p>Build this sentence in German:</p><h3>${safeText(item.en)}</h3><div id="gameBuilt" class="game-built">Tap the words below ↓</div><div id="gameBank" class="game-wordbank">${order.map((n,i)=>`<button class="secondary" id="gb${i}" onclick="gamePick(${i})">${safeText(item.tokens[n])}</button>`).join('')}</div><button class="secondary" onclick="gameRender()">Start over</button><button onclick="gameCheckBuild()">Check sentence →</button>`;
+ }else if(g.mode==='listen'){
+ let other=[...GAME_ITEMS.keys()].filter(i=>i!==g.seq[g.idx]).sort(()=>Math.random()-.5).slice(0,3);
+ let choices=[g.seq[g.idx],...other].sort(()=>Math.random()-.5);g.choices=choices;
+ body=`<h3>What do you hear?</h3><button onclick="speak(${JSON.stringify(item.de).replace(/"/g,'&quot;')})">🔊 Play German audio</button><div class="picture-choices">${choices.map((i,n)=>`<button class="secondary" onclick="gameChoose(${n})">${safeText(GAME_ITEMS[i].en)}</button>`).join('')}</div>`;
+ }else{
+ let pairA=PICTURE_WORDS.slice((g.seq[g.idx]*3)%24,(g.seq[g.idx]*3)%24+4);
+ g.pairs=pairA;g.left=pairA.map((w,i)=>i).sort(()=>Math.random()-.5);g.right=pairA.map((w,i)=>i).sort(()=>Math.random()-.5);
+ body=`<p>Match each German noun to its English meaning.</p><p id="gameMatched">0 / 4 pairs matched</p><div class="game-grid"><div>${g.left.map(i=>`<button class="secondary" id="gl${i}" onclick="gameMatch('l',${i})">${safeText(pairA[i][0])}</button>`).join('')}</div><div>${g.right.map(i=>`<button class="secondary" id="gr${i}" onclick="gameMatch('r',${i})">${safeText(pairA[i][1])}</button>`).join('')}</div></div>`;
+ }
+ app.innerHTML=`<section class="card"><p class="muted">${g.mode==='build'?'Sentence builder':g.mode==='listen'?'Listening challenge':'Word matching'} · ${g.idx+1} of ${g.seq.length}</p><div class="game-progress"><div style="width:${g.idx/g.seq.length*100}%"></div></div>${body}<div id="gameFeedback" aria-live="polite"></div></section>`;
+ if(g.mode==='listen')speak(item.de);
+ window.scrollTo(0,0);
+}
+function gamePick(n){let g=gameSession;if(g.answered||g.picked.includes(n))return;g.picked.push(n);document.getElementById('gb'+n).disabled=true;document.getElementById('gameBuilt').textContent=g.picked.map(i=>GAME_ITEMS[g.seq[g.idx]].tokens[g.order[i]]).join(' ')}
+function gameCheckBuild(){let g=gameSession;if(g.answered)return;let item=GAME_ITEMS[g.seq[g.idx]],guess=g.picked.map(i=>item.tokens[g.order[i]]).join(' ');if(g.picked.length!==item.tokens.length){document.getElementById('gameFeedback').textContent='Use all the words first.';return}gameMark(guess===item.de,item.de)}
+function gameChoose(n){let g=gameSession;if(g.answered)return;let item=GAME_ITEMS[g.seq[g.idx]];gameMark(g.choices[n]===g.seq[g.idx],item.de+' — '+item.en)}
+function gameMatch(side,n){
+ let g=gameSession;if(g.answered||g.matches.includes(n))return;
+ if(g.selected===null){g.selected={side,n};document.getElementById((side==='l'?'gl':'gr')+n).style.outline='3px solid #f4d487';return}
+ let a=g.selected;document.getElementById((a.side==='l'?'gl':'gr')+a.n).style.outline='';
+ g.selected=null;if(a.side===side){g.selected={side,n};document.getElementById((side==='l'?'gl':'gr')+n).style.outline='3px solid #f4d487';return}
+ if(a.n===n){g.matches.push(n);document.getElementById('gl'+n).disabled=true;document.getElementById('gr'+n).disabled=true;document.getElementById('gameMatched').textContent=g.matches.length+' / 4 pairs matched';if(g.matches.length===4)gameMark(true,'All four pairs matched!')}
+ else{document.getElementById('gameFeedback').textContent='Not a match. Try another pair.'}
+}
+function gameMark(ok,answer){
+ let g=gameSession;if(!g||g.answered)return;g.answered=true;if(ok)g.correct++;
+ state.gameStats??={played:0,correct:0};state.gameStats.played++;if(ok)state.gameStats.correct++;save();
+ app.querySelectorAll('.card button').forEach(b=>b.disabled=true);
+ document.getElementById('gameFeedback').innerHTML=`<div class="game-feedback"><strong>${ok?'Correct!':'Not quite.'}</strong><p>${safeText(answer)}</p><button onclick="gameNext()">Next →</button></div>`;
+}
+function gameNext(){if(!gameSession)return;gameSession.idx++;gameRender()}
+const gameHome=home;
+home=function(){gameHome();let target=app.querySelector('.card');if(target){let b=document.createElement('section');b.className='card';b.innerHTML='<h3>Practice games</h3><p>Build sentences, match words and practice listening.</p><button onclick="gameHub()">Play practice games →</button>';target.after(b)}};
+let gameMenu=document.getElementById('sideMenu');if(gameMenu){let b=document.createElement('button');b.textContent='🧩 Practice games';b.onclick=gameHub;gameMenu.appendChild(b)}
+// Reuse the app's persistent top back button for the new screens.
+const priorFixGameBack=window.setInterval(()=>{
+ const b=document.getElementById('screenBack');if(!b)return;
+ if(gameSession || app.textContent.includes('Choose an activity')){
+  b.style.display='inline-flex';b.onclick=function(e){e.preventDefault();e.stopImmediatePropagation();if(gameSession)gameHub();else home();window.scrollTo(0,0)};
+ }
+},300);
+</script>
+
+<style>
+.photo-image{width:100%;height:230px;object-fit:contain;border-radius:16px;background:#f2f6f5}
+.photo-placeholder{display:grid;place-items:center;height:230px;color:#d8e9e8}
+.picture-categories{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:12px 0}
+.picture-categories button{min-height:62px;white-space:normal}
+</style>
+<script>
+const PHOTO_WORDS=[["der Hund", "dog", "Animals"], ["die Katze", "cat", "Animals"], ["das Pferd", "horse", "Animals"], ["der Vogel", "bird", "Animals"], ["der Fisch", "fish", "Animals"], ["die Kuh", "cow", "Animals"], ["das Schaf", "sheep", "Animals"], ["die Ziege", "goat", "Animals"], ["das Schwein", "pig", "Animals"], ["die Ente", "duck", "Animals"], ["das Huhn", "chicken", "Animals"], ["der Hahn", "rooster", "Animals"], ["das Kaninchen", "rabbit", "Animals"], ["die Maus", "mouse", "Animals"], ["der Elefant", "elephant", "Animals"], ["der Löwe", "lion", "Animals"], ["der Tiger", "tiger", "Animals"], ["der Bär", "bear", "Animals"], ["der Fuchs", "fox", "Animals"], ["der Wolf", "wolf", "Animals"], ["der Affe", "monkey", "Animals"], ["die Schildkröte", "turtle", "Animals"], ["der Schmetterling", "butterfly", "Animals"], ["die Biene", "bee", "Animals"], ["die Spinne", "spider", "Animals"], ["der Apfel", "apple", "Food & drinks"], ["die Banane", "banana", "Food & drinks"], ["die Orange", "orange fruit", "Food & drinks"], ["die Erdbeere", "strawberry", "Food & drinks"], ["die Traube", "grapes", "Food & drinks"], ["die Birne", "pear", "Food & drinks"], ["die Zitrone", "lemon", "Food & drinks"], ["die Ananas", "pineapple", "Food & drinks"], ["die Wassermelone", "watermelon", "Food & drinks"], ["die Tomate", "tomato", "Food & drinks"], ["die Karotte", "carrot", "Food & drinks"], ["die Kartoffel", "potato", "Food & drinks"], ["die Zwiebel", "onion", "Food & drinks"], ["der Salat", "lettuce", "Food & drinks"], ["die Gurke", "cucumber", "Food & drinks"], ["das Brot", "bread", "Food & drinks"], ["der Käse", "cheese", "Food & drinks"], ["das Ei", "egg", "Food & drinks"], ["die Milch", "milk", "Food & drinks"], ["das Wasser", "glass of water", "Food & drinks"], ["der Kaffee", "coffee cup", "Food & drinks"], ["der Tee", "tea cup", "Food & drinks"], ["der Reis", "rice", "Food & drinks"], ["die Nudeln", "pasta", "Food & drinks"], ["die Suppe", "soup", "Food & drinks"], ["das Haus", "house", "Home"], ["die Wohnung", "apartment building", "Home"], ["das Bett", "bed", "Home"], ["der Tisch", "table", "Home"], ["der Stuhl", "chair", "Home"], ["das Sofa", "sofa", "Home"], ["das Fenster", "window", "Home"], ["die Tür", "door", "Home"], ["die Lampe", "lamp", "Home"], ["der Spiegel", "mirror", "Home"], ["der Schrank", "wardrobe", "Home"], ["das Regal", "bookshelf", "Home"], ["der Teppich", "rug", "Home"], ["das Kissen", "pillow", "Home"], ["die Decke", "blanket", "Home"], ["die Küche", "kitchen", "Home"], ["das Badezimmer", "bathroom", "Home"], ["die Dusche", "shower", "Home"], ["die Badewanne", "bathtub", "Home"], ["der Kühlschrank", "refrigerator", "Home"], ["der Herd", "stove", "Home"], ["die Waschmaschine", "washing machine", "Home"], ["die Toilette", "toilet", "Home"], ["der Garten", "garden", "Home"], ["der Balkon", "balcony", "Home"], ["die Jacke", "jacket", "Clothing"], ["das Hemd", "shirt", "Clothing"], ["das T-Shirt", "t-shirt", "Clothing"], ["die Hose", "trousers", "Clothing"], ["der Rock", "skirt", "Clothing"], ["das Kleid", "dress", "Clothing"], ["der Mantel", "coat", "Clothing"], ["der Pullover", "sweater", "Clothing"], ["die Schuhe", "shoes", "Clothing"], ["die Socke", "sock", "Clothing"], ["der Hut", "hat", "Clothing"], ["die Mütze", "beanie hat", "Clothing"], ["der Schal", "scarf", "Clothing"], ["die Handschuhe", "gloves", "Clothing"], ["der Gürtel", "belt", "Clothing"], ["die Brille", "glasses", "Clothing"], ["die Sonnenbrille", "sunglasses", "Clothing"], ["die Tasche", "handbag", "Clothing"], ["der Rucksack", "backpack", "Clothing"], ["die Uhr", "wristwatch", "Clothing"], ["der Ring", "ring", "Clothing"], ["die Halskette", "necklace", "Clothing"], ["die Stiefel", "boots", "Clothing"], ["die Krawatte", "tie", "Clothing"], ["der Regenschirm", "umbrella", "Clothing"], ["das Auto", "car", "Transport"], ["der Bus", "bus", "Transport"], ["der Zug", "train", "Transport"], ["das Fahrrad", "bicycle", "Transport"], ["das Motorrad", "motorcycle", "Transport"], ["das Flugzeug", "airplane", "Transport"], ["das Schiff", "ship", "Transport"], ["das Boot", "boat", "Transport"], ["die Straßenbahn", "tram", "Transport"], ["die U-Bahn", "subway train", "Transport"], ["das Taxi", "taxi", "Transport"], ["der Lastwagen", "truck", "Transport"], ["der Roller", "scooter", "Transport"], ["der Bahnhof", "train station", "Transport"], ["der Flughafen", "airport", "Transport"], ["die Haltestelle", "bus stop", "Transport"], ["die Straße", "road", "Transport"], ["die Brücke", "bridge", "Transport"], ["die Ampel", "traffic light", "Transport"], ["der Parkplatz", "parking lot", "Transport"], ["der Reifen", "car tire", "Transport"], ["das Lenkrad", "steering wheel", "Transport"], ["der Koffer", "suitcase", "Transport"], ["der Fahrplan", "timetable", "Transport"], ["die Fahrkarte", "train ticket", "Transport"], ["der Baum", "tree", "Nature"], ["die Blume", "flower", "Nature"], ["das Gras", "grass", "Nature"], ["das Blatt", "leaf", "Nature"], ["der Wald", "forest", "Nature"], ["der Berg", "mountain", "Nature"], ["der Fluss", "river", "Nature"], ["der See", "lake", "Nature"], ["das Meer", "sea", "Nature"], ["der Strand", "beach", "Nature"], ["die Insel", "island", "Nature"], ["die Sonne", "sun", "Nature"], ["der Mond", "moon", "Nature"], ["der Stern", "star", "Nature"], ["die Wolke", "cloud", "Nature"], ["der Regen", "rain", "Nature"], ["der Schnee", "snow", "Nature"], ["der Wind", "wind", "Nature"], ["der Regenbogen", "rainbow", "Nature"], ["der Stein", "rock", "Nature"], ["die Erde", "soil", "Nature"], ["die Wüste", "desert", "Nature"], ["der Wasserfall", "waterfall", "Nature"], ["die Höhle", "cave", "Nature"], ["der Pilz", "mushroom", "Nature"], ["die Schule", "school", "Places"], ["das Krankenhaus", "hospital", "Places"], ["die Apotheke", "pharmacy", "Places"], ["der Supermarkt", "supermarket", "Places"], ["die Bäckerei", "bakery", "Places"], ["das Restaurant", "restaurant", "Places"], ["das Café", "cafe", "Places"], ["die Bibliothek", "library", "Places"], ["das Museum", "museum", "Places"], ["das Kino", "movie theater", "Places"], ["das Theater", "theater building", "Places"], ["das Hotel", "hotel", "Places"], ["die Bank", "bank building", "Places"], ["die Post", "post office", "Places"], ["die Kirche", "church", "Places"], ["das Rathaus", "town hall", "Places"], ["der Park", "park", "Places"], ["der Spielplatz", "playground", "Places"], ["das Schwimmbad", "swimming pool", "Places"], ["das Stadion", "stadium", "Places"], ["das Büro", "office", "Places"], ["die Fabrik", "factory", "Places"], ["die Universität", "university", "Places"], ["der Markt", "farmers market", "Places"], ["die Polizei", "police station", "Places"], ["das Buch", "book", "Objects & hobbies"], ["der Schlüssel", "key", "Objects & hobbies"], ["die Tasse", "cup", "Objects & hobbies"], ["die Gabel", "fork", "Objects & hobbies"], ["das Messer", "kitchen knife", "Objects & hobbies"], ["der Löffel", "spoon", "Objects & hobbies"], ["der Teller", "plate", "Objects & hobbies"], ["das Glas", "drinking glass", "Objects & hobbies"], ["die Flasche", "bottle", "Objects & hobbies"], ["der Computer", "computer", "Objects & hobbies"], ["das Handy", "smartphone", "Objects & hobbies"], ["die Tastatur", "keyboard", "Objects & hobbies"], ["die Maus", "computer mouse", "Objects & hobbies"], ["der Bildschirm", "monitor", "Objects & hobbies"], ["die Kamera", "camera", "Objects & hobbies"], ["das Foto", "photograph", "Objects & hobbies"], ["der Ball", "ball", "Objects & hobbies"], ["der Fahrradhelm", "bicycle helmet", "Objects & hobbies"], ["die Gitarre", "guitar", "Objects & hobbies"], ["das Klavier", "piano", "Objects & hobbies"], ["die Geige", "violin", "Objects & hobbies"], ["der Pinsel", "paintbrush", "Objects & hobbies"], ["der Hammer", "hammer", "Objects & hobbies"], ["die Schere", "scissors", "Objects & hobbies"], ["der Bleistift", "pencil", "Objects & hobbies"]];
+const PHOTO_CATS=[...new Set(PHOTO_WORDS.map(w=>w[2]))];
+let photoCategory='All topics',photoLevel='A1',photoCache={};
+function photoMenu(){
+ const stats=state.pictureProgress||{attempts:0,correct:0};
+ app.innerHTML=illustratedHero('Picture practice','Learn words by recognizing real-world objects.','forest','katze.png')+
+ `<section class="card"><h2>Choose a topic</h2><p>${PHOTO_WORDS.length} words across ${PHOTO_CATS.length} topics.</p><p class="muted">${stats.attempts} answers · ${stats.correct} correct</p><div class="picture-categories">${['All topics',...PHOTO_CATS].map(c=>`<button class="${c===photoCategory?'':'secondary'}" onclick="photoCategory=${JSON.stringify(c).replace(/"/g,'&quot;')};photoMenu()">${safeText(c)}</button>`).join('')}</div><h3>How do you want to practice?</h3><div class="picture-tabs"><button onclick="photoStart('choice')">Multiple choice →</button><button onclick="photoStart('type')">Type the answer →</button></div><p class="muted">Photos load from Wikimedia Commons the first time you see them; internet is required for new images.</p></section>`;
+ window.scrollTo(0,0);
+}
+function photoStart(mode){
+ const pool=PHOTO_WORDS.map((w,i)=>({w,i})).filter(x=>photoCategory==='All topics'||x.w[2]===photoCategory).map(x=>x.i);
+ for(let i=pool.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[pool[i],pool[j]]=[pool[j],pool[i]]}
+ pictureSession={mode,queue:pool.slice(0,10),index:0,correct:0,answered:false,photo:true};photoShow();
+}
+async function photoLoad(i){
+ let img=document.getElementById('photoActual');if(!img)return;
+ let w=PHOTO_WORDS[i],term=w[1];
+ if(photoCache[term]){img.src=photoCache[term];return}
+ try{
+  const q=new URLSearchParams({action:'query',generator:'search',gsrsearch:'filetype:bitmap '+term,gsrnamespace:'6',gsrlimit:'8',prop:'imageinfo',iiprop:'url|mime',iiurlwidth:'600',format:'json',origin:'*'});
+  const r=await fetch('https://commons.wikimedia.org/w/api.php?'+q.toString());if(!r.ok)throw Error('Image unavailable');
+  const d=await r.json(),pages=Object.values(d.query?.pages||{});
+  const pic=pages.find(p=>p.imageinfo?.[0]?.mime?.startsWith('image/')&&p.imageinfo?.[0]?.thumburl);
+  if(!pic)throw Error('No photo');
+  photoCache[term]=pic.imageinfo[0].thumburl;
+  if(img.dataset.word===term){img.src=photoCache[term];img.hidden=false;document.getElementById('photoLoading').hidden=true}
+ }catch(e){let loading=document.getElementById('photoLoading');if(loading)loading.textContent='Photo unavailable. Try the next picture.'}
+}
+function photoShow(){
+ let g=pictureSession;if(!g||!g.photo)return photoMenu();
+ if(g.index>=g.queue.length){app.innerHTML=illustratedHero('Round complete',`${g.correct} of ${g.queue.length} correct!`,'village','hund.png')+`<section class="card"><button onclick="photoStart('${g.mode}')">Play again →</button><button class="secondary" onclick="photoMenu()">Change topic</button></section>`;return}
+ g.answered=false;let id=g.queue[g.index],w=PHOTO_WORDS[id];
+ let others=PHOTO_WORDS.map((x,i)=>i).filter(i=>i!==id&&PHOTO_WORDS[i][2]===w[2]).sort(()=>Math.random()-.5).slice(0,3);
+ let choices=[id,...others].sort(()=>Math.random()-.5);
+ app.innerHTML=`<section class="card"><p class="muted">${safeText(w[2])} · ${g.index+1} of ${g.queue.length}</p><div class="game-progress"><div style="width:${g.index/g.queue.length*100}%"></div></div><div class="picture-card"><div id="photoLoading" class="photo-placeholder">Loading photo…</div><img id="photoActual" class="photo-image" data-word="${safeText(w[1])}" alt="Identify the pictured object" hidden></div><h2>What is this in German?</h2><p class="muted">Include der, die or das.</p>${g.mode==='choice'?`<div class="picture-choices">${choices.map(i=>`<button class="secondary" onclick="photoGrade(${id},${i})">${safeText(PHOTO_WORDS[i][0])}</button>`).join('')}</div>`:`<form onsubmit="event.preventDefault();photoGrade(${id},null)"><input class="picture-input" id="photoInput" placeholder="e.g. der Hund" autocomplete="off" autocapitalize="none" spellcheck="false"><button>Check answer →</button></form>`}<div id="pictureFeedback" aria-live="polite"></div></section>`;
+ photoLoad(id);window.scrollTo(0,0);
+}
+function photoGrade(id,choice){
+ let g=pictureSession;if(!g||g.answered)return;
+ let w=PHOTO_WORDS[id],answer=choice===null?document.getElementById('photoInput').value:PHOTO_WORDS[choice][0];
+ const normalize=t=>t.toLocaleLowerCase('de-DE').trim().replace(/\s+/g,' ');
+ let ok=normalize(answer)===normalize(w[0]);g.answered=true;if(ok)g.correct++;
+ state.pictureProgress??={attempts:0,correct:0};state.pictureProgress.attempts++;if(ok)state.pictureProgress.correct++;save();
+ app.querySelectorAll('.picture-choices button,form button,.picture-input').forEach(b=>b.disabled=true);
+ document.getElementById('pictureFeedback').innerHTML=`<div class="picture-answer"><h3>${ok?'Richtig!':'Not quite'}</h3><p><strong>${safeText(w[0])}</strong> — ${safeText(w[1])}</p><button class="secondary" onclick="speak(${JSON.stringify(w[0]).replace(/"/g,'&quot;')})">Hear pronunciation</button><button onclick="pictureSession.index++;photoShow()">Next picture →</button></div>`;
+}
+pictureHome=photoMenu;
+pictureStart=photoStart;
+// Preserve the picture practice top back behavior.
+document.addEventListener('click',e=>{let b=e.target.closest('#screenBack');if(!b)return;if(pictureSession?.photo){e.preventDefault();e.stopImmediatePropagation();pictureSession=null;photoMenu()}},true);
+</script>
 </body></html>
