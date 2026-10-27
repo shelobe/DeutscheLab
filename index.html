@@ -3474,4 +3474,108 @@ body.dl-home-banner .app-header .menu-toggle {width:58px!important;height:58px!i
 })();
 </script>
 <style>.dl-review-listen{display:block!important;width:100%!important;min-height:60px!important;margin:14px 0 22px!important;font-size:1.1rem!important}</style>
+
+<style id="dl-findit-style">
+.findit-shell{max-width:760px;margin:0 auto 26px}
+.findit-intro{background:#102a3b;border:1px solid #397783;border-radius:22px;padding:16px;margin:14px 0;color:#f4f8ff}
+.findit-guide{display:flex;align-items:center;gap:12px}
+.findit-guide img{width:74px;height:82px;object-fit:contain;flex-shrink:0;filter:drop-shadow(0 4px 3px #0005)}
+.findit-bubble{flex:1;background:#f5f9f7;color:#143244;border-radius:18px;padding:12px 14px;position:relative}
+.findit-bubble h2{font-size:clamp(19px,4.8vw,27px);margin:0 0 4px;color:#143244}
+.findit-bubble p{font-size:14px;margin:0;color:#325464}
+.findit-topline{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:12px}
+.findit-topline strong{font-size:17px;color:#90e0d1}
+.findit-hearts{font-size:23px;letter-spacing:3px}
+.findit-scene{position:relative;border:2px solid #5abcb0;border-radius:20px;overflow:hidden;box-shadow:0 12px 25px #0005;background:#e6bd93}
+.findit-scene svg{width:100%;height:auto;display:block}
+.findit-target{position:absolute;background:transparent!important;border:2px solid transparent!important;border-radius:14px!important;padding:0!important;margin:0!important;min-width:0!important;min-height:0!important;transform:none!important;z-index:2;touch-action:manipulation}
+.findit-target:focus-visible{outline:3px solid #fff!important;background:#fff3!important}
+.findit-target.findit-hit{border:3px solid #75e4bf!important;background:#6bd4b733!important}
+.findit-target.findit-miss{border:2px solid #ffb7a4!important;background:#ff9a8b3b!important}
+.findit-cat{position:absolute;width:18%;bottom:2%;left:5%;pointer-events:none;z-index:3;filter:drop-shadow(0 4px 3px #0006)}
+.findit-cat.findit-happy{animation:findit-bounce .55s ease-in-out 2}
+.findit-feedback{min-height:55px;padding:11px 14px;margin:12px 0 0;border-radius:13px;background:#203c4d;color:#f6fafc;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.findit-feedback button{padding:7px 12px!important;margin:0!important;font-size:14px!important}
+.findit-intro button{margin:0}
+@keyframes findit-bounce{0%,100%{transform:translateY(0) rotate(0)}35%{transform:translateY(-13px) rotate(-7deg)}65%{transform:translateY(-6px) rotate(5deg)}}
+@media(max-width:500px){.findit-intro{padding:12px}.findit-guide img{width:58px;height:70px}.findit-bubble{padding:10px}.findit-feedback{font-size:14px}}
+</style>
+<script>
+/* DeutschLab Find It mini-game v1. Ten unique objects, three hearts, captioned Minka feedback. */
+(function(){
+const items=[
+ {de:'die Lampe',en:'lamp',x:60,y:26,w:17,h:33},
+ {de:'das Fenster',en:'window',x:34,y:15,w:23,h:37},
+ {de:'das Buch',en:'book',x:68,y:73,w:12,h:6},
+ {de:'der Stuhl',en:'chair',x:17,y:51,w:26,h:37},
+ {de:'das Sofa',en:'sofa',x:74,y:51,w:25,h:35},
+ {de:'die Pflanze',en:'plant',x:49,y:45,w:13,h:20},
+ {de:'die Tasse',en:'cup',x:58,y:70,w:9,h:10},
+ {de:'der Teppich',en:'rug',x:28,y:84,w:62,h:13},
+ {de:'das Bild',en:'picture',x:77,y:17,w:21,h:24},
+ {de:'die Katze',en:'cat',x:5,y:75,w:19,h:23}
+];
+const praises=[['Sehr gut!','Very good!'],['Richtig!','Correct!'],['Toll gemacht!','Well done!'],['Du hast es gefunden!','You found it!']];
+let session=null,advance=null;
+const scene=String.raw`<svg viewBox="0 0 600 620" role="img" aria-label="Illustrated living room with furniture, a lamp, books, a window, plants, a cup, a rug, a picture, and Minka the cat" xmlns="http://www.w3.org/2000/svg">
+<defs><linearGradient id="fi-wall" x2="0" y2="1"><stop stop-color="#f2d6bc"/><stop offset="1" stop-color="#d6a88a"/></linearGradient><linearGradient id="fi-floor" x2="0" y2="1"><stop stop-color="#aa704c"/><stop offset="1" stop-color="#744d39"/></linearGradient><linearGradient id="fi-sky" x2="0" y2="1"><stop stop-color="#77b7d7"/><stop offset="1" stop-color="#f3c39a"/></linearGradient><linearGradient id="fi-sofa" x2="0" y2="1"><stop stop-color="#5b8c91"/><stop offset="1" stop-color="#315967"/></linearGradient><radialGradient id="fi-light"><stop stop-color="#ffe6a4" stop-opacity=".85"/><stop offset="1" stop-color="#ffe6a4" stop-opacity="0"/></radialGradient></defs>
+<rect width="600" height="430" fill="url(#fi-wall)"/><path d="M0 0H600V48H0Z" fill="#986346"/><path d="M80 0L125 0 250 85 210 85Z M350 0L395 0 520 85 480 85Z" fill="#ad754d"/><path d="M0 405H600V620H0Z" fill="url(#fi-floor)"/><path d="M0 438H600M0 490H600M0 550H600" stroke="#d39a68" stroke-width="3" opacity=".5"/>
+<!-- window --><rect x="199" y="94" width="159" height="237" rx="7" fill="#754b34"/><rect x="210" y="105" width="137" height="215" fill="url(#fi-sky)"/><path d="M210 252L251 204 275 229 307 185 347 231V320H210Z" fill="#6c9ea1"/><path d="M210 275L255 239 283 259 325 217 347 244V320H210Z" fill="#346f70"/><path d="M210 290Q247 263 276 289T347 281V320H210Z" fill="#255b53"/><path d="M278 105V320M210 213H347" stroke="#754b34" stroke-width="10"/><path d="M191 90Q170 160 184 330L205 330 207 90M358 90Q380 170 366 330L346 330 343 90" fill="#f9e6ca" stroke="#c6aa8c" stroke-width="4"/>
+<!-- picture --><rect x="455" y="105" width="128" height="149" fill="#795038" rx="4"/><rect x="466" y="117" width="105" height="126" fill="#f7e4c7"/><rect x="477" y="127" width="84" height="105" fill="#a8c7c2"/><path d="M477 210L502 164 522 185 545 150 561 183V232H477Z" fill="#7396a0"/><path d="M477 225L508 193 531 207 561 181V232H477Z" fill="#4c7c67"/>
+<!-- shelf --><rect x="17" y="129" width="135" height="354" rx="5" fill="#875b3d" stroke="#5b3828" stroke-width="7"/><path d="M24 215H145M24 309H145M24 405H145" stroke="#c48c5a" stroke-width="12"/><g fill="#526d76"><rect x="31" y="158" width="13" height="51"/><rect x="60" y="146" width="13" height="63"/><rect x="88" y="158" width="14" height="51"/><rect x="36" y="235" width="15" height="65"/><rect x="67" y="243" width="15" height="57"/><rect x="101" y="237" width="15" height="63"/><rect x="38" y="328" width="14" height="66"/><rect x="83" y="328" width="14" height="66"/></g><g fill="#e5b26e"><rect x="47" y="154" width="10" height="55"/><rect x="75" y="159" width="10" height="50"/><rect x="104" y="163" width="16" height="46"/><rect x="54" y="240" width="10" height="60"/><rect x="86" y="244" width="12" height="56"/><rect x="57" y="329" width="22" height="65"/></g><path d="M50 123Q32 92 52 75Q78 84 80 121Q95 83 115 92Q129 120 97 137Z" fill="#3c8655"/><rect x="66" y="126" width="30" height="17" fill="#d1a277"/>
+<!-- rug --><ellipse cx="340" cy="548" rx="230" ry="66" fill="#e6d6bb" stroke="#f9edd9" stroke-width="12"/><ellipse cx="340" cy="548" rx="200" ry="47" fill="none" stroke="#a5b9b5" stroke-width="5" stroke-dasharray="8 12"/>
+<!-- chair --><rect x="112" y="338" width="156" height="145" rx="48" fill="url(#fi-sofa)" stroke="#254e5a" stroke-width="7"/><rect x="119" y="424" width="156" height="81" rx="24" fill="#447782" stroke="#254e5a" stroke-width="7"/><rect x="107" y="415" width="39" height="92" rx="18" fill="#3c6e78"/><rect x="243" y="415" width="38" height="92" rx="18" fill="#3c6e78"/><path d="M142 501V529M247 501V529" stroke="#6c4937" stroke-width="13"/><path d="M161 410L213 393 232 451 178 463Z" fill="#d98665"/>
+<!-- plant --><rect x="310" y="377" width="65" height="64" rx="8" fill="#b66c4e"/><path d="M342 382V313M343 352Q299 331 315 302Q350 305 343 352M345 343Q383 309 396 326Q390 357 345 343M343 331Q330 288 349 278Q372 309 343 331" fill="#3c8c61" stroke="#2f7554" stroke-width="4"/>
+<!-- lamp glow --><circle cx="434" cy="340" r="126" fill="url(#fi-light)"/><rect x="382" y="436" width="111" height="21" rx="5" fill="#704b36"/><rect x="395" y="450" width="12" height="85" fill="#6e4934"/><rect x="474" y="450" width="12" height="85" fill="#6e4934"/><path d="M433 362V438" stroke="#6b4a2b" stroke-width="12"/><path d="M398 359L411 283H457L470 359Z" fill="#ffe5a1" stroke="#9e6b3c" stroke-width="5"/><ellipse cx="434" cy="363" rx="37" ry="7" fill="#a16e42"/>
+<!-- sofa --><rect x="456" y="332" width="170" height="168" rx="45" fill="#9e9690" stroke="#746c68" stroke-width="7"/><rect x="460" y="419" width="166" height="81" rx="21" fill="#b0a6a0" stroke="#77716c" stroke-width="5"/><path d="M481 395L531 380 544 441 493 451Z" fill="#4e8383"/><path d="M545 393L590 382 605 442 558 450Z" fill="#e9c7a0"/>
+<!-- table --><path d="M284 496L551 487 560 520 280 530Z" fill="#b37a4e" stroke="#6f4935" stroke-width="7"/><path d="M315 525L304 599M532 520L543 593" stroke="#784c36" stroke-width="15"/><path d="M326 570H535" stroke="#89583d" stroke-width="12"/>
+<!-- cup and book --><path d="M342 477H377V505Q359 516 342 505Z" fill="#fff4df" stroke="#ac937d" stroke-width="3"/><path d="M375 481Q399 481 388 497Q385 503 377 498" fill="none" stroke="#fff4df" stroke-width="6"/><path d="M420 497L485 493 495 506 427 512Z" fill="#487b91" stroke="#f1e2c7" stroke-width="4"/>
+<!-- trim --><path d="M0 402H600" stroke="#8b634b" stroke-width="12"/>
+</svg>`;
+function order(){return items.slice().sort(()=>Math.random()-.5)}
+function sceneMarkup(){return '<div class="findit-scene">'+scene+items.map((o,i)=>'<button class="findit-target" data-fi="'+i+'" aria-label="Select object '+(i+1)+'" style="left:'+o.x+'%;top:'+o.y+'%;width:'+o.w+'%;height:'+o.h+'%" onclick="findItTap('+i+')"></button>').join('')+'<img class="findit-cat" src="./katze.png" alt="Minka the cat"></div>'}
+function feedback(message,translation,voice){const el=document.getElementById('findit-feedback');if(!el)return;el.innerHTML='<strong>'+message+'</strong> <span>'+translation+'</span>'+(voice?'<button class="secondary" onclick="findItPraise()">🔊 Hear phrase</button>':'')}
+window.findItPraise=function(){if(session&&session.phrase&&typeof speak==='function')speak(session.phrase)};
+window.findItHome=function(){
+ session={queue:order(),idx:0,hearts:3,locked:false,phrase:''};
+ document.body.classList.remove('lesson-screen');
+ app.innerHTML='<div class="findit-shell"><section class="findit-intro"><h2>Find It! — Minka’s living room</h2><p>Find ten German words in the room. You have three hearts. Minka will cheer you on!</p><button onclick="findItStart()">Start game</button></section>'+sceneMarkup()+'</div>';
+ window.scrollTo(0,0);
+};
+window.findItStart=function(){if(!session)session={queue:order(),idx:0,hearts:3,locked:false,phrase:''};render()};
+function render(){
+ if(!session)return;
+ if(session.idx>=10||session.hearts<=0){const won=session.idx>=10;app.innerHTML='<div class="findit-shell"><section class="findit-intro"><div class="findit-guide"><img src="./katze.png" alt="Minka"><div class="findit-bubble"><h2>'+(won?'Geschafft!':'Gut versucht!')+'</h2><p>'+(won?'You found all ten objects!':'You found '+session.idx+' of 10 objects.')+'</p></div></div><p>'+(won?'Minka is proud of you!':'Try again to find all ten.')+'</p><button onclick="findItHome()">Play again</button> <button class="secondary" onclick="home()">Home</button></section></div>';return}
+ const item=session.queue[session.idx];
+ app.innerHTML='<div class="findit-shell"><section class="findit-intro"><div class="findit-topline"><strong>Find It! · '+(session.idx+1)+' / 10</strong><span class="findit-hearts" aria-label="'+session.hearts+' hearts remaining">'+('♥'.repeat(session.hearts))+'<span style="opacity:.22">'+('♥'.repeat(3-session.hearts))+'</span></span></div><div class="findit-guide"><img src="./katze.png" alt="Minka"><div class="findit-bubble"><h2>Find: '+item.de+'</h2><p>Tap the object in the room. <button class="secondary" style="padding:5px 9px;margin:4px 0;font-size:13px" onclick="findItWord()">🔊 Listen</button></p></div></div></section>'+sceneMarkup()+'<div id="findit-feedback" class="findit-feedback" aria-live="polite">Minka is waiting for you to find the object.</div></div>';
+ session.locked=false;
+}
+window.findItWord=function(){if(session&&typeof speak==='function')speak(session.queue[session.idx].de)};
+window.findItTap=function(i){
+ if(!session||session.locked||session.idx>=10)return;
+ const target=session.queue[session.idx],picked=items[i],node=app.querySelector('.findit-target[data-fi="'+i+'"]');
+ if(picked===target){
+  session.locked=true;node&&node.classList.add('findit-hit');
+  const cat=app.querySelector('.findit-cat');if(cat)cat.classList.add('findit-happy');
+  const phrase=praises[session.idx%praises.length];session.phrase=phrase[0];
+  feedback(phrase[0],phrase[1]+' · '+target.de+' = '+target.en,true);
+  if(advance)clearTimeout(advance);
+  advance=setTimeout(()=>{if(!session)return;session.idx++;render()},1800);
+ }else{
+  session.hearts--;node&&node.classList.add('findit-miss');
+  session.phrase='';feedback('Fast!','Not quite — try another object.',false);
+  if(session.hearts<=0){session.locked=true;if(advance)clearTimeout(advance);advance=setTimeout(render,1400)}
+  else setTimeout(()=>{if(node)node.classList.remove('findit-miss')},650);
+  const h=app.querySelector('.findit-hearts');if(h)h.innerHTML='♥'.repeat(session.hearts)+'<span style="opacity:.22">'+'♥'.repeat(3-session.hearts)+'</span>';
+ }
+};
+const menu=document.getElementById('sideMenu');
+if(menu&&!menu.querySelector('[data-findit-menu]')){
+ const btn=document.createElement('button');btn.dataset.finditMenu='1';btn.textContent='◈ Find It!';btn.setAttribute('onclick',"navigateTo('findItHome')");
+ const heading=Array.from(menu.querySelectorAll('p')).find(p=>p.textContent.trim()==='PRACTICE');
+ if(heading)heading.after(btn);else menu.append(btn);
+}
+})();
+</script>
+
 </body></html>
