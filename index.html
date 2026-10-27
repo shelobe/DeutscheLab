@@ -2892,16 +2892,16 @@ curriculumModuleIntro=function(level,n){
  function soundReview(id){
   const make=(prompt,options,correct,why)=>{const opts=shuffle(options.slice());return {type:'grammar',unitId:id,prompt,options:opts,answer:opts.indexOf(correct),why};};
   return [
-   make('Which German letter usually sounds like English Y?', ['J','W','V'],'J','German J usually sounds like the Y in yes.'),
-   make('Which German letter is pronounced like English V?', ['W','J','S'],'W','German W is pronounced like English V.'),
-   make('In Vater, what sound does V make?', ['F','English V','Y'],'F','At the start of Vater, V sounds like English F.'),
-   make('Which spelling contains an umlaut?', ['schön','schon','Schule'],'schön','The two dots over ö are an umlaut. Schon and schön are different words.'),
-   make('Which spelling means “already”?', ['schon','schön','fünf'],'schon','Schon means already. Schön, with ö, means beautiful or nice.'),
-   make('Which spelling means “beautiful” or “nice”?', ['schön','schon','fünf'],'schön','The umlaut changes the vowel and meaning: schön means beautiful or nice.'),
-   make('Which German character represents a sharp S sound?', ['ß','ä','ü'],'ß','The character ß is called Eszett or sharp S.'),
-   make('Which word contains the German Ü sound?', ['fünf','Vogel','Vater'],'fünf','Fünf contains ü, a rounded front vowel.'),
-   make('Which German word has a vowel sound closest to the vowel in English “bed”?', ['Mädchen','Mutter','Wasser'],'Mädchen','The ä in Mädchen can resemble the short e in English “bed.”'),
-   make('Which letter can represent an F sound in many common German words?', ['V','W','J'],'V','German V often sounds like English F, as in Vogel. W is usually pronounced like English V.')
+   make('A new German word is “Junge” (boy). How should its first letter sound?', ['Like English Y','Like English J','Like English W'],'Like English Y','German J usually has the Y sound, as in ja and Junge.'),
+   make('You encounter “Wolke” (cloud). What sound starts the word?', ['English V','English W','English F'],'English V','German W sounds like English V, even in a new word such as Wolke.'),
+   make('In “Vogel” (bird), which sound should you use at the start?', ['English F','English V','English Y'],'English F','In many common German words, including Vogel, V sounds like English F.'),
+   make('You learned that schön means “beautiful.” What does removing its umlaut produce?', ['A different word','The same word with optional spelling','A plural form'],'A different word','Schon means “already,” while schön means “beautiful.” The umlaut changes meaning.'),
+   make('How should you change your mouth to produce German ö after forming an e sound?', ['Round your lips','Open your lips wider without rounding','Press your lips together'],'Round your lips','The German ö is a rounded front vowel: keep the tongue forward and round the lips.'),
+   make('Which adjustment helps turn a German i-like vowel into ü?', ['Round your lips while keeping your tongue forward','Move your tongue far back','Pronounce it as English oo'],'Round your lips while keeping your tongue forward','German ü is a front rounded vowel, not simply English oo.'),
+   make('When reading the unfamiliar word “grün” (green), which vowel rule applies?', ['Use the rounded front ü vowel','Use ordinary German u','Replace ü with an English w sound'],'Use the rounded front ü vowel','The dots change u to the distinct ü vowel, as in fünf.'),
+   make('You see “Straße” (street). How is the letter ß pronounced?', ['Like a voiceless s','Like English B','Like English Z'],'Like a voiceless s','ß represents a voiceless s sound, similar to ss.'),
+   make('In the unfamiliar word “Fuß” (foot), what sound does the last character represent?', ['An s sound','A b sound','A t sound'],'An s sound','The final ß represents an s sound, just as in Straße.'),
+   make('A German word begins with W. Which English-letter sound should you expect?', ['V','F','Y'],'V','German W usually sounds like English V. Apply this rule to words you have not heard before.')
   ];
  }
  curriculumReview=function(level,n){
