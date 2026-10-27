@@ -2152,6 +2152,19 @@ fullBegin=async function(id){
     const prompt=String(q?.prompt||'');
     const options=(q?.options||[]).map(String);
     const all=(prompt+' '+options.join(' ')).toLowerCase();
+    // A question asking for the meaning of a German word is vocabulary recognition,
+    // not a German question-formation exercise. Inspect the quoted target first.
+    const meaningMatch=prompt.match(/what does\s+[“"']([^”"']+)[”"']\s+mean/i);
+    if(meaningMatch){
+      const term=meaningMatch[1].trim().toLowerCase();
+      if(['ich','du','er','sie','es','wir','ihr','sie (plural)','sie (formal)'].includes(term))
+        return 'This lesson is about personal pronouns, which replace names. First person refers to the speaker, second person to the listener, and third person to someone else. German also distinguishes talking to one person (singular) from talking to several people (plural). Compare: du lernst (one person) and ihr lernt (several people).';
+      if(['wer','was','wo','wann','warum','wie','woher','wohin'].includes(term))
+        return 'This is question-word vocabulary. German has different words for asking about a person, a thing, a location, a time, a reason, or a manner. Think about what kind of information the word requests, rather than German sentence order.';
+      if(/^(?:\d+|null|eins|zwei|drei|vier|fünf|sechs|sieben|acht|neun|zehn|elf|zwölf|dreizehn|vierzehn|fünfzehn|sechzehn|siebzehn|achtzehn|neunzehn|zwanzig)$/.test(term))
+        return 'This is a number-recognition exercise. Recall the counting sequence and compare nearby numbers; you do not need a sentence grammar rule.';
+      return 'This asks for the meaning of a German vocabulary word. Recall where you learned it and compare the meanings of the options; verb endings and question word order are not relevant.';
+    }
     // Hints describe transferable grammar, never reveal the selected answer.
     // Classify the actual task before inspecting distractor answers.
     // Vocabulary recognition should not trigger conjugation rules merely because
