@@ -3595,4 +3595,38 @@ if(menu&&!menu.querySelector('[data-findit-menu]')){
  }
 })();
 </script>
+
+<style id="dl-home-header-size-fix">
+/* Higher specificity than compact-header and mobile repair overrides. */
+html body.dl-home-banner .app-header,
+html body.dl-home-banner.dl-compact-header .app-header {
+ padding:25px 22px!important;
+ min-height:116px!important;
+ gap:19px!important;
+ transition:none!important;
+}
+html body.dl-home-banner .app-header h1 {font-size:clamp(1.9rem,6.5vw,2.45rem)!important;line-height:1.15!important}
+html body.dl-home-banner .app-header p,
+html body.dl-home-banner.dl-compact-header .app-header p {display:block!important;font-size:1rem!important;margin-top:7px!important}
+html body.dl-home-banner .app-header .menu-toggle,
+html body.dl-home-banner.dl-compact-header .app-header .menu-toggle {
+ width:66px!important;height:66px!important;min-width:66px!important;
+ font-size:34px!important;
+}
+@media(max-width:400px){
+ html body.dl-home-banner .app-header,html body.dl-home-banner.dl-compact-header .app-header{padding:21px 15px!important;gap:12px!important}
+ html body.dl-home-banner .app-header h1{font-size:1.7rem!important}
+}
+</style>
+<script>
+/* Home marker is set by home(), while other views clear it. */
+(function(){
+ const root=document.getElementById('app');
+ if(!root)return;
+ const sync=()=>document.body.classList.toggle('dl-home-banner',
+   !!root.querySelector('[data-dl-home-banner]')&&!document.body.classList.contains('lesson-screen'));
+ new MutationObserver(sync).observe(root,{childList:true,subtree:true});
+ sync();
+})();
+</script>
 </body></html>
