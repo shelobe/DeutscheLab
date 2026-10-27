@@ -3559,7 +3559,7 @@ window.findItTap=function(i){
   const cat=app.querySelector('.findit-cat');if(cat)cat.classList.add('findit-happy');
   const phrase=praises[session.idx%praises.length];session.phrase=phrase[0];
   feedback(phrase[0],phrase[1]+' · '+target.de+' = '+target.en,true);
-  const bubble=document.createElement('div');bubble.className='findit-cat-speech';bubble.innerHTML='<strong>'+phrase[0]+'</strong><button type="button" aria-label="Hear praise" onclick="findItPraise()">🔊</button>';const room=app.querySelector('.findit-scene');if(room)room.appendChild(bubble);
+  const bubble=document.createElement('div');bubble.className='findit-cat-speech';bubble.innerHTML='<strong>'+phrase[0]+'</strong>';const room=app.querySelector('.findit-scene');if(room)room.appendChild(bubble);
   if(advance)clearTimeout(advance);
   advance=setTimeout(()=>{if(!session)return;session.idx++;render()},1800);
  }else{
