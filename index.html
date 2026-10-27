@@ -1268,6 +1268,7 @@ function curriculumView(level){
    <summary><div class="curriculum-module-heading"><span class="curriculum-module-number">${n+1}</span><div><div class="curriculum-pill">MODULE ${n+1} · ${done}/${g.ids.length} LESSONS</div><h3>${safeText(g.title)}</h3><p>${safeText(g.goal)}</p></div></div><span class="curriculum-chevron" aria-hidden="true">${complete?'✓':'⌄'}</span></summary>
    <div class="curriculum-module-content">
    ${g.ids.map((id,j)=>{const passed=!!st.scores[id]?.passed;const isNext=id===next&&!passed;return `<div class="curriculum-lesson curriculum-path-lesson ${isNext?'curriculum-next-lesson':''}"><div class="curriculum-lesson-number" aria-label="Lesson ${j+1}">${j+1}</div><div class="text"><strong>Lesson ${j+1} · ${safeText(FULL_UNITS[id].title)}</strong><small>${passed?'✓ Completed':isNext?'Up next':'Not completed'}</small></div><button class="${passed?'secondary':''}" onclick="curriculumLesson(${id})">${passed?'Review':'Start'}</button></div>`}).join('')}
+   ${level==='A1'&&n===0?'<div class="curriculum-lesson curriculum-path-lesson"><div class="curriculum-lesson-number">3</div><div class="text"><strong>Lesson 3 · German Pronunciation</strong><small>15 sounds · Listening and speaking practice</small></div><button onclick="dlPronunciationHome()">Start</button></div>':''}
    <div class="curriculum-check"><strong>Module ${n+1} review</strong><p>Check what you remember from these lessons.</p><button class="secondary" onclick="curriculumReview('${curriculumSelected}',${n})">Review what you learned</button></div>
    </div>
   </details>`}).join('')}
@@ -2692,28 +2693,7 @@ curriculumModuleIntro=function(level,n){
   };
   window.scrollTo(0,0);
  };
- const menu=document.getElementById('sideMenu');
- if(menu&&!menu.querySelector('[data-pronunciation-menu]')){
-  const btn=document.createElement('button');btn.dataset.pronunciationMenu='1';btn.textContent='♫ Pronunciation';btn.onclick=()=>navigateTo('dlPronunciationHome');
-  const practice=Array.from(menu.querySelectorAll('p')).find(p=>p.textContent.trim()==='PRACTICE');
-  if(practice)practice.after(btn);else menu.append(btn);
- }
- const oldRender=fullRender;
- fullRender=function(){
-  oldRender();
-  const session=fullSession,q=session?.questions?.[session.idx];
-  if(!q?.dlSoundDrill)return;
-  const panel=document.querySelector('.dl-speak-panel');if(!panel)return;
-  const d=q.dlSoundDrill;
-  const box=document.createElement('section');box.className='dl-sound-focus';
-  const title=document.createElement('strong');title.textContent='Sound focus: '+d.sound;box.appendChild(title);
-  const description=document.createElement('p');description.textContent=d.detail;box.appendChild(description);
-  const examples=document.createElement('div');examples.className='dl-sound-example';
-  const caption=document.createElement('span');caption.textContent='Hear it in another word: '+d.example;examples.appendChild(caption);
-  const play=document.createElement('button');play.type='button';play.className='secondary';play.textContent='🔊 Listen';play.onclick=()=>{if(typeof speak==='function')speak(d.example)};examples.appendChild(play);
-  box.appendChild(examples);panel.prepend(box);
-  const heading=document.querySelector('.dl-flow-card h2');if(heading)heading.textContent='Listen, then pronounce the word:';
- };
+
 })();
 </script>
 <style>
@@ -3559,7 +3539,7 @@ const scene=String.raw`<svg viewBox="0 0 600 620" role="img" aria-label="Illustr
 <!-- trim --><path d="M0 402H600" stroke="#8b634b" stroke-width="12"/>
 </svg>`;
 function order(){return items.slice().sort(()=>Math.random()-.5)}
-function sceneMarkup(){return '<div class="findit-scene"><img class="findit-room-art" src="./deutschlab_findit_room.png" alt="Illustrated living room with Minka, furniture, plants, window and objects to find">'+items.map((o,i)=>'<button class="findit-target" data-fi="'+i+'" aria-label="Select object '+(i+1)+'" style="left:'+o.x+'%;top:'+o.y+'%;width:'+o.w+'%;height:'+o.h+'%" onclick="findItTap('+i+')"></button>').join('')+'</div>'}
+function sceneMarkup(){return '<div class="findit-scene"><img class="findit-room-art" src="./file_0000000028f881f5bd5c11ffc7a7f4cc.png" alt="Illustrated living room with Minka, furniture, plants, window and objects to find">'+items.map((o,i)=>'<button class="findit-target" data-fi="'+i+'" aria-label="Select object '+(i+1)+'" style="left:'+o.x+'%;top:'+o.y+'%;width:'+o.w+'%;height:'+o.h+'%" onclick="findItTap('+i+')"></button>').join('')+'</div>'}
 function feedback(message,translation,voice){const el=document.getElementById('findit-feedback');if(!el)return;el.innerHTML='<strong>'+message+'</strong> <span>'+translation+'</span>'+(voice?'<button class="secondary" onclick="findItPraise()">🔊 Hear phrase</button>':'')}
 window.findItPraise=function(){if(session&&session.phrase&&typeof speak==='function')speak(session.phrase)};
 window.findItHome=function(){
