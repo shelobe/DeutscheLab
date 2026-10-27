@@ -1402,7 +1402,7 @@ function dlLessonIntro(id){
  app.innerHTML=`<div class="dl-flow"><div class="dl-flow-top"><button class="secondary" onclick="leaveLessonScreen()">Back</button><div class="dl-flow-progress"><span style="width:0%"></span></div></div>
  <section class="dl-flow-card"><div class="dl-flow-label">${dlEscape(u.level)} · ${dlEscape(u.title)}</div><h2>What you'll learn</h2>
  <p>${dlEscape(u.rule)}</p><h3>See it in German</h3>
- ${u.examples.slice(0,2).map(([de,en])=>`<div class="vocab-row"><div class="vocab-copy"><strong>${dlEscape(de)}</strong><span>${dlEscape(en)}</span></div><button class="secondary" onclick='speak(${JSON.stringify(de)})'>Listen</button></div>`).join('')}
+ ${u.examples.map(([de,en])=>`<div class="vocab-row"><div class="vocab-copy"><strong>${dlEscape(de)}</strong><span>${dlEscape(en)}</span></div><button class="secondary" onclick='speak(${JSON.stringify(de)})'>Listen</button></div>`).join('')}
  <button class="dl-flow-action" onclick="fullBegin(${id})">Start practice</button></section></div>`;
  window.scrollTo(0,0);
 }
@@ -1523,6 +1523,106 @@ function dlCheck(){
     const message=messages[cheerIndex++%messages.length];
     return hero+'<div class="completion-cheer"><img src="./'+image+'" alt="'+name+'"><div class="cheer-bubble" role="status">'+message+'</div></div>';
   };
+})();
+</script>
+<script>
+/* Minimum six varied questions in each guided lesson; keep original bank and progress. */
+(function(){
+ const previousQuestions=fullQuestions;
+ const focused={
+  8:[
+   ['Wie ___ du?',['heißt','heiße','heißen'],0,'With du, heißen becomes heißt.'],
+   ['Ich ___ Lena.',['heiße','heißt','heißen'],0,'With ich, heißen becomes heiße.'],
+   ['___ Morgen!',['Guten','Gute','Gutes'],0,'The standard morning greeting is Guten Morgen.'],
+   ['Wie geht ___ dir?',['es','du','ich'],0,'The expression is Wie geht es dir? (How are you?)'],
+   ['Ich ___ aus Deutschland.',['komme','kommt','kommen'],0,'With ich, kommen becomes komme.'],
+   ['Which phrase means “Goodbye”?',['Auf Wiedersehen','Guten Morgen','Bitte'],0,'Auf Wiedersehen means goodbye.']
+  ],
+  9:[
+   ['___ Buch liegt auf dem Tisch.',['Das','Der','Die'],0,'Buch is neuter: das Buch.'],
+   ['___ Lampe ist hell.',['Die','Das','Der'],0,'Lampe is feminine: die Lampe.'],
+   ['___ Tisch ist groß.',['Der','Die','Das'],0,'Tisch is masculine: der Tisch.'],
+   ['___ Kind spielt.',['Das','Die','Der'],0,'Kind is neuter: das Kind.'],
+   ['___ Katze schläft.',['Die','Der','Das'],0,'Katze is feminine: die Katze.'],
+   ['___ Hund bellt.',['Der','Das','Die'],0,'Hund is masculine: der Hund.'],
+   ['Which article is used with most plural nouns in the nominative?',['die','der','das'],0,'The nominative plural definite article is die, regardless of singular gender.']
+  ]
+ };
+ function toQuestion(row){const [prompt,options,answer,why]=row;const correct=options[answer];const shuffled=shuffle(options);return {type:'grammar',prompt,options:shuffled,answer:shuffled.indexOf(correct),why};}
+ fullQuestions=function(unit){
+  const original=previousQuestions(unit),id=FULL_UNITS.indexOf(unit);
+  if(fullSession?.id===id&&fullSession.questions)return fullSession.questions;
+  const result=[...original],seen=new Set(result.map(q=>q.prompt));
+  const extras=focused[id]||[];
+  for(const row of shuffle(extras)){if(!seen.has(row[0])){result.push(toQuestion(row));seen.add(row[0]);}}
+  if(result.length<6){
+   const examples=unit.examples||[];
+   for(let i=0;i<examples.length&&result.length<6;i++){
+    const [de,en]=examples[i];
+    const alternatives=examples.filter((_,j)=>j!==i).map(x=>x[1]);
+    if(alternatives.length<2)continue;
+    const prompt='What does “'+de+'” mean?';
+    if(!seen.has(prompt)){
+     result.push(toQuestion([prompt,[en,...alternatives.slice(0,2)],0,'“'+de+'” means “'+en+'”.']));seen.add(prompt);
+    }
+   }
+   if(result.length<6&&examples.length>=3){
+    for(let i=0;i<examples.length&&result.length<6;i++){
+     const [de,en]=examples[i],prompt='Choose the German for “'+en+'”.';
+     if(seen.has(prompt))continue;
+     result.push(toQuestion([prompt,[de,...examples.filter((_,j)=>j!==i).map(x=>x[0]).slice(0,2)],0,'The German expression is “'+de+'”.']));seen.add(prompt);
+    }
+   }
+  }
+  return shuffle(result);
+ };
+ FULL_UNITS[9].rule='German nouns have three grammatical genders: der (masculine), die (feminine), and das (neuter). Learn each noun together with its article. In the nominative plural, the definite article is die.';
+ FULL_UNITS[9].checkpoint.why='Tisch is masculine, so its nominative article is der. Compare die Lampe (feminine) and das Buch (neuter).';
+ FULL_UNITS[8].rule='Use Hallo for an informal hello, Guten Morgen in the morning, Guten Tag during the day, and Auf Wiedersehen to say goodbye. To introduce yourself, say Ich heiße ... or Ich komme aus ... .';
+})();
+</script>
+
+<style>
+/* Completion encouragement belongs in the results card, not in a floating notification. */
+.dl-auto-cheer{display:flex;align-items:center;gap:14px;margin:18px 0 22px;padding:14px;border-radius:18px;background:rgba(39,77,86,.75);border:1px solid rgba(117,214,192,.42)}
+.dl-auto-cheer img{width:82px;height:82px;object-fit:contain;flex-shrink:0}
+.dl-auto-cheer .dl-auto-bubble{position:relative;flex:1;border-radius:16px;padding:14px 16px;background:#e8fff7;color:#16362f;font-weight:700;line-height:1.4}
+.dl-auto-cheer .dl-auto-bubble:before{content:'';position:absolute;left:-9px;top:29px;border-top:9px solid transparent;border-bottom:9px solid transparent;border-right:10px solid #e8fff7}
+@media(max-width:390px){.dl-auto-cheer img{width:66px;height:66px}.dl-auto-cheer{gap:10px}}
+</style>
+<script>
+(function(){
+ const root=document.getElementById('app');
+ if(!root)return;
+ const messages=['Excellent work! Keep it up!','You’re making real progress!','Well done! Every bit of practice counts.','Great job! Keep building your German skills.','You did it! Keep up the good work!'];
+ const resultTitles=/^(Nice work!|Round complete!?|Lesson complete!|Lesson results|Unit results|Extended practice complete|Deep dive complete)$/i;
+ let lastResult='',counter=0,updating=false;
+ function render(){
+  if(updating)return;
+  const hero=[...root.querySelectorAll('h1,h2,h3')].find(h=>resultTitles.test(h.textContent.trim()));
+  const pictureDone=root.textContent.includes('You finished this picture round.');
+  const isResults=!!hero||pictureDone;
+  if(!isResults){lastResult='';return;}
+  const card=[...root.querySelectorAll('section.card,.card')].find(el=>el.querySelector('button') && (/correct|passed|review|practice again/i.test(el.textContent)));
+  if(!card)return;
+  if(card.querySelector('.dl-auto-cheer'))return;
+  updating=true;
+  try{
+   // Previous version placed its speech bubble outside the result card.
+   root.querySelectorAll('.completion-cheer').forEach(el=>el.remove());
+   const identity=(hero?hero.textContent.trim():'Picture results')+'|'+card.textContent.trim().slice(0,100);
+   if(identity!==lastResult){lastResult=identity;counter++}
+   const cat=counter%2===0;
+   const wrap=document.createElement('div');wrap.className='dl-auto-cheer';wrap.setAttribute('role','status');
+   const img=document.createElement('img');img.src=cat?'./katze.png':'./hund.png';img.alt=cat?'Minka':'Fritzi';
+   const bubble=document.createElement('div');bubble.className='dl-auto-bubble';bubble.textContent=messages[(counter-1)%messages.length];
+   wrap.append(img,bubble);
+   const firstButton=card.querySelector('button');
+   if(firstButton)firstButton.before(wrap);else card.append(wrap);
+  }finally{updating=false}
+ }
+ new MutationObserver(render).observe(root,{childList:true,subtree:true});
+ render();
 })();
 </script>
 </body></html>
