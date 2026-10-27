@@ -22,7 +22,30 @@
 .ai-conversation-screen .ai-voice-options .ttsControls{margin-top:14px}
 .ai-conversation-screen .ai-new-conversation{margin-top:4px}
 @media(max-width:600px){.ai-conversation-screen #aiChat{min-height:270px;max-height:52vh}.ai-conversation-screen #aiInput{height:92px}}
-</style></head><body><main><header class="app-header"><button class="menu-toggle" onclick="toggleMenu(true)" aria-label="Open navigation menu" aria-controls="sideMenu" aria-expanded="false">☰</button><div><h1>DeutschLab 🇩🇪</h1><p class="muted">German practice studio</p></div></header><div id="menuBackdrop" class="menu-backdrop" onclick="toggleMenu(false)" hidden></div><nav id="sideMenu" class="side-menu" aria-label="Main navigation" aria-hidden="true"><div class="menu-heading"><strong>DeutschLab</strong><button class="menu-close secondary" onclick="toggleMenu(false)" aria-label="Close menu">✕</button></div><p class="muted">LEARN</p><button onclick="navigateTo('home')">⌂ Home</button><button onclick="navigateTo('placement')">◈ Placement test</button><button onclick="navigateTo('lessonMenu')">▤ Lessons</button><button onclick="navigateTo('articleHome')">◉ Noun Articles</button><p class="muted">PRACTICE</p><button onclick="navigateTo('review')">↻ Review</button><button onclick="navigateTo('conversation')">☏ Dialogue</button><button onclick="navigateTo('aiTutor')">✦ AI Tutor & Voice</button></nav><div id="app"></div></main><script>
+</style><style>
+/* Simplified curriculum hierarchy: level > module > numbered lesson */
+.curriculum-path-summary h2{margin:10px 0;font-size:1.6rem}
+.curriculum-path-summary>button{width:100%;margin-top:12px;white-space:normal;text-align:center}
+.curriculum-path-label{font-size:.8rem;font-weight:800;letter-spacing:.1em;color:#a8e4d5;margin:24px 5px 10px}
+.curriculum-path-module{margin:12px 0 18px}
+.curriculum-path-module>summary{padding:18px 15px}
+.curriculum-module-heading{display:flex;align-items:flex-start;gap:13px;min-width:0}
+.curriculum-module-heading>div{min-width:0}
+.curriculum-module-number{display:grid;place-items:center;flex:0 0 40px;height:40px;border-radius:12px;background:#2b6570;color:#e5fff9;font-weight:800;font-size:1.1rem}
+.curriculum-path-module h3{font-size:1.13rem;margin:4px 0}
+.curriculum-chevron{font-size:1.35rem;color:#a8e4d5;flex-shrink:0}
+.curriculum-path-module[open] .curriculum-chevron{transform:rotate(180deg)}
+.curriculum-path-module[open] .curriculum-chevron:first-letter{transform:none}
+.curriculum-path-lesson{padding:14px 12px;gap:10px;background:#162b40}
+.curriculum-path-lesson:nth-child(even){background:#1b3449}
+.curriculum-lesson-number{flex:0 0 30px;height:30px;border-radius:50%;display:grid;place-items:center;background:#345366;font-weight:700;font-size:.85rem;color:#e8f6f6}
+.curriculum-next-lesson{box-shadow:inset 4px 0 #68cfbe}
+.curriculum-path-lesson .text strong{font-size:.94rem;line-height:1.35}
+.curriculum-path-lesson button{min-width:78px;max-width:85px}
+.curriculum-path-module .curriculum-check{padding:16px}
+@media(max-width:390px){.curriculum-path-lesson{gap:7px;padding:12px 8px}.curriculum-path-lesson button{min-width:68px;max-width:72px;padding:10px 6px}}
+</style>
+</head><body><main><header class="app-header"><button class="menu-toggle" onclick="toggleMenu(true)" aria-label="Open navigation menu" aria-controls="sideMenu" aria-expanded="false">☰</button><div><h1>DeutschLab 🇩🇪</h1><p class="muted">German practice studio</p></div></header><div id="menuBackdrop" class="menu-backdrop" onclick="toggleMenu(false)" hidden></div><nav id="sideMenu" class="side-menu" aria-label="Main navigation" aria-hidden="true"><div class="menu-heading"><strong>DeutschLab</strong><button class="menu-close secondary" onclick="toggleMenu(false)" aria-label="Close menu">✕</button></div><p class="muted">LEARN</p><button onclick="navigateTo('home')">⌂ Home</button><button onclick="navigateTo('placement')">◈ Placement test</button><button onclick="navigateTo('lessonMenu')">▤ Lessons</button><button onclick="navigateTo('articleHome')">◉ Noun Articles</button><p class="muted">PRACTICE</p><button onclick="navigateTo('review')">↻ Review</button><button onclick="navigateTo('conversation')">☏ Dialogue</button><button onclick="navigateTo('aiTutor')">✦ AI Tutor & Voice</button></nav><div id="app"></div></main><script>
 function dlAudioExample(value){
   // Read only the German example, not symbols or explanatory annotations.
   return String(value).replace(/\s*[→⇒]\s*/g, ', ').replace(/\s*\([^)]*\)/g, '').trim();
@@ -1171,27 +1194,34 @@ function curriculumNext(level){
 }
 function curriculumView(level){
  ensureLearning();curriculumSelected=STRUCTURED_PATH[level]?level:'A1';
- let st=curriculumStats(curriculumSelected);
- let firstUnfinished=st.groups.findIndex(g=>g.ids.some(id=>!st.scores[id]?.passed));
- let openIndex=firstUnfinished===-1?st.groups.length-1:firstUnfinished;
- let next=curriculumNext(curriculumSelected);
+ const st=curriculumStats(curriculumSelected);
+ const firstUnfinished=st.groups.findIndex(g=>g.ids.some(id=>!st.scores[id]?.passed));
+ const openIndex=firstUnfinished<0?st.groups.length-1:firstUnfinished;
+ const next=curriculumNext(curriculumSelected);
+ const total=st.all.length;
  app.innerHTML=`
- <section class="curriculum-summary"><div class="curriculum-pill">YOUR GERMAN LEARNING PATH</div><h2>A1 to B1, step by step</h2>
- <p>Follow connected modules. Each lesson builds toward a practical communication goal.</p>
- <div class="curriculum-levels">${['A1','A2','B1'].map(l=>`<button class="${l===curriculumSelected?'':'secondary'}" onclick="curriculumView('${l}')">${l}</button>`).join('')}</div>
- <p>${st.done} of ${st.all.length} lessons passed in ${curriculumSelected}</p>
- <div class="unit-progress"><div style="width:${Math.round(st.done/st.all.length*100)}%"></div></div>
- <button onclick="curriculumLesson(${next})">${st.done===st.all.length?'Review this level':'Continue learning'}</button></section>
+ <section class="curriculum-summary curriculum-path-summary">
+  <div class="curriculum-pill">YOUR LEARNING PATH</div>
+  <h2>${curriculumSelected} · ${curriculumSelected==='A1'?'Beginner':curriculumSelected==='A2'?'Elementary':'Intermediate'}</h2>
+  <p>Choose a level, then work through the numbered lessons in each module.</p>
+  <div class="curriculum-levels">${['A1','A2','B1'].map(l=>`<button class="${l===curriculumSelected?'':'secondary'}" onclick="curriculumView('${l}')" aria-pressed="${l===curriculumSelected}">${l}</button>`).join('')}</div>
+  <p><strong>${st.done} of ${total} lessons completed</strong></p>
+  <div class="unit-progress" role="progressbar" aria-valuenow="${st.done}" aria-valuemin="0" aria-valuemax="${total}"><div style="width:${total?Math.round(st.done/total*100):0}%"></div></div>
+  <button onclick="curriculumLesson(${next})">${st.done===total?'Review lessons':'Continue: '+safeText(FULL_UNITS[next]?.title||'next lesson')}</button>
+ </section>
+ <div class="curriculum-path-label">MODULES &amp; LESSONS</div>
  ${st.groups.map((g,n)=>{
-  let done=g.ids.filter(id=>st.scores[id]?.passed).length,complete=done===g.ids.length;
-  return `<details class="curriculum-module" ${n===openIndex?'open':''}>
-   <summary><div><div class="curriculum-pill">${curriculumSelected} · MODULE ${n+1} · ${done}/${g.ids.length} COMPLETE</div><h3>${safeText(g.title)}</h3><p>${safeText(g.goal)}</p></div><span aria-hidden="true">${complete?'✓':'▾'}</span></summary>
-   <div class="curriculum-intro"><p>${safeText(g.context)}</p><button class="secondary" onclick="curriculumModuleIntro('${curriculumSelected}',${n})">About this module</button></div>
-   ${g.ids.map((id,j)=>`<div class="curriculum-lesson"><div class="text"><strong>${j+1}. ${safeText(FULL_UNITS[id].title)}</strong><small>${st.scores[id]?.passed?'Completed':'Learn · practice · apply'}</small></div><button class="${st.scores[id]?.passed?'secondary':''}" onclick="curriculumLesson(${id})">${st.scores[id]?.passed?'Review':'Start lesson'}</button></div>`).join('')}
-   <div class="curriculum-check"><strong>Module review</strong><p>Apply what you learned with new questions from all three lessons.</p>
-   <button class="secondary" onclick="curriculumReview('${curriculumSelected}',${n})">${complete?'Review module':'Practice module'}</button></div>
+  const done=g.ids.filter(id=>st.scores[id]?.passed).length;
+  const complete=done===g.ids.length;
+  const startNumber=st.groups.slice(0,n).reduce((sum,x)=>sum+x.ids.length,0);
+  return `<details class="curriculum-module curriculum-path-module" ${n===openIndex?'open':''}>
+   <summary><div class="curriculum-module-heading"><span class="curriculum-module-number">${n+1}</span><div><div class="curriculum-pill">MODULE ${n+1} · ${done}/${g.ids.length} LESSONS</div><h3>${safeText(g.title)}</h3><p>${safeText(g.goal)}</p></div></div><span class="curriculum-chevron" aria-hidden="true">${complete?'✓':'⌄'}</span></summary>
+   <div class="curriculum-module-content">
+   ${g.ids.map((id,j)=>{const passed=!!st.scores[id]?.passed;const isNext=id===next&&!passed;return `<div class="curriculum-lesson curriculum-path-lesson ${isNext?'curriculum-next-lesson':''}"><div class="curriculum-lesson-number">${startNumber+j+1}</div><div class="text"><strong>${safeText(FULL_UNITS[id].title)}</strong><small>${passed?'✓ Completed':isNext?'Up next':'Not completed'}</small></div><button class="${passed?'secondary':''}" onclick="curriculumLesson(${id})">${passed?'Review':'Start'}</button></div>`}).join('')}
+   <div class="curriculum-check"><strong>Module ${n+1} review</strong><p>Practice material from this module.</p><button class="secondary" onclick="curriculumReview('${curriculumSelected}',${n})">Practice module</button></div>
+   </div>
   </details>`}).join('')}
- <section class="card"><h3>How this course works</h3><p>Learn the rule, see it in context, practice with new sentences, and review earlier topics. The practice games remain available separately.</p><button class="secondary" onclick="home()">Home</button></section>`;
+ <section class="card"><p>Modules organize related lessons. Complete the lessons in order, then use the module review to reinforce what you've learned.</p><button class="secondary" onclick="home()">Home</button></section>`;
  window.scrollTo(0,0);
 }
 function curriculumModuleIntro(level,n){
@@ -1970,6 +2000,42 @@ dlCheck=function(){
    const complete=q.prompt.replace('___',q.options[q.answer]);
    document.getElementById('practiceFeedback').innerHTML=`<p class="${ok?'correct':'wrong'}">${ok?'Correct!':'Correct answer: '+safeText(q.options[q.answer])}</p><p>${safeText(q.why)}</p>${q.german||q.english?`<p><strong>German:</strong> ${safeText(q.german||complete)}</p><p><strong>English:</strong> ${safeText(q.english||'')}</p>`:''}<button onclick="practiceQuiz('${mode}')">Next</button><button class="secondary" onclick="practiceHub()">Finish</button>`;
    reviewSession=null;
+ };
+})();
+</script>
+<script>
+/* Unified review entry: show saved mistakes and direct links to the relevant lesson. */
+(function(){
+ const priorReview=review;
+ review=function(){
+   ensureLearning();
+   const p=practiceState();
+   const snaps=Object.keys(p.mistakes||{}).filter(k=>k.startsWith('snap:')&&p.snapshots?.[k]);
+   const legacy=(state.mistakes||[]).filter(x=>x?.question);
+   const units=(state.learning.fullMistakes||[]).filter(x=>Number.isInteger(x.unit)&&FULL_UNITS[x.unit]);
+   const unitIds=[...new Set(units.map(x=>x.unit))];
+   const reviewCount=snaps.length+legacy.length+units.length;
+   const snapshotRows=snaps.map((key,i)=>{
+     const q=p.snapshots[key];
+     const unitId=FULL_UNITS.findIndex(u=>u.title===q.unitTitle&&u.level===q.level);
+     return `<div class="card"><p><strong>${safeText(q.prompt)}</strong></p><p>${safeText(q.level||'')} ${safeText(q.unitTitle||'')}</p><button onclick="dlReviewSaved(${i})">Practice missed questions</button>${unitId>=0?` <button class="secondary" onclick="fullStudy(${unitId})">Open lesson</button>`:''}</div>`;
+   }).join('');
+   const unitRows=unitIds.map(id=>`<div class="card"><strong>${safeText(FULL_UNITS[id].level+' · '+FULL_UNITS[id].title)}</strong><p>${units.filter(x=>x.unit===id).length} missed answer(s)</p><button onclick="fullBegin(${id})">Retake quiz</button> <button class="secondary" onclick="fullStudy(${id})">Review lesson</button></div>`).join('');
+   const legacyRow=legacy.length?`<div class="card"><p>${legacy.length} earlier missed question(s)</p><button onclick="dlLegacyReview()">Practice earlier mistakes</button></div>`:'';
+   app.innerHTML=`<section class="card"><h2>Review</h2><p>${reviewCount?`${reviewCount} missed answer records`:'No saved mistakes available yet.'}</p><p>Missed questions appear here after you check an answer. You can also retake a lesson directly.</p><button onclick="practiceHub()">Practice Hub</button> <button class="secondary" onclick="courseMenu('A1')">A1 lessons</button></section>`+snapshotRows+unitRows+legacyRow;
+ };
+ window.dlReviewSaved=function(i){const p=practiceState(),keys=Object.keys(p.mistakes||{}).filter(k=>k.startsWith('snap:')&&p.snapshots?.[k]);const key=keys[i];if(!key)return review();p.reviews[key]={step:0,due:Date.now()};save();practiceQuiz('mistakes');};
+ window.dlLegacyReview=function(){priorReview();};
+ const oldCheck=dlCheck;
+ dlCheck=function(){
+   const s=fullSession,q=s?.questions?.[s.idx],isNew=!!(q&&!dlAnswered&&dlSelected!==null);
+   if(isNew){const p=practiceState();p.snapshots??={};}
+   const result=oldCheck();
+   if(isNew&&q){
+     const p=practiceState(),key='snap:'+encodeURIComponent([q.prompt||'',(q.options||[])[q.answer]||''].join('|'));
+     if(p.snapshots?.[key]){p.snapshots[key].unitTitle=FULL_UNITS[s.id]?.title||'';p.snapshots[key].level=FULL_UNITS[s.id]?.level||'';save();}
+   }
+   return result;
  };
 })();
 </script>
