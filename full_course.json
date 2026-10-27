@@ -1,0 +1,1394 @@
+[
+  {
+    "level": "A1",
+    "title": "Numbers and ages",
+    "rule": "Numbers combine into larger numbers; in 21–99, say the ones before the tens. Age uses sein: Ich bin zwanzig Jahre alt.",
+    "examples": [
+      [
+        "eins",
+        "one"
+      ],
+      [
+        "zwölf",
+        "twelve"
+      ],
+      [
+        "einundzwanzig",
+        "twenty-one"
+      ]
+    ],
+    "checkpoint": {
+      "prompt": "Ich bin ___ Jahre alt.",
+      "options": [
+        "zwanzig",
+        "zwanziger",
+        "zwanzigsten"
+      ],
+      "answer": 0,
+      "why": "Age uses sein plus the cardinal number."
+    }
+  },
+  {
+    "level": "A1",
+    "title": "Family and possessives",
+    "rule": "Mein, dein, sein and ihr show possession. Their endings depend on the noun’s gender and case.",
+    "examples": [
+      [
+        "meine Mutter",
+        "my mother"
+      ],
+      [
+        "mein Vater",
+        "my father"
+      ],
+      [
+        "mein Bruder",
+        "my brother"
+      ]
+    ],
+    "checkpoint": {
+      "prompt": "Das ist ___ Mutter.",
+      "options": [
+        "meine",
+        "mein",
+        "meinen"
+      ],
+      "answer": 0,
+      "why": "Mutter is feminine nominative, so mein takes -e."
+    }
+  },
+  {
+    "level": "A1",
+    "title": "Food and ordering",
+    "rule": "Use ich möchte for polite requests. In cafés, nouns usually function as direct objects.",
+    "examples": [
+      [
+        "Ich möchte Wasser.",
+        "I would like water."
+      ],
+      [
+        "Ein Kaffee, bitte.",
+        "A coffee, please."
+      ],
+      [
+        "Die Rechnung, bitte.",
+        "The bill, please."
+      ]
+    ],
+    "checkpoint": {
+      "prompt": "Ich ___ einen Tee, bitte.",
+      "options": [
+        "möchte",
+        "möchten",
+        "möchtest"
+      ],
+      "answer": 0,
+      "why": "Ich takes möchte."
+    }
+  },
+  {
+    "level": "A1",
+    "title": "Days, dates and time",
+    "rule": "Days take am; clock times take um. The verb stays in second position.",
+    "examples": [
+      [
+        "am Montag",
+        "on Monday"
+      ],
+      [
+        "um acht Uhr",
+        "at eight o’clock"
+      ],
+      [
+        "heute Abend",
+        "this evening"
+      ]
+    ],
+    "checkpoint": {
+      "prompt": "Wir treffen uns ___ Montag.",
+      "options": [
+        "am",
+        "um",
+        "im"
+      ],
+      "answer": 0,
+      "why": "Use am for days of the week."
+    }
+  },
+  {
+    "level": "A1",
+    "title": "Questions and answers",
+    "rule": "W-questions begin with a question word, then the finite verb. Yes/no questions begin with the verb.",
+    "examples": [
+      [
+        "Wo wohnst du?",
+        "Where do you live?"
+      ],
+      [
+        "Wie heißt du?",
+        "What is your name?"
+      ],
+      [
+        "Hast du Zeit?",
+        "Do you have time?"
+      ]
+    ],
+    "checkpoint": {
+      "prompt": "___ kommst du?",
+      "options": [
+        "Woher",
+        "Wohin",
+        "Wannher"
+      ],
+      "answer": 0,
+      "why": "Woher asks about origin."
+    }
+  },
+  {
+    "level": "A1",
+    "title": "Negation: nicht and kein",
+    "rule": "Use kein to negate indefinite nouns; nicht to negate verbs, adjectives, or specific parts of a sentence.",
+    "examples": [
+      [
+        "Ich habe kein Auto.",
+        "I have no car."
+      ],
+      [
+        "Ich komme nicht.",
+        "I am not coming."
+      ],
+      [
+        "Das ist nicht teuer.",
+        "That is not expensive."
+      ]
+    ],
+    "checkpoint": {
+      "prompt": "Ich habe ___ Hund.",
+      "options": [
+        "keinen",
+        "nicht",
+        "kein"
+      ],
+      "answer": 0,
+      "why": "Hund is masculine accusative: keinen Hund."
+    }
+  },
+  {
+    "level": "A1",
+    "title": "Daily routines",
+    "rule": "Describe habitual actions with present tense. Time can lead a sentence, with the finite verb second.",
+    "examples": [
+      [
+        "Ich frühstücke um acht.",
+        "I have breakfast at eight."
+      ],
+      [
+        "Ich arbeite heute.",
+        "I work today."
+      ],
+      [
+        "Abends lese ich.",
+        "In the evening I read."
+      ]
+    ],
+    "checkpoint": {
+      "prompt": "Morgens ___ ich Kaffee.",
+      "options": [
+        "trinke",
+        "trinkst",
+        "trinkt"
+      ],
+      "answer": 0,
+      "why": "Ich requires trinke."
+    }
+  },
+  {
+    "level": "A1",
+    "title": "Places and directions",
+    "rule": "Use nach with most cities/countries without articles; zu with people or destinations; in with locations.",
+    "examples": [
+      [
+        "Ich fahre nach Berlin.",
+        "I travel to Berlin."
+      ],
+      [
+        "Wo ist der Bahnhof?",
+        "Where is the train station?"
+      ],
+      [
+        "Gehen Sie geradeaus.",
+        "Go straight ahead."
+      ]
+    ],
+    "checkpoint": {
+      "prompt": "Ich fahre ___ München.",
+      "options": [
+        "nach",
+        "zu dem",
+        "in dem"
+      ],
+      "answer": 0,
+      "why": "Nach is used with cities as destinations."
+    }
+  },
+  {
+    "level": "A1",
+    "title": "Greetings and introductions",
+    "rule": "Hallo is a greeting.",
+    "examples": [
+      [
+        "Hallo",
+        "Hello"
+      ],
+      [
+        "Guten Tag",
+        "Good day"
+      ],
+      [
+        "Auf Wiedersehen",
+        "Goodbye"
+      ]
+    ],
+    "checkpoint": {
+      "prompt": "Hallo means…",
+      "options": [
+        "Hello",
+        "Goodbye",
+        "Please"
+      ],
+      "answer": 0,
+      "why": "Hallo is a greeting."
+    }
+  },
+  {
+    "level": "A1",
+    "title": "Nouns and articles",
+    "rule": "Tisch is masculine: der Tisch.",
+    "examples": [
+      [
+        "der Tisch",
+        "table"
+      ],
+      [
+        "die Lampe",
+        "lamp"
+      ],
+      [
+        "das Buch",
+        "book"
+      ]
+    ],
+    "checkpoint": {
+      "prompt": "Choose the correct article: ___ Tisch",
+      "options": [
+        "die",
+        "das",
+        "der"
+      ],
+      "answer": 2,
+      "why": "Tisch is masculine: der Tisch."
+    }
+  },
+  {
+    "level": "A1",
+    "title": "Present-tense verbs",
+    "rule": "Wir takes the -en ending.",
+    "examples": [
+      [
+        "ich lerne",
+        "I learn"
+      ],
+      [
+        "du lernst",
+        "you learn"
+      ],
+      [
+        "wir lernen",
+        "we learn"
+      ]
+    ],
+    "checkpoint": {
+      "prompt": "Wir ___ Deutsch.",
+      "options": [
+        "lernen",
+        "lernt",
+        "lerne"
+      ],
+      "answer": 0,
+      "why": "Wir takes the -en ending."
+    }
+  },
+  {
+    "level": "A1",
+    "title": "Basic word order",
+    "rule": "In statements, the conjugated verb stays second.",
+    "examples": [
+      [
+        "Heute gehe ich.",
+        "Today I go."
+      ],
+      [
+        "Ich gehe heute.",
+        "I go today."
+      ],
+      [
+        "Wo wohnst du?",
+        "Where do you live?"
+      ]
+    ],
+    "checkpoint": {
+      "prompt": "Which sentence is correct?",
+      "options": [
+        "Heute ich gehe einkaufen.",
+        "Heute gehe ich einkaufen.",
+        "Heute einkaufen ich gehe."
+      ],
+      "answer": 1,
+      "why": "In statements, the conjugated verb stays second."
+    }
+  },
+  {
+    "level": "A2",
+    "title": "Two-way prepositions",
+    "rule": "In, an, auf and other two-way prepositions use accusative for direction and dative for location.",
+    "examples": [
+      [
+        "Ich gehe in die Küche.",
+        "I go into the kitchen."
+      ],
+      [
+        "Ich bin in der Küche.",
+        "I am in the kitchen."
+      ],
+      [
+        "Das Buch liegt auf dem Tisch.",
+        "The book lies on the table."
+      ]
+    ],
+    "checkpoint": {
+      "prompt": "Ich lege das Buch auf ___ Tisch.",
+      "options": [
+        "den",
+        "dem",
+        "der"
+      ],
+      "answer": 0,
+      "why": "Direction onto a masculine noun uses accusative den."
+    }
+  },
+  {
+    "level": "A2",
+    "title": "Modal verbs",
+    "rule": "Modal verbs change form with the subject and push the main infinitive to the end.",
+    "examples": [
+      [
+        "Ich muss arbeiten.",
+        "I have to work."
+      ],
+      [
+        "Du kannst kommen.",
+        "You can come."
+      ],
+      [
+        "Wir dürfen gehen.",
+        "We may leave."
+      ]
+    ],
+    "checkpoint": {
+      "prompt": "Wir ___ heute arbeiten.",
+      "options": [
+        "müssen",
+        "muss",
+        "musst"
+      ],
+      "answer": 0,
+      "why": "Wir takes müssen."
+    }
+  },
+  {
+    "level": "A2",
+    "title": "Comparatives and superlatives",
+    "rule": "Use -er to compare; am ...-sten for adverbial superlatives. Some forms are irregular.",
+    "examples": [
+      [
+        "größer als",
+        "bigger than"
+      ],
+      [
+        "besser als",
+        "better than"
+      ],
+      [
+        "am schnellsten",
+        "the fastest"
+      ]
+    ],
+    "checkpoint": {
+      "prompt": "Dieses Auto ist ___ als das andere.",
+      "options": [
+        "schneller",
+        "schnellsten",
+        "am schnell"
+      ],
+      "answer": 0,
+      "why": "Comparative of schnell is schneller."
+    }
+  },
+  {
+    "level": "A2",
+    "title": "Reflexive verbs",
+    "rule": "Reflexive pronouns refer back to the subject; their case depends on the verb.",
+    "examples": [
+      [
+        "Ich freue mich.",
+        "I am happy."
+      ],
+      [
+        "Du erinnerst dich.",
+        "You remember."
+      ],
+      [
+        "Wir beeilen uns.",
+        "We hurry."
+      ]
+    ],
+    "checkpoint": {
+      "prompt": "Ich interessiere ___.",
+      "options": [
+        "mich",
+        "mir",
+        "dich"
+      ],
+      "answer": 0,
+      "why": "Sich interessieren takes an accusative reflexive pronoun."
+    }
+  },
+  {
+    "level": "A2",
+    "title": "Imperatives and requests",
+    "rule": "Commands use different forms for du, ihr and Sie. The polite imperative uses infinitive + Sie.",
+    "examples": [
+      [
+        "Komm bitte!",
+        "Come, please!"
+      ],
+      [
+        "Kommt bitte!",
+        "Come, everyone!"
+      ],
+      [
+        "Kommen Sie bitte!",
+        "Please come!"
+      ]
+    ],
+    "checkpoint": {
+      "prompt": "___ Sie bitte langsam.",
+      "options": [
+        "Sprechen",
+        "Sprich",
+        "Sprecht"
+      ],
+      "answer": 0,
+      "why": "Formal Sie imperative uses infinitive + Sie."
+    }
+  },
+  {
+    "level": "A2",
+    "title": "Adjective endings",
+    "rule": "Adjective endings depend on case, gender, and preceding article. After der in nominative masculine, use -e.",
+    "examples": [
+      [
+        "der kleine Hund",
+        "the small dog"
+      ],
+      [
+        "ein kleiner Hund",
+        "a small dog"
+      ],
+      [
+        "mit dem kleinen Hund",
+        "with the small dog"
+      ]
+    ],
+    "checkpoint": {
+      "prompt": "Das ist der ___ Hund.",
+      "options": [
+        "kleine",
+        "kleiner",
+        "kleinen"
+      ],
+      "answer": 0,
+      "why": "After der in nominative masculine, adjective ends -e."
+    }
+  },
+  {
+    "level": "A2",
+    "title": "Future plans",
+    "rule": "Present tense with a future time word often expresses plans; werden + infinitive explicitly marks future.",
+    "examples": [
+      [
+        "Morgen fahre ich weg.",
+        "I am leaving tomorrow."
+      ],
+      [
+        "Ich werde lernen.",
+        "I will study."
+      ],
+      [
+        "Nächste Woche habe ich frei.",
+        "I am off next week."
+      ]
+    ],
+    "checkpoint": {
+      "prompt": "Ich ___ morgen anrufen.",
+      "options": [
+        "werde",
+        "wurde",
+        "worden"
+      ],
+      "answer": 0,
+      "why": "Werden + infinitive forms future tense."
+    }
+  },
+  {
+    "level": "A2",
+    "title": "Travel and hotels",
+    "rule": "Use polite requests and practical questions when checking in or traveling.",
+    "examples": [
+      [
+        "Ich habe reserviert.",
+        "I have a reservation."
+      ],
+      [
+        "Wo ist Gleis drei?",
+        "Where is platform three?"
+      ],
+      [
+        "Ein Zimmer für zwei Nächte.",
+        "A room for two nights."
+      ]
+    ],
+    "checkpoint": {
+      "prompt": "Ich habe ein Zimmer ___.",
+      "options": [
+        "reserviert",
+        "reservieren",
+        "reserviere"
+      ],
+      "answer": 0,
+      "why": "Perfekt uses habe + past participle reserviert."
+    }
+  },
+  {
+    "level": "A2",
+    "title": "Accusative articles",
+    "rule": "Masculine der becomes den in accusative.",
+    "examples": [
+      [
+        "der Hund → den Hund",
+        "the dog (object)"
+      ],
+      [
+        "einen Apfel",
+        "an apple (object)"
+      ],
+      [
+        "die Katze",
+        "the cat (object)"
+      ]
+    ],
+    "checkpoint": {
+      "prompt": "Ich sehe ___ Hund.",
+      "options": [
+        "den",
+        "dem",
+        "der"
+      ],
+      "answer": 0,
+      "why": "Masculine der becomes den in accusative."
+    }
+  },
+  {
+    "level": "A2",
+    "title": "Dative articles",
+    "rule": "Helfen takes dative; die Frau becomes der Frau.",
+    "examples": [
+      [
+        "mit dem Hund",
+        "with the dog"
+      ],
+      [
+        "bei der Frau",
+        "at the woman's"
+      ],
+      [
+        "mit einem Kind",
+        "with a child"
+      ]
+    ],
+    "checkpoint": {
+      "prompt": "Ich helfe ___ Frau.",
+      "options": [
+        "die",
+        "der",
+        "den"
+      ],
+      "answer": 1,
+      "why": "Helfen takes dative; die Frau becomes der Frau."
+    }
+  },
+  {
+    "level": "A2",
+    "title": "Perfect tense",
+    "rule": "Kochen forms Perfekt with haben.",
+    "examples": [
+      [
+        "ich habe gelernt",
+        "I learned"
+      ],
+      [
+        "sie ist gefahren",
+        "she traveled"
+      ],
+      [
+        "wir haben gekocht",
+        "we cooked"
+      ]
+    ],
+    "checkpoint": {
+      "prompt": "Gestern ___ ich gekocht.",
+      "options": [
+        "bin",
+        "habe",
+        "werde"
+      ],
+      "answer": 1,
+      "why": "Kochen forms Perfekt with haben."
+    }
+  },
+  {
+    "level": "A2",
+    "title": "Separable verbs",
+    "rule": "Aufstehen separates in a main clause.",
+    "examples": [
+      [
+        "ich stehe auf",
+        "I get up"
+      ],
+      [
+        "ich kaufe ein",
+        "I shop"
+      ],
+      [
+        "ich rufe an",
+        "I call"
+      ]
+    ],
+    "checkpoint": {
+      "prompt": "Ich ___ um sieben Uhr ___.",
+      "options": [
+        "stehe … auf",
+        "aufstehe … —",
+        "stehe … an"
+      ],
+      "answer": 0,
+      "why": "Aufstehen separates in a main clause."
+    }
+  },
+  {
+    "level": "B1",
+    "title": "Genitive case",
+    "rule": "Genitive shows relationships and possession; masculine and neuter articles use des and many nouns take -s/-es.",
+    "examples": [
+      [
+        "das Auto meines Bruders",
+        "my brother’s car"
+      ],
+      [
+        "wegen des Wetters",
+        "because of the weather"
+      ],
+      [
+        "die Tür des Hauses",
+        "the door of the house"
+      ]
+    ],
+    "checkpoint": {
+      "prompt": "Wegen ___ Wetters bleiben wir zu Hause.",
+      "options": [
+        "des schlechten",
+        "dem schlechten",
+        "den schlechten"
+      ],
+      "answer": 0,
+      "why": "Wegen often takes genitive in formal German."
+    }
+  },
+  {
+    "level": "B1",
+    "title": "Infinitive with zu",
+    "rule": "Infinitive clauses use zu; with separable verbs, zu goes between prefix and stem.",
+    "examples": [
+      [
+        "Ich versuche zu lernen.",
+        "I try to study."
+      ],
+      [
+        "Es ist wichtig, pünktlich zu sein.",
+        "It is important to be on time."
+      ],
+      [
+        "Ich plane aufzustehen.",
+        "I plan to get up."
+      ]
+    ],
+    "checkpoint": {
+      "prompt": "Ich versuche, früher ___ gehen.",
+      "options": [
+        "zu",
+        "um",
+        "bei"
+      ],
+      "answer": 0,
+      "why": "Infinitive construction uses zu + infinitive."
+    }
+  },
+  {
+    "level": "B1",
+    "title": "Past narratives: Präteritum",
+    "rule": "Präteritum is common in writing and with sein, haben and modal verbs in speech.",
+    "examples": [
+      [
+        "Ich war müde.",
+        "I was tired."
+      ],
+      [
+        "Wir hatten Zeit.",
+        "We had time."
+      ],
+      [
+        "Er ging nach Hause.",
+        "He went home."
+      ]
+    ],
+    "checkpoint": {
+      "prompt": "Gestern ___ ich krank.",
+      "options": [
+        "war",
+        "bin",
+        "wäre"
+      ],
+      "answer": 0,
+      "why": "War is Präteritum of sein."
+    }
+  },
+  {
+    "level": "B1",
+    "title": "Giving reasons and consequences",
+    "rule": "Weil introduces a subordinate reason clause; deshalb introduces a main clause with inversion.",
+    "examples": [
+      [
+        "Ich bin müde, weil ich arbeite.",
+        "I am tired because I work."
+      ],
+      [
+        "Es regnet, deshalb bleibe ich hier.",
+        "It rains, so I stay here."
+      ],
+      [
+        "Da es spät ist, gehen wir.",
+        "Since it is late, we leave."
+      ]
+    ],
+    "checkpoint": {
+      "prompt": "Es regnet. Deshalb ___ ich zu Hause.",
+      "options": [
+        "bleibe",
+        "ich bleibe",
+        "bleiben"
+      ],
+      "answer": 0,
+      "why": "After deshalb in first position, the finite verb comes next."
+    }
+  },
+  {
+    "level": "B1",
+    "title": "Describing experiences",
+    "rule": "Use Perfekt for events and descriptive phrases for reactions. Explain when and why things happened.",
+    "examples": [
+      [
+        "Ich habe viel gelernt.",
+        "I learned a lot."
+      ],
+      [
+        "Es hat mir gefallen.",
+        "I liked it."
+      ],
+      [
+        "Ich habe mich geärgert.",
+        "I was annoyed."
+      ]
+    ],
+    "checkpoint": {
+      "prompt": "Der Film hat mir ___.",
+      "options": [
+        "gefallen",
+        "gefällt",
+        "gefallt"
+      ],
+      "answer": 0,
+      "why": "Gefallen forms Perfekt with hat + gefallen."
+    }
+  },
+  {
+    "level": "B1",
+    "title": "Conditional sentences",
+    "rule": "Use wenn + verb-final clause for conditions. Konjunktiv II marks unreal or hypothetical conditions.",
+    "examples": [
+      [
+        "Wenn ich Zeit habe, komme ich.",
+        "If I have time, I will come."
+      ],
+      [
+        "Wenn ich reich wäre, reiste ich.",
+        "If I were rich, I would travel."
+      ],
+      [
+        "Ich würde gern helfen.",
+        "I would like to help."
+      ]
+    ],
+    "checkpoint": {
+      "prompt": "Wenn ich Zeit hätte, ___ ich kommen.",
+      "options": [
+        "würde",
+        "werde",
+        "bin"
+      ],
+      "answer": 0,
+      "why": "Hypothetical conditional uses würde."
+    }
+  },
+  {
+    "level": "B1",
+    "title": "Opinions and discussion",
+    "rule": "Support opinions with reasons and contrasting views; achten Sie auf the verb position after dass.",
+    "examples": [
+      [
+        "Meiner Meinung nach…",
+        "In my opinion…"
+      ],
+      [
+        "Ich stimme dir zu.",
+        "I agree with you."
+      ],
+      [
+        "Ich denke, dass das stimmt.",
+        "I think that is correct."
+      ]
+    ],
+    "checkpoint": {
+      "prompt": "Ich glaube, dass er recht ___.",
+      "options": [
+        "hat",
+        "haben",
+        "habe"
+      ],
+      "answer": 0,
+      "why": "Dass sends the finite verb to the end."
+    }
+  },
+  {
+    "level": "B1",
+    "title": "Work and appointments",
+    "rule": "Discuss scheduling, workplace requests, and obligations using polite structures.",
+    "examples": [
+      [
+        "Können wir den Termin verschieben?",
+        "Can we reschedule the appointment?"
+      ],
+      [
+        "Ich bewerbe mich um eine Stelle.",
+        "I am applying for a job."
+      ],
+      [
+        "Ich bin für das Projekt zuständig.",
+        "I am responsible for the project."
+      ]
+    ],
+    "checkpoint": {
+      "prompt": "Ich bewerbe mich ___ die Stelle.",
+      "options": [
+        "um",
+        "für",
+        "mit"
+      ],
+      "answer": 0,
+      "why": "Sich bewerben um + accusative is the fixed phrase."
+    }
+  },
+  {
+    "level": "B1",
+    "title": "Subordinate clauses",
+    "rule": "After weil, the conjugated verb goes to the end.",
+    "examples": [
+      [
+        "weil ich müde bin",
+        "because I am tired"
+      ],
+      [
+        "dass er kommt",
+        "that he is coming"
+      ],
+      [
+        "ob sie Zeit hat",
+        "whether she has time"
+      ]
+    ],
+    "checkpoint": {
+      "prompt": "Ich bleibe zu Hause, weil ich krank ___.",
+      "options": [
+        "bin",
+        "sein",
+        "ist"
+      ],
+      "answer": 0,
+      "why": "After weil, the conjugated verb goes to the end."
+    }
+  },
+  {
+    "level": "B1",
+    "title": "Relative clauses",
+    "rule": "The subject of the relative clause is nominative masculine: der.",
+    "examples": [
+      [
+        "der Mann, der…",
+        "the man who…"
+      ],
+      [
+        "die Frau, die…",
+        "the woman who…"
+      ],
+      [
+        "das Kind, das…",
+        "the child that…"
+      ]
+    ],
+    "checkpoint": {
+      "prompt": "Das ist der Mann, ___ hier arbeitet.",
+      "options": [
+        "den",
+        "der",
+        "dem"
+      ],
+      "answer": 1,
+      "why": "The subject of the relative clause is nominative masculine: der."
+    }
+  },
+  {
+    "level": "B1",
+    "title": "Konjunktiv II",
+    "rule": "Hypothetical statements often use würde + infinitive.",
+    "examples": [
+      [
+        "ich würde gern…",
+        "I would like to…"
+      ],
+      [
+        "wenn ich könnte…",
+        "if I could…"
+      ],
+      [
+        "ich hätte gern…",
+        "I would like to have…"
+      ]
+    ],
+    "checkpoint": {
+      "prompt": "Wenn ich mehr Zeit hätte, ___ ich reisen.",
+      "options": [
+        "werde",
+        "würde",
+        "habe"
+      ],
+      "answer": 1,
+      "why": "Hypothetical statements often use würde + infinitive."
+    }
+  },
+  {
+    "level": "B1",
+    "title": "Prepositions and cases",
+    "rule": "Sich interessieren für takes accusative.",
+    "examples": [
+      [
+        "sich interessieren für",
+        "to be interested in"
+      ],
+      [
+        "warten auf",
+        "to wait for"
+      ],
+      [
+        "sprechen mit",
+        "to speak with"
+      ]
+    ],
+    "checkpoint": {
+      "prompt": "Ich interessiere mich ___ Musik.",
+      "options": [
+        "an",
+        "für",
+        "mit"
+      ],
+      "answer": 1,
+      "why": "Sich interessieren für takes accusative."
+    }
+  },
+  {
+    "level": "B2",
+    "title": "Nominalization",
+    "rule": "Nominalization turns verbs/adjectives into nouns, common in formal German. Infinitive nouns are neuter and capitalized.",
+    "examples": [
+      [
+        "das Lernen",
+        "learning"
+      ],
+      [
+        "beim Lesen",
+        "while reading"
+      ],
+      [
+        "die Entscheidung",
+        "the decision"
+      ]
+    ],
+    "checkpoint": {
+      "prompt": "___ fällt mir leicht.",
+      "options": [
+        "Das Lesen",
+        "Der Lesen",
+        "Die Lesen"
+      ],
+      "answer": 0,
+      "why": "Nominalized infinitives are neuter."
+    }
+  },
+  {
+    "level": "B2",
+    "title": "Participial adjectives",
+    "rule": "Present participles describe ongoing action; past participles often describe results. Adjective endings still apply.",
+    "examples": [
+      [
+        "der wartende Mann",
+        "the waiting man"
+      ],
+      [
+        "die geschlossene Tür",
+        "the closed door"
+      ],
+      [
+        "ein geschriebenes Buch",
+        "a written book"
+      ]
+    ],
+    "checkpoint": {
+      "prompt": "Die ___ Tür ist zu.",
+      "options": [
+        "geschlossene",
+        "schließende",
+        "geschlossenes"
+      ],
+      "answer": 0,
+      "why": "Past participle geschlossen describes a closed state; feminine definite adjective ends -e."
+    }
+  },
+  {
+    "level": "B2",
+    "title": "Passive with modal verbs",
+    "rule": "Modal passive uses modal verb + past participle + werden; the modal verb is finite.",
+    "examples": [
+      [
+        "Der Vertrag muss unterschrieben werden.",
+        "The contract must be signed."
+      ],
+      [
+        "Das kann erklärt werden.",
+        "That can be explained."
+      ],
+      [
+        "Die Aufgabe soll erledigt werden.",
+        "The task should be completed."
+      ]
+    ],
+    "checkpoint": {
+      "prompt": "Der Brief muss heute ___ werden.",
+      "options": [
+        "geschrieben",
+        "schreiben",
+        "schreibt"
+      ],
+      "answer": 0,
+      "why": "Passive with modal uses past participle + werden."
+    }
+  },
+  {
+    "level": "B2",
+    "title": "Advanced relative clauses",
+    "rule": "Relative clauses may use prepositions and genitive pronouns. Prepositions determine the pronoun’s case.",
+    "examples": [
+      [
+        "der Mann, mit dem ich spreche",
+        "the man I speak with"
+      ],
+      [
+        "die Frau, deren Auto…",
+        "the woman whose car…"
+      ],
+      [
+        "das Thema, über das wir sprechen",
+        "the topic we discuss"
+      ]
+    ],
+    "checkpoint": {
+      "prompt": "Die Frau, mit ___ ich spreche, ist nett.",
+      "options": [
+        "der",
+        "die",
+        "den"
+      ],
+      "answer": 0,
+      "why": "Mit requires dative; feminine relative pronoun is der."
+    }
+  },
+  {
+    "level": "B2",
+    "title": "Complex argumentation",
+    "rule": "Use concessive and contrasting connectors to organize arguments. Mind verb placement.",
+    "examples": [
+      [
+        "einerseits … andererseits",
+        "on the one hand … on the other"
+      ],
+      [
+        "im Gegensatz dazu",
+        "in contrast"
+      ],
+      [
+        "dennoch",
+        "nevertheless"
+      ]
+    ],
+    "checkpoint": {
+      "prompt": "___ die Kosten hoch sind, lohnt es sich.",
+      "options": [
+        "Obwohl",
+        "Weil",
+        "Damit"
+      ],
+      "answer": 0,
+      "why": "Obwohl expresses concession, despite high costs."
+    }
+  },
+  {
+    "level": "B2",
+    "title": "Konjunktiv I and sources",
+    "rule": "Use Konjunktiv I in formal reporting to distinguish a source’s claim from your own assertion.",
+    "examples": [
+      [
+        "Er sagte, er sei müde.",
+        "He said he was tired."
+      ],
+      [
+        "Sie erklärte, sie habe Zeit.",
+        "She stated she had time."
+      ],
+      [
+        "laut dem Bericht",
+        "according to the report"
+      ]
+    ],
+    "checkpoint": {
+      "prompt": "Die Sprecherin sagt, die Lage ___ stabil.",
+      "options": [
+        "sei",
+        "ist",
+        "wäre"
+      ],
+      "answer": 0,
+      "why": "Konjunktiv I of sein for third-person singular is sei."
+    }
+  },
+  {
+    "level": "B2",
+    "title": "Register and politeness",
+    "rule": "Choose formal or informal register based on context; indirect questions are more polite and use verb-final order.",
+    "examples": [
+      [
+        "Könnten Sie mir sagen…?",
+        "Could you tell me…?"
+      ],
+      [
+        "Wäre es möglich…?",
+        "Would it be possible…?"
+      ],
+      [
+        "Ich würde mich freuen.",
+        "I would be pleased."
+      ]
+    ],
+    "checkpoint": {
+      "prompt": "Wissen Sie, wann der Zug ___?",
+      "options": [
+        "kommt",
+        "kommen",
+        "komme"
+      ],
+      "answer": 0,
+      "why": "Indirect question uses verb-final clause."
+    }
+  },
+  {
+    "level": "B2",
+    "title": "Text cohesion and precision",
+    "rule": "Use references, paraphrases and cohesive adverbs to avoid repetition and show relationships between claims.",
+    "examples": [
+      [
+        "darüber hinaus",
+        "furthermore"
+      ],
+      [
+        "folglich",
+        "consequently"
+      ],
+      [
+        "hingegen",
+        "by contrast"
+      ]
+    ],
+    "checkpoint": {
+      "prompt": "Er hat wenig gelernt; ___ hat er bestanden.",
+      "options": [
+        "dennoch",
+        "deshalb",
+        "folglich"
+      ],
+      "answer": 0,
+      "why": "Dennoch signals an unexpected result despite little study."
+    }
+  },
+  {
+    "level": "B2",
+    "title": "Passive voice",
+    "rule": "Past passive uses wurde + past participle.",
+    "examples": [
+      [
+        "wird gemacht",
+        "is being done"
+      ],
+      [
+        "wurde gemacht",
+        "was done"
+      ],
+      [
+        "ist gemacht worden",
+        "has been done"
+      ]
+    ],
+    "checkpoint": {
+      "prompt": "Der Brief ___ gestern geschrieben.",
+      "options": [
+        "wird",
+        "wurde",
+        "würde"
+      ],
+      "answer": 1,
+      "why": "Past passive uses wurde + past participle."
+    }
+  },
+  {
+    "level": "B2",
+    "title": "Advanced connectors",
+    "rule": "Obwohl introduces a concession: although.",
+    "examples": [
+      [
+        "obwohl",
+        "although"
+      ],
+      [
+        "dennoch",
+        "nevertheless"
+      ],
+      [
+        "während",
+        "while"
+      ]
+    ],
+    "checkpoint": {
+      "prompt": "___ es regnete, gingen wir spazieren.",
+      "options": [
+        "Obwohl",
+        "Weil",
+        "Damit"
+      ],
+      "answer": 0,
+      "why": "Obwohl introduces a concession: although."
+    }
+  },
+  {
+    "level": "B2",
+    "title": "Reported speech",
+    "rule": "Konjunktiv I (er habe) is used for reported speech.",
+    "examples": [
+      [
+        "er habe gesagt",
+        "he reportedly said"
+      ],
+      [
+        "sie sei gekommen",
+        "she reportedly came"
+      ],
+      [
+        "laut Bericht",
+        "according to the report"
+      ]
+    ],
+    "checkpoint": {
+      "prompt": "Er sagt, er ___ keine Zeit.",
+      "options": [
+        "habe",
+        "hatte",
+        "hätte"
+      ],
+      "answer": 0,
+      "why": "Konjunktiv I (er habe) is used for reported speech."
+    }
+  },
+  {
+    "level": "B2",
+    "title": "Nuanced vocabulary",
+    "rule": "Here allerdings emphasizes the statement: indeed.",
+    "examples": [
+      [
+        "allerdings",
+        "indeed / however"
+      ],
+      [
+        "hingegen",
+        "by contrast"
+      ],
+      [
+        "durchaus",
+        "certainly / quite"
+      ]
+    ],
+    "checkpoint": {
+      "prompt": "Was bedeutet „allerdings“ hier: „Das ist allerdings schwierig“?",
+      "options": [
+        "however",
+        "indeed",
+        "possibly"
+      ],
+      "answer": 1,
+      "why": "Here allerdings emphasizes the statement: indeed."
+    }
+  }
+]
