@@ -3585,7 +3585,7 @@ window.findItTap=function(i){
   const roomCat=app.querySelector('.findit-scene');if(roomCat){roomCat.classList.add('findit-cat-happy');setTimeout(()=>roomCat.classList.remove('findit-cat-happy'),1100)}
   const phrase=praises[session.idx%praises.length];session.phrase=phrase[0];
   feedback(phrase[0],phrase[1]+' · '+target.de+' = '+target.en,true);
-  const bubble=document.createElement('div');bubble.className='findit-cat-speech';bubble.innerHTML='<strong>'+phrase[0]+'</strong>';const room=app.querySelector('.findit-scene');if(room)room.appendChild(bubble);
+  
   if(advance)clearTimeout(advance);
   advance=setTimeout(()=>{if(!session)return;session.idx++;render()},1800);
  }else{
@@ -3674,8 +3674,8 @@ html body.dl-home-banner.dl-compact-header .app-header .menu-toggle {
 .findit-scene .findit-target:focus-visible{outline:2px dashed #fff!important;outline-offset:-3px!important}
 .findit-scene.findit-celebrate .findit-room-art{animation:none!important}
 .findit-scene.findit-cat-happy::after,.findit-scene.findit-cat-sad::after{position:absolute;left:8%;bottom:23%;z-index:6;display:grid;place-items:center;width:18%;aspect-ratio:1;border-radius:50%;background:#fff7e9;color:#25435a;font-size:clamp(25px,8vw,49px);box-shadow:0 4px 12px #0006;pointer-events:none}
-.findit-scene.findit-cat-happy::after{content:'😺';animation:dl-cat-pop .55s ease 2}
-.findit-scene.findit-cat-sad::after{content:'😿';animation:dl-cat-no .42s ease 2}
+.findit-scene.findit-cat-happy::after{content:none;display:none}
+.findit-scene.findit-cat-sad::after{content:none;display:none}
 @keyframes dl-cat-pop{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-9px) scale(1.12)}}
 @keyframes dl-cat-no{0%,100%{transform:rotate(0)}30%{transform:rotate(-13deg)}70%{transform:rotate(13deg)}}
 </style><style>.dl-pronunciation h3{font-size:2rem;margin-bottom:0}.dl-pronunciation button{margin:5px}.dl-sound-navigation{display:flex;justify-content:space-between;gap:8px;margin-top:20px}.dl-sound-navigation button{flex:1}</style></body></html>
