@@ -45,7 +45,20 @@
 .curriculum-path-module .curriculum-check{padding:16px}
 @media(max-width:390px){.curriculum-path-lesson{gap:7px;padding:12px 8px}.curriculum-path-lesson button{min-width:68px;max-width:72px;padding:10px 6px}}
 </style>
-</head><body><main><header class="app-header"><button class="menu-toggle" onclick="toggleMenu(true)" aria-label="Open navigation menu" aria-controls="sideMenu" aria-expanded="false">☰</button><div><h1>DeutschLab 🇩🇪</h1><p class="muted">German practice studio</p></div></header><div id="menuBackdrop" class="menu-backdrop" onclick="toggleMenu(false)" hidden></div><nav id="sideMenu" class="side-menu" aria-label="Main navigation" aria-hidden="true"><div class="menu-heading"><strong>DeutschLab</strong><button class="menu-close secondary" onclick="toggleMenu(false)" aria-label="Close menu">✕</button></div><p class="muted">LEARN</p><button onclick="navigateTo('home')">⌂ Home</button><button onclick="navigateTo('placement')">◈ Placement test</button><button onclick="navigateTo('lessonMenu')">▤ Lessons</button><button onclick="navigateTo('articleHome')">◉ Noun Articles</button><p class="muted">PRACTICE</p><button onclick="navigateTo('review')">↻ Review</button><button onclick="navigateTo('conversation')">☏ Dialogue</button><button onclick="navigateTo('aiTutor')">✦ AI Tutor & Voice</button></nav><div id="app"></div></main><script>
+<style id="dl-module-contrast-fix">
+/* Visually distinguish module headers from the lesson rows inside them. */
+.curriculum-path-module{background:#14283a;border:1px solid #5a8790;box-shadow:0 9px 24px #050c1840}
+.curriculum-path-module>summary{background:linear-gradient(125deg,#235968,#1b4557);border-left:5px solid #76d8c6;min-height:108px}
+.curriculum-path-module:nth-of-type(even)>summary{background:linear-gradient(125deg,#314966,#253951);border-left-color:#a5b9f2}
+.curriculum-path-module[open]>summary{border-bottom:2px solid #76d8c680}
+.curriculum-path-module .curriculum-module-number{background:#77d6c4;color:#12323b}
+.curriculum-path-module:nth-of-type(even) .curriculum-module-number{background:#b1c3f0;color:#1b2a47}
+.curriculum-path-module .curriculum-pill{color:#b6f1e3}
+.curriculum-path-module .curriculum-module-content{background:#102337;padding:5px 0}
+.curriculum-path-module .curriculum-path-lesson{margin:5px 9px;border:1px solid #45627b;border-radius:12px;background:#20354b}
+.curriculum-path-module .curriculum-path-lesson:nth-child(even){background:#263d55}
+.curriculum-path-module .curriculum-check{margin:8px 9px 5px;border-radius:12px;background:#1b3943}
+</style></head><body><main><header class="app-header"><button class="menu-toggle" onclick="toggleMenu(true)" aria-label="Open navigation menu" aria-controls="sideMenu" aria-expanded="false">☰</button><div><h1>DeutschLab 🇩🇪</h1><p class="muted">German practice studio</p></div></header><div id="menuBackdrop" class="menu-backdrop" onclick="toggleMenu(false)" hidden></div><nav id="sideMenu" class="side-menu" aria-label="Main navigation" aria-hidden="true"><div class="menu-heading"><strong>DeutschLab</strong><button class="menu-close secondary" onclick="toggleMenu(false)" aria-label="Close menu">✕</button></div><p class="muted">LEARN</p><button onclick="navigateTo('home')">⌂ Home</button><button onclick="navigateTo('placement')">◈ Placement test</button><button onclick="navigateTo('lessonMenu')">▤ Lessons</button><button onclick="navigateTo('articleHome')">◉ Noun Articles</button><p class="muted">PRACTICE</p><button onclick="navigateTo('review')">↻ Review</button><button onclick="navigateTo('conversation')">☏ Dialogue</button><button onclick="navigateTo('aiTutor')">✦ AI Tutor & Voice</button></nav><div id="app"></div></main><script>
 function dlAudioExample(value){
   // Read only the German example, not symbols or explanatory annotations.
   return String(value).replace(/\s*[→⇒]\s*/g, ', ').replace(/\s*\([^)]*\)/g, '').trim();
@@ -2108,4 +2121,93 @@ fullBegin=async function(id){
  return dlA1ExpansionOldBegin(id);
 };
 </script>
-</body></html>
+<script>
+/* Feedback de-duplication: explanations must teach, not restate translations. */
+(function(){
+  function current(){const s=fullSession;return s?.questions?.[s.idx]||null;}
+  function clean(v){return String(v||'').replace(/[“”"'‘’]/g,'').replace(/\s+/g,' ').trim().toLowerCase().replace(/[.!?]+$/,'');}
+  function isTranslationOnly(q){
+    const why=clean(q?.why),de=clean(q?.german),en=clean(q?.english);
+    if(!why)return true;
+    if(de&&en&&(why.includes(de)&&why.includes(en)))return true;
+    if(/^the correct sentence is\b|^the correct answer is\b|^the sentence means\b|^this means\b|^.+ means .+$/i.test(why))return true;
+    return false;
+  }
+  function explanation(q){
+    if(!q)return '';
+    const de=String(q.german||'');
+    if(/\bnicht\b/i.test(de)){
+      if(/\bkomme nicht\b/i.test(de))return 'Nicht negates the action here. In this short main clause it follows the conjugated verb komme.';
+      return 'Nicht negates a verb, adjective, or phrase. Its position depends on which part of the sentence is being negated.';
+    }
+    return isTranslationOnly(q)?'':String(q.why||'').trim();
+  }
+  function updateHelp(){
+    const q=current(),tip=document.getElementById('dl-tip'),btn=document.getElementById('dl-help-btn');
+    if(!tip||!btn||!q)return;
+    const detail=explanation(q);
+    if(!detail){tip.hidden=true;btn.hidden=true;return;}
+    btn.hidden=false;
+    const paragraph=tip.querySelector('p');if(paragraph)paragraph.textContent=detail;
+  }
+  const previousRender=fullRender;
+  fullRender=function(){const result=previousRender.apply(this,arguments);updateHelp();return result;};
+  const previousCheck=dlCheck;
+  dlCheck=function(){
+    const q=current(),answer=q?.options?.[q.answer];
+    const result=previousCheck.apply(this,arguments);
+    if(!q||!dlAnswered)return result;
+    const box=document.querySelector('#dl-result .dl-flow-feedback');
+    if(!box)return result;
+    const paragraphs=[...box.querySelectorAll(':scope > p')];
+    // Correct choice is already highlighted above; do not repeat it.
+    if(paragraphs[0]&&clean(paragraphs[0].textContent)===clean(answer))paragraphs[0].remove();
+    // Translation-only 'why' is redundant; reserve explanation for actual grammar.
+    if(paragraphs[1]){
+      const detail=explanation(q);
+      if(detail)paragraphs[1].textContent=detail;
+      else paragraphs[1].remove();
+    }
+    const prompt=clean(q.prompt),options=(q.options||[]).map(clean);
+    const hasGerman=!!q.german&&(prompt.includes(clean(q.german))||options.includes(clean(q.german)));
+    const hasEnglish=!!q.english&&(prompt.includes(clean(q.english))||options.includes(clean(q.english)));
+    // Only display a translation when it supplies a language missing from the exercise.
+    box.querySelectorAll('.dl-a1-translation,.dl-article-translation').forEach(block=>{
+      if(hasGerman&&hasEnglish){block.remove();return;}
+      const lines=[...block.querySelectorAll('p')];
+      for(const line of lines){
+        const label=line.querySelector('strong')?.textContent?.toLowerCase()||'';
+        if((hasGerman&&/german/.test(label))||(hasEnglish&&/english/.test(label)))line.remove();
+      }
+      if(!block.querySelector('p'))block.remove();
+    });
+    updateHelp();
+    return result;
+  };
+})();
+</script>
+<script>
+/* Guard against incomplete learning-path rendering during asynchronous initialization. */
+(function(){
+ const renderPath=curriculumView;
+ let generation=0;
+ curriculumView=function(level){
+  const token=++generation;
+  try{
+   renderPath(level);
+  }catch(error){
+   console.error('Learning path rendering failed',error);
+   const root=document.getElementById('app');
+   if(root)root.innerHTML='<section class="card"><h2>Lessons could not load</h2><p>Please try opening the learning path again.</p><button onclick="curriculumView(&quot;A1&quot;)">Retry lessons</button></section>';
+   return;
+  }
+  const root=document.getElementById('app');
+  if(root&&!root.querySelector('.curriculum-path-module')){
+   requestAnimationFrame(()=>{
+    if(token!==generation)return;
+    try{renderPath(level)}catch(error){console.error('Learning path retry failed',error)}
+   });
+  }
+ };
+})();
+</script></body></html>
