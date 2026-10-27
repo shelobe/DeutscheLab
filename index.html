@@ -60,7 +60,7 @@
 .curriculum-path-module .curriculum-check{margin:8px 9px 5px;border-radius:12px;background:#1b3943}
 </style><style id="dl-nature-background">
 /* Global, quiet nature backdrop derived from the approved DeutschLab scene. */
-html{min-height:100%;background:#0d2630 url('./nature_background.webp') center center/cover fixed no-repeat}
+html{min-height:100%;background:#0d2630 url('./nature_background.webp?v=2') center center/cover fixed no-repeat}
 body{min-height:100vh;background:linear-gradient(180deg,rgba(7,20,32,.30),rgba(8,22,33,.52))!important;background-attachment:fixed!important}
 .card,.curriculum-path-module,.curriculum-summary,.app-header,.side-menu{backdrop-filter:blur(13px);-webkit-backdrop-filter:blur(13px)}
 .card{background-color:rgba(20,39,55,.94)}
@@ -2234,6 +2234,13 @@ fullBegin=async function(id){
  window.nextDialogueStep=function(){step++;showStep()};
 })();
 </script><style>
+/* Current avatar in hamburger navigation */
+#sideMenu .menu-heading{display:flex;align-items:center;gap:10px}
+#sideMenu .menu-heading .menu-close{margin-left:auto}
+.dl-menu-avatar{width:48px;height:48px;object-fit:cover;border-radius:14px;border:2px solid #6bd0b9;background:#244a59;flex-shrink:0}
+#sideMenu .dl-menu-profile-link{display:flex;flex-direction:column;align-items:flex-start;gap:3px;text-align:left}
+.dl-menu-avatar-name{font-weight:750}
+.dl-menu-profile-sub{font-size:.82em;opacity:.78}
 /* XP rewards and selectable animal profile avatars */
 .dl-profile-top{display:flex;gap:16px;align-items:center;flex-wrap:wrap}.dl-avatar-large{width:94px;height:94px;border-radius:24px;background:#244a59;display:grid;place-items:center;border:2px solid #74cfc1;overflow:hidden}.dl-avatar-large .dl-animal-art{width:100%;height:100%;object-fit:cover}.dl-avatar-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.dl-avatar-option{min-height:154px!important;display:flex!important;flex-direction:column;align-items:center;justify-content:center;gap:6px!important;background:#203b50!important;border:2px solid #4a7380!important;color:#eefaf8!important;border-radius:18px!important;white-space:normal!important}.dl-avatar-option.selected{border-color:#76dec7!important;background:#295c60!important}.dl-avatar-option.locked{opacity:.66}.dl-avatar-option .dl-animal-art{display:block;width:100%;max-width:185px;aspect-ratio:1.55;object-fit:cover;border-radius:14px;margin-bottom:5px}.dl-rank-track{height:13px;border-radius:12px;background:#385064;overflow:hidden;margin:12px 0}.dl-rank-track>div{height:100%;background:#6bd0b9;border-radius:12px}.dl-badge{padding:12px;border-radius:14px;border:1px solid #54717d;background:#21394c;margin:9px 0}.dl-badge.locked{opacity:.6}.dl-profile-button{width:100%;margin-top:12px}
 </style>
@@ -2269,9 +2276,30 @@ fullBegin=async function(id){
   app.innerHTML='<section class="card"><h2>My German profile</h2><div class="dl-profile-top"><div class="dl-avatar-large">'+avatarSVG(a)+'</div><div><h3 style="margin:0">'+esc(a.name)+'</h3><p class="muted">'+esc(r[0])+' · '+total+' total XP</p></div></div><h3>Next rank</h3><p>'+(next?esc(next[0])+' · '+(next[1]-total)+' XP to go':'Highest rank achieved')+'</p><div class="dl-rank-track"><div style="width:'+pct+'%"></div></div><p class="muted">XP unlocks avatars and ranks. Lessons stay open at every rank.</p></section><section class="card"><h2>Choose your animal</h2><div class="dl-avatar-grid">'+animals.map(v=>'<button class="dl-avatar-option '+(a.id===v.id?'selected ':'')+(total<v.min?'locked':'')+'" onclick="dlChooseAvatar(\''+v.id+'\')" '+(total<v.min?'disabled':'')+'>'+avatarSVG(v)+'<strong>'+esc(v.name)+'</strong><small>'+(total<v.min?'Unlock at '+v.min+' XP':a.id===v.id?'Selected':'Choose avatar')+'</small></button>').join('')+'</div></section><section class="card"><h2>Achievements</h2>'+achievements().map(b=>'<div class="dl-badge '+(b.earned?'':'locked')+'"><strong>'+(b.earned?'✓ ':'○ ')+esc(b.name)+'</strong><div class="muted">'+esc(b.description)+'</div></div>').join('')+'</section><button class="secondary dl-profile-button" onclick="practiceHub()">Back to practice</button>';
   window.scrollTo(0,0);
  };
- window.dlChooseAvatar=function(id){const a=animals.find(x=>x.id===id);if(!a||xp()<a.min)return;profile().avatar=id;save();dlProfile()};
+ window.dlChooseAvatar=function(id){const a=animals.find(x=>x.id===id);if(!a||xp()<a.min)return;profile().avatar=id;save();updateMenuAvatar();dlProfile()};
  // Add profile to the navigation without changing existing navigation handlers.
- const menu=document.getElementById('sideMenu');if(menu){const btn=document.createElement('button');btn.textContent='My profile & rewards';btn.onclick=function(){toggleMenu(false);dlProfile()};menu.appendChild(btn)}
+ const menu=document.getElementById('sideMenu');
+ function updateMenuAvatar(){
+  if(!menu)return;
+  const a=current();
+  const image=menu.querySelector('.dl-menu-avatar');
+  if(image){image.src='avatar_'+a.id+'.webp';image.alt=a.name;}
+  const name=menu.querySelector('.dl-menu-avatar-name');
+  if(name)name.textContent=a.name;
+ }
+ if(menu){
+  const heading=menu.querySelector('.menu-heading');
+  if(heading){const avatar=document.createElement('img');avatar.className='dl-menu-avatar';avatar.alt='Current animal avatar';heading.insertBefore(avatar,heading.firstChild);}
+  const btn=document.createElement('button');
+  btn.className='dl-menu-profile-link';
+  btn.innerHTML='<span class="dl-menu-avatar-name">My profile</span><span class="dl-menu-profile-sub">Profile & rewards</span>';
+  btn.onclick=function(){toggleMenu(false);dlProfile()};
+  const placementButton=[...menu.querySelectorAll('button')].find(b=>b.textContent.includes('Placement test'));
+  if(placementButton)menu.insertBefore(btn,placementButton);else menu.appendChild(btn);
+  updateMenuAvatar();
+  const previousToggle=toggleMenu;
+  toggleMenu=function(open){if(open)updateMenuAvatar();return previousToggle(open)};
+ }
  const oldHub=practiceHub;practiceHub=function(){oldHub();const card=app.querySelector('.card');if(card){const a=current();const b=document.createElement('button');b.className='secondary dl-profile-button';b.innerHTML=avatarSVG(a)+' My profile, ranks & rewards';b.querySelector('img').style.cssText='height:36px;width:36px;object-fit:cover;border-radius:9px;vertical-align:middle;margin-right:8px';b.onclick=dlProfile;card.appendChild(b)}};
  const oldLog=practiceLog;practiceLog=function(points){const before=xp();oldLog(points);const after=xp();if(ranks.some(r=>r[1]>before&&r[1]<=after)||animals.some(a=>a.min>before&&a.min<=after)){profile().newUnlock=true;save()}};
  // Count unique completed dialogues and record perfect attempts for badges.
