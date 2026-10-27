@@ -2400,8 +2400,8 @@ const old=STRUCTURED_PATH.A1;
 const at=n=>old[n-1];
 const make=(title,goal,context,indices)=>({title,goal,context,ids:indices.map(id)});
 STRUCTURED_PATH.A1=[
- at(1),at(2),make('Alphabet, sounds and spelling','Recognize written German and pronounce unfamiliar words.','Learn the German alphabet, the sounds of J/W/V, umlauts and ß. Practice spelling names and distinguishing similar-looking words.',[0,1]),
- at(3),make('Speaking politely: du and Sie','Choose the appropriate form of you in conversations.','Du is informal singular you; ihr addresses several people informally; Sie is formal. Compare verb endings in real questions.',[2]),
+ make('Alphabet, sounds and spelling','Recognize written German and pronounce unfamiliar words.','Learn the German alphabet, the sounds of J/W/V, umlauts and ß. Practice spelling names and distinguishing similar-looking words.',[0,1]),
+ at(1),at(2),at(3),make('Speaking politely: du and Sie','Choose the appropriate form of you in conversations.','Du is informal singular you; ihr addresses several people informally; Sie is formal. Compare verb endings in real questions.',[2]),
  at(4),at(5),make('Review: early essentials','Bring back pronouns, question words and basic verbs.','Recall the language from the opening modules before learning more. Say each example aloud and try to answer without reading the hint.',[24]),
  at(6),at(7),at(8),make('Plurals and possessives','Describe people and things as singular, plural, mine, yours or ours.','Learn common plural patterns, then mein/dein/sein/ihr/unser. Notice that possessive endings depend on noun gender and number.',[3,4,5]),
  at(9),at(10),make('Shopping and clothing','Ask prices, quantities and sizes in a shop.','Use Wie viel kostet das?, ein Kilo and eine Flasche; learn clothes and ask to try things on. Reuse numbers in realistic exchanges.',[14,15]),
@@ -2638,6 +2638,169 @@ curriculumModuleIntro=function(level,n){
   const play=document.createElement('button');play.type='button';play.className='secondary';play.textContent='🔊 Listen';play.onclick=()=>{if(typeof speak==='function')speak(d.example)};examples.appendChild(play);
   box.appendChild(examples);panel.prepend(box);
   const heading=document.querySelector('.dl-flow-card h2');if(heading)heading.textContent='Listen, then pronounce the word:';
+ };
+})();
+</script>
+<style>
+.dl-review-result{display:flex;align-items:center;gap:16px;margin:16px 0;padding:16px;border-radius:16px;background:rgba(36,88,94,.55)}
+.dl-review-result img{width:100px;height:100px;object-fit:contain;flex-shrink:0}
+.dl-review-result h3{margin:0 0 7px;font-size:1.45rem}.dl-review-result p{margin:0}
+.dl-review-summary{padding:14px 18px;margin:16px 0;border:1px solid rgba(165,213,200,.4);border-radius:12px}
+.dl-review-summary li{margin:8px 0}
+@media(max-width:400px){.dl-review-result img{width:78px;height:78px}.dl-review-result{gap:10px}}
+</style>
+<script>
+/* Topic-aware module reviews: recap, a small transfer challenge, and score-based mascot feedback. */
+(function(){
+ const oldReview=curriculumReview, oldRender=curriculumReviewRender;
+ function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+ function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+ curriculumReview=function(level,n){
+  if(level!=='A1')return oldReview(level,n);
+  const g=STRUCTURED_PATH[level]?.[n];if(!g)return;
+  const core=[];
+  for(const id of g.ids){
+   const u=FULL_UNITS[id];if(!u)continue;
+   const qs=fullQuestions(u).filter(q=>Array.isArray(q.options)&&q.type!=='listen');
+   // Test meaning, grammar and recall rather than repeating the same prompt three times.
+   const chosen=[qs.find(q=>q.type==='grammar'),qs.find(q=>q.type==='recall'),qs.find(q=>q.type==='translate')].filter(Boolean);
+   chosen.forEach(q=>core.push({...q,unitId:id}));
+  }
+  shuffle(core);
+  const questions=core.slice(0,7);
+  // A small, explicitly labeled transfer challenge uses unfamiliar vocabulary
+  // with a pattern already practiced. It is never required for passing.
+  const next=STRUCTURED_PATH.A1[n+1];
+  let stretch=[];
+  if(next){
+   for(const id of next.ids){
+    const u=FULL_UNITS[id];if(!u?.examples?.length)continue;
+    const ex=u.examples.find(x=>Array.isArray(x)&&x[0]&&x[1]);
+    if(!ex)continue;
+    const distractors=u.examples.filter(x=>Array.isArray(x)&&x[1]!==ex[1]).map(x=>x[1]).slice(0,2);
+    if(distractors.length<2)continue;
+    const opts=shuffle([ex[1],...distractors]);
+    stretch.push({type:'transfer',prompt:'New vocabulary challenge: What does “'+ex[0]+'” mean?',options:opts,answer:opts.indexOf(ex[1]),why:'New word: “'+ex[0]+'” means “'+ex[1]+'”. You can apply the recognition skills you just practiced to unfamiliar German.',unitId:id,dlStretch:true});
+   }
+  }
+  if(stretch.length)questions.push(stretch[0]);
+  // The optional challenge is practice, not part of the mastery threshold.
+  moduleSession={level,n,questions,idx:0,score:0,answered:false,dlReviewEnhanced:true,dlCoreCount:questions.filter(q=>!q.dlStretch).length,dlCoreScore:0,dlMissed:[]};
+  curriculumReviewRender();
+ };
+ const oldAnswer=curriculumReviewAnswer;
+ curriculumReviewAnswer=function(i){
+  const s=moduleSession;
+  if(s?.dlReviewEnhanced&&!s.answered){
+   const q=s.questions[s.idx];
+   if(i===q.answer&&!q.dlStretch)s.dlCoreScore++;
+   if(i!==q.answer)s.dlMissed.push({prompt:q.prompt,correct:q.options[q.answer]});
+  }
+  return oldAnswer(i);
+ };
+ curriculumReviewRender=function(){
+  const s=moduleSession;
+  if(!s?.dlReviewEnhanced)return oldRender();
+  if(s.idx<s.questions.length){
+   oldRender();
+   const q=s.questions[s.idx];
+   if(q.dlStretch){
+    const title=app.querySelector('.curriculum-pill');if(title)title.textContent='BONUS · Apply what you learned to a new word';
+    const prompt=app.querySelector('.card h2');if(prompt)prompt.textContent=q.prompt.replace(/^New vocabulary challenge: /,'');
+    const note=document.createElement('p');note.className='muted';note.textContent='This introduces unfamiliar vocabulary using skills you already practiced. It does not affect your pass score.';
+    prompt?.after(note);
+   }
+   return;
+  }
+  const g=STRUCTURED_PATH[s.level]?.[s.n],total=s.dlCoreCount,correct=s.dlCoreScore;
+  const percent=total?Math.round(correct/total*100):0;
+  const passed=percent>=80;
+  ensureLearning();state.learning.moduleReviews??={};
+  const key=s.level+'-'+s.n,old=state.learning.moduleReviews[key];
+  state.learning.moduleReviews[key]={best:Math.max(old?.best||0,correct),total,passed:passed||!!old?.passed};save();
+  const mascot=percent===100?'avatar_fox.webp':percent>=80?'avatar_dog.webp':percent>=60?'avatar_owl.webp':'avatar_cat.webp';
+  const german=percent===100?'Ausgezeichnet!':percent>=80?'Sehr gut gemacht!':percent>=60?'Gut gemacht!':'Weiter üben!';
+  const english=percent===100?'Excellent! A perfect review.':percent>=80?'Very well done! You passed the review.':percent>=60?'Good work! Review the missed answers and try again.':'Keep practicing! Revisit the lessons and try again.';
+  const examples=(g?.ids||[]).flatMap(id=>FULL_UNITS[id]?.examples||[]).filter(x=>Array.isArray(x)&&x[0]&&x[1]).slice(0,3);
+  app.innerHTML=`<section class="card"><p class="curriculum-pill">${esc(s.level)} · Module ${s.n+1} review</p><h2>Module review complete</h2>
+   <div class="dl-review-result"><img src="${mascot}" alt="DeutschLab animal character"><div><h3>${german}</h3><p>${english}</p><p><strong>${percent}%</strong> · ${correct} of ${total} review questions correct</p></div></div>
+   <div class="dl-review-summary"><h3>What you practiced</h3><p>${esc(g?.goal||'The key skills from this module.')}</p><p>${esc(g?.context||'')}</p>
+   ${examples.length?'<h4>Key examples</h4><ul>'+examples.map(x=>'<li><strong>'+esc(x[0])+'</strong> — '+esc(x[1])+'</li>').join('')+'</ul>':''}
+   ${s.dlMissed.length?'<h4>Answers to revisit</h4><ul>'+s.dlMissed.slice(0,4).map(x=>'<li>'+esc(x.prompt)+' — <strong>'+esc(x.correct)+'</strong></li>').join('')+'</ul>':'<p>You answered all the core review questions correctly.</p>'}
+   <p class="muted">The new-vocabulary bonus is excluded from your percentage.</p></div>
+   <button onclick="curriculumView('${s.level}')">Learning path</button><button class="secondary" onclick="curriculumReview('${s.level}',${s.n})">Practice again</button></section>`;
+  moduleSession=null;window.scrollTo(0,0);
+ };
+})();
+</script>
+
+<!-- Pronunciation-focused lessons: speak each written choice when tapped. -->
+<style>
+.dl-pronunciation-option .dl-choice-speaker{float:right;font-size:1.15em;opacity:.85;margin-left:10px}
+.dl-pronunciation-instruction{margin:0 0 14px;color:#c8dce6;font-size:.95rem}
+</style>
+<script>
+(function(){
+ const original=fullRender;
+ fullRender=function(){
+  const result=original.apply(this,arguments);
+  const session=fullSession;
+  const q=session?.questions?.[session.idx];
+  const unit=FULL_UNITS[session?.id];
+  const title=String(unit?.title||'');
+  if(!q||!unit||unit.level!=='A1'||q.type==='sound-choice'||q.type==='speak-word'||q.type==='listen')return result;
+  // Only use audio for pronunciation-focused lessons, not general translation quizzes.
+  if(!/(umlaut|pronunc|sounds? of|alphabet|spelling|\bß\b)/i.test(title))return result;
+  const buttons=[...document.querySelectorAll('.dl-flow-options button')];
+  if(!buttons.length||buttons.length!==q.options?.length)return result;
+  const instruction=document.createElement('p');
+  instruction.className='dl-pronunciation-instruction';
+  instruction.textContent='Tap a word to hear its pronunciation. You can tap it again to replay.';
+  buttons[0].parentElement.before(instruction);
+  buttons.forEach((button,i)=>{
+   const word=String(q.options[i]||'').trim();
+   if(!word||!/[a-zäöüß]/i.test(word)||word.length>45)return;
+   button.classList.add('dl-pronunciation-option');
+   const icon=document.createElement('span');icon.className='dl-choice-speaker';icon.textContent='🔊';icon.setAttribute('aria-hidden','true');
+   button.appendChild(icon);
+   button.addEventListener('click',()=>{
+    if(typeof speak==='function')speak(word);
+   });
+  });
+  return result;
+ };
+})();
+</script>
+
+<!-- Pronunciation curriculum: sound recognition instead of vocabulary translation. -->
+<script>
+(function(){
+ const contrasts=[
+  {words:['schon','schön','Sohn'],target:'schön',why:'The ö in schön is a rounded front vowel. Compare it with the plain o in schon and Sohn.'},
+  {words:['Mutter','Mütter','Meter'],target:'Mütter',why:'ü is different from u: round your lips while keeping your tongue forward. Compare Mutter and Mütter.'},
+  {words:['Kuchen','Küche','Kirche'],target:'Küche',why:'Küche has ü, while Kuchen has u. Listen to how the vowel changes.'},
+  {words:['Straße','Strauß','Stress'],target:'Straße',why:'At the start of Straße, str sounds like shtr. The letter ß makes a sharp s sound.'},
+  {words:['ich','ach','auch'],target:'ich',why:'The ch in ich is a soft sound made near the front of the mouth, unlike the back-of-the-mouth ch in ach.'},
+  {words:['mein','Miene','Mann'],target:'mein',why:'ei sounds like English eye, while ie makes a long ee sound. Listen to mein and Miene.'},
+  {words:['neun','nein','nun'],target:'neun',why:'eu sounds similar to oy in English boy; ei sounds like eye.'},
+  {words:['zwei','drei','frei'],target:'zwei',why:'German z begins with a ts sound, as in zwei.'}
+ ];
+ const priorBegin=fullBegin;
+ fullBegin=function(id){
+  priorBegin.apply(this,arguments);
+  const session=fullSession,unit=FULL_UNITS[id];
+  if(!session||!unit||unit.level!=='A1'||!/(umlaut|pronunc|sounds? of|alphabet|spelling|ß)/i.test(String(unit.title||'')))return;
+  // Replace translation/definition questions: a sound lesson should assess listening, not English meanings.
+  let changed=0;
+  session.questions=session.questions.map((q,i)=>{
+   if(q.type==='sound-choice'||q.type==='speak-word')return q;
+   if(!/(choose the german for|what does|which word means|what is the meaning|translate|means “|means ")/i.test(String(q.prompt||'')))return q;
+   const c=contrasts[(i+changed)%contrasts.length];changed++;
+   const rotation=(i+changed)%3;
+   const words=c.words.map((_,j)=>c.words[(j+rotation)%3]);
+   return {type:'sound-choice',prompt:'Which audio says “'+c.target+'”?',options:['Audio 1','Audio 2','Audio 3'],answer:words.indexOf(c.target),why:c.why,dlAudioWords:words,dlTarget:c.target};
+  });
+  if(changed)fullRender();
  };
 })();
 </script>
