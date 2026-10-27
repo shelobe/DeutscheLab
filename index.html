@@ -633,4 +633,134 @@ fullStudy=function(id){
 };
 })();
 </script>
+
+<style>
+#screenBack{position:sticky!important;top:8px!important;z-index:150!important;margin:8px 0 12px!important;padding:11px 18px!important;background:#28485b!important;border:1px solid #6ba9a4!important;color:white!important;border-radius:13px!important;display:inline-flex!important;align-items:center!important;box-shadow:0 3px 15px #07111d99}
+#app{scroll-margin-top:12px}
+.dynamic-progress{font-size:.9rem;opacity:.85;margin-bottom:10px}
+</style>
+<script>
+(function(){
+const NEW_QUESTIONS={"0": [["Meine Schwester ist ___ Jahre alt.", ["zwanzig", "zwanzigste", "zwanziger"], 0, "A person's age uses a cardinal number: zwanzig Jahre alt."], ["Wie alt ___ dein Bruder?", ["ist", "sind", "bist"], 0, "Dein Bruder is third-person singular, so use ist."]], "1": [["Das ist ___ Vater.", ["mein", "meine", "meinen"], 0, "Vater is masculine nominative; use mein."], ["Anna besucht ___ Schwester.", ["ihre", "ihr", "ihren"], 0, "Schwester is feminine accusative, so use ihre."]], "2": [["Ich hätte gern ___ Wasser.", ["ein", "einen", "eine"], 0, "Wasser is neuter: ein Wasser."], ["___ kostet der Kaffee?", ["Wie viel", "Wie viele", "Wo"], 0, "Wie viel asks about a price."]], "3": [["Der Termin ist ___ Montag.", ["am", "um", "im"], 0, "Use am with days of the week."], ["Der Zug fährt ___ acht Uhr.", ["um", "am", "in"], 0, "Use um with a clock time."]], "4": [["___ wohnst du?", ["Wo", "Wer", "Wann"], 0, "Wo asks about location."], ["___ heißt deine Lehrerin?", ["Wie", "Was", "Wohin"], 0, "Wie heißt ... asks for a name."]], "5": [["Ich habe ___ Auto.", ["kein", "nicht", "keine"], 0, "Kein negates an indefinite neuter noun: kein Auto."], ["Heute komme ich ___.", ["nicht", "kein", "keine"], 0, "Nicht negates the action of coming."]], "6": [["Jeden Morgen ___ ich Kaffee.", ["trinke", "trinkst", "trinkt"], 0, "Ich takes the -e verb ending."], ["Sie ___ um sechs Uhr auf.", ["steht", "stehen", "stehe"], 0, "Aufstehen is separable: sie steht ... auf."]], "7": [["Entschuldigung, wo ist ___ Bahnhof?", ["der", "die", "das"], 0, "Bahnhof is masculine: der Bahnhof."], ["Gehen Sie ___ links.", ["nach", "in", "zu"], 0, "Nach links means to the left."]], "8": [["___ Abend, Frau Müller!", ["Guten", "Gute", "Gut"], 0, "The greeting is Guten Abend."], ["Ich ___ aus Kanada.", ["komme", "kommt", "kommen"], 0, "Ich komme aus means I come from."]], "9": [["___ Fenster ist offen.", ["Das", "Der", "Die"], 0, "Fenster is neuter."], ["___ Zeitung liegt hier.", ["Die", "Das", "Der"], 0, "Zeitung is feminine; -ung is a common feminine ending."]], "10": [["Meine Freunde ___ in Hamburg.", ["wohnen", "wohnt", "wohnst"], 0, "Plural Freunde uses wohnen."], ["Du ___ gern Musik.", ["hörst", "hört", "höre"], 0, "Du takes -st."]], "11": [["Morgen ___ wir ins Kino.", ["gehen", "wir gehen", "geht"], 0, "After Morgen, the finite verb must come second."], ["Which sentence is correct?", ["Am Sonntag besuche ich Oma.", "Am Sonntag ich besuche Oma.", "Am Sonntag Oma ich besuche."], 0, "A main-clause finite verb is in second position."]], "12": [["Ich stelle die Tasse auf ___ Tisch.", ["den", "dem", "der"], 0, "Placing the cup answers wohin?; masculine accusative is den."], ["Die Jacke hängt an ___ Tür.", ["der", "die", "den"], 0, "A fixed location answers wo?; feminine dative is der."], ["Wir fahren in ___ Stadt.", ["die", "der", "den"], 0, "Movement toward a destination takes accusative: in die Stadt."]], "13": [["Du ___ hier nicht rauchen.", ["darfst", "dürfen", "darf"], 0, "Du darfst expresses permission/prohibition."], ["Wir ___ morgen früh aufstehen.", ["müssen", "muss", "musst"], 0, "Wir uses müssen."]], "14": [["Dieser Film ist ___ als der andere.", ["spannender", "spannendste", "spannend"], 0, "Comparisons with als use the comparative."], ["Von allen ist Lara ___ .", ["am schnellsten", "schneller", "schnell"], 0, "Am ... -sten expresses the superlative."]], "15": [["Ich ___ mich auf den Urlaub.", ["freue", "freut", "freuen"], 0, "Sich freuen is reflexive; ich freue mich."], ["Er wäscht ___ die Hände.", ["sich", "ihn", "ihm"], 0, "Sich die Hände waschen uses reflexive sich."]], "16": [["___ bitte die Tür!", ["Öffne", "Öffnest", "Öffnen"], 0, "Informal singular imperative: Öffne!"], ["___ Sie bitte hier.", ["Warten", "Wartet", "Warte"], 0, "Formal imperative uses infinitive + Sie."]], "17": [["Ich trage einen ___ Mantel.", ["roten", "roter", "rotes"], 0, "After einen, masculine accusative adjective ends -en."], ["Das ist ein ___ Haus.", ["kleines", "kleine", "kleinen"], 0, "After ein, neuter nominative adjective ends -es."]], "18": [["Nächste Woche ___ ich nach Köln fahren.", ["werde", "wirst", "wird"], 0, "Ich werde + infinitive expresses future."], ["Morgen ___ wir unsere Freunde.", ["besuchen", "besucht", "besuche"], 0, "Present tense can describe a planned future event."]], "19": [["Ich möchte ein Zimmer ___ zwei Nächte.", ["für", "mit", "nach"], 0, "Für introduces a duration or purpose."], ["Wo kann ich ___ einchecken?", ["mich", "mir", "mein"], 0, "Einchecken is often used reflexively: mich einchecken."]], "20": [["Ich sehe ___ Lehrer.", ["den", "dem", "der"], 0, "Lehrer is masculine; direct object takes den."], ["Wir kaufen ___ Banane.", ["eine", "einen", "ein"], 0, "Banane is feminine; accusative eine."]], "21": [["Ich fahre mit ___ Fahrrad.", ["dem", "das", "den"], 0, "Mit always takes dative; das Fahrrad → dem Fahrrad."], ["Sie gibt ___ Kind ein Geschenk.", ["dem", "das", "den"], 0, "Recipient is dative: dem Kind."]], "22": [["Gestern ___ wir viel gelernt.", ["haben", "sind", "werden"], 0, "Lernen forms Perfekt with haben."], ["Sie ist nach München ___.", ["gefahren", "gefährt", "fahren"], 0, "Fahren's past participle is gefahren."]], "23": [["Ich ___ meine Freundin heute ___.", ["rufe ... an", "anrufe ...", "rufe ... auf"], 0, "Anrufen splits: rufe ... an."], ["Wann ___ der Film ___?", ["fängt ... an", "anfängt ...", "fängt ... auf"], 0, "Anfangen splits in a main clause: fängt ... an."]]};
+const originalQuestions=fullQuestions;
+const seeded=(arr,seed)=>{let copy=[...arr];for(let i=copy.length-1;i>0;i--){seed=(seed*1664525+1013904223)>>>0;let j=seed%(i+1);[copy[i],copy[j]]=[copy[j],copy[i]]}return copy};
+fullQuestions=function(u){
+ let id=FULL_UNITS.indexOf(u),fresh=NEW_QUESTIONS[id];
+ if(!fresh)return originalQuestions(u);
+ let n=(state.learning?.fullAttempts?.[id]||0),base=originalQuestions(u);
+ let newItems=fresh.map((row,i)=>{
+  let [prompt,opts,answer,why]=row,correct=opts[answer],shuffled=seeded(opts,(id+1)*101+(n+1)*67+i*31);
+  return {type:'grammar',prompt,options:shuffled,answer:shuffled.indexOf(correct),why};
+ });
+ // Mix unseen sentences with previously taught material; repeat attempts rotate question order.
+ let mixed=[...newItems,...base.filter(q=>q.type==='grammar'||q.type==='order'),...base.filter(q=>q.type==='translate'||q.type==='listen'||q.type==='recall')];
+ return seeded(mixed,(id+7)*1231+(n+1)*79).slice(0,7);
+};
+const originalBegin=fullBegin;
+fullBegin=function(id){
+ ensureLearning();state.learning.fullAttempts??={};state.learning.fullAttempts[id]=(state.learning.fullAttempts[id]||0)+1;save();
+ originalBegin(id);
+};
+const originalRender=fullRender;
+fullRender=function(){
+ originalRender();
+ if(!fullSession)return;
+ let title=app.querySelector('.card .muted');
+ if(title)title.insertAdjacentHTML('beforebegin',`<p class="dynamic-progress">Practice new sentences — not just the lesson examples.</p>`);
+};
+const originalMark=fullMark;
+fullMark=function(ok,answer,why){
+ originalMark(ok,answer,why);
+ let box=document.querySelector('#fullFeedback .unit-explain');
+ if(box)box.insertAdjacentHTML('beforeend',`<p class="muted">Focus on the grammar pattern so you can use it in sentences you haven't seen before.</p>`);
+};
+function fixBack(){
+ let b=document.getElementById('screenBack');
+ if(!b||b.dataset.fixed)return;
+ b.dataset.fixed='yes';
+ b.onclick=(e)=>{
+  e.preventDefault();e.stopImmediatePropagation();
+  let id=fullSession?.id;
+  if(id!==undefined&&id!==null){fullStudy(id)}
+  else if(app.querySelector('.lesson-welcome')){let title=app.querySelector('.lesson-welcome h2')?.textContent||'';let level=state.learning?.placement?.recommended||'A1';let u=FULL_UNITS.find(x=>title.includes(x.title));friendlyCourse(u?.level||level)}
+  else home();
+  window.scrollTo(0,0);
+ };
+}
+new MutationObserver(fixBack).observe(app,{childList:true,subtree:false});fixBack();
+})();
+</script>
+
+<style>
+.picture-card{text-align:center;padding:18px 12px;background:linear-gradient(160deg,#244960,#173149);border:1px solid #70bfb9;border-radius:22px;margin:14px 0}
+.picture-art{font-size:clamp(6rem,24vw,10rem);line-height:1.5;display:block;filter:drop-shadow(0 12px 12px #0005);user-select:none}
+.picture-choices{display:grid;gap:9px}.picture-choices button{width:100%;text-align:left}
+.picture-input{width:100%;font-size:1.1rem;padding:15px;border-radius:12px;background:#fff;color:#132d39;border:2px solid #80d5c9}
+.picture-tabs{display:flex;gap:8px;flex-wrap:wrap}.picture-tabs button{flex:1;min-width:110px}
+.picture-status{display:flex;justify-content:space-between;gap:12px;color:#d6ebec;margin:12px 0}
+.picture-answer{margin-top:15px;background:#214b4d;border-radius:14px;padding:15px;text-align:left}
+</style>
+<script>
+const PICTURE_WORDS=[["der Hund", "dog", "🐕", "der", "Hund"], ["die Katze", "cat", "🐈", "die", "Katze"], ["das Haus", "house", "🏠", "das", "Haus"], ["der Apfel", "apple", "🍎", "der", "Apfel"], ["die Banane", "banana", "🍌", "die", "Banane"], ["das Buch", "book", "📕", "das", "Buch"], ["der Tisch", "table", "🪑", "der", "Tisch"], ["die Blume", "flower", "🌻", "die", "Blume"], ["das Auto", "car", "🚗", "das", "Auto"], ["der Baum", "tree", "🌳", "der", "Baum"], ["die Sonne", "sun", "☀️", "die", "Sonne"], ["das Wasser", "water", "💧", "das", "Wasser"], ["der Schlüssel", "key", "🔑", "der", "Schlüssel"], ["die Uhr", "clock", "🕒", "die", "Uhr"], ["das Brot", "bread", "🍞", "das", "Brot"], ["der Zug", "train", "🚆", "der", "Zug"], ["die Schule", "school", "🏫", "die", "Schule"], ["das Fahrrad", "bicycle", "🚲", "das", "Fahrrad"], ["der Schuh", "shoe", "👟", "der", "Schuh"], ["die Tür", "door", "🚪", "die", "Tür"], ["das Fenster", "window", "🪟", "das", "Fenster"], ["der Vogel", "bird", "🐦", "der", "Vogel"], ["die Tasse", "cup", "☕", "die", "Tasse"], ["das Bett", "bed", "🛏️", "das", "Bett"], ["der Käse", "cheese", "🧀", "der", "Käse"], ["die Erdbeere", "strawberry", "🍓", "die", "Erdbeere"], ["das Ei", "egg", "🥚", "das", "Ei"], ["der Fisch", "fish", "🐟", "der", "Fisch"], ["die Gabel", "fork", "🍴", "die", "Gabel"], ["das Messer", "knife", "🔪", "das", "Messer"], ["der Regenschirm", "umbrella", "☂️", "der", "Regenschirm"], ["die Jacke", "jacket", "🧥", "die", "Jacke"]];
+let pictureSession=null;
+function pictureHome(){
+ const saved=state.pictureProgress||{attempts:0,correct:0};
+ app.innerHTML=illustratedHero('Picture practice','See it. Name it. Remember the article.','forest','katze.png')
+ +`<section class="card"><h2>What do you see?</h2><p>Look at a picture and choose the German word or type it yourself. Practice the article with every noun.</p><p class="muted">${saved.attempts} answers · ${saved.correct} correct</p><div class="picture-tabs"><button onclick="pictureStart('choice')">Choose the word →</button><button onclick="pictureStart('type')">Type the word →</button></div><p class="muted">32 everyday objects · German nouns with der, die and das.</p></section>`;
+ window.scrollTo(0,0);
+}
+function pictureStart(mode){
+ const day=Math.floor(Date.now()/86400000),idx=state.pictureProgress?.attempts||0;
+ const shuffled=[...PICTURE_WORDS.keys()].sort((a,b)=>((a*37+day*13)%97)-((b*37+day*13)%97));
+ pictureSession={mode,queue:shuffled,index:0,correct:0,answered:false};
+ pictureShow();
+}
+function pictureShow(){
+ let s=pictureSession;if(!s)return pictureHome();
+ if(s.index>=s.queue.length){app.innerHTML=illustratedHero('Nice work!','You finished this picture round.','village','hund.png')+`<section class="card"><h2>${s.correct} / ${s.queue.length} correct</h2><button onclick="pictureStart('${s.mode}')">Practice again →</button><button class="secondary" onclick="pictureHome()">Picture practice home</button></section>`;return}
+ let id=s.queue[s.index],w=PICTURE_WORDS[id],choice=s.mode==='choice';
+ let options=[id,(id+9)%PICTURE_WORDS.length,(id+17)%PICTURE_WORDS.length,(id+25)%PICTURE_WORDS.length].sort((a,b)=>((a+id*7)%11)-((b+id*7)%11));
+ app.innerHTML=`<div class="picture-status"><span>${choice?'Choose the German word':'Write the German word'}</span><span>${s.index+1} / ${s.queue.length}</span></div><section class="card"><div class="picture-card"><span class="picture-art" role="img" aria-label="Picture of ${safeText(w[1])}">${w[2]}</span></div><h2>What is this in German?</h2><p class="muted">Include der, die or das.</p>${choice?`<div class="picture-choices">${options.map(i=>`<button class="secondary" onclick="pictureAnswer(${id},${i})">${safeText(PICTURE_WORDS[i][0])}</button>`).join('')}</div>`:`<form onsubmit="event.preventDefault();pictureTyped(${id})"><input id="pictureInput" class="picture-input" placeholder="e.g. der Hund" autocomplete="off" autocapitalize="none" spellcheck="false" aria-label="German word with article"><button type="submit">Check answer →</button></form>`}<div id="pictureFeedback" aria-live="polite"></div></section>`;
+ window.scrollTo(0,0);
+}
+function pictureAnswer(correct,chosen){pictureGrade(correct,PICTURE_WORDS[chosen][0])}
+function pictureTyped(correct){pictureGrade(correct,document.getElementById('pictureInput').value)}
+function pictureGrade(id,submitted){
+ let s=pictureSession;if(!s||s.answered)return;
+ let w=PICTURE_WORDS[id],norm=t=>t.toLocaleLowerCase('de-DE').trim().replace(/\s+/g,' ').normalize('NFC');
+ let ok=norm(submitted)===norm(w[0]);s.answered=true;if(ok)s.correct++;
+ state.pictureProgress??={attempts:0,correct:0};state.pictureProgress.attempts++;if(ok)state.pictureProgress.correct++;save();
+ app.querySelectorAll('.picture-choices button,form button,.picture-input').forEach(b=>b.disabled=true);
+ let feedback=document.getElementById('pictureFeedback');
+ feedback.innerHTML=`<div class="picture-answer"><h3>${ok?'Richtig! Correct!':'Good try!'}</h3><p><strong>${safeText(w[0])}</strong> — ${safeText(w[1])}</p><p>The noun is <strong>${safeText(w[3])}</strong> + <strong>${safeText(w[4])}</strong>. Learn both together: ${safeText(w[0])}.</p>${!ok?`<p class="muted">You entered: ${safeText(submitted||'(blank)')}</p>`:''}<button class="secondary" onclick="speak('${w[0]}')">🔊 Hear the word</button><button onclick="pictureNext()">Next picture →</button></div>`;
+}
+function pictureNext(){if(!pictureSession)return;pictureSession.index++;pictureSession.answered=false;pictureShow()}
+const priorHomePictures=home;
+home=function(){priorHomePictures();let anchor=app.querySelector('.lesson-grid')||app.querySelector('.card');if(anchor){let card=document.createElement('section');card.className='card';card.innerHTML=`<h3>Picture practice</h3><p>Learn German words by looking at pictures.</p><button onclick="pictureHome()">Try picture practice →</button>`;anchor.after(card)}};
+const picNav=document.createElement('button');picNav.textContent='▧ Picture practice';picNav.setAttribute('onclick',"navigateTo('pictureHome')");let picMenu=document.getElementById('sideMenu');let articles=[...picMenu.querySelectorAll('button')].find(b=>b.textContent.includes('Noun Articles'));if(articles)articles.after(picNav);else picMenu.appendChild(picNav);
+</script>
+
+<style>
+/* Keep the shared navigation visible without scrolling. */
+#screenBack{position:sticky!important;top:8px!important;z-index:200!important}
+</style>
+<script>
+(function(){
+  // Capture the back action before the older general-purpose handlers.
+  // Picture rounds go to their picture menu; the picture menu goes home.
+  document.getElementById('app').addEventListener('click',function(event){
+    const back=event.target.closest('#screenBack');
+    if(!back)return;
+    const appNode=document.getElementById('app');
+    const isPictureRound=!!appNode.querySelector('.picture-card') || !!appNode.querySelector('.picture-status') ||
+      (typeof pictureSession!=='undefined' && pictureSession && appNode.textContent.includes('You finished this picture round'));
+    const isPictureMenu=appNode.textContent.includes('32 everyday objects') && appNode.textContent.includes('What do you see?');
+    if(!isPictureRound && !isPictureMenu)return;
+    event.preventDefault();event.stopImmediatePropagation();
+    if(isPictureRound){pictureSession=null;pictureHome();}
+    else home();
+    window.scrollTo(0,0);
+  },true);
+})();
+</script>
 </body></html>
