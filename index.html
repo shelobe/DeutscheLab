@@ -3259,4 +3259,113 @@ button:not(.secondary):not(.menu-toggle):not(.menu-close){box-shadow:0 3px 0 rgb
  };
 })();
 </script>
+
+<style id="dl-final-layout-stabilization">
+/* Remove earlier experimental path layouts and give every module a full-width header. */
+.curriculum-path-module,.curriculum-path-module:nth-of-type(even),.curriculum-path-module:nth-of-type(odd){
+ width:100%!important;max-width:100%!important;margin:12px 0!important;
+ border:1px solid #466f78!important;border-radius:17px!important;overflow:hidden!important;
+ box-shadow:none!important;filter:none!important;box-sizing:border-box!important;
+}
+.curriculum-path-module::before,.curriculum-path-module::after{display:none!important}
+.curriculum-path-module>summary,.curriculum-path-module:nth-of-type(even)>summary{
+ display:grid!important;grid-template-columns:minmax(0,1fr) 20px!important;
+ align-items:center!important;gap:10px!important;
+ padding:17px 15px!important;background:#204254!important;
+ border:0!important;min-height:0!important;width:100%!important;box-sizing:border-box!important;
+}
+.curriculum-path-module .curriculum-module-heading{
+ display:flex!important;flex-direction:row!important;align-items:flex-start!important;
+ gap:13px!important;width:100%!important;min-width:0!important;flex:1 1 auto!important;
+ grid-template-columns:none!important;
+}
+.curriculum-path-module .curriculum-module-heading>div{
+ min-width:0!important;width:auto!important;flex:1 1 auto!important;
+ overflow-wrap:normal!important;word-break:normal!important;
+}
+.curriculum-path-module .curriculum-module-heading h3{
+ display:block!important;width:100%!important;font-size:1.12rem!important;
+ line-height:1.35!important;margin:5px 0!important;word-break:normal!important;
+ overflow-wrap:break-word!important;letter-spacing:normal!important;
+}
+.curriculum-path-module .curriculum-module-heading p{line-height:1.4!important;font-size:.87rem!important;margin:5px 0!important}
+.curriculum-path-module .curriculum-module-number{
+ display:grid!important;place-items:center!important;width:46px!important;height:46px!important;
+ flex:0 0 46px!important;min-width:46px!important;border-radius:13px!important;
+ box-shadow:none!important;font-size:1.1rem!important;
+}
+.curriculum-path-module .curriculum-chevron{display:block!important;align-self:center!important;margin:0!important}
+.curriculum-path-module .dl-gate-status{display:block!important;position:static!important;font-size:.78rem!important;line-height:1.35!important;margin:9px 0 0!important;max-width:100%!important;white-space:normal!important}
+.curriculum-path-module .dl-path-chip{display:inline-block!important;margin-top:8px!important}
+.curriculum-path-module .curriculum-module-content{padding:9px!important}
+.curriculum-path-module .curriculum-path-lesson{padding:12px!important;gap:9px!important;margin:7px 0!important}
+.curriculum-path-module .curriculum-path-lesson .text{min-width:0!important}
+.curriculum-path-module .curriculum-path-lesson button{flex-shrink:0!important}
+#sideMenu{display:block!important}
+#sideMenu>button,#sideMenu>button.dl-menu-profile-link,#sideMenu>button.dl-placement-subitem{
+ display:flex!important;flex-direction:row!important;align-items:center!important;
+ justify-content:flex-start!important;gap:0!important;
+ width:100%!important;min-height:54px!important;height:54px!important;
+ padding:0 18px!important;margin:0!important;border:0!important;
+ border-radius:0!important;box-shadow:none!important;background:transparent!important;
+ text-align:left!important;text-indent:0!important;font-size:1rem!important;
+ font-weight:650!important;letter-spacing:normal!important;line-height:1.3!important;
+ color:#f0f5fc!important;transform:none!important;
+}
+#sideMenu>button::before,#sideMenu>button::after{box-shadow:none!important}
+#sideMenu>p.muted{margin:19px 18px 8px!important;padding:0 0 9px!important;border-bottom:1px solid rgba(151,205,202,.42)!important}
+#sideMenu .dl-menu-profile-link *{text-align:left!important;justify-content:flex-start!important}
+.dl-alphabet-audio{padding:17px;margin:18px 0 20px;border:1px solid #528b86;border-radius:16px;background:#1c3949}
+.dl-alphabet-audio h3{margin:0 0 9px}
+.dl-alphabet-audio p{line-height:1.45;margin:8px 0 12px}
+.dl-alphabet-audio-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.dl-alphabet-audio-item{padding:12px;background:#293f57;border:1px solid #567a87;border-radius:12px;min-width:0}
+.dl-alphabet-audio-item strong{display:block;font-size:1.4rem;color:#a2f1dd}
+.dl-alphabet-audio-item span{display:block;min-height:2.5em;font-size:.84rem;line-height:1.4}
+.dl-alphabet-audio-item button{width:100%;margin-top:9px;padding:9px 5px!important;font-size:.82rem!important;white-space:normal!important}
+@media(max-width:380px){.curriculum-path-module .curriculum-module-number{width:40px!important;height:40px!important;flex-basis:40px!important}.curriculum-path-module>summary{padding:14px 11px!important}}
+</style>
+<script id="dl-final-layout-stabilization-js">
+(function(){
+ function normalizeMenu(){
+  const menu=document.getElementById('sideMenu');if(!menu)return;
+  const profile=menu.querySelector('.dl-menu-profile-link');
+  const placement=[...menu.querySelectorAll('button')].find(b=>b.textContent.trim()==='Placement test');
+  if(profile&&placement){profile.after(placement);placement.classList.remove('dl-placement-subitem');}
+ }
+ function normalizeModules(){
+  document.querySelectorAll('.curriculum-path-module>summary').forEach(summary=>{
+   const heading=summary.querySelector('.curriculum-module-heading');
+   if(!heading)return;
+   const content=heading.querySelector('div');
+   if(!content)return;
+   // Gate status was inserted as a third flex child, squeezing the title to one character per line.
+   summary.querySelectorAll(':scope > .dl-gate-status').forEach(status=>content.appendChild(status));
+  });
+ }
+ normalizeMenu();
+ const oldView=window.curriculumView;
+ if(typeof oldView==='function')window.curriculumView=function(){const result=oldView.apply(this,arguments);normalizeModules();return result};
+ // Insert letter-sound examples in the lesson's explanation, not at the end of the card.
+ const oldStudy=window.fullStudy;
+ if(typeof oldStudy==='function')window.fullStudy=function(id){
+  const result=oldStudy.apply(this,arguments);
+  const unit=FULL_UNITS[id];if(!unit||unit.level!=='A1'||!/alphabet and spelling/i.test(unit.title||''))return result;
+  const card=document.querySelector('#app .card');if(!card)return result;
+  card.querySelectorAll('.dl-letters-intro,.dl-alphabet-audio').forEach(el=>el.remove());
+  const section=document.createElement('section');section.className='dl-alphabet-audio';
+  const examples=[
+   ['Ä / ä','Mädchen','ä as in Mädchen (girl)'],
+   ['Ö / ö','schön','ö as in schön (beautiful)'],
+   ['Ü / ü','Mütter','ü as in Mütter (mothers)'],
+   ['ẞ / ß','Straße','ß makes a sharp s sound (street)']
+  ];
+  section.innerHTML='<h3>Hear the extra German letters</h3><p>German uses <strong>ä, ö, ü</strong> and <strong>ß</strong> in addition to the English alphabet. Listen to each example before starting the exercises.</p><div class="dl-alphabet-audio-grid">'+examples.map(e=>'<div class="dl-alphabet-audio-item"><strong>'+e[0]+'</strong><span>'+e[2]+'</span><button type="button" class="secondary" data-dl-letter-word="'+e[1]+'">Hear '+e[1]+'</button></div>').join('')+'</div><p>Ä, Ö and Ü are different vowel sounds, not just decorated letters. ß represents the sound of ss.</p>';
+  const rule=card.querySelector('.unit-explain');
+  if(rule)rule.after(section);else card.insertBefore(section,card.children[1]||null);
+  section.querySelectorAll('button').forEach(button=>button.addEventListener('click',()=>speak(button.dataset.dlLetterWord)));
+  return result;
+ };
+})();
+</script>
 </body></html>
