@@ -213,8 +213,8 @@ const listeningSet=[['Guten Morgen','Good morning'],['Ich habe einen Hund','I ha
 function listeningPractice(){let i=Math.floor(Math.random()*listeningSet.length),entry=listeningSet[i],wrong=listeningSet[(i+2)%listeningSet.length][1],wrong2=listeningSet[(i+4)%listeningSet.length][1],opts=[entry[1],wrong,wrong2].sort(()=>Math.random()-.5);app.innerHTML=illustratedHero('Listen and understand','Listen before choosing a meaning.','village','katze.png')+`<section class="card"><p>Tap to hear the German sentence.</p><button onclick="speak(${JSON.stringify(entry[0]).replace(/"/g,'&quot;')})">🔊 Play German</button><h3>What did you hear?</h3>${opts.map(o=>`<button class="secondary" onclick="listeningAnswer(${JSON.stringify(o).replace(/"/g,'&quot;')},${JSON.stringify(entry[1]).replace(/"/g,'&quot;')},${JSON.stringify(entry[0]).replace(/"/g,'&quot;')})">${safeText(o)}</button>`).join('')}<div id="listenFeedback"></div></section>`}
 function listeningAnswer(choice,answer,german){let ok=choice===answer;practiceLog(ok?10:2);app.querySelectorAll('.card button').forEach(b=>b.disabled=true);document.getElementById('listenFeedback').innerHTML=`<p class="${ok?'correct':'wrong'}">${ok?'Correct!':'Correct meaning: '+safeText(answer)}</p><p>${safeText(german)}</p><button onclick="listeningPractice()">Another sentence</button><button class="secondary" onclick="practiceHub()">Finish</button>`}
 const sentences=[['Ich habe einen Hund','I have a dog'],['Heute gehe ich einkaufen','Today I am going shopping'],['Wir lernen Deutsch','We are learning German'],['Die Katze schläft auf dem Sofa','The cat sleeps on the sofa'],['Morgen rufe ich dich an','Tomorrow I will call you']];let sentenceTarget=[],sentenceChosen=[];
-function sentencePractice(){let pair=sentences[Math.floor(Math.random()*sentences.length)];sentenceTarget=pair[0].split(' ');sentenceChosen=[];let shuffled=sentenceTarget.map((w,i)=>({w,i})).sort(()=>Math.random()-.5);app.innerHTML=illustratedHero('Build a sentence',pair[1],'village','hund.png')+`<section class="card"><h3>Tap the words in the correct order</h3><div id="sentenceBuilt" class="bubble">Tap words below…</div><div id="sentenceTiles">${shuffled.map(x=>`<button class="secondary" id="word${x.i}" onclick="chooseSentenceWord(${x.i},${JSON.stringify(x.w).replace(/"/g,'&quot;')})">${safeText(x.w)}</button>`).join('')}</div><button onclick="sentencePractice()">Skip</button><div id="sentenceFeedback"></div></section>`}
-function chooseSentenceWord(i,w){sentenceChosen.push(w);document.getElementById('word'+i).disabled=true;document.getElementById('sentenceBuilt').textContent=sentenceChosen.join(' ');if(sentenceChosen.length===sentenceTarget.length){let ok=sentenceChosen.join(' ')===sentenceTarget.join(' ');practiceLog(ok?10:2);document.getElementById('sentenceFeedback').innerHTML=`<p class="${ok?'correct':'wrong'}">${ok?'Correct!':'Correct order: '+safeText(sentenceTarget.join(' '))}</p>${ok?'<button class="secondary" onclick="speak(sentenceTarget.join(\" \"))">🔊 Replay sentence</button>':''}<button onclick="sentencePractice()">Next sentence</button><button class="secondary" onclick="practiceHub()">Finish</button>`;if(ok)setTimeout(()=>speak(sentenceTarget.join(' ')),350)}}
+function sentencePractice(){let pair=sentences[Math.floor(Math.random()*sentences.length)];sentenceTarget=pair[0].split(' ');sentenceChosen=[];let shuffled=sentenceTarget.map((w,i)=>({w,i})).sort(()=>Math.random()-.5);app.innerHTML=illustratedHero('Build a sentence',pair[1],'village','hund.png')+`<section class="card"><h3>Tap the words in the correct order</h3><div id="sentenceBuilt" class="bubble">Tap words below…</div><div id="sentenceTiles">${shuffled.map(x=>`<button class="secondary" id="word${x.i}" onclick="chooseSentenceWord(${x.i},${JSON.stringify(x.w).replace(/"/g,'&quot;')})">${safeText(x.w.replace(/[.!?]+$/,''))}</button>`).join('')}</div><button onclick="sentencePractice()">Skip</button><button class="secondary" onclick="dlSentenceHelpToggle()">Show grammar help</button><div id="dlSentenceHelp" class="explain-box" hidden></div><div id="sentenceFeedback"></div></section>`}
+function chooseSentenceWord(i,w){sentenceChosen.push(w);document.getElementById('word'+i).disabled=true;document.getElementById('sentenceBuilt').textContent=sentenceChosen.join(' ').replace(/[.!?]+(?=\s|$)/g,'');if(sentenceChosen.length===sentenceTarget.length){let ok=sentenceChosen.join(' ')===sentenceTarget.join(' ');practiceLog(ok?10:2);document.getElementById('sentenceFeedback').innerHTML=`<p class="${ok?'correct':'wrong'}">${ok?'Correct!':'Correct order: '+safeText(sentenceTarget.join(' '))}</p>${ok?'<button class="secondary" onclick="speak(sentenceTarget.join(\" \"))">🔊 Replay sentence</button>':''}<button onclick="sentencePractice()">Next sentence</button><button class="secondary" onclick="practiceHub()">Finish</button>`;if(ok)setTimeout(()=>speak(sentenceTarget.join(' ')),350)}}
 const oldPersonalHome=home;home=function(){oldPersonalHome();let p=practiceState(),today=p.activity[new Date().toLocaleDateString('en-CA')]||0;app.insertAdjacentHTML('afterbegin',`<section class="card"><h2>Daily practice</h2><p>${today}/30 XP today · ${practiceStreak()}-day streak</p><button onclick="practiceHub()">Open practice hub</button></section>`)};
 let menu=document.getElementById('sideMenu');let practiceButton=document.createElement('button');practiceButton.textContent='✦ Practice Hub';practiceButton.setAttribute('onclick',"navigateTo('practiceHub')");let reviewButton=[...menu.querySelectorAll('button')].find(x=>x.textContent.includes('Review'));if(reviewButton)reviewButton.before(practiceButton);else menu.appendChild(practiceButton);
 home();
@@ -839,7 +839,7 @@ function gameRender(){
  if(g.mode==='build'){
  let order=[...item.tokens.keys()].sort(()=>Math.random()-.5);
  g.order=order;
- body=`<p>Build this sentence in German:</p><h3>${safeText(item.en)}</h3><div id="gameBuilt" class="game-built">Tap the words below ↓</div><div id="gameBank" class="game-wordbank">${order.map((n,i)=>`<button class="secondary" id="gb${i}" onclick="gamePick(${i})">${safeText(item.tokens[n])}</button>`).join('')}</div><button class="secondary" onclick="gameRender()">Start over</button><button onclick="gameCheckBuild()">Check sentence</button>`;
+ body=`<p>Build this sentence in German:</p><h3>${safeText(item.en)}</h3><div id="gameBuilt" class="game-built">Tap the words below ↓</div><div id="gameBank" class="game-wordbank">${order.map((n,i)=>`<button class="secondary" id="gb${i}" onclick="gamePick(${i})">${safeText(item.tokens[n].replace(/[.!?]+$/,""))}</button>`).join('')}</div><button class="secondary" onclick="gameRender()">Start over</button><button onclick="gameCheckBuild()">Check sentence</button><button class="secondary" onclick="dlSentenceHelpToggle()">Show grammar help</button><div id="dlSentenceHelp" class="explain-box" hidden></div>`;
  }else if(g.mode==='listen'){
  let other=[...GAME_ITEMS.keys()].filter(i=>i!==g.seq[g.idx]).sort(()=>Math.random()-.5).slice(0,3);
  let choices=[g.seq[g.idx],...other].sort(()=>Math.random()-.5);g.choices=choices;
@@ -853,8 +853,8 @@ function gameRender(){
  if(g.mode==='listen')speak(item.de);
  window.scrollTo(0,0);
 }
-function gamePick(n){let g=gameSession;if(g.answered||g.picked.includes(n))return;g.picked.push(n);document.getElementById('gb'+n).disabled=true;document.getElementById('gameBuilt').textContent=g.picked.map(i=>GAME_ITEMS[g.seq[g.idx]].tokens[g.order[i]]).join(' ')}
-function gameCheckBuild(){let g=gameSession;if(g.answered)return;let item=GAME_ITEMS[g.seq[g.idx]],guess=g.picked.map(i=>item.tokens[g.order[i]]).join(' ');if(g.picked.length!==item.tokens.length){document.getElementById('gameFeedback').textContent='Use all the words first.';return}gameMark(guess===item.de,item.de)}
+function gamePick(n){let g=gameSession;if(g.answered||g.picked.includes(n))return;g.picked.push(n);document.getElementById('gb'+n).disabled=true;document.getElementById('gameBuilt').textContent=g.picked.map(i=>GAME_ITEMS[g.seq[g.idx]].tokens[g.order[i]]).join(' ').replace(/[.!?]+(?=\s|$)/g,'')}
+function gameCheckBuild(){let g=gameSession;if(g.answered)return;let item=GAME_ITEMS[g.seq[g.idx]],guess=g.picked.map(i=>item.tokens[g.order[i]]).join(' ');if(g.picked.length!==item.tokens.length){document.getElementById('gameFeedback').textContent='Use all the words first.';return}gameMark(guess.replace(/[.!?]+(?=\s|$)/g,'').trim()===item.de.replace(/[.!?]+(?=\s|$)/g,'').trim(),item.de)}
 function gameChoose(n){let g=gameSession;if(g.answered)return;let item=GAME_ITEMS[g.seq[g.idx]];gameMark(g.choices[n]===g.seq[g.idx],item.de+' — '+item.en)}
 function gameMatch(side,n){
  let g=gameSession;if(g.answered||g.matches.includes(n))return;
@@ -1501,30 +1501,6 @@ function dlCheck(){
 })();
 </script>
 
-<style>
-.completion-cheer{display:flex;align-items:center;gap:12px;margin:14px 0 18px;padding:14px;border:1px solid rgba(117,214,192,.42);border-radius:18px;background:rgba(29,61,77,.8)}
-.completion-cheer img{width:76px;height:76px;object-fit:contain;flex-shrink:0}
-.completion-cheer .cheer-bubble{position:relative;flex:1;background:#e8fff7;color:#16362f;border-radius:16px;padding:13px 16px;font-size:1.05rem;font-weight:700;line-height:1.4}
-.completion-cheer .cheer-bubble:before{content:'';position:absolute;left:-9px;top:27px;border-top:9px solid transparent;border-bottom:9px solid transparent;border-right:10px solid #e8fff7}
-</style>
-<script>
-// Add encouragement to results screens without altering exercise logic.
-(function(){
-  if(typeof illustratedHero!=='function')return;
-  const originalHero=illustratedHero;
-  const completed=/^(?:Nice work!|Round complete!?|Lesson complete!|Lesson results|Unit results|Extended practice complete|Deep dive complete)$/i;
-  const messages=['Excellent work! Keep it up!','You’re making real progress!','Well done! Every bit of practice counts.','Great effort! You’re getting stronger at German.','You did it! Keep building on what you know.'];
-  let cheerIndex=0;
-  illustratedHero=function(title,description,scene,mascot){
-    const hero=originalHero(title,description,scene,mascot);
-    if(!completed.test(String(title).trim()))return hero;
-    const image=mascot==='katze.png'?'katze.png':'hund.png';
-    const name=image==='katze.png'?'Minka':'Fritzi';
-    const message=messages[cheerIndex++%messages.length];
-    return hero+'<div class="completion-cheer"><img src="./'+image+'" alt="'+name+'"><div class="cheer-bubble" role="status">'+message+'</div></div>';
-  };
-})();
-</script>
 <script>
 /* Minimum six varied questions in each guided lesson; keep original bank and progress. */
 (function(){
@@ -1583,12 +1559,13 @@ function dlCheck(){
 </script>
 
 <style>
-/* Completion encouragement belongs in the results card, not in a floating notification. */
-.dl-auto-cheer{display:flex;align-items:center;gap:14px;margin:18px 0 22px;padding:14px;border-radius:18px;background:rgba(39,77,86,.75);border:1px solid rgba(117,214,192,.42)}
-.dl-auto-cheer img{width:82px;height:82px;object-fit:contain;flex-shrink:0}
-.dl-auto-cheer .dl-auto-bubble{position:relative;flex:1;border-radius:16px;padding:14px 16px;background:#e8fff7;color:#16362f;font-weight:700;line-height:1.4}
-.dl-auto-cheer .dl-auto-bubble:before{content:'';position:absolute;left:-9px;top:29px;border-top:9px solid transparent;border-bottom:9px solid transparent;border-right:10px solid #e8fff7}
-@media(max-width:390px){.dl-auto-cheer img{width:66px;height:66px}.dl-auto-cheer{gap:10px}}
+/* Put the encouragement next to the existing mascot, inside the completion hero. */
+.scene-hero.dl-completed-hero{display:flex;align-items:center;gap:14px;min-height:190px}
+.scene-hero.dl-completed-hero .hero-mascot{flex:0 0 auto}
+.scene-hero.dl-completed-hero .hero-copy{min-width:0;flex:1}
+.dl-hero-cheer{position:relative;background:#e8fff7;color:#16362f;border-radius:16px;padding:12px 15px;margin-top:10px;font-weight:700;font-size:clamp(.9rem,3.8vw,1.08rem);line-height:1.4;overflow-wrap:anywhere}
+.dl-hero-cheer:before{content:'';position:absolute;left:-9px;top:18px;border-top:9px solid transparent;border-bottom:9px solid transparent;border-right:10px solid #e8fff7}
+@media(max-width:390px){.scene-hero.dl-completed-hero{gap:9px}.dl-hero-cheer{padding:10px 12px}}
 </style>
 <script>
 (function(){
@@ -1596,33 +1573,54 @@ function dlCheck(){
  if(!root)return;
  const messages=['Excellent work! Keep it up!','You’re making real progress!','Well done! Every bit of practice counts.','Great job! Keep building your German skills.','You did it! Keep up the good work!'];
  const resultTitles=/^(Nice work!|Round complete!?|Lesson complete!|Lesson results|Unit results|Extended practice complete|Deep dive complete)$/i;
- let lastResult='',counter=0,updating=false;
+ let previousHero=null,sequence=0,updating=false;
  function render(){
   if(updating)return;
-  const hero=[...root.querySelectorAll('h1,h2,h3')].find(h=>resultTitles.test(h.textContent.trim()));
-  const pictureDone=root.textContent.includes('You finished this picture round.');
-  const isResults=!!hero||pictureDone;
-  if(!isResults){lastResult='';return;}
-  const card=[...root.querySelectorAll('section.card,.card')].find(el=>el.querySelector('button') && (/correct|passed|review|practice again/i.test(el.textContent)));
-  if(!card)return;
-  if(card.querySelector('.dl-auto-cheer'))return;
+  const hero=root.querySelector('.scene-hero');
+  if(!hero){previousHero=null;return}
+  const heading=hero.querySelector('.hero-copy h2');
+  if(!heading||!resultTitles.test(heading.textContent.trim())){previousHero=null;return}
   updating=true;
   try{
-   // Previous version placed its speech bubble outside the result card.
-   root.querySelectorAll('.completion-cheer').forEach(el=>el.remove());
-   const identity=(hero?hero.textContent.trim():'Picture results')+'|'+card.textContent.trim().slice(0,100);
-   if(identity!==lastResult){lastResult=identity;counter++}
-   const cat=counter%2===0;
-   const wrap=document.createElement('div');wrap.className='dl-auto-cheer';wrap.setAttribute('role','status');
-   const img=document.createElement('img');img.src=cat?'./katze.png':'./hund.png';img.alt=cat?'Minka':'Fritzi';
-   const bubble=document.createElement('div');bubble.className='dl-auto-bubble';bubble.textContent=messages[(counter-1)%messages.length];
-   wrap.append(img,bubble);
-   const firstButton=card.querySelector('button');
-   if(firstButton)firstButton.before(wrap);else card.append(wrap);
+   // Remove older duplicate completion blocks, if present.
+   root.querySelectorAll('.completion-cheer,.dl-auto-cheer').forEach(el=>el.remove());
+   if(hero.querySelector('.dl-hero-cheer'))return;
+   if(hero!==previousHero){previousHero=hero;sequence++}
+   hero.classList.add('dl-completed-hero');
+   const bubble=document.createElement('div');bubble.className='dl-hero-cheer';bubble.setAttribute('role','status');
+   bubble.textContent=messages[(sequence-1)%messages.length];
+   hero.querySelector('.hero-copy').append(bubble);
   }finally{updating=false}
  }
  new MutationObserver(render).observe(root,{childList:true,subtree:true});
  render();
 })();
+</script>
+<script>
+const dlSentenceGrammar = {
+ 'Die Katze schläft auf dem Bett.':'Die Katze is the subject. Schläft is the conjugated verb in second position. Auf dem Bett describes where the cat sleeps.',
+ 'Ich trinke morgens Wasser.':'Ich is the subject and trinke is the verb in second position. Morgens tells when; Wasser is the object.',
+ 'Wir gehen zum Bahnhof.':'Wir is the subject, followed by the conjugated verb gehen. Zum means zu dem (to the).',
+ 'Mein Bruder hat ein Fahrrad.':'Mein Bruder is the subject. Hat is the third-person singular form of haben (to have).',
+ 'Morgen kaufe ich Äpfel.':'Morgen comes first for emphasis, so the verb kaufe remains in second position, before ich.',
+ 'Sie liest ein Buch.':'Sie is the subject. Liest is the third-person singular form of lesen (to read).',
+ 'Die Kinder spielen draußen.':'Die Kinder is plural, so the verb is spielen. Draußen means outside.',
+ 'Ich suche meine Schlüssel.':'Ich takes the verb form suche. Meine Schlüssel is the plural object.',
+ 'Wir essen Brot und Käse.':'Wir takes essen. Und connects the two foods, Brot and Käse.',
+ 'Der Hund sitzt unter dem Tisch.':'Der Hund is the subject. Unter dem Tisch uses dative to describe a fixed location.',
+ 'Ich habe einen Hund':'Ich takes habe. Einen Hund is accusative because Hund is the direct object.',
+ 'Heute gehe ich einkaufen':'Heute occupies first position, so gehe comes second, before ich. Einkaufen stays at the end.',
+ 'Wir lernen Deutsch':'Wir is plural, so the verb is lernen. Deutsch is what we are learning.',
+ 'Die Katze schläft auf dem Sofa':'Die Katze is the subject, followed by schläft. Auf dem Sofa uses dative for a location.',
+ 'Morgen rufe ich dich an':'Morgen is first, rufe is second, and the separable prefix an goes at the end.'
+};
+function dlSentenceHelpToggle(){
+ const box=document.getElementById('dlSentenceHelp');if(!box)return;
+ const g=typeof gameSession!=='undefined'?gameSession:null;
+ const key=g&&g.mode==='build'&&g.seq&&g.idx<g.seq.length?GAME_ITEMS[g.seq[g.idx]].de:(typeof sentenceTarget!=='undefined'?sentenceTarget.join(' '):'');
+ box.textContent=dlSentenceGrammar[key]||'In a German statement, the conjugated verb normally occupies the second position.';
+ box.hidden=!box.hidden;
+ const btn=[...box.parentElement.querySelectorAll('button')].find(b=>b.textContent==='Show grammar help'||b.textContent==='Hide grammar help');if(btn)btn.textContent=box.hidden?'Show grammar help':'Hide grammar help';
+}
 </script>
 </body></html>
