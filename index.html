@@ -3556,7 +3556,7 @@ window.findItTap=function(i){
  const target=session.queue[session.idx],picked=items[i],node=app.querySelector('.findit-target[data-fi="'+i+'"]');
  if(picked===target){
   session.locked=true;node&&node.classList.add('findit-hit');
-  const cat=app.querySelector('.findit-scene');if(cat){cat.classList.add('findit-celebrate');setTimeout(()=>cat.classList.remove('findit-celebrate'),1100)}
+  const roomCat=app.querySelector('.findit-scene');if(roomCat){roomCat.classList.add('findit-cat-happy');setTimeout(()=>roomCat.classList.remove('findit-cat-happy'),1100)}
   const phrase=praises[session.idx%praises.length];session.phrase=phrase[0];
   feedback(phrase[0],phrase[1]+' · '+target.de+' = '+target.en,true);
   const bubble=document.createElement('div');bubble.className='findit-cat-speech';bubble.innerHTML='<strong>'+phrase[0]+'</strong>';const room=app.querySelector('.findit-scene');if(room)room.appendChild(bubble);
@@ -3564,7 +3564,7 @@ window.findItTap=function(i){
   advance=setTimeout(()=>{if(!session)return;session.idx++;render()},1800);
  }else{
   session.hearts--;node&&node.classList.add('findit-miss');
-  session.phrase='';feedback('Fast!','Not quite — try another object.',false);
+  session.phrase='';feedback('Fast!','Not quite — try another object.',false);const roomCat=app.querySelector('.findit-scene');if(roomCat){roomCat.classList.remove('findit-cat-sad');void roomCat.offsetWidth;roomCat.classList.add('findit-cat-sad');setTimeout(()=>roomCat.classList.remove('findit-cat-sad'),850)}
   if(session.hearts<=0){session.locked=true;if(advance)clearTimeout(advance);advance=setTimeout(render,1400)}
   else setTimeout(()=>{if(node)node.classList.remove('findit-miss')},650);
   const h=app.querySelector('.findit-hearts');if(h)h.innerHTML='♥'.repeat(session.hearts)+'<span style="opacity:.22">'+'♥'.repeat(3-session.hearts)+'</span>';
@@ -3642,4 +3642,14 @@ html body.dl-home-banner.dl-compact-header .app-header .menu-toggle {
 .findit-scene.findit-celebrate .findit-room-art{animation:dl-room-celebrate .45s ease-in-out 2}
 @keyframes dl-room-celebrate{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
 .findit-cat-speech{left:23%!important;bottom:11%!important;min-width:28%;justify-content:center}
+</style><style id="dl-findit-interaction-polish">
+/* Hotspots stay accessible without drawing boxes over the illustration. */
+.findit-scene .findit-target,.findit-scene .findit-target.findit-hit,.findit-scene .findit-target.findit-miss{border:0!important;outline:0!important;box-shadow:none!important;background:transparent!important;-webkit-tap-highlight-color:transparent!important}
+.findit-scene .findit-target:focus-visible{outline:2px dashed #fff!important;outline-offset:-3px!important}
+.findit-scene.findit-celebrate .findit-room-art{animation:none!important}
+.findit-scene.findit-cat-happy::after,.findit-scene.findit-cat-sad::after{position:absolute;left:8%;bottom:23%;z-index:6;display:grid;place-items:center;width:18%;aspect-ratio:1;border-radius:50%;background:#fff7e9;color:#25435a;font-size:clamp(25px,8vw,49px);box-shadow:0 4px 12px #0006;pointer-events:none}
+.findit-scene.findit-cat-happy::after{content:'😺';animation:dl-cat-pop .55s ease 2}
+.findit-scene.findit-cat-sad::after{content:'😿';animation:dl-cat-no .42s ease 2}
+@keyframes dl-cat-pop{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-9px) scale(1.12)}}
+@keyframes dl-cat-no{0%,100%{transform:rotate(0)}30%{transform:rotate(-13deg)}70%{transform:rotate(13deg)}}
 </style></body></html>
