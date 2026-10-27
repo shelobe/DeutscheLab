@@ -2662,16 +2662,42 @@ curriculumModuleIntro=function(level,n){
   {sound:'ü',word:'fünf',meaning:'five',example:'Tür',detail:'Say ee while rounding your lips as if to say oo. Keep your tongue forward.'},
   {sound:'ö',word:'schön',meaning:'beautiful',example:'hören',detail:'Shape your tongue for an eh sound while rounding your lips. It is distinct from o.'}
  ];
- const oldBegin=fullBegin;
- fullBegin=function(id){
-  oldBegin(id);
-  const session=fullSession,unit=FULL_UNITS[id];
-  if(!session||!unit||unit.level!=='A1'||!Array.isArray(session.questions)||session.questions.some(q=>q.dlSoundDrill))return;
-  const drill=drills[Math.abs(Number(id)||0)%drills.length];
-  const q={type:'speak-word',prompt:'Practice a German sound in a word',options:['Recognized','Try again'],answer:0,dlSpeakWord:drill.word,dlSpeakMeaning:drill.meaning,why:drill.detail,dlSoundDrill:drill};
-  session.questions.splice(Math.min(2,session.questions.length),0,q);
-  fullRender();
+ let soundIndex=0;
+ window.dlPronunciationHome=function(index){
+  soundIndex=Math.max(0,Math.min(drills.length-1,Number(index)||0));
+  const d=drills[soundIndex];
+  const root=document.getElementById('app');
+  root.innerHTML='<section class="card dl-pronunciation"><p class="muted">Pronunciation · '+(soundIndex+1)+' of '+drills.length+'</p><h2>German sounds</h2><div class="dl-sound-focus"><strong></strong><p class="dl-sound-detail"></p><p>Another example: <b class="dl-sound-example-word"></b></p><button class="secondary" id="dl-sound-example-play">🔊 Listen to example</button></div><h3 class="dl-pronunciation-word"></h3><p class="dl-pronunciation-meaning"></p><button class="secondary" id="dl-sound-hear">🔊 Hear it</button><button class="secondary" id="dl-sound-slow">🐢 Hear it slowly</button><button id="dl-sound-speak">🎤 Speak now</button><p id="dl-sound-status" aria-live="polite">Listen, then practice saying the word.</p><div class="dl-sound-navigation"><button class="secondary" id="dl-sound-prev">Previous</button><button id="dl-sound-next">Next sound</button></div></section>';
+  root.querySelector('.dl-sound-focus strong').textContent='Sound focus: '+d.sound;
+  root.querySelector('.dl-sound-detail').textContent=d.detail;
+  root.querySelector('.dl-sound-example-word').textContent=d.example;
+  root.querySelector('.dl-pronunciation-word').textContent=d.word;
+  root.querySelector('.dl-pronunciation-meaning').textContent=d.meaning;
+  root.querySelector('#dl-sound-example-play').onclick=()=>speak(d.example);
+  root.querySelector('#dl-sound-hear').onclick=()=>speak(d.word);
+  root.querySelector('#dl-sound-slow').onclick=()=>speak(d.word,0.7);
+  root.querySelector('#dl-sound-prev').disabled=soundIndex===0;
+  root.querySelector('#dl-sound-prev').onclick=()=>dlPronunciationHome(soundIndex-1);
+  root.querySelector('#dl-sound-next').textContent=soundIndex===drills.length-1?'Start again':'Next sound';
+  root.querySelector('#dl-sound-next').onclick=()=>dlPronunciationHome((soundIndex+1)%drills.length);
+  root.querySelector('#dl-sound-speak').onclick=()=>{
+   const status=root.querySelector('#dl-sound-status');
+   const Rec=window.SpeechRecognition||window.webkitSpeechRecognition;
+   if(!Rec){status.textContent='Speech recognition is unavailable in this browser.';return}
+   const rec=new Rec();rec.lang='de-DE';rec.interimResults=false;rec.maxAlternatives=3;
+   status.textContent='Listening…';
+   rec.onresult=e=>{const words=Array.from(e.results[0]).map(x=>x.transcript.trim().toLocaleLowerCase('de-DE').replace(/[.!?]/g,''));const ok=words.includes(d.word.toLocaleLowerCase('de-DE'));status.textContent=ok?'Richtig! Well done!':'Heard: '+words[0]+'. Try again.'};
+   rec.onerror=e=>{status.textContent='Microphone: '+e.error+'. Try again.'};
+   try{rec.start()}catch(e){status.textContent='Unable to start microphone.'}
+  };
+  window.scrollTo(0,0);
  };
+ const menu=document.getElementById('sideMenu');
+ if(menu&&!menu.querySelector('[data-pronunciation-menu]')){
+  const btn=document.createElement('button');btn.dataset.pronunciationMenu='1';btn.textContent='♫ Pronunciation';btn.onclick=()=>navigateTo('dlPronunciationHome');
+  const practice=Array.from(menu.querySelectorAll('p')).find(p=>p.textContent.trim()==='PRACTICE');
+  if(practice)practice.after(btn);else menu.append(btn);
+ }
  const oldRender=fullRender;
  fullRender=function(){
   oldRender();
@@ -3652,4 +3678,4 @@ html body.dl-home-banner.dl-compact-header .app-header .menu-toggle {
 .findit-scene.findit-cat-sad::after{content:'😿';animation:dl-cat-no .42s ease 2}
 @keyframes dl-cat-pop{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-9px) scale(1.12)}}
 @keyframes dl-cat-no{0%,100%{transform:rotate(0)}30%{transform:rotate(-13deg)}70%{transform:rotate(13deg)}}
-</style></body></html>
+</style><style>.dl-pronunciation h3{font-size:2rem;margin-bottom:0}.dl-pronunciation button{margin:5px}.dl-sound-navigation{display:flex;justify-content:space-between;gap:8px;margin-top:20px}.dl-sound-navigation button{flex:1}</style></body></html>
