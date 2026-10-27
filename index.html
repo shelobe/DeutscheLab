@@ -58,6 +58,13 @@
 .curriculum-path-module .curriculum-path-lesson{margin:5px 9px;border:1px solid #45627b;border-radius:12px;background:#20354b}
 .curriculum-path-module .curriculum-path-lesson:nth-child(even){background:#263d55}
 .curriculum-path-module .curriculum-check{margin:8px 9px 5px;border-radius:12px;background:#1b3943}
+</style><style id="dl-nature-background">
+/* Global, quiet nature backdrop derived from the approved DeutschLab scene. */
+html{min-height:100%;background:#0d2630 url('./nature_background.webp') center center/cover fixed no-repeat}
+body{min-height:100vh;background:linear-gradient(180deg,rgba(7,20,32,.30),rgba(8,22,33,.52))!important;background-attachment:fixed!important}
+.card,.curriculum-path-module,.curriculum-summary,.app-header,.side-menu{backdrop-filter:blur(13px);-webkit-backdrop-filter:blur(13px)}
+.card{background-color:rgba(20,39,55,.94)}
+@media(max-width:700px){html{background-attachment:scroll}body{background-attachment:scroll!important}}
 </style></head><body><main><header class="app-header"><button class="menu-toggle" onclick="toggleMenu(true)" aria-label="Open navigation menu" aria-controls="sideMenu" aria-expanded="false">☰</button><div><h1>DeutschLab 🇩🇪</h1><p class="muted">German practice studio</p></div></header><div id="menuBackdrop" class="menu-backdrop" onclick="toggleMenu(false)" hidden></div><nav id="sideMenu" class="side-menu" aria-label="Main navigation" aria-hidden="true"><div class="menu-heading"><strong>DeutschLab</strong><button class="menu-close secondary" onclick="toggleMenu(false)" aria-label="Close menu">✕</button></div><p class="muted">LEARN</p><button onclick="navigateTo('home')">⌂ Home</button><button onclick="navigateTo('placement')">◈ Placement test</button><button onclick="navigateTo('lessonMenu')">▤ Lessons</button><button onclick="navigateTo('articleHome')">◉ Noun Articles</button><p class="muted">PRACTICE</p><button onclick="navigateTo('review')">↻ Review</button><button onclick="navigateTo('conversation')">☏ Dialogue</button><button onclick="navigateTo('aiTutor')">✦ AI Tutor & Voice</button></nav><div id="app"></div></main><script>
 function dlAudioExample(value){
   // Read only the German example, not symbols or explanatory annotations.
@@ -916,7 +923,7 @@ function gameMark(ok,answer){
 function gameNext(){if(!gameSession)return;gameSession.idx++;gameRender()}
 const gameHome=home;
 home=function(){gameHome();let target=app.querySelector('.card');if(target){let b=document.createElement('section');b.className='card';b.innerHTML='<h3>Practice games</h3><p>Build sentences, match words and practice listening.</p><button onclick="gameHub()">Play practice games</button>';target.after(b)}};
-let gameMenu=document.getElementById('sideMenu');if(gameMenu){let b=document.createElement('button');b.textContent='🧩 Practice games';b.onclick=gameHub;gameMenu.appendChild(b)}
+let gameMenu=document.getElementById('sideMenu');if(gameMenu){let b=document.createElement('button');b.textContent='🧩 Practice games';b.onclick=()=>navigateTo('gameHub');gameMenu.appendChild(b)}
 // Reuse the app's persistent top back button for the new screens.
 const priorFixGameBack=window.setInterval(()=>{
  const b=document.getElementById('screenBack');if(!b)return;
@@ -2228,7 +2235,7 @@ fullBegin=async function(id){
 })();
 </script><style>
 /* XP rewards and selectable animal profile avatars */
-.dl-profile-top{display:flex;gap:16px;align-items:center;flex-wrap:wrap}.dl-avatar-large{width:94px;height:94px;border-radius:24px;background:#244a59;display:grid;place-items:center;border:2px solid #74cfc1;overflow:hidden}.dl-avatar-large svg{width:85%;height:85%}.dl-avatar-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.dl-avatar-option{min-height:154px!important;display:flex!important;flex-direction:column;align-items:center;justify-content:center;gap:6px!important;background:#203b50!important;border:2px solid #4a7380!important;color:#eefaf8!important;border-radius:18px!important;white-space:normal!important}.dl-avatar-option.selected{border-color:#76dec7!important;background:#295c60!important}.dl-avatar-option.locked{opacity:.66}.dl-avatar-option svg{width:70px;height:70px}.dl-rank-track{height:13px;border-radius:12px;background:#385064;overflow:hidden;margin:12px 0}.dl-rank-track>div{height:100%;background:#6bd0b9;border-radius:12px}.dl-badge{padding:12px;border-radius:14px;border:1px solid #54717d;background:#21394c;margin:9px 0}.dl-badge.locked{opacity:.6}.dl-profile-button{width:100%;margin-top:12px}
+.dl-profile-top{display:flex;gap:16px;align-items:center;flex-wrap:wrap}.dl-avatar-large{width:94px;height:94px;border-radius:24px;background:#244a59;display:grid;place-items:center;border:2px solid #74cfc1;overflow:hidden}.dl-avatar-large .dl-animal-art{width:100%;height:100%;object-fit:cover}.dl-avatar-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.dl-avatar-option{min-height:154px!important;display:flex!important;flex-direction:column;align-items:center;justify-content:center;gap:6px!important;background:#203b50!important;border:2px solid #4a7380!important;color:#eefaf8!important;border-radius:18px!important;white-space:normal!important}.dl-avatar-option.selected{border-color:#76dec7!important;background:#295c60!important}.dl-avatar-option.locked{opacity:.66}.dl-avatar-option .dl-animal-art{display:block;width:100%;max-width:185px;aspect-ratio:1.55;object-fit:cover;border-radius:14px;margin-bottom:5px}.dl-rank-track{height:13px;border-radius:12px;background:#385064;overflow:hidden;margin:12px 0}.dl-rank-track>div{height:100%;background:#6bd0b9;border-radius:12px}.dl-badge{padding:12px;border-radius:14px;border:1px solid #54717d;background:#21394c;margin:9px 0}.dl-badge.locked{opacity:.6}.dl-profile-button{width:100%;margin-top:12px}
 </style>
 <script>
 /* Local-only profile rewards: no account or network service required. */
@@ -2236,21 +2243,17 @@ fullBegin=async function(id){
  const animals=[
   {id:'dog',name:'Fritzi · Dog',min:0,kind:'dog',color:'#df9a4d'},
   {id:'cat',name:'Minka · Cat',min:0,kind:'cat',color:'#b9b7c7'},
-  {id:'fox',name:'Fox',min:250,kind:'fox',color:'#e99149'},
-  {id:'owl',name:'Owl',min:500,kind:'owl',color:'#b58c68'},
-  {id:'rabbit',name:'Rabbit',min:1000,kind:'rabbit',color:'#d4c3d2'},
-  {id:'panda',name:'Red panda',min:2000,kind:'panda',color:'#cb754f'}
+  {id:'fox',name:'Fuchsie · Fox',min:250,kind:'fox',color:'#e99149'},
+  {id:'owl',name:'Oskar · Owl',min:500,kind:'owl',color:'#b58c68'},
+  {id:'rabbit',name:'Hoppel · Rabbit',min:1000,kind:'rabbit',color:'#d4c3d2'},
+  {id:'panda',name:'Rudi · Red panda',min:2000,kind:'panda',color:'#cb754f'}
  ];
  const ranks=[['Beginner',0],['Explorer',100],['Apprentice',250],['Conversationalist',500],['Skilled Speaker',1000],['German Enthusiast',2000],['Language Master',5000]];
  const esc=t=>String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  function xp(){return Math.max(0,Number(practiceState().xp)||0)}
  function profile(){ensureLearning();state.learning.profile??={avatar:'dog',badges:{}};return state.learning.profile}
  function avatarSVG(a){
-  const ears=a.kind==='rabbit'?'<ellipse cx="24" cy="18" rx="10" ry="25" fill="'+a.color+'"/><ellipse cx="76" cy="18" rx="10" ry="25" fill="'+a.color+'"/>':a.kind==='owl'?'<path d="M12 37 L15 10 37 24 63 24 85 10 88 37" fill="'+a.color+'"/>':'<path d="M12 43 L17 9 39 29 61 29 83 9 88 43" fill="'+a.color+'"/>';
-  const mask=a.kind==='panda'?'<path d="M15 51 Q50 78 85 51 L78 81 Q50 102 22 81Z" fill="#fff0d6"/>':a.kind==='fox'?'<path d="M16 57 L50 91 84 57 Q50 72 16 57Z" fill="#ffe4bb"/>':'';
-  const eyes=a.kind==='owl'?'<circle cx="34" cy="50" r="16" fill="#f6e8cf"/><circle cx="66" cy="50" r="16" fill="#f6e8cf"/><circle cx="34" cy="51" r="6" fill="#243444"/><circle cx="66" cy="51" r="6" fill="#243444"/>':'<ellipse cx="35" cy="51" rx="5" ry="6" fill="#202b37"/><ellipse cx="65" cy="51" rx="5" ry="6" fill="#202b37"/>';
-  const nose=a.kind==='owl'?'<path d="M45 64 L55 64 50 75Z" fill="#efb955"/>':'<path d="M44 67 Q50 62 56 67 L50 73Z" fill="#2c3541"/><path d="M50 72 Q44 79 40 75 M50 72 Q56 79 60 75" fill="none" stroke="#2c3541" stroke-width="2.4" stroke-linecap="round"/>';
-  return '<svg viewBox="0 0 100 100" role="img" aria-label="'+esc(a.name)+'" xmlns="http://www.w3.org/2000/svg">'+ears+'<ellipse cx="50" cy="59" rx="39" ry="37" fill="'+a.color+'"/>'+mask+eyes+nose+'<circle cx="28" cy="68" r="3" fill="#f7b5a3" opacity=".7"/><circle cx="72" cy="68" r="3" fill="#f7b5a3" opacity=".7"/></svg>';
+  return '<img class="dl-animal-art" src="avatar_'+a.id+'.webp" alt="'+esc(a.name)+'" loading="lazy">';
  }
  function current(){return animals.find(a=>a.id===profile().avatar&&xp()>=a.min)||animals[0]}
  function achievements(){
@@ -2269,7 +2272,7 @@ fullBegin=async function(id){
  window.dlChooseAvatar=function(id){const a=animals.find(x=>x.id===id);if(!a||xp()<a.min)return;profile().avatar=id;save();dlProfile()};
  // Add profile to the navigation without changing existing navigation handlers.
  const menu=document.getElementById('sideMenu');if(menu){const btn=document.createElement('button');btn.textContent='My profile & rewards';btn.onclick=function(){toggleMenu(false);dlProfile()};menu.appendChild(btn)}
- const oldHub=practiceHub;practiceHub=function(){oldHub();const card=app.querySelector('.card');if(card){const a=current();const b=document.createElement('button');b.className='secondary dl-profile-button';b.innerHTML=avatarSVG(a)+' My profile, ranks & rewards';b.querySelector('svg').style.cssText='height:36px;width:36px;vertical-align:middle;margin-right:8px';b.onclick=dlProfile;card.appendChild(b)}};
+ const oldHub=practiceHub;practiceHub=function(){oldHub();const card=app.querySelector('.card');if(card){const a=current();const b=document.createElement('button');b.className='secondary dl-profile-button';b.innerHTML=avatarSVG(a)+' My profile, ranks & rewards';b.querySelector('img').style.cssText='height:36px;width:36px;object-fit:cover;border-radius:9px;vertical-align:middle;margin-right:8px';b.onclick=dlProfile;card.appendChild(b)}};
  const oldLog=practiceLog;practiceLog=function(points){const before=xp();oldLog(points);const after=xp();if(ranks.some(r=>r[1]>before&&r[1]<=after)||animals.some(a=>a.min>before&&a.min<=after)){profile().newUnlock=true;save()}};
  // Count unique completed dialogues and record perfect attempts for badges.
  const oldStart=window.startDialogue;window.startDialogue=function(id){window.dlDialogueStarted=id;window.dlDialogueMissed=false;return oldStart(id)};
