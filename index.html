@@ -2547,10 +2547,11 @@ curriculumModuleIntro=function(level,n){
   const check=document.getElementById('dl-check');if(check)check.hidden=true;
   const tip=document.getElementById('dl-tip'),help=document.getElementById('dl-help-btn');if(tip)tip.hidden=true;if(help)help.hidden=true;
   const panel=document.createElement('div');panel.className='dl-speak-panel';
-  panel.innerHTML='<div class="dl-speak-target"></div><p class="dl-speak-meaning"></p><button class="secondary" id="dl-speak-listen">🔊 Hear it</button><button id="dl-speak-start">🎤 Speak now</button><p id="dl-speak-status" class="dl-speak-status" aria-live="polite">Listen to the word, then say it into your microphone.</p><button class="secondary" id="dl-speak-skip">Skip speaking</button>';
+  panel.innerHTML='<div class="dl-speak-target"></div><p class="dl-speak-meaning"></p><button class="secondary" id="dl-speak-listen">🔊 Hear it</button><button class="secondary" id="dl-speak-slow">🐢 Hear it slowly</button><button id="dl-speak-start">🎤 Speak now</button><p id="dl-speak-status" class="dl-speak-status" aria-live="polite">Listen to the word, then say it into your microphone.</p><button class="secondary" id="dl-speak-skip">Skip speaking</button>';
   panel.querySelector('.dl-speak-target').textContent=q.dlSpeakWord;
   panel.querySelector('.dl-speak-meaning').textContent=q.dlSpeakMeaning;
   panel.querySelector('#dl-speak-listen').onclick=()=>speak(q.dlSpeakWord);
+  panel.querySelector('#dl-speak-slow').onclick=()=>speak(q.dlSpeakWord,0.7);
   panel.querySelector('#dl-speak-skip').onclick=()=>finish(false,true);
   panel.querySelector('#dl-speak-start').onclick=()=>{
    const Rec=window.SpeechRecognition||window.webkitSpeechRecognition;
@@ -2565,7 +2566,7 @@ curriculumModuleIntro=function(level,n){
     const norm=t=>String(t).toLocaleLowerCase('de').normalize('NFC').replace(/[.,!?„“"']/g,'').replace(/\s+/g,' ').trim();
     const recognized=alternatives[0]||'';
     const match=alternatives.some(t=>norm(t)===norm(q.dlSpeakWord));
-    status.textContent='Heard: “'+recognized+'”. '+(match?'The speech recognizer matched the target.':'That did not match the target. Listen and try again.');
+    status.textContent=match?'Great — I heard “'+recognized+'”.':'I heard “'+recognized+'”. Try listening again and repeating the word.';
     if(match)finish(true,false,recognized);
    };
    rec.onerror=e=>{if(fullSession===s&&s.questions[s.idx]===q)status.textContent='Microphone: '+e.error+'. You can retry or skip.'};
@@ -2580,13 +2581,25 @@ curriculumModuleIntro=function(level,n){
    panel.querySelector('#dl-speak-start').disabled=true;
    panel.querySelector('#dl-speak-skip').hidden=true;
    const result=document.getElementById('dl-result');
-   if(result){const wrap=document.createElement('div');wrap.className='dl-flow-feedback';const strong=document.createElement('strong');strong.textContent=skipped?'Speaking exercise skipped':matched?'Recognized!':'Not recognized';const p=document.createElement('p');p.textContent=(matched?'The browser recognized “'+(heard||q.dlSpeakWord)+'”. ':'')+q.why+' Speech recognition checks the words it hears, not the precision of your accent.';wrap.append(strong,p);result.replaceChildren(wrap)}
+   panel.querySelector('#dl-speak-status').hidden=true;
+   if(result){const wrap=document.createElement('div');wrap.className='dl-flow-feedback';const strong=document.createElement('strong');strong.textContent=skipped?'Practice skipped':matched?'Well done!':'Try again';const p=document.createElement('p');p.textContent=matched?'You said “'+(heard||q.dlSpeakWord)+'” and the microphone understood you. Keep practicing the sound to make it feel natural.':skipped?'You can return to this word later.':q.why;wrap.append(strong,p);result.replaceChildren(wrap)}
    if(check){check.hidden=false;check.disabled=false;check.textContent=s.idx===s.questions.length-1?'Finish lesson':'Continue';check.onclick=()=>{s.idx++;fullRender()}}
   }
  };
 })();
 </script>
 
+<style>
+/* Speaking practice: hide irrelevant quiz answers and keep the next step reachable. */
+.dl-flow-card:has(.dl-speak-panel) .dl-flow-options{display:none!important}
+.dl-flow-card:has(.dl-speak-panel) #dl-check:not([hidden]){
+ position:fixed!important;bottom:calc(12px + env(safe-area-inset-bottom, 0px));
+ left:50%;transform:translateX(-50%);width:calc(100% - 32px);max-width:690px;
+ margin:0!important;z-index:80;box-shadow:0 6px 22px #07121dba;
+}
+.dl-flow-card:has(.dl-speak-panel):has(#dl-check:not([hidden])){padding-bottom:100px}
+.dl-flow-card:has(.dl-speak-panel) .dl-speak-status[hidden]{display:none!important}
+</style>
 <!-- Targeted German sound drills: sound explanation first, then pronunciation in a real word. -->
 <style>
 .dl-sound-focus{padding:15px 17px;margin:12px 0;border-radius:14px;background:#153f49;border:1px solid #548b8d;line-height:1.55}
@@ -2813,14 +2826,14 @@ curriculumModuleIntro=function(level,n){
  const sprite='deutschlab-native-audio.ogg';
  let active=null;
  const oldSpeak=speak;
- speak=function(text){
+ speak=function(text,rate=1){
   const word=String(text||'').trim();
   const range=clips[word];
-  if(!range)return oldSpeak(text);
+  if(!range){if(rate===1)return oldSpeak(text);try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(String(text));u.lang='de-DE';u.rate=rate;speechSynthesis.speak(u);return}catch(e){return oldSpeak(text)}}
   try{
    if(active){active.pause();active=null;}
    if('speechSynthesis' in window)speechSynthesis.cancel();
-   const player=new Audio(sprite);active=player;
+   const player=new Audio(sprite);player.playbackRate=rate;active=player;
    player.preload='auto';
    const start=range[0],end=range[1];
    const begin=()=>{player.currentTime=start;player.play().catch(()=>oldSpeak(text));};
