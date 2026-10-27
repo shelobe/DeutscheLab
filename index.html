@@ -2586,4 +2586,59 @@ curriculumModuleIntro=function(level,n){
  };
 })();
 </script>
+
+<!-- Targeted German sound drills: sound explanation first, then pronunciation in a real word. -->
+<style>
+.dl-sound-focus{padding:15px 17px;margin:12px 0;border-radius:14px;background:#153f49;border:1px solid #548b8d;line-height:1.55}
+.dl-sound-focus strong{display:block;font-size:1.12rem;margin-bottom:6px}
+.dl-sound-focus .dl-sound-example{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:9px}
+.dl-sound-focus button{margin:0}
+</style>
+<script>
+(function(){
+ const drills=[
+  {sound:'z → /ts/',word:'zwei',meaning:'two',example:'Zeit',detail:'German z is pronounced as a single ts sound. Start with the t and release immediately into s. Practice it at the start of zwei and Zeit.'},
+  {sound:'sch → /ʃ/',word:'Schule',meaning:'school',example:'schön',detail:'The three letters sch make one sh sound, like the beginning of English shoe.'},
+  {sound:'sp → /ʃp/',word:'sprechen',meaning:'to speak',example:'Sport',detail:'At the beginning of a word or stressed syllable, German sp usually starts with sh followed by p.'},
+  {sound:'st → /ʃt/',word:'Straße',meaning:'street',example:'stehen',detail:'At the beginning of a word or stressed syllable, German st usually starts with sh followed by t.'},
+  {sound:'ch (soft) → /ç/',word:'ich',meaning:'I',example:'Milch',detail:'The soft ch after i or other front vowels is made by raising the middle of your tongue toward the roof of your mouth. It is not English sh.'},
+  {sound:'ch (back) → /x/',word:'Buch',meaning:'book',example:'Bach',detail:'After a, o, or u, ch is usually a throaty friction sound made farther back in the mouth. Compare Buch with the softer ch in ich.'},
+  {sound:'ei → /aɪ/',word:'mein',meaning:'my',example:'drei',detail:'German ei sounds like English eye. Remember: the second letter helps tell you the sound.'},
+  {sound:'ie → /iː/',word:'Liebe',meaning:'love',example:'sieben',detail:'German ie usually makes a long ee sound, unlike ei. Hold the vowel a little longer.'},
+  {sound:'eu → /ɔʏ/',word:'neun',meaning:'nine',example:'heute',detail:'German eu makes a diphthong similar to English oy. The spelling äu often has the same sound.'},
+  {sound:'au → /aʊ/',word:'Haus',meaning:'house',example:'auch',detail:'German au glides from ah toward oo, roughly like English ow in cow.'},
+  {sound:'w → /v/',word:'Wasser',meaning:'water',example:'wir',detail:'German w sounds like English v, not English w. Touch your upper teeth lightly to your lower lip.'},
+  {sound:'v → /f/ (often)',word:'Vater',meaning:'father',example:'vier',detail:'In many common German words, v sounds like English f. Some borrowed words use v instead, so learn them individually.'},
+  {sound:'ß → /s/',word:'Straße',meaning:'street',example:'heißen',detail:'The letter ß represents a voiceless s sound, not a b. It generally follows a long vowel or diphthong.'},
+  {sound:'ü',word:'fünf',meaning:'five',example:'Tür',detail:'Say ee while rounding your lips as if to say oo. Keep your tongue forward.'},
+  {sound:'ö',word:'schön',meaning:'beautiful',example:'hören',detail:'Shape your tongue for an eh sound while rounding your lips. It is distinct from o.'}
+ ];
+ const oldBegin=fullBegin;
+ fullBegin=function(id){
+  oldBegin(id);
+  const session=fullSession,unit=FULL_UNITS[id];
+  if(!session||!unit||unit.level!=='A1'||!Array.isArray(session.questions)||session.questions.some(q=>q.dlSoundDrill))return;
+  const drill=drills[Math.abs(Number(id)||0)%drills.length];
+  const q={type:'speak-word',prompt:'Practice a German sound in a word',options:['Recognized','Try again'],answer:0,dlSpeakWord:drill.word,dlSpeakMeaning:drill.meaning,why:drill.detail,dlSoundDrill:drill};
+  session.questions.splice(Math.min(2,session.questions.length),0,q);
+  fullRender();
+ };
+ const oldRender=fullRender;
+ fullRender=function(){
+  oldRender();
+  const session=fullSession,q=session?.questions?.[session.idx];
+  if(!q?.dlSoundDrill)return;
+  const panel=document.querySelector('.dl-speak-panel');if(!panel)return;
+  const d=q.dlSoundDrill;
+  const box=document.createElement('section');box.className='dl-sound-focus';
+  const title=document.createElement('strong');title.textContent='Sound focus: '+d.sound;box.appendChild(title);
+  const description=document.createElement('p');description.textContent=d.detail;box.appendChild(description);
+  const examples=document.createElement('div');examples.className='dl-sound-example';
+  const caption=document.createElement('span');caption.textContent='Hear it in another word: '+d.example;examples.appendChild(caption);
+  const play=document.createElement('button');play.type='button';play.className='secondary';play.textContent='🔊 Listen';play.onclick=()=>{if(typeof speak==='function')speak(d.example)};examples.appendChild(play);
+  box.appendChild(examples);panel.prepend(box);
+  const heading=document.querySelector('.dl-flow-card h2');if(heading)heading.textContent='Listen, then pronounce the word:';
+ };
+})();
+</script>
 </body></html>
