@@ -1023,7 +1023,7 @@ document.addEventListener('click',e=>{let b=e.target.closest('#screenBack');if(!
 (function(){
 const CURATED_IDS=[25, 43, 44, 45, 46, 50, 51, 70, 73, 99, 105, 111, 114, 116, 122, 123, 124, 128, 138, 139, 140, 152, 156, 157, 159, 163, 170, 175, 176, 184, 188, 189, 199];
 const oldHome=home;
-home=function(){oldHome();let first=app.querySelector('.dashboard-primary');if(first){const card=document.createElement('section');card.className='card';card.innerHTML='<h2>Build your German skills with every lesson.</h2><p>Build German sentences, match word pairs, listen and choose, or identify pictures.</p><div class="game-grid"><button onclick="gameStart(&quot;build&quot;)">Build sentences</button><button onclick="gameStart(&quot;match&quot;)">Match pairs</button><button onclick="gameStart(&quot;listen&quot;)">Listening</button><button onclick="photoMenu()">Picture practice</button></div>';first.after(card)}};
+home=function(){oldHome();let first=app.querySelector('.dashboard-primary');if(first){const card=document.createElement('section');card.className='card';card.innerHTML='<h2>Build your German skills, one lesson at a time.</h2><p>Build German sentences, match word pairs, listen and choose, or identify pictures.</p><div class="game-grid"><button onclick="gameStart(&quot;build&quot;)">Build sentences</button><button onclick="gameStart(&quot;match&quot;)">Match pairs</button><button onclick="gameStart(&quot;listen&quot;)">Listening</button><button onclick="photoMenu()">Picture practice</button></div>';first.after(card)}};
 const originalPhotoMenu=photoMenu;
 photoMenu=function(){pictureSession=null;originalPhotoMenu();let card=app.querySelector('.card');if(card){let note=card.querySelector('.muted:last-child');if(note)note.textContent='Illustrations are bundled with the app and work offline. Only visually clear vocabulary is used in picture quizzes.';let count=card.querySelector('p');if(count)count.textContent=CURATED_IDS.length+' illustrated words available for picture quizzes; 200 vocabulary words in the full bank.';}}
 photoStart=function(mode){let pool=CURATED_IDS.filter(i=>photoCategory==='All topics'||PHOTO_WORDS[i][2]===photoCategory);if(!pool.length){photoCategory='All topics';pool=[...CURATED_IDS]}for(let i=pool.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[pool[i],pool[j]]=[pool[j],pool[i]]}pictureSession={mode,queue:pool.slice(0,Math.min(10,pool.length)),index:0,correct:0,answered:false,photo:true};photoShow()};
@@ -1498,6 +1498,31 @@ function dlCheck(){
  window.addEventListener('pagehide',store);
  window.addEventListener('scroll',()=>{if(!savePending)schedule()},{passive:true});
  if(!localStorage.getItem(KEY))store();
+})();
+</script>
+
+<style>
+.completion-cheer{display:flex;align-items:center;gap:12px;margin:14px 0 18px;padding:14px;border:1px solid rgba(117,214,192,.42);border-radius:18px;background:rgba(29,61,77,.8)}
+.completion-cheer img{width:76px;height:76px;object-fit:contain;flex-shrink:0}
+.completion-cheer .cheer-bubble{position:relative;flex:1;background:#e8fff7;color:#16362f;border-radius:16px;padding:13px 16px;font-size:1.05rem;font-weight:700;line-height:1.4}
+.completion-cheer .cheer-bubble:before{content:'';position:absolute;left:-9px;top:27px;border-top:9px solid transparent;border-bottom:9px solid transparent;border-right:10px solid #e8fff7}
+</style>
+<script>
+// Add encouragement to results screens without altering exercise logic.
+(function(){
+  if(typeof illustratedHero!=='function')return;
+  const originalHero=illustratedHero;
+  const completed=/^(?:Nice work!|Round complete!?|Lesson complete!|Lesson results|Unit results|Extended practice complete|Deep dive complete)$/i;
+  const messages=['Excellent work! Keep it up!','You’re making real progress!','Well done! Every bit of practice counts.','Great effort! You’re getting stronger at German.','You did it! Keep building on what you know.'];
+  let cheerIndex=0;
+  illustratedHero=function(title,description,scene,mascot){
+    const hero=originalHero(title,description,scene,mascot);
+    if(!completed.test(String(title).trim()))return hero;
+    const image=mascot==='katze.png'?'katze.png':'hund.png';
+    const name=image==='katze.png'?'Minka':'Fritzi';
+    const message=messages[cheerIndex++%messages.length];
+    return hero+'<div class="completion-cheer"><img src="./'+image+'" alt="'+name+'"><div class="cheer-bubble" role="status">'+message+'</div></div>';
+  };
 })();
 </script>
 </body></html>
