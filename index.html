@@ -2601,7 +2601,7 @@ curriculumModuleIntro=function(level,n){
     const alternatives=Array.from(e.results[0]||[]).map(x=>x.transcript);
     const norm=t=>String(t).toLocaleLowerCase('de').normalize('NFC').replace(/[.,!?„“"']/g,'').replace(/\s+/g,' ').trim();
     const recognized=alternatives[0]||'';
-    const match=alternatives.some(t=>norm(t)===norm(q.dlSpeakWord));
+    const match=alternatives.some(t=>{const heard=norm(t), target=norm(q.dlSpeakWord);return heard===target||(target==='jahr'&&heard==='ja');});
     status.textContent=match?'Great — I heard “'+recognized+'”.':'I heard “'+recognized+'”. Try listening again and repeating the word.';
     if(match)finish(true,false,recognized);
    };
@@ -2797,7 +2797,7 @@ curriculumModuleIntro=function(level,n){
   const q=session?.questions?.[session.idx];
   const unit=FULL_UNITS[session?.id];
   const title=String(unit?.title||'');
-  if(!q||!unit||unit.level!=='A1'||q.type==='sound-choice'||q.type==='speak-word'||q.type==='listen')return result;
+  if(!q||!unit||unit.level!=='A1'||q.type!=='sound-choice')return result;
   // Only use audio for pronunciation-focused lessons, not general translation quizzes.
   if(!/(umlaut|pronunc|sounds? of|alphabet|spelling)/i.test(title))return result;
   const buttons=[...document.querySelectorAll('.dl-flow-options button')];
@@ -3374,7 +3374,7 @@ button:not(.secondary):not(.menu-toggle):not(.menu-close){box-shadow:0 3px 0 rgb
  const lesson=FULL_UNITS.find(u=>u.level==='A1'&&u.title==='Alphabet and spelling');
  if(!lesson)return;
  lesson.rule='German uses the same 26 basic letters as English, but some are pronounced differently. German J sounds like English Y in yes; W sounds like English V; and V often sounds like English F. Listen to Januar, Wasser and Vater, then practice recognizing those sounds. German also has additional letters, which you will learn in Lesson 2.';
- lesson.examples=[['Januar','January — J sounds like English Y'],['Wasser','water — W sounds like English V'],['Vater','father — V often sounds like English F'],['ja','yes — J sounds like English Y'],['Jahr','year — J sounds like English Y'],['Winter','winter — W sounds like English V'],['Vogel','bird — V often sounds like English F']];
+ lesson.examples=[['Januar','January — J sounds like English Y'],['Wasser','water — W sounds like English V'],['Vater','father — V often sounds like English F']];
  lesson.checkpoint={prompt:'In the German word Wasser, which letter makes the English V sound?',options:['W','J','V'],answer:0,why:'German W is pronounced like English V, as in Wasser.'};
  const questions=[
   ['Which letter in German usually sounds like English Y?', ['J','W','V'],0,'German J sounds like English Y, as in Jahr (year).'],
