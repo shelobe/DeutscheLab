@@ -3539,7 +3539,15 @@ const scene=String.raw`<svg viewBox="0 0 600 620" role="img" aria-label="Illustr
 <!-- trim --><path d="M0 402H600" stroke="#8b634b" stroke-width="12"/>
 </svg>`;
 function order(){return items.slice().sort(()=>Math.random()-.5)}
-function sceneMarkup(){return '<div class="findit-scene"><img class="findit-room-art" src="./file_0000000028f881f5bd5c11ffc7a7f4cc.png" alt="Illustrated living room with Minka, furniture, plants, window and objects to find">'+items.map((o,i)=>'<button class="findit-target" data-fi="'+i+'" aria-label="Select object '+(i+1)+'" style="left:'+o.x+'%;top:'+o.y+'%;width:'+o.w+'%;height:'+o.h+'%" onclick="findItTap('+i+')"></button>').join('')+'</div>'}
+const extraFindItZones=[
+ {item:2,x:5,y:17,w:14,h:16}, /* upper bookshelf */
+ {item:2,x:5,y:34,w:14,h:14}, /* lower bookshelf */
+ {item:2,x:10,y:49,w:9,h:7}  /* stacked books on shelf */
+];
+function sceneMarkup(){
+ const zones=items.map((o,i)=>({...o,item:i})).concat(extraFindItZones);
+ return '<div class="findit-scene"><img class="findit-room-art" src="./file_0000000028f881f5bd5c11ffc7a7f4cc.png" alt="Illustrated living room with Minka, furniture, plants, window and objects to find">'+zones.map((o,i)=>'<button class="findit-target" data-fi="'+i+'" aria-label="Select '+items[o.item].en+'" style="left:'+o.x+'%;top:'+o.y+'%;width:'+o.w+'%;height:'+o.h+'%" onclick="findItTap('+i+')"></button>').join('')+'</div>'
+}
 function feedback(message,translation,voice){const el=document.getElementById('findit-feedback');if(!el)return;el.innerHTML='<strong>'+message+'</strong> <span>'+translation+'</span>'+(voice?'<button class="secondary" onclick="findItPraise()">🔊 Hear phrase</button>':'')}
 window.findItPraise=function(){if(session&&session.phrase&&typeof speak==='function')speak(session.phrase)};
 window.findItHome=function(){
@@ -3559,7 +3567,7 @@ function render(){
 window.findItWord=function(){if(session&&typeof speak==='function')speak(session.queue[session.idx].de)};
 window.findItTap=function(i){
  if(!session||session.locked||session.idx>=10)return;
- const target=session.queue[session.idx],picked=items[i],node=app.querySelector('.findit-target[data-fi="'+i+'"]');
+ const target=session.queue[session.idx],picked=items[i]||(extraFindItZones[i-items.length]&&items[extraFindItZones[i-items.length].item]),node=app.querySelector('.findit-target[data-fi="'+i+'"]');
  if(picked===target){
   session.locked=true;node&&node.classList.add('findit-hit');
   const roomCat=app.querySelector('.findit-scene');if(roomCat){roomCat.classList.add('findit-cat-happy');setTimeout(()=>roomCat.classList.remove('findit-cat-happy'),1100)}
