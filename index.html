@@ -2890,18 +2890,18 @@ curriculumModuleIntro=function(level,n){
  function isSoundGloss(x){return /\([^)]*(sounds? like|pronounced|letter|vowel|different from|compare|unlike)[^)]*\)/i.test(String(x));}
  function cleanAnswer(x){return String(x).replace(/\s*\([^)]*\)/g,'').trim();}
  function soundReview(id){
-  const make=(word,prompt,options,correct,why)=>{const opts=shuffle(options.slice());return {type:'grammar',unitId:id,prompt,options:opts,answer:opts.indexOf(correct),why,dlReviewAudio:word};};
+  const make=(prompt,options,correct,why,audio)=>{const opts=shuffle(options.slice());return {type:'grammar',unitId:id,prompt,options:opts,answer:opts.indexOf(correct),why,...(audio?{dlReviewAudio:audio}:{})};};
   return [
-   make('Junge','Listen to the beginning of the word. Which German letter makes that sound?',['J','W','V'],'J','Junge begins with J, pronounced like English Y.'),
-   make('Wolke','Listen to the beginning of the word. Which German letter makes that sound?',['W','V','J'],'W','Wolke begins with German W, pronounced like English V.'),
-   make('Vogel','Listen to the beginning of the word. Which German letter makes that sound?',['V','W','J'],'V','Vogel begins with V, which sounds like English F in this word.'),
-   make('schön','Listen to the vowel sound. Which German letter produces it?',['ö','o','ü'],'ö','Schön uses ö, a distinct rounded front vowel.'),
-   make('fünf','Listen to the vowel sound. Which German letter produces it?',['ü','u','ö'],'ü','Fünf uses the German vowel ü.'),
-   make('Mädchen','Listen to the first vowel sound. Which German letter produces it?',['ä','a','ö'],'ä','Mädchen contains ä.'),
-   make('Straße','Listen to the final consonant sound in the word. Which German character represents it?',['ß','b','z'],'ß','Straße contains ß, pronounced like a voiceless s.'),
-   make('grün','Listen to the vowel sound. Which German letter produces it?',['ü','u','ö'],'ü','Grün contains ü.'),
-   make('Jahr','Listen to the first sound. Which German letter makes it?',['J','W','V'],'J','Jahr begins with J, pronounced like English Y.'),
-   make('Wasser','Listen to the first sound. Which German letter makes it?',['W','V','J'],'W','Wasser begins with W, pronounced like English V.')
+   make('Listen to the first sound. Which German letter makes it?',['J','W','V'],'J','Junge begins with J, pronounced like English Y.','Junge'),
+   make('You encounter “Wolke” (cloud) for the first time. How is W pronounced?',['Like English V','Like English W','Like English F'],'Like English V','German W sounds like English V.'),
+   make('Listen to the vowel sound. Which German letter produces it?',['ö','o','ü'],'ö','Schön uses ö, a rounded front vowel.','schön'),
+   make('In the new word “Vogel” (bird), how is the initial V usually pronounced?',['Like English F','Like English V','Like English Y'],'Like English F','Vogel begins with an F sound.'),
+   make('Listen to the vowel sound. Which German letter produces it?',['ü','u','ö'],'ü','Fünf contains the vowel ü.','fünf'),
+   make('What changes when you write schon as schön?',['The pronunciation and meaning','Only the capitalization','Nothing; they are interchangeable'],'The pronunciation and meaning','Schon means already; schön means beautiful.'),
+   make('Listen to the first vowel sound. Which German letter produces it?',['ä','a','ö'],'ä','Mädchen contains ä.','Mädchen'),
+   make('You see the unfamiliar word “Fuß” (foot). What sound does ß represent?',['An s sound','A b sound','A z sound'],'An s sound','ß represents a voiceless s sound.'),
+   make('Listen to the first sound. Which German letter makes it?',['W','V','J'],'W','Wasser begins with W, pronounced like English V.','Wasser'),
+   make('You read the unfamiliar word “grün” (green). Which vowel sound should you apply?',['The German ü sound','The ordinary u sound','The German ö sound'],'The German ü sound','The umlaut changes u into the distinct ü vowel.')
   ];
  }
  curriculumReview=function(level,n){
