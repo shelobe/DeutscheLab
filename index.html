@@ -3544,19 +3544,40 @@ const extraFindItZones=[
  {item:2,x:5,y:34,w:14,h:14}, /* lower bookshelf */
  {item:2,x:10,y:49,w:9,h:7}  /* stacked books on shelf */
 ];
+const kitchenItems=[
+ {de:'der Kühlschrank',en:'refrigerator',x:13,y:14,w:18,h:64},
+ {de:'das Fenster',en:'window',x:63,y:5,w:19,h:34},
+ {de:'die Lampe',en:'lamp',x:48,y:0,w:8,h:19},
+ {de:'die Spüle',en:'sink',x:57,y:46,w:23,h:9},
+ {de:'der Wasserhahn',en:'faucet',x:68,y:33,w:7,h:14},
+ {de:'der Herd',en:'stove',x:82,y:47,w:18,h:37},
+ {de:'der Wasserkocher',en:'kettle',x:89,y:36,w:8,h:12},
+ {de:'der Tisch',en:'table',x:22,y:63,w:51,h:34},
+ {de:'der Stuhl',en:'chair',x:58,y:50,w:23,h:45},
+ {de:'die Sonnenblume',en:'sunflower',x:43,y:40,w:12,h:25}
+];
+const kitchenExtraZones=[
+ {item:9,x:46,y:40,w:8,h:22},
+ {item:9,x:51,y:43,w:5,h:18}
+];
+const rooms=[
+ {name:'Minka’s living room',image:'./file_0000000028f881f5bd5c11ffc7a7f4cc.png',items,extras:extraFindItZones},
+ {name:'The sunny kitchen',image:'./file_00000000f6dc81f5a53d075ab54c5e25.png',items:kitchenItems,extras:kitchenExtraZones}
+];
+function activeRoom(){return rooms[session?.room||0]}
 function sceneMarkup(){
- const zones=items.map((o,i)=>({...o,item:i})).concat(extraFindItZones);
- return '<div class="findit-scene"><img class="findit-room-art" src="./file_0000000028f881f5bd5c11ffc7a7f4cc.png" alt="Illustrated living room with Minka, furniture, plants, window and objects to find">'+zones.map((o,i)=>'<button class="findit-target" data-fi="'+i+'" aria-label="Select '+items[o.item].en+'" style="left:'+o.x+'%;top:'+o.y+'%;width:'+o.w+'%;height:'+o.h+'%" onclick="findItTap('+i+')"></button>').join('')+'</div>'
+ const room=activeRoom();const zones=room.items.map((o,i)=>({...o,item:i})).concat(room.extras);
+ return '<div class="findit-scene"><img class="findit-room-art" src="'+room.image+'" alt="'+room.name+' with objects to find">'+zones.map((o,i)=>'<button class="findit-target" data-fi="'+i+'" aria-label="Select '+room.items[o.item].en+'" style="left:'+o.x+'%;top:'+o.y+'%;width:'+o.w+'%;height:'+o.h+'%" onclick="findItTap('+i+')"></button>').join('')+'</div>'
 }
 function feedback(message,translation,voice){const el=document.getElementById('findit-feedback');if(!el)return;el.innerHTML='<strong>'+message+'</strong> <span>'+translation+'</span>'+(voice?'<button class="secondary" onclick="findItPraise()">🔊 Hear phrase</button>':'')}
 window.findItPraise=function(){if(session&&session.phrase&&typeof speak==='function')speak(session.phrase)};
 window.findItHome=function(){
- session={queue:order(),idx:0,hearts:3,locked:false,phrase:''};
+ session={room:0,queue:order(),idx:0,hearts:3,locked:false,phrase:''};
  document.body.classList.remove('lesson-screen');
- app.innerHTML='<div class="findit-shell"><section class="findit-intro"><h2>Find It! — Minka’s living room</h2><p>Find ten German words in the room. You have three hearts. Minka will cheer you on!</p><button onclick="findItStart()">Start game</button></section>'+sceneMarkup()+'</div>';
+ app.innerHTML='<div class="findit-shell"><section class="findit-intro"><h2>Find It! — Choose a room</h2><p>Find ten German words in each room. You have three hearts.</p><button onclick="findItStart(0)">Living room</button> <button onclick="findItStart(1)">Sunny kitchen</button></section></div>';
  window.scrollTo(0,0);
 };
-window.findItStart=function(){if(!session)session={queue:order(),idx:0,hearts:3,locked:false,phrase:''};render()};
+window.findItStart=function(roomIndex=0){const room=rooms[roomIndex]||rooms[0];session={room:roomIndex,queue:room.items.slice().sort(()=>Math.random()-.5),idx:0,hearts:3,locked:false,phrase:''};render()};
 function render(){
  if(!session)return;
  if(session.idx>=10||session.hearts<=0){const won=session.idx>=10;app.innerHTML='<div class="findit-shell"><section class="findit-intro"><div class="findit-guide"><img src="./katze.png" alt="Minka"><div class="findit-bubble"><h2>'+(won?'Geschafft!':'Gut versucht!')+'</h2><p>'+(won?'You found all ten objects!':'You found '+session.idx+' of 10 objects.')+'</p></div></div><p>'+(won?'Minka is proud of you!':'Try again to find all ten.')+'</p><button onclick="findItHome()">Play again</button> <button class="secondary" onclick="home()">Home</button></section></div>';return}
@@ -3567,7 +3588,7 @@ function render(){
 window.findItWord=function(){if(session&&typeof speak==='function')speak(session.queue[session.idx].de)};
 window.findItTap=function(i){
  if(!session||session.locked||session.idx>=10)return;
- const target=session.queue[session.idx],picked=items[i]||(extraFindItZones[i-items.length]&&items[extraFindItZones[i-items.length].item]),node=app.querySelector('.findit-target[data-fi="'+i+'"]');
+ const target=session.queue[session.idx],room=activeRoom(),picked=room.items[i]||(room.extras[i-room.items.length]&&room.items[room.extras[i-room.items.length].item]),node=app.querySelector('.findit-target[data-fi="'+i+'"]');
  if(picked===target){
   session.locked=true;node&&node.classList.add('findit-hit');
   const roomCat=app.querySelector('.findit-scene');if(roomCat){roomCat.classList.add('findit-cat-happy');setTimeout(()=>roomCat.classList.remove('findit-cat-happy'),1100)}
