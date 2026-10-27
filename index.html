@@ -60,11 +60,11 @@
 .curriculum-path-module .curriculum-check{margin:8px 9px 5px;border-radius:12px;background:#1b3943}
 </style><style id="dl-nature-background">
 /* Global, quiet nature backdrop derived from the approved DeutschLab scene. */
-html{min-height:100%;background:#0d2630 url('./nature_background.webp?v=2') center center/cover fixed no-repeat}
+html{min-height:100%;background:#0d2630 url('./nature_background.webp?v=2') center top/auto 100vh fixed no-repeat}
 body{min-height:100vh;background:linear-gradient(180deg,rgba(7,20,32,.30),rgba(8,22,33,.52))!important;background-attachment:fixed!important}
 .card,.curriculum-path-module,.curriculum-summary,.app-header,.side-menu{backdrop-filter:blur(13px);-webkit-backdrop-filter:blur(13px)}
 .card{background-color:rgba(20,39,55,.94)}
-@media(max-width:700px){html{background-attachment:scroll}body{background-attachment:scroll!important}}
+@media(max-width:700px){html{background-size:100% auto;background-position:center top;background-attachment:fixed}body{background-attachment:fixed!important}}
 </style></head><body><main><header class="app-header"><button class="menu-toggle" onclick="toggleMenu(true)" aria-label="Open navigation menu" aria-controls="sideMenu" aria-expanded="false">☰</button><div><h1>DeutschLab 🇩🇪</h1><p class="muted">German practice studio</p></div></header><div id="menuBackdrop" class="menu-backdrop" onclick="toggleMenu(false)" hidden></div><nav id="sideMenu" class="side-menu" aria-label="Main navigation" aria-hidden="true"><div class="menu-heading"><strong>DeutschLab</strong><button class="menu-close secondary" onclick="toggleMenu(false)" aria-label="Close menu">✕</button></div><p class="muted">LEARN</p><button onclick="navigateTo('home')">⌂ Home</button><button onclick="navigateTo('placement')">◈ Placement test</button><button onclick="navigateTo('lessonMenu')">▤ Lessons</button><button onclick="navigateTo('articleHome')">◉ Noun Articles</button><p class="muted">PRACTICE</p><button onclick="navigateTo('review')">↻ Review</button><button onclick="navigateTo('conversation')">☏ Dialogue</button><button onclick="navigateTo('aiTutor')">✦ AI Tutor & Voice</button></nav><div id="app"></div></main><script>
 function dlAudioExample(value){
   // Read only the German example, not symbols or explanatory annotations.
@@ -2238,8 +2238,10 @@ fullBegin=async function(id){
 #sideMenu .menu-heading{display:flex;align-items:center;gap:10px}
 #sideMenu .menu-heading .menu-close{margin-left:auto}
 .dl-menu-avatar{width:48px;height:48px;object-fit:cover;border-radius:14px;border:2px solid #6bd0b9;background:#244a59;flex-shrink:0}
-#sideMenu .dl-menu-profile-link{display:flex;flex-direction:column;align-items:flex-start;gap:3px;text-align:left}
-.dl-menu-avatar-name{font-weight:750}
+#sideMenu .dl-menu-profile-link{display:flex;flex-direction:column;align-items:flex-start;gap:7px;text-align:left;padding-top:15px;padding-bottom:15px}
+#sideMenu .dl-menu-profile-link .dl-menu-avatar{width:38px;height:38px;border-radius:11px}
+#sideMenu .dl-menu-profile-link .dl-menu-profile-top{display:flex;align-items:center;gap:10px}
+.dl-menu-avatar-name{font-weight:800;font-size:1.18em}
 .dl-menu-profile-sub{font-size:.82em;opacity:.78}
 /* XP rewards and selectable animal profile avatars */
 .dl-profile-top{display:flex;gap:16px;align-items:center;flex-wrap:wrap}.dl-avatar-large{width:94px;height:94px;border-radius:24px;background:#244a59;display:grid;place-items:center;border:2px solid #74cfc1;overflow:hidden}.dl-avatar-large .dl-animal-art{width:100%;height:100%;object-fit:cover}.dl-avatar-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.dl-avatar-option{min-height:154px!important;display:flex!important;flex-direction:column;align-items:center;justify-content:center;gap:6px!important;background:#203b50!important;border:2px solid #4a7380!important;color:#eefaf8!important;border-radius:18px!important;white-space:normal!important}.dl-avatar-option.selected{border-color:#76dec7!important;background:#295c60!important}.dl-avatar-option.locked{opacity:.66}.dl-avatar-option .dl-animal-art{display:block;width:100%;max-width:185px;aspect-ratio:1.55;object-fit:cover;border-radius:14px;margin-bottom:5px}.dl-rank-track{height:13px;border-radius:12px;background:#385064;overflow:hidden;margin:12px 0}.dl-rank-track>div{height:100%;background:#6bd0b9;border-radius:12px}.dl-badge{padding:12px;border-radius:14px;border:1px solid #54717d;background:#21394c;margin:9px 0}.dl-badge.locked{opacity:.6}.dl-profile-button{width:100%;margin-top:12px}
@@ -2289,10 +2291,10 @@ fullBegin=async function(id){
  }
  if(menu){
   const heading=menu.querySelector('.menu-heading');
-  if(heading){const avatar=document.createElement('img');avatar.className='dl-menu-avatar';avatar.alt='Current animal avatar';heading.insertBefore(avatar,heading.firstChild);}
+
   const btn=document.createElement('button');
   btn.className='dl-menu-profile-link';
-  btn.innerHTML='<span class="dl-menu-avatar-name">My profile</span><span class="dl-menu-profile-sub">Profile & rewards</span>';
+  btn.innerHTML='<span class="dl-menu-avatar-name">My profile</span><span class="dl-menu-profile-top"><img class="dl-menu-avatar" alt="Current animal avatar"><span class="dl-menu-profile-sub">Profile & rewards</span></span>';
   btn.onclick=function(){toggleMenu(false);dlProfile()};
   const placementButton=[...menu.querySelectorAll('button')].find(b=>b.textContent.includes('Placement test'));
   if(placementButton)menu.insertBefore(btn,placementButton);else menu.appendChild(btn);
