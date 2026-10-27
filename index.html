@@ -914,13 +914,44 @@ function gameMatch(side,n){
  if(a.n===n){g.matches.push(n);document.getElementById('gl'+n).disabled=true;document.getElementById('gr'+n).disabled=true;document.getElementById('gl'+n).classList.add('match-complete');document.getElementById('gr'+n).classList.add('match-complete');document.getElementById('gameMatched').textContent=g.matches.length+' / 4 pairs matched';if(g.matches.length===4)gameMark(true,'All four pairs matched!')}
  else{document.getElementById('gameFeedback').textContent='Not a match. Try another pair.'}
 }
+function dlReverseGrammarNote(de){
+ if(/\bdieses\s+(Buch|Kind|Haus|Auto|Mädchen|Zimmer|Wort)\b/i.test(de))return '<p class="dl-reverse-grammar"><strong>Why dieses?</strong> <em>Buch</em> is neuter (<em>das Buch</em>). The ending <em>-es</em> is used with a neuter noun in the nominative or accusative case.</p>';
+ return '';
+}
 function gameMark(ok,answer){
  let g=gameSession;if(!g||g.answered)return;g.answered=true;if(ok)g.correct++;
  state.gameStats??={played:0,correct:0};state.gameStats.played++;if(ok)state.gameStats.correct++;save();
  app.querySelectorAll('.card button').forEach(b=>b.disabled=true);
- document.getElementById('gameFeedback').innerHTML=`<div class="game-feedback"><strong>${ok?'Correct!':'Not quite.'}</strong><p>${safeText(answer)}</p>${g.mode==='build'&&ok?'<button class="secondary" onclick="speak(GAME_ITEMS[gameSession.seq[gameSession.idx]].de)">🔊 Replay sentence</button>':''}<button onclick="gameNext()">Next</button></div>`;if(g.mode==='build'&&ok)setTimeout(()=>{if(gameSession===g&&g.answered)speak(GAME_ITEMS[g.seq[g.idx]].de)},350);if(g.mode==='match'){document.getElementById('gameFeedback').scrollIntoView({behavior:'smooth',block:'nearest'});}
+ document.getElementById('gameFeedback').innerHTML=`<div class="game-feedback"><strong>${ok?'Correct!':'Not quite.'}</strong>${g.mode==='reverse'?(ok?dlReverseGrammarNote(GAME_ITEMS[g.seq[g.idx]].de):`<p>Correct translation: ${safeText(answer)}</p>`):`<p>${safeText(answer)}</p>`}${g.mode==='build'&&ok?'<button class="secondary" onclick="speak(GAME_ITEMS[gameSession.seq[gameSession.idx]].de)">🔊 Replay sentence</button>':''}<button onclick="gameNext()">Next</button></div>`;if(g.mode==='build'&&ok)setTimeout(()=>{if(gameSession===g&&g.answered)speak(GAME_ITEMS[g.seq[g.idx]].de)},350);if(g.mode==='match'){document.getElementById('gameFeedback').scrollIntoView({behavior:'smooth',block:'nearest'});}
 }
 function gameNext(){if(!gameSession)return;gameSession.idx++;gameRender()}
+
+/* Keep the next action reachable on mobile after checking a reverse translation. */
+(function(){
+ const style=document.createElement('style');
+ style.textContent=`body.dl-reverse-answered #app{padding-bottom:110px!important}
+ body.dl-reverse-answered #gameFeedback button[onclick="gameNext()"]{display:none!important}
+ #dlReverseNextBar{position:fixed;bottom:env(safe-area-inset-bottom, 0px);left:0;right:0;z-index:9999;padding:10px 18px calc(10px + env(safe-area-inset-bottom, 0px));background:linear-gradient(0deg,#112c38 85%,rgba(17,44,56,.93));box-sizing:border-box}
+ #dlReverseNextBar button{display:block;width:min(100%,680px);margin:auto;min-height:54px;background:#68cbbc;color:#102b32;border:0;border-radius:12px;font-size:18px;font-weight:700}`;
+ document.head.appendChild(style);
+ const originalMark=gameMark;
+ gameMark=function(ok,answer){
+  originalMark(ok,answer);
+  const g=gameSession;
+  if(!g||g.mode!=='reverse'||!g.answered)return;
+  document.body.classList.add('dl-reverse-answered');
+  document.getElementById('dlReverseNextBar')?.remove();
+  const bar=document.createElement('div');bar.id='dlReverseNextBar';
+  const button=document.createElement('button');button.textContent='Next';
+  button.onclick=()=>{bar.remove();document.body.classList.remove('dl-reverse-answered');gameNext()};
+  bar.appendChild(button);document.body.appendChild(bar);
+ };
+ const originalNext=gameNext;
+ gameNext=function(){document.getElementById('dlReverseNextBar')?.remove();document.body.classList.remove('dl-reverse-answered');return originalNext()};
+ const originalRender=gameRender;
+ gameRender=function(){document.getElementById('dlReverseNextBar')?.remove();document.body.classList.remove('dl-reverse-answered');return originalRender()};
+})();
+
 const gameHome=home;
 home=function(){gameHome();let target=app.querySelector('.card');if(target){let b=document.createElement('section');b.className='card';b.innerHTML='<h3>Practice games</h3><p>Build sentences, match words and practice listening.</p><button onclick="gameHub()">Play practice games</button>';target.after(b)}};
 let gameMenu=document.getElementById('sideMenu');if(gameMenu){let b=document.createElement('button');b.textContent='🧩 Practice games';b.onclick=()=>navigateTo('gameHub');gameMenu.appendChild(b)}
@@ -1765,9 +1796,14 @@ gameRender = function(){
   g.answered=false;g.picked=[];g.matches=[];g.selected=null;
   const item=GAME_ITEMS[g.seq[g.idx]];
   g.reverseWords=item.en.replace(/[.!?]+$/,'').split(/\s+/);
-  g.order=g.reverseWords.map((_,i)=>i);
+  const correctSet=new Set(g.reverseWords.map(w=>w.toLowerCase()));
+  const pool=['a','an','the','this','that','these','those','my','your','his','her','our','their','is','are','was','were','do','does','did','have','has','had','will','can','not','very','always','often','today','tomorrow','yesterday','here','there','with','for','from','to','at','in','on','and','but','because','book','books','house','school','work','like','likes','liked','learn','learning','learns','German','English','she','he','they','we','I','you'];
+  const distractors=pool.filter(w=>!correctSet.has(w.toLowerCase()));
+  for(let i=distractors.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[distractors[i],distractors[j]]=[distractors[j],distractors[i]];}
+  g.bankWords=[...g.reverseWords,...distractors.slice(0,Math.min(3,Math.max(2,Math.ceil(g.reverseWords.length/3))))];
+  g.order=g.bankWords.map((_,i)=>i);
   for(let i=g.order.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[g.order[i],g.order[j]]=[g.order[j],g.order[i]];}
-  app.innerHTML=`<section class="card"><p class="muted">Translate into English · ${g.idx+1} of ${g.seq.length}</p><div class="game-progress"><div style="width:${g.idx/g.seq.length*100}%"></div></div><p>Build the English translation:</p><h3>${safeText(item.de)}</h3><button class="secondary" onclick="speak(GAME_ITEMS[gameSession.seq[gameSession.idx]].de)">Listen to German</button><div id="gameBuilt" class="game-built">Tap the English words below</div><div id="gameBank" class="game-wordbank">${g.order.map((n,i)=>`<button class="secondary" id="gb${i}" onclick="dlReversePick(${i})">${safeText(g.reverseWords[n])}</button>`).join('')}</div><button class="secondary" onclick="dlReverseUndo()">Undo last word</button><button class="secondary" onclick="gameRender()">Start over</button><button onclick="dlReverseCheck()">Check translation</button><div id="gameFeedback" aria-live="polite"></div></section>`;
+  app.innerHTML=`<section class="card"><p class="muted">Translate into English · ${g.idx+1} of ${g.seq.length}</p><div class="game-progress"><div style="width:${g.idx/g.seq.length*100}%"></div></div><p>Build the English translation:</p><h3>${safeText(item.de)}</h3><button class="secondary" onclick="speak(GAME_ITEMS[gameSession.seq[gameSession.idx]].de)">Listen to German</button><div id="gameBuilt" class="game-built">Tap the English words below</div><div id="gameBank" class="game-wordbank">${g.order.map((n,i)=>`<button class="secondary" id="gb${i}" onclick="dlReversePick(${i})">${safeText(g.bankWords[n])}</button>`).join('')}</div><button class="secondary" onclick="dlReverseUndo()">Undo last word</button><button class="secondary" onclick="gameRender()">Start over</button><button onclick="dlReverseCheck()">Check translation</button><div id="gameFeedback" aria-live="polite"></div></section>`;
   window.scrollTo(0,0);
 };
 function dlReversePick(i){
@@ -1779,12 +1815,12 @@ function dlReverseUndo(){
  const i=g.picked.pop();document.getElementById('gb'+i).disabled=false;dlReverseRefresh();
 }
 function dlReverseRefresh(){
- const g=gameSession;document.getElementById('gameBuilt').textContent=g.picked.map(i=>g.reverseWords[g.order[i]]).join(' ')||'Tap the English words below';
+ const g=gameSession;document.getElementById('gameBuilt').textContent=g.picked.map(i=>g.bankWords[g.order[i]]).join(' ')||'Tap the English words below';
 }
 function dlReverseCheck(){
  const g=gameSession;if(!g||g.mode!=='reverse'||g.answered)return;
- if(g.picked.length!==g.reverseWords.length){document.getElementById('gameFeedback').textContent='Use all the words first.';return;}
- const guess=g.picked.map(i=>g.reverseWords[g.order[i]]).join(' ');
+ if(g.picked.length!==g.reverseWords.length){document.getElementById('gameFeedback').textContent='Select only the words needed for the translation.';return;}
+ const guess=g.picked.map(i=>g.bankWords[g.order[i]]).join(' ');
  const expected=g.reverseWords.join(' ');
  gameMark(guess===expected,GAME_ITEMS[g.seq[g.idx]].en);
 }
@@ -2842,6 +2878,47 @@ curriculumModuleIntro=function(level,n){
    player.addEventListener('error',()=>{if(active===player)active=null;oldSpeak(text);},{once:true});
    player.load();
   }catch(e){oldSpeak(text);}
+ };
+})();
+</script>
+
+<script>
+/* Reviews assess taught skills. Transfer questions reuse a taught grammar rule, never next-module vocabulary. */
+(function(){
+ const prior=curriculumReview;
+ function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+ function isSoundGloss(x){return /\([^)]*(sounds? like|pronounced|letter|vowel)[^)]*\)/i.test(String(x));}
+ curriculumReview=function(level,n){
+  prior(level,n);
+  const s=moduleSession,g=STRUCTURED_PATH[level]?.[n];
+  if(!s||!g||level!=='A1')return;
+  // A module review must never draw its bonus from the following module.
+  s.questions=s.questions.filter(q=>!q.dlStretch);
+  const clean=[];
+  for(const id of g.ids){
+   const u=FULL_UNITS[id];if(!u)continue;
+   const qs=fullQuestions(u).filter(q=>Array.isArray(q.options)&&q.options.length>=2&&q.answer>=0&&q.answer<q.options.length);
+   const grammar=qs.find(q=>q.type==='grammar');
+   if(grammar)clean.push({...grammar,unitId:id});
+   // Only use translations with alternatives of the same kind; do not mix in phonetic notes.
+   const translations=qs.filter(q=>q.type==='translate'&&!q.options.some(isSoundGloss));
+   if(translations.length)clean.push({...translations[Math.floor(Math.random()*translations.length)],unitId:id});
+  }
+  // Generalization: apply the already-taught regular present-tense pattern to a new verb.
+  const taughtRule=g.ids.some(id=>/regular (?:present|verb)|present.tense (?:verb|ending)|verb endings|conjugat(?:e|ion|ing)/i.test(FULL_UNITS[id]?.rule||''));
+  if(taughtRule){
+   const choices=shuffle([{subject:'du',form:'spielst',stem:'spiel',ending:'-st'}, {subject:'er',form:'spielt',stem:'spiel',ending:'-t'}, {subject:'ich',form:'spiele',stem:'spiel',ending:'-e'}]);
+   const target=choices[0];
+   const opts=shuffle(['spiele','spielst','spielt']);
+   clean.push({type:'grammar',unitId:g.ids[0],prompt:`Apply the verb ending you learned: ${target.subject} ___ (spielen = to play)`,options:opts,answer:opts.indexOf(target.form),why:`Spielen means “to play.” The subject ${target.subject} takes the regular present-tense ending ${target.ending}, so spiel- becomes ${target.form}.`,dlTransfer:true});
+  }
+  if(clean.length){
+   s.questions=shuffle(clean).slice(0,9);
+   s.idx=0;s.score=0;s.answered=false;s.dlCoreScore=0;s.dlCoreCount=s.questions.length;s.dlMissed=[];
+  }else{
+   s.dlCoreCount=s.questions.length;
+  }
+  curriculumReviewRender();
  };
 })();
 </script>
