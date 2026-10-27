@@ -523,4 +523,71 @@ courseMenu=friendlyCourse;
 const oldFullFinishFriendly=fullFinish;
 fullFinish=function(){oldFullFinishFriendly();let btn=app.querySelector('button[onclick^="fullMenu("]');if(btn)btn.textContent='Back to my learning path';};
 </script>
-</body></html>
+<style>
+/* Clear, compact mobile dashboard */
+.dashboard-hero{padding:22px 20px;background:linear-gradient(145deg,#183b48,#183048);border:1px solid #4a7481;border-radius:22px;margin:12px 0 16px;display:flex;align-items:center;gap:14px}
+.dashboard-hero img{width:84px;height:100px;object-fit:cover;border-radius:15px;flex-shrink:0}
+.dashboard-hero h2{font-size:1.35rem;margin:0 0 6px}.dashboard-hero p{margin:0;color:#d5e6e9;font-size:.9rem}
+.dashboard-primary{background:#1e3d50;border:1px solid #537686;border-radius:22px;padding:20px;margin:12px 0}
+.dashboard-primary h2{font-size:1.25rem;margin:4px 0 8px}.dashboard-primary p{margin:8px 0 15px}
+.dashboard-primary .path-track{margin:12px 0}
+.dashboard-main-btn{display:block;width:100%;font-size:1.05rem;padding:17px 12px}
+.dashboard-shortcuts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:12px 0 25px}
+.dashboard-shortcuts button{margin:0;min-height:86px;text-align:left;padding:14px 12px;white-space:normal;font-size:.95rem}
+.dashboard-shortcuts small{display:block;font-size:.78rem;opacity:.8;margin-top:6px}
+#screenBack{display:flex;align-items:center;gap:7px;background:transparent;color:#b9eadd;border:0;padding:9px 4px;margin:5px 0 8px;font-size:.98rem;font-weight:650;min-height:40px}
+#screenBack:focus-visible{outline:2px solid #70d4c0}
+@media(max-width:370px){.dashboard-hero img{width:68px;height:85px}.dashboard-shortcuts{gap:8px}}
+</style>
+<script>
+// The home dashboard replaces earlier stacked cards; older course and practice engines remain intact.
+function home(){
+ ensureLearning();
+ const level=state.learning.placement?.recommended||'A1';
+ const units=FULL_UNITS.map((u,id)=>({...u,id})).filter(u=>u.level===level);
+ const scores=state.learning.fullScores||{};
+ const next=units.findIndex(u=>!scores[u.id]?.passed),idx=next<0?units.length-1:next;
+ const done=units.filter(u=>scores[u.id]?.passed).length;
+ const title=units[idx]?.title||'Your first lesson';
+ const xp=typeof practiceState==='function'?practiceState():null;
+ const daily=xp?.activity?.[new Date().toLocaleDateString('en-CA')]||0;
+ app.innerHTML=`<section class="dashboard-hero"><img src="hund.png" alt="Fritzi the German shepherd"><div><h2>Willkommen zurück!</h2><p>Ready for a little German today?</p></div></section>
+ <section class="dashboard-primary"><div class="path-eyebrow">YOUR LEARNING PATH · ${level}</div><h2>${done===units.length?'Great work! Course complete':`Lesson ${idx+1}: ${safeText(title)}`}</h2><p class="path-small">${done} of ${units.length} lessons completed</p><div class="path-track" role="progressbar" aria-valuemin="0" aria-valuemax="${units.length}" aria-valuenow="${done}"><div style="width:${Math.round(done/units.length*100)}%"></div></div><button class="dashboard-main-btn" onclick="friendlyCourse('${level}')">${done===units.length?'Review your lessons':done?'Continue learning →':'Start lesson 1 →'}</button></section>
+ <h3 class="section-label">What would you like to do?</h3><div class="dashboard-shortcuts">
+ <button class="secondary" onclick="friendlyCourse('${level}')">📖 My lessons<small>${level} · ${units.length} lessons</small></button>
+ <button class="secondary" onclick="practiceHub()">⭐ Quick practice<small>${daily}/30 XP today</small></button>
+ <button class="secondary" onclick="articleHome()">🎨 Noun articles<small>Der · die · das</small></button>
+ <button class="secondary" onclick="aiTutor()">🎙 AI conversation<small>Speak German</small></button>
+ <button class="secondary" onclick="placementResults()">◈ My placement<small>Results and skills</small></button>
+ <button class="secondary" onclick="review()">↻ Review mistakes<small>Practice tricky answers</small></button></div>`;
+}
+// Keep track of the screen the user actually visited, including inline onclick navigation.
+const screenHistory=[];
+let lastScreenHTML='',screenGuard=false;
+function appScreenChanged(){
+ if(screenGuard)return;
+ const signature=app.innerHTML;
+ if(signature===lastScreenHTML)return;
+ const prev=lastScreenHTML;
+ lastScreenHTML=signature;
+ const homeScreen=signature.includes('dashboard-primary');
+ const back=app.querySelector('#screenBack');
+ if(back)back.remove();
+ if(!homeScreen){
+  const b=document.createElement('button');b.id='screenBack';b.type='button';b.setAttribute('aria-label','Go back');b.textContent='← Back';
+  b.addEventListener('click',goScreenBack);
+  app.prepend(b);
+ }
+}
+function goScreenBack(){
+ toggleMenu(false);
+ // On deep exercise screens, the learning path is a predictable and safe destination.
+ const level=state.learning?.placement?.recommended||'A1';
+ if(app.innerHTML.includes('Exercise ')||app.innerHTML.includes('Practice ·'))friendlyCourse(level);
+ else home();
+ window.scrollTo({top:0,behavior:'instant'});
+}
+const screenObserver=new MutationObserver(()=>{if(screenGuard)return;screenGuard=true;try{appScreenChanged()}finally{screenGuard=false}});
+screenObserver.observe(app,{childList:true,subtree:false});
+home();appScreenChanged();
+</script></body></html>
