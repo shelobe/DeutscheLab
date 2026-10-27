@@ -8,7 +8,7 @@
 .match-columns .match-tile{display:flex!important;align-items:center!important;justify-content:center!important;width:100%!important;min-width:0!important;max-width:100%!important;height:72px!important;min-height:72px!important;margin:0!important;padding:8px 7px!important;box-sizing:border-box!important;white-space:normal!important;overflow-wrap:anywhere!important;word-break:normal!important;line-height:1.25!important;text-align:center!important;font-size:clamp(13px,3.5vw,17px)!important;transition:opacity .18s,background .18s!important}
 .match-columns .match-tile.match-complete{opacity:.22!important;background:#183b40!important;border-color:#417b70!important;pointer-events:none!important}
 @media(min-width:600px){.match-columns{gap:18px}.match-columns .match-tile{font-size:18px!important}}
-</style></head><body><main><header class="app-header"><button class="menu-toggle" onclick="toggleMenu(true)" aria-label="Open navigation menu" aria-controls="sideMenu" aria-expanded="false">☰</button><div><h1>DeutschLab 🇩🇪</h1><p class="muted">German practice studio</p></div></header><div id="menuBackdrop" class="menu-backdrop" onclick="toggleMenu(false)" hidden></div><nav id="sideMenu" class="side-menu" aria-label="Main navigation" aria-hidden="true"><div class="menu-heading"><strong>DeutschLab</strong><button class="menu-close secondary" onclick="toggleMenu(false)" aria-label="Close menu">✕</button></div><p class="muted">LEARN</p><button onclick="navigateTo('home')">⌂ Home</button><button onclick="navigateTo('placement')">◈ Placement test</button><button onclick="navigateTo('lessonMenu')">▤ Lessons</button><button onclick="navigateTo('articleHome')">◉ Noun Articles</button><p class="muted">PRACTICE</p><button onclick="navigateTo('review')">↻ Review</button><button onclick="navigateTo('conversation')">☏ Dialogue</button><button onclick="navigateTo('aiTutor')">✦ AI Tutor & Voice</button></nav><div id="app"></div></main><script>
+</style><style>.app-header .menu-toggle{display:flex!important;align-items:center!important;justify-content:center!important;box-sizing:border-box!important;padding:0!important;margin:0!important;line-height:1!important;text-align:center!important;vertical-align:middle!important;flex:0 0 48px!important}</style></head><body><main><header class="app-header"><button class="menu-toggle" onclick="toggleMenu(true)" aria-label="Open navigation menu" aria-controls="sideMenu" aria-expanded="false">☰</button><div><h1>DeutschLab 🇩🇪</h1><p class="muted">German practice studio</p></div></header><div id="menuBackdrop" class="menu-backdrop" onclick="toggleMenu(false)" hidden></div><nav id="sideMenu" class="side-menu" aria-label="Main navigation" aria-hidden="true"><div class="menu-heading"><strong>DeutschLab</strong><button class="menu-close secondary" onclick="toggleMenu(false)" aria-label="Close menu">✕</button></div><p class="muted">LEARN</p><button onclick="navigateTo('home')">⌂ Home</button><button onclick="navigateTo('placement')">◈ Placement test</button><button onclick="navigateTo('lessonMenu')">▤ Lessons</button><button onclick="navigateTo('articleHome')">◉ Noun Articles</button><p class="muted">PRACTICE</p><button onclick="navigateTo('review')">↻ Review</button><button onclick="navigateTo('conversation')">☏ Dialogue</button><button onclick="navigateTo('aiTutor')">✦ AI Tutor & Voice</button></nav><div id="app"></div></main><script>
 function toggleMenu(open){const nav=document.getElementById('sideMenu'),back=document.getElementById('menuBackdrop'),toggle=document.querySelector('.menu-toggle');nav.classList.toggle('open',open);nav.setAttribute('aria-hidden',String(!open));back.hidden=!open;toggle.setAttribute('aria-expanded',String(open));document.body.classList.toggle('menu-open',open);if(open)nav.querySelector('.menu-close').focus();else toggle.focus()}
 function navigateTo(fn){toggleMenu(false);window[fn]();window.scrollTo({top:0,behavior:'instant'})}
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.getElementById('sideMenu').classList.contains('open'))toggleMenu(false)});
@@ -432,7 +432,7 @@ function intensiveRender(){let r=intensive;if(!r)return;let u=FULL_UNITS[r.id],q
 }
 function intensiveCheck(choice){let r=intensive;if(!r||r.answers.length!==r.idx)return;let q=intensiveTasks(FULL_UNITS[r.id])[r.idx],actual=q.options?q.options[choice]:document.getElementById('intensiveEntry').value;
  if(!actual||!actual.trim()){document.getElementById('intensiveFeedback').textContent='Enter an answer first.';return}
- let ok=deepNormalize(actual)===deepNormalize(q.expected);r.answers.push(ok);if(ok)r.correct++;
+ let ok=deepNormalize(actual)===deepNormalize(q.expected);feedbackSound(ok);r.answers.push(ok);if(ok)r.correct++;
  document.querySelectorAll('.intensive-choice').forEach(b=>b.disabled=true);let entry=document.getElementById('intensiveEntry');if(entry)entry.disabled=true;
  let explanation=`<div class="unit-explain"><h3>${ok?'Correct!':'Review the model answer'}</h3><p><strong>Your answer:</strong> ${safeText(actual)}</p><p><strong>Model answer:</strong> ${safeText(q.expected)}</p><p>${safeText(q.explain)}</p>${q.type==='dictation'?`<button class="secondary" onclick="speak(${JSON.stringify(q.expected).replace(/"/g,'&quot;')})">🔊 Listen again</button>`:''}<p class="muted">Typed answers are compared with the model answer. Other valid translations may be marked incorrect.</p></div><button onclick="intensiveNext()">${r.idx===3?'See results':'Continue'}</button>`;
  document.getElementById('intensiveFeedback').innerHTML=explanation;
@@ -1285,5 +1285,70 @@ const soundOldReviewAnswer=curriculumReviewAnswer;
 curriculumReviewAnswer=function(i){let s=moduleSession;if(s&&!s.answered)feedbackSound(i===s.questions[s.idx].answer);return soundOldReviewAnswer(i)};
 const soundOldHome=home;
 home=function(){soundOldHome();const target=app.querySelector('.dashboard-shortcuts')||app.lastElementChild;if(target)target.insertAdjacentHTML('afterend',soundSettingHTML())};
+</script>
+
+<style>
+body.lesson-screen #app{min-height:65vh}
+body.lesson-screen #app>.lesson-screen-heading{display:flex;align-items:center;gap:12px;margin:12px 0 18px;padding:12px 14px;border:1px solid #456878;border-radius:15px;background:#152b3c}
+body.lesson-screen .lesson-screen-heading button{margin:0;width:auto;flex-shrink:0}
+body.lesson-screen .lesson-screen-heading strong{font-size:1rem}
+body.lesson-screen .lesson-screen-heading small{display:block;opacity:.75}
+body.lesson-screen #app>.curriculum-summary,body.lesson-screen #app>.curriculum-module{display:none}
+</style>
+<script>
+/* Keep course navigation and individual lesson activities in distinct views. */
+let activeLessonScreen=null;
+function lessonScreenHeading(){
+ if(activeLessonScreen===null)return;
+ const u=FULL_UNITS[activeLessonScreen];if(!u)return;
+ if(app.querySelector('.lesson-screen-heading'))return;
+ const header=document.createElement('div');header.className='lesson-screen-heading';
+ header.innerHTML=`<button class="secondary" onclick="leaveLessonScreen()">Back</button><div><strong>${safeText(u.title)}</strong><small>${u.level} · Lesson</small></div>`;
+ app.prepend(header);
+}
+function leaveLessonScreen(){let id=activeLessonScreen;activeLessonScreen=null;document.body.classList.remove('lesson-screen');curriculumView(FULL_UNITS[id]?.level||curriculumSelected)}
+const lessonOriginalStudy=fullStudy;
+fullStudy=function(id){activeLessonScreen=id;document.body.classList.add('lesson-screen');lessonOriginalStudy(id);lessonScreenHeading();window.scrollTo(0,0)};
+const lessonOriginalRender=fullRender;
+fullRender=function(){lessonOriginalRender();if(activeLessonScreen!==null){document.body.classList.add('lesson-screen');lessonScreenHeading();window.scrollTo(0,0)}};
+const lessonOriginalFinish=fullFinish;
+fullFinish=function(){
+ const session=fullSession;
+ if(!session)return lessonOriginalFinish();
+ const id=session.id,score=session.score,total=session.questions.length;
+ lessonOriginalFinish();
+ if(activeLessonScreen!==null){
+  activeLessonScreen=null;document.body.classList.remove('lesson-screen');
+  curriculumView(FULL_UNITS[id].level);
+  const notice=document.createElement('section');notice.className='card';notice.setAttribute('role','status');
+  notice.innerHTML=`<h2>Lesson complete</h2><p>${safeText(FULL_UNITS[id].title)} · ${score}/${total} correct</p><p>${score>=Math.ceil(total*.8)?'Lesson passed.':'Review the lesson and try again when ready.'}</p>`;
+  app.prepend(notice);window.scrollTo(0,0);
+ }
+};
+const lessonOriginalMenu=curriculumView;
+curriculumView=function(level){activeLessonScreen=null;document.body.classList.remove('lesson-screen');lessonOriginalMenu(level)};
+const lessonOriginalHome=home;
+home=function(){activeLessonScreen=null;document.body.classList.remove('lesson-screen');lessonOriginalHome()};
+</script>
+
+<script>
+// Picture practice must use the bundled emoji bank, never absent SVG files or remote photos.
+function reliablePictureMenu(){
+ pictureSession=null;
+ const saved=state.pictureProgress||{attempts:0,correct:0};
+ app.innerHTML=illustratedHero('Picture practice','See it. Name it. Remember the article.','forest','katze.png')+
+ `<section class="card"><h2>What do you see?</h2><p>Identify familiar objects and learn their German articles.</p><p class="muted">${saved.attempts} answers · ${saved.correct} correct</p><div class="picture-tabs"><button onclick="pictureStart('choice')">Choose the word</button><button onclick="pictureStart('type')">Type the word</button></div><p class="muted">32 everyday objects · works offline.</p></section>`;
+ window.scrollTo(0,0);
+}
+function reliablePictureStart(mode){
+ const pool=[...PICTURE_WORDS.keys()];
+ for(let i=pool.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[pool[i],pool[j]]=[pool[j],pool[i]]}
+ pictureSession={mode,queue:pool.slice(0,10),index:0,correct:0,answered:false,photo:false};
+ pictureShow();
+}
+photoMenu=reliablePictureMenu;
+pictureHome=reliablePictureMenu;
+photoStart=reliablePictureStart;
+pictureStart=reliablePictureStart;
 </script>
 </body></html>
