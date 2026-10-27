@@ -3447,7 +3447,7 @@ body.dl-home-banner .app-header .menu-toggle {width:58px!important;height:58px!i
 (function(){
  const app=document.getElementById('app');
  if(!app)return;
- function sync(){document.body.classList.toggle('dl-home-banner',!!app.querySelector('.lesson-grid') && !document.body.classList.contains('lesson-screen'));}
+ function sync(){document.body.classList.toggle('dl-home-banner',!!app.querySelector('[data-dl-home-banner]') && !document.body.classList.contains('lesson-screen'));}
  new MutationObserver(sync).observe(app,{childList:true});
  sync();
 })();
@@ -3578,4 +3578,21 @@ if(menu&&!menu.querySelector('[data-findit-menu]')){
 })();
 </script>
 
+
+<script>
+/* Mark the real home dashboard rather than guessing from its layout. */
+(function(){
+ const previousHome=home;
+ home=function(){
+  previousHome.apply(this,arguments);
+  const root=document.getElementById('app');
+  if(root){const marker=document.createElement('span');marker.hidden=true;marker.setAttribute('data-dl-home-banner','');root.prepend(marker);}
+  document.body.classList.add('dl-home-banner');
+ };
+ if(document.querySelector('#app .dashboard-primary, #app .dashboard-shortcuts')){
+  const marker=document.createElement('span');marker.hidden=true;marker.setAttribute('data-dl-home-banner','');document.getElementById('app').prepend(marker);
+  document.body.classList.add('dl-home-banner');
+ }
+})();
+</script>
 </body></html>
