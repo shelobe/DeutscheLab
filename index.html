@@ -2687,7 +2687,7 @@ curriculumModuleIntro=function(level,n){
    if(!Rec){status.textContent='Speech recognition is unavailable in this browser.';return}
    const rec=new Rec();rec.lang='de-DE';rec.interimResults=false;rec.maxAlternatives=3;
    status.textContent='Listening…';
-   rec.onresult=e=>{const words=Array.from(e.results[0]).map(x=>x.transcript.trim().toLocaleLowerCase('de-DE').replace(/[.!?]/g,''));const expected=d.word.toLocaleLowerCase('de-DE');const ok=words.includes(expected);const ambiguous=expected==='liebe'&&words.some(w=>w==='lieber');status.textContent=ok?'Richtig! Well done!':ambiguous?'The recognizer heard “lieber”, which can sound very close to “Liebe”. This is inconclusive — please try again.':'Heard: '+words[0]+'. Try again.'};
+   rec.onresult=e=>{const words=Array.from(e.results[0]).map(x=>x.transcript.trim().toLocaleLowerCase('de-DE').replace(/[.!?]/g,''));const expected=d.word.toLocaleLowerCase('de-DE');const ok=words.includes(expected);const normalized=words.map(w=>w.replace(/ß/g,'ss'));const target=expected.replace(/ß/g,'ss');const spellingMatch=normalized.includes(target);const uncertain=(expected==='liebe'&&words.some(w=>w==='lieber'))||(expected==='straße'&&normalized.some(w=>/^strass(e|er|a)$/.test(w)))||words.some(w=>!/[äöüß]/.test(w)&&/^[a-z ]+$/.test(w)&&!w.includes(target.slice(0,Math.min(3,target.length))));status.textContent=ok||spellingMatch?'Richtig! Well done!':uncertain?'Speech recognition was uncertain (heard: '+words[0]+'). This does not mean your pronunciation was wrong. Try again.':'Heard: '+words[0]+'. Try again.'};
    rec.onerror=e=>{status.textContent='Microphone: '+e.error+'. Try again.'};
    try{rec.start()}catch(e){status.textContent='Unable to start microphone.'}
   };
