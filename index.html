@@ -3872,4 +3872,29 @@ body:has(#app .dl-pronunciation .dl-sound-navigation) #app{padding-bottom:calc(1
 #app .dl-pronunciation .dl-sound-listening button{min-height:44px!important;padding:9px 5px!important}
 body.dl-pron-nav-active #app{padding-bottom:110px!important}
 @media(max-height:750px){#app .dl-pronunciation .dl-sound-focus{padding:8px 10px!important}#app .dl-pronunciation .dl-sound-focus p{margin:3px 0!important}#app .dl-pronunciation h3{margin:5px 0!important}}
-</style></body></html>
+</style><style id="dl-review-fixed-next-style">
+body.dl-review-next-visible #app{padding-bottom:calc(92px + env(safe-area-inset-bottom,0px))!important}
+#dl-review-next-dock{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:#142a3a;border-top:1px solid #4d797e;padding:10px 18px calc(10px + env(safe-area-inset-bottom,0px));box-sizing:border-box;display:flex;justify-content:center;box-shadow:0 -5px 18px #07152177}
+#dl-review-next-dock button{width:min(100%,650px);min-height:52px;margin:0!important}
+</style>
+<script>
+/* Dock the existing review feedback Next button without duplicating its handler. */
+(function(){
+ const appNode=document.getElementById('app');
+ let dock=null;
+ function sync(){
+  const review=appNode.querySelector('#moduleFeedback');
+  const next=review?.querySelector('button');
+  if(next){
+   if(!dock){dock=document.createElement('div');dock.id='dl-review-next-dock';document.body.appendChild(dock)}
+   if(next.parentNode!==dock)dock.appendChild(next);
+   document.body.classList.add('dl-review-next-visible');
+  }else if(dock){
+   dock.remove();dock=null;document.body.classList.remove('dl-review-next-visible');
+  }
+ }
+ const observer=new MutationObserver(sync);
+ observer.observe(appNode,{childList:true,subtree:true});
+ sync();
+})();
+</script></body></html>
