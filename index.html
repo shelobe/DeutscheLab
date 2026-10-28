@@ -3481,6 +3481,12 @@ body.dl-home-banner .app-header .menu-toggle {width:58px!important;height:58px!i
 </script>
 <style>.dl-review-listen{display:block!important;width:100%!important;min-height:60px!important;margin:14px 0 22px!important;font-size:1.1rem!important}</style>
 
+<style id="dl-findit-room-thumbnails">
+.findit-room-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:18px}
+.findit-room-choices .findit-room-choice{display:flex;flex-direction:column;align-items:stretch;gap:9px;padding:8px 8px 12px!important;margin:0!important;min-width:0;text-align:center;border-radius:15px!important}
+.findit-room-choice img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px}
+.findit-room-choice span{font-size:clamp(14px,3.5vw,18px);font-weight:700}
+</style>
 <style id="dl-findit-style">
 .findit-shell{max-width:760px;margin:0 auto 26px}
 .findit-intro{background:#102a3b;border:1px solid #397783;border-radius:22px;padding:16px;margin:14px 0;color:#f4f8ff}
@@ -3578,7 +3584,7 @@ window.findItPraise=function(){if(session&&session.phrase&&typeof speak==='funct
 window.findItHome=function(){
  session={room:0,queue:order(),idx:0,hearts:3,locked:false,phrase:''};
  document.body.classList.remove('lesson-screen');
- app.innerHTML='<div class="findit-shell"><section class="findit-intro"><h2>Find It! — Choose a room</h2><p>Find ten German words in each room. You have three hearts.</p><button onclick="findItStart(0)">Living room</button> <button onclick="findItStart(1)">Sunny kitchen</button></section></div>';
+ app.innerHTML='<div class="findit-shell"><section class="findit-intro"><h2>Find It! — Choose a room</h2><p>Find ten German words in each room. You have three hearts.</p><div class="findit-room-choices"><button class="findit-room-choice" onclick="findItStart(0)"><img src="./file_0000000028f881f5bd5c11ffc7a7f4cc.png" alt="" loading="lazy"><span>Living room</span></button><button class="findit-room-choice" onclick="findItStart(1)"><img src="./file_00000000f6dc81f5a53d075ab54c5e25.png" alt="" loading="lazy"><span>Sunny kitchen</span></button></div></section></div>';
  window.scrollTo(0,0);
 };
 window.findItStart=function(roomIndex=0){const room=rooms[roomIndex]||rooms[0];session={room:roomIndex,queue:room.items.slice().sort(()=>Math.random()-.5),idx:0,hearts:3,locked:false,phrase:''};render()};
