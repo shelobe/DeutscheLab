@@ -639,15 +639,17 @@ const screenHistory=[];
 let lastScreenHTML='',screenGuard=false;
 function appScreenChanged(){
  if(screenGuard)return;
- const signature=app.innerHTML;
- if(signature===lastScreenHTML)return;
- const prev=lastScreenHTML;
- lastScreenHTML=signature;
- const homeScreen=signature.includes('dashboard-primary');
+ // Do not remove/reinsert Back on every mutation: doing so creates
+ // an endless MutationObserver cycle that blocks clicks and audio.
+ const homeScreen=!!app.querySelector('.dashboard-primary');
  const back=app.querySelector('#screenBack');
- if(back)back.remove();
- if(!homeScreen){
-  const b=document.createElement('button');b.id='screenBack';b.type='button';b.setAttribute('aria-label','Go back');b.textContent='Back';
+ if(homeScreen){
+  if(back)back.remove();
+  return;
+ }
+ if(!back){
+  const b=document.createElement('button');
+  b.id='screenBack';b.type='button';b.setAttribute('aria-label','Go back');b.textContent='Back';
   b.addEventListener('click',goScreenBack);
   app.prepend(b);
  }
