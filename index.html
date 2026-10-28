@@ -3965,25 +3965,28 @@ body.dl-review-next-visible #app{padding-bottom:calc(92px + env(safe-area-inset-
 </style>
 
 <style id="dl-banner-decor">
-/* Quiet woodland silhouette, confined to the homepage banner. */
+/* Black Forest evergreens and a subtle Bavarian alpine roofline. */
 body.dl-home-banner .app-header{
  position:relative!important;isolation:isolate;overflow:hidden!important;
  background:linear-gradient(125deg,#10263b 0%,#173850 58%,#132b42 100%)!important;
 }
 body.dl-home-banner .app-header::before{
- content:"";position:absolute;inset:0 0 0 auto;width:57%;
+ content:"";position:absolute;right:0;bottom:0;width:53%;height:100%;
  background:
- linear-gradient(153deg,transparent 49%,rgba(99,172,151,.23) 50% 57%,transparent 58%) 65% 56%/40px 74px no-repeat,
- linear-gradient(207deg,transparent 49%,rgba(99,172,151,.23) 50% 57%,transparent 58%) 65% 56%/40px 74px no-repeat,
- linear-gradient(153deg,transparent 49%,rgba(99,172,151,.18) 50% 57%,transparent 58%) 90% 62%/62px 104px no-repeat,
- linear-gradient(207deg,transparent 49%,rgba(99,172,151,.18) 50% 57%,transparent 58%) 90% 62%/62px 104px no-repeat;
- opacity:.85;pointer-events:none;z-index:-1;
+ linear-gradient(155deg,transparent 49%,rgba(94,162,141,.27) 50% 100%) 82% 100%/50px 86px no-repeat,
+ linear-gradient(205deg,transparent 49%,rgba(94,162,141,.27) 50% 100%) 82% 100%/50px 86px no-repeat,
+ linear-gradient(155deg,transparent 49%,rgba(79,142,128,.24) 50% 100%) 42% 100%/39px 69px no-repeat,
+ linear-gradient(205deg,transparent 49%,rgba(79,142,128,.24) 50% 100%) 42% 100%/39px 69px no-repeat;
+ pointer-events:none;z-index:-1;
 }
 body.dl-home-banner .app-header::after{
- content:"";position:absolute;right:0;bottom:0;width:55%;height:80%;
- background:linear-gradient(to top,rgba(65,132,116,.22),transparent 76%);
- clip-path:polygon(0 100%,9% 79%,16% 87%,25% 48%,34% 85%,44% 67%,52% 92%,64% 24%,78% 84%,90% 51%,100% 88%,100% 100%);
- pointer-events:none;z-index:-1;
+ content:"";position:absolute;right:15%;bottom:0;width:78px;height:59px;
+ background:
+ linear-gradient(135deg,transparent 50%,rgba(169,202,194,.28) 51%) top left/50% 25px no-repeat,
+ linear-gradient(225deg,transparent 50%,rgba(169,202,194,.28) 51%) top right/50% 25px no-repeat,
+ linear-gradient(rgba(169,202,194,.19),rgba(169,202,194,.19)) center bottom/60px 35px no-repeat,
+ linear-gradient(rgba(14,41,55,.45),rgba(14,41,55,.45)) 45% 82%/12px 20px no-repeat;
+ pointer-events:none;z-index:-1;opacity:.9;
 }
 body.dl-home-banner .app-header h1,body.dl-home-banner .app-header p,
 body.dl-home-banner .app-header .menu-toggle{position:relative;z-index:1}
