@@ -4116,13 +4116,15 @@ body.dl-home-banner .app-header .menu-toggle{position:relative;z-index:1}
   oldBegin.apply(this,arguments);
   const session=fullSession,unit=FULL_UNITS[id];
   if(!session||unit?.title!=='Umlauts and ß')return;
-  // One intentionally varied eight-question sequence: vowels, spelling, meaning, and ß.
+  // One varied ten-question sequence: vowels, spelling, meaning, and ß.
   session.questions=[
    {type:'grammar',prompt:'Which letter is used in the German word for “five”?',options:['ü','u','ö'],answer:0,why:'Fünf is spelled with ü, which has a distinct vowel sound.'},
    {type:'sound-choice',prompt:'Which audio says “schön”?',options:['Audio 1','Audio 2','Audio 3'],answer:1,dlAudioWords:['schon','schön','Sohn'],dlTarget:'schön',why:'Schön has ö; schon and Sohn have an o sound.'},
    {type:'grammar',prompt:'What sound does ß represent in Straße?',options:['An s sound','A b sound','A z sound'],answer:0,why:'ß is called Eszett or sharp S. It represents an unvoiced s sound, not a b sound.'},
    {type:'grammar',prompt:'Choose the correctly spelled German word for “street.”',options:['Straße','StraBe','Sträße'],answer:0,why:'Straße uses ß after a long vowel. The letter ß is not the letter B.'},
    {type:'sound-choice',prompt:'Which audio says “Mütter”?',options:['Audio 1','Audio 2','Audio 3'],answer:2,dlAudioWords:['Mutter','Meter','Mütter'],dlTarget:'Mütter',why:'Mütter has ü; Mutter has u.'},
+   {type:'sound-choice',prompt:'Which audio says “Mädchen”?',options:['Audio 1','Audio 2','Audio 3'],answer:1,dlAudioWords:['Machen','Mädchen','Möchten'],dlTarget:'Mädchen',why:'Mädchen (girl) contains ä. Listen for the different vowel compared with machen.'},
+   {type:'grammar',prompt:'Which German word contains ä?',options:['Mädchen','Mutter','Morgen'],answer:0,why:'Mädchen means girl and contains ä. Another example is Käse (cheese).'},
    {type:'grammar',prompt:'Which pair changes meaning when an umlaut is added?',options:['schon → schön','Haus → Haus','und → und'],answer:0,why:'Schon means already; schön means beautiful or nice.'},
    {type:'grammar',prompt:'Which spelling uses ß correctly?',options:['groß','groB','gröss'],answer:0,why:'Groß means big; ß represents the s sound after the long o.'},
    {type:'grammar',prompt:'Which statement about German ß is correct?',options:['It is a distinct letter, not a capital B','It is pronounced like English B','It always makes a sh sound'],answer:0,why:'ß is a separate German letter called Eszett; it typically represents a sharp s sound.'}
