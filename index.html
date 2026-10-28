@@ -3937,7 +3937,7 @@ body.dl-review-next-visible #app{padding-bottom:calc(92px + env(safe-area-inset-
  const id=FULL_UNITS.findIndex(u=>u.title==='Everyday conversations: Understanding in context');
  if(id<0)return;
  const u=FULL_UNITS[id];
- u.rule='Use these phrases when you need help in a conversation. Ich verstehe die Frage nicht = I do not understand the question: ich (I) + verstehe (understand) + die Frage (the question) + nicht (not). Replace die Frage with das Wort (the word) or den Satz (the sentence). Können Sie mir helfen? is a polite request: können (can) + Sie (formal you) + mir (me) + helfen (help). Sprechen Sie bitte langsam asks someone politely to speak slowly: sprechen (speak) + Sie (formal you) + bitte (please) + langsam (slowly).';
+ u.rule='Use these phrases when you need help in a conversation.\n\nICH VERSTEHE DIE FRAGE NICHT.\nI do not understand the question.\n• ich = I\n• verstehe = understand\n• die Frage = the question\n• nicht = not\nTry replacing die Frage with das Wort (the word) or den Satz (the sentence).\n\nKÖNNEN SIE MIR HELFEN?\nCan you help me?\n• können = can\n• Sie = formal you\n• mir = me\n• helfen = help\n\nSPRECHEN SIE BITTE LANGSAM.\nPlease speak slowly.\n• sprechen = speak\n• Sie = formal you\n• bitte = please\n• langsam = slowly.';
  u.examples=[['Ich verstehe die Frage nicht.','I do not understand the question.'],['Ich verstehe das Wort nicht.','I do not understand the word.'],['Können Sie mir helfen?','Can you help me?'],['Sprechen Sie bitte langsam.','Please speak slowly.'],['Ich verstehe den Satz nicht.','I do not understand the sentence.'],['Können Sie das bitte wiederholen?','Could you please repeat that?']];
  u.checkpoint={prompt:'Which phrase asks someone to speak more slowly?',options:['Sprechen Sie bitte langsam.','Ich verstehe die Frage nicht.','Können Sie mir helfen?'],answer:0,why:'Sprechen Sie bitte langsam is a polite request. Sie is the formal you; bitte means please; langsam means slowly.'};
  const previous=fullQuestions;
@@ -3955,4 +3955,4 @@ body.dl-review-next-visible #app{padding-bottom:calc(92px + env(safe-area-inset-
  };
 })();
 </script>
-</body></html>
+<style id="dl-rule-paragraph-spacing">.unit-explain.dl-rule-breakdown{white-space:pre-line;line-height:1.55}.unit-explain.dl-rule-breakdown::first-line{font-weight:600}</style><script id="dl-rule-breakdown-format">(function(){const previous=fullStudy;fullStudy=function(id){previous(id);if(FULL_UNITS[id]?.title==='Everyday conversations: Understanding in context'){const el=app.querySelector('.unit-explain');if(el)el.classList.add('dl-rule-breakdown')}}})();</script></body></html>
