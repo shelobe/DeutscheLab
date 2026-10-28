@@ -3955,4 +3955,40 @@ body.dl-review-next-visible #app{padding-bottom:calc(92px + env(safe-area-inset-
  };
 })();
 </script>
-<style id="dl-rule-paragraph-spacing">.unit-explain.dl-rule-breakdown{white-space:pre-line;line-height:1.55}.unit-explain.dl-rule-breakdown::first-line{font-weight:600}</style><script id="dl-rule-breakdown-format">(function(){const previous=fullStudy;fullStudy=function(id){previous(id);if(FULL_UNITS[id]?.title==='Everyday conversations: Understanding in context'){const el=app.querySelector('.unit-explain');if(el)el.classList.add('dl-rule-breakdown')}}})();</script></body></html>
+<style id="dl-rule-paragraph-spacing">.unit-explain.dl-rule-breakdown{white-space:pre-line;line-height:1.55}.unit-explain.dl-rule-breakdown::first-line{font-weight:600}</style><script id="dl-rule-breakdown-format">(function(){const previous=fullStudy;fullStudy=function(id){previous(id);if(FULL_UNITS[id]?.title==='Everyday conversations: Understanding in context'){const el=app.querySelector('.unit-explain');if(el)el.classList.add('dl-rule-breakdown')}}})();</script>
+<script id="dl-conversation-section-cards">
+(function(){
+ const prior=fullStudy;
+ fullStudy=function(id){
+  const result=prior.apply(this,arguments);
+  if(FULL_UNITS[id]?.title!=='Everyday conversations: Understanding in context')return result;
+  const card=Array.from(app.querySelectorAll('.card')).find(c=>/What you'll learn|Understand the rule/.test(c.querySelector('h2')?.textContent||''));
+  if(!card)return result;
+  const heading=card.querySelector('h2');
+  const rule=heading?.nextElementSibling;
+  if(!rule)return result;
+  const sections=[
+   ['When you need help','Use these expressions when you need help understanding someone.'],
+   ['Ich verstehe die Frage nicht.','I do not understand the question.','ich = I','verstehe = understand','die Frage = the question','nicht = not','You can replace die Frage with das Wort (the word) or den Satz (the sentence).'],
+   ['Können Sie mir helfen?','Can you help me?','können = can','Sie = formal you','mir = me','helfen = help'],
+   ['Sprechen Sie bitte langsam.','Please speak slowly.','sprechen = speak','Sie = formal you','bitte = please','langsam = slowly']
+  ];
+  rule.innerHTML=sections.map((parts,i)=>'<section class="dl-conversation-section">'+
+   '<h3>'+safeText(parts[0])+'</h3>'+
+   (i===0?'<p>'+safeText(parts[1])+'</p>':'<p class="dl-conversation-translation">'+safeText(parts[1])+'</p><ul>'+parts.slice(2).map(t=>'<li>'+safeText(t)+'</li>').join('')+'</ul>')+
+   '</section>').join('');
+  rule.style.whiteSpace='normal';
+  rule.classList.add('dl-conversation-breakdown');
+  return result;
+ };
+})();
+</script>
+<style id="dl-conversation-section-style">
+.dl-conversation-breakdown{display:grid;gap:16px;background:transparent!important;border:0!important;padding:0!important}
+.dl-conversation-section{background:#29445b;border:1px solid #49677c;border-radius:15px;padding:16px}
+.dl-conversation-section h3{font-size:1.1rem;line-height:1.35;margin:0 0 10px}
+.dl-conversation-section p{margin:0 0 8px;line-height:1.45}
+.dl-conversation-section ul{margin:10px 0 0;padding-left:22px}
+.dl-conversation-section li{margin:5px 0;line-height:1.4}
+</style>
+</body></html>
