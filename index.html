@@ -2664,6 +2664,13 @@ curriculumModuleIntro=function(level,n){
   {sound:'ö',word:'schön',meaning:'beautiful',example:'hören',detail:'Shape your tongue for an eh sound while rounding your lips. It is distinct from o.'}
  ];
  let soundIndex=0;
+ window.dlPronunciationComplete=function(){
+  const root=document.getElementById('app');
+  root.innerHTML='<section class="card dl-pronunciation"><h2>Pronunciation complete!</h2><p>Geschafft! You finished all '+drills.length+' German sound exercises.</p><div class="dl-sound-navigation"><button class="secondary" id="dl-pron-repeat">Practice again</button><button id="dl-pron-home">Back to home</button></div></section>';
+  root.querySelector('#dl-pron-repeat').onclick=()=>dlPronunciationHome(0);
+  root.querySelector('#dl-pron-home').onclick=()=>home();
+  window.scrollTo(0,0);
+ };
  window.dlPronunciationHome=function(index){
   soundIndex=Math.max(0,Math.min(drills.length-1,Number(index)||0));
   const d=drills[soundIndex];
@@ -2679,8 +2686,8 @@ curriculumModuleIntro=function(level,n){
   root.querySelector('#dl-sound-slow').onclick=()=>speak(d.word,0.7);
   root.querySelector('#dl-sound-prev').disabled=soundIndex===0;
   root.querySelector('#dl-sound-prev').onclick=()=>dlPronunciationHome(soundIndex-1);
-  root.querySelector('#dl-sound-next').textContent=soundIndex===drills.length-1?'Start again':'Next sound';
-  root.querySelector('#dl-sound-next').onclick=()=>dlPronunciationHome((soundIndex+1)%drills.length);
+  root.querySelector('#dl-sound-next').textContent=soundIndex===drills.length-1?'Finish pronunciation':'Next sound';
+  root.querySelector('#dl-sound-next').onclick=()=>soundIndex===drills.length-1?dlPronunciationComplete():dlPronunciationHome(soundIndex+1);
   root.querySelector('#dl-sound-speak').onclick=()=>{
    const status=root.querySelector('#dl-sound-status');
    const Rec=window.SpeechRecognition||window.webkitSpeechRecognition;
