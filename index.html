@@ -2688,15 +2688,42 @@ curriculumModuleIntro=function(level,n){
   root.querySelector('#dl-sound-prev').onclick=()=>dlPronunciationHome(soundIndex-1);
   root.querySelector('#dl-sound-next').textContent=soundIndex===drills.length-1?'Finish pronunciation':'Next sound';
   root.querySelector('#dl-sound-next').onclick=()=>soundIndex===drills.length-1?dlPronunciationComplete():dlPronunciationHome(soundIndex+1);
-  root.querySelector('#dl-sound-speak').onclick=()=>{
-   const status=root.querySelector('#dl-sound-status');
+  let activePronunciationRecognition=null;
+  let pronunciationTimer=null;
+  function stopPronunciation(){
+   clearTimeout(pronunciationTimer);pronunciationTimer=null;
+   if(activePronunciationRecognition){const r=activePronunciationRecognition;activePronunciationRecognition=null;try{r.abort()}catch(e){}}
+  }
+  const speakButton=root.querySelector('#dl-sound-speak');
+  const status=root.querySelector('#dl-sound-status');
+  speakButton.onclick=()=>{
+   if(activePronunciationRecognition){
+    const r=activePronunciationRecognition;
+    clearTimeout(pronunciationTimer);pronunciationTimer=null;
+    status.textContent='Processing speech…';
+    try{r.stop()}catch(e){stopPronunciation();status.textContent='No speech captured. Tap Speak now to retry.'}
+    pronunciationTimer=setTimeout(()=>{if(activePronunciationRecognition===r){stopPronunciation();status.textContent='No speech result received. Tap Speak now to retry.';speakButton.textContent='🎤 Speak now'}},2500);
+    return;
+   }
    const Rec=window.SpeechRecognition||window.webkitSpeechRecognition;
    if(!Rec){status.textContent='Speech recognition is unavailable in this browser.';return}
-   const rec=new Rec();rec.lang='de-DE';rec.interimResults=false;rec.maxAlternatives=3;
+   const rec=new Rec();activePronunciationRecognition=rec;rec.lang='de-DE';rec.continuous=false;rec.interimResults=false;rec.maxAlternatives=3;
+   speakButton.textContent='⏹ Stop listening';
    status.textContent='Listening…';
-   rec.onresult=e=>{const words=Array.from(e.results[0]).map(x=>x.transcript.trim().toLocaleLowerCase('de-DE').replace(/[.!?]/g,''));const expected=d.word.toLocaleLowerCase('de-DE');const ok=words.includes(expected);const normalized=words.map(w=>w.replace(/ß/g,'ss'));const target=expected.replace(/ß/g,'ss');const spellingMatch=normalized.includes(target);const uncertain=(expected==='liebe'&&words.some(w=>w==='lieber'))||(expected==='straße'&&normalized.some(w=>/^strass(e|er|a)$/.test(w)))||words.some(w=>!/[äöüß]/.test(w)&&/^[a-z ]+$/.test(w)&&!w.includes(target.slice(0,Math.min(3,target.length))));status.textContent=ok||spellingMatch?'Richtig! Well done!':uncertain?'Speech recognition was uncertain (heard: '+words[0]+'). This does not mean your pronunciation was wrong. Try again.':'Heard: '+words[0]+'. Try again.'};
-   rec.onerror=e=>{status.textContent='Microphone: '+e.error+'. Try again.'};
-   try{rec.start()}catch(e){status.textContent='Unable to start microphone.'}
+   pronunciationTimer=setTimeout(()=>{if(activePronunciationRecognition===rec){status.textContent='Processing speech…';try{rec.stop()}catch(e){}pronunciationTimer=setTimeout(()=>{if(activePronunciationRecognition===rec){stopPronunciation();status.textContent='No speech result received. Tap Speak now to retry.';speakButton.textContent='🎤 Speak now'}},2500)}},6500);
+   rec.onresult=e=>{
+    if(activePronunciationRecognition!==rec||!status.isConnected)return;
+    const words=Array.from(e.results[0]||[]).map(x=>x.transcript.trim().toLocaleLowerCase('de-DE').replace(/[.!?]/g,''));
+    const expected=d.word.toLocaleLowerCase('de-DE');
+    const normalized=words.map(w=>w.replace(/ß/g,'ss'));const target=expected.replace(/ß/g,'ss');
+    const ok=normalized.includes(target);
+    const uncertain=(expected==='liebe'&&words.some(w=>w==='lieber'))||(expected==='straße'&&normalized.some(w=>/^strass(e|er|a)$/.test(w)))||words.some(w=>!/[äöüß]/.test(w)&&/^[a-z ]+$/.test(w)&&!w.includes(target.slice(0,Math.min(3,target.length))));
+    status.textContent=ok?'Richtig! Well done!':uncertain?'Speech recognition was uncertain (heard: '+words[0]+'). This does not mean your pronunciation was wrong. Try again.':'Heard: '+(words[0]||'nothing')+'. Try again.';
+    stopPronunciation();speakButton.textContent='🎤 Speak now';
+   };
+   rec.onerror=e=>{if(activePronunciationRecognition!==rec)return;stopPronunciation();if(status.isConnected)status.textContent='Microphone: '+e.error+'. Try again.';if(speakButton.isConnected)speakButton.textContent='🎤 Speak now'};
+   rec.onend=()=>{if(activePronunciationRecognition!==rec)return;stopPronunciation();if(status.isConnected)status.textContent='No speech captured. Tap Speak now to retry.';if(speakButton.isConnected)speakButton.textContent='🎤 Speak now'};
+   try{rec.start()}catch(e){stopPronunciation();status.textContent='Unable to start microphone: '+e.message;speakButton.textContent='🎤 Speak now'}
   };
   window.scrollTo(0,0);
  };
