@@ -3822,4 +3822,24 @@ body:not(.menu-open) #sideMenu:not(.open){pointer-events:none!important}
  updateGreeting();
 })();
 </script>
+<style id="dl-pronunciation-sticky-navigation">
+/* Only the pronunciation exercise has a persistent bottom navigation. */
+body:has(#app .dl-pronunciation .dl-sound-navigation) #app{padding-bottom:calc(100px + env(safe-area-inset-bottom,0px))!important}
+#app .dl-pronunciation .dl-sound-navigation{
+ position:fixed!important;
+ bottom:0!important;
+ left:0!important;
+ right:0!important;
+ z-index:50!important;
+ display:flex!important;
+ gap:12px!important;
+ margin:0!important;
+ padding:12px max(18px,env(safe-area-inset-right,0px)) calc(12px + env(safe-area-inset-bottom,0px)) max(18px,env(safe-area-inset-left,0px))!important;
+ background:#142a3a!important;
+ border-top:1px solid #4d797e!important;
+ box-shadow:0 -5px 22px #07152199!important;
+ box-sizing:border-box!important;
+}
+#app .dl-pronunciation .dl-sound-navigation button{flex:1!important;margin:0!important;min-height:52px!important}
+</style>
 </body></html>
