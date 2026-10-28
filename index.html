@@ -1492,7 +1492,14 @@ function dlLessonIntro(id){
  activeLessonScreen=id;document.body.classList.add('lesson-screen');
  app.innerHTML=`<div class="dl-flow"><div class="dl-flow-top"><button class="secondary" onclick="leaveLessonScreen()">Back</button><div class="dl-flow-progress"><span style="width:0%"></span></div></div>
  <section class="dl-flow-card"><div class="dl-flow-label">${dlEscape(u.level)} · ${dlEscape(u.title)}</div><h2>What you'll learn</h2>
- <p>${dlEscape(u.rule)}</p><h3>See it in German</h3>
+ ${u.title==='Everyday conversations: Understanding in context'?
+ '<div class="dl-conversation-cards">'+[
+  ['When you need help','These phrases help you ask for clarification politely.'],
+  ['Ich verstehe die Frage nicht.','I do not understand the question.','ich — I','verstehe — understand','die Frage — the question','nicht — not','Swap die Frage for das Wort (the word) or den Satz (the sentence).'],
+  ['Können Sie mir helfen?','Can you help me?','können — can','Sie — formal you','mir — me','helfen — help'],
+  ['Sprechen Sie bitte langsam.','Please speak slowly.','sprechen — speak','Sie — formal you','bitte — please','langsam — slowly']
+ ].map((part,i)=>'<section class="dl-conversation-card"><h3>'+dlEscape(part[0])+'</h3><p>'+dlEscape(part[1])+'</p>'+(i?'<ul>'+part.slice(2).map(t=>'<li>'+dlEscape(t)+'</li>').join('')+'</ul>':'')+'</section>').join('')+'</div>':
+ '<p>'+dlEscape(u.rule)+'</p>'}<h3>See it in German</h3>
  ${u.examples.map(([de,en])=>`<div class="vocab-row"><div class="vocab-copy"><strong>${dlEscape(de)}</strong><span>${dlEscape(en)}</span></div><button class="secondary" onclick='speak(${JSON.stringify(dlAudioExample(de))})'>Listen</button></div>`).join('')}
  <button class="dl-flow-action" onclick="fullBegin(${id})">Start practice</button></section></div>`;
  window.scrollTo(0,0);
@@ -4018,4 +4025,4 @@ body.dl-home-banner .app-header::after{
 body.dl-home-banner .app-header h1,body.dl-home-banner .app-header p,
 body.dl-home-banner .app-header .menu-toggle{position:relative;z-index:1}
 </style>
-</body></html>
+<style id="dl-flow-conversation-cards">.dl-conversation-cards{display:grid;gap:14px;margin:18px 0 24px}.dl-conversation-card{background:#2b435b;border:1px solid #4c6680;border-radius:16px;padding:16px}.dl-conversation-card h3{font-size:1.1rem;margin:0 0 8px;line-height:1.35}.dl-conversation-card p{margin:0 0 8px;line-height:1.45}.dl-conversation-card ul{margin:8px 0 0;padding-left:22px}.dl-conversation-card li{margin:5px 0;line-height:1.4}</style></body></html>
