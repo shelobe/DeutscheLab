@@ -1264,13 +1264,13 @@ function curriculumView(level){
  </section>
  <div class="curriculum-path-label">MODULES &amp; LESSONS</div>
  ${st.groups.map((g,n)=>{
-  const done=g.ids.filter(id=>st.scores[id]?.passed).length;
-  const complete=done===g.ids.length;
+  const done=g.ids.filter(id=>st.scores[id]?.passed).length+(curriculumSelected==='A1'&&n===0&&state.learning?.pronunciationLesson3Completed?1:0);
+  const moduleTotal=g.ids.length+(curriculumSelected==='A1'&&n===0?1:0);const complete=done===moduleTotal;
   return `<details class="curriculum-module curriculum-path-module" ${n===openIndex?'open':''}>
-   <summary><div class="curriculum-module-heading"><span class="curriculum-module-number">${n+1}</span><div><div class="curriculum-pill">MODULE ${n+1} · ${done}/${g.ids.length} LESSONS</div><h3>${safeText(g.title)}</h3><p>${safeText(g.goal)}</p></div></div><span class="curriculum-chevron" aria-hidden="true">${complete?'✓':'⌄'}</span></summary>
+   <summary><div class="curriculum-module-heading"><span class="curriculum-module-number">${n+1}</span><div><div class="curriculum-pill">MODULE ${n+1} · ${done}/${moduleTotal} LESSONS</div><h3>${safeText(g.title)}</h3><p>${safeText(g.goal)}</p></div></div><span class="curriculum-chevron" aria-hidden="true">${complete?'✓':'⌄'}</span></summary>
    <div class="curriculum-module-content">
    ${g.ids.map((id,j)=>{const passed=!!st.scores[id]?.passed;const isNext=id===next&&!passed;return `<div class="curriculum-lesson curriculum-path-lesson ${isNext?'curriculum-next-lesson':''}"><div class="curriculum-lesson-number" aria-label="Lesson ${j+1}">${j+1}</div><div class="text"><strong>Lesson ${j+1} · ${safeText(FULL_UNITS[id].title)}</strong><small>${passed?'✓ Completed':isNext?'Up next':'Not completed'}</small></div><button class="${passed?'secondary':''}" onclick="curriculumLesson(${id})">${passed?'Review':'Start'}</button></div>`}).join('')}
-   ${level==='A1'&&n===0?'<div class="curriculum-lesson curriculum-path-lesson"><div class="curriculum-lesson-number">3</div><div class="text"><strong>Lesson 3 · German Pronunciation</strong><small>15 sounds · Listening and speaking practice</small></div><button onclick="dlPronunciationHome()">Start</button></div>':''}
+   ${curriculumSelected==='A1'&&n===0?`<div class="curriculum-lesson curriculum-path-lesson"><div class="curriculum-lesson-number">3</div><div class="text"><strong>Lesson 3 · German Pronunciation</strong><small>${state.learning?.pronunciationLesson3Completed?'✓ Completed':'15 sounds · Listening and speaking practice'}</small></div><button class="${state.learning?.pronunciationLesson3Completed?'secondary':''}" onclick="dlPronunciationIntro()">${state.learning?.pronunciationLesson3Completed?'Review':'Start'}</button></div>`:''}
    <div class="curriculum-check"><strong>Module ${n+1} review</strong><p>Check what you remember from these lessons.</p><button class="secondary" onclick="curriculumReview('${curriculumSelected}',${n})">Review what you learned</button></div>
    </div>
   </details>`}).join('')}
@@ -2666,11 +2666,19 @@ curriculumModuleIntro=function(level,n){
   {sound:'ö',word:'schön',meaning:'beautiful',example:'hören',detail:'Shape your tongue for an eh sound while rounding your lips. It is distinct from o.'}
  ];
  let soundIndex=0;
- window.dlPronunciationComplete=function(){
+ window.dlPronunciationIntro=function(){
   const root=document.getElementById('app');
-  root.innerHTML='<section class="card dl-pronunciation"><h2>Pronunciation complete!</h2><p>Geschafft! You finished all '+drills.length+' German sound exercises.</p><div class="dl-sound-navigation"><button class="secondary" id="dl-pron-repeat">Practice again</button><button id="dl-pron-home">Back to home</button></div></section>';
+  root.innerHTML='<section class="card dl-pronunciation"><p class="muted">Module 1 · Lesson 3</p><h2>German pronunciation</h2><p>German letters and letter combinations sometimes sound different from English. In this lesson, you will learn 15 important sounds and practice recognizing and saying them.</p><h3>What you will learn</h3><p>Hear the difference between sounds such as <strong>ei</strong> and <strong>ie</strong>, pronounce combinations such as <strong>sch</strong> and <strong>ch</strong>, and practice familiar German words.</p><p>Listen to each example, try speaking it, and move through all 15 sounds to complete the lesson.</p><button id="dl-pron-begin">Begin lesson</button><button class="secondary" id="dl-pron-back">Back to Module 1</button></section>';
+  root.querySelector('#dl-pron-begin').onclick=()=>dlPronunciationHome(0);
+  root.querySelector('#dl-pron-back').onclick=()=>curriculumView('A1');
+  window.scrollTo(0,0);
+ };
+ window.dlPronunciationComplete=function(){
+  ensureLearning();state.learning.pronunciationLesson3Completed=true;save();
+  const root=document.getElementById('app');
+  root.innerHTML='<section class="card dl-pronunciation"><h2>Lesson 3 complete!</h2><p>Geschafft! You completed all '+drills.length+' German sounds. Lesson 3 is now marked completed in Module 1.</p><div class="dl-sound-navigation"><button class="secondary" id="dl-pron-repeat">Review sounds</button><button id="dl-pron-home">Return to Module 1</button></div></section>';
   root.querySelector('#dl-pron-repeat').onclick=()=>dlPronunciationHome(0);
-  root.querySelector('#dl-pron-home').onclick=()=>home();
+  root.querySelector('#dl-pron-home').onclick=()=>curriculumView('A1');
   window.scrollTo(0,0);
  };
  window.dlPronunciationHome=function(index){
