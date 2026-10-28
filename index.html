@@ -3991,4 +3991,31 @@ body.dl-review-next-visible #app{padding-bottom:calc(92px + env(safe-area-inset-
 .dl-conversation-section ul{margin:10px 0 0;padding-left:22px}
 .dl-conversation-section li{margin:5px 0;line-height:1.4}
 </style>
+
+<style id="dl-banner-decor">
+/* Subtle German-learning motifs behind the home banner only. */
+body.dl-home-banner .app-header{
+ position:relative!important;isolation:isolate;overflow:hidden!important;
+ background:
+ radial-gradient(circle at 86% 12%,rgba(107,210,188,.16) 0 5%,transparent 24%),
+ radial-gradient(circle at 72% 95%,rgba(251,203,101,.12) 0 4%,transparent 26%),
+ linear-gradient(125deg,#10263b 0%,#173850 58%,#132b42 100%)!important;
+}
+body.dl-home-banner .app-header::before{
+ content:"A  Ä  Ö  Ü  ß";
+ position:absolute;right:-6px;top:5px;
+ color:rgba(148,231,211,.15);font-size:clamp(23px,6vw,42px);
+ font-weight:800;letter-spacing:9px;line-height:1.45;
+ transform:rotate(-12deg);pointer-events:none;z-index:-1;
+}
+body.dl-home-banner .app-header::after{
+ content:"";
+ position:absolute;right:8%;bottom:-55px;width:175px;height:175px;
+ border:2px solid rgba(117,213,192,.13);border-radius:50%;
+ box-shadow:0 0 0 20px rgba(117,213,192,.035),0 0 0 43px rgba(117,213,192,.03);
+ pointer-events:none;z-index:-1;
+}
+body.dl-home-banner .app-header h1,body.dl-home-banner .app-header p,
+body.dl-home-banner .app-header .menu-toggle{position:relative;z-index:1}
+</style>
 </body></html>
