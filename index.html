@@ -3884,7 +3884,7 @@ body.dl-review-next-visible #app{padding-bottom:calc(92px + env(safe-area-inset-
  let dock=null;
  function sync(){
   const review=appNode.querySelector('#moduleFeedback');
-  const next=review?.querySelector('button');
+  const next=review?.querySelector('button') || (review && dock?.querySelector('button'));
   if(next){
    if(!dock){dock=document.createElement('div');dock.id='dl-review-next-dock';document.body.appendChild(dock)}
    if(next.parentNode!==dock)dock.appendChild(next);
