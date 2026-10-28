@@ -2594,7 +2594,7 @@ curriculumModuleIntro=function(level,n){
   const check=document.getElementById('dl-check');if(check)check.hidden=true;
   const tip=document.getElementById('dl-tip'),help=document.getElementById('dl-help-btn');if(tip)tip.hidden=true;if(help)help.hidden=true;
   const panel=document.createElement('div');panel.className='dl-speak-panel';
-  panel.innerHTML='<div class="dl-speak-target"></div><p class="dl-speak-meaning"></p><button class="secondary" id="dl-speak-listen">🔊 Hear it</button><button class="secondary" id="dl-speak-slow">🐢 Hear it slowly</button><button id="dl-speak-start">🎤 Speak now</button><p id="dl-speak-status" class="dl-speak-status" aria-live="polite">Listen to the word, then say it into your microphone.</p><button class="secondary" id="dl-speak-skip">Skip speaking</button>';
+  panel.innerHTML='<div class="dl-speak-target"></div><p class="dl-speak-meaning"></p><button id="dl-speak-start">🎤 Speak now</button><div class="dl-speak-hear-row"><button class="secondary" id="dl-speak-listen">🔊 Hear it</button><button class="secondary" id="dl-speak-slow">🐢 Hear it slowly</button></div><p id="dl-speak-status" class="dl-speak-status" aria-live="polite">Listen to the word, then say it into your microphone.</p><button class="secondary" id="dl-speak-skip">Skip speaking</button>';
   panel.querySelector('.dl-speak-target').textContent=q.dlSpeakWord;
   panel.querySelector('.dl-speak-meaning').textContent=q.dlSpeakMeaning;
   panel.querySelector('#dl-speak-listen').onclick=()=>speak(q.dlSpeakWord);
@@ -4102,4 +4102,10 @@ body.dl-home-banner .app-header .menu-toggle{position:relative;z-index:1}
 .dl-a1-dialogue-line strong{color:#8fe0cb}.dl-a1-dialogue-line button{padding:9px;min-height:40px}
 @media(max-width:420px){.dl-a1-dialogue-line{grid-template-columns:1fr auto}.dl-a1-dialogue-line strong{grid-column:1/-1}}
 </style>
-</body></html>
+<style id="dl-speaking-primary-layout">
+.dl-speak-panel #dl-speak-start{display:block;width:100%;min-height:68px;font-size:1.15rem;font-weight:750;margin:18px 0 12px}
+.dl-speak-panel .dl-speak-hear-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.dl-speak-panel .dl-speak-hear-row button{width:100%;min-height:49px;font-size:.95rem;margin:0;padding:10px 7px}
+.dl-pronunciation #dl-sound-speak{display:block;width:100%;min-height:68px;font-size:1.15rem;font-weight:750;margin:16px 0 10px}
+.dl-pronunciation .dl-sound-listening button{min-height:49px;font-size:.95rem}
+</style></body></html>
