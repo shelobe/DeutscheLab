@@ -3788,4 +3788,17 @@ html body.dl-home-banner.dl-compact-header .app-header .menu-toggle {
  nav.querySelectorAll('p.muted').forEach(p=>p.remove());
  heading.after(frag);
 })();
-</script></body></html>
+</script><style id="dl-pronunciation-mobile-repair">
+body:not(.menu-open) #menuBackdrop{display:none!important;pointer-events:none!important}
+body:not(.menu-open) #sideMenu:not(.open){pointer-events:none!important}
+#app{position:relative;z-index:1}
+#app .dl-pronunciation{padding:18px!important}
+#app .dl-pronunciation .dl-sound-focus{padding:16px!important;margin:12px 0 18px!important}
+#app .dl-pronunciation .dl-sound-focus p{margin:12px 0!important;line-height:1.5}
+#app .dl-pronunciation h2{margin:8px 0 12px!important}
+#app .dl-pronunciation h3{margin:14px 0 5px!important}
+#app .dl-pronunciation button{position:relative;pointer-events:auto;touch-action:manipulation}
+#app .dl-pronunciation .dl-sound-navigation{margin-top:12px}
+@media(max-width:600px){#app .dl-pronunciation{padding:16px!important}#app .dl-pronunciation .dl-sound-focus{padding:14px!important}#app .dl-pronunciation #dl-sound-hear,#app .dl-pronunciation #dl-sound-slow,#app .dl-pronunciation #dl-sound-speak{margin:5px 3px!important}}
+</style>
+</body></html>
