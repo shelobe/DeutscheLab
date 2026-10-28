@@ -2730,6 +2730,31 @@ curriculumModuleIntro=function(level,n){
   }
   shuffle(core);
   const questions=core.slice(0,7);
+  // Module 1 also reviews every sound from the 15-exercise pronunciation lesson.
+  if(n===0){
+   const soundChecks=[
+    ['What sound does German z make in zwei?',['ts','English z','sh'],'ts','German z is pronounced /ts/.'],
+    ['How is sch pronounced in Schule?',['sh','sk','ch as in chair'],'sh','sch makes the sh sound.'],
+    ['How is sp pronounced at the beginning of sprechen?',['shp','sp as in English spin','sf'],'shp','Initial sp is pronounced shp.'],
+    ['How is st pronounced at the beginning of Straße?',['sht','st as in English stop','ts'],'sht','Initial st is pronounced sht.'],
+    ['Which word contains the soft ch sound /ç/?',['ich','Buch','Haus'],'ich','ich uses the soft ch sound.'],
+    ['Which word contains the back ch sound /x/?',['Buch','ich','Liebe'],'Buch','Buch uses the back ch sound.'],
+    ['What sound does ei make in mein?',['eye','long ee','oy'],'eye','ei sounds like eye.'],
+    ['What sound does ie make in Liebe?',['long ee','eye','ow'],'long ee','ie makes a long ee sound.'],
+    ['What sound does eu make in neun?',['oy','eye','oo'],'oy','eu sounds similar to oy.'],
+    ['What sound does au make in Haus?',['ow as in cow','oy','long ee'],'ow as in cow','au sounds similar to ow in cow.'],
+    ['How is German w pronounced in Wasser?',['English v','English w','English f'],'English v','German w makes a v sound.'],
+    ['How is v usually pronounced in Vater?',['English f','English v','English w'],'English f','Vater begins with an f sound.'],
+    ['What sound does ß make in Straße?',['voiceless s','b','z'],'voiceless s','ß makes a voiceless s sound.'],
+    ['How do you form the ü sound in fünf?',['Keep tongue forward and round lips','Use a plain English oo','Use a plain English ee'],'Keep tongue forward and round lips','For ü, keep the tongue forward while rounding the lips.'],
+    ['How do you form the ö sound in schön?',['Keep tongue forward and round lips','Use an ordinary English oh','Use an English ah'],'Keep tongue forward and round lips','For ö, use a front vowel with rounded lips.']
+   ];
+   soundChecks.forEach(([prompt,choices,correct,why])=>{
+    const options=shuffle(choices.slice());
+    questions.push({type:'sound-review',prompt,options,answer:options.indexOf(correct),why,unitId:g.ids[0]});
+   });
+   shuffle(questions);
+  }
   // A small, explicitly labeled transfer challenge uses unfamiliar vocabulary
   // with a pattern already practiced. It is never required for passing.
   const next=STRUCTURED_PATH.A1[n+1];
