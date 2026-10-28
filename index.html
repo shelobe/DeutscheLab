@@ -2701,6 +2701,8 @@ curriculumModuleIntro=function(level,n){
   root.querySelector('#dl-sound-next').onclick=()=>soundIndex===drills.length-1?dlPronunciationComplete():dlPronunciationHome(soundIndex+1);
   let activePronunciationRecognition=null;
   let pronunciationTimer=null;
+  let pronunciationReceivedResult=false;
+  let pronunciationEnding=false;
   function stopPronunciation(){
    clearTimeout(pronunciationTimer);pronunciationTimer=null;
    if(activePronunciationRecognition){const r=activePronunciationRecognition;activePronunciationRecognition=null;try{r.abort()}catch(e){}}
@@ -2711,19 +2713,21 @@ curriculumModuleIntro=function(level,n){
    if(activePronunciationRecognition){
     const r=activePronunciationRecognition;
     clearTimeout(pronunciationTimer);pronunciationTimer=null;
-    status.textContent='Processing speech…';
+    status.textContent='Processing speech…';pronunciationEnding=true;
     try{r.stop()}catch(e){stopPronunciation();status.textContent='No speech captured. Tap Speak now to retry.'}
-    pronunciationTimer=setTimeout(()=>{if(activePronunciationRecognition===r){stopPronunciation();status.textContent='No speech result received. Tap Speak now to retry.';speakButton.textContent='🎤 Speak now'}},2500);
+    pronunciationTimer=setTimeout(()=>{if(activePronunciationRecognition===r){stopPronunciation();status.textContent='No speech result received. Tap Speak now to retry.';speakButton.textContent='🎤 Speak now'}},4500);
     return;
    }
    const Rec=window.SpeechRecognition||window.webkitSpeechRecognition;
    if(!Rec){status.textContent='Speech recognition is unavailable in this browser.';return}
    const rec=new Rec();activePronunciationRecognition=rec;rec.lang='de-DE';rec.continuous=false;rec.interimResults=false;rec.maxAlternatives=3;
+   pronunciationReceivedResult=false;pronunciationEnding=false;
    speakButton.textContent='⏹ Stop listening';
    status.textContent='Listening…';
-   pronunciationTimer=setTimeout(()=>{if(activePronunciationRecognition===rec){status.textContent='Processing speech…';try{rec.stop()}catch(e){}pronunciationTimer=setTimeout(()=>{if(activePronunciationRecognition===rec){stopPronunciation();status.textContent='No speech result received. Tap Speak now to retry.';speakButton.textContent='🎤 Speak now'}},2500)}},6500);
+   pronunciationTimer=setTimeout(()=>{if(activePronunciationRecognition===rec){status.textContent='Processing speech…';pronunciationEnding=true;try{rec.stop()}catch(e){}pronunciationTimer=setTimeout(()=>{if(activePronunciationRecognition===rec){stopPronunciation();status.textContent='No speech result received. Tap Speak now to retry.';speakButton.textContent='🎤 Speak now'}},2500)}},10000);
    rec.onresult=e=>{
     if(activePronunciationRecognition!==rec||!status.isConnected)return;
+    pronunciationReceivedResult=true;
     const words=Array.from(e.results[0]||[]).map(x=>x.transcript.trim().toLocaleLowerCase('de-DE').replace(/[.!?]/g,''));
     const expected=d.word.toLocaleLowerCase('de-DE');
     const normalized=words.map(w=>w.replace(/ß/g,'ss'));const target=expected.replace(/ß/g,'ss');
@@ -2740,8 +2744,8 @@ curriculumModuleIntro=function(level,n){
      },1100);
     }
    };
-   rec.onerror=e=>{if(activePronunciationRecognition!==rec)return;stopPronunciation();if(status.isConnected)status.textContent='Microphone: '+e.error+'. Try again.';if(speakButton.isConnected)speakButton.textContent='🎤 Speak now'};
-   rec.onend=()=>{if(activePronunciationRecognition!==rec)return;stopPronunciation();if(status.isConnected)status.textContent='No speech captured. Tap Speak now to retry.';if(speakButton.isConnected)speakButton.textContent='🎤 Speak now'};
+   rec.onerror=e=>{if(activePronunciationRecognition!==rec)return;stopPronunciation();if(status.isConnected)status.textContent=e.error==='no-speech'?'No speech detected by the browser. Try again or use Next sound to continue.':e.error==='network'?'Speech recognition service unavailable. You can continue with Next sound.':'Microphone: '+e.error+'. Try again.';if(speakButton.isConnected)speakButton.textContent='🎤 Speak now'};
+   rec.onend=()=>{if(activePronunciationRecognition!==rec)return;if(pronunciationEnding){pronunciationTimer=setTimeout(()=>{if(activePronunciationRecognition!==rec)return;stopPronunciation();if(status.isConnected)status.textContent='No speech result returned. Use Next sound to continue or retry.';if(speakButton.isConnected)speakButton.textContent='🎤 Speak now'},3500);return;}stopPronunciation();if(status.isConnected&&!pronunciationReceivedResult)status.textContent='No speech detected by the browser. Try again or use Next sound to continue.';if(speakButton.isConnected)speakButton.textContent='🎤 Speak now'};
    try{rec.start()}catch(e){stopPronunciation();status.textContent='Unable to start microphone: '+e.message;speakButton.textContent='🎤 Speak now'}
   };
   window.scrollTo(0,0);
