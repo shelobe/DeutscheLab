@@ -2687,7 +2687,7 @@ curriculumModuleIntro=function(level,n){
    if(!Rec){status.textContent='Speech recognition is unavailable in this browser.';return}
    const rec=new Rec();rec.lang='de-DE';rec.interimResults=false;rec.maxAlternatives=3;
    status.textContent='Listening…';
-   rec.onresult=e=>{const words=Array.from(e.results[0]).map(x=>x.transcript.trim().toLocaleLowerCase('de-DE').replace(/[.!?]/g,''));const ok=words.includes(d.word.toLocaleLowerCase('de-DE'));status.textContent=ok?'Richtig! Well done!':'Heard: '+words[0]+'. Try again.'};
+   rec.onresult=e=>{const words=Array.from(e.results[0]).map(x=>x.transcript.trim().toLocaleLowerCase('de-DE').replace(/[.!?]/g,''));const expected=d.word.toLocaleLowerCase('de-DE');const ok=words.includes(expected);const ambiguous=expected==='liebe'&&words.some(w=>w==='lieber');status.textContent=ok?'Richtig! Well done!':ambiguous?'The recognizer heard “lieber”, which can sound very close to “Liebe”. This is inconclusive — please try again.':'Heard: '+words[0]+'. Try again.'};
    rec.onerror=e=>{status.textContent='Microphone: '+e.error+'. Try again.'};
    try{rec.start()}catch(e){status.textContent='Unable to start microphone.'}
   };
