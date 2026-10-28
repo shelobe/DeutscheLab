@@ -2878,43 +2878,8 @@ curriculumModuleIntro=function(level,n){
 })();
 </script>
 
-<!-- Pronunciation-focused lessons: speak each written choice when tapped. -->
-<style>
-.dl-pronunciation-option .dl-choice-speaker{float:right;font-size:1.15em;opacity:.85;margin-left:10px}
-.dl-pronunciation-instruction{margin:0 0 14px;color:#c8dce6;font-size:.95rem}
-</style>
-<script>
-(function(){
- const original=fullRender;
- fullRender=function(){
-  const result=original.apply(this,arguments);
-  const session=fullSession;
-  const q=session?.questions?.[session.idx];
-  const unit=FULL_UNITS[session?.id];
-  const title=String(unit?.title||'');
-  if(!q||!unit||unit.level!=='A1'||q.type==='sound-choice')return result;
-  // Only use audio for pronunciation-focused lessons, not general translation quizzes.
-  if(!/(umlaut|pronunc|sounds? of|alphabet|spelling)/i.test(title))return result;
-  const buttons=[...document.querySelectorAll('.dl-flow-options button')];
-  if(!buttons.length||buttons.length!==q.options?.length)return result;
-  const instruction=document.createElement('p');
-  instruction.className='dl-pronunciation-instruction';
-  instruction.textContent='Tap a word to hear its pronunciation. You can tap it again to replay.';
-  buttons[0].parentElement.before(instruction);
-  buttons.forEach((button,i)=>{
-   const word=String(q.options[i]||'').trim();
-   if(!word||!/[a-zäöüß]/i.test(word)||word.length>45)return;
-   button.classList.add('dl-pronunciation-option');
-   const icon=document.createElement('span');icon.className='dl-choice-speaker';icon.textContent='🔊';icon.setAttribute('aria-hidden','true');
-   button.appendChild(icon);
-   button.addEventListener('click',()=>{
-    if(typeof speak==='function')speak(word);
-   });
-  });
-  return result;
- };
-})();
-</script>
+<!-- Answer-choice audio removed: hearing an option can reveal the correct answer.
+     Audio remains available for explicitly listening-based prompts. -->
 
 <!-- Pronunciation curriculum: sound recognition instead of vocabulary translation. -->
 <script>
