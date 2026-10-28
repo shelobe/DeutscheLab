@@ -3773,8 +3773,9 @@ html body.dl-home-banner.dl-compact-header .app-header .menu-toggle {
  const pick=(needle)=>buttons.find(b=>b.textContent.toLowerCase().includes(needle.toLowerCase()));
  const makeHeading=(name)=>{const p=document.createElement('p');p.className='muted dl-menu-group';p.textContent=name;return p};
  const items=[
+ ['HOME',['Home']],
  ['ACCOUNT',['Profile']],
- ['LEARNING',['Home','Lessons','Placement test']],
+ ['LEARNING',['Lessons','Placement test']],
  ['PRACTICE',['Practice Hub','Find It!','Noun Articles','Picture practice','Dialogue','Review','Practice games']],
  ['AI TOOLS',['AI Tutor & Voice']]
  ];
