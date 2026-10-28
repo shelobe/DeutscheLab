@@ -3882,6 +3882,8 @@ body.dl-review-next-visible #app{padding-bottom:calc(92px + env(safe-area-inset-
 /* One persistent action button; original review button retains the answer handler. */
 (function(){
  const appNode=document.getElementById('app');
+ // Reuse a single dock even if app initialization runs more than once.
+ document.querySelectorAll('#dl-review-next-dock').forEach(el=>el.remove());
  const dock=document.createElement('div');
  dock.id='dl-review-next-dock';
  dock.hidden=true;
@@ -3892,6 +3894,7 @@ body.dl-review-next-visible #app{padding-bottom:calc(92px + env(safe-area-inset-
  document.body.appendChild(dock);
  function sync(){
   const show=!!appNode.querySelector('#moduleFeedback button');
+  if(!dock.isConnected)return;
   dock.style.display=show?'flex':'none';
   document.body.classList.toggle('dl-review-next-visible',show);
  }
