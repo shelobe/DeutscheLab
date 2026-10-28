@@ -1216,10 +1216,11 @@ fullFinish=function(){
 <script>
 /* Ordered progression: foundational skills precede dependent grammar. Existing lesson IDs,
    question banks, progress, and all standalone practice activities are preserved. */
+FULL_UNITS.push({level:'A1',title:'Countries, nationalities and languages',rule:'Ask Woher kommst du? (Where are you from?). Say Ich komme aus Deutschland, but Ich komme aus den USA. Nationality nouns are capitalized: Amerikanerin (female), Amerikaner (male), Deutsche (female), Deutscher (male). Language names are capitalized (Deutsch, Englisch); adjectives are lowercase (deutsch, amerikanisch).',examples:[['Woher kommst du?','Where are you from?'],['Ich komme aus den USA.','I am from the USA.'],['Ich spreche Englisch und ein bisschen Deutsch.','I speak English and a little German.']],checkpoint:{prompt:'Ich komme ___ den USA.',options:['aus','aus dem','von'],answer:0,why:'The USA is plural in German: aus den USA. For Germany: aus Deutschland.'}});
 const STRUCTURED_PATH={
  A1:[
  {title:'Getting started',goal:'Introduce yourself and ask simple questions.',ids:[8,9,10],context:'Meet someone new. Learn greetings, noun articles, and present-tense verbs.'},
- {title:'Build your first sentences',goal:'Make statements, questions, and negative sentences.',ids:[11,4,5],context:'Talk about what you have, want, and do.'},
+ {title:'Where you’re from and first sentences',goal:'Talk about countries, languages, and make simple sentences.',ids:[48,11,4,5],context:'Introduce your country and language, then talk about what you have, want, and do.'},
  {title:'People and everyday life',goal:'Talk about family, ages, and daily routines.',ids:[1,0,6],context:'Describe your family and a typical day.'},
  {title:'Everyday conversations',goal:'Order food, make plans, and find your way.',ids:[2,3,7],context:'Use German in cafés, appointments, and around town.'}
  ],
@@ -1300,7 +1301,7 @@ function curriculumReview(level,n){
   q.slice(0,3).forEach(x=>questions.push({...x,unitId:id}));
  });
  for(let i=questions.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[questions[i],questions[j]]=[questions[j],questions[i]]}
- moduleSession={level,n,questions:questions.slice(0,9),idx:0,score:0};
+ moduleSession={level,n,questions:questions.slice(0,g.ids.length*3),idx:0,score:0};
  curriculumReviewRender();
 }
 function curriculumReviewRender(){
