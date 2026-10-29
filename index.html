@@ -4648,8 +4648,9 @@ body.dl-unified-active #app button.dl-unified-source{display:none!important}
   const good=/^(correct|richtig)/i.test(label.textContent.trim());
   const box=document.createElement('div');box.className='dl-result-badge '+(good?'dl-result-good':'dl-result-bad');
   const icon=document.createElement('img');
-  const id=Math.random()<0.5?'dog':'panda';
-  icon.src=good?(id==='dog'?'correct_dog_transparent.png':'a_clean_high_resolution_png_style_illustration_o-8%20(1).png'):(id==='dog'?'incorrect_dog_transparent.png':'a_crisp_high_resolution_cartoon_illustration_sty.png');icon.alt=(good?'Happy ':'Thoughtful ')+(id==='dog'?'German Shepherd':'red panda');
+  const ids=['dog','panda','cat'];const id=ids[Math.floor(Math.random()*ids.length)];
+  const images={dog:['correct_dog_transparent.png','incorrect_dog_transparent.png'],panda:['a_clean_high_resolution_png_style_illustration_o-8%20(1).png','a_crisp_high_resolution_cartoon_illustration_sty.png'],cat:['file_00000000392481f5808e9f44f95b1e2d.png','file_0000000094cc81f586867a5e426d23a4.png']};
+  icon.src=images[id][good?0:1];icon.alt=(good?'Happy ':'Thoughtful ')+({dog:'German Shepherd',panda:'red panda',cat:'gray tabby cat'}[id]);
   icon.onerror=function(){this.onerror=null;this.src='avatar_'+id+'.webp'};
   label.classList.add('dl-result-label');label.textContent=good?'Well done!':'Not quite!';label.before(box);box.append(icon,label);
  }}
