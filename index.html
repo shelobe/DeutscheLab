@@ -859,6 +859,25 @@ const GAME_ITEMS=[
 {en:'We are eating bread and cheese.',de:'Wir essen Brot und Käse.',tokens:['Wir','essen','Brot','und','Käse.']},
 {en:'The dog is sitting under the table.',de:'Der Hund sitzt unter dem Tisch.',tokens:['Der','Hund','sitzt','unter','dem','Tisch.']}
 ];
+const LISTENING_LEVELS={
+ A1:[
+ ['I live in a small house.','Ich wohne in einem kleinen Haus.'],['Where is the train station?','Wo ist der Bahnhof?'],['I would like a glass of water.','Ich möchte ein Glas Wasser.'],['My name is Anna.','Ich heiße Anna.'],['Today is Monday.','Heute ist Montag.'],['The book is on the table.','Das Buch liegt auf dem Tisch.'],['Do you have a dog?','Hast du einen Hund?'],['We are cooking dinner.','Wir kochen Abendessen.'],['I am going to the supermarket.','Ich gehe zum Supermarkt.'],['The weather is nice today.','Das Wetter ist heute schön.'],['She has two brothers.','Sie hat zwei Brüder.'],['I am learning German.','Ich lerne Deutsch.']],
+ A2:[
+ ['Yesterday I visited my friend.','Gestern habe ich meinen Freund besucht.'],['I missed the bus this morning.','Ich habe heute Morgen den Bus verpasst.'],['We are meeting at six o’clock.','Wir treffen uns um sechs Uhr.'],['Can you help me with this bag?','Kannst du mir mit dieser Tasche helfen?'],['She has worked here for two years.','Sie arbeitet seit zwei Jahren hier.'],['I have to buy groceries after work.','Ich muss nach der Arbeit einkaufen.'],['When I have time, I read books.','Wenn ich Zeit habe, lese ich Bücher.'],['The jacket is too expensive for me.','Die Jacke ist mir zu teuer.'],['We went for a walk despite the rain.','Trotz des Regens sind wir spazieren gegangen.'],['I would like to reserve a table.','Ich möchte einen Tisch reservieren.'],['He forgot his keys at home.','Er hat seine Schlüssel zu Hause vergessen.'],['I am looking forward to the weekend.','Ich freue mich auf das Wochenende.']],
+ B1:[
+ ['Although it was raining, we went outside.','Obwohl es geregnet hat, sind wir nach draußen gegangen.'],['I hope that you feel better soon.','Ich hoffe, dass du dich bald besser fühlst.'],['The more I practice, the easier it becomes.','Je mehr ich übe, desto leichter wird es.'],['If I had more time, I would travel more.','Wenn ich mehr Zeit hätte, würde ich mehr reisen.'],['She explained why she was late.','Sie hat erklärt, warum sie zu spät gekommen ist.'],['We decided to move to another city.','Wir haben beschlossen, in eine andere Stadt zu ziehen.'],['He is interested in learning new languages.','Er interessiert sich dafür, neue Sprachen zu lernen.'],['I forgot to turn off the light.','Ich habe vergessen, das Licht auszuschalten.'],['After I finished work, I went shopping.','Nachdem ich die Arbeit beendet hatte, ging ich einkaufen.'],['Could you tell me how to get there?','Könnten Sie mir sagen, wie ich dorthin komme?'],['It depends on how much time we have.','Es hängt davon ab, wie viel Zeit wir haben.'],['I am trying to make fewer mistakes.','Ich versuche, weniger Fehler zu machen.']],
+ B2:[
+ ['The proposal discussed yesterday will be revised.','Der Vorschlag, der gestern besprochen wurde, wird überarbeitet.'],['Had I known earlier, I would have helped.','Hätte ich es früher gewusst, hätte ich geholfen.'],['Despite the difficulties, the project succeeded.','Trotz der Schwierigkeiten war das Projekt erfolgreich.'],['The decision should be reconsidered carefully.','Die Entscheidung sollte sorgfältig überdacht werden.'],['It is essential to consider different perspectives.','Es ist wichtig, unterschiedliche Perspektiven zu berücksichtigen.'],['She managed to solve the problem independently.','Es ist ihr gelungen, das Problem selbstständig zu lösen.'],['The report must be submitted by Friday.','Der Bericht muss bis Freitag eingereicht werden.'],['He spoke as though he knew everything.','Er sprach, als ob er alles wüsste.'],['The company plans to expand internationally.','Das Unternehmen plant, international zu expandieren.'],['The results were better than expected.','Die Ergebnisse waren besser als erwartet.'],['We should weigh the advantages and disadvantages.','Wir sollten die Vor- und Nachteile abwägen.'],['The situation has changed significantly.','Die Situation hat sich erheblich verändert.']]
+};
+const LISTENING_ITEMS=Object.fromEntries(Object.entries(LISTENING_LEVELS).map(([level,rows])=>[level,rows.map(([en,de])=>({en,de,tokens:de.split(' ')}))]));
+function listeningLevels(){
+ gameSession=null;
+ app.innerHTML='<section class="card"><h2>Listening challenge</h2><p>Choose your German level. Listen to a sentence and identify its meaning or its written German form.</p><div class="game-grid">'+Object.keys(LISTENING_ITEMS).map(level=>'<button onclick="gameStart(\'listen\',\''+level+'\')">'+level+'<br><small>'+({A1:'Beginner',A2:'Elementary',B1:'Intermediate',B2:'Upper intermediate'}[level])+'</small></button>').join('')+'</div><button class="secondary" onclick="gameHub()">Back to practice games</button></section>';
+ window.scrollTo(0,0);
+}
+function listeningSpeak(t,slow=false){
+ try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='de-DE';u.rate=slow?0.7:0.84;u.pitch=1;const voices=speechSynthesis.getVoices();const voice=voices.find(v=>v.lang.toLowerCase()==='de-de'&&v.localService)||voices.find(v=>v.lang.toLowerCase().startsWith('de'));if(voice)u.voice=voice;speechSynthesis.speak(u)}catch(e){speak(t)}
+}
 let gameSession=null;
 function gameHub(){
  gameSession=null;
@@ -867,46 +886,47 @@ function gameHub(){
  `<section class="card"><h2>Choose an activity</h2><p class="muted">${stats.played} answers · ${stats.correct} correct</p><div class="game-grid">
  <button onclick="gameStart(&quot;build&quot;)">🧩 Build a sentence<br><small>Tap words in order</small></button>
  <button onclick="gameStart(&quot;match&quot;)">🔗 Match the pairs<br><small>German ↔ English</small></button>
- <button onclick="gameStart(&quot;listen&quot;)">🔊 Listen and choose<br><small>Hear German phrases</small></button>
+ <button onclick="listeningLevels()">🔊 Listen and choose<br><small>Hear German phrases</small></button>
  <button onclick="pictureHome()">🖼️ Name the picture<br><small>Choose or type</small></button></div>
  <p class="muted">Exercises use different sentences from the lesson examples.</p></section>`;
  window.scrollTo(0,0);
 }
-function gameStart(mode){
- let seq=[...GAME_ITEMS.keys()];
+function gameStart(mode,level){
+ if(mode==='listen'&&!level)return listeningLevels();
+ let seq=[...(mode==='listen'?LISTENING_ITEMS[level]:GAME_ITEMS).keys()];
  for(let i=seq.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[seq[i],seq[j]]=[seq[j],seq[i]]}
- gameSession={mode,seq:seq.slice(0,6),idx:0,correct:0,answered:false,picked:[],matches:[],selected:null};
+ gameSession={mode,level:level||null,pool:mode==='listen'?LISTENING_ITEMS[level]:GAME_ITEMS,seq:seq.slice(0,6),idx:0,correct:0,answered:false,picked:[],matches:[],selected:null};
  gameRender();
 }
 function gameRender(){
  let g=gameSession;if(!g)return gameHub();
  if(g.idx>=g.seq.length){
   app.innerHTML=illustratedHero('Round complete!',`${g.correct} of ${g.seq.length} correct.`,'forest','katze.png')+
-  `<section class="card"><h2>${g.correct}/${g.seq.length} correct</h2><button onclick="gameStart('${g.mode}')">Try another round</button><button class="secondary" onclick="gameHub()">All practice games</button></section>`;window.scrollTo(0,0);return;
+  `<section class="card"><h2>${g.correct}/${g.seq.length} correct</h2><button onclick="gameStart('${g.mode}'${g.mode==='listen'?`, '${g.level}'`:''})">Try another round</button><button class="secondary" onclick="gameHub()">All practice games</button></section>`;window.scrollTo(0,0);return;
  }
  g.answered=false;g.picked=[];g.matches=[];g.selected=null;
- let item=GAME_ITEMS[g.seq[g.idx]],body='';
+ let item=g.pool[g.seq[g.idx]],body='';
  if(g.mode==='build'){
  let order=[...item.tokens.keys()].sort(()=>Math.random()-.5);
  g.order=order;
  body=`<p>Build this sentence in German:</p><h3>${safeText(item.en)}</h3><div id="gameBuilt" class="game-built">Tap the words below ↓</div><div id="gameBank" class="game-wordbank">${order.map((n,i)=>`<button class="secondary" id="gb${i}" onclick="gamePick(${i})">${safeText(item.tokens[n].replace(/[.!?]+$/,""))}</button>`).join('')}</div><button class="secondary" onclick="gameRender()">Start over</button><button onclick="gameCheckBuild()">Check sentence</button><button class="secondary" onclick="dlSentenceHelpToggle()">Show grammar help</button><div id="dlSentenceHelp" class="explain-box" hidden></div>`;
  }else if(g.mode==='listen'){
- let other=[...GAME_ITEMS.keys()].filter(i=>i!==g.seq[g.idx]).sort(()=>Math.random()-.5).slice(0,3);
+ let other=[...g.pool.keys()].filter(i=>i!==g.seq[g.idx]).sort(()=>Math.random()-.5).slice(0,3);
  let choices=[g.seq[g.idx],...other].sort(()=>Math.random()-.5);g.choices=choices;
  g.listenWritten=(g.idx%2===1);
- body=`<h3>${g.listenWritten?'Which German sentence do you hear?':'What does the German sentence mean?'}</h3><button onclick="speak(${JSON.stringify(item.de).replace(/"/g,'&quot;')})">🔊 Play German audio</button><div class="picture-choices">${choices.map((i,n)=>`<button class="secondary" onclick="gameChoose(${n})">${safeText(g.listenWritten?GAME_ITEMS[i].de:GAME_ITEMS[i].en)}</button>`).join('')}</div>`;
+ body=`<h3>${g.listenWritten?'Which German sentence do you hear?':'What does the German sentence mean?'}</h3><button onclick="listeningSpeak(${JSON.stringify(item.de).replace(/"/g,'&quot;')})">🔊 Play German audio</button><div class="picture-choices">${choices.map((i,n)=>`<button class="secondary" onclick="gameChoose(${n})">${safeText(g.listenWritten?g.pool[i].de:g.pool[i].en)}</button>`).join('')}</div>`;
  }else{
  let pairA=PICTURE_WORDS.slice((g.seq[g.idx]*3)%24,(g.seq[g.idx]*3)%24+4);
  g.pairs=pairA;g.left=pairA.map((w,i)=>i).sort(()=>Math.random()-.5);g.right=pairA.map((w,i)=>i).sort(()=>Math.random()-.5);
  body=`<p>Match each German noun to its English meaning.</p><p id="gameMatched">0 / 4 pairs matched</p><div class="match-columns"><div class="match-column">${g.left.map(i=>`<button class="secondary match-tile" id="gl${i}" onclick="gameMatch('l',${i})">${safeText(pairA[i][0])}</button>`).join('')}</div><div class="match-column">${g.right.map(i=>`<button class="secondary match-tile" id="gr${i}" onclick="gameMatch('r',${i})">${safeText(pairA[i][1])}</button>`).join('')}</div></div>`;
  }
  app.innerHTML=`<section class="card"><p class="muted">${g.mode==='build'?'Sentence builder':g.mode==='listen'?'Listening challenge':'Word matching'} · ${g.idx+1} of ${g.seq.length}</p><div class="game-progress"><div style="width:${g.idx/g.seq.length*100}%"></div></div>${body}<div id="gameFeedback" aria-live="polite"></div></section>`;
- if(g.mode==='listen')speak(item.de);
+ if(g.mode==='listen')listeningSpeak(item.de);
  window.scrollTo(0,0);
 }
 function gamePick(n){let g=gameSession;if(g.answered||g.picked.includes(n))return;g.picked.push(n);document.getElementById('gb'+n).disabled=true;document.getElementById('gameBuilt').textContent=g.picked.map(i=>GAME_ITEMS[g.seq[g.idx]].tokens[g.order[i]]).join(' ').replace(/[.!?]+(?=\s|$)/g,'')}
 function gameCheckBuild(){let g=gameSession;if(g.answered)return;let item=GAME_ITEMS[g.seq[g.idx]],guess=g.picked.map(i=>item.tokens[g.order[i]]).join(' ');if(g.picked.length!==item.tokens.length){document.getElementById('gameFeedback').textContent='Use all the words first.';return}gameMark(guess.replace(/[.!?]+(?=\s|$)/g,'').trim()===item.de.replace(/[.!?]+(?=\s|$)/g,'').trim(),item.de)}
-function gameChoose(n){let g=gameSession;if(g.answered)return;let item=GAME_ITEMS[g.seq[g.idx]];gameMark(g.choices[n]===g.seq[g.idx],item.de+' — '+item.en)}
+function gameChoose(n){let g=gameSession;if(g.answered)return;let item=g.pool[g.seq[g.idx]];gameMark(g.choices[n]===g.seq[g.idx],item.de+' — '+item.en)}
 function dlWrongHaptic(){try{if(navigator.vibrate)navigator.vibrate(110)}catch(e){}}
 function gameMatch(side,n){
  let g=gameSession;if(!g||g.answered||g.matches.includes(n))return;
