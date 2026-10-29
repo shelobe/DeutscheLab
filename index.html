@@ -2244,7 +2244,7 @@ dlCheck=function(){
 (function(){
  const previousCheck=dlCheck;
  const stableKey=q=> 'snap:'+encodeURIComponent([q.prompt||'',(q.options||[])[q.answer]||''].join('|'));
- const snapshot=q=>({prompt:q.prompt,options:[...q.options],answer:q.answer,why:q.why||'',german:q.german||'',english:q.english||''});
+ const snapshot=q=>({prompt:q.prompt,options:[...q.options],answer:q.answer,why:q.why||'',german:q.german||'',english:q.english||'',type:q.type||'',dlAudioWords:q.dlAudioWords||null,dlTarget:q.dlTarget||''});
  function pruneLegacy(p){
    // Legacy full:id:index records cannot be mapped reliably after randomization.
    for(const k of new Set([...Object.keys(p.mistakes||{}),...Object.keys(p.reviews||{})])){
@@ -2279,9 +2279,26 @@ dlCheck=function(){
    const keys=validKeys(p,mode),key=keys.find(k=>k.startsWith('snap:')&&p.snapshots?.[k]);
    if(!key)return oldQuiz(mode);
    const q=p.snapshots[key];reviewSession={key,mode,q};
+   const isAudio=q.type==='sound-choice'||(/^Which audio says /i.test(q.prompt)&&q.options?.every(o=>/^Audio \\d+$/i.test(o)));
+   if(isAudio){
+    let words=q.dlAudioWords;
+    if(!Array.isArray(words)||words.length!==q.options.length){
+     // Restore the original audio choices for snapshots saved before audio metadata was persisted.
+     const target=q.dlTarget||q.prompt.match(/[“"]([^”"]+)[”"]/)?.[1];
+     const sets=typeof soundSets!=='undefined'?soundSets:[];
+     const entry=sets.find(e=>e.words[e.target]===target);
+     if(entry){words=Array.from({length:entry.words.length},(_,i)=>entry.words[(i+(entry.words.length+entry.target-q.answer)%entry.words.length)%entry.words.length]);}
+    }
+    if(!words){
+     app.innerHTML=illustratedHero('Review a lesson question','Audio choices unavailable for this saved question','forest','katze.png')+`<section class="card"><p>This older review question did not save its audio choices.</p><button onclick="practiceQuiz('${mode}')">Next review</button><button class="secondary" onclick="practiceHub()">Back</button></section>`;
+     return;
+    }
+    reviewSession.audioWords=words;
+   }
    app.innerHTML=illustratedHero('Review a lesson question','Practice the exact question you missed','forest','katze.png')+
-    `<section class="card"><h3>${safeText(q.prompt)}</h3>${q.options.map((o,i)=>`<button class="secondary" onclick="dlSnapshotAnswer(${i})">${safeText(o)}</button>`).join('')}<div id="practiceFeedback"></div></section>`;
+    `<section class="card"><h3>${safeText(q.prompt)}</h3>${isAudio?'<p>Tap each button to hear the word. Select your answer below.</p>':''}${q.options.map((o,i)=>`<button class="secondary" ${isAudio?'onclick="dlSnapshotPlay('+i+')"':'onclick="dlSnapshotAnswer('+i+')"'}>${isAudio?'🔊 Play Audio '+(i+1):safeText(o)}</button>`).join('')}${isAudio?'<div id="dl-review-audio-select" style="margin-top:18px"><p>Which audio matches?</p>'+q.options.map((o,i)=>'<button class="secondary" onclick="dlSnapshotAnswer('+i+')">'+safeText(o)+'</button>').join('')+'</div>':''}<div id="practiceFeedback"></div></section>`;
  };
+ window.dlSnapshotPlay=function(i){const words=reviewSession?.audioWords;if(!words?.[i])return;listeningSpeak(words[i],true);};
  window.dlSnapshotAnswer=function(i){
    const r=reviewSession;if(!r)return;
    const {q,key,mode}=r,p=practiceState(),ok=i===q.answer;
