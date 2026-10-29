@@ -3650,10 +3650,32 @@ function render(){
  session.locked=false;
 }
 window.findItWord=function(){if(session&&typeof speak==='function')speak(session.queue[session.idx].de)};
+/* Small synthesized feedback tones; no audio files or speech required. */
+let findItAudioContext;
+function findItSound(correct){
+ try{
+  const AudioCtx=window.AudioContext||window.webkitAudioContext;
+  if(!AudioCtx)return;
+  const ctx=findItAudioContext||(findItAudioContext=new AudioCtx());
+  if(ctx.state==='suspended')ctx.resume().catch(()=>{});
+  const start=ctx.currentTime+.008;
+  const notes=correct?[[523.25,0,.105],[659.25,.115,.16]]:[[220,0,.16]];
+  notes.forEach(([freq,offset,duration])=>{
+   const osc=ctx.createOscillator(),gain=ctx.createGain(),t=start+offset;
+   osc.type=correct?'sine':'triangle';osc.frequency.setValueAtTime(freq,t);
+   if(!correct)osc.frequency.exponentialRampToValueAtTime(175,t+duration);
+   gain.gain.setValueAtTime(.0001,t);
+   gain.gain.exponentialRampToValueAtTime(correct?.085:.055,t+.012);
+   gain.gain.exponentialRampToValueAtTime(.0001,t+duration);
+   osc.connect(gain);gain.connect(ctx.destination);osc.start(t);osc.stop(t+duration+.01);
+  });
+ }catch(e){/* Audio is optional; gameplay continues normally. */}
+}
 window.findItTap=function(i){
  if(!session||session.locked||session.idx>=10)return;
  const target=session.queue[session.idx],room=activeRoom(),picked=room.items[i]||(room.extras[i-room.items.length]&&room.items[room.extras[i-room.items.length].item]),node=app.querySelector('.findit-target[data-fi="'+i+'"]');
  if(picked===target){
+  findItSound(true);
   session.locked=true;node&&node.classList.add('findit-hit');
   const roomCat=app.querySelector('.findit-scene');if(roomCat){roomCat.classList.add('findit-cat-happy');setTimeout(()=>roomCat.classList.remove('findit-cat-happy'),1100)}
   const phrase=praises[session.idx%praises.length];session.phrase=phrase[0];
@@ -3662,6 +3684,7 @@ window.findItTap=function(i){
   if(advance)clearTimeout(advance);
   advance=setTimeout(()=>{if(!session)return;session.idx++;render()},1800);
  }else{
+  findItSound(false);
   session.hearts--;node&&node.classList.add('findit-miss');
   session.phrase='';feedback('Fast!','Not quite — try another object.',false);const oldBubble=app.querySelector('.findit-cat-speech');if(oldBubble)oldBubble.remove();const bubble=document.createElement('div');bubble.className='findit-cat-speech findit-cat-speech-wrong';bubble.textContent='Versuch es noch einmal!';const scene=app.querySelector('.findit-scene');if(scene){scene.appendChild(bubble);setTimeout(()=>bubble.remove(),1100)}const roomCat=app.querySelector('.findit-scene');if(roomCat){roomCat.classList.remove('findit-cat-sad');void roomCat.offsetWidth;roomCat.classList.add('findit-cat-sad');setTimeout(()=>roomCat.classList.remove('findit-cat-sad'),850)}
   if(session.hearts<=0){session.locked=true;if(advance)clearTimeout(advance);advance=setTimeout(render,1400)}
