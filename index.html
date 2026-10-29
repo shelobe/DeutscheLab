@@ -869,6 +869,59 @@ const LISTENING_LEVELS={
  B2:[
  ['The proposal discussed yesterday will be revised.','Der Vorschlag, der gestern besprochen wurde, wird überarbeitet.'],['Had I known earlier, I would have helped.','Hätte ich es früher gewusst, hätte ich geholfen.'],['Despite the difficulties, the project succeeded.','Trotz der Schwierigkeiten war das Projekt erfolgreich.'],['The decision should be reconsidered carefully.','Die Entscheidung sollte sorgfältig überdacht werden.'],['It is essential to consider different perspectives.','Es ist wichtig, unterschiedliche Perspektiven zu berücksichtigen.'],['She managed to solve the problem independently.','Es ist ihr gelungen, das Problem selbstständig zu lösen.'],['The report must be submitted by Friday.','Der Bericht muss bis Freitag eingereicht werden.'],['He spoke as though he knew everything.','Er sprach, als ob er alles wüsste.'],['The company plans to expand internationally.','Das Unternehmen plant, international zu expandieren.'],['The results were better than expected.','Die Ergebnisse waren besser als erwartet.'],['We should weigh the advantages and disadvantages.','Wir sollten die Vor- und Nachteile abwägen.'],['The situation has changed significantly.','Die Situation hat sich erheblich verändert.']]
 };
+// Additional level-appropriate listening prompts, including questions, requests, and everyday situations.
+LISTENING_LEVELS.A1.push(
+ ['The coffee is hot.','Der Kaffee ist heiß.'],
+ ['I need a pen.','Ich brauche einen Stift.'],
+ ['What time is it?','Wie spät ist es?'],
+ ['My sister lives in Berlin.','Meine Schwester wohnt in Berlin.'],
+ ['The children are in the garden.','Die Kinder sind im Garten.'],
+ ['We have three cats.','Wir haben drei Katzen.'],
+ ['I do not like onions.','Ich mag keine Zwiebeln.'],
+ ['Are you coming tomorrow?','Kommst du morgen?'],
+ ['The supermarket is closed.','Der Supermarkt ist geschlossen.'],
+ ['Please open the window.','Mach bitte das Fenster auf.'],
+ ['I eat breakfast at eight.','Ich frühstücke um acht Uhr.'],
+ ['Where is my phone?','Wo ist mein Handy?'],
+ ['She is wearing a red jacket.','Sie trägt eine rote Jacke.'],
+ ['We are drinking tea.','Wir trinken Tee.'],
+ ['The bathroom is upstairs.','Das Badezimmer ist oben.'],
+ ['He works in a restaurant.','Er arbeitet in einem Restaurant.'],
+ ['I am tired today.','Ich bin heute müde.'],
+ ['Do you speak English?','Sprichst du Englisch?'],
+ ['My birthday is in June.','Mein Geburtstag ist im Juni.'],
+ ['The bus comes at nine.','Der Bus kommt um neun Uhr.'],
+ ['I am writing an email.','Ich schreibe eine E-Mail.'],
+ ['The dog is sleeping.','Der Hund schläft.'],
+ ['How much does the bread cost?','Wie viel kostet das Brot?'],
+ ['I have no time today.','Ich habe heute keine Zeit.']
+);
+LISTENING_LEVELS.A2.push(
+ ['I have already finished my homework.','Ich habe meine Hausaufgaben schon gemacht.'],
+ ['We moved here last summer.','Wir sind letzten Sommer hierhergezogen.'],
+ ['Could you speak a little more slowly?','Könntest du etwas langsamer sprechen?'],
+ ['I stayed home because I was sick.','Ich bin zu Hause geblieben, weil ich krank war.'],
+ ['She wants to learn how to drive.','Sie möchte Autofahren lernen.'],
+ ['Have you ever been to Munich?','Warst du schon einmal in München?'],
+ ['I will call you after dinner.','Ich rufe dich nach dem Abendessen an.'],
+ ['We need to leave earlier tomorrow.','Wir müssen morgen früher losfahren.'],
+ ['I bought a present for my mother.','Ich habe ein Geschenk für meine Mutter gekauft.'],
+ ['Can I try on these shoes?','Kann ich diese Schuhe anprobieren?'],
+ ['The train arrives ten minutes late.','Der Zug kommt zehn Minuten zu spät an.'],
+ ['He has been waiting for half an hour.','Er wartet seit einer halben Stunde.'],
+ ['I am happy because the sun is shining.','Ich freue mich, weil die Sonne scheint.'],
+ ['We should clean the kitchen today.','Wir sollten heute die Küche putzen.'],
+ ['She put the keys on the table.','Sie hat die Schlüssel auf den Tisch gelegt.'],
+ ['I cannot come because I have to work.','Ich kann nicht kommen, weil ich arbeiten muss.'],
+ ['Do you know where the pharmacy is?','Weißt du, wo die Apotheke ist?'],
+ ['I would rather drink coffee than tea.','Ich trinke lieber Kaffee als Tee.'],
+ ['After breakfast, I went for a walk.','Nach dem Frühstück bin ich spazieren gegangen.'],
+ ['We have not seen each other for a long time.','Wir haben uns lange nicht gesehen.'],
+ ['The apartment has a large balcony.','Die Wohnung hat einen großen Balkon.'],
+ ['I need to make an appointment.','Ich muss einen Termin vereinbaren.'],
+ ['Please tell me when you arrive.','Sag mir bitte, wann du ankommst.'],
+ ['She learned German at school.','Sie hat in der Schule Deutsch gelernt.']
+);
 const LISTENING_ITEMS=Object.fromEntries(Object.entries(LISTENING_LEVELS).map(([level,rows])=>[level,rows.map(([en,de])=>({en,de,tokens:de.split(' ')}))]));
 function listeningLevels(){
  gameSession=null;
@@ -901,6 +954,18 @@ function gameHub(){
 function gameStart(mode,level){
  if(mode==='listen'&&!level)return listeningLevels();
  let seq=[...(mode==='listen'?LISTENING_ITEMS[level]:GAME_ITEMS).keys()];
+ if(mode==='listen'){
+  // Prioritize unseen questions across rounds, while keeping each round randomized.
+  const key='dl-listening-recent-'+level;
+  let recent=[];try{recent=JSON.parse(localStorage.getItem(key)||'[]')}catch(e){}
+  if(!Array.isArray(recent))recent=[];
+  const fresh=seq.filter(i=>!recent.includes(i)),older=seq.filter(i=>recent.includes(i));
+  const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+  seq=[...shuffle(fresh),...shuffle(older)];
+  const chosen=seq.slice(0,6);
+  try{localStorage.setItem(key,JSON.stringify([...recent,...chosen].slice(-24)))}catch(e){}
+  seq=chosen;
+ }
  for(let i=seq.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[seq[i],seq[j]]=[seq[j],seq[i]]}
  gameSession={mode,level:level||null,pool:mode==='listen'?LISTENING_ITEMS[level]:GAME_ITEMS,seq:seq.slice(0,6),idx:0,correct:0,answered:false,picked:[],matches:[],selected:null};
  gameRender();
