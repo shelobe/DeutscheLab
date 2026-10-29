@@ -4619,4 +4619,31 @@ body.dl-unified-active #app button.dl-unified-source{display:none!important}
  sync();
 })();
 </script>
+
+<style id="dl-feedback-card-polish">
+/* Compact, unmistakable feedback separate from answer choices. */
+#app .dl-result-badge{display:flex!important;align-items:center;gap:12px;padding:12px 15px!important;margin:14px 0 4px!important;border-radius:15px!important;min-height:68px;box-sizing:border-box;font-size:1.55rem!important;font-weight:800!important;line-height:1.2!important}
+#app .dl-result-badge.dl-result-good{background:linear-gradient(110deg,#195b4c,#276f58)!important;border:2px solid #6edab1!important;color:#eaffef!important}
+#app .dl-result-badge.dl-result-bad{background:linear-gradient(110deg,#57333d,#693e49)!important;border:2px solid #ed8c93!important;color:#fff0f0!important}
+#app .dl-result-badge img{width:52px;height:52px;object-fit:contain;flex:none;filter:drop-shadow(0 2px 3px #0005)}
+#app .dl-result-badge .dl-result-symbol{display:grid;place-items:center;width:38px;height:38px;flex:none;border-radius:50%;background:#f4a0a6;color:#51212b;font-size:1.55rem}
+#app .dl-result-badge .dl-result-label{font-size:inherit!important;margin:0!important;padding:0!important;background:none!important;border:0!important;color:inherit!important}
+</style>
+<script id="dl-feedback-card-polish-script">
+(function(){
+ const root=document.getElementById('app');if(!root)return;
+ const selectors='#fullFeedback,#moduleFeedback,#courseFeedback,#practiceFeedback,#gameFeedback,#pictureFeedback,#dialogue-feedback,#reviewFeedback,#articleFeedback,#a12Feedback,#dl-result,.dl-flow-feedback';
+ function apply(){for(const area of root.querySelectorAll(selectors)){
+  const label=[...area.querySelectorAll('.correct,.wrong,.unit-explain>strong,.dl-flow-feedback>strong,.game-feedback>strong,.picture-answer>h3')].find(el=>/^(correct!?|not quite[.!]?|richtig!?)/i.test((el.textContent||'').trim()));
+  if(!label||label.classList.contains('dl-result-label'))continue;
+  const good=/^(correct|richtig)/i.test(label.textContent.trim());
+  const box=document.createElement('div');box.className='dl-result-badge '+(good?'dl-result-good':'dl-result-bad');
+  const icon=document.createElement(good?'img':'span');
+  if(good){let id='cat';try{id=window.dlGetAvatarId?.()||'cat'}catch(e){}icon.src='avatar_'+id+'.webp';icon.alt='Happy animal avatar';icon.onerror=function(){if(this.src.indexOf('avatar_cat.webp')<0)this.src='avatar_cat.webp'}}
+  else{icon.className='dl-result-symbol';icon.textContent='×';icon.setAttribute('aria-hidden','true')}
+  label.classList.add('dl-result-label');label.before(box);box.append(icon,label);
+ }}
+ let queued=false;new MutationObserver(()=>{if(queued)return;queued=true;requestAnimationFrame(()=>{queued=false;apply()})}).observe(root,{childList:true,subtree:true});apply();
+})();
+</script>
 </body></html>
