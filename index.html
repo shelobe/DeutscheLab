@@ -3945,10 +3945,45 @@ const bathroomExtras=[
  {item:6,x:8,y:55,w:11,h:29},
  {item:6,x:91,y:80,w:9,h:11}
 ];
+const gardenItems=[
+ {de:'der Baum',en:'tree',x:0,y:0,w:37,h:51},
+ {de:'der Vogel',en:'bird',x:12,y:15,w:7,h:6},
+ {de:'das Vogelhaus',en:'birdhouse',x:9,y:5,w:16,h:16},
+ {de:'die Blume',en:'flower',x:3,y:43,w:14,h:13},
+ {de:'die Sonnenblume',en:'sunflower',x:47,y:28,w:9,h:11},
+ {de:'das Fahrrad',en:'bicycle',x:21,y:31,w:15,h:20},
+ {de:'der Tisch',en:'table',x:40,y:37,w:26,h:19},
+ {de:'der Stuhl',en:'chair',x:35,y:34,w:10,h:23},
+ {de:'der Sonnenschirm',en:'patio umbrella',x:38,y:5,w:33,h:35},
+ {de:'die Tasse',en:'cup',x:45,y:35,w:5,h:6},
+ {de:'das Buch',en:'book',x:54,y:37,w:8,h:5},
+ {de:'der Hund',en:'dog',x:41,y:51,w:34,h:34},
+ {de:'die Katze',en:'cat',x:90,y:30,w:10,h:13},
+ {de:'der Ball',en:'ball',x:54,y:76,w:8,h:9},
+ {de:'der Schmetterling',en:'butterfly',x:3,y:77,w:7,h:10},
+ {de:'der Frosch',en:'frog',x:7,y:43,w:7,h:6},
+ {de:'die Gießkanne',en:'watering can',x:69,y:77,w:16,h:17},
+ {de:'die Schaufel',en:'shovel',x:91,y:78,w:9,h:18},
+ {de:'die Gummistiefel',en:'rubber boots',x:72,y:43,w:8,h:11},
+ {de:'die Tür',en:'door',x:80,y:0,w:12,h:48},
+ {de:'die Bank',en:'bench',x:83,y:33,w:17,h:25},
+ {de:'der Gartenzwerg',en:'garden gnome',x:15,y:39,w:7,h:13}
+];
+const gardenExtras=[
+ {item:3,x:91,y:54,w:9,h:13},
+ {item:3,x:76,y:54,w:11,h:11},
+ {item:3,x:0,y:88,w:14,h:12},
+ {item:4,x:51,y:29,w:7,h:10},
+ {item:4,x:55,y:29,w:6,h:11},
+ {item:7,x:60,y:35,w:10,h:23},
+ {item:7,x:45,y:36,w:10,h:26},
+ {item:1,x:28,y:12,w:6,h:6}
+];
 const rooms=[
  {name:'Minka’s living room',image:'./file_0000000028f881f5bd5c11ffc7a7f4cc.png',items,extras:extraFindItZones},
  {name:'The sunny kitchen',image:'./file_00000000f6dc81f5a53d075ab54c5e25.png',items:kitchenItems,extras:kitchenExtraZones},
- {name:'The cozy bathroom',image:'./a_warm_cozy_colorful_cartoon_illustration_of_a_d.png',items:bathroomItems,extras:bathroomExtras}
+ {name:'The cozy bathroom',image:'./a_warm_cozy_colorful_cartoon_illustration_of_a_d.png',items:bathroomItems,extras:bathroomExtras},
+ {name:'The sunny garden',image:'./file_00000000dca881f5b90c49c8ddc2f964.png',items:gardenItems,extras:gardenExtras}
 ];
 function activeRoom(){return rooms[session?.room||0]}
 function sceneMarkup(){
@@ -3960,7 +3995,7 @@ window.findItPraise=function(){if(session&&session.phrase&&typeof speak==='funct
 window.findItHome=function(){
  session={room:0,queue:order(),idx:0,hearts:3,locked:false,phrase:''};
  document.body.classList.remove('lesson-screen');
- app.innerHTML='<div class="findit-shell"><section class="findit-intro"><h2>Find It! — Choose a room</h2><p>Find ten German words in each room. You have three hearts.</p><div class="findit-room-choices"><button class="findit-room-choice" onclick="findItStart(0)"><img src="./file_0000000028f881f5bd5c11ffc7a7f4cc.png" alt="" loading="lazy"><span>Living room</span></button><button class="findit-room-choice" onclick="findItStart(1)"><img src="./file_00000000f6dc81f5a53d075ab54c5e25.png" alt="" loading="lazy"><span>Sunny kitchen</span></button><button class="findit-room-choice" onclick="findItStart(2)"><img src="./a_warm_cozy_colorful_cartoon_illustration_of_a_d.png" alt="" loading="lazy"><span>Cozy bathroom</span></button></div></section></div>';
+ app.innerHTML='<div class="findit-shell"><section class="findit-intro"><h2>Find It! — Choose a scene</h2><p>Find ten German words in each scene. You have three hearts.</p><div class="findit-room-choices"><button class="findit-room-choice" onclick="findItStart(0)"><img src="./file_0000000028f881f5bd5c11ffc7a7f4cc.png" alt="" loading="lazy"><span>Living room</span></button><button class="findit-room-choice" onclick="findItStart(1)"><img src="./file_00000000f6dc81f5a53d075ab54c5e25.png" alt="" loading="lazy"><span>Sunny kitchen</span></button><button class="findit-room-choice" onclick="findItStart(2)"><img src="./a_warm_cozy_colorful_cartoon_illustration_of_a_d.png" alt="" loading="lazy"><span>Cozy bathroom</span></button><button class="findit-room-choice" onclick="findItStart(3)"><img src="./file_00000000dca881f5b90c49c8ddc2f964.png" alt="" loading="lazy"><span>Sunny garden</span></button></div></section></div>';
  window.scrollTo(0,0);
 };
 window.findItStart=function(roomIndex=0){const room=rooms[roomIndex]||rooms[0];session={room:roomIndex,queue:room.items.slice().sort(()=>Math.random()-.5),idx:0,hearts:3,locked:false,phrase:''};render()};
@@ -3968,7 +4003,7 @@ function render(){
  if(!session)return;
  if(session.idx>=10||session.hearts<=0){const won=session.idx>=10;app.innerHTML='<div class="findit-shell"><section class="findit-intro"><div class="findit-guide"><img src="./katze.png" alt="Minka"><div class="findit-bubble"><h2>'+(won?'Geschafft!':'Gut versucht!')+'</h2><p>'+(won?'You found all ten objects!':'You found '+session.idx+' of 10 objects.')+'</p></div></div><p>'+(won?'Minka is proud of you!':'Try again to find all ten.')+'</p><button onclick="findItHome()">Find It Home</button> <button class="secondary" onclick="home()">Main Menu</button></section></div>';return}
  const item=session.queue[session.idx];
- app.innerHTML='<div class="findit-shell"><section class="findit-intro"><div class="findit-topline"><strong>Find It! · '+(session.idx+1)+' / 10</strong><span class="findit-hearts" aria-label="'+session.hearts+' hearts remaining">'+('♥'.repeat(session.hearts))+'<span style="opacity:.22">'+('♥'.repeat(3-session.hearts))+'</span></span></div><div class="findit-guide"><img src="./katze.png" alt="Minka"><div class="findit-bubble"><h2>Find: '+item.de+'</h2><p>Tap the object in the room. <button class="secondary" style="padding:5px 9px;margin:4px 0;font-size:13px" onclick="findItWord()">🔊 Listen</button></p></div></div></section>'+sceneMarkup()+'<div id="findit-feedback" class="findit-feedback" aria-live="polite">Minka is waiting for you to find the object.</div></div>';
+ app.innerHTML='<div class="findit-shell"><section class="findit-intro"><div class="findit-topline"><strong>Find It! · '+(session.idx+1)+' / 10</strong><span class="findit-hearts" aria-label="'+session.hearts+' hearts remaining">'+('♥'.repeat(session.hearts))+'<span style="opacity:.22">'+('♥'.repeat(3-session.hearts))+'</span></span></div><div class="findit-guide"><img src="./katze.png" alt="Minka"><div class="findit-bubble"><h2>Find: '+item.de+'</h2><p>Tap the object in the scene. <button class="secondary" style="padding:5px 9px;margin:4px 0;font-size:13px" onclick="findItWord()">🔊 Listen</button></p></div></div></section>'+sceneMarkup()+'<div id="findit-feedback" class="findit-feedback" aria-live="polite">Minka is waiting for you to find the object.</div></div>';
  session.locked=false;
 }
 window.findItWord=function(){if(session&&typeof speak==='function')speak(session.queue[session.idx].de)};
