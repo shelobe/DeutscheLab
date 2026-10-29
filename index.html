@@ -4647,4 +4647,32 @@ body.dl-unified-active #app button.dl-unified-source{display:none!important}
  let queued=false;new MutationObserver(()=>{if(queued)return;queued=true;requestAnimationFrame(()=>{queued=false;apply()})}).observe(root,{childList:true,subtree:true});apply();
 })();
 </script>
+
+<style id="dl-practice-hub-redesign">
+.dl-hub-heading{margin:25px 0 12px;font-size:1.35rem}.dl-hub-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.dl-hub-card{display:flex!important;flex-direction:column;align-items:flex-start;justify-content:center;gap:9px;min-height:146px;padding:17px!important;border-radius:18px!important;text-align:left!important;white-space:normal!important}.dl-hub-card .dl-hub-icon{font-size:2rem;line-height:1}.dl-hub-card strong{font-size:1.13rem;line-height:1.2}.dl-hub-card small{font-size:.87rem;line-height:1.35;opacity:.87}.dl-hub-continue{width:100%;min-height:55px;margin:12px 0!important;font-size:1.05rem}@media(max-width:360px){.dl-hub-grid{gap:9px}.dl-hub-card{padding:12px!important;min-height:138px}}
+</style>
+<script id="dl-practice-hub-redesign-script">
+(function(){
+ const routes={review:'review',listening:'listeningPractice',sentences:'sentencePractice',findit:'findItHome',articles:'articleHome',pictures:'pictureHome',dialogue:'conversation',games:'gameHub'};
+ window.dlOpenHubActivity=function(key){const fn=routes[key];if(typeof window[fn]!=='function')return;try{localStorage.setItem('dl_last_practice_activity',key)}catch(e){}window[fn]();window.scrollTo(0,0)};
+ window.dlContinueHubActivity=function(){let key='review';try{key=localStorage.getItem('dl_last_practice_activity')||key}catch(e){}window.dlOpenHubActivity(key)};
+ const previous=practiceHub;
+ practiceHub=function(){previous();
+  const cards=[['review','🧠','Review','Revisit missed answers and refresh your memory'],['listening','🎧','Listening','Understand spoken German'],['sentences','🧩','Build sentences','Put German words in order'],['findit','🔎','Find It!','Find objects in illustrated rooms'],['articles','📚','Noun Articles','Practice der, die and das'],['pictures','🖼️','Picture Practice','Learn words from pictures'],['dialogue','💬','Dialogue','Practice real conversations'],['games','🎮','Practice Games','Play vocabulary and language games']];
+  const progress=app.querySelector('#progress')?.closest('.card');
+  const oldCards=app.querySelector('.sceneCards');if(oldCards)oldCards.remove();
+  const section=document.createElement('section');section.className='dl-hub-content';
+  const card=(c)=>'<button class="secondary dl-hub-card" onclick="dlOpenHubActivity(\''+c[0]+'\')"><span class="dl-hub-icon" aria-hidden="true">'+c[1]+'</span><strong>'+c[2]+'</strong><small>'+c[3]+'</small></button>';
+  section.innerHTML='<button class="dl-hub-continue" onclick="dlContinueHubActivity()">▶ Continue practicing</button><h2 class="dl-hub-heading">Daily practice</h2><div class="dl-hub-grid">'+cards.slice(0,3).map(card).join('')+'</div><h2 class="dl-hub-heading">Practice games & activities</h2><div class="dl-hub-grid">'+cards.slice(3).map(card).join('')+'</div>';
+  if(progress)progress.after(section);else app.appendChild(section);
+ };
+ const menu=document.getElementById('sideMenu');if(menu){
+  const buttons=[...menu.querySelectorAll('button')];
+  for(const b of buttons){if(/Find It!|Noun Articles|Picture practice|Dialogue|Review|Practice games/i.test(b.textContent||''))b.remove()}
+  let hub=buttons.find(b=>/Practice Hub/i.test(b.textContent||''));
+  if(hub){const headings=[...menu.querySelectorAll('.dl-menu-group')];const practice=headings.find(h=>/PRACTICE/i.test(h.textContent));if(practice)practice.after(hub)}
+  const accountHeading=[...menu.querySelectorAll('.dl-menu-group')].find(h=>/ACCOUNT/i.test(h.textContent));if(accountHeading){const profile=buttons.find(b=>/Profile/i.test(b.textContent||''));if(profile)accountHeading.after(profile)}
+ }
+})();
+</script>
 </body></html>
