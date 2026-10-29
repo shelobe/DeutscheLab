@@ -4723,4 +4723,19 @@ body.dl-unified-active #app button.dl-unified-source{display:none!important}
 #app .dl-result-badge{padding-left:155px!important}
 @media(max-width:400px){#app .dl-result-badge img{width:153px!important;height:175px!important;left:-16px!important}#app .dl-result-badge{padding-left:135px!important}}
 </style>
+
+<style id="dl-module-review-feedback-fit">
+/* Once an answer is submitted, reclaim the answer-choice area for feedback. */
+#app .card:has(#moduleFeedback .dl-result-badge) .picture-choices{display:none!important}
+#app .card:has(#moduleFeedback .dl-result-badge){padding-top:16px!important;padding-bottom:14px!important}
+#app .card:has(#moduleFeedback .dl-result-badge) h2{font-size:clamp(1.1rem,4.3vw,1.45rem)!important;line-height:1.25!important;margin:9px 0!important}
+#app .card:has(#moduleFeedback .dl-result-badge) .unit-progress{margin:8px 0!important}
+#app .card:has(#moduleFeedback .dl-result-badge) .muted{margin:7px 0!important}
+#app #moduleFeedback .unit-explain{margin:12px 0 0!important;padding:10px 12px!important}
+#app #moduleFeedback .dl-result-badge{margin-top:30px!important}
+@media(max-height:780px){
+ #app .card:has(#moduleFeedback .dl-result-badge) .muted{display:none!important}
+ #app .card:has(#moduleFeedback .dl-result-badge) h2{font-size:1.1rem!important}
+}
+</style>
 </body></html>
