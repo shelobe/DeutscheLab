@@ -2279,13 +2279,13 @@ dlCheck=function(){
    const keys=validKeys(p,mode),key=keys.find(k=>k.startsWith('snap:')&&p.snapshots?.[k]);
    if(!key)return oldQuiz(mode);
    const q=p.snapshots[key];reviewSession={key,mode,q};
-   const isAudio=q.type==='sound-choice'||(/^Which audio says /i.test(q.prompt)&&q.options?.every(o=>/^Audio \\d+$/i.test(o)));
+   const isAudio=q.type==='sound-choice'||(/^Which audio says /i.test(q.prompt)&&q.options?.every(o=>/^Audio \d+$/i.test(o)));
    if(isAudio){
     let words=q.dlAudioWords;
     if(!Array.isArray(words)||words.length!==q.options.length){
      // Restore the original audio choices for snapshots saved before audio metadata was persisted.
      const target=q.dlTarget||q.prompt.match(/[“"]([^”"]+)[”"]/)?.[1];
-     const sets=typeof soundSets!=='undefined'?soundSets:[];
+     const sets=window.dlReviewSoundSets||[];
      const entry=sets.find(e=>e.words[e.target]===target);
      if(entry){words=Array.from({length:entry.words.length},(_,i)=>entry.words[(i+(entry.words.length+entry.target-q.answer)%entry.words.length)%entry.words.length]);}
     }
@@ -2298,7 +2298,7 @@ dlCheck=function(){
    app.innerHTML=illustratedHero('Review a lesson question','Practice the exact question you missed','forest','katze.png')+
     `<section class="card"><h3>${safeText(q.prompt)}</h3>${isAudio?'<p>Tap each button to hear the word. Select your answer below.</p>':''}${q.options.map((o,i)=>`<button class="secondary" ${isAudio?'onclick="dlSnapshotPlay('+i+')"':'onclick="dlSnapshotAnswer('+i+')"'}>${isAudio?'🔊 Play Audio '+(i+1):safeText(o)}</button>`).join('')}${isAudio?'<div id="dl-review-audio-select" style="margin-top:18px"><p>Which audio matches?</p>'+q.options.map((o,i)=>'<button class="secondary" onclick="dlSnapshotAnswer('+i+')">'+safeText(o)+'</button>').join('')+'</div>':''}<div id="practiceFeedback"></div></section>`;
  };
- window.dlSnapshotPlay=function(i){const words=reviewSession?.audioWords;if(!words?.[i])return;listeningSpeak(words[i],true);};
+ window.dlSnapshotPlay=function(i){const words=reviewSession?.audioWords;if(!words?.[i])return;try{if(typeof speak==='function')speak(words[i]);else if(typeof listeningSpeak==='function')listeningSpeak(words[i],true);}catch(e){if(typeof listeningSpeak==='function')listeningSpeak(words[i],true);}};
  window.dlSnapshotAnswer=function(i){
    const r=reviewSession;if(!r)return;
    const {q,key,mode}=r,p=practiceState(),ok=i===q.answer;
@@ -2743,6 +2743,7 @@ curriculumModuleIntro=function(level,n){
   {words:['neun','nun','nein'],target:0,note:'eu and äu sound like oy in English boy; ei sounds like eye.'},
   {words:['Straße','Strauß','Stress'],target:0,note:'At the beginning of German words, str is pronounced with a sh sound; ß is an s sound.'}
  ];
+ window.dlReviewSoundSets=soundSets;
  const priorBegin=fullBegin;
  fullBegin=function(id){
   priorBegin(id);
