@@ -2289,14 +2289,20 @@ dlCheck=function(){
    if(isAudio){
     let words=q.dlAudioWords;
     if(!Array.isArray(words)||words.length!==q.options.length){
-     // Restore the original audio choices for snapshots saved before audio metadata was persisted.
      const target=q.dlTarget||q.prompt.match(/[“"]([^”"]+)[”"]/)?.[1];
-     const sets=window.dlReviewSoundSets||[];
-     const entry=sets.find(e=>e.words[e.target]===target);
-     if(entry){words=Array.from({length:entry.words.length},(_,i)=>entry.words[(i+(entry.words.length+entry.target-q.answer)%entry.words.length)%entry.words.length]);}
+     const entry=(window.dlReviewSoundSets||[]).find(e=>e.words[e.target]===target);
+     if(entry){
+      const shift=(entry.target-q.answer+entry.words.length)%entry.words.length;
+      words=entry.words.map((_,i)=>entry.words[(i+shift)%entry.words.length]);
+     }
     }
-    if(!words){
-     app.innerHTML=illustratedHero('Review a lesson question','Practice the exact question you missed','forest','katze.png')+
+    if(!Array.isArray(words)||words.length!==q.options.length){
+     app.innerHTML=illustratedHero('Review a lesson question','Audio choices unavailable for this saved question','forest','katze.png')+`<section class="card"><p>This older question did not save enough audio information.</p><button onclick="practiceQuiz('${mode}')">Next review</button><button class="secondary" onclick="practiceHub()">Back</button></section>`;
+     return;
+    }
+    reviewSession.audioWords=words;
+   }
+   app.innerHTML=illustratedHero('Review a lesson question','Practice the exact question you missed','forest','katze.png')+
     `<section class="card"><h3>${safeText(q.prompt)}</h3>${isAudio?'<p>Tap an audio option to listen and select it. You can change your answer before confirming.</p>':''}<div id="dl-review-choices">${q.options.map((o,i)=>`<button type="button" class="secondary dl-review-choice" onclick="dlSnapshotSelect(${i})">${isAudio?'🔊 Audio '+(i+1):safeText(o)}</button>`).join('')}</div><button type="button" id="dl-review-confirm" onclick="dlSnapshotConfirm()" disabled>Confirm answer</button><div id="practiceFeedback"></div></section>`;
  };
  window.dlSnapshotSelect=function(i){
@@ -4068,9 +4074,9 @@ html body.dl-home-banner.dl-compact-header .app-header .menu-toggle {
  const makeHeading=(name)=>{const p=document.createElement('p');p.className='muted dl-menu-group';p.textContent=name;return p};
  const items=[
  ['HOME',['Home']],
- ['ACCOUNT',['Profile']],
+ ['ACCOUNT',['Profile','Practice Hub']],
  ['LEARNING',['Lessons','Placement test']],
- ['PRACTICE',['Practice Hub','Find It!','Noun Articles','Picture practice','Dialogue','Review','Practice games']],
+ ['PRACTICE',['Find It!','Noun Articles','Picture practice','Dialogue','Review','Practice games']],
  ['AI TOOLS',['AI Tutor & Voice']]
  ];
  const frag=document.createDocumentFragment();
