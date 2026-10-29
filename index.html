@@ -281,6 +281,7 @@ function resetSentenceWords(){
 function chooseSentenceWord(i,w){
  if(sentenceChosenIds.includes(i)||document.getElementById('sentenceFeedback')?.innerHTML)return;
  sentenceChosen.push(w);sentenceChosenIds.push(i);
+ try{speechSynthesis.cancel();const utterance=new SpeechSynthesisUtterance(w.replace(/[.!?]+$/,''));utterance.lang='de-DE';utterance.rate=0.84;const voice=speechSynthesis.getVoices().find(v=>v.lang.toLowerCase().startsWith('de'));if(voice)utterance.voice=voice;speechSynthesis.speak(utterance)}catch(e){}
  document.getElementById('word'+i).disabled=true;updateSentenceBuilt();
  if(sentenceChosen.length===sentenceTarget.length){
   let ok=sentenceChosen.join(' ')===sentenceTarget.join(' ');
