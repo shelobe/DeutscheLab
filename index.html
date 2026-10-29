@@ -284,7 +284,37 @@ const listeningSet=[['Guten Morgen','Good morning'],['Ich habe einen Hund','I ha
 function listeningPractice(){let i=Math.floor(Math.random()*listeningSet.length),entry=listeningSet[i],wrong=listeningSet[(i+2)%listeningSet.length][1],wrong2=listeningSet[(i+4)%listeningSet.length][1],opts=[entry[1],wrong,wrong2].sort(()=>Math.random()-.5);app.innerHTML=illustratedHero('Listen and understand','Listen before choosing a meaning.','village','katze.png')+`<section class="card"><p>Tap to hear the German sentence.</p><button onclick="speak(${JSON.stringify(entry[0]).replace(/"/g,'&quot;')})">🔊 Play German</button><h3>What did you hear?</h3>${opts.map(o=>`<button class="secondary" onclick="listeningAnswer(${JSON.stringify(o).replace(/"/g,'&quot;')},${JSON.stringify(entry[1]).replace(/"/g,'&quot;')},${JSON.stringify(entry[0]).replace(/"/g,'&quot;')})">${safeText(o)}</button>`).join('')}<div id="listenFeedback"></div></section>`}
 function listeningAnswer(choice,answer,german){let ok=choice===answer;practiceLog(ok?10:2);app.querySelectorAll('.card button').forEach(b=>b.disabled=true);document.getElementById('listenFeedback').innerHTML=`<p class="${ok?'correct':'wrong'}">${ok?'Correct!':'Correct meaning: '+safeText(answer)}</p><p>${safeText(german)}</p><button onclick="listeningPractice()">Another sentence</button><button class="secondary" onclick="practiceHub()">Finish</button>`}
 const sentences=[['Ich habe einen Hund','I have a dog'],['Heute gehe ich einkaufen','Today I am going shopping'],['Wir lernen Deutsch','We are learning German'],['Die Katze schläft auf dem Sofa','The cat sleeps on the sofa'],['Morgen rufe ich dich an','Tomorrow I will call you']];let sentenceTarget=[],sentenceChosen=[],sentenceChosenIds=[];
-function sentencePractice(){let pair=sentences[Math.floor(Math.random()*sentences.length)];sentenceTarget=pair[0].split(' ');sentenceChosen=[];sentenceChosenIds=[];let shuffled=sentenceTarget.map((w,i)=>({w,i})).sort(()=>Math.random()-.5);app.innerHTML=illustratedHero('Build a sentence','Arrange the German words below.','village','hund.png')+`<section class="card"><h3>Tap the words in the correct order</h3><div class="dl-sentence-prompt"><span>Translate into German</span><strong>${safeText(pair[1])}</strong></div><div id="sentenceBuilt" class="bubble">Tap words below…</div><button type="button" class="secondary" onclick="resetSentenceWords()">Reset words</button><div id="sentenceTiles" class="dl-sentence-bank">${shuffled.map(x=>`<button class="secondary" id="word${x.i}" onclick="chooseSentenceWord(${x.i},${JSON.stringify(x.w).replace(/"/g,'&quot;')})">${safeText(x.w.replace(/[.!?]+$/,''))}</button>`).join('')}</div><button onclick="sentencePractice()">Skip</button><button class="secondary" onclick="dlSentenceHelpToggle()">Show grammar help</button><div id="dlSentenceHelp" class="explain-box" hidden></div><div id="sentenceFeedback"></div></section><div id="dl-sentence-next-dock"><button type="button" class="secondary" onclick="practiceHub()">Back</button><button type="button" id="dl-sentence-next-button" onclick="sentencePractice()" hidden>Next sentence</button></div>`}
+let sentenceRound=null;
+function startSentenceRound(){
+ const seq=[...GAME_ITEMS.keys()];
+ for(let i=seq.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[seq[i],seq[j]]=[seq[j],seq[i]]}
+ sentenceRound={seq:seq.slice(0,6),idx:0,correct:0};
+ sentencePractice();
+}
+function sentencePractice(){
+ let pair;
+ if(sentenceRound){
+  if(sentenceRound.idx>=sentenceRound.seq.length){
+   const score=sentenceRound.correct,total=sentenceRound.seq.length;
+   sentenceRound=null;
+   app.innerHTML=illustratedHero('Round complete!',score+' of '+total+' correct.','forest','hund.png')+`<section class="card"><h2>${score}/${total} correct</h2><button onclick="startSentenceRound()">Try another round</button><button class="secondary" onclick="gameHub()">All practice games</button></section>`;
+   window.scrollTo(0,0);return;
+  }
+  const item=GAME_ITEMS[sentenceRound.seq[sentenceRound.idx]];
+  pair=[item.tokens.join(' '),item.en];
+ }else{
+  pair=sentences[Math.floor(Math.random()*sentences.length)];
+ }
+ sentenceTarget=pair[0].split(' ');sentenceChosen=[];sentenceChosenIds=[];
+ let shuffled=sentenceTarget.map((w,i)=>({w,i})).sort(()=>Math.random()-.5);
+ const nextAction=sentenceRound?'advanceSentenceRound()':'sentencePractice()';
+ const backAction=sentenceRound?'exitSentenceRound()':'practiceHub()';
+ const counter=sentenceRound?`<p class="muted">Sentence ${sentenceRound.idx+1} of ${sentenceRound.seq.length}</p>`:'';
+ app.innerHTML=illustratedHero('Build a sentence','Arrange the German words below.','village','hund.png')+`<section class="card">${counter}<h3>Tap the words in the correct order</h3><div class="dl-sentence-prompt"><span>Translate into German</span><strong>${safeText(pair[1])}</strong></div><div id="sentenceBuilt" class="bubble">Tap words below…</div><button type="button" class="secondary" onclick="resetSentenceWords()">Reset words</button><div id="sentenceTiles" class="dl-sentence-bank">${shuffled.map(x=>`<button class="secondary" id="word${x.i}" onclick="chooseSentenceWord(${x.i},${JSON.stringify(x.w).replace(/"/g,'&quot;')})">${safeText(x.w.replace(/[.!?]+$/,''))}</button>`).join('')}</div><button onclick="${nextAction}">Skip</button><button class="secondary" onclick="dlSentenceHelpToggle()">Show grammar help</button><div id="dlSentenceHelp" class="explain-box" hidden></div><div id="sentenceFeedback"></div></section><div id="dl-sentence-next-dock"><button type="button" class="secondary" onclick="${backAction}">Back</button><button type="button" id="dl-sentence-next-button" onclick="${nextAction}" hidden>Next sentence</button></div>`;
+ window.scrollTo(0,0);
+}
+function advanceSentenceRound(){if(sentenceRound)sentenceRound.idx++;sentencePractice()}
+function exitSentenceRound(){sentenceRound=null;gameHub()}
 function updateSentenceBuilt(){
  const el=document.getElementById('sentenceBuilt');if(!el)return;
  el.innerHTML=sentenceChosen.length?sentenceChosen.map((w,n)=>'<button type="button" class="secondary" style="display:inline-block;margin:3px;padding:8px 12px" onclick="removeSentenceWord('+n+')" aria-label="Remove '+safeText(w)+'">'+safeText(w.replace(/[.!?]+$/,''))+' ×</button>').join(' '):'Tap words below…';
@@ -309,6 +339,7 @@ function chooseSentenceWord(i,w){
  if(sentenceChosen.length===sentenceTarget.length){
   let ok=sentenceChosen.join(' ')===sentenceTarget.join(' ');
   practiceLog(ok?10:2);
+  if(sentenceRound&&ok)sentenceRound.correct++;
   document.getElementById('sentenceFeedback').innerHTML=`<p class="${ok?'correct':'wrong'}">${ok?'Correct!':'Correct order: '+safeText(sentenceTarget.join(' '))}</p>`;
   document.getElementById('dl-sentence-next-button').hidden=false;
   if(ok){window.deutschLabCorrectChime?.(true)}
@@ -2022,7 +2053,8 @@ gameHub=function(){
 };
 const dlStartBeforeLevels=gameStart;
 gameStart=function(mode,level){
- if(mode!=='build'&&mode!=='reverse')return dlStartBeforeLevels(mode,level);
+ if(mode==='build')return startSentenceRound();
+ if(mode!=='reverse')return dlStartBeforeLevels(mode,level);
  const seq=[...dlLevelIndices[dlSentenceLevel]];
  for(let i=seq.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[seq[i],seq[j]]=[seq[j],seq[i]];}
  gameSession={mode,level:dlSentenceLevel,pool:GAME_ITEMS,seq:seq.slice(0,6),idx:0,correct:0,answered:false,picked:[],matches:[],selected:null};
