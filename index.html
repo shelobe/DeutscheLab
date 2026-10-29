@@ -4663,7 +4663,7 @@ body.dl-unified-active #app button.dl-unified-source{display:none!important}
   const oldCards=app.querySelector('.sceneCards');if(oldCards)oldCards.remove();
   const section=document.createElement('section');section.className='dl-hub-content';
   const card=(c)=>'<button class="secondary dl-hub-card" onclick="dlOpenHubActivity(\''+c[0]+'\')"><span class="dl-hub-icon" aria-hidden="true">'+c[1]+'</span><strong>'+c[2]+'</strong><small>'+c[3]+'</small></button>';
-  section.innerHTML='<button class="dl-hub-continue" onclick="dlContinueHubActivity()">▶ Continue practicing</button><h2 class="dl-hub-heading">Daily practice</h2><div class="dl-hub-grid">'+cards.slice(0,3).map(card).join('')+'</div><h2 class="dl-hub-heading">Practice games & activities</h2><div class="dl-hub-grid">'+cards.slice(3).map(card).join('')+'</div>';
+  section.innerHTML='<button class="dl-hub-continue" onclick="dlContinueHubActivity()">▶ Continue practicing</button><h2 class="dl-hub-heading">Daily practice</h2><div class="dl-hub-grid">'+cards.filter(c=>['review','listening','sentences','dialogue'].includes(c[0])).map(card).join('')+'</div><h2 class="dl-hub-heading">Practice games & activities</h2><div class="dl-hub-grid">'+cards.filter(c=>!['review','listening','sentences','dialogue'].includes(c[0])).map(card).join('')+'</div>';
   if(progress)progress.after(section);else app.appendChild(section);
  };
  const menu=document.getElementById('sideMenu');if(menu){
