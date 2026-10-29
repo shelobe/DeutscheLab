@@ -1904,8 +1904,8 @@ gameHub=function(){
  select.addEventListener('change',()=>{dlSentenceLevel=select.value;});
 };
 const dlStartBeforeLevels=gameStart;
-gameStart=function(mode){
- if(mode!=='build'&&mode!=='reverse')return dlStartBeforeLevels(mode);
+gameStart=function(mode,level){
+ if(mode!=='build'&&mode!=='reverse')return dlStartBeforeLevels(mode,level);
  const seq=[...dlLevelIndices[dlSentenceLevel]];
  for(let i=seq.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[seq[i],seq[j]]=[seq[j],seq[i]];}
  gameSession={mode,level:dlSentenceLevel,seq:seq.slice(0,6),idx:0,correct:0,answered:false,picked:[],matches:[],selected:null};
