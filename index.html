@@ -1524,6 +1524,21 @@ function curriculumLesson(id){
  fullStudy(id);
 }
 let moduleSession=null;
+function dlAppConfirm({title,message,cancelText='Cancel',confirmText='Continue',danger=false,onConfirm}){
+ if(document.getElementById('dl-review-exit-overlay'))return;
+ const overlay=document.createElement('div');overlay.id='dl-review-exit-overlay';
+ const dialog=document.createElement('div');dialog.className='dl-review-exit-dialog';dialog.setAttribute('role','dialog');dialog.setAttribute('aria-modal','true');dialog.setAttribute('aria-labelledby','dl-app-confirm-title');
+ const heading=document.createElement('h2');heading.id='dl-app-confirm-title';heading.textContent=title;
+ const body=document.createElement('p');body.textContent=message;
+ const actions=document.createElement('div');actions.className='dl-review-exit-actions';
+ const cancel=document.createElement('button');cancel.type='button';cancel.className='secondary';cancel.textContent=cancelText;
+ const proceed=document.createElement('button');proceed.type='button';proceed.textContent=confirmText;if(danger)proceed.className='dl-danger-confirm';
+ actions.append(cancel,proceed);dialog.append(heading,body,actions);overlay.append(dialog);document.body.append(overlay);
+ function close(){overlay.remove();document.removeEventListener('keydown',onKey)}
+ function onKey(e){if(e.key==='Escape'){e.preventDefault();close()}}
+ cancel.onclick=close;proceed.onclick=()=>{close();onConfirm?.()};
+ document.addEventListener('keydown',onKey);cancel.focus();
+}
 function dlConfirmReviewExit(onLeave){
  if(!moduleSession){onLeave();return}
  if(document.getElementById('dl-review-exit-overlay'))return;
@@ -1664,7 +1679,7 @@ function lessonScreenHeading(){
  header.innerHTML=`<button class="secondary" onclick="leaveLessonScreen()">Back</button><div><strong>${safeText(u.title)}</strong><small>${u.level} · Lesson</small></div>`;
  app.prepend(header);
 }
-function leaveLessonScreen(){if(activeLessonScreen!==null&&!confirm('Leave this lesson? Your current lesson progress will be lost.'))return;let id=activeLessonScreen;activeLessonScreen=null;document.body.classList.remove('lesson-screen');curriculumView(FULL_UNITS[id]?.level||curriculumSelected)}
+function leaveLessonScreen(){const go=()=>{let id=activeLessonScreen;activeLessonScreen=null;document.body.classList.remove('lesson-screen');curriculumView(FULL_UNITS[id]?.level||curriculumSelected)};if(activeLessonScreen!==null)dlAppConfirm({title:'Leave this lesson?',message:'Your current lesson progress will be lost.',cancelText:'Stay in Lesson',confirmText:'Leave Lesson',onConfirm:go});else go()}
 const lessonOriginalStudy=fullStudy;
 fullStudy=function(id){activeLessonScreen=id;document.body.classList.add('lesson-screen');lessonOriginalStudy(id);lessonScreenHeading();window.scrollTo(0,0)};
 const lessonOriginalRender=fullRender;
@@ -3439,14 +3454,16 @@ curriculumModuleIntro=function(level,n){
 </style>
 <script>
 window.dlResetAllProgress=function(){
- if(!confirm('Reset all DeutschLab progress? This will erase completed lessons, review results, XP, badges, and practice history.'))return;
- if(!confirm('Are you sure? This cannot be undone.'))return;
+ dlAppConfirm({title:'Reset all progress?',message:'This will erase completed lessons, review results, XP, badges, and practice history.',cancelText:'Keep Progress',confirmText:'Continue',danger:true,onConfirm:()=>{
+ dlAppConfirm({title:'Confirm permanent reset',message:'Are you sure? This cannot be undone.',cancelText:'Keep Progress',confirmText:'Erase Everything',danger:true,onConfirm:()=>{
  try{
   localStorage.removeItem('deutschlab');
   localStorage.removeItem('deutschlab_articles_v1');
   localStorage.removeItem('deutschlab-active-screen-v2');
   location.reload();
  }catch(err){alert('Unable to reset progress: '+err.message)}
+ }});
+ }});
 };
 </script>
 
@@ -4716,7 +4733,7 @@ body.dl-unified-active #app button.dl-unified-source{display:none!important}
 <script id="dl-lesson-exit-confirm">
 (function(){
  const original=window.navigateTo;
- if(typeof original==='function')window.navigateTo=function(fn){if(typeof activeLessonScreen!=='undefined'&&activeLessonScreen!==null){if(!confirm('Leave this lesson? Your current lesson progress will be lost.'))return;activeLessonScreen=null;document.body.classList.remove('lesson-screen')}return original(fn)};
+ if(typeof original==='function')window.navigateTo=function(fn){if(typeof activeLessonScreen!=='undefined'&&activeLessonScreen!==null){dlAppConfirm({title:'Leave this lesson?',message:'Your current lesson progress will be lost.',cancelText:'Stay in Lesson',confirmText:'Leave Lesson',onConfirm:()=>{activeLessonScreen=null;document.body.classList.remove('lesson-screen');original(fn)}});return}return original(fn)};
 })();
 </script>
 <style id="dl-feedback-proportion-test">
@@ -4755,4 +4772,5 @@ body.dl-unified-active #app button.dl-unified-source{display:none!important}
 .dl-review-exit-actions{display:flex;gap:10px;flex-wrap:wrap}
 .dl-review-exit-actions button{flex:1;min-width:130px;min-height:50px;border-radius:12px}
 </style>
+<style id="dl-confirm-danger-style">.dl-review-exit-dialog .dl-danger-confirm{background:#a83f4e!important;color:white!important}</style>
 </body></html>
