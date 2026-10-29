@@ -3627,9 +3627,28 @@ const kitchenExtraZones=[
  {item:9,x:46,y:40,w:8,h:22},
  {item:9,x:51,y:43,w:5,h:18}
 ];
+const bathroomItems=[
+ {de:'die Badewanne',en:'bathtub',x:0,y:36,w:42,h:43},
+ {de:'das Fenster',en:'window',x:8,y:5,w:18,h:35},
+ {de:'der Spiegel',en:'mirror',x:62,y:3,w:21,h:31},
+ {de:'die Dusche',en:'shower',x:86,y:1,w:14,h:72},
+ {de:'das Waschbecken',en:'sink',x:61,y:35,w:25,h:13},
+ {de:'die Toilette',en:'toilet',x:45,y:34,w:10,h:34},
+ {de:'das Handtuch',en:'towel',x:22,y:53,w:13,h:24},
+ {de:'die Zahnbürste',en:'toothbrush',x:64,y:34,w:3,h:8},
+ {de:'die Ente',en:'rubber duck',x:28,y:48,w:5,h:6},
+ {de:'der Korb',en:'basket',x:0,y:67,w:22,h:30}
+];
+const bathroomExtras=[
+ {item:6,x:60,y:21,w:5,h:22},
+ {item:6,x:82,y:21,w:5,h:22},
+ {item:6,x:94,y:69,w:6,h:12},
+ {item:9,x:53,y:52,w:6,h:15}
+];
 const rooms=[
  {name:'Minka’s living room',image:'./file_0000000028f881f5bd5c11ffc7a7f4cc.png',items,extras:extraFindItZones},
- {name:'The sunny kitchen',image:'./file_00000000f6dc81f5a53d075ab54c5e25.png',items:kitchenItems,extras:kitchenExtraZones}
+ {name:'The sunny kitchen',image:'./file_00000000f6dc81f5a53d075ab54c5e25.png',items:kitchenItems,extras:kitchenExtraZones},
+ {name:'The cozy bathroom',image:'./deutschlab_bathroom_fox.png',items:bathroomItems,extras:bathroomExtras}
 ];
 function activeRoom(){return rooms[session?.room||0]}
 function sceneMarkup(){
@@ -3641,7 +3660,7 @@ window.findItPraise=function(){if(session&&session.phrase&&typeof speak==='funct
 window.findItHome=function(){
  session={room:0,queue:order(),idx:0,hearts:3,locked:false,phrase:''};
  document.body.classList.remove('lesson-screen');
- app.innerHTML='<div class="findit-shell"><section class="findit-intro"><h2>Find It! — Choose a room</h2><p>Find ten German words in each room. You have three hearts.</p><div class="findit-room-choices"><button class="findit-room-choice" onclick="findItStart(0)"><img src="./file_0000000028f881f5bd5c11ffc7a7f4cc.png" alt="" loading="lazy"><span>Living room</span></button><button class="findit-room-choice" onclick="findItStart(1)"><img src="./file_00000000f6dc81f5a53d075ab54c5e25.png" alt="" loading="lazy"><span>Sunny kitchen</span></button></div></section></div>';
+ app.innerHTML='<div class="findit-shell"><section class="findit-intro"><h2>Find It! — Choose a room</h2><p>Find ten German words in each room. You have three hearts.</p><div class="findit-room-choices"><button class="findit-room-choice" onclick="findItStart(0)"><img src="./file_0000000028f881f5bd5c11ffc7a7f4cc.png" alt="" loading="lazy"><span>Living room</span></button><button class="findit-room-choice" onclick="findItStart(1)"><img src="./file_00000000f6dc81f5a53d075ab54c5e25.png" alt="" loading="lazy"><span>Sunny kitchen</span></button><button class="findit-room-choice" onclick="findItStart(2)"><img src="./deutschlab_bathroom_fox.png" alt="" loading="lazy"><span>Cozy bathroom</span></button></div></section></div>';
  window.scrollTo(0,0);
 };
 window.findItStart=function(roomIndex=0){const room=rooms[roomIndex]||rooms[0];session={room:roomIndex,queue:room.items.slice().sort(()=>Math.random()-.5),idx:0,hearts:3,locked:false,phrase:''};render()};
