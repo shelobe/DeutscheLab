@@ -872,9 +872,16 @@ const LISTENING_LEVELS={
 const LISTENING_ITEMS=Object.fromEntries(Object.entries(LISTENING_LEVELS).map(([level,rows])=>[level,rows.map(([en,de])=>({en,de,tokens:de.split(' ')}))]));
 function listeningLevels(){
  gameSession=null;
- app.innerHTML='<section class="card"><h2>Listening challenge</h2><p>Choose your German level. Listen to a sentence and identify its meaning or its written German form.</p><div class="game-grid">'+Object.keys(LISTENING_ITEMS).map(level=>'<button onclick="gameStart(\'listen\',\''+level+'\')">'+level+'<br><small>'+({A1:'Beginner',A2:'Elementary',B1:'Intermediate',B2:'Upper intermediate'}[level])+'</small></button>').join('')+'</div><button class="secondary" onclick="gameHub()">Back to practice games</button></section>';
+ app.innerHTML='<section class="card"><h2>Listening challenge</h2><p>Choose your German level. Listen to a sentence and identify its meaning or its written German form.</p><div class="game-grid">'+Object.keys(LISTENING_ITEMS).map(level=>'<button type="button" data-listening-level="'+level+'">'+level+'<br><small>'+({A1:'Beginner',A2:'Elementary',B1:'Intermediate',B2:'Upper intermediate'}[level])+'</small></button>').join('')+'</div><button class="secondary" onclick="gameHub()">Back to practice games</button></section>';
  window.scrollTo(0,0);
 }
+document.addEventListener('click',function(e){
+ const button=e.target.closest('[data-listening-level]');
+ if(!button)return;
+ e.preventDefault();
+ const level=button.getAttribute('data-listening-level');
+ if(LISTENING_ITEMS[level])gameStart('listen',level);
+});
 function listeningSpeak(t,slow=false){
  try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='de-DE';u.rate=slow?0.7:0.84;u.pitch=1;const voices=speechSynthesis.getVoices();const voice=voices.find(v=>v.lang.toLowerCase()==='de-de'&&v.localService)||voices.find(v=>v.lang.toLowerCase().startsWith('de'));if(voice)u.voice=voice;speechSynthesis.speak(u)}catch(e){speak(t)}
 }
