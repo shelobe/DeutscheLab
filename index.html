@@ -893,7 +893,8 @@ function gameRender(){
  }else if(g.mode==='listen'){
  let other=[...GAME_ITEMS.keys()].filter(i=>i!==g.seq[g.idx]).sort(()=>Math.random()-.5).slice(0,3);
  let choices=[g.seq[g.idx],...other].sort(()=>Math.random()-.5);g.choices=choices;
- body=`<h3>What do you hear?</h3><button onclick="speak(${JSON.stringify(item.de).replace(/"/g,'&quot;')})">🔊 Play German audio</button><div class="picture-choices">${choices.map((i,n)=>`<button class="secondary" onclick="gameChoose(${n})">${safeText(GAME_ITEMS[i].en)}</button>`).join('')}</div>`;
+ g.listenWritten=(g.idx%2===1);
+ body=`<h3>${g.listenWritten?'Which German sentence do you hear?':'What does the German sentence mean?'}</h3><button onclick="speak(${JSON.stringify(item.de).replace(/"/g,'&quot;')})">🔊 Play German audio</button><div class="picture-choices">${choices.map((i,n)=>`<button class="secondary" onclick="gameChoose(${n})">${safeText(g.listenWritten?GAME_ITEMS[i].de:GAME_ITEMS[i].en)}</button>`).join('')}</div>`;
  }else{
  let pairA=PICTURE_WORDS.slice((g.seq[g.idx]*3)%24,(g.seq[g.idx]*3)%24+4);
  g.pairs=pairA;g.left=pairA.map((w,i)=>i).sort(()=>Math.random()-.5);g.right=pairA.map((w,i)=>i).sort(()=>Math.random()-.5);
