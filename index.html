@@ -1647,7 +1647,7 @@ function lessonScreenHeading(){
  header.innerHTML=`<button class="secondary" onclick="leaveLessonScreen()">Back</button><div><strong>${safeText(u.title)}</strong><small>${u.level} · Lesson</small></div>`;
  app.prepend(header);
 }
-function leaveLessonScreen(){let id=activeLessonScreen;activeLessonScreen=null;document.body.classList.remove('lesson-screen');curriculumView(FULL_UNITS[id]?.level||curriculumSelected)}
+function leaveLessonScreen(){if(activeLessonScreen!==null&&!confirm('Leave this lesson? Your current lesson progress will be lost.'))return;let id=activeLessonScreen;activeLessonScreen=null;document.body.classList.remove('lesson-screen');curriculumView(FULL_UNITS[id]?.level||curriculumSelected)}
 const lessonOriginalStudy=fullStudy;
 fullStudy=function(id){activeLessonScreen=id;document.body.classList.add('lesson-screen');lessonOriginalStudy(id);lessonScreenHeading();window.scrollTo(0,0)};
 const lessonOriginalRender=fullRender;
@@ -4690,4 +4690,15 @@ body.dl-unified-active #app button.dl-unified-source{display:none!important}
 #app .dl-result-badge .dl-result-label{font-size:clamp(1.12rem,4.7vw,1.48rem)!important;white-space:normal!important}
 @media(max-width:380px){#app .dl-result-badge{margin-left:12px!important;padding-left:105px!important}#app .dl-result-badge img{left:-12px!important;width:115px!important;height:130px!important}}
 </style>
+
+<style id="dl-feedback-bottom-align">
+#app .dl-result-badge{min-height:120px!important;padding-top:15px!important;padding-bottom:15px!important}
+#app .dl-result-badge img{bottom:-1px!important;height:142px!important;object-position:center bottom!important}
+</style>
+<script id="dl-lesson-exit-confirm">
+(function(){
+ const original=window.navigateTo;
+ if(typeof original==='function')window.navigateTo=function(fn){if(typeof activeLessonScreen!=='undefined'&&activeLessonScreen!==null){if(!confirm('Leave this lesson? Your current lesson progress will be lost.'))return;activeLessonScreen=null;document.body.classList.remove('lesson-screen')}return original(fn)};
+})();
+</script>
 </body></html>
