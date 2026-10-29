@@ -3979,11 +3979,47 @@ const gardenExtras=[
  {item:7,x:45,y:36,w:10,h:26},
  {item:1,x:28,y:12,w:6,h:6}
 ];
+const farmItems=[
+ {de:'das Kaninchen',en:'rabbit',x:18,y:46,w:20,h:42},
+ {de:'die Kuh',en:'cow',x:14,y:21,w:25,h:23},
+ {de:'das Pferd',en:'horse',x:39,y:23,w:23,h:22},
+ {de:'das Schaf',en:'sheep',x:61,y:30,w:16,h:19},
+ {de:'das Schwein',en:'pig',x:82,y:62,w:17,h:21},
+ {de:'das Huhn',en:'chicken',x:55,y:50,w:15,h:22},
+ {de:'das Küken',en:'chick',x:63,y:66,w:8,h:9},
+ {de:'die Scheune',en:'barn',x:32,y:13,w:19,h:17},
+ {de:'das Windrad',en:'windmill',x:52,y:0,w:10,h:29},
+ {de:'der Zaun',en:'fence',x:22,y:37,w:32,h:16},
+ {de:'das Tor',en:'gate',x:50,y:40,w:16,h:22},
+ {de:'das Heu',en:'hay',x:78,y:9,w:22,h:48},
+ {de:'die Heugabel',en:'pitchfork',x:74,y:34,w:7,h:31},
+ {de:'der Eimer',en:'bucket',x:95,y:52,w:5,h:10},
+ {de:'die Karotte',en:'carrot',x:29,y:69,w:7,h:14},
+ {de:'die Sonnenblume',en:'sunflower',x:0,y:13,w:13,h:22},
+ {de:'die Blume',en:'flower',x:0,y:85,w:15,h:15},
+ {de:'der Baum',en:'tree',x:0,y:0,w:31,h:21},
+ {de:'das Vogelhaus',en:'birdhouse',x:7,y:3,w:11,h:20},
+ {de:'der Schmetterling',en:'butterfly',x:0,y:52,w:6,h:11},
+ {de:'die Wasserpumpe',en:'water pump',x:10,y:37,w:8,h:25}
+];
+const farmExtras=[
+ {item:5,x:66,y:53,w:10,h:15},
+ {item:6,x:71,y:66,w:5,h:9},
+ {item:6,x:70,y:58,w:5,h:8},
+ {item:14,x:32,y:85,w:8,h:8},
+ {item:14,x:9,y:76,w:9,h:9},
+ {item:15,x:4,y:19,w:10,h:13},
+ {item:15,x:1,y:27,w:11,h:12},
+ {item:16,x:0,y:73,w:17,h:13},
+ {item:16,x:0,y:45,w:11,h:8},
+ {item:11,x:85,y:18,w:15,h:31}
+];
 const rooms=[
  {name:'Minka’s living room',image:'./file_0000000028f881f5bd5c11ffc7a7f4cc.png',items,extras:extraFindItZones},
  {name:'The sunny kitchen',image:'./file_00000000f6dc81f5a53d075ab54c5e25.png',items:kitchenItems,extras:kitchenExtraZones},
  {name:'The cozy bathroom',image:'./a_warm_cozy_colorful_cartoon_illustration_of_a_d.png',items:bathroomItems,extras:bathroomExtras},
- {name:'The sunny garden',image:'./file_00000000dca881f5b90c49c8ddc2f964.png',items:gardenItems,extras:gardenExtras}
+ {name:'The sunny garden',image:'./file_00000000dca881f5b90c49c8ddc2f964.png',items:gardenItems,extras:gardenExtras},
+ {name:'The farm',image:'./file_0000000093d081f5aac5488c3d81882b.png',items:farmItems,extras:farmExtras}
 ];
 function activeRoom(){return rooms[session?.room||0]}
 function sceneMarkup(){
@@ -3995,7 +4031,7 @@ window.findItPraise=function(){if(session&&session.phrase&&typeof speak==='funct
 window.findItHome=function(){
  session={room:0,queue:order(),idx:0,hearts:3,locked:false,phrase:''};
  document.body.classList.remove('lesson-screen');
- app.innerHTML='<div class="findit-shell"><section class="findit-intro"><h2>Find It! — Choose a scene</h2><p>Find ten German words in each scene. You have three hearts.</p><div class="findit-room-choices"><button class="findit-room-choice" onclick="findItStart(0)"><img src="./file_0000000028f881f5bd5c11ffc7a7f4cc.png" alt="" loading="lazy"><span>Living room</span></button><button class="findit-room-choice" onclick="findItStart(1)"><img src="./file_00000000f6dc81f5a53d075ab54c5e25.png" alt="" loading="lazy"><span>Sunny kitchen</span></button><button class="findit-room-choice" onclick="findItStart(2)"><img src="./a_warm_cozy_colorful_cartoon_illustration_of_a_d.png" alt="" loading="lazy"><span>Cozy bathroom</span></button><button class="findit-room-choice" onclick="findItStart(3)"><img src="./file_00000000dca881f5b90c49c8ddc2f964.png" alt="" loading="lazy"><span>Sunny garden</span></button></div></section></div>';
+ app.innerHTML='<div class="findit-shell"><section class="findit-intro"><h2>Find It! — Choose a scene</h2><p>Find ten German words in each scene. You have three hearts.</p><div class="findit-room-choices"><button class="findit-room-choice" onclick="findItStart(0)"><img src="./file_0000000028f881f5bd5c11ffc7a7f4cc.png" alt="" loading="lazy"><span>Living room</span></button><button class="findit-room-choice" onclick="findItStart(1)"><img src="./file_00000000f6dc81f5a53d075ab54c5e25.png" alt="" loading="lazy"><span>Sunny kitchen</span></button><button class="findit-room-choice" onclick="findItStart(2)"><img src="./a_warm_cozy_colorful_cartoon_illustration_of_a_d.png" alt="" loading="lazy"><span>Cozy bathroom</span></button><button class="findit-room-choice" onclick="findItStart(3)"><img src="./file_00000000dca881f5b90c49c8ddc2f964.png" alt="" loading="lazy"><span>Sunny garden</span></button><button class="findit-room-choice" onclick="findItStart(4)"><img src="./file_0000000093d081f5aac5488c3d81882b.png" alt="" loading="lazy"><span>The farm</span></button></div></section></div>';
  window.scrollTo(0,0);
 };
 window.findItStart=function(roomIndex=0){const room=rooms[roomIndex]||rooms[0];session={room:roomIndex,queue:room.items.slice().sort(()=>Math.random()-.5),idx:0,hearts:3,locked:false,phrase:''};render()};
