@@ -4639,9 +4639,9 @@ body.dl-unified-active #app button.dl-unified-source{display:none!important}
   const good=/^(correct|richtig)/i.test(label.textContent.trim());
   const box=document.createElement('div');box.className='dl-result-badge '+(good?'dl-result-good':'dl-result-bad');
   const icon=document.createElement('img');
-  const characters=['dog','cat','fox','owl','rabbit','panda'];const id=characters[Math.floor(Math.random()*characters.length)];
-  icon.src='feedback_'+(good?'correct':'incorrect')+'_'+id+'.png';icon.alt=(good?'Celebrating ':'Thoughtful ')+id+' character';
-  icon.onerror=function(){this.onerror=null;this.src='avatar_'+id+'.webp'};
+  const id='panda';
+  icon.src='a_clean_high_resolution_png_style_illustration_o-8%20(1).png';icon.alt='Red panda test character';
+  icon.onerror=function(){this.onerror=null;this.src='avatar_panda.webp'};
   label.classList.add('dl-result-label');label.textContent=good?'Well done!':'Not quite!';label.before(box);box.append(icon,label);
  }}
  let queued=false;new MutationObserver(()=>{if(queued)return;queued=true;requestAnimationFrame(()=>{queued=false;apply()})}).observe(root,{childList:true,subtree:true});apply();
