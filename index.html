@@ -260,9 +260,35 @@ function practiceAnswer(id,i,mode){let m=COURSE[id],ok=i===m.ans;if(!ok)dlWrongH
 const listeningSet=[['Guten Morgen','Good morning'],['Ich habe einen Hund','I have a dog'],['Wo ist der Bahnhof?','Where is the train station?'],['Ich möchte einen Kaffee','I would like a coffee'],['Heute ist das Wetter schön','The weather is nice today'],['Wir gehen morgen einkaufen','We are going shopping tomorrow']];
 function listeningPractice(){let i=Math.floor(Math.random()*listeningSet.length),entry=listeningSet[i],wrong=listeningSet[(i+2)%listeningSet.length][1],wrong2=listeningSet[(i+4)%listeningSet.length][1],opts=[entry[1],wrong,wrong2].sort(()=>Math.random()-.5);app.innerHTML=illustratedHero('Listen and understand','Listen before choosing a meaning.','village','katze.png')+`<section class="card"><p>Tap to hear the German sentence.</p><button onclick="speak(${JSON.stringify(entry[0]).replace(/"/g,'&quot;')})">🔊 Play German</button><h3>What did you hear?</h3>${opts.map(o=>`<button class="secondary" onclick="listeningAnswer(${JSON.stringify(o).replace(/"/g,'&quot;')},${JSON.stringify(entry[1]).replace(/"/g,'&quot;')},${JSON.stringify(entry[0]).replace(/"/g,'&quot;')})">${safeText(o)}</button>`).join('')}<div id="listenFeedback"></div></section>`}
 function listeningAnswer(choice,answer,german){let ok=choice===answer;practiceLog(ok?10:2);app.querySelectorAll('.card button').forEach(b=>b.disabled=true);document.getElementById('listenFeedback').innerHTML=`<p class="${ok?'correct':'wrong'}">${ok?'Correct!':'Correct meaning: '+safeText(answer)}</p><p>${safeText(german)}</p><button onclick="listeningPractice()">Another sentence</button><button class="secondary" onclick="practiceHub()">Finish</button>`}
-const sentences=[['Ich habe einen Hund','I have a dog'],['Heute gehe ich einkaufen','Today I am going shopping'],['Wir lernen Deutsch','We are learning German'],['Die Katze schläft auf dem Sofa','The cat sleeps on the sofa'],['Morgen rufe ich dich an','Tomorrow I will call you']];let sentenceTarget=[],sentenceChosen=[];
-function sentencePractice(){let pair=sentences[Math.floor(Math.random()*sentences.length)];sentenceTarget=pair[0].split(' ');sentenceChosen=[];let shuffled=sentenceTarget.map((w,i)=>({w,i})).sort(()=>Math.random()-.5);app.innerHTML=illustratedHero('Build a sentence',pair[1],'village','hund.png')+`<section class="card"><h3>Tap the words in the correct order</h3><div id="sentenceBuilt" class="bubble">Tap words below…</div><div id="sentenceTiles">${shuffled.map(x=>`<button class="secondary" id="word${x.i}" onclick="chooseSentenceWord(${x.i},${JSON.stringify(x.w).replace(/"/g,'&quot;')})">${safeText(x.w.replace(/[.!?]+$/,''))}</button>`).join('')}</div><button onclick="sentencePractice()">Skip</button><button class="secondary" onclick="dlSentenceHelpToggle()">Show grammar help</button><div id="dlSentenceHelp" class="explain-box" hidden></div><div id="sentenceFeedback"></div></section>`}
-function chooseSentenceWord(i,w){sentenceChosen.push(w);document.getElementById('word'+i).disabled=true;document.getElementById('sentenceBuilt').textContent=sentenceChosen.join(' ').replace(/[.!?]+(?=\s|$)/g,'');if(sentenceChosen.length===sentenceTarget.length){let ok=sentenceChosen.join(' ')===sentenceTarget.join(' ');practiceLog(ok?10:2);document.getElementById('sentenceFeedback').innerHTML=`<p class="${ok?'correct':'wrong'}">${ok?'Correct!':'Correct order: '+safeText(sentenceTarget.join(' '))}</p>${ok?'<button class="secondary" onclick="speak(sentenceTarget.join(\" \"))">🔊 Replay sentence</button>':''}<button onclick="sentencePractice()">Next sentence</button><button class="secondary" onclick="practiceHub()">Finish</button>`;if(ok)setTimeout(()=>speak(sentenceTarget.join(' ')),350)}}
+const sentences=[['Ich habe einen Hund','I have a dog'],['Heute gehe ich einkaufen','Today I am going shopping'],['Wir lernen Deutsch','We are learning German'],['Die Katze schläft auf dem Sofa','The cat sleeps on the sofa'],['Morgen rufe ich dich an','Tomorrow I will call you']];let sentenceTarget=[],sentenceChosen=[],sentenceChosenIds=[];
+function sentencePractice(){let pair=sentences[Math.floor(Math.random()*sentences.length)];sentenceTarget=pair[0].split(' ');sentenceChosen=[];sentenceChosenIds=[];let shuffled=sentenceTarget.map((w,i)=>({w,i})).sort(()=>Math.random()-.5);app.innerHTML=illustratedHero('Build a sentence',pair[1],'village','hund.png')+`<section class="card"><h3>Tap the words in the correct order</h3><div id="sentenceBuilt" class="bubble">Tap words below…</div><button type="button" class="secondary" onclick="resetSentenceWords()">Reset words</button><div id="sentenceTiles">${shuffled.map(x=>`<button class="secondary" id="word${x.i}" onclick="chooseSentenceWord(${x.i},${JSON.stringify(x.w).replace(/"/g,'&quot;')})">${safeText(x.w.replace(/[.!?]+$/,''))}</button>`).join('')}</div><button onclick="sentencePractice()">Skip</button><button class="secondary" onclick="dlSentenceHelpToggle()">Show grammar help</button><div id="dlSentenceHelp" class="explain-box" hidden></div><div id="sentenceFeedback"></div></section>`}
+function updateSentenceBuilt(){
+ const el=document.getElementById('sentenceBuilt');if(!el)return;
+ el.innerHTML=sentenceChosen.length?sentenceChosen.map((w,n)=>'<button type="button" class="secondary" style="display:inline-block;margin:3px;padding:8px 12px" onclick="removeSentenceWord('+n+')" aria-label="Remove '+safeText(w)+'">'+safeText(w.replace(/[.!?]+$/,''))+' ×</button>').join(' '):'Tap words below…';
+}
+function removeSentenceWord(n){
+ if(document.getElementById('sentenceFeedback')?.innerHTML)return;
+ const id=sentenceChosenIds.splice(n,1)[0];sentenceChosen.splice(n,1);
+ const tile=document.getElementById('word'+id);if(tile)tile.disabled=false;
+ updateSentenceBuilt();
+}
+function resetSentenceWords(){
+ if(document.getElementById('sentenceFeedback')?.innerHTML)return;
+ sentenceChosen=[];sentenceChosenIds=[];
+ document.querySelectorAll('#sentenceTiles button').forEach(b=>b.disabled=false);
+ updateSentenceBuilt();
+}
+function chooseSentenceWord(i,w){
+ if(sentenceChosenIds.includes(i)||document.getElementById('sentenceFeedback')?.innerHTML)return;
+ sentenceChosen.push(w);sentenceChosenIds.push(i);
+ document.getElementById('word'+i).disabled=true;updateSentenceBuilt();
+ if(sentenceChosen.length===sentenceTarget.length){
+  let ok=sentenceChosen.join(' ')===sentenceTarget.join(' ');
+  practiceLog(ok?10:2);
+  document.getElementById('sentenceFeedback').innerHTML=`<p class="${ok?'correct':'wrong'}">${ok?'Correct!':'Correct order: '+safeText(sentenceTarget.join(' '))}</p>${ok?'<button class="secondary" onclick="speak(sentenceTarget.join(&quot; &quot;))">🔊 Replay sentence</button>':''}<button onclick="sentencePractice()">Next sentence</button><button class="secondary" onclick="practiceHub()">Finish</button>`;
+  if(ok)setTimeout(()=>speak(sentenceTarget.join(' ')),350);
+ }
+}
 const oldPersonalHome=home;home=function(){oldPersonalHome();let p=practiceState(),today=p.activity[new Date().toLocaleDateString('en-CA')]||0;app.insertAdjacentHTML('afterbegin',`<section class="card"><h2>Daily practice</h2><p>${today}/30 XP today · ${practiceStreak()}-day streak</p><button onclick="practiceHub()">Open practice hub</button></section>`)};
 let menu=document.getElementById('sideMenu');let practiceButton=document.createElement('button');practiceButton.textContent='✦ Practice Hub';practiceButton.setAttribute('onclick',"navigateTo('practiceHub')");let reviewButton=[...menu.querySelectorAll('button')].find(x=>x.textContent.includes('Review'));if(reviewButton)reviewButton.before(practiceButton);else menu.appendChild(practiceButton);
 home();
