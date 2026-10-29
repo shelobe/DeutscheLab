@@ -334,13 +334,40 @@ function resetSentenceWords(){
  document.querySelectorAll('#sentenceTiles button').forEach(b=>b.disabled=false);
  updateSentenceBuilt();
 }
+// Accept vetted grammatical variants, never arbitrary permutations of words.
+const SENTENCE_VALID_ALTERNATIVES={
+ 'Ich muss heute Brot kaufen':['Heute muss ich Brot kaufen'],
+ 'Heute gehe ich einkaufen':['Ich gehe heute einkaufen'],
+ 'Morgen rufe ich dich an':['Ich rufe dich morgen an'],
+ 'Morgen kaufe ich Äpfel':['Ich kaufe morgen Äpfel'],
+ 'Ich trinke morgens Wasser':['Morgens trinke ich Wasser'],
+ 'Die Kinder spielen draußen':['Draußen spielen die Kinder'],
+ 'Wir essen Brot und Käse':['Brot und Käse essen wir'],
+ 'Ich suche meine Schlüssel':['Meine Schlüssel suche ich'],
+ 'Der Hund sitzt unter dem Tisch':['Unter dem Tisch sitzt der Hund'],
+ 'Die Katze schläft auf dem Sofa':['Auf dem Sofa schläft die Katze'],
+ 'Die Katze schläft auf dem Bett':['Auf dem Bett schläft die Katze'],
+ 'Wir gehen zum Bahnhof':['Zum Bahnhof gehen wir'],
+ 'Mein Bruder hat ein Fahrrad':['Ein Fahrrad hat mein Bruder'],
+ 'Sie liest ein Buch':['Ein Buch liest sie'],
+ 'Ich habe einen Hund':['Einen Hund habe ich'],
+ 'Wir lernen Deutsch':['Deutsch lernen wir']
+};
+function normalizeSentenceAnswer(words){
+ return words.join(' ').replace(/[.!?]+$/,'').replace(/\\s+/g,' ').trim().toLocaleLowerCase('de-DE');
+}
+function sentenceAnswerIsCorrect(chosen,target){
+ const canonical=target.join(' ').replace(/[.!?]+$/,'').trim();
+ const actual=normalizeSentenceAnswer(chosen);
+ return [canonical,...(SENTENCE_VALID_ALTERNATIVES[canonical]||[])].some(candidate=>normalizeSentenceAnswer([candidate])===actual);
+}
 function chooseSentenceWord(i,w){
  if(sentenceChosenIds.includes(i)||document.getElementById('sentenceFeedback')?.innerHTML)return;
  sentenceChosen.push(w);sentenceChosenIds.push(i);
  try{speechSynthesis.cancel();const utterance=new SpeechSynthesisUtterance(w.replace(/[.!?]+$/,''));utterance.lang='de-DE';utterance.rate=0.84;const voice=speechSynthesis.getVoices().find(v=>v.lang.toLowerCase().startsWith('de'));if(voice)utterance.voice=voice;speechSynthesis.speak(utterance)}catch(e){}
  document.getElementById('word'+i).disabled=true;updateSentenceBuilt();
  if(sentenceChosen.length===sentenceTarget.length){
-  let ok=sentenceChosen.join(' ')===sentenceTarget.join(' ');
+  let ok=sentenceAnswerIsCorrect(sentenceChosen,sentenceTarget);
   practiceLog(ok?10:2);
   if(sentenceRound&&ok)sentenceRound.correct++;
   document.getElementById('sentenceFeedback').innerHTML=`<p class="${ok?'correct':'wrong'}">${ok?'Correct!':'Correct order: '+safeText(sentenceTarget.join(' '))}</p>`;
