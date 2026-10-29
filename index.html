@@ -256,7 +256,7 @@ courseAnswer=function(id,i){recordQuestion(COURSE[id],i===COURSE[id].ans);priorC
 function practiceHub(){let p=practiceState(),due=Object.keys(p.reviews).filter(k=>p.reviews[k].due<=Date.now()).length,wrong=Object.keys(p.mistakes).length,day=new Date().toLocaleDateString('en-CA'),earned=p.activity[day]||0;
 app.innerHTML=illustratedHero('Practice with Fritzi','Choose what to strengthen today.','forest','hund.png')+`<section class="card"><h2>Today’s progress</h2><p>${earned}/30 daily XP · ${practiceStreak()}-day streak · ${p.xp} total XP</p><div id="progress"><div id="bar" style="width:${Math.min(100,earned/30*100)}%"></div></div><p class="muted">Your streak is optional; missed days never block lessons.</p></section><div class="sceneCards"><button class="sceneCard" onclick="practiceQuiz('mistakes')">✍️<br>Fix mistakes (${wrong})</button><button class="sceneCard" onclick="practiceQuiz('due')">🧠<br>Review due (${due})</button><button class="sceneCard" onclick="listeningPractice()">🎧<br>Listening</button><button class="sceneCard" onclick="sentencePractice()">🧩<br>Build sentences</button></div><section class="card"><button onclick="courseMenu(state.learning.placement?.recommended||'A1')">Continue learning</button></section>`}
 function practiceQuiz(mode){let p=practiceState(),ids=mode==='mistakes'?Object.keys(p.mistakes):Object.keys(p.reviews).filter(k=>p.reviews[k].due<=Date.now());if(!ids.length){app.innerHTML=`<section class="card"><h2>All caught up!</h2><p>No ${mode==='mistakes'?'recorded mistakes':'reviews due'} yet. Try a lesson or listening practice.</p><button onclick="practiceHub()">Back to practice</button></section>`;return}let id=Number(ids[0]),m=COURSE[id];if(!m)return practiceHub();app.innerHTML=illustratedHero(mode==='mistakes'?'Fix a mistake':'Memory review',m.level+' · '+m.skill,'cafe','katze.png')+`<section class="card"><h3>${safeText(m.q)}</h3>${m.opts.map((o,i)=>`<button class="secondary" onclick="practiceAnswer(${id},${i},'${mode}')">${safeText(o)}</button>`).join('')}<div id="practiceFeedback"></div></section>`}
-function practiceAnswer(id,i,mode){let m=COURSE[id],ok=i===m.ans;recordQuestion(m,ok);app.querySelectorAll('.card button').forEach(b=>b.disabled=true);document.getElementById('practiceFeedback').innerHTML=`<p class="${ok?'correct':'wrong'}">${ok?'Correct!':'Answer: '+safeText(m.opts[m.ans])}</p><p>${safeText(m.why)}</p><button onclick="practiceQuiz('${mode}')">Next</button><button class="secondary" onclick="practiceHub()">Finish</button>`}
+function practiceAnswer(id,i,mode){let m=COURSE[id],ok=i===m.ans;if(!ok)dlWrongHaptic();recordQuestion(m,ok);app.querySelectorAll('.card button').forEach(b=>b.disabled=true);document.getElementById('practiceFeedback').innerHTML=`<p class="${ok?'correct':'wrong'}">${ok?'Correct!':'Answer: '+safeText(m.opts[m.ans])}</p><p>${safeText(m.why)}</p><button onclick="practiceQuiz('${mode}')">Next</button><button class="secondary" onclick="practiceHub()">Finish</button>`}
 const listeningSet=[['Guten Morgen','Good morning'],['Ich habe einen Hund','I have a dog'],['Wo ist der Bahnhof?','Where is the train station?'],['Ich möchte einen Kaffee','I would like a coffee'],['Heute ist das Wetter schön','The weather is nice today'],['Wir gehen morgen einkaufen','We are going shopping tomorrow']];
 function listeningPractice(){let i=Math.floor(Math.random()*listeningSet.length),entry=listeningSet[i],wrong=listeningSet[(i+2)%listeningSet.length][1],wrong2=listeningSet[(i+4)%listeningSet.length][1],opts=[entry[1],wrong,wrong2].sort(()=>Math.random()-.5);app.innerHTML=illustratedHero('Listen and understand','Listen before choosing a meaning.','village','katze.png')+`<section class="card"><p>Tap to hear the German sentence.</p><button onclick="speak(${JSON.stringify(entry[0]).replace(/"/g,'&quot;')})">🔊 Play German</button><h3>What did you hear?</h3>${opts.map(o=>`<button class="secondary" onclick="listeningAnswer(${JSON.stringify(o).replace(/"/g,'&quot;')},${JSON.stringify(entry[1]).replace(/"/g,'&quot;')},${JSON.stringify(entry[0]).replace(/"/g,'&quot;')})">${safeText(o)}</button>`).join('')}<div id="listenFeedback"></div></section>`}
 function listeningAnswer(choice,answer,german){let ok=choice===answer;practiceLog(ok?10:2);app.querySelectorAll('.card button').forEach(b=>b.disabled=true);document.getElementById('listenFeedback').innerHTML=`<p class="${ok?'correct':'wrong'}">${ok?'Correct!':'Correct meaning: '+safeText(answer)}</p><p>${safeText(german)}</p><button onclick="listeningPractice()">Another sentence</button><button class="secondary" onclick="practiceHub()">Finish</button>`}
@@ -803,7 +803,7 @@ function pictureTyped(correct){pictureGrade(correct,document.getElementById('pic
 function pictureGrade(id,submitted){
  let s=pictureSession;if(!s||s.answered)return;
  let w=PICTURE_WORDS[id],norm=t=>t.toLocaleLowerCase('de-DE').trim().replace(/\s+/g,' ').normalize('NFC');
- let ok=norm(submitted)===norm(w[0]);s.answered=true;if(ok)s.correct++;
+ let ok=norm(submitted)===norm(w[0]);if(!ok)dlWrongHaptic();s.answered=true;if(ok)s.correct++;
  state.pictureProgress??={attempts:0,correct:0};state.pictureProgress.attempts++;if(ok)state.pictureProgress.correct++;save();
  app.querySelectorAll('.picture-choices button,form button,.picture-input').forEach(b=>b.disabled=true);
  let feedback=document.getElementById('pictureFeedback');
@@ -906,6 +906,7 @@ function gameRender(){
 function gamePick(n){let g=gameSession;if(g.answered||g.picked.includes(n))return;g.picked.push(n);document.getElementById('gb'+n).disabled=true;document.getElementById('gameBuilt').textContent=g.picked.map(i=>GAME_ITEMS[g.seq[g.idx]].tokens[g.order[i]]).join(' ').replace(/[.!?]+(?=\s|$)/g,'')}
 function gameCheckBuild(){let g=gameSession;if(g.answered)return;let item=GAME_ITEMS[g.seq[g.idx]],guess=g.picked.map(i=>item.tokens[g.order[i]]).join(' ');if(g.picked.length!==item.tokens.length){document.getElementById('gameFeedback').textContent='Use all the words first.';return}gameMark(guess.replace(/[.!?]+(?=\s|$)/g,'').trim()===item.de.replace(/[.!?]+(?=\s|$)/g,'').trim(),item.de)}
 function gameChoose(n){let g=gameSession;if(g.answered)return;let item=GAME_ITEMS[g.seq[g.idx]];gameMark(g.choices[n]===g.seq[g.idx],item.de+' — '+item.en)}
+function dlWrongHaptic(){try{if(navigator.vibrate)navigator.vibrate(110)}catch(e){}}
 function gameMatch(side,n){
  let g=gameSession;if(!g||g.answered||g.matches.includes(n))return;
  // Pronounce the German noun whenever its tile is selected, regardless of selection order.
@@ -914,13 +915,14 @@ function gameMatch(side,n){
  let a=g.selected;document.getElementById((a.side==='l'?'gl':'gr')+a.n).style.outline='';
  g.selected=null;if(a.side===side){g.selected={side,n};document.getElementById((side==='l'?'gl':'gr')+n).style.outline='3px solid #f4d487';return}
  if(a.n===n){g.matches.push(n);document.getElementById('gl'+n).disabled=true;document.getElementById('gr'+n).disabled=true;document.getElementById('gl'+n).classList.add('match-complete');document.getElementById('gr'+n).classList.add('match-complete');document.getElementById('gameMatched').textContent=g.matches.length+' / 4 pairs matched';if(g.matches.length===4)gameMark(true,'All four pairs matched!')}
- else{document.getElementById('gameFeedback').textContent='Not a match. Try another pair.'}
+ else{dlWrongHaptic();document.getElementById('gameFeedback').textContent='Not a match. Try another pair.'}
 }
 function dlReverseGrammarNote(de){
  if(/\bdieses\s+(Buch|Kind|Haus|Auto|Mädchen|Zimmer|Wort)\b/i.test(de))return '<p class="dl-reverse-grammar"><strong>Why dieses?</strong> <em>Buch</em> is neuter (<em>das Buch</em>). The ending <em>-es</em> is used with a neuter noun in the nominative or accusative case.</p>';
  return '';
 }
 function gameMark(ok,answer){
+ if(!ok)dlWrongHaptic();
  let g=gameSession;if(!g||g.answered)return;g.answered=true;if(ok)g.correct++;
  state.gameStats??={played:0,correct:0};state.gameStats.played++;if(ok)state.gameStats.correct++;save();
  app.querySelectorAll('.card button').forEach(b=>b.disabled=true);
