@@ -4682,4 +4682,12 @@ body.dl-unified-active #app button.dl-unified-source{display:none!important}
 #app .dl-result-badge .dl-result-label{position:relative!important;z-index:3!important;font-size:clamp(1.15rem,5vw,1.6rem)!important;line-height:1.2!important;overflow-wrap:anywhere!important}
 @media(max-width:380px){#app .dl-result-badge{margin-left:22px!important;padding-left:96px!important}#app .dl-result-badge img{left:-30px!important;width:130px!important;height:151px!important}}
 </style>
+
+<style id="dl-feedback-popout-fix">
+/* Keep the character completely visible; overlap only the left edge of the card. */
+#app .dl-result-badge{margin:26px 0 12px 18px!important;padding:15px 18px 15px 120px!important;min-height:112px!important;border-radius:19px!important;overflow:visible!important}
+#app .dl-result-badge img{left:-17px!important;bottom:0!important;width:127px!important;height:142px!important;max-width:none!important;object-fit:contain!important;object-position:center bottom!important;clip-path:none!important;transform:none!important}
+#app .dl-result-badge .dl-result-label{font-size:clamp(1.12rem,4.7vw,1.48rem)!important;white-space:normal!important}
+@media(max-width:380px){#app .dl-result-badge{margin-left:12px!important;padding-left:105px!important}#app .dl-result-badge img{left:-12px!important;width:115px!important;height:130px!important}}
+</style>
 </body></html>
