@@ -4675,7 +4675,7 @@ body.dl-unified-active #app button.dl-unified-source{display:none!important}
   const icon=document.createElement('img');
   const ids=['dog','panda','cat'];const id=ids[Math.floor(Math.random()*ids.length)];
   const images={dog:['correct_dog_transparent.png','incorrect_dog_transparent.png'],panda:['a_clean_high_resolution_png_style_illustration_o-8%20(1).png','a_crisp_high_resolution_cartoon_illustration_sty.png'],cat:['file_00000000392481f5808e9f44f95b1e2d.png','file_0000000094cc81f586867a5e426d23a4.png']};
-  icon.src=images[id][good?0:1];icon.alt=(good?'Happy ':'Thoughtful ')+({dog:'German Shepherd',panda:'red panda',cat:'gray tabby cat'}[id]);
+  icon.src=images[id][good?0:1];icon.classList.add('dl-avatar-'+id);icon.alt=(good?'Happy ':'Thoughtful ')+({dog:'German Shepherd',panda:'red panda',cat:'gray tabby cat'}[id]);
   icon.onerror=function(){this.onerror=null;this.src='avatar_'+id+'.webp'};
   label.classList.add('dl-result-label');label.textContent=good?'Well done!':'Not quite!';label.before(box);box.append(icon,label);
  }}
@@ -4773,4 +4773,8 @@ body.dl-unified-active #app button.dl-unified-source{display:none!important}
 .dl-review-exit-actions button{flex:1;min-width:130px;min-height:50px;border-radius:12px}
 </style>
 <style id="dl-confirm-danger-style">.dl-review-exit-dialog .dl-danger-confirm{background:#a83f4e!important;color:white!important}</style>
+<style id="dl-feedback-character-optical-sizing">
+/* Red panda has more transparent padding than the newer dog/cat art. */
+#app .dl-result-badge img.dl-avatar-panda{transform:scale(1.15)!important;transform-origin:center bottom!important}
+</style>
 </body></html>
