@@ -1524,6 +1524,15 @@ function curriculumLesson(id){
  fullStudy(id);
 }
 let moduleSession=null;
+function confirmModuleReviewExit(){
+ if(!moduleSession)return true;
+ if(!confirm('Leave this review? Your current review progress will be lost.'))return false;
+ moduleSession=null;return true;
+}
+const dlReviewOldHome=home;
+home=function(){if(!confirmModuleReviewExit())return;return dlReviewOldHome.apply(this,arguments)};
+const dlReviewOldCurriculumView=curriculumView;
+curriculumView=function(){if(!confirmModuleReviewExit())return;return dlReviewOldCurriculumView.apply(this,arguments)};
 function curriculumReview(level,n){
  let g=STRUCTURED_PATH[level]?.[n];if(!g)return;
  let questions=[];
@@ -1547,7 +1556,7 @@ function curriculumReviewRender(){
  }
  let q=s.questions[s.idx];
  app.innerHTML=`<section class="card"><p class="curriculum-pill">${s.level} · Module review · ${s.idx+1}/${s.questions.length}</p>
- <div class="unit-progress"><div style="width:${Math.round(s.idx/s.questions.length*100)}%"></div></div>
+ <button class="secondary" onclick="curriculumView(moduleSession.level)">Back to learning path</button>\n <div class="unit-progress"><div style="width:${Math.round(s.idx/s.questions.length*100)}%"></div></div>
  <p class="muted">${safeText(FULL_UNITS[q.unitId].title)}</p><h2>${safeText(q.prompt)}</h2>
  <div class="picture-choices">${q.options.map((o,i)=>`<button class="secondary" onclick="curriculumReviewAnswer(${i})">${safeText(o)}</button>`).join('')}</div>
  <div id="moduleFeedback" aria-live="polite"></div></section>`;
