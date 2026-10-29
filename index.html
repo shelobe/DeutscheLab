@@ -294,9 +294,10 @@ function chooseSentenceWord(i,w){
  if(sentenceChosen.length===sentenceTarget.length){
   let ok=sentenceChosen.join(' ')===sentenceTarget.join(' ');
   practiceLog(ok?10:2);
-  document.getElementById('sentenceFeedback').innerHTML=`<p class="${ok?'correct':'wrong'}">${ok?'Correct!':'Correct order: '+safeText(sentenceTarget.join(' '))}</p><button class="secondary" onclick="speak(sentenceTarget.join(&quot; &quot;))">🔊 Replay sentence</button><button class="secondary" onclick="practiceHub()">Finish</button>`;
+  document.getElementById('sentenceFeedback').innerHTML=`<p class="${ok?'correct':'wrong'}">${ok?'Correct!':'Correct order: '+safeText(sentenceTarget.join(' '))}</p><button class="secondary" onclick="practiceHub()">Finish</button>`;
   document.getElementById('dl-sentence-next-dock').hidden=false;
-  setTimeout(()=>{try{speechSynthesis.cancel()}catch(e){};speak(sentenceTarget.join(' '))},450);
+  if(ok){try{speechSynthesis.cancel()}catch(e){};findItSound(true)}
+  else {try{dlWrongHaptic()}catch(e){}}
  }
 }
 const oldPersonalHome=home;home=function(){oldPersonalHome();let p=practiceState(),today=p.activity[new Date().toLocaleDateString('en-CA')]||0;app.insertAdjacentHTML('afterbegin',`<section class="card"><h2>Daily practice</h2><p>${today}/30 XP today · ${practiceStreak()}-day streak</p><button onclick="practiceHub()">Open practice hub</button></section>`)};
