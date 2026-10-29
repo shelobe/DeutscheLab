@@ -4639,8 +4639,8 @@ body.dl-unified-active #app button.dl-unified-source{display:none!important}
   const good=/^(correct|richtig)/i.test(label.textContent.trim());
   const box=document.createElement('div');box.className='dl-result-badge '+(good?'dl-result-good':'dl-result-bad');
   const icon=document.createElement('img');
-  const id=good?'dog':(Math.random()<0.5?'dog':'panda');
-  icon.src=good?'correct_dog.png':(id==='dog'?'incorrect_dog_final.png':'a_crisp_high_resolution_cartoon_illustration_sty.png');icon.alt=good?'Happy German Shepherd':(id==='dog'?'Thoughtful German Shepherd':'Sad red panda');
+  const id=Math.random()<0.5?'dog':'panda';
+  icon.src=good?(id==='dog'?'correct_dog_transparent.png':'a_clean_high_resolution_png_style_illustration_o-8%20(1).png'):(id==='dog'?'incorrect_dog_transparent.png':'a_crisp_high_resolution_cartoon_illustration_sty.png');icon.alt=(good?'Happy ':'Thoughtful ')+(id==='dog'?'German Shepherd':'red panda');
   icon.onerror=function(){this.onerror=null;this.src='avatar_'+id+'.webp'};
   label.classList.add('dl-result-label');label.textContent=good?'Well done!':'Not quite!';label.before(box);box.append(icon,label);
  }}
