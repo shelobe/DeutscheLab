@@ -3355,49 +3355,7 @@ window.dlResetAllProgress=function(){
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',groupProfilePlacement,{once:true});
 })();
 </script>
-<style id="dl-visual-refresh">
-/* Visual refresh: preserves the existing scenery, curriculum and saved state. */
-:root{--dl-glow:#72f5d6;--dl-gold:#ffd27b}
-html{scroll-padding-top:88px}body{background-color:#091d2a}
-.app-header{position:sticky!important;top:8px!important;z-index:45!important;padding:12px 14px!important;margin-bottom:16px!important;min-height:0!important;border:1px solid rgba(112,225,206,.20)!important;box-shadow:0 9px 30px rgba(0,0,0,.28)!important;transition:padding .2s ease,background .2s ease}
-.app-header h1{font-size:clamp(1.2rem,4.4vw,1.65rem)!important;letter-spacing:-.025em}.app-header p{font-size:.75rem!important;margin-top:1px!important}.app-header .menu-toggle{width:46px!important;height:46px!important;min-width:46px!important;border-radius:13px!important}
-body.dl-compact-header .app-header{padding:6px 12px!important;background:#10263b!important}.dl-compact-header .app-header p{display:none!important}.dl-compact-header .app-header .menu-toggle{width:40px!important;height:40px!important;min-width:40px!important}
-#sideMenu .dl-placement-subitem{padding:13px 18px!important;margin:0!important;width:100%!important;font-size:inherit!important;font-weight:inherit!important;color:inherit!important;border-left:0!important;letter-spacing:normal!important;text-align:left!important}
-#sideMenu .dl-menu-profile-link{padding-bottom:12px!important;margin-bottom:0!important}
-.card,.curriculum-summary,.curriculum-path-module{border:1px solid rgba(121,225,207,.21)!important;box-shadow:0 12px 36px rgba(0,0,0,.2)!important}
-button{transition:transform .13s ease,box-shadow .18s ease,background .18s ease,border-color .18s ease}button:active:not(:disabled){transform:scale(.975)}button:focus-visible{outline:3px solid #a6f7e5;outline-offset:3px}
-button:not(.secondary):not(.menu-toggle):not(.menu-close){box-shadow:0 3px 0 rgba(10,69,66,.5)}
-.curriculum-path-summary{background:linear-gradient(155deg,rgba(15,53,66,.98),rgba(19,43,68,.96))!important;overflow:hidden;position:relative}
-.curriculum-path-summary:before{content:'✦';position:absolute;right:18px;top:12px;font-size:3rem;color:rgba(119,244,208,.14);pointer-events:none}
-.curriculum-path-label{letter-spacing:.13em!important}
-.curriculum-path-module{position:relative;overflow:visible!important;margin:14px 0 20px!important;border-radius:22px!important;background:linear-gradient(135deg,rgba(32,63,83,.96),rgba(23,48,70,.96))!important}
-.curriculum-path-module:nth-of-type(3n+1){border-left:5px solid #76d9c5!important}.curriculum-path-module:nth-of-type(3n+2){border-left:5px solid #a2b8f0!important}.curriculum-path-module:nth-of-type(3n){border-left:5px solid #edc58b!important}
-.curriculum-path-module:nth-of-type(even){margin-left:22px!important;margin-right:3px!important}.curriculum-path-module:nth-of-type(odd){margin-left:3px!important;margin-right:22px!important}.curriculum-path-module:before{content:"";position:absolute;left:36px;top:-24px;height:22px;width:4px;border-radius:9px;background:linear-gradient(#5c95a5,#79e4d0);opacity:.65}.curriculum-path-module:first-of-type:before{display:none}
-.dl-badge:nth-of-type(2):before{content:"★"}.dl-badge:nth-of-type(3):before{content:"▤"}.dl-badge:nth-of-type(4):before{content:"7"}.dl-badge:nth-of-type(5):before{content:"☏"}.dl-badge:nth-of-type(6):before{content:"◆"}
-.curriculum-path-module summary{padding:20px 15px!important}.curriculum-path-module .curriculum-module-number{border:2px solid rgba(171,255,229,.45)!important;box-shadow:0 0 0 5px rgba(111,227,202,.07),0 0 20px rgba(111,227,202,.15)!important;flex-shrink:0}
-.curriculum-path-module.dl-path-passed .curriculum-module-number{background:#86e8b4!important;color:#12382e!important;box-shadow:0 0 0 5px rgba(137,255,180,.12),0 0 22px rgba(137,255,180,.32)!important}
-.curriculum-path-module.dl-path-current{border-color:#7ce9d4!important;box-shadow:0 0 0 1px rgba(113,242,212,.35),0 0 26px rgba(64,222,187,.18)!important}
-.curriculum-path-module.dl-path-locked{filter:saturate(.58);opacity:.75}
-.dl-path-chip{display:inline-block;font-size:.7rem;font-weight:800;letter-spacing:.04em;text-transform:uppercase;margin-top:7px;padding:4px 9px;border-radius:999px;background:rgba(117,220,199,.13);color:#b5f5e5}
-.dl-path-passed .dl-path-chip{background:rgba(130,245,179,.19);color:#a8f4c5}.dl-path-locked .dl-path-chip{background:rgba(196,209,227,.12);color:#c4ccd9}
-.curriculum-path-lesson{border-radius:14px!important}.curriculum-path-lesson .curriculum-lesson-number{border-radius:50%!important}.curriculum-path-lesson.curriculum-next-lesson{outline:1px solid #6adcc6;box-shadow:0 0 14px rgba(91,229,199,.12)}
-.unit-progress,.game-progress,.dl-rank-track{overflow:hidden;border-radius:999px!important}.unit-progress>div,.game-progress>div,.dl-rank-track>div{background:linear-gradient(90deg,#56d9c3,#a6f6c5)!important}
-.picture-choices button,.game-wordbank button,.game-built{border-radius:15px!important}.game-wordbank{background:rgba(13,38,55,.54)!important;border:1px dashed rgba(127,222,207,.5)!important;border-radius:16px!important;padding:14px!important;gap:10px!important}
-.game-built{min-height:78px!important;background:rgba(6,31,44,.32)!important;border:2px dashed #85c9c0!important;padding:15px!important}
-#gameFeedback:not(:empty),.explain-box{border-radius:17px!important}
-.dl-badge{border-radius:18px!important;position:relative;overflow:hidden;min-height:92px!important;padding:18px 16px 16px 75px!important;background:linear-gradient(145deg,rgba(33,75,92,.93),rgba(25,48,69,.96))!important;border:1px solid rgba(115,223,201,.25)!important;margin-bottom:12px!important}
-.dl-badge:before{content:'★';position:absolute;left:14px;top:16px;width:45px;height:45px;border-radius:13px;display:grid;place-items:center;background:linear-gradient(140deg,#ffd58a,#b8782b);border:2px solid #ffe2a2;color:#563412;font-size:1.45rem;box-shadow:0 0 16px rgba(248,202,110,.25)}
-.dl-badge.locked{opacity:.66;filter:saturate(.6)}.dl-badge.locked:before{content:'🔒';background:#405366;border-color:#697a89;box-shadow:none;font-size:1.1rem}
-.dl-badge strong{font-size:1.08rem}.dl-badge .muted{font-size:.88rem;margin-top:5px}
-.dl-profile-progress{display:flex;align-items:center;gap:16px;padding:17px;border-radius:18px;background:linear-gradient(145deg,rgba(34,82,91,.6),rgba(19,46,65,.9));border:1px solid rgba(115,230,208,.25);margin:16px 0}
-.dl-progress-ring{--percent:0;flex-shrink:0;width:112px;height:112px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(#84e7c8 calc(var(--percent)*1%),#2a5062 0);box-shadow:0 0 19px rgba(113,230,194,.14)}
-.dl-progress-ring span{width:84px;height:84px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#152c40;font-weight:900;font-size:1.2rem;line-height:1.15}.dl-progress-ring small{font-size:.72rem;font-weight:600;color:#aed3d1}
-.dl-profile-progress p{margin:4px 0;font-size:.9rem}.dl-profile-progress strong{font-size:1.1rem}
-.dl-audio-active{box-shadow:0 0 0 5px rgba(110,240,209,.16),0 0 20px rgba(110,240,209,.35)!important;animation:dl-pulse 1s ease-in-out infinite alternate!important}
-@keyframes dl-pulse{from{filter:brightness(1)}to{filter:brightness(1.25)}}
-@media(max-width:430px){.dl-profile-progress{gap:12px}.dl-progress-ring{width:96px;height:96px}.dl-progress-ring span{width:72px;height:72px}.curriculum-path-module summary{padding:16px 12px!important}}
-@media(prefers-reduced-motion:reduce){button,.app-header{transition:none!important}.dl-audio-active{animation:none!important}}
-</style>
+<link rel="stylesheet" href="./css/legacy-part-1.css">
 <script id="dl-visual-refresh-behavior">
 (function(){
  // Keep Placement test in the same visual hierarchy as other menu entries.
@@ -3417,42 +3375,7 @@ button:not(.secondary):not(.menu-toggle):not(.menu-close){box-shadow:0 3px 0 rgb
 })();
 </script>
 
-<style id="dl-mobile-layout-repair">
-/* Navigation: uniform rows, no individual underline/shadow decorations. */
-#sideMenu{display:flex!important;flex-direction:column!important;gap:0!important}
-#sideMenu>button,#sideMenu>button.dl-placement-subitem,#sideMenu>button.dl-menu-profile-link{box-sizing:border-box!important;display:flex!important;align-items:center!important;min-height:54px!important;height:auto!important;width:100%!important;padding:13px 18px!important;margin:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;outline:0!important;transform:none!important;font-size:1rem!important;font-weight:650!important;letter-spacing:normal!important;color:#f0f5fc!important;text-align:left!important}
-#sideMenu>button:hover,#sideMenu>button:focus-visible{background:rgba(114,216,198,.13)!important}
-#sideMenu>p.muted{margin:22px 18px 8px!important;padding:0 0 9px!important;border-bottom:1px solid rgba(150,211,206,.38)!important;color:#b5c8d6!important;letter-spacing:.13em!important}
-#sideMenu .menu-heading{margin-bottom:8px!important}
-/* Module cards: keep the heading readable, don't stagger or squeeze it. */
-.curriculum-path-module,.curriculum-path-module:nth-of-type(even),.curriculum-path-module:nth-of-type(odd){margin:12px 0 16px!important;width:100%!important;border-radius:18px!important;overflow:hidden!important;box-sizing:border-box!important;border:1px solid rgba(127,208,199,.35)!important;box-shadow:0 6px 18px rgba(0,0,0,.16)!important}
-.curriculum-path-module:before,.curriculum-path-module:after{display:none!important;content:none!important}
-.curriculum-path-module>summary,.curriculum-path-module:nth-of-type(even)>summary{padding:17px 15px!important;min-height:0!important;border-left:0!important;border-bottom:0!important;background:#214659!important;display:flex!important;align-items:flex-start!important;gap:8px!important;box-sizing:border-box!important}
-.curriculum-path-module:nth-of-type(even)>summary{background:#273e58!important}
-.curriculum-path-module .curriculum-module-heading{display:grid!important;grid-template-columns:44px minmax(0,1fr)!important;align-items:start!important;gap:12px!important;flex:1 1 auto!important;width:0!important;min-width:0!important}
-.curriculum-path-module .curriculum-module-heading>div{width:100%!important;min-width:0!important;overflow-wrap:break-word!important}
-.curriculum-path-module .curriculum-module-heading h3{font-size:1.15rem!important;line-height:1.28!important;margin:5px 0 7px!important;overflow-wrap:break-word!important;word-break:normal!important}
-.curriculum-path-module .curriculum-module-heading p{font-size:.9rem!important;line-height:1.4!important;margin:4px 0!important}
-.curriculum-path-module .curriculum-module-number{width:44px!important;height:44px!important;min-width:44px!important;flex:0 0 44px!important;border-radius:13px!important;box-shadow:none!important}
-.curriculum-path-module .curriculum-chevron{flex:0 0 16px!important;margin-top:10px!important}
-.curriculum-path-module .dl-gate-status{font-size:.78rem!important;line-height:1.4!important;max-width:100%!important;margin:8px 0 0!important}
-.curriculum-path-module .dl-path-chip{display:table!important;font-size:.65rem!important;white-space:normal!important;max-width:100%!important}
-.curriculum-path-module .curriculum-module-content{padding:7px!important}
-.curriculum-path-module .curriculum-path-lesson{margin:6px 0!important;padding:12px 10px!important}
-.curriculum-path-module .curriculum-check{margin:7px 0!important}
-.curriculum-path-summary{padding:18px!important}
-.curriculum-path-summary h2{font-size:1.45rem!important}
-@media(max-width:420px){.curriculum-path-module>summary{padding:15px 12px!important}.curriculum-path-module .curriculum-module-heading{gap:10px!important;grid-template-columns:40px minmax(0,1fr)!important}.curriculum-path-module .curriculum-module-number{width:40px!important;height:40px!important;min-width:40px!important}.curriculum-path-module .curriculum-module-heading h3{font-size:1.08rem!important}}
-/* Avoid the sticky header hiding the first heading on mobile. */
-#app{scroll-margin-top:90px}.app-header{position:sticky!important;top:8px!important}
-.dl-letters-intro{margin:14px 0 20px;padding:16px;border:1px solid rgba(112,224,203,.35);border-radius:15px;background:#1b3b4a}
-.dl-letters-intro h3{margin:0 0 9px}.dl-letters-intro p{margin:8px 0 12px;line-height:1.45}
-.dl-letters-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.dl-letter-item{border:1px solid #527986;border-radius:12px;padding:11px;background:#253e54}
-.dl-letter-item strong{font-size:1.3rem;display:block;color:#a9f1df}
-.dl-letter-item span{display:block;font-size:.82rem;line-height:1.4;margin:4px 0 10px;color:#d8e6ed}
-.dl-letter-item button{padding:8px 12px!important;width:100%;font-size:.87rem!important}
-</style>
+<link rel="stylesheet" href="./css/legacy-part-2.css">
 <script id="dl-mobile-layout-repair-behavior">
 (function(){
  const original=window.fullStudy;
@@ -3479,71 +3402,7 @@ button:not(.secondary):not(.menu-toggle):not(.menu-close){box-shadow:0 3px 0 rgb
 })();
 </script>
 
-<style id="dl-final-layout-stabilization">
-/* Remove earlier experimental path layouts and give every module a full-width header. */
-.curriculum-path-module,.curriculum-path-module:nth-of-type(even),.curriculum-path-module:nth-of-type(odd){
- width:100%!important;max-width:100%!important;margin:12px 0!important;
- border:1px solid #466f78!important;border-radius:17px!important;overflow:hidden!important;
- box-shadow:none!important;filter:none!important;box-sizing:border-box!important;
-}
-.curriculum-path-module::before,.curriculum-path-module::after{display:none!important}
-.curriculum-path-module>summary,.curriculum-path-module:nth-of-type(even)>summary{
- display:grid!important;grid-template-columns:minmax(0,1fr) 20px!important;
- align-items:center!important;gap:10px!important;
- padding:17px 15px!important;background:#204254!important;
- border:0!important;min-height:0!important;width:100%!important;box-sizing:border-box!important;
-}
-.curriculum-path-module .curriculum-module-heading{
- display:flex!important;flex-direction:row!important;align-items:flex-start!important;
- gap:13px!important;width:100%!important;min-width:0!important;flex:1 1 auto!important;
- grid-template-columns:none!important;
-}
-.curriculum-path-module .curriculum-module-heading>div{
- min-width:0!important;width:auto!important;flex:1 1 auto!important;
- overflow-wrap:normal!important;word-break:normal!important;
-}
-.curriculum-path-module .curriculum-module-heading h3{
- display:block!important;width:100%!important;font-size:1.12rem!important;
- line-height:1.35!important;margin:5px 0!important;word-break:normal!important;
- overflow-wrap:break-word!important;letter-spacing:normal!important;
-}
-.curriculum-path-module .curriculum-module-heading p{line-height:1.4!important;font-size:.87rem!important;margin:5px 0!important}
-.curriculum-path-module .curriculum-module-number{
- display:grid!important;place-items:center!important;width:46px!important;height:46px!important;
- flex:0 0 46px!important;min-width:46px!important;border-radius:13px!important;
- box-shadow:none!important;font-size:1.1rem!important;
-}
-.curriculum-path-module .curriculum-chevron{display:block!important;align-self:center!important;margin:0!important}
-.curriculum-path-module .dl-gate-status{display:block!important;position:static!important;font-size:.78rem!important;line-height:1.35!important;margin:9px 0 0!important;max-width:100%!important;white-space:normal!important}
-.curriculum-path-module .dl-path-chip{display:inline-block!important;margin-top:8px!important}
-.curriculum-path-module .curriculum-module-content{padding:9px!important}
-.curriculum-path-module .curriculum-path-lesson{padding:12px!important;gap:9px!important;margin:7px 0!important}
-.curriculum-path-module .curriculum-path-lesson .text{min-width:0!important}
-.curriculum-path-module .curriculum-path-lesson button{flex-shrink:0!important}
-#sideMenu{display:block!important}
-#sideMenu>button,#sideMenu>button.dl-menu-profile-link,#sideMenu>button.dl-placement-subitem{
- display:flex!important;flex-direction:row!important;align-items:center!important;
- justify-content:flex-start!important;gap:0!important;
- width:100%!important;min-height:54px!important;height:54px!important;
- padding:0 18px!important;margin:0!important;border:0!important;
- border-radius:0!important;box-shadow:none!important;background:transparent!important;
- text-align:left!important;text-indent:0!important;font-size:1rem!important;
- font-weight:650!important;letter-spacing:normal!important;line-height:1.3!important;
- color:#f0f5fc!important;transform:none!important;
-}
-#sideMenu>button::before,#sideMenu>button::after{box-shadow:none!important}
-#sideMenu>p.muted{margin:19px 18px 8px!important;padding:0 0 9px!important;border-bottom:1px solid rgba(151,205,202,.42)!important}
-#sideMenu .dl-menu-profile-link *{text-align:left!important;justify-content:flex-start!important}
-.dl-alphabet-audio{padding:17px;margin:18px 0 20px;border:1px solid #528b86;border-radius:16px;background:#1c3949}
-.dl-alphabet-audio h3{margin:0 0 9px}
-.dl-alphabet-audio p{line-height:1.45;margin:8px 0 12px}
-.dl-alphabet-audio-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-.dl-alphabet-audio-item{padding:12px;background:#293f57;border:1px solid #567a87;border-radius:12px;min-width:0}
-.dl-alphabet-audio-item strong{display:block;font-size:1.4rem;color:#a2f1dd}
-.dl-alphabet-audio-item span{display:block;min-height:2.5em;font-size:.84rem;line-height:1.4}
-.dl-alphabet-audio-item button{width:100%;margin-top:9px;padding:9px 5px!important;font-size:.82rem!important;white-space:normal!important}
-@media(max-width:380px){.curriculum-path-module .curriculum-module-number{width:40px!important;height:40px!important;flex-basis:40px!important}.curriculum-path-module>summary{padding:14px 11px!important}}
-</style>
+<link rel="stylesheet" href="./css/legacy-part-3.css">
 <script id="dl-final-layout-stabilization-js">
 (function(){
  function normalizeMenu(){
