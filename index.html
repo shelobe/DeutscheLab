@@ -157,64 +157,7 @@ home();
 .explain-box h3{margin:0 0 8px}.explain-box p{margin:8px 0}
 .explain-example{background:#253c57;padding:12px;border-radius:10px;margin:8px 0}
 </style>
-<script>
-const GUIDE={
-'A1|Greetings and introductions':['German greetings change with context. Hallo is informal; Guten Tag works in more formal settings. Auf Wiedersehen means goodbye.','Hallo, ich heiße Mia.','Hello, my name is Mia.'],
-'A1|Nouns and articles':['German nouns have grammatical gender: der (masculine), die (feminine), das (neuter). Always memorize the article together with the noun. Plural nouns generally use die in the nominative.','der Tisch · die Lampe · das Buch','the table · the lamp · the book'],
-'A1|Present-tense verbs':['Regular verbs change endings with the subject: ich -e, du -st, er/sie/es -t, wir/sie/Sie -en, ihr -t. The stem of lernen is lern-.','Ich lerne. Du lernst. Wir lernen.','I learn. You learn. We learn.'],
-'A1|Basic word order':['In a German main clause, the conjugated verb is in position TWO. A time expression can come first, but the verb must still come next.','Heute gehe ich einkaufen.','Today I am going shopping.'],
-'A2|Accusative articles':['The accusative marks the direct object. Only masculine definite articles change: der → den; die and das stay the same. Masculine ein → einen.','Der Hund schläft. Ich sehe den Hund.','The dog sleeps. I see the dog.'],
-'A2|Dative articles':['Dative often marks the recipient or follows verbs such as helfen. Articles change: der → dem, die → der, das → dem; plural die → den.','Ich helfe der Frau.','I help the woman.'],
-'A2|Perfect tense':['The spoken past (Perfekt) usually uses haben or sein plus a past participle. Many motion/change-of-state verbs use sein; most other verbs use haben.','Ich habe gekocht. Ich bin gegangen.','I cooked. I went.'],
-'A2|Separable verbs':['Some verbs split in a main clause: the conjugated verb goes second and the prefix goes at the end. In an infinitive, the prefix stays attached.','Ich stehe um sieben Uhr auf.','I get up at seven o’clock.'],
-'B1|Subordinate clauses':['After subordinating conjunctions like weil, dass and ob, the conjugated verb normally moves to the end of its clause.','Ich bleibe zu Hause, weil ich krank bin.','I stay home because I am sick.'],
-'B1|Relative clauses':['A relative pronoun agrees in gender/number with the noun it refers to, but its case depends on its job within the relative clause.','Das ist der Mann, der hier arbeitet.','That is the man who works here.'],
-'B1|Konjunktiv II':['Use Konjunktiv II to express wishes, hypotheticals and polite requests. Würde + infinitive is common for many verbs.','Wenn ich Zeit hätte, würde ich reisen.','If I had time, I would travel.'],
-'B1|Prepositions and cases':['Certain verbs require a fixed preposition and case. Learn them as chunks: sich interessieren für + accusative; sprechen mit + dative.','Ich interessiere mich für Musik.','I am interested in music.'],
-'B2|Passive voice':['The process passive uses werden + past participle. Change werden into the appropriate tense: wird (present), wurde (simple past).','Der Brief wurde gestern geschrieben.','The letter was written yesterday.'],
-'B2|Advanced connectors':['Obwohl means although and introduces a subordinate clause with the verb at the end. Dennoch means nevertheless and begins a main clause.','Obwohl es regnete, gingen wir spazieren.','Although it rained, we went for a walk.'],
-'B2|Reported speech':['Konjunktiv I is often used in formal reported speech to mark that a statement is being reported, not directly asserted.','Er sagt, er habe keine Zeit.','He says he has no time.'],
-'B2|Nuanced vocabulary':['Allerdings can mean indeed (emphasis) or however (contrast), depending on context. Read the surrounding sentence to decide.','Das ist allerdings schwierig.','That is indeed difficult.']
-};
-function guideHtml(m){
- let g=GUIDE[m.level+'|'+m.title]||['Read the example, identify the pattern, then try the question.',m.q,m.why];
- return `<div class="explain-box"><h3>Why this works</h3><p>${safeText(g[0])}</p><div class="explain-example"><strong>${safeText(g[1])}</strong><br><span class="muted">${safeText(g[2])}</span></div><button class="secondary" onclick="speak(${JSON.stringify(g[1]).replace(/"/g,'&quot;')})">🔊 Hear example</button></div>`;
-}
-courseLesson=function(id){
- let m=COURSE[id];if(!m||!m.words.length)return courseMenu();
- app.innerHTML=illustratedHero(m.title,`${m.level} · ${m.skill}`,m.skill==='cases'?'cafe':'village',id%2?'katze.png':'hund.png')+`<section class="card"><h3>Learn the rule</h3>${guideHtml(m)}<h3>Vocabulary and examples</h3>${m.words.map(w=>`<div class="vocab-row"><div class="vocab-copy"><strong>${safeText(w[0])}</strong><span>${safeText(w[1])}</span></div><button class="secondary" onclick="speak(${JSON.stringify(w[0]).replace(/"/g,'&quot;')})">🔊</button></div>`).join('')}<button onclick="courseQuiz(${id})">Practice</button><button class="secondary" onclick="courseMenu('${m.level}')">Back to lessons</button></section>`;
-};
-courseAnswer=function(id,i){
- let m=COURSE[id],ok=i===m.ans;
- app.querySelectorAll('.card button').forEach(b=>b.disabled=true);
- if(ok){ensureLearning();if(!state.learning.completed.includes(id))state.learning.completed.push(id);save()}
- if(typeof recordQuestion==='function')recordQuestion(m,ok);
- document.getElementById('courseFeedback').innerHTML=`<p class="${ok?'correct':'wrong'}">${ok?'Correct!':'Not quite. Correct answer: '+safeText(m.opts[m.ans])}</p><div class="explain-box"><h3>Answer explained</h3><p>${safeText(m.why)}</p><p><strong>Complete answer:</strong> ${safeText(m.q.replace('___',m.opts[m.ans]))}</p></div><button onclick="courseMenu('${m.level}')">Back to lessons</button><button class="secondary" onclick="courseQuiz(${id})">Try again</button>`;
-};
-const previousPracticeAnswer=practiceAnswer;
-practiceAnswer=function(id,i,mode){
- previousPracticeAnswer(id,i,mode);
- let m=COURSE[id],box=document.getElementById('practiceFeedback');
- if(box&&m.words.length)box.insertAdjacentHTML('beforeend',guideHtml(m));
-};
-const previousListeningAnswer=listeningAnswer;
-listeningAnswer=function(choice,answer,german){
- previousListeningAnswer(choice,answer,german);
- document.getElementById('listenFeedback').insertAdjacentHTML('beforeend',`<div class="explain-box"><h3>Listen and compare</h3><p><strong>German:</strong> ${safeText(german)}</p><p><strong>Meaning:</strong> ${safeText(answer)}</p><p>Listen again and connect each word to its meaning.</p><button class="secondary" onclick="speak(${JSON.stringify(german).replace(/"/g,'&quot;')})">🔊 Replay</button></div>`);
-};
-const previousArticleAnswer=articleAnswer;
-articleAnswer=function(chosen,correct){
- previousArticleAnswer(chosen,correct);
- let x=articleSession,w=x.pool[x.i],mode=x.mode==='review'?'gender':x.mode;
- let reason=mode==='gender'?`This noun is ${w[2]} ${w[0]}. Learn the article with the noun; endings can provide clues, but not every noun follows a rule.`:mode==='plural'?`The plural is die ${w[3]}. Plural nouns use die in nominative; the noun itself may also change.`:mode==='acc'?`The accusative marks a direct object. Masculine der becomes den; feminine die and neuter das do not change.`:`The dative often marks the recipient or follows certain verbs and prepositions. The definite articles are dem (masculine), der (feminine), dem (neuter).`;
- let target=document.getElementById('articleFeedback');if(target)target.insertAdjacentHTML('afterbegin',`<div class="explain-box"><h3>Why?</h3><p>${safeText(reason)}</p></div>`);
-};
-const previousSentenceWord=chooseSentenceWord;
-chooseSentenceWord=function(i,w){
- previousSentenceWord(i,w);
- if(sentenceChosen.length===sentenceTarget.length){let box=document.getElementById('sentenceFeedback');if(box)box.insertAdjacentHTML('beforeend',`<div class="explain-box"><h3>Sentence structure</h3><p>In a standard German main clause, the conjugated verb takes the second position. Look for the subject, verb and any time expressions.</p></div>`)}
-};
-</script>
+<script src="./js/extracted-batch5-2.js"></script>
 
 <style>
 .lesson-progress{height:9px;background:#23394f;border-radius:20px;overflow:hidden;margin:12px 0}
@@ -281,41 +224,7 @@ chooseSentenceWord=function(i,w){
 .deep-hint{padding:12px;background:#203b52;border-radius:12px;margin:12px 0}
 .deep-pill{font-size:12px;letter-spacing:.06em;text-transform:uppercase;opacity:.8}
 </style>
-<script>
-/* Additional open-response practice for every one of the 48 existing course units.
-   Exact-answer prompts use supplied examples so feedback remains deterministic offline. */
-let intensive=null;
-function deepNormalize(t){return String(t).toLocaleLowerCase('de-DE').normalize('NFC').replace(/[.,!?;:„“"'’]/g,'').replace(/\s+/g,' ').trim()}
-function intensiveStart(id){if(!FULL_UNITS[id])return;intensive={id,idx:0,correct:0,answers:[],shownHint:false};intensiveRender()}
-function intensiveTasks(u){let e=u.examples;return [
- {type:'reading',label:'Reading comprehension',prompt:'Read this German phrase and write its English meaning:',source:e[0][0],expected:e[0][1],explain:'This phrase means “'+e[0][1]+'”. '+u.rule},
- {type:'dictation',label:'Listening dictation',prompt:'Listen and type exactly what you hear in German:',source:e[1][0],expected:e[1][0],explain:'You heard “'+e[1][0]+'”, meaning “'+e[1][1]+'”.'},
- {type:'translation',label:'Write in German',prompt:'Translate this into German:',source:e[2][1],expected:e[2][0],explain:'A model answer is “'+e[2][0]+'”. '+u.rule},
- {type:'grammar',label:'Explain the grammar',prompt:u.checkpoint.prompt,source:'Choose the best completion:',expected:u.checkpoint.options[u.checkpoint.answer],options:u.checkpoint.options,explain:u.checkpoint.why}
-]}
-function intensiveRender(){let r=intensive;if(!r)return;let u=FULL_UNITS[r.id],q=intensiveTasks(u)[r.idx];if(!q){intensiveFinish();return}
- let body=illustratedHero(u.title,'Extended practice · '+(r.idx+1)+' of 4','forest',r.idx%2?'katze.png':'hund.png')+`<section class="card"><p class="deep-pill">${safeText(q.label)}</p><h3>${safeText(q.prompt)}</h3>`;
- if(q.type==='dictation')body+=`<button onclick="speak(${JSON.stringify(q.source).replace(/"/g,'&quot;')})">🔊 Play audio</button><p class="muted">You can replay as often as needed.</p>`;
- else body+=`<div class="deep-hint">${safeText(q.source)}</div>`;
- if(q.options)body+=q.options.map((o,i)=>`<button class="secondary intensive-choice" onclick="intensiveCheck(${i})">${safeText(o)}</button>`).join('');
- else body+=`<label for="intensiveEntry">Your answer</label><input id="intensiveEntry" class="deep-input" autocomplete="off" autocapitalize="sentences" spellcheck="false" placeholder="Type your answer"><button onclick="intensiveCheck()">Check answer</button>`;
- body+=`<div id="intensiveFeedback" aria-live="polite"></div><button class="secondary" onclick="fullStudy(${r.id})">Review lesson</button></section>`;app.innerHTML=body;
- let entry=document.getElementById('intensiveEntry');if(entry)entry.addEventListener('keydown',e=>{if(e.key==='Enter')intensiveCheck()});
-}
-function intensiveCheck(choice){let r=intensive;if(!r||r.answers.length!==r.idx)return;let q=intensiveTasks(FULL_UNITS[r.id])[r.idx],actual=q.options?q.options[choice]:document.getElementById('intensiveEntry').value;
- if(!actual||!actual.trim()){document.getElementById('intensiveFeedback').textContent='Enter an answer first.';return}
- let ok=deepNormalize(actual)===deepNormalize(q.expected);feedbackSound(ok);r.answers.push(ok);if(ok)r.correct++;
- document.querySelectorAll('.intensive-choice').forEach(b=>b.disabled=true);let entry=document.getElementById('intensiveEntry');if(entry)entry.disabled=true;
- let explanation=`<div class="unit-explain"><h3>${ok?'Correct!':'Review the model answer'}</h3><p><strong>Your answer:</strong> ${safeText(actual)}</p><p><strong>Model answer:</strong> ${safeText(q.expected)}</p><p>${safeText(q.explain)}</p>${q.type==='dictation'?`<button class="secondary" onclick="speak(${JSON.stringify(q.expected).replace(/"/g,'&quot;')})">🔊 Listen again</button>`:''}<p class="muted">Typed answers are compared with the model answer. Other valid translations may be marked incorrect.</p></div><button onclick="intensiveNext()">${r.idx===3?'See results':'Continue'}</button>`;
- document.getElementById('intensiveFeedback').innerHTML=explanation;
-}
-function intensiveNext(){if(!intensive)return;intensive.idx++;intensiveRender()}
-function intensiveFinish(){let r=intensive,u=FULL_UNITS[r.id];ensureLearning();state.learning.intensiveScores??={};let prev=state.learning.intensiveScores[r.id];state.learning.intensiveScores[r.id]={last:r.correct,best:Math.max(prev?.best||0,r.correct),date:new Date().toISOString()};state.learning.intensiveMisses??=[];r.answers.forEach((ok,i)=>{if(!ok)state.learning.intensiveMisses.push({id:r.id,exercise:i,date:Date.now()})});state.learning.intensiveMisses=state.learning.intensiveMisses.slice(-300);save();app.innerHTML=illustratedHero('Extended practice complete',u.title,'village','hund.png')+`<section class="card"><h2>${r.correct}/4 correct</h2><p>You've practiced reading, listening, writing and grammar. Typed answers use strict matching; review the model responses for alternative wording.</p><button onclick="intensiveStart(${r.id})">Try again</button><button class="secondary" onclick="fullStudy(${r.id})">Review lesson</button><button class="secondary" onclick="fullMenu('${u.level}')">Back to units</button></section>`;intensive=null}
-const priorFullStudyIntensive=fullStudy;
-fullStudy=function(id){priorFullStudyIntensive(id);let target=app.querySelector('.card');if(target)target.insertAdjacentHTML('beforeend',`<div class="unit-explain"><h3>Extended skill practice</h3><p>Four additional activities: reading comprehension, listening dictation, German writing and grammar, each with an explanation.</p><button onclick="intensiveStart(${id})">Start extended practice</button></div>`)};
-const priorFullMenuIntensive=fullMenu;
-fullMenu=function(level){priorFullMenuIntensive(level);let list=app.querySelectorAll('.unit-card');let lv=LEVELS.includes(level)?level:(state.learning?.placement?.recommended||'A1');let ids=FULL_UNITS.map((u,i)=>u.level===lv?i:null).filter(x=>x!==null);list.forEach((card,n)=>{let id=ids[n],score=state.learning?.intensiveScores?.[id];card.insertAdjacentHTML('beforeend',`<p class="muted">Extended practice: ${score?'best '+score.best+'/4':'not attempted'}</p><button class="secondary" onclick="intensiveStart(${id})">Extended practice</button>`);});};
-</script>
+<script src="./js/extracted-batch5-6.js"></script>
 <style>
 .a12-dialogue{padding:10px 14px;margin:8px 0;border-radius:12px;background:#253e58}.a12-dialogue:nth-child(even){background:#204e51}.a12-question{margin:10px 0}.a12-meter{height:8px;background:#24364b;border-radius:20px;overflow:hidden}.a12-meter>div{height:100%;background:#72cfba}
 </style><script src="./js/extracted-batch2-4.js"></script>
@@ -493,45 +402,7 @@ fullStudy=function(id){
 .picture-status{display:flex;justify-content:space-between;gap:12px;color:#d6ebec;margin:12px 0}
 .picture-answer{margin-top:15px;background:#214b4d;border-radius:14px;padding:15px;text-align:left}
 </style>
-<script>
-const PICTURE_WORDS=[["der Hund", "dog", "🐕", "der", "Hund"], ["die Katze", "cat", "🐈", "die", "Katze"], ["das Haus", "house", "🏠", "das", "Haus"], ["der Apfel", "apple", "🍎", "der", "Apfel"], ["die Banane", "banana", "🍌", "die", "Banane"], ["das Buch", "book", "📕", "das", "Buch"], ["der Tisch", "table", "🪑", "der", "Tisch"], ["die Blume", "flower", "🌻", "die", "Blume"], ["das Auto", "car", "🚗", "das", "Auto"], ["der Baum", "tree", "🌳", "der", "Baum"], ["die Sonne", "sun", "☀️", "die", "Sonne"], ["das Wasser", "water", "💧", "das", "Wasser"], ["der Schlüssel", "key", "🔑", "der", "Schlüssel"], ["die Uhr", "clock", "🕒", "die", "Uhr"], ["das Brot", "bread", "🍞", "das", "Brot"], ["der Zug", "train", "🚆", "der", "Zug"], ["die Schule", "school", "🏫", "die", "Schule"], ["das Fahrrad", "bicycle", "🚲", "das", "Fahrrad"], ["der Schuh", "shoe", "👟", "der", "Schuh"], ["die Tür", "door", "🚪", "die", "Tür"], ["das Fenster", "window", "🪟", "das", "Fenster"], ["der Vogel", "bird", "🐦", "der", "Vogel"], ["die Tasse", "cup", "☕", "die", "Tasse"], ["das Bett", "bed", "🛏️", "das", "Bett"], ["der Käse", "cheese", "🧀", "der", "Käse"], ["die Erdbeere", "strawberry", "🍓", "die", "Erdbeere"], ["das Ei", "egg", "🥚", "das", "Ei"], ["der Fisch", "fish", "🐟", "der", "Fisch"], ["die Gabel", "fork", "🍴", "die", "Gabel"], ["das Messer", "knife", "🔪", "das", "Messer"], ["der Regenschirm", "umbrella", "☂️", "der", "Regenschirm"], ["die Jacke", "jacket", "🧥", "die", "Jacke"]];
-let pictureSession=null;
-function pictureHome(){
- const saved=state.pictureProgress||{attempts:0,correct:0};
- app.innerHTML=illustratedHero('Picture practice','See it. Name it. Remember the article.','forest','katze.png')
- +`<section class="card"><h2>What do you see?</h2><p>Look at a picture and choose the German word or type it yourself. Practice the article with every noun.</p><p class="muted">${saved.attempts} answers · ${saved.correct} correct</p><div class="picture-tabs"><button onclick="pictureStart('choice')">Choose the word</button><button onclick="pictureStart('type')">Type the word</button></div><p class="muted">32 everyday objects · German nouns with der, die and das.</p></section>`;
- window.scrollTo(0,0);
-}
-function pictureStart(mode){
- const day=Math.floor(Date.now()/86400000),idx=state.pictureProgress?.attempts||0;
- const shuffled=[...PICTURE_WORDS.keys()].sort((a,b)=>((a*37+day*13)%97)-((b*37+day*13)%97));
- pictureSession={mode,queue:shuffled,index:0,correct:0,answered:false};
- pictureShow();
-}
-function pictureShow(){
- let s=pictureSession;if(!s)return pictureHome();
- if(s.index>=s.queue.length){app.innerHTML=illustratedHero('Nice work!','You finished this picture round.','village','hund.png')+`<section class="card"><h2>${s.correct} / ${s.queue.length} correct</h2><button onclick="pictureStart('${s.mode}')">Practice again</button><button class="secondary" onclick="pictureHome()">Picture practice home</button></section>`;return}
- let id=s.queue[s.index],w=PICTURE_WORDS[id],choice=s.mode==='choice';
- let options=[id,(id+9)%PICTURE_WORDS.length,(id+17)%PICTURE_WORDS.length,(id+25)%PICTURE_WORDS.length].sort((a,b)=>((a+id*7)%11)-((b+id*7)%11));
- app.innerHTML=`<div class="picture-status"><span>${choice?'Choose the German word':'Write the German word'}</span><span>${s.index+1} / ${s.queue.length}</span></div><section class="card"><div class="picture-card"><span class="picture-art" role="img" aria-label="Picture of ${safeText(w[1])}">${w[2]}</span></div><h2>What is this in German?</h2><p class="muted">Include der, die or das.</p>${choice?`<div class="picture-choices">${options.map(i=>`<button class="secondary" onclick="pictureAnswer(${id},${i})">${safeText(PICTURE_WORDS[i][0])}</button>`).join('')}</div>`:`<form onsubmit="event.preventDefault();pictureTyped(${id})"><input id="pictureInput" class="picture-input" placeholder="e.g. der Hund" autocomplete="off" autocapitalize="none" spellcheck="false" aria-label="German word with article"><button type="submit">Check answer</button></form>`}<div id="pictureFeedback" aria-live="polite"></div></section>`;
- window.scrollTo(0,0);
-}
-function pictureAnswer(correct,chosen){pictureGrade(correct,PICTURE_WORDS[chosen][0])}
-function pictureTyped(correct){pictureGrade(correct,document.getElementById('pictureInput').value)}
-function pictureGrade(id,submitted){
- let s=pictureSession;if(!s||s.answered)return;
- let w=PICTURE_WORDS[id],norm=t=>t.toLocaleLowerCase('de-DE').trim().replace(/\s+/g,' ').normalize('NFC');
- let ok=norm(submitted)===norm(w[0]);if(!ok)dlWrongHaptic();s.answered=true;try{speak(w[0])}catch(e){}if(ok)s.correct++;
- state.pictureProgress??={attempts:0,correct:0};state.pictureProgress.attempts++;if(ok)state.pictureProgress.correct++;save();
- app.querySelectorAll('.picture-choices button,form button,.picture-input').forEach(b=>b.disabled=true);
- let feedback=document.getElementById('pictureFeedback');
- feedback.innerHTML=`<div class="picture-answer"><h3>${ok?'Richtig! Correct!':'Good try!'}</h3><p><strong>${safeText(w[0])}</strong> — ${safeText(w[1])}</p><p>The noun is <strong>${safeText(w[3])}</strong> + <strong>${safeText(w[4])}</strong>. Learn both together: ${safeText(w[0])}.</p>${!ok?`<p class="muted">You entered: ${safeText(submitted||'(blank)')}</p>`:''}<button onclick="pictureNext()">Next picture</button></div>`;
-}
-function pictureNext(){if(!pictureSession)return;pictureSession.index++;pictureSession.answered=false;pictureShow()}
-const priorHomePictures=home;
-home=function(){priorHomePictures();let anchor=app.querySelector('.lesson-grid')||app.querySelector('.card');if(anchor){let card=document.createElement('section');card.className='card';card.innerHTML=`<h3>Picture practice</h3><p>Learn German words by looking at pictures.</p><button onclick="pictureHome()">Try picture practice</button>`;anchor.after(card)}};
-const picNav=document.createElement('button');picNav.textContent='▧ Picture practice';picNav.setAttribute('onclick',"navigateTo('pictureHome')");let picMenu=document.getElementById('sideMenu');let articles=[...picMenu.querySelectorAll('button')].find(b=>b.textContent.includes('Noun Articles'));if(articles)articles.after(picNav);else picMenu.appendChild(picNav);
-</script>
+<script src="./js/extracted-batch5-5.js"></script>
 
 <style>
 /* Keep the shared navigation visible without scrolling. */
@@ -1096,127 +967,9 @@ function dlReverseCheck(){
  gameMark(guess===expected,GAME_ITEMS[g.seq[g.idx]].en);
 }
 </script>
-<script>
-/* Levelled sentence banks for both directions of sentence building. */
-const DL_LEVEL_SENTENCES = {
- A1:[
- ['I am learning German.','Ich lerne Deutsch.'],['The child drinks milk.','Das Kind trinkt Milch.'],['We live in Berlin.','Wir wohnen in Berlin.'],['She has a red bag.','Sie hat eine rote Tasche.'],['My mother cooks soup.','Meine Mutter kocht Suppe.'],['The dog sleeps here.','Der Hund schläft hier.'],['I like this book.','Ich mag dieses Buch.'],['Today it is cold.','Heute ist es kalt.']
- ],
- A2:[
- ['I get up at seven o’clock.','Ich stehe um sieben Uhr auf.'],['Yesterday we visited our grandmother.','Gestern haben wir unsere Großmutter besucht.'],['I have to buy some bread today.','Ich muss heute Brot kaufen.'],['She takes the bus because it is raining.','Sie fährt mit dem Bus, weil es regnet.'],['Can you help me with my homework?','Kannst du mir bei den Hausaufgaben helfen?'],['On Saturday we are going to the cinema.','Am Samstag gehen wir ins Kino.'],['He has already cleaned his room.','Er hat sein Zimmer schon aufgeräumt.'],['I am waiting for the train at the station.','Ich warte am Bahnhof auf den Zug.']
- ],
- B1:[
- ['Although it is raining, we are going for a walk.','Obwohl es regnet, gehen wir spazieren.'],['I hope that you can come tomorrow.','Ich hoffe, dass du morgen kommen kannst.'],['If I had more time, I would learn Italian.','Wenn ich mehr Zeit hätte, würde ich Italienisch lernen.'],['The woman who lives next door is a doctor.','Die Frau, die nebenan wohnt, ist Ärztin.'],['After I finished work, I called my friend.','Nachdem ich die Arbeit beendet hatte, rief ich meinen Freund an.'],['I do not know whether the shop is still open.','Ich weiß nicht, ob das Geschäft noch geöffnet ist.'],['He studies every day in order to pass the exam.','Er lernt jeden Tag, um die Prüfung zu bestehen.'],['We decided to travel by train instead of flying.','Wir haben beschlossen, mit dem Zug zu fahren, statt zu fliegen.']
- ],
- B2:[
- ['Despite the unexpected delay, the meeting started on time.','Trotz der unerwarteten Verspätung begann die Besprechung pünktlich.'],['The proposal that was discussed yesterday will be revised.','Der Vorschlag, der gestern besprochen wurde, wird überarbeitet.'],['Had I known about the problem earlier, I would have helped.','Hätte ich früher von dem Problem gewusst, hätte ich geholfen.'],['The more often you practice, the more confident you become.','Je öfter du übst, desto sicherer wirst du.'],['The report must be submitted by the end of the week.','Der Bericht muss bis Ende der Woche eingereicht werden.'],['She behaved as if she had never heard of the incident.','Sie tat so, als hätte sie noch nie von dem Vorfall gehört.'],['Instead of making assumptions, we should examine the evidence.','Anstatt Vermutungen anzustellen, sollten wir die Beweise prüfen.'],['It remains unclear to what extent the changes will affect us.','Es bleibt unklar, inwieweit die Änderungen uns betreffen werden.']
- ]
-};
-const dlLevelIndices={};
-for(const [level,rows] of Object.entries(DL_LEVEL_SENTENCES)){
- dlLevelIndices[level]=rows.map(([en,de])=>{
-  const idx=GAME_ITEMS.length;
-  GAME_ITEMS.push({en,de,tokens:de.replace(/[.!?]+$/,'').split(/\s+/)});
-  return idx;
- });
-}
-let dlSentenceLevel='A1';
-const dlHubBeforeLevels=gameHub;
-gameHub=function(){
- dlHubBeforeLevels();
- const grid=app.querySelector('.game-grid');
- if(!grid)return;
- const section=document.createElement('div');
- section.style.cssText='grid-column:1/-1;padding:12px 0 4px';
- section.innerHTML='<label for="dlBuildLevel" style="display:block;margin-bottom:8px;font-weight:700">Sentence difficulty</label><select id="dlBuildLevel" aria-label="Sentence difficulty"><option value="A1">A1 · Beginner</option><option value="A2">A2 · Elementary</option><option value="B1">B1 · Intermediate</option><option value="B2">B2 · Upper intermediate</option></select><p class="muted" style="margin:8px 0 0">Applies to Build a Sentence and Build in English.</p>';
- grid.prepend(section);
- const select=section.querySelector('select');select.value=dlSentenceLevel;
- select.addEventListener('change',()=>{dlSentenceLevel=select.value;});
-};
-const dlStartBeforeLevels=gameStart;
-gameStart=function(mode,level){
- if(mode==='build')return startSentenceRound();
- if(mode!=='reverse')return dlStartBeforeLevels(mode,level);
- const seq=[...dlLevelIndices[dlSentenceLevel]];
- for(let i=seq.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[seq[i],seq[j]]=[seq[j],seq[i]];}
- gameSession={mode,level:dlSentenceLevel,pool:GAME_ITEMS,seq:seq.slice(0,6),idx:0,correct:0,answered:false,picked:[],matches:[],selected:null};
- gameRender();
-};
-</script>
+<script src="./js/extracted-batch5-10.js"></script>
 
-<script>
-/* A1 verb variety and complete-sentence translation feedback. */
-(function(){
- const verbRows=[
- ['Ich ___ jeden Morgen Kaffee.',['trinke','trinkst','trinkt'],0,'With ich, trinken becomes trinke.','I drink coffee every morning.'],
- ['Du ___ in Berlin.',['wohnst','wohne','wohnt'],0,'With du, wohnen becomes wohnst.','You live in Berlin.'],
- ['Er ___ ein Buch.',['liest','lese','lesen'],0,'Lesen changes its vowel in the third-person singular: er liest.','He reads a book.'],
- ['Wir ___ heute Pizza.',['essen','esst','isst'],0,'With wir, essen becomes essen.','We are eating pizza today.'],
- ['Sie (she) ___ Deutsch.',['spricht','sprechen','sprichst'],0,'Sprechen changes e to i with sie (she): sie spricht.','She speaks German.'],
- ['Ihr ___ am Samstag Fußball.',['spielt','spielen','spielst'],0,'With ihr, spielen becomes spielt.','You all play soccer on Saturday.'],
- ['Ich ___ eine Schwester.',['habe','hat','hast'],0,'With ich, haben becomes habe.','I have a sister.'],
- ['Du ___ sehr müde.',['bist','bin','ist'],0,'Sein is irregular: du bist.','You are very tired.'],
- ['Meine Mutter ___ im Krankenhaus.',['arbeitet','arbeiten','arbeite'],0,'Arbeiten adds -et with third-person singular: sie arbeitet.','My mother works at the hospital.'],
- ['Wir ___ morgen nach Hause.',['fahren','fährt','fahrt'],0,'With wir, fahren becomes fahren.','We are going home tomorrow.'],
- ['Das Kind ___ im Garten.',['spielt','spielen','spielst'],0,'With das Kind (third-person singular), spielen becomes spielt.','The child plays in the garden.'],
- ['Meine Freunde ___ Musik.',['hören','hört','höre'],0,'A plural subject takes hören.','My friends listen to music.'],
- ['Ich ___ jeden Tag um sieben Uhr auf.',['stehe','steht','stehst'],0,'With ich, aufstehen becomes ich stehe ... auf.','I get up at seven o’clock every day.'],
- ['Du ___ ein neues Fahrrad.',['kaufst','kauft','kaufe'],0,'With du, kaufen becomes kaufst.','You are buying a new bicycle.'],
- ['Sie (they) ___ im Park.',['laufen','läuft','lauft'],0,'With sie (they), laufen becomes laufen.','They are running in the park.'],
- ['Der Hund ___ laut.',['bellt','bellen','bellst'],0,'With der Hund, bellen becomes bellt.','The dog barks loudly.'],
- ['Wir ___ zusammen Deutsch.',['lernen','lernt','lerne'],0,'With wir, lernen becomes lernen.','We learn German together.'],
- ['Ich ___ meine Hausaufgaben.',['mache','macht','machst'],0,'With ich, machen becomes mache.','I do my homework.']
- ];
- const oldFullQuestions=fullQuestions;
- const translations={
-  'Das Buch liegt auf dem Tisch.':'The book is on the table.',
-  'Die Lampe ist hell.':'The lamp is bright.',
-  'Der Tisch ist groß.':'The table is big.',
-  'Das Kind spielt.':'The child plays.',
-  'Die Katze schläft.':'The cat is sleeping.',
-  'Der Hund bellt.':'The dog barks.',
-  'Ich heiße Lena.':'My name is Lena.',
-  'Guten Morgen!':'Good morning!',
-  'Wie geht es dir?':'How are you?',
-  'Ich komme aus Deutschland.':'I come from Germany.',
-  'Wie heißt du?':'What is your name?',
-  'Ich komme aus Kanada.':'I come from Canada.',
-  'Wir lernen Deutsch.':'We learn German.',
-  'Ich lerne Deutsch.':'I learn German.',
-  'Du lernst Deutsch.':'You learn German.'
- };
- const shuffleA1=(arr)=>{const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
- fullQuestions=function(unit){
-   if(unit.level==='A1'&&unit.title==='Present-tense verbs'){
-     return shuffleA1(verbRows).slice(0,12).map(([prompt,choices,correct,why,english])=>{
-       const opts=shuffleA1(choices);
-       return {type:'grammar',prompt,options:opts,answer:opts.indexOf(choices[correct]),why,english};
-     });
-   }
-   return oldFullQuestions(unit);
- };
- const oldDlCheck=dlCheck;
- dlCheck=function(){
-   const s=fullSession,q=s?.questions?.[s.idx],selected=dlSelected;
-   oldDlCheck();
-   if(!q||selected===null||!dlAnswered||!q.prompt.includes('___'))return;
-   const answer=q.options[q.answer];
-   const german=q.prompt.replace('___',answer);
-   const english=q.english||translations[german];
-   if(!english)return;
-   const feedback=document.querySelector('#dl-result .dl-flow-feedback');
-   if(!feedback||feedback.querySelector('.dl-a1-translation')||feedback.querySelector('.dl-article-translation'))return;
-   const block=document.createElement('div');block.className='dl-a1-translation';
-   const germanLine=document.createElement('p');
-   const germanLabel=document.createElement('strong');germanLabel.textContent='German: ';
-   germanLine.append(germanLabel,document.createTextNode(german));
-   const englishLine=document.createElement('p');
-   const englishLabel=document.createElement('strong');englishLabel.textContent='English: ';
-   englishLine.append(englishLabel,document.createTextNode(english));
-   block.append(germanLine,englishLine);feedback.appendChild(block);
- };
-})();
-</script>
+<script src="./js/extracted-batch5-9.js"></script>
 
 <script>
 /* A1 foundations data pack. Keep the rest of the app and existing lesson IDs unchanged. */
@@ -1274,97 +1027,7 @@ dlCheck=function(){
  div.append(de,en);feedback.append(div);
 };
 </script>
-<script>
-/* Review snapshots: persist the question, never an unstable shuffled index. */
-(function(){
- const previousCheck=dlCheck;
- const stableKey=q=> 'snap:'+encodeURIComponent([q.prompt||'',(q.options||[])[q.answer]||''].join('|'));
- const snapshot=q=>({prompt:q.prompt,options:[...q.options],answer:q.answer,why:q.why||'',german:q.german||'',english:q.english||'',type:q.type||'',dlAudioWords:q.dlAudioWords||null,dlTarget:q.dlTarget||''});
- function pruneLegacy(p){
-   // Legacy full:id:index records cannot be mapped reliably after randomization.
-   for(const k of new Set([...Object.keys(p.mistakes||{}),...Object.keys(p.reviews||{})])){
-     if(/^full:\d+:\d+$/.test(k)){delete p.mistakes[k];delete p.reviews[k];}
-   }
- }
- dlCheck=function(){
-   const s=fullSession,q=s?.questions?.[s.idx];
-   if(q&&!dlAnswered&&dlSelected!==null){
-     const p=practiceState();p.snapshots??={};p.mistakes??={};p.reviews??={};
-     pruneLegacy(p);
-     const key=stableKey(q),ok=dlSelected===q.answer;
-     p.snapshots[key]=snapshot(q);
-     if(ok){
-       delete p.mistakes[key];
-       const step=Math.min((p.reviews[key]?.step||0)+1,5);
-       p.reviews[key]={step,due:Date.now()+[0,1,3,7,14,30][step]*86400000};
-     }else{
-       p.mistakes[key]=(p.mistakes[key]||0)+1;
-       p.reviews[key]={step:0,due:Date.now()};
-     }
-     practiceLog(ok?10:2);
-   }
-   return previousCheck();
- };
- const oldHub=practiceHub,oldQuiz=practiceQuiz;
- function validKeys(p,mode){return (mode==='mistakes'?Object.keys(p.mistakes):Object.keys(p.reviews).filter(k=>p.reviews[k]?.due<=Date.now())).filter(k=>!k.startsWith('full:'));}
- practiceHub=function(){const p=practiceState();pruneLegacy(p);save();return oldHub();};
- let reviewSession=null;
- practiceQuiz=function(mode){
-   const p=practiceState();pruneLegacy(p);save();
-   const keys=validKeys(p,mode),key=keys.find(k=>k.startsWith('snap:')&&p.snapshots?.[k]);
-   if(!key)return oldQuiz(mode);
-   const q=p.snapshots[key];reviewSession={key,mode,q};
-   const isAudio=q.type==='sound-choice'||(/^Which audio says /i.test(q.prompt)&&q.options?.every(o=>/^Audio \d+$/i.test(o)));
-   if(isAudio){
-    let words=q.dlAudioWords;
-    if(!Array.isArray(words)||words.length!==q.options.length){
-     const target=q.dlTarget||q.prompt.match(/[“"]([^”"]+)[”"]/)?.[1];
-     const entry=(window.dlReviewSoundSets||[]).find(e=>e.words[e.target]===target);
-     if(entry){
-      const shift=(entry.target-q.answer+entry.words.length)%entry.words.length;
-      words=entry.words.map((_,i)=>entry.words[(i+shift)%entry.words.length]);
-     }
-    }
-    if(!Array.isArray(words)||words.length!==q.options.length){
-     app.innerHTML=illustratedHero('Review a lesson question','Audio choices unavailable for this saved question','forest','katze.png')+`<section class="card"><p>This older question did not save enough audio information.</p><button onclick="practiceQuiz('${mode}')">Next review</button><button class="secondary" onclick="practiceHub()">Back</button></section>`;
-     return;
-    }
-    reviewSession.audioWords=words;
-   }
-   app.innerHTML=illustratedHero('Review a lesson question','Practice the exact question you missed','forest','katze.png')+
-    `<section class="card"><h3>${safeText(q.prompt)}</h3>${isAudio?'<p>Tap an audio option to listen and select it. You can change your answer before confirming.</p>':''}<div id="dl-review-choices">${q.options.map((o,i)=>`<button type="button" class="secondary dl-review-choice" onclick="dlSnapshotSelect(${i})">${isAudio?'🔊 Audio '+(i+1):safeText(o)}</button>`).join('')}</div><button type="button" id="dl-review-confirm" onclick="dlSnapshotConfirm()" disabled>Confirm answer</button><div id="practiceFeedback"></div></section>`;
- };
- window.dlSnapshotSelect=function(i){
-   const r=reviewSession;if(!r||r.submitted)return;
-   r.selected=i;
-   document.querySelectorAll('#dl-review-choices button').forEach((b,n)=>{
-    b.classList.toggle('dl-review-selected',n===i);
-    b.setAttribute('aria-pressed',String(n===i));
-   });
-   const confirm=document.getElementById('dl-review-confirm');if(confirm)confirm.disabled=false;
-   if(r.audioWords?.[i]){
-    try{if(typeof speak==='function')speak(r.audioWords[i]);else if(typeof listeningSpeak==='function')listeningSpeak(r.audioWords[i],true)}catch(e){}
-   }
- };
- window.dlSnapshotConfirm=function(){
-   const r=reviewSession;if(!r||r.submitted||!Number.isInteger(r.selected))return;
-   r.submitted=true;
-   window.dlSnapshotAnswer(r.selected);
- };
-
- window.dlSnapshotAnswer=function(i){
-   const r=reviewSession;if(!r)return;
-   const {q,key,mode}=r,p=practiceState(),ok=i===q.answer;
-   if(ok){delete p.mistakes[key];const step=Math.min((p.reviews[key]?.step||0)+1,5);p.reviews[key]={step,due:Date.now()+[0,1,3,7,14,30][step]*86400000};}
-   else{p.mistakes[key]=(p.mistakes[key]||0)+1;p.reviews[key]={step:0,due:Date.now()};}
-   practiceLog(ok?10:2);
-   app.querySelectorAll('.card button').forEach(b=>b.disabled=true);
-   const complete=q.prompt.replace('___',q.options[q.answer]);
-   document.getElementById('practiceFeedback').innerHTML=`<p class="${ok?'correct':'wrong'}">${ok?'Correct!':'Correct answer: '+safeText(q.options[q.answer])}</p><p>${safeText(q.why)}</p>${q.german||q.english?`<p><strong>German:</strong> ${safeText(q.german||complete)}</p><p><strong>English:</strong> ${safeText(q.english||'')}</p>`:''}<button onclick="practiceQuiz('${mode}')">Next</button><button class="secondary" onclick="practiceHub()">Finish</button>`;
-   reviewSession=null;
- };
-})();
-</script>
+<script src="./js/extracted-batch5-7.js"></script>
 <script>
 /* Unified review entry: show saved mistakes and direct links to the relevant lesson. */
 (function(){
@@ -1497,74 +1160,7 @@ body.dl-answer-ready .dl-flow {padding-bottom:110px;}
 /* XP rewards and selectable animal profile avatars */
 .dl-profile-top{display:flex;gap:16px;align-items:center;flex-wrap:wrap}.dl-avatar-large{width:94px;height:94px;border-radius:24px;background:#244a59;display:grid;place-items:center;border:2px solid #74cfc1;overflow:hidden}.dl-avatar-large .dl-animal-art{width:100%;height:100%;object-fit:cover}.dl-avatar-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.dl-avatar-option{min-height:154px!important;display:flex!important;flex-direction:column;align-items:center;justify-content:center;gap:6px!important;background:#203b50!important;border:2px solid #4a7380!important;color:#eefaf8!important;border-radius:18px!important;white-space:normal!important}.dl-avatar-option.selected{border-color:#76dec7!important;background:#295c60!important}.dl-avatar-option.locked{opacity:.66}.dl-avatar-option .dl-animal-art{display:block;width:100%;max-width:185px;aspect-ratio:1.55;object-fit:cover;border-radius:14px;margin-bottom:5px}.dl-rank-track{height:13px;border-radius:12px;background:#385064;overflow:hidden;margin:12px 0}.dl-rank-track>div{height:100%;background:#6bd0b9;border-radius:12px}.dl-badge{padding:12px;border-radius:14px;border:1px solid #54717d;background:#21394c;margin:9px 0}.dl-badge.locked{opacity:.6}.dl-profile-button{width:100%;margin-top:12px}
 </style>
-<script>
-/* Local-only profile rewards: no account or network service required. */
-(function(){
- const animals=[
-  {id:'dog',name:'Fritzi · Dog',min:0,kind:'dog',color:'#df9a4d'},
-  {id:'cat',name:'Minka · Cat',min:0,kind:'cat',color:'#b9b7c7'},
-  {id:'fox',name:'Fuchsie · Fox',min:250,kind:'fox',color:'#e99149'},
-  {id:'owl',name:'Oskar · Owl',min:500,kind:'owl',color:'#b58c68'},
-  {id:'rabbit',name:'Hoppel · Rabbit',min:1000,kind:'rabbit',color:'#d4c3d2'},
-  {id:'panda',name:'Rudi · Red panda',min:2000,kind:'panda',color:'#cb754f'}
- ];
- const ranks=[['Beginner',0],['Explorer',100],['Apprentice',250],['Conversationalist',500],['Skilled Speaker',1000],['German Enthusiast',2000],['Language Master',5000]];
- const esc=t=>String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
- function xp(){return Math.max(0,Number(practiceState().xp)||0)}
- function profile(){ensureLearning();state.learning.profile??={avatar:'dog',badges:{}};return state.learning.profile}
- function avatarSVG(a){
-  return '<img class="dl-animal-art" src="avatar_'+a.id+'.webp" alt="'+esc(a.name)+'" loading="lazy">';
- }
- function current(){return animals.find(a=>a.id===profile().avatar&&xp()>=a.min)||animals[0]}
- function achievements(){
-  const scores=state.learning?.fullScores||{};
-  const completed=Object.values(scores).filter(s=>s?.passed).length;
-  const streak=practiceStreak();
-  const p=profile();
-  const specs=[['first','First Steps','Earn your first 10 XP',xp()>=10],['hundred','XP Explorer','Earn 100 XP',xp()>=100],['lessons','Getting Started','Complete 10 lessons',completed>=10],['streak','On a Roll','Practice 7 days in a row',streak>=7],['dialogues','Conversation Starter','Complete 5 different dialogues',Object.keys(p.dialogues||{}).length>=5],['perfect','Perfect Round','Complete a dialogue with no mistakes',!!p.perfectDialogue]];
-  let changed=false;for(const [id,,,earned] of specs){if(earned&&!p.badges[id]){p.badges[id]=true;changed=true}}if(changed)save();return specs.map(([id,name,description])=>({name,description,earned:!!p.badges[id]}));
- }
- window.dlProfile=function(){
-  const total=xp(),a=current(),r=ranks.filter(x=>total>=x[1]).at(-1),next=ranks.find(x=>x[1]>total),pct=next?Math.round((total-r[1])/(next[1]-r[1])*100):100;
-  app.innerHTML='<section class="card"><h2>My German profile</h2><div class="dl-profile-top"><div class="dl-avatar-large">'+avatarSVG(a)+'</div><div><h3 style="margin:0">'+esc(a.name)+'</h3><p class="muted">'+esc(r[0])+' · '+total+' total XP</p></div></div><h3>Next rank</h3><p>'+(next?esc(next[0])+' · '+(next[1]-total)+' XP to go':'Highest rank achieved')+'</p><div class="dl-rank-track"><div style="width:'+pct+'%"></div></div><p class="muted">XP unlocks avatars and ranks. Lessons stay open at every rank.</p></section><section class="card"><h2>Choose your animal</h2><div class="dl-avatar-grid">'+animals.map(v=>'<button class="dl-avatar-option '+(a.id===v.id?'selected ':'')+(total<v.min?'locked':'')+'" onclick="dlChooseAvatar(\''+v.id+'\')" '+(total<v.min?'disabled':'')+'>'+avatarSVG(v)+'<strong>'+esc(v.name)+'</strong><small>'+(total<v.min?'Unlock at '+v.min+' XP':a.id===v.id?'Selected':'Choose avatar')+'</small></button>').join('')+'</div></section><section class="card"><h2>Achievements</h2>'+achievements().map(b=>'<div class="dl-badge '+(b.earned?'':'locked')+'"><strong>'+(b.earned?'✓ ':'○ ')+esc(b.name)+'</strong><div class="muted">'+esc(b.description)+'</div></div>').join('')+'</section><section class="card dl-reset-section"><h2>Testing and progress</h2><p class="muted">Start over to test the learning path from Module 1.</p><button type="button" class="dl-reset-button" onclick="dlResetAllProgress()">Reset all progress</button></section><button class="secondary dl-profile-button" onclick="practiceHub()">Back to practice</button>';
-  window.scrollTo(0,0);
- };
- window.dlChooseAvatar=function(id){const a=animals.find(x=>x.id===id);if(!a||xp()<a.min)return;profile().avatar=id;save();updateMenuAvatar();dlProfile()};
- // Add profile to the navigation without changing existing navigation handlers.
- const menu=document.getElementById('sideMenu');
- function updateMenuAvatar(){
-  if(!menu)return;
-  const a=current();
-  const image=menu.querySelector('.dl-menu-avatar');
-  if(image){image.src='avatar_'+a.id+'.webp';image.alt=a.name;}
- }
- if(menu){
-  const heading=menu.querySelector('.menu-heading');
-  if(heading && !heading.querySelector('.dl-menu-avatar')){
-   const headerAvatar=document.createElement('img');
-   headerAvatar.className='dl-menu-avatar';
-   headerAvatar.alt='Current animal avatar';
-   heading.prepend(headerAvatar);
-  }
-
-  const btn=document.createElement('button');
-  btn.className='dl-menu-profile-link';
-  btn.textContent='Profile';
-  btn.onclick=function(){toggleMenu(false);dlProfile()};
-  const placementButton=[...menu.querySelectorAll('button')].find(b=>b.textContent.includes('Placement test'));
-  if(placementButton)menu.insertBefore(btn,placementButton);else menu.appendChild(btn);
-  updateMenuAvatar();
-  const previousToggle=toggleMenu;
-  toggleMenu=function(open){if(open)updateMenuAvatar();return previousToggle(open)};
- }
- const oldHub=practiceHub;practiceHub=function(){oldHub();const card=app.querySelector('.card');if(card){const a=current();const b=document.createElement('button');b.className='secondary dl-profile-button';b.innerHTML=avatarSVG(a)+' My profile, ranks & rewards';b.querySelector('img').style.cssText='height:36px;width:36px;object-fit:cover;border-radius:9px;vertical-align:middle;margin-right:8px';b.onclick=dlProfile;card.appendChild(b)}};
- const oldLog=practiceLog;practiceLog=function(points){const before=xp();oldLog(points);const after=xp();if(ranks.some(r=>r[1]>before&&r[1]<=after)||animals.some(a=>a.min>before&&a.min<=after)){profile().newUnlock=true;save()}};
- // Count unique completed dialogues and record perfect attempts for badges.
- const oldStart=window.startDialogue;window.startDialogue=function(id){window.dlDialogueStarted=id;window.dlDialogueMissed=false;return oldStart(id)};
- const oldAnswer=window.answerDialogue;window.answerDialogue=function(i){const before=document.getElementById('dialogue-feedback');const old=before?.textContent||'';oldAnswer(i);const now=document.getElementById('dialogue-feedback')?.textContent||'';if(now.includes('Not quite')&&now!==old)window.dlDialogueMissed=true};
- const oldNext=window.nextDialogueStep;window.nextDialogueStep=function(){oldNext();if(app.textContent.includes('Conversation complete')&&window.dlDialogueStarted){const p=profile();p.dialogues??={};p.dialogues[window.dlDialogueStarted]=true;if(!window.dlDialogueMissed)p.perfectDialogue=true;save();window.dlDialogueStarted=null}};
-})();
-</script>
+<script src="./js/extracted-batch5-4.js"></script>
 <script src="./js/extracted-batch2-5.js"></script>
 <style>.a1-module-guide{padding:12px 16px;margin:14px 0;background:#183c47;border:1px solid #438b87;border-radius:14px}.a1-module-guide h3{margin:0 0 7px}</style>
 
@@ -1577,71 +1173,7 @@ body.dl-answer-ready .dl-flow {padding-bottom:110px;}
 .dl-audio-choice .dl-audio-icon{font-size:1.4rem}
 .dl-audio-note{margin:0 0 18px;color:#c2d7e3;line-height:1.5}
 </style>
-<script>
-(function(){
- const soundSets=[
-  {words:['ich','ach','auch'],target:0,note:'German ich has a soft ch sound, unlike the throaty ch in ach. Listen for the difference.'},
-  {words:['schon','schön','Sohn'],target:1,note:'ö is a rounded front vowel. It sounds different from the o in schon or Sohn.'},
-  {words:['Mutter','Mütter','Meter'],target:1,note:'ü is not the same as u. Keep your lips rounded while shaping the front vowel.'},
-  {words:['weiß','weise','Wasser'],target:0,note:'German ei sounds like the vowel in English eye. The ß represents an s sound.'},
-  {words:['mein','Mann','Miene'],target:0,note:'The German combination ei sounds like English eye, whereas ie is a long ee sound.'},
-  {words:['Zeit','seit','sieht'],target:2,note:'ie usually signals a long ee vowel. ei is pronounced like English eye.'},
-  {words:['Schule','Stuhl','Spule'],target:0,note:'At the start of a German word, sch represents a sh sound; st and sp often begin with sht and shp.'},
-  {words:['zwei','drei','frei'],target:0,note:'German z begins with a ts sound, so zwei starts differently from drei and frei.'},
-  {words:['Vater','Wasser','Farbe'],target:1,note:'German w is pronounced like English v. German v is often pronounced like f.'},
-  {words:['Buch','Bücher','Bach'],target:1,note:'The ch in Bücher is softer than the back-of-the-throat ch in Buch or Bach.'},
-  {words:['Hose','Hase','Haus'],target:2,note:'au is a diphthong, similar to ow in English cow. It differs from simple o and a vowels.'},
-  {words:['Bett','Beet','bitte'],target:1,note:'A doubled vowel, as in Beet, usually indicates a long vowel; compare the short e in Bett.'},
-  {words:['Küche','Kuchen','Kirche'],target:0,note:'Compare Küche (ü), Kuchen (u), and Kirche (i). These vowels are distinct in German.'},
-  {words:['neun','nun','nein'],target:0,note:'eu and äu sound like oy in English boy; ei sounds like eye.'},
-  {words:['Straße','Strauß','Stress'],target:0,note:'At the beginning of German words, str is pronounced with a sh sound; ß is an s sound.'}
- ];
- window.dlReviewSoundSets=soundSets;
- const priorBegin=fullBegin;
- fullBegin=function(id){
-  priorBegin(id);
-  const s=fullSession,u=FULL_UNITS[id];
-  if(!s||!u||u.level!=='A1'||!/(umlaut|pronunc|sounds? of|alphabet|spelling)/i.test(String(u.title||''))||!Array.isArray(s.questions)||s.questions.some(q=>q.type==='sound-choice'))return;
-  const index=Math.abs(Number(id)||0)%soundSets.length;
-  const entry=soundSets[index];
-  // Rotate the correct answer's position so the learner cannot use a fixed button position.
-  const shift=index%3;
-  const words=entry.words.map((_,i)=>entry.words[(i+shift)%3]);
-  const correct=words.indexOf(entry.words[entry.target]);
-  const q={type:'sound-choice',prompt:'Which audio says “'+entry.words[entry.target]+'”?',options:['Audio 1','Audio 2','Audio 3'],answer:correct,why:entry.note,dlAudioWords:words,dlTarget:entry.words[entry.target]};
-  s.questions.splice(Math.min(3,s.questions.length),0,q);
-  fullRender();
- };
- const priorRender=fullRender;
- fullRender=function(){
-  priorRender();
-  const s=fullSession,q=s&&s.questions&&s.questions[s.idx];
-  if(!q||q.type!=='sound-choice')return;
-  const card=document.querySelector('.dl-flow-card');if(!card)return;
-  const label=card.querySelector('.dl-flow-label');if(label)label.textContent='LISTEN AND IDENTIFY THE SOUND';
-  const options=card.querySelectorAll('.dl-flow-options button');
-  options.forEach((b,i)=>{
-   b.classList.add('dl-audio-choice');
-   b.innerHTML='<span class="dl-audio-icon" aria-hidden="true">🔊</span><span>Play audio '+(i+1)+'</span>';
-   b.addEventListener('click',()=>{if(!dlAnswered&&typeof speak==='function')speak(q.dlAudioWords[i])});
-  });
-  const group=card.querySelector('.dl-flow-options');
-  if(group){const note=document.createElement('p');note.className='dl-audio-note';note.textContent='Tap each choice to hear a German word, then select the audio that matches the written word. You can replay each option.';group.before(note)}
-  const tip=document.getElementById('dl-tip'),help=document.getElementById('dl-help-btn');
-  if(tip)tip.hidden=true;if(help)help.hidden=true;
- };
- const priorCheck=dlCheck;
- dlCheck=function(){
-  const s=fullSession,q=s&&s.questions&&s.questions[s.idx];
-  if(!q||q.type!=='sound-choice')return priorCheck();
-  if(dlAnswered||dlSelected===null)return;
-  const choice=dlSelected;
-  priorCheck();
-  const result=document.getElementById('dl-result');
-  if(result){const extra=document.createElement('p');extra.textContent='Audio '+(q.answer+1)+' says “'+q.dlTarget+'”. '+q.why;result.appendChild(extra)}
- };
-})();
-</script>
+<script src="./js/extracted-batch5-11.js"></script>
 
 <!-- A1 guided speaking exercises: browser speech recognition, with honest feedback. -->
 <style>
@@ -1649,102 +1181,7 @@ body.dl-answer-ready .dl-flow {padding-bottom:110px;}
 .dl-speak-panel p{line-height:1.5}.dl-speak-panel button{margin:6px 8px 6px 0}
 .dl-speak-status{min-height:2.8em;color:#e0f1f2}.dl-speak-panel .dl-speak-target{font-size:1.55rem;font-weight:700}
 </style>
-<script>
-(function(){
- const speechWords=[
-  ['ich','I','Focus on the soft ch sound at the end.'],
-  ['wir','we','German w sounds like English v.'],
-  ['ihr','you (plural)','The vowel is long, like the ee sound.'],
-  ['sprechen','to speak','The initial sp sounds like shp.'],
-  ['Schule','school','The sch combination sounds like English sh.'],
-  ['zwei','two','German z begins with a ts sound.'],
-  ['mein','my','The ei combination sounds like English eye.'],
-  ['Liebe','love','The ie combination is a long ee sound.'],
-  ['Bücher','books','Listen for the ü vowel and the soft ch.'],
-  ['Mädchen','girl','The ch here is soft; -chen is a diminutive ending.'],
-  ['Wasser','water','German w sounds like v; the first a is short.'],
-  ['aufstehen','to get up','Notice the au diphthong and the stressed first syllable.'],
-  ['Frühstück','breakfast','Pay attention to ü and the consonant cluster.'],
-  ['Entschuldigung','excuse me','Say the word in syllables, then together.'],
-  ['Guten Morgen','good morning','Practice the natural rhythm of the greeting.']
- ];
- const previousBegin=fullBegin;
- fullBegin=function(id){
-  previousBegin(id);
-  const s=fullSession,u=FULL_UNITS[id];
-  if(!s||!u||u.level!=='A1'||!/(umlaut|pronunc|sounds? of|alphabet|spelling)/i.test(String(u.title||''))||!Array.isArray(s.questions)||s.questions.some(q=>q.type==='speak-word'))return;
-  const n=Math.abs(Number(id)||0)%speechWords.length;
-  const [word,meaning,tip]=speechWords[n];
-  s.questions.splice(Math.min(4,s.questions.length),0,{type:'speak-word',prompt:'Say this German word aloud',options:['Recognized','Try again'],answer:0,dlSpeakWord:word,dlSpeakMeaning:meaning,why:tip});
-  fullRender();
- };
- let currentRecognition=null;
- const previousRender=fullRender;
- fullRender=function(){
-  if(currentRecognition){try{currentRecognition.abort()}catch(e){}currentRecognition=null}
-  previousRender();
-  const s=fullSession,q=s?.questions?.[s.idx];if(!q||q.type!=='speak-word')return;
-  const card=document.querySelector('.dl-flow-card');if(!card)return;
-  const label=card.querySelector('.dl-flow-label');if(label)label.textContent='SPEAK THE GERMAN WORD';
-  const heading=card.querySelector('h2');if(heading)heading.textContent='Pronounce this word:';
-  const choices=card.querySelector('.dl-flow-options');if(choices)choices.hidden=true;
-  const check=document.getElementById('dl-check');if(check)check.hidden=true;
-  const tip=document.getElementById('dl-tip'),help=document.getElementById('dl-help-btn');if(tip)tip.hidden=true;if(help)help.hidden=true;
-  const panel=document.createElement('div');panel.className='dl-speak-panel';
-  panel.innerHTML='<div class="dl-speak-target"></div><p class="dl-speak-meaning"></p><button id="dl-speak-start">🎤 Speak now</button><div class="dl-speak-hear-row"><button class="secondary" id="dl-speak-listen">🔊 Hear it</button><button class="secondary" id="dl-speak-slow">🐢 Hear it slowly</button></div><p id="dl-speak-status" class="dl-speak-status" aria-live="polite">Listen to the word, then say it into your microphone.</p><button class="secondary" id="dl-speak-skip">Skip speaking</button>';
-  panel.querySelector('.dl-speak-target').textContent=q.dlSpeakWord;
-  panel.querySelector('.dl-speak-meaning').textContent=q.dlSpeakMeaning;
-  panel.querySelector('#dl-speak-listen').onclick=()=>speak(q.dlSpeakWord);
-  panel.querySelector('#dl-speak-slow').onclick=()=>speak(q.dlSpeakWord,0.7);
-  panel.querySelector('#dl-speak-skip').onclick=()=>finish(false,true);
-  panel.querySelector('#dl-speak-start').onclick=()=>{
-   const Rec=window.SpeechRecognition||window.webkitSpeechRecognition;
-   const status=panel.querySelector('#dl-speak-status');
-   if(!Rec){status.textContent='Speech recognition is unavailable in this browser. You can listen and practice, then skip this speaking check.';return}
-   if(currentRecognition){try{currentRecognition.stop()}catch(e){}return}
-   const rec=new Rec();currentRecognition=rec;rec.lang='de-DE';rec.continuous=false;rec.interimResults=false;rec.maxAlternatives=5;
-   const start=panel.querySelector('#dl-speak-start');start.textContent='Listening… tap to stop';status.textContent='Listening for German speech…';
-   let speechFinished=false;
-   const speechTimeout=setTimeout(()=>{
-    if(speechFinished||currentRecognition!==rec)return;
-    speechFinished=true;
-    currentRecognition=null;
-    try{rec.abort()}catch(e){}
-    if(fullSession===s&&s.questions[s.idx]===q&&!dlAnswered){
-     status.textContent='No speech detected after 10 seconds. Tap Speak again to retry, or Skip speaking to continue.';
-     if(start.isConnected)start.textContent='🎤 Speak again';
-    }
-   },10000);
-   rec.onresult=e=>{
-    if(speechFinished)return;
-    speechFinished=true;clearTimeout(speechTimeout);
-    if(fullSession!==s||s.questions[s.idx]!==q)return;
-    const alternatives=Array.from(e.results[0]||[]).map(x=>x.transcript);
-    const norm=t=>String(t).toLocaleLowerCase('de').normalize('NFC').replace(/[.,!?„“"']/g,'').replace(/\s+/g,' ').trim();
-    const recognized=alternatives[0]||'';
-    const match=alternatives.some(t=>{const heard=norm(t), target=norm(q.dlSpeakWord);return heard===target||(target==='jahr'&&heard==='ja');});
-    status.textContent=match?'Great — I heard “'+recognized+'”.':'I heard “'+recognized+'”. Try listening again and repeating the word.';
-    if(match)finish(true,false,recognized);
-   };
-   rec.onerror=e=>{if(speechFinished)return;speechFinished=true;clearTimeout(speechTimeout);if(fullSession===s&&s.questions[s.idx]===q)status.textContent='Microphone: '+e.error+'. You can retry or skip.'};
-   rec.onend=()=>{clearTimeout(speechTimeout);if(currentRecognition===rec)currentRecognition=null;if(start.isConnected)start.textContent='🎤 Speak again';if(!speechFinished&&fullSession===s&&s.questions[s.idx]===q&&!dlAnswered)status.textContent='No speech recognized. Tap Speak again to retry, or Skip speaking to continue.';speechFinished=true;};
-   try{rec.start()}catch(e){speechFinished=true;clearTimeout(speechTimeout);currentRecognition=null;status.textContent='Could not start microphone: '+e.message}
-  };
-  card.querySelector('.dl-flow-options')?.before(panel);
-  function finish(matched,skipped,heard){
-   if(dlAnswered)return;
-   dlAnswered=true;
-   s.results.push(!!matched);if(matched)s.score++;
-   panel.querySelector('#dl-speak-start').disabled=true;
-   panel.querySelector('#dl-speak-skip').hidden=true;
-   const result=document.getElementById('dl-result');
-   panel.querySelector('#dl-speak-status').hidden=true;
-   if(result){const wrap=document.createElement('div');wrap.className='dl-flow-feedback';const strong=document.createElement('strong');strong.textContent=skipped?'Practice skipped':matched?'Well done!':'Try again';const p=document.createElement('p');p.textContent=matched?'You said “'+(heard||q.dlSpeakWord)+'” and the microphone understood you. Keep practicing the sound to make it feel natural.':skipped?'You can return to this word later.':q.why;wrap.append(strong,p);result.replaceChildren(wrap)}
-   if(check){check.hidden=false;check.disabled=false;check.textContent=s.idx===s.questions.length-1?'Finish lesson':'Continue';check.onclick=()=>{s.idx++;fullRender()}}
-  }
- };
-})();
-</script>
+<script src="./js/extracted-batch5-3.js"></script>
 
 <style>
 /* Speaking practice: hide irrelevant quiz answers and keep the next step reachable. */
@@ -1878,115 +1315,7 @@ body.dl-answer-ready .dl-flow {padding-bottom:110px;}
 .dl-review-summary li{margin:8px 0}
 @media(max-width:400px){.dl-review-result img{width:78px;height:78px}.dl-review-result{gap:10px}}
 </style>
-<script>
-/* Topic-aware module reviews: recap, a small transfer challenge, and score-based mascot feedback. */
-(function(){
- const oldReview=curriculumReview, oldRender=curriculumReviewRender;
- function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
- function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
- curriculumReview=function(level,n){
-  if(level!=='A1')return oldReview(level,n);
-  const g=STRUCTURED_PATH[level]?.[n];if(!g)return;
-  const core=[];
-  for(const id of g.ids){
-   const u=FULL_UNITS[id];if(!u)continue;
-   const qs=fullQuestions(u).filter(q=>Array.isArray(q.options)&&q.type!=='listen');
-   // Test meaning, grammar and recall rather than repeating the same prompt three times.
-   const chosen=[qs.find(q=>q.type==='grammar'),qs.find(q=>q.type==='recall'),qs.find(q=>q.type==='translate')].filter(Boolean);
-   chosen.forEach(q=>core.push({...q,unitId:id}));
-  }
-  shuffle(core);
-  const questions=core.slice(0,7);
-  // Module 1 also reviews every sound from the 15-exercise pronunciation lesson.
-  if(n===0){
-   const soundChecks=[
-    ['What sound does German z make in zwei?',['ts','English z','sh'],'ts','German z is pronounced /ts/.'],
-    ['How is sch pronounced in Schule?',['sh','sk','ch as in chair'],'sh','sch makes the sh sound.'],
-    ['How is sp pronounced at the beginning of sprechen?',['shp','sp as in English spin','sf'],'shp','Initial sp is pronounced shp.'],
-    ['How is st pronounced at the beginning of Straße?',['sht','st as in English stop','ts'],'sht','Initial st is pronounced sht.'],
-    ['Which word contains the soft ch sound /ç/?',['ich','Buch','Haus'],'ich','ich uses the soft ch sound.'],
-    ['Which word contains the back ch sound /x/?',['Buch','ich','Liebe'],'Buch','Buch uses the back ch sound.'],
-    ['What sound does ei make in mein?',['eye','long ee','oy'],'eye','ei sounds like eye.'],
-    ['What sound does ie make in Liebe?',['long ee','eye','ow'],'long ee','ie makes a long ee sound.'],
-    ['What sound does eu make in neun?',['oy','eye','oo'],'oy','eu sounds similar to oy.'],
-    ['What sound does au make in Haus?',['ow as in cow','oy','long ee'],'ow as in cow','au sounds similar to ow in cow.'],
-    ['How is German w pronounced in Wasser?',['English v','English w','English f'],'English v','German w makes a v sound.'],
-    ['How is v usually pronounced in Vater?',['English f','English v','English w'],'English f','Vater begins with an f sound.'],
-    ['What sound does ß make in Straße?',['voiceless s','b','z'],'voiceless s','ß makes a voiceless s sound.'],
-    ['How do you form the ü sound in fünf?',['Keep tongue forward and round lips','Use a plain English oo','Use a plain English ee'],'Keep tongue forward and round lips','For ü, keep the tongue forward while rounding the lips.'],
-    ['How do you form the ö sound in schön?',['Keep tongue forward and round lips','Use an ordinary English oh','Use an English ah'],'Keep tongue forward and round lips','For ö, use a front vowel with rounded lips.']
-   ];
-   soundChecks.forEach(([prompt,choices,correct,why])=>{
-    const options=shuffle(choices.slice());
-    questions.push({type:'sound-review',prompt,options,answer:options.indexOf(correct),why,unitId:g.ids[0]});
-   });
-   shuffle(questions);
-  }
-  // A small, explicitly labeled transfer challenge uses unfamiliar vocabulary
-  // with a pattern already practiced. It is never required for passing.
-  const next=STRUCTURED_PATH.A1[n+1];
-  let stretch=[];
-  if(next){
-   for(const id of next.ids){
-    const u=FULL_UNITS[id];if(!u?.examples?.length)continue;
-    const ex=u.examples.find(x=>Array.isArray(x)&&x[0]&&x[1]);
-    if(!ex)continue;
-    const distractors=u.examples.filter(x=>Array.isArray(x)&&x[1]!==ex[1]).map(x=>x[1]).slice(0,2);
-    if(distractors.length<2)continue;
-    const opts=shuffle([ex[1],...distractors]);
-    stretch.push({type:'transfer',prompt:'New vocabulary challenge: What does “'+ex[0]+'” mean?',options:opts,answer:opts.indexOf(ex[1]),why:'New word: “'+ex[0]+'” means “'+ex[1]+'”. You can apply the recognition skills you just practiced to unfamiliar German.',unitId:id,dlStretch:true});
-   }
-  }
-  if(stretch.length)questions.push(stretch[0]);
-  // The optional challenge is practice, not part of the mastery threshold.
-  moduleSession={level,n,questions,idx:0,score:0,answered:false,dlReviewEnhanced:true,dlCoreCount:questions.filter(q=>!q.dlStretch).length,dlCoreScore:0,dlMissed:[]};
-  curriculumReviewRender();
- };
- const oldAnswer=curriculumReviewAnswer;
- curriculumReviewAnswer=function(i){
-  const s=moduleSession;
-  if(s?.dlReviewEnhanced&&!s.answered){
-   const q=s.questions[s.idx];
-   if(i===q.answer&&!q.dlStretch)s.dlCoreScore++;
-   if(i!==q.answer)s.dlMissed.push({prompt:q.prompt,correct:q.options[q.answer]});
-  }
-  return oldAnswer(i);
- };
- curriculumReviewRender=function(){
-  const s=moduleSession;
-  if(!s?.dlReviewEnhanced)return oldRender();
-  if(s.idx<s.questions.length){
-   oldRender();
-   const q=s.questions[s.idx];
-   if(q.dlStretch){
-    const title=app.querySelector('.curriculum-pill');if(title)title.textContent='BONUS · Apply what you learned to a new word';
-    const prompt=app.querySelector('.card h2');if(prompt)prompt.textContent=q.prompt.replace(/^New vocabulary challenge: /,'');
-    const note=document.createElement('p');note.className='muted';note.textContent='This introduces unfamiliar vocabulary using skills you already practiced. It does not affect your pass score.';
-    prompt?.after(note);
-   }
-   return;
-  }
-  const g=STRUCTURED_PATH[s.level]?.[s.n],total=s.dlCoreCount,correct=s.dlCoreScore;
-  const percent=total?Math.round(correct/total*100):0;
-  const passed=percent>=80;
-  ensureLearning();state.learning.moduleReviews??={};
-  const key=s.level+'-'+s.n,old=state.learning.moduleReviews[key];
-  state.learning.moduleReviews[key]={best:Math.max(old?.best||0,correct),total,passed:passed||!!old?.passed};save();
-  const mascot=percent===100?'avatar_fox.webp':percent>=80?'avatar_dog.webp':percent>=60?'avatar_owl.webp':'avatar_cat.webp';
-  const german=percent===100?'Ausgezeichnet!':percent>=80?'Sehr gut gemacht!':percent>=60?'Gut gemacht!':'Weiter üben!';
-  const english=percent===100?'Excellent! A perfect review.':percent>=80?'Very well done! You passed the review.':percent>=60?'Good work! Review the missed answers and try again.':'Keep practicing! Revisit the lessons and try again.';
-  const examples=(g?.ids||[]).flatMap(id=>FULL_UNITS[id]?.examples||[]).filter(x=>Array.isArray(x)&&x[0]&&x[1]).slice(0,3);
-  app.innerHTML=`<section class="card"><p class="curriculum-pill">${esc(s.level)} · Module ${s.n+1} review</p><h2>Module review complete</h2>
-   <div class="dl-review-result"><img src="${mascot}" alt="DeutschLab animal character"><div><h3>${german}</h3><p>${english}</p><p><strong>${percent}%</strong> · ${correct} of ${total} review questions correct</p></div></div>
-   <div class="dl-review-summary"><h3>What you practiced</h3><p>${esc(g?.goal||'The key skills from this module.')}</p><p>${esc(g?.context||'')}</p>
-   ${examples.length?'<h4>Key examples</h4><ul>'+examples.map(x=>'<li><strong>'+esc(x[0])+'</strong> — '+esc(x[1])+'</li>').join('')+'</ul>':''}
-   ${s.dlMissed.length?'<h4>Answers to revisit</h4><ul>'+s.dlMissed.slice(0,4).map(x=>'<li>'+esc(x.prompt)+' — <strong>'+esc(x.correct)+'</strong></li>').join('')+'</ul>':'<p>You answered all the core review questions correctly.</p>'}
-   <p class="muted">Bonus questions are just for practice. They don’t affect your score.</p></div>
-   <button onclick="curriculumView('${s.level}')">Learning path</button><button class="secondary" onclick="curriculumReview('${s.level}',${s.n})">Practice again</button></section>`;
-  moduleSession=null;window.scrollTo(0,0);
- };
-})();
-</script>
+<script src="./js/extracted-batch5-1.js"></script>
 
 <!-- Answer-choice audio removed: hearing an option can reveal the correct answer.
      Audio remains available for explicitly listening-based prompts. -->
@@ -2052,79 +1381,7 @@ body.dl-answer-ready .dl-flow {padding-bottom:110px;}
 })();
 </script>
 
-<script>
-/* Reviews assess taught skills. Transfer questions reuse a taught grammar rule, never next-module vocabulary. */
-(function(){
- const prior=curriculumReview;
- function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
- function isSoundGloss(x){return /\([^)]*(sounds? like|pronounced|letter|vowel|different from|compare|unlike)[^)]*\)/i.test(String(x));}
- function cleanAnswer(x){return String(x).replace(/\s*\([^)]*\)/g,'').trim();}
- function soundReview(id){
-  const make=(prompt,options,correct,why,audio)=>{const opts=shuffle(options.slice());return {type:'grammar',unitId:id,prompt,options:opts,answer:opts.indexOf(correct),why,...(audio?{dlReviewAudio:audio}:{})};};
-  return [
-   make('Listen to the first sound. Which German letter makes it?',['J','W','V'],'J','Junge begins with J, pronounced like English Y.','Junge'),
-   make('You encounter “Wolke” (cloud) for the first time. How is W pronounced?',['Like English V','Like English W','Like English F'],'Like English V','German W sounds like English V.'),
-   make('Listen to the vowel sound. Which German letter produces it?',['ö','o','ü'],'ö','Schön uses ö, a rounded front vowel.','schön'),
-   make('In the new word “Vogel” (bird), how is the initial V usually pronounced?',['Like English F','Like English V','Like English Y'],'Like English F','Vogel begins with an F sound.'),
-   make('Listen to the vowel sound. Which German letter produces it?',['ü','u','ö'],'ü','Fünf contains the vowel ü.','fünf'),
-   make('What changes when you write schon as schön?',['The pronunciation and meaning','Only the capitalization','Nothing; they are interchangeable'],'The pronunciation and meaning','Schon means already; schön means beautiful.'),
-   make('Listen to the first vowel sound. Which German letter produces it?',['ä','a','ö'],'ä','Mädchen contains ä.','Mädchen'),
-   make('You see the unfamiliar word “Fuß” (foot). What sound does ß represent?',['An s sound','A b sound','A z sound'],'An s sound','ß represents a voiceless s sound.'),
-   make('Listen to the first sound. Which German letter makes it?',['W','V','J'],'W','Wasser begins with W, pronounced like English V.','Wasser'),
-   make('Listen to the German word. Which vowel sound do you hear?',['ü','u','ö'],'ü','The word grün contains the German ü vowel.','grün')
-  ];
- }
- curriculumReview=function(level,n){
-  prior(level,n);
-  const s=moduleSession,g=STRUCTURED_PATH[level]?.[n];
-  if(!s||!g||level!=='A1')return;
-  // A module review must never draw its bonus from the following module.
-  s.questions=s.questions.filter(q=>!q.dlStretch);
-  const clean=[];
-  const seen=new Set();
-  for(const id of g.ids){
-   const u=FULL_UNITS[id];if(!u)continue;
-   const qs=fullQuestions(u).filter(q=>Array.isArray(q.options)&&q.options.length>=2&&q.answer>=0&&q.answer<q.options.length&&q.type!=='listen'&&!q.options.some(isSoundGloss));
-   for(const q of shuffle(qs)){
-    const key=String(q.prompt).trim().toLowerCase();
-    if(seen.has(key))continue;
-    seen.add(key);
-    const opts=q.options.map(cleanAnswer);
-    if(opts.some(x=>!x)||new Set(opts.map(x=>x.toLowerCase())).size!==opts.length)continue;
-    clean.push({...q,options:opts,unitId:id});
-   }
-  }
-  // Generalization: apply the already-taught regular present-tense pattern to a new verb.
-  const taughtRule=g.ids.some(id=>/regular (?:present|verb)|present.tense (?:verb|ending)|verb endings|conjugat(?:e|ion|ing)/i.test(FULL_UNITS[id]?.rule||''));
-  if(taughtRule){
-   const choices=shuffle([{subject:'du',form:'spielst',stem:'spiel',ending:'-st'}, {subject:'er',form:'spielt',stem:'spiel',ending:'-t'}, {subject:'ich',form:'spiele',stem:'spiel',ending:'-e'}]);
-   const target=choices[0];
-   const opts=shuffle(['spiele','spielst','spielt']);
-   clean.push({type:'grammar',unitId:g.ids[0],prompt:`Apply the verb ending you learned: ${target.subject} ___ (spielen = to play)`,options:opts,answer:opts.indexOf(target.form),why:`Spielen means “to play.” The subject ${target.subject} takes the regular present-tense ending ${target.ending}, so spiel- becomes ${target.form}.`,dlTransfer:true});
-  }
-  if(clean.length){
-   const isAlphabet=n===0&&/alphabet|spelling/i.test(g.title||'');
-   const candidates=isAlphabet?soundReview(g.ids[0]):clean;
-   // Interleave different exercise types instead of repeating one prompt pattern.
-   const buckets=new Map();
-   for(const q of shuffle(candidates)){
-    const kind=q.type==='grammar'?'grammar':/what does|translate|mean\?/i.test(q.prompt)?'translation':/which|choose|select/i.test(q.prompt)?'recognition':'other';
-    if(!buckets.has(kind))buckets.set(kind,[]);
-    buckets.get(kind).push(q);
-   }
-   const mixed=[];
-   while(mixed.length<10&&[...buckets.values()].some(a=>a.length)){
-    for(const bucket of buckets.values())if(bucket.length&&mixed.length<10)mixed.push(bucket.shift());
-   }
-   s.questions=mixed;
-   s.idx=0;s.score=0;s.answered=false;s.dlCoreScore=0;s.dlCoreCount=s.questions.length;s.dlMissed=[];
-  }else{
-   s.dlCoreCount=s.questions.length;
-  }
-  curriculumReviewRender();
- };
-})();
-</script>
+<script src="./js/extracted-batch5-8.js"></script>
 <style>
 /* Keep word choices visually separate from editing controls. */
 .dl-bank-label{margin:22px 0 4px;font-size:.8rem;font-weight:800;letter-spacing:.12em;color:#9fdacf}
@@ -2206,57 +1463,7 @@ body.dl-answer-ready .dl-flow {padding-bottom:110px;}
 .dl-article-teaching p{margin:9px 0;line-height:1.5}
 .dl-article-teaching .dl-article-example{padding:10px 12px;border-left:3px solid #70d4bd;background:rgba(0,0,0,.12);margin:12px 0}
 </style>
-<script>
-/* Teach noun-gender patterns inside relevant lessons, then assess transfer to
-   unfamiliar nouns. The article-patterns reference page remains available. */
-(function(){
- const isGenderLesson=u=>!!u&&u.level==='A1'&&/(nouns? and (their )?articles?|noun gender|gender patterns)/i.test(u.title||'');
- const genderQuestions=[
-  {type:'grammar',prompt:'A new German noun ends in -ung: ___ Einladung (invitation). Which article is most likely?',options:['die','der','das'],answer:0,why:'The ending -ung is a strong feminine noun pattern. Einladung is feminine: die Einladung.'},
-  {type:'grammar',prompt:'A new noun ends in -chen: ___ Häuschen (little house). Choose the article.',options:['das','die','der'],answer:0,why:'The diminutive ending -chen makes a noun neuter, even when the original noun has another gender: das Häuschen.'},
-  {type:'grammar',prompt:'Choose the article for ___ Freiheit (freedom). Use the noun ending.',options:['der','die','das'],answer:1,why:'Nouns ending in -heit are feminine: die Freiheit.'},
-  {type:'grammar',prompt:'Which article goes with ___ Museum? Use the -um pattern.',options:['das','der','die'],answer:0,why:'Many German nouns ending in -um are neuter, including das Museum.'},
-  {type:'grammar',prompt:'Choose the article for ___ Freundschaft (friendship).',options:['die','das','der'],answer:0,why:'The suffix -schaft forms feminine nouns: die Freundschaft.'},
-  {type:'grammar',prompt:'Choose the article for ___ Brötchen (bread roll).',options:['der','das','die'],answer:1,why:'The ending -chen makes a noun neuter: das Brötchen.'},
-  {type:'grammar',prompt:'Choose the article for ___ Möglichkeit (possibility).',options:['die','der','das'],answer:0,why:'The ending -keit forms feminine nouns: die Möglichkeit.'},
-  {type:'grammar',prompt:'Choose the article for ___ Instrument (instrument).',options:['der','die','das'],answer:2,why:'Many nouns ending in -ment are neuter, including das Instrument. This ending is a clue, not a guarantee.'}
- ];
- const previousQuestions=fullQuestions;
- fullQuestions=function(unit){
-  const original=previousQuestions(unit);
-  if(!isGenderLesson(unit))return original;
-  // Preserve the question set of an active attempt.
-  if(fullSession&&fullSession.id===FULL_UNITS.indexOf(unit)&&fullSession.questions)return fullSession.questions;
-  const existing=original.filter(q=>Array.isArray(q.options)&&q.options.length>1&&!/sound|listen/i.test(q.type));
-  const chosen=[...genderQuestions].sort(()=>Math.random()-.5).slice(0,5);
-  const questions=[...chosen,...existing.slice(0,3)];
-  return questions.map(q=>{
-   const choices=q.options.map((label,i)=>({label,correct:i===q.answer}));
-   for(let i=choices.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[choices[i],choices[j]]=[choices[j],choices[i]];}
-   return {...q,options:choices.map(x=>x.label),answer:choices.findIndex(x=>x.correct)};
-  });
- };
- const previousStudy=fullStudy;
- fullStudy=function(id){
-  previousStudy(id);
-  const u=FULL_UNITS[id];
-  if(!isGenderLesson(u))return;
-  const card=app.querySelector('.card');
-  if(!card)return;
-  const panel=document.createElement('section');
-  panel.className='dl-article-teaching';
-  panel.innerHTML='<h3>Spot the noun ending</h3>'+
-   '<p>German nouns have a grammatical gender. Some endings give you a useful clue about which article to use.</p>'+
-   '<div class="dl-article-example"><strong>Usually die (feminine)</strong><p><strong>-ung</strong>: die Zeitung · <strong>-heit</strong>: die Freiheit · <strong>-keit</strong>: die Möglichkeit · <strong>-schaft</strong>: die Freundschaft · <strong>-ion</strong>: die Nation · <strong>-in</strong>: die Lehrerin</p></div>'+
-   '<div class="dl-article-example"><strong>Usually das (neuter)</strong><p><strong>-chen</strong>: das Mädchen · <strong>-ment</strong>: das Instrument · <strong>-um</strong>: das Museum</p></div>'+
-   '<div class="dl-article-example"><strong>Often der (masculine)</strong><p>Days, months and seasons: der Montag, der Januar, der Winter. Some nouns ending in -er are masculine, but there are exceptions.</p></div>'+
-   '<p><strong>Try the pattern:</strong> You will see unfamiliar nouns with these endings. Choose der, die or das using the ending, then read the explanation.</p>'+
-   '<p>These are clues, not universal rules. Learn each noun together with its article.</p>';
-  const first=card.querySelector('.unit-explain');
-  if(first)first.after(panel);else card.prepend(panel);
- };
-})();
-</script>
+<script src="./js/extracted-batch5-12.js"></script>
 
 <style>
 .dl-reset-section{border:1px solid rgba(243,163,153,.4)}
