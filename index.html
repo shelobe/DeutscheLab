@@ -4927,4 +4927,44 @@ function quickRandomPractice(){
  window.scrollTo(0,0);
 }
 </script>
+
+<script id="dl-android-back-navigation">
+/* Make Android/browser Back navigate app screens, never quiz questions. */
+(function(){
+ const views=[];let restoring=false;
+ const tracked=['home','friendlyCourse','curriculumView','practiceHub','gameHub','articleHome','photoMenu','aiTutor','placementResults','review','fullStudy','dlLessonIntro','fullBegin','gameStart','startSentenceRound','listeningPractice','quickRandomPractice'];
+ function capture(){return {name:'home',args:[]}}
+ for(const name of tracked){
+  const original=window[name];if(typeof original!=='function')continue;
+  window[name]=function(...args){
+   if(!restoring){
+    const lesson=['fullStudy','dlLessonIntro','fullBegin'].includes(name);
+    const view=lesson?{name:'home',args:[]}:{name,args};
+    views.push(view);
+    history.pushState({dlNav:true,step:views.length},'','#dl-screen-'+views.length);
+   }
+   return original.apply(this,args);
+  };
+ }
+ /* One initial browser history entry anchors the in-app Back behavior. */
+ if(!history.state?.dlNav){history.replaceState({dlNav:true,step:0},'',location.pathname+location.search);}
+ window.addEventListener('popstate',()=>{
+  const lesson=!!(document.body.classList.contains('lesson-screen')||window.fullSession&&document.querySelector('.dl-flow'));
+  const previous=lesson?capture():(views.length>1?views[views.length-2]:capture());
+  if(views.length)views.pop();
+  restoring=true;
+  try{
+   if(lesson){
+    if(typeof leaveLessonScreen==='function'){
+     // Use the existing confirmation before discarding in-progress work.
+     leaveLessonScreen();
+    }else home();
+   }else{
+    const fn=window[previous.name];
+    if(typeof fn==='function')fn(...previous.args);else home();
+   }
+  }finally{restoring=false;history.pushState({dlNav:true,step:views.length},'','#dl-screen-'+views.length)}
+ });
+})();
+</script>
 </body></html>
