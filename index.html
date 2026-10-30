@@ -5674,7 +5674,7 @@ body:has(#app .market-v2) .app-header .menu-toggle{width:44px;height:44px;min-he
   button.addEventListener('click',function(){window.dlShowBetaFeedback()});
   nav.appendChild(button);
   const settings=nav.querySelector('.dl-settings-menu-entry');
-  if(settings){const heading=document.createElement('p');heading.className='muted dl-menu-group';heading.textContent='APP';settings.before(heading);heading.after(settings);settings.after(button);}
+  if(settings)settings.after(button);
  }
  window.dlShowBetaFeedback=function(){
   if(typeof window.toggleMenu==='function')window.toggleMenu(false);
