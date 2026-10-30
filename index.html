@@ -5377,16 +5377,29 @@ body:has(#dlDialogueExitBar) #app{padding-bottom:112px!important}
   '<div class="market-swipe-hint">‹ Swipe to explore · '+aisle[1]+' ›</div><div class="market-swipe-zone" ontouchstart="supermarktTouchStart(event)" ontouchend="supermarktTouchEnd(event)">'+scene+(state.message?'<div class="market-feedback-toast '+(state.wrong?'bad':'good')+'" role="status">'+state.message+'</div>':'')+'</div>'+
   '<div class="market-basket-dock"><button type="button" class="market-basket-toggle" onclick="supermarktToggleBasket()" aria-expanded="'+(window.dlMarketBasketOpen?'true':'false')+'"><span>Einkaufskorb · '+state.cart.length+' / '+state.list.length+'</span><span>'+euro(total)+' <span class="market-basket-chevron">'+(window.dlMarketBasketOpen?'⌄':'⌃')+'</span></span></button><div class="market-basket-details '+(window.dlMarketBasketOpen?'is-open':'')+'"><div class="market-cart"><div class="market-cart-handle" aria-hidden="true"></div><div class="market-cart-items">'+(state.cart.length?state.cart.map(id=>'<span title="'+byId(id).name+'">'+(id==='radieschen'?'<svg class="market-veggie-icon" viewBox="0 0 48 48" aria-label="Radish" role="img"><path d="M24 18C17 9 12 10 8 7c0 9 6 14 13 15M26 18c2-10 8-13 14-14-2 9-6 15-13 18M23 17c-2-9 0-13 2-16 4 6 5 12 2 17" fill="#5aaf65"/><path d="M13 23c1-9 20-12 24 0 3 10-7 19-13 22-7-5-14-13-11-22" fill="#e84d70"/><path d="M19 39l5 7 4-7" fill="#fff4e7"/><path d="M16 24c2-4 6-5 9-5" stroke="#ffa3ae" stroke-width="3" stroke-linecap="round" fill="none"/></svg>':id==='blumenkohl'?'<svg class="market-veggie-icon" viewBox="0 0 48 48" aria-label="Cauliflower" role="img"><path d="M8 31q3-10 13-10h7q10 0 12 10l-9 12H17Z" fill="#4f9a54"/><path d="M14 31c-10-7-5-17 3-16 0-10 13-12 17-3 10-1 13 12 5 17-3 8-19 11-25 2" fill="#f6eed3" stroke="#d4c9a7" stroke-width="1.4"/><path d="M12 29q-4 6 6 13M36 28q7 7-5 14" stroke="#44894a" stroke-width="5" fill="none"/></svg>':byId(id).emoji)+'</span>').join(''):'<span class="muted">Your cart is empty.</span>')+'</div></div></div></div><div class="market-actions market-actions-docked"><button class="secondary" onclick="supermarktLeave(practiceHub)">Back to Games</button><button '+(!done?'disabled':'')+' onclick="supermarktCheckout()">Zur Kasse →</button></div></div>';
  }
- window.supermarktToggleBasket=function(){
-  window.dlMarketBasketOpen=!window.dlMarketBasketOpen;
+ let basketPeekTimer=null;
+ let basketManuallyOpen=false;
+ function setBasketOpen(open){
+  window.dlMarketBasketOpen=!!open;
   const dock=document.querySelector('#app .market-basket-dock');
   if(!dock)return;
   const details=dock.querySelector('.market-basket-details');
   const button=dock.querySelector('.market-basket-toggle');
-  if(details)details.classList.toggle('is-open',!!window.dlMarketBasketOpen);
-  if(button){button.setAttribute('aria-expanded',String(!!window.dlMarketBasketOpen));const indicator=button.querySelector('.market-basket-chevron');if(indicator)indicator.textContent=window.dlMarketBasketOpen?'⌄':'⌃';}
+  if(details)details.classList.toggle('is-open',!!open);
+  if(button){button.setAttribute('aria-expanded',String(!!open));const indicator=button.querySelector('.market-basket-chevron');if(indicator)indicator.textContent=open?'⌄':'⌃';}
+ }
+ window.supermarktToggleBasket=function(){
+  if(basketPeekTimer){clearTimeout(basketPeekTimer);basketPeekTimer=null;}
+  basketManuallyOpen=!window.dlMarketBasketOpen;
+  setBasketOpen(basketManuallyOpen);
  };
- window.supermarktReset=function(){state=null;sessionStorage.removeItem('dl-supermarkt-session')};
+ function peekBasket(){
+  if(basketManuallyOpen)return;
+  if(basketPeekTimer)clearTimeout(basketPeekTimer);
+  setBasketOpen(true);
+  basketPeekTimer=setTimeout(()=>{basketPeekTimer=null;if(!basketManuallyOpen&&state)setBasketOpen(false);},1500);
+ }
+ window.supermarktReset=function(){if(basketPeekTimer)clearTimeout(basketPeekTimer);basketPeekTimer=null;basketManuallyOpen=false;window.dlMarketBasketOpen=false;state=null;sessionStorage.removeItem('dl-supermarkt-session')};
  window.supermarktLeave=function(destination){dlAppConfirm({title:'Leave Grocery Shopping?',message:'Your current shopping progress will be reset.',cancelText:'Keep Shopping',confirmText:'Leave Game',danger:true,onConfirm:()=>{supermarktReset();if(typeof destination==='function')destination();else practiceHub()}});return false};
  window.supermarktHome=function(){
   try{const saved=JSON.parse(sessionStorage.getItem('dl-supermarkt-session')||'null');if(saved&&Array.isArray(saved.list)&&Array.isArray(saved.cart)&&Number.isInteger(saved.aisle)&&saved.aisle>=0&&saved.aisle<3&&saved.list.every(id=>byId(id))&&saved.cart.every(id=>byId(id))){state=saved;const validProduce=new Set(['banane','apfel','orange','ananas','tomate','gurke','paprika','karotte','salat','brokkoli','blumenkohl','radieschen','kartoffel','zwiebel','knoblauch','zitrone','wassermelone']);if(state.list.some(id=>!validProduce.has(id))){state.list=missions[state.round%missions.length]||missions[0];state.cart=state.cart.filter(id=>state.list.includes(id));state.aisle=0;state.message='';state.wrong=false;save()}render();window.scrollTo(0,0);return}}catch(e){}
@@ -5398,7 +5411,7 @@ body:has(#dlDialogueExitBar) #app{padding-bottom:112px!important}
  window.supermarktPick=function(id){
   if(!state||state.cart.includes(id))return;
   if(!state.list.includes(id)){status('Nicht auf der Liste! · Not on the list. Try again.',true);if(typeof dlWrongHaptic==='function')dlWrongHaptic()}
-  else{state.cart.push(id);status(state.cart.length===state.list.length?'Sehr gut! Ready for checkout!':'Richtig! · Correct!');if(typeof findItSound==='function')findItSound(true)}
+  else{state.cart.push(id);status(state.cart.length===state.list.length?'Sehr gut! Ready for checkout!':'Richtig! · Correct!');if(typeof findItSound==='function')findItSound(true);render();peekBasket();return;}
   render();
  };
  window.supermarktCheckout=function(){
@@ -5602,4 +5615,7 @@ if(typeof old==='function')window.navigateTo=function(fn){
 #app .market-v2 .market-basket-details.is-open{display:block}
 #app .market-v2 .market-basket-details .market-cart{margin:24px auto 7px!important;min-height:43px!important}
 #app .market-v2 .market-basket-details .market-cart-items{max-height:85px;overflow-y:auto}
+</style><style id="dl-market-basket-peek-animation">
+#app .market-v2 .market-basket-details.is-open{animation:dlBasketReveal .2s ease-out both}
+@keyframes dlBasketReveal{from{opacity:.4;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
 </style></body></html>
