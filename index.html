@@ -5531,4 +5531,31 @@ if(typeof old==='function')window.navigateTo=function(fn){
 #app .market-v2 .market-feedback-toast.bad{color:#ffd5d5;border-color:#e58b91;background:rgba(75,27,38,.95)}
 #app .market-v2 .market-cart{min-height:0!important;padding:7px 12px 8px!important}
 #app .market-v2 .market-cart-items{min-height:0!important}
-</style></body></html>
+</style><script id="dl-refresh-screen-restore">
+(function(){
+ const key='dl-current-navigation';
+ const safe=['home','friendlyCourse','curriculumView','practiceHub','gameHub','articleHome','photoMenu','aiTutor'];
+ let restoring=false;
+ for(const name of safe){
+  const original=window[name];
+  if(typeof original!=='function')continue;
+  window[name]=function(...args){
+   const result=original.apply(this,args);
+   if(!restoring){
+    try{sessionStorage.setItem(key,JSON.stringify({name,args}))}catch(e){}
+   }
+   return result;
+  };
+ }
+ // Preserve the supermarket's own in-progress restoration.
+ if(document.querySelector('#app .market-v2'))return;
+ try{
+  const saved=JSON.parse(sessionStorage.getItem(key)||'null');
+  if(!saved||!safe.includes(saved.name)||!Array.isArray(saved.args))return;
+  const destination=window[saved.name];
+  if(typeof destination!=='function')return;
+  restoring=true;
+  destination(...saved.args);
+ }catch(e){}finally{restoring=false}
+})();
+</script></body></html>
