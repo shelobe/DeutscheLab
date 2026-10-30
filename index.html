@@ -4487,7 +4487,7 @@ body.dl-home-banner .app-header h1,body.dl-home-banner .app-header p,body.dl-hom
  };
  // Brief, reusable character dialogues inside the existing course lessons.
  const dialogues={
-  'Greetings and introductions':[['Katze','Hallo! Wie heißt du?'],['Hund','Ich heiße Max. Und du?'],['Katze','Ich heiße Mia. Freut mich!']],
+  'Greetings and introductions':[['Katze','Hallo! Wie heißt du?'],['Hund','Ich heiße Fritzi. Und du?'],['Katze','Ich heiße Minka. Freut mich!']],
   'Food and ordering':[['Katze','Guten Tag! Was möchten Sie?'],['Hund','Ich möchte einen Tee, bitte.'],['Katze','Gern. Sonst noch etwas?'],['Hund','Nein, danke.']],
   'Places and directions':[['Hund','Entschuldigung, wo ist der Bahnhof?'],['Katze','Gehen Sie geradeaus und dann links.'],['Hund','Vielen Dank!']],
   'Daily routines':[['Katze','Wann stehst du auf?'],['Hund','Ich stehe um sieben Uhr auf.'],['Katze','Und wann arbeitest du?'],['Hund','Um acht Uhr.']],
@@ -4502,7 +4502,7 @@ body.dl-home-banner .app-header h1,body.dl-home-banner .app-header p,body.dl-hom
   const start=card?.querySelector('.dl-flow-action');
   if(!card||card.querySelector('.dl-a1-dialogue'))return result;
   const block=document.createElement('section');block.className='dl-a1-dialogue';
-  block.innerHTML='<h3>Short conversation</h3><p class="muted">Listen to each line, then try saying it yourself.</p>'+lines.map(([speaker,line])=>'<div class="dl-a1-dialogue-line"><div class="dl-speaker"><span class="dl-speaker-portrait '+(speaker==='Katze'?'dl-cat-portrait':'dl-dog-portrait')+'" aria-hidden="true"></span><strong>'+safeText(speaker==='Katze'?'Minka':'Fritzi')+'</strong></div><span>'+safeText(line)+'</span><button type="button" class="secondary" data-line="'+encodeURIComponent(line)+'">Hear</button></div>').join('');
+  block.innerHTML='<h3>Short conversation</h3><p class="muted">Listen to each line, then try saying it yourself.</p>'+lines.map(([speaker,line])=>'<div class="dl-a1-dialogue-line"><div class="dl-speaker"><img class="dl-conversation-avatar" src="./'+(speaker==='Katze'?'file_000000003ba881f5874140d280c0ed4d.png':'file_00000000d60c81f5926a379c283707d8.png')+'" alt="" loading="lazy"><strong>'+safeText(speaker==='Katze'?'Minka':'Fritzi')+'</strong></div><span>'+safeText(line)+'</span><button type="button" class="secondary" data-line="'+encodeURIComponent(line)+'">Hear</button></div>').join('');
   block.querySelectorAll('[data-line]').forEach(btn=>btn.addEventListener('click',()=>speak(decodeURIComponent(btn.dataset.line))));
   if(start)start.before(block);else card.append(block);
   return result;
@@ -4522,6 +4522,9 @@ body.dl-home-banner .app-header h1,body.dl-home-banner .app-header p,body.dl-hom
 .dl-a1-dialogue-line>span:not(.dl-speaker-portrait){display:block!important;width:100%!important;min-width:0!important;max-width:100%!important;overflow-wrap:break-word!important;word-break:normal!important;line-height:1.5;font-size:1.05em}
 .dl-a1-dialogue-line>button{display:inline-block!important;align-self:flex-start!important;flex:none!important;width:auto!important;min-width:110px!important;max-width:100%!important;padding:10px 20px!important;min-height:42px!important;margin:0!important}
 @media(max-width:480px){.dl-a1-dialogue-line{padding:12px!important}.dl-a1-dialogue-line .dl-speaker-portrait{width:48px!important;height:48px!important;min-width:48px!important;min-height:48px!important;max-width:48px!important;max-height:48px!important}}
+
+.dl-a1-dialogue-line .dl-conversation-avatar{display:block!important;width:64px!important;height:64px!important;max-width:64px!important;max-height:64px!important;min-width:64px!important;min-height:64px!important;object-fit:contain!important;object-position:center!important;border-radius:0!important;background:none!important;flex:0 0 64px!important;margin:0!important;padding:0!important;transform:none!important}
+@media(max-width:480px){.dl-a1-dialogue-line .dl-conversation-avatar{width:58px!important;height:58px!important;min-width:58px!important;min-height:58px!important;max-width:58px!important;max-height:58px!important;flex-basis:58px!important}}
 
 </style>
 <style id="dl-speaking-primary-layout">
