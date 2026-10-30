@@ -5743,4 +5743,27 @@ body:has(#app .market-v2) .app-header .menu-toggle{width:44px;height:44px;min-he
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',apply);else apply();
 })();
 </script>
+<style id="dl-supermarkt-notepaper">
+/* A compact handwritten shopping note, limited to the in-game list. */
+#app .market-v2 .market-list.market-always-visible{
+ background:repeating-linear-gradient(to bottom,transparent 0,transparent 27px,rgba(93,148,181,.24) 28px,transparent 29px),linear-gradient(115deg,#fffdf1,#f7edcf)!important;
+ color:#354047!important;
+ border:1px solid #d8c9a1!important;
+ border-left:4px solid #dc9b91!important;
+ border-radius:5px 12px 12px 5px!important;
+ box-shadow:2px 4px 9px #0002!important;
+ transform:rotate(-.35deg);
+}
+#app .market-v2 .market-list.market-always-visible strong{
+ display:block;color:#354047!important;font-family:"Comic Sans MS","Segoe Print",cursive!important;
+ font-size:1.06rem!important;letter-spacing:.02em;
+}
+#app .market-v2 .market-list.market-always-visible ul{
+ list-style:none!important;padding-left:4px!important;
+ font-family:"Comic Sans MS","Segoe Print",cursive!important;
+ font-size:.9rem!important;line-height:1.5!important;
+}
+#app .market-v2 .market-list.market-always-visible li::before{content:"□";margin-right:5px;color:#687a7e}
+#app .market-v2 .market-list.market-always-visible li:has(.market-checked)::before{content:"✓";color:#448374}
+</style>
 </body></html>
