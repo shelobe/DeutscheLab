@@ -135,23 +135,7 @@ body:has(#dl-sentence-next-dock) #dl-fixed-next{display:none!important}
 .dl-article-table tr:last-child td{border-bottom:0}
 .dl-article-table td:last-child strong,.dl-accusative-tip span{color:#79e1cf;font-weight:700}
 .dl-accusative-tip span{display:block;margin-top:8px}
-</style></head><body><main><header class="app-header"><button class="menu-toggle" onclick="toggleMenu(true)" aria-label="Open navigation menu" aria-controls="sideMenu" aria-expanded="false">☰</button></header><div id="menuBackdrop" class="menu-backdrop" onclick="toggleMenu(false)" hidden></div><nav id="sideMenu" class="side-menu" aria-label="Main navigation" aria-hidden="true"><div class="menu-heading"><strong>DeutschLab</strong><button class="menu-close secondary" onclick="toggleMenu(false)" aria-label="Close menu">✕</button></div><p class="muted">LEARN</p><button onclick="navigateTo('home')">⌂ Home</button><button onclick="navigateTo('placement')">◈ Placement test</button><button onclick="navigateTo('lessonMenu')">▤ Lessons</button><button onclick="navigateTo('articleHome')">◉ Noun Articles</button><p class="muted">PRACTICE</p><button onclick="navigateTo('review')">↻ Review</button><button onclick="navigateTo('conversation')">☏ Dialogue</button><button onclick="navigateTo('aiTutor')">✦ AI Tutor & Voice</button></nav><div id="app"></div></main><script src="./js/legacy-part-3.js"></script><script>if ("serviceWorker" in navigator) window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(console.warn));</script><script>
-// Illustrated mobile lesson experience; original quizzes, progress and AI tutor remain intact.
-const lessonIcons=['👋','🛍️','💬','🥨'];
-const lessonScenes=['village','cafe','forest','cafe'];
-const lessonEmoji=[['👋','🌅','🙋','😊','💐'],['🧺','☕','🛒','📍','💶'],['✨','👤','👩','👥','🧑‍🤝‍🧑'],['💧','☕','🧾','🚫','🥛']];
-const mascotTips=['Fritzi says: Try saying each greeting out loud!','Minka says: Use these phrases when you shop or order.','Fritzi says: Notice how the verb changes with the subject.','Minka says: Remember the article with every food noun.'];
-function illustratedHero(title,description,scene='village',mascot='hund.png'){
- return `<div class="scene-hero ${scene}"><img class="hero-mascot" src="./${mascot}" alt="Your illustrated German-learning companion"><div class="hero-copy"><h2>${title}</h2><p>${description}</p></div></div>`;
-}
-home=function(){const count=state.completed.length;app.innerHTML=illustratedHero('Willkommen zurück!','Learn German with Fritzi and Minka.','village')+`<section class="card"><h2>Your learning journey</h2><p>${count} of ${lessons.length} lessons completed</p><div id="progress"><div id="bar" style="width:${count/lessons.length*100}%"></div></div><p class="muted">Placement: ${state.placement===null?'Not taken':state.placement+'/5 correct'}</p><button onclick="lessonMenu()">Continue learning</button></section><h3 class="section-label">Explore DeutschLab</h3><div class="lesson-grid"><button class="lesson-tile" onclick="lessonMenu()"><span class="tile-icon">📖</span><span class="tile-title">Illustrated lessons</span><small>4 guided lessons</small></button><button class="lesson-tile" onclick="articleHome()"><span class="tile-icon">🎨</span><span class="tile-title">Noun articles</span><small>Der · die · das</small></button><button class="lesson-tile" onclick="aiTutor()"><span class="tile-icon">🎙️</span><span class="tile-title">AI voice tutor</span><small>Speak German</small></button><button class="lesson-tile" onclick="review()"><span class="tile-icon">⭐</span><span class="tile-title">Review</span><small>Practice mistakes</small></button></div>`};
-lessonMenu=function(){app.innerHTML=illustratedHero('Choose your adventure','Every lesson includes vocabulary, listening and a quiz.','forest','katze.png')+`<h3 class="section-label">Your lessons</h3><div class="lesson-grid">`+lessons.map((l,i)=>`<button class="lesson-tile" onclick="openLesson(${i})"><span class="tile-icon">${lessonIcons[i]}</span><span class="tile-title">${i+1}. ${l.title}</span><small>${state.completed.includes(i)?'✓ Completed':'Tap to learn'}</small></button>`).join('')+'</div>'};
-openLesson=function(i){const l=lessons[i];app.innerHTML=illustratedHero(`Lesson ${i+1}: ${l.title}`,'Listen, repeat and learn together.',lessonScenes[i],i%2?'katze.png':'hund.png')+`<div class="mascot-line"><img src="./${i%2?'katze.png':'hund.png'}" alt="Learning companion"><p>${mascotTips[i]}</p></div><h3 class="section-label">Vocabulary · Tap to listen</h3><section class="card">`+l.words.map((w,j)=>`<div class="vocab-row"><span class="vocab-pic" aria-hidden="true">${lessonEmoji[i][j]}</span><div class="vocab-copy"><strong>${w[0]}</strong><span>${w[1]}</span></div><button class="secondary" aria-label="Hear ${w[0]}" onclick="speak(lessons[${i}].words[${j}][0])">🔊</button></div>`).join('')+`<button class="big-action" onclick="startLessonQuiz(${i})">Practice what you learned</button><button class="secondary" onclick="lessonMenu()">All lessons</button></section>`};
-const oldArticleHome=articleHome;articleHome=function(){oldArticleHome();app.insertAdjacentHTML('afterbegin',illustratedHero('Der, die oder das?','Learn nouns with their articles and plural forms.','cafe','katze.png'))};
-const oldArticleFlash=articleFlash;articleFlash=function(i){oldArticleFlash(i);app.insertAdjacentHTML('afterbegin',illustratedHero('Picture flashcards','Look, listen and remember the article.','forest','hund.png'))};
-const oldAiTutor=aiTutor;aiTutor=function(){oldAiTutor();app.insertAdjacentHTML('afterbegin',illustratedHero('Sprich mit mir!','Talk with your AI German tutor using push-to-talk.','cafe','katze.png'))};
-home();
-</script><script src="./js/extracted-batch3-2.js"></script><script src="./js/extracted-batch3-4.js"></script>
+</style></head><body><main><header class="app-header"><button class="menu-toggle" onclick="toggleMenu(true)" aria-label="Open navigation menu" aria-controls="sideMenu" aria-expanded="false">☰</button></header><div id="menuBackdrop" class="menu-backdrop" onclick="toggleMenu(false)" hidden></div><nav id="sideMenu" class="side-menu" aria-label="Main navigation" aria-hidden="true"><div class="menu-heading"><strong>DeutschLab</strong><button class="menu-close secondary" onclick="toggleMenu(false)" aria-label="Close menu">✕</button></div><p class="muted">LEARN</p><button onclick="navigateTo('home')">⌂ Home</button><button onclick="navigateTo('placement')">◈ Placement test</button><button onclick="navigateTo('lessonMenu')">▤ Lessons</button><button onclick="navigateTo('articleHome')">◉ Noun Articles</button><p class="muted">PRACTICE</p><button onclick="navigateTo('review')">↻ Review</button><button onclick="navigateTo('conversation')">☏ Dialogue</button><button onclick="navigateTo('aiTutor')">✦ AI Tutor & Voice</button></nav><div id="app"></div></main><script src="./js/legacy-part-3.js"></script><script>if ("serviceWorker" in navigator) window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(console.warn));</script><script src="./js/extracted-batch6-1.js"></script><script src="./js/extracted-batch3-2.js"></script><script src="./js/extracted-batch3-4.js"></script>
 <style>
 .explain-box{background:#142a40;border-left:4px solid #6ed1bd;border-radius:12px;padding:15px;margin:15px 0;line-height:1.55}
 .explain-box h3{margin:0 0 8px}.explain-box p{margin:8px 0}
@@ -243,36 +227,7 @@ home();
 .path-steps{display:flex;gap:8px;margin:18px 0}.path-step{flex:1;text-align:center;font-size:.76rem;padding:10px 4px;border-radius:12px;background:#2b475b;color:#e4f2f3}
 .path-panel button{margin-top:10px}
 </style>
-<script>
-function friendlyCourse(level){
- ensureLearning();level=LEVELS.includes(level)?level:(state.learning.placement?.recommended||'A1');
- const units=FULL_UNITS.map((u,id)=>({...u,id})).filter(u=>u.level===level);
- const scores=state.learning.fullScores||{};
- const first=units.findIndex(u=>!scores[u.id]?.passed),currentIndex=first<0?units.length-1:first;
- const unit=units[currentIndex],done=units.filter(u=>scores[u.id]?.passed).length;
- const pct=Math.round(done/units.length*100),completed=done===units.length;
- const label=completed?'Review your lessons':(done===0?'Start lesson 1':'Continue lesson '+(currentIndex+1));
- const title=completed?'You completed '+level+'!':unit.title;
- app.innerHTML=illustratedHero('Your '+level+' learning journey','One lesson at a time, at your own pace.','village','hund.png')+
- `<section class="card"><label for="friendlyLevel">Your level</label><select id="friendlyLevel" onchange="friendlyCourse(this.value)">${LEVELS.map(l=>`<option ${l===level?'selected':''}>${l}</option>`).join('')}</select><div class="path-track"><div style="width:${pct}%"></div></div><p class="path-small">${done} of ${units.length} lessons completed</p></section>`+
- `<section class="path-panel"><div class="path-eyebrow">${completed?'Course complete':level+' · Lesson '+(currentIndex+1)+' of '+units.length}</div><h2>${safeText(title)}</h2><p>${completed?'Well done! You can revisit any lesson below.':safeText(unit.rule)}</p><div class="path-steps"><div class="path-step">Learn</div><div class="path-step">Practice</div><div class="path-step">Review</div></div><button onclick="friendlyLesson(${unit.id})">${label}</button></section>`+
- `<details class="path-list"><summary>See all ${units.length} lessons ▾</summary>${units.map((u,i)=>`<div class="path-item"><span>${scores[u.id]?.passed?'<span class="path-done">✓ </span>':''}${i+1}. ${safeText(u.title)}</span><button class="secondary" onclick="friendlyLesson(${u.id})">${scores[u.id]?.passed?'Review':'Open'}</button></div>`).join('')}</details>`+
- `<section class="card"><p class="path-small">Not sure about your level?</p><button class="secondary" onclick="placementResults()">View placement results</button></section>`;
-}
-function friendlyLesson(id){fullStudy(id);const card=app.querySelector('.card');if(!card)return;
- // Preserve all lesson content and practice options, but use a single clear learning flow.
- card.querySelectorAll('button').forEach(b=>{
- const label=b.textContent.trim();
- if(/^(Study unit|Start unit|Begin exercises|Practice unit|Start exercises)/i.test(label))b.textContent='Try what you learned';
- if(/Extended practice|Deep dive|Expanded A1|A1–A2 practice/i.test(label))b.textContent='More practice';
- });
-}
-// Keep the existing lesson engine, scores, review and expanded exercises.
-fullMenu=friendlyCourse;
-courseMenu=friendlyCourse;
-const oldFullFinishFriendly=fullFinish;
-fullFinish=function(){oldFullFinishFriendly();let btn=app.querySelector('button[onclick^="fullMenu("]');if(btn)btn.textContent='Back to my learning path';};
-</script>
+<script src="./js/extracted-batch6-17.js"></script>
 <style>
 /* Clear, compact mobile dashboard */
 .dashboard-hero{padding:22px 20px;background:linear-gradient(145deg,#183b48,#183048);border:1px solid #4a7481;border-radius:22px;margin:12px 0 16px;display:flex;align-items:center;gap:14px}
@@ -289,60 +244,7 @@ fullFinish=function(){oldFullFinishFriendly();let btn=app.querySelector('button[
 #screenBack:focus-visible{outline:2px solid #70d4c0}
 @media(max-width:370px){.dashboard-hero img{width:68px;height:85px}.dashboard-shortcuts{gap:8px}}
 </style>
-<script>
-// The home dashboard replaces earlier stacked cards; older course and practice engines remain intact.
-function home(){
- ensureLearning();
- const level=state.learning.placement?.recommended||'A1';
- const units=FULL_UNITS.map((u,id)=>({...u,id})).filter(u=>u.level===level);
- const scores=state.learning.fullScores||{};
- const next=units.findIndex(u=>!scores[u.id]?.passed),idx=next<0?units.length-1:next;
- const done=units.filter(u=>scores[u.id]?.passed).length;
- const title=units[idx]?.title||'Your first lesson';
- const xp=typeof practiceState==='function'?practiceState():null;
- const daily=xp?.activity?.[new Date().toLocaleDateString('en-CA')]||0;
- app.innerHTML=`<section class="dashboard-hero"><img src="hund.png" alt="Fritzi the German shepherd"><div><h2>Willkommen zurück!</h2><p>Ready for a little German today?</p></div></section>
- <section class="dashboard-primary"><div class="path-eyebrow">YOUR LEARNING PATH · ${level}</div><h2>${done===units.length?'Great work! Course complete':`Lesson ${idx+1}: ${safeText(title)}`}</h2><p class="path-small">${done} of ${units.length} lessons completed</p><div class="path-track" role="progressbar" aria-valuemin="0" aria-valuemax="${units.length}" aria-valuenow="${done}"><div style="width:${Math.round(done/units.length*100)}%"></div></div><button class="dashboard-main-btn" onclick="friendlyCourse('${level}')">${done===units.length?'Review your lessons':done?'Continue learning':'Start lesson 1'}</button></section>
- <h3 class="section-label">What would you like to do?</h3><div class="dashboard-shortcuts">
- <button class="secondary" onclick="friendlyCourse('${level}')">📖 My lessons<small>${level} · ${units.length} lessons</small></button>
- 
- 
- <button class="secondary" onclick="aiTutor()">🎙 AI conversation<small>Speak German</small></button>
- <button class="secondary" onclick="placementResults()">◈ My placement<small>Results and skills</small></button>
- <button class="secondary" onclick="review()">↻ Review mistakes<small>Practice tricky answers</small></button></div>`;
-}
-// Keep track of the screen the user actually visited, including inline onclick navigation.
-const screenHistory=[];
-let lastScreenHTML='',screenGuard=false;
-function appScreenChanged(){
- if(screenGuard)return;
- // Do not remove/reinsert Back on every mutation: doing so creates
- // an endless MutationObserver cycle that blocks clicks and audio.
- const homeScreen=!!app.querySelector('.dashboard-primary');
- const back=app.querySelector('#screenBack');
- if(homeScreen){
-  if(back)back.remove();
-  return;
- }
- if(!back){
-  const b=document.createElement('button');
-  b.id='screenBack';b.type='button';b.setAttribute('aria-label','Go back');b.textContent='Back';
-  b.addEventListener('click',goScreenBack);
-  app.prepend(b);
- }
-}
-function goScreenBack(){
- toggleMenu(false);
- // On deep exercise screens, the learning path is a predictable and safe destination.
- const level=state.learning?.placement?.recommended||'A1';
- if(app.innerHTML.includes('Exercise ')||app.innerHTML.includes('Practice ·'))friendlyCourse(level);
- else home();
- window.scrollTo({top:0,behavior:'instant'});
-}
-const screenObserver=new MutationObserver(()=>{if(screenGuard)return;screenGuard=true;try{appScreenChanged()}finally{screenGuard=false}});
-screenObserver.observe(app,{childList:true,subtree:false});
-home();appScreenChanged();
-</script>
+<script src="./js/extracted-batch6-12.js"></script>
 <style>
 .lesson-welcome{display:flex;gap:14px;align-items:center;padding:17px;background:linear-gradient(130deg,#204b53,#20374e);border-radius:18px;margin:12px 0 18px}
 .lesson-welcome img{width:72px;height:82px;object-fit:cover;border-radius:14px}
@@ -552,60 +454,7 @@ emojiBackSync();
 .sound-setting{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 15px;border:1px solid #496b76;border-radius:14px;background:#203e50;margin:12px 0}
 .sound-setting button{width:auto;min-width:110px;margin:0;padding:10px 13px}
 </style>
-<script>
-/* Small synthesized feedback tones. No audio files or network connection required. */
-let feedbackAudioContext;
-function feedbackEnabled(){return localStorage.getItem('deutschlab-feedback-sounds')!=='off'}
-function feedbackSound(correct){
- if(!feedbackEnabled())return;
- try{
-  const AudioContextType=window.AudioContext||window.webkitAudioContext;
-  if(!AudioContextType)return;
-  feedbackAudioContext??=new AudioContextType();
-  if(feedbackAudioContext.state==='suspended')feedbackAudioContext.resume();
-  const now=feedbackAudioContext.currentTime+.015;
-  const notes=correct?[[523.25,0,.11],[659.25,.115,.11],[783.99,.23,.19]]:[[330,0,.13],[261.63,.15,.22]];
-  notes.forEach(([freq,delay,duration])=>{
-   let osc=feedbackAudioContext.createOscillator(),gain=feedbackAudioContext.createGain();
-   osc.type=correct?'sine':'triangle';osc.frequency.setValueAtTime(freq,now+delay);
-   gain.gain.setValueAtTime(.0001,now+delay);
-   gain.gain.exponentialRampToValueAtTime(correct?.12:.075,now+delay+.018);
-   gain.gain.exponentialRampToValueAtTime(.0001,now+delay+duration);
-   osc.connect(gain);gain.connect(feedbackAudioContext.destination);
-   osc.start(now+delay);osc.stop(now+delay+duration+.02);
-  });
- }catch(e){/* Silent fallback if audio is unavailable. */}
-}
-function soundSettingHTML(){return `<div class="sound-setting"><span>Answer sounds</span><button class="secondary" onclick="toggleFeedbackSound()">${feedbackEnabled()?'On':'Off'}</button></div>`}
-function toggleFeedbackSound(){localStorage.setItem('deutschlab-feedback-sounds',feedbackEnabled()?'off':'on');document.querySelectorAll('.sound-setting').forEach(el=>el.outerHTML=soundSettingHTML());if(feedbackEnabled())feedbackSound(true)}
-const soundOldFullMark=fullMark;
-fullMark=function(ok,answer,why){let s=fullSession;if(!s||s.results.length!==s.idx)return;feedbackSound(ok);return soundOldFullMark(ok,answer,why)};
-const soundOldGameMark=gameMark;
-gameMark=function(ok,answer){let s=gameSession;if(!s||s.answered)return;feedbackSound(ok);return soundOldGameMark(ok,answer)};
-const soundOldPhotoGrade=photoGrade;
-photoGrade=function(id,choice){let s=pictureSession;if(!s||s.answered)return;let w=PHOTO_WORDS[id],answer=choice===null?document.getElementById('photoInput')?.value:PHOTO_WORDS[choice]?.[0];if(answer!==undefined)feedbackSound(answer.toLocaleLowerCase('de-DE').trim().replace(/\s+/g,' ')===w[0].toLocaleLowerCase('de-DE').trim().replace(/\s+/g,' '));return soundOldPhotoGrade(id,choice)};
-const soundOldPictureGrade=pictureGrade;
-pictureGrade=function(...args){let s=pictureSession;if(s?.photo)return soundOldPictureGrade(...args);let before=s?.answered;if(!before){let correct=args[0],chosen=args[1];feedbackSound(String(PICTURE_WORDS[correct]?.[0]||'').toLocaleLowerCase('de-DE').trim().replace(/\s+/g,' ')===String(chosen||'').toLocaleLowerCase('de-DE').trim().replace(/\s+/g,' '))}return soundOldPictureGrade(...args)};
-const soundOldReviewAnswer=curriculumReviewAnswer;
-curriculumReviewAnswer=function(i){let s=moduleSession;if(s&&!s.answered)feedbackSound(i===s.questions[s.idx].answer);return soundOldReviewAnswer(i)};
-const soundOldHome=home;
-home=function(){soundOldHome()};
-function dlShowSettings(){
- if(typeof toggleMenu==='function')toggleMenu(false);
- app.innerHTML='<section class="card"><h2>Settings</h2><p class="muted">Choose your practice preferences.</p><div id="dlSoundSettings"></div><button class="secondary" onclick="home()">Back to Home</button></section>';
- document.getElementById('dlSoundSettings').innerHTML=soundSettingHTML();
- window.scrollTo(0,0);
-}
-function dlInstallSettingsMenu(){
- const nav=document.getElementById('sideMenu');
- if(!nav||nav.querySelector('.dl-settings-menu-entry'))return;
- const button=document.createElement('button');
- button.type='button';button.className='dl-settings-menu-entry';
- button.textContent='⚙ Settings';button.addEventListener('click',()=>window.dlShowSettings());
- nav.appendChild(button);
-}
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',dlInstallSettingsMenu);else dlInstallSettingsMenu();
-</script>
+<script src="./js/extracted-batch6-2.js"></script>
 
 <style>
 body.lesson-screen #app{min-height:65vh}
@@ -615,53 +464,7 @@ body.lesson-screen .lesson-screen-heading strong{font-size:1rem}
 body.lesson-screen .lesson-screen-heading small{display:block;opacity:.75}
 body.lesson-screen #app>.curriculum-summary,body.lesson-screen #app>.curriculum-module{display:none}
 </style>
-<script>
-/* Keep course navigation and individual lesson activities in distinct views. */
-let activeLessonScreen=null;
-function lessonScreenHeading(){
- if(activeLessonScreen===null)return;
- const u=FULL_UNITS[activeLessonScreen];if(!u)return;
- if(app.querySelector('.lesson-screen-heading'))return;
- const header=document.createElement('div');header.className='lesson-screen-heading';
- header.innerHTML=`<button class="secondary" onclick="leaveLessonScreen()">Back</button><div><strong>${safeText(u.title)}</strong><small>${u.level} · Lesson</small></div>`;
- app.prepend(header);
-}
-function leaveLessonScreen(){const go=()=>{let id=activeLessonScreen;activeLessonScreen=null;document.body.classList.remove('lesson-screen');curriculumView(FULL_UNITS[id]?.level||curriculumSelected)};if(activeLessonScreen!==null)dlAppConfirm({title:'Leave this lesson?',message:'Your current lesson progress will be lost.',cancelText:'Stay in Lesson',confirmText:'Leave Lesson',onConfirm:go});else go()}
-const lessonOriginalStudy=fullStudy;
-fullStudy=function(id){activeLessonScreen=id;document.body.classList.add('lesson-screen');lessonOriginalStudy(id);lessonScreenHeading();window.scrollTo(0,0)};
-const lessonOriginalRender=fullRender;
-fullRender=function(){lessonOriginalRender();if(activeLessonScreen!==null){document.body.classList.add('lesson-screen');lessonScreenHeading();window.scrollTo(0,0)}};
-const lessonOriginalFinish=fullFinish;
-fullFinish=function(){
- const session=fullSession;
- if(!session)return lessonOriginalFinish();
- const id=session.id,score=session.score,total=session.questions.length;
- lessonOriginalFinish();
- if(activeLessonScreen!==null){
-  activeLessonScreen=null;document.body.classList.remove('lesson-screen');
-  curriculumView(FULL_UNITS[id].level);
-  const notice=document.createElement('section');notice.className='card';notice.setAttribute('role','status');
-  notice.innerHTML=`<h2>Lesson complete</h2><p>${safeText(FULL_UNITS[id].title)} · ${score}/${total} correct</p><p>${score>=Math.ceil(total*.8)?'Lesson passed.':'Review the lesson and try again when ready.'}</p>`;
-  app.prepend(notice);
-  // Keep the next unfinished lesson visible after returning to the learning path.
-  const nextRow=app.querySelector('.curriculum-next-lesson');
-  if(nextRow){
-    const module=nextRow.closest('details');
-    if(module)module.open=true;
-    requestAnimationFrame(()=>requestAnimationFrame(()=>{
-      const header=document.querySelector('header');
-      const headerHeight=header?Math.min(header.getBoundingClientRect().height,160):0;
-      const top=Math.max(0,window.scrollY+nextRow.getBoundingClientRect().top-headerHeight-20);
-      window.scrollTo({top,behavior:'instant'});
-    }));
-  }else window.scrollTo(0,0);
- }
-};
-const lessonOriginalMenu=curriculumView;
-curriculumView=function(level){activeLessonScreen=null;document.body.classList.remove('lesson-screen');lessonOriginalMenu(level)};
-const lessonOriginalHome=home;
-home=function(){activeLessonScreen=null;document.body.classList.remove('lesson-screen');lessonOriginalHome()};
-</script>
+<script src="./js/extracted-batch6-16.js"></script>
 
 <script>
 // Picture practice must use the bundled emoji bank, never absent SVG files or remote photos.
@@ -706,118 +509,9 @@ pictureStart=reliablePictureStart;
 .dl-flow-stats{display:flex;justify-content:space-between;gap:10px;color:#bdd1df;font-size:.9rem}
 </style>
 <script src="./js/extracted-batch4-2.js"></script>
-<script>
-/* Session recovery: preserve the actual rendered activity, question and in-progress answers.
-   Progress data remains in the existing deutschlab localStorage record. */
-(function(){
- const KEY='deutschlab-active-screen-v3';
- const screen=document.getElementById('app');
- if(!screen)return;
- let restoring=false,savePending=false;
- function store(){
-  if(restoring)return;
-  try{
-   const inputs=[...screen.querySelectorAll('input,textarea,select')].map((el,i)=>({i,value:el.type==='password'?'':el.value,checked:el.checked}));
-   const session={version:2,html:screen.innerHTML,inputs,
-    full:typeof fullSession!=='undefined'?fullSession:null,
-    picture:typeof pictureSession!=='undefined'?pictureSession:null,
-    game:typeof gameSession!=='undefined'?gameSession:null,
-    module:typeof moduleSession!=='undefined'?moduleSession:null,
-    dlSelected:typeof dlSelected!=='undefined'?dlSelected:null,
-    dlAnswered:typeof dlAnswered!=='undefined'?dlAnswered:false,
-    curriculum:typeof curriculumSelected!=='undefined'?curriculumSelected:'A1',
-    scrollY:window.scrollY,updated:Date.now()};
-   localStorage.setItem(KEY,JSON.stringify(session));
-  }catch(e){console.warn('Session save unavailable',e)}
- }
- function schedule(){if(restoring||savePending)return;savePending=true;setTimeout(()=>{savePending=false;store()},40)}
- try{
-  const saved=JSON.parse(localStorage.getItem(KEY)||'null');
-  if(saved&&saved.version===2&&typeof saved.html==='string'&&saved.html.length>20){
-   restoring=true;
-   if(typeof fullSession!=='undefined')fullSession=saved.full;
-   if(typeof pictureSession!=='undefined')pictureSession=saved.picture;
-   if(typeof gameSession!=='undefined')gameSession=saved.game;
-   if(typeof moduleSession!=='undefined')moduleSession=saved.module;
-   if(typeof dlSelected!=='undefined')dlSelected=saved.dlSelected;
-   if(typeof dlAnswered!=='undefined')dlAnswered=saved.dlAnswered;
-   if(typeof curriculumSelected!=='undefined')curriculumSelected=saved.curriculum;
-   screen.innerHTML=saved.html;
-   (saved.inputs||[]).forEach(({i,value,checked})=>{let el=screen.querySelectorAll('input,textarea,select')[i];if(el){if(el.type!=='password')el.value=value;el.checked=checked}});
-   // Update the back button for the recovered activity, where supported.
-   if(typeof navSync==='function')try{navSync()}catch(e){}
-   requestAnimationFrame(()=>window.scrollTo(0,Math.max(0,saved.scrollY||0)));
-   restoring=false;
-   const aiField=document.getElementById('aiKey');if(aiField)aiField.value=savedAIKey();
-  }
- }catch(e){restoring=false;console.warn('Session restore unavailable',e)}
- new MutationObserver(schedule).observe(screen,{childList:true,subtree:true,attributes:true,characterData:true});
- document.addEventListener('click',e=>{if(screen.contains(e.target))setTimeout(store,80)},true);
- document.addEventListener('input',e=>{if(screen.contains(e.target))schedule()},true);
- document.addEventListener('change',e=>{if(screen.contains(e.target))schedule()},true);
- window.addEventListener('pagehide',store);
- window.addEventListener('scroll',()=>{if(!savePending)schedule()},{passive:true});
- if(!localStorage.getItem(KEY))store();
-})();
-</script>
+<script src="./js/extracted-batch6-15.js"></script>
 
-<script>
-/* Minimum six varied questions in each guided lesson; keep original bank and progress. */
-(function(){
- const shuffle = arr => { const a=[...arr]; for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; };
- const previousQuestions=fullQuestions;
- const focused={
-  8:[
-   ['Wie ___ du?',['heißt','heiße','heißen'],0,'With du, heißen becomes heißt.'],
-   ['Ich ___ Lena.',['heiße','heißt','heißen'],0,'With ich, heißen becomes heiße.'],
-   ['___ Morgen!',['Guten','Gute','Gutes'],0,'The standard morning greeting is Guten Morgen.'],
-   ['Wie geht ___ dir?',['es','du','ich'],0,'The expression is Wie geht es dir? (How are you?)'],
-   ['Ich ___ aus Deutschland.',['komme','kommt','kommen'],0,'With ich, kommen becomes komme.'],
-   ['Which phrase means “Goodbye”?',['Auf Wiedersehen','Guten Morgen','Bitte'],0,'Auf Wiedersehen means goodbye.']
-  ],
-  9:[
-   ['___ Buch liegt auf dem Tisch.',['Das','Der','Die'],0,'Buch is neuter: das Buch.'],
-   ['___ Lampe ist hell.',['Die','Das','Der'],0,'Lampe is feminine: die Lampe.'],
-   ['___ Tisch ist groß.',['Der','Die','Das'],0,'Tisch is masculine: der Tisch.'],
-   ['___ Kind spielt.',['Das','Die','Der'],0,'Kind is neuter: das Kind.'],
-   ['___ Katze schläft.',['Die','Der','Das'],0,'Katze is feminine: die Katze.'],
-   ['___ Hund bellt.',['Der','Das','Die'],0,'Hund is masculine: der Hund.'],
-   ['Which article is used with most plural nouns in the nominative?',['die','der','das'],0,'The nominative plural definite article is die, regardless of singular gender.']
-  ]
- };
- function toQuestion(row){const [prompt,options,answer,why]=row;const correct=options[answer];const shuffled=shuffle(options);return {type:'grammar',prompt,options:shuffled,answer:shuffled.indexOf(correct),why};}
- fullQuestions=function(unit){
-  const original=previousQuestions(unit),id=FULL_UNITS.indexOf(unit);
-  if(fullSession?.id===id&&fullSession.questions)return fullSession.questions;
-  const result=[...original],seen=new Set(result.map(q=>q.prompt));
-  const extras=focused[id]||[];
-  for(const row of shuffle(extras)){if(!seen.has(row[0])){result.push(toQuestion(row));seen.add(row[0]);}}
-  if(result.length<6){
-   const examples=unit.examples||[];
-   for(let i=0;i<examples.length&&result.length<6;i++){
-    const [de,en]=examples[i];
-    const alternatives=examples.filter((_,j)=>j!==i).map(x=>x[1]);
-    if(alternatives.length<2)continue;
-    const prompt='What does “'+de+'” mean?';
-    if(!seen.has(prompt)){
-     result.push(toQuestion([prompt,[en,...alternatives.slice(0,2)],0,'“'+de+'” means “'+en+'”.']));seen.add(prompt);
-    }
-   }
-   if(result.length<6&&examples.length>=3){
-    for(let i=0;i<examples.length&&result.length<6;i++){
-     const [de,en]=examples[i],prompt='Choose the German for “'+en+'”.';
-     if(seen.has(prompt))continue;
-     result.push(toQuestion([prompt,[de,...examples.filter((_,j)=>j!==i).map(x=>x[0]).slice(0,2)],0,'The German expression is “'+de+'”.']));seen.add(prompt);
-    }
-   }
-  }
-  return shuffle(result);
- };
- FULL_UNITS[9].rule='German nouns have three grammatical genders: der (masculine), die (feminine), and das (neuter). Learn each noun together with its article. In the nominative plural, the definite article is die.';
- FULL_UNITS[9].checkpoint.why='Tisch is masculine, so its nominative article is der. Compare die Lampe (feminine) and das Buch (neuter).';
- FULL_UNITS[8].rule='Use Hallo for an informal hello, Guten Morgen in the morning, Guten Tag during the day, and Auf Wiedersehen to say goodbye. To introduce yourself, say Ich heiße ... or Ich komme aus ... .';
-})();
-</script>
+<script src="./js/extracted-batch6-7.js"></script>
 
 <style>
 /* Put the encouragement next to the existing mascot, inside the completion hero. */
@@ -857,45 +551,7 @@ pictureStart=reliablePictureStart;
  render();
 })();
 </script>
-<script>
-const dlSentenceGrammar = {
- 'Die Katze schläft auf dem Bett.':'Die Katze is the subject. Schläft is the conjugated verb in second position. Auf dem Bett describes where the cat sleeps.',
- 'Ich trinke morgens Wasser.':'Ich is the subject and trinke is the verb in second position. Morgens tells when; Wasser is the object.',
- 'Wir gehen zum Bahnhof.':'Wir is the subject, followed by the conjugated verb gehen. Zum means zu dem (to the).',
- 'Mein Bruder hat ein Fahrrad.':'Mein Bruder is the subject. Hat is the third-person singular form of haben (to have).',
- 'Morgen kaufe ich Äpfel.':'Morgen comes first for emphasis, so the verb kaufe remains in second position, before ich.',
- 'Sie liest ein Buch.':'Sie is the subject. Liest is the third-person singular form of lesen (to read).',
- 'Die Kinder spielen draußen.':'Die Kinder is plural, so the verb is spielen. Draußen means outside.',
- 'Ich suche meine Schlüssel.':'Ich takes the verb form suche. Meine Schlüssel is the plural object.',
- 'Wir essen Brot und Käse.':'Wir takes essen. Und connects the two foods, Brot and Käse.',
- 'Der Hund sitzt unter dem Tisch.':'Der Hund is the subject. Unter dem Tisch uses dative to describe a fixed location.',
- 'Ich habe einen Hund':'Ich takes habe. Einen Hund is accusative because Hund is the direct object.',
- 'Heute gehe ich einkaufen':'Heute occupies first position, so gehe comes second, before ich. Einkaufen stays at the end.',
- 'Wir lernen Deutsch':'Wir is plural, so the verb is lernen. Deutsch is what we are learning.',
- 'Die Katze schläft auf dem Sofa':'Die Katze is the subject, followed by schläft. Auf dem Sofa uses dative for a location.',
- 'Morgen rufe ich dich an':'Morgen is first, rufe is second, and the separable prefix an goes at the end.'
-};
-function dlSentenceHelpToggle(){
- const box=document.getElementById('dlSentenceHelp');if(!box)return;
- const g=typeof gameSession!=='undefined'?gameSession:null;
- const key=g&&g.mode==='build'&&g.seq&&g.idx<g.seq.length?GAME_ITEMS[g.seq[g.idx]].de:(typeof sentenceTarget!=='undefined'?sentenceTarget.join(' '):'');
- const level=(g&&g.level)||'A1';
- const explanation=dlSentenceGrammar[key] || (
-  /\b(weil|dass|obwohl|wenn|damit)\b/i.test(key) ? 'This sentence includes a subordinate clause. In German, the conjugated verb normally moves to the end of that clause.' :
-  /\b(habe|hat|haben|bin|ist|sind)\b.*\b(ge\w+|\w+t)\b/i.test(key) ? 'The perfect tense combines a form of haben or sein with a past participle, usually placed at the end.' :
-  /\b(würde|wäre|hätte|könnte)\b/i.test(key) ? 'These are subjunctive forms used for hypothetical situations, wishes, or polite requests.' :
-  /\b(muss|müssen|kann|können|will|möchte|soll)\b/i.test(key) ? 'With a modal verb, the modal is conjugated and the main verb stays in the infinitive at the end.' :
-  /\b(heute|morgen|gestern|danach|trotzdem)\b/i.test(key) ? 'When a time word or adverb begins the main clause, the conjugated verb still stays in second position, before the subject.' :
-  level==='B2' ? 'Look at how the clauses connect and how the verb forms express the relationship between events.' :
-  level==='B1' ? 'Pay attention to clause order, the conjugated verb, and any prepositions or case endings.' :
-  level==='A2' ? 'In a main clause, the conjugated verb takes second position. Check the verb ending and word order.' :
-  'In a German main clause, the conjugated verb normally takes second position. Check that the subject and verb agree.'
- );
- box.textContent=explanation;
- box.hidden=!box.hidden;
- const btn=[...box.parentElement.querySelectorAll('button')].find(b=>b.textContent==='Show grammar help'||b.textContent==='Hide grammar help');if(btn)btn.textContent=box.hidden?'Show grammar help':'Hide grammar help';
-}
-</script>
+<script src="./js/extracted-batch6-6.js"></script>
 
 <script>
 /* Reliable guided lesson start: initialize the question set before rendering.
@@ -922,111 +578,12 @@ fullBegin = function(id) {
   fullRender();
 };
 </script>
-<script>
-/* Reverse sentence builder: German prompt -> English word bank. */
-const dlOriginalGameHubReverse = gameHub;
-gameHub = function(){
-  dlOriginalGameHubReverse();
-  const grid=app.querySelector('.game-grid');
-  if(grid){const b=document.createElement('button');b.innerHTML='Build in English<small style="display:block">Translate a German sentence</small>';b.onclick=()=>gameStart('reverse');grid.insertBefore(b,grid.children[1]||null);}
-};
-const dlOriginalGameRenderReverse = gameRender;
-gameRender = function(){
-  const g=gameSession;
-  if(!g || g.mode!=='reverse')return dlOriginalGameRenderReverse();
-  if(g.idx>=g.seq.length)return dlOriginalGameRenderReverse();
-  g.answered=false;g.picked=[];g.matches=[];g.selected=null;
-  const item=GAME_ITEMS[g.seq[g.idx]];
-  g.reverseWords=item.en.replace(/[.!?]+$/,'').split(/\s+/);
-  const correctSet=new Set(g.reverseWords.map(w=>w.toLowerCase()));
-  const pool=['a','an','the','this','that','these','those','my','your','his','her','our','their','is','are','was','were','do','does','did','have','has','had','will','can','not','very','always','often','today','tomorrow','yesterday','here','there','with','for','from','to','at','in','on','and','but','because','book','books','house','school','work','like','likes','liked','learn','learning','learns','German','English','she','he','they','we','I','you'];
-  const distractors=pool.filter(w=>!correctSet.has(w.toLowerCase()));
-  for(let i=distractors.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[distractors[i],distractors[j]]=[distractors[j],distractors[i]];}
-  g.bankWords=[...g.reverseWords,...distractors.slice(0,Math.min(3,Math.max(2,Math.ceil(g.reverseWords.length/3))))];
-  g.order=g.bankWords.map((_,i)=>i);
-  for(let i=g.order.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[g.order[i],g.order[j]]=[g.order[j],g.order[i]];}
-  app.innerHTML=`<section class="card"><p class="muted">Translate into English · ${g.idx+1} of ${g.seq.length}</p><div class="game-progress"><div style="width:${g.idx/g.seq.length*100}%"></div></div><p>Build the English translation:</p><h3>${safeText(item.de)}</h3><button class="secondary" onclick="speak(GAME_ITEMS[gameSession.seq[gameSession.idx]].de)">Listen to German</button><div id="gameBuilt" class="game-built">Tap the English words below</div><div class="dl-bank-label">WORD BANK</div><div id="gameBank" class="game-wordbank">${g.order.map((n,i)=>`<button class="secondary" id="gb${i}" onclick="dlReversePick(${i})">${safeText(g.bankWords[n])}</button>`).join('')}</div><div class="dl-reverse-controls"><button class="secondary" onclick="dlReverseUndo()">↶ Undo last word</button><button class="secondary" onclick="gameRender()">↺ Start over</button></div><button onclick="dlReverseCheck()">Check translation</button><div id="gameFeedback" aria-live="polite"></div></section>`;
-  window.scrollTo(0,0);
-};
-function dlReversePick(i){
- const g=gameSession;if(!g||g.mode!=='reverse'||g.answered||g.picked.includes(i))return;
- g.picked.push(i);document.getElementById('gb'+i).disabled=true;dlReverseRefresh();
-}
-function dlReverseUndo(){
- const g=gameSession;if(!g||g.mode!=='reverse'||g.answered||!g.picked.length)return;
- const i=g.picked.pop();document.getElementById('gb'+i).disabled=false;dlReverseRefresh();
-}
-function dlReverseRefresh(){
- const g=gameSession;document.getElementById('gameBuilt').textContent=g.picked.map(i=>g.bankWords[g.order[i]]).join(' ')||'Tap the English words below';
-}
-function dlReverseCheck(){
- const g=gameSession;if(!g||g.mode!=='reverse'||g.answered)return;
- if(g.picked.length!==g.reverseWords.length){document.getElementById('gameFeedback').textContent='Select only the words needed for the translation.';return;}
- const guess=g.picked.map(i=>g.bankWords[g.order[i]]).join(' ');
- const expected=g.reverseWords.join(' ');
- gameMark(guess===expected,GAME_ITEMS[g.seq[g.idx]].en);
-}
-</script>
+<script src="./js/extracted-batch6-5.js"></script>
 <script src="./js/extracted-batch5-10.js"></script>
 
 <script src="./js/extracted-batch5-9.js"></script>
 
-<script>
-/* A1 foundations data pack. Keep the rest of the app and existing lesson IDs unchanged. */
-const dlA1Pack = {loaded:false, promise:null, byTitle:new Map()};
-async function dlLoadA1Pack(){
- if(dlA1Pack.loaded)return true;
- if(!dlA1Pack.promise)dlA1Pack.promise=fetch('./a1_foundations.json',{cache:'no-cache'})
-  .then(r=>{if(!r.ok)throw Error('HTTP '+r.status);return r.json()})
-  .then(data=>{
-    if(data.schemaVersion!==1||data.level!=='A1'||!Array.isArray(data.lessons))throw Error('Invalid A1 course data');
-    for(const lesson of data.lessons){
-      if(!lesson.title||!Array.isArray(lesson.questions)||lesson.questions.length<10)throw Error('Incomplete lesson '+lesson.title);
-      for(const q of lesson.questions){if(!Array.isArray(q.options)||q.options.length!==3||!Number.isInteger(q.answer)||q.answer<0||q.answer>2||!q.german||!q.english)throw Error('Invalid question in '+lesson.title)}
-      dlA1Pack.byTitle.set(lesson.title,lesson.questions);
-    }
-    dlA1Pack.loaded=true;return true;
-  }).catch(e=>{console.error('A1 data pack failed to load:',e);dlA1Pack.promise=null;return false});
- return dlA1Pack.promise;
-}
-const dlA1PreviousQuestions=fullQuestions;
-fullQuestions=function(unit){
- const bank=unit?.level==='A1'?dlA1Pack.byTitle.get(unit.title):null;
- if(!bank)return dlA1PreviousQuestions(unit);
- const questions=bank.map(q=>{
-   const options=[...q.options];
-   for(let i=options.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[options[i],options[j]]=[options[j],options[i]];}
-   return {...q,options,answer:options.indexOf(q.options[q.answer])};
- });
- for(let i=questions.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[questions[i],questions[j]]=[questions[j],questions[i]];}
- return questions.slice(0,12);
-};
-const dlA1PreviousBegin=fullBegin;
-fullBegin=async function(id){
- const unit=FULL_UNITS[id];
- if(unit?.level==='A1' && ['Greetings and introductions','Nouns and articles','Present-tense verbs','Basic word order'].includes(unit.title)){
-   const loaded=await dlLoadA1Pack();
-   if(!loaded){alert('The new A1 course file is missing. Upload a1_foundations.json alongside index.html to GitHub.');return;}
- }
- return dlA1PreviousBegin(id);
-};
-const dlA1PreviousCheck=dlCheck;
-dlCheck=function(){
- const s=fullSession, q=s?.questions?.[s.idx];
- dlA1PreviousCheck();
- if(!q?.german||!q?.english||!dlAnswered)return;
- const feedback=document.querySelector('#dl-result .dl-flow-feedback');
- if(!feedback)return;
- feedback.querySelectorAll('.dl-a1-translation,.dl-article-translation').forEach(el=>el.remove());
- const div=document.createElement('div');div.className='dl-a1-translation';
- const de=document.createElement('p'),en=document.createElement('p');
- const deLabel=document.createElement('strong');deLabel.textContent='German: ';
- const enLabel=document.createElement('strong');enLabel.textContent='English: ';
- de.append(deLabel,document.createTextNode(q.german));
- en.append(enLabel,document.createTextNode(q.english));
- div.append(de,en);feedback.append(div);
-};
-</script>
+<script src="./js/extracted-batch6-18.js"></script>
 <script src="./js/extracted-batch5-7.js"></script>
 <script>
 /* Unified review entry: show saved mistakes and direct links to the relevant lesson. */
@@ -1128,24 +685,7 @@ body.dl-answer-ready .dl-flow {padding-bottom:110px;}
   }
  };
 })();
-</script><script>
-/* Level-based dialogue library. Loaded separately from course data. */
-(function(){
- let library=null, selected=null, step=0, misses=0;
- const escapeHTML=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
- const root=()=>document.getElementById('app');
- async function load(){if(library)return library;const r=await fetch('./dialogues.json',{cache:'no-cache'});if(!r.ok)throw Error('HTTP '+r.status);const x=await r.json();if(!Array.isArray(x.dialogues))throw Error('Invalid dialogue data');library=x.dialogues;return library;}
- window.conversation=async function(){selected=null;root().innerHTML='<section class="card"><h2>Dialogue practice</h2><p>Loading conversations…</p></section>';try{await load();showMenu('A1')}catch(e){root().innerHTML='<section class="card"><h2>Dialogue practice</h2><p>Unable to load dialogues.json. Check that the file is uploaded alongside index.html.</p><button onclick="conversation()">Retry</button></section>';console.error(e)}};
- function showMenu(level){const entries=library.filter(d=>d.level===level);root().innerHTML=`<section class="card"><h2>Dialogue practice</h2><p>Choose a level and a real-life conversation.</p><div class="row" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">${['A1','A2','B1'].map(l=>`<button class="${l===level?'':'secondary'}" onclick="chooseDialogueLevel('${l}')">${l}</button>`).join('')}</div>${entries.map(d=>`<div class="unit-explain" style="margin:10px 0;padding:14px;border:1px solid #547185;border-radius:14px"><strong>${escapeHTML(d.title)}</strong><p class="muted">${d.turns.length} exchanges · ${d.level}</p><button onclick="startDialogue('${d.id}')">Start conversation</button></div>`).join('')}</section>`;window.scrollTo(0,0)}
- window.chooseDialogueLevel=showMenu;
- window.startDialogue=function(id){selected=library.find(d=>d.id===id);if(!selected)return;step=0;misses=0;showStep()};
- function showStep(){if(!selected)return;if(step>=selected.turns.length){root().innerHTML=`<section class="card"><h2>Conversation complete</h2><p><strong>${escapeHTML(selected.title)}</strong> · ${selected.level}</p><p>${selected.turns.length} exchanges completed${misses?` · ${misses} incorrect attempts`:''}.</p><button onclick="startDialogue('${selected.id}')">Practice again</button><button class="secondary" onclick="conversation()">All dialogues</button></section>`;window.scrollTo(0,0);return}
- const t=selected.turns[step];root().innerHTML=`<section class="card"><p class="muted">${selected.level} · ${escapeHTML(selected.title)} · ${step+1} of ${selected.turns.length}</p><h2>What would you say?</h2><div class="unit-explain"><strong>Partner:</strong> ${escapeHTML(t.de)}<p class="muted">${escapeHTML(t.en)}</p><button class="secondary" onclick="playDialogueLine()">Listen</button></div><p>Choose your response:</p>${t.answers.map((a,i)=>`<button class="secondary" style="display:block;width:100%;text-align:left;margin:10px 0" onclick="answerDialogue(${i})">${escapeHTML(a)}</button>`).join('')}<div id="dialogue-feedback" aria-live="polite"></div></section>`;window.scrollTo(0,0)}
- window.playDialogueLine=function(){if(selected&&selected.turns[step])speak(selected.turns[step].de)};
- window.answerDialogue=function(i){const t=selected&&selected.turns[step];if(!t)return;const f=document.getElementById('dialogue-feedback');if(i!==t.correct){misses++;f.innerHTML='<p class="wrong">Not quite. Try another response.</p>';return}document.querySelectorAll('#app button').forEach(b=>{if(b.textContent.trim()===t.answers[0]||b.textContent.trim()===t.answers[1])b.disabled=true});speak(t.answers[t.correct]);f.innerHTML=`<p class="correct">Correct! ${escapeHTML(t.answers[t.correct])}</p>${step===selected.turns.length-1?'<button class="secondary" onclick="conversation()">Back to dialogues</button>':'<button onclick="nextDialogueStep()">Continue</button>'}`};
- window.nextDialogueStep=function(){step++;showStep()};
-})();
-</script><style>
+</script><script src="./js/extracted-batch6-4.js"></script><style>
 /* Current avatar in hamburger navigation */
 #sideMenu .menu-heading{display:flex;align-items:center;gap:10px}
 #sideMenu .menu-heading .menu-close{margin-left:auto}
@@ -1516,24 +1056,7 @@ window.dlResetAllProgress=function(){
 })();
 </script>
 <link rel="stylesheet" href="./css/legacy-part-1.css">
-<script id="dl-visual-refresh-behavior">
-(function(){
- // Keep Placement test in the same visual hierarchy as other menu entries.
- function tidyMenu(){const menu=document.getElementById('sideMenu');if(!menu)return;const profile=menu.querySelector('.dl-menu-profile-link');const placement=[...menu.querySelectorAll('button')].find(b=>b.textContent.trim()==='Placement test');if(profile&&placement){profile.after(placement);placement.classList.remove('dl-placement-subitem');placement.removeAttribute('aria-label');}}
- tidyMenu();
- // Decorate the existing learning path, without replacing its controls or navigation.
- const oldView=window.curriculumView;
- if(typeof oldView==='function')window.curriculumView=function(level){const result=oldView.apply(this,arguments);try{const st=curriculumStats(curriculumSelected);const reviews=state.learning?.moduleReviews||{};document.querySelectorAll('.curriculum-path-module').forEach((card,i)=>{const group=st.groups[i];if(!group)return;const done=group.ids.filter(id=>st.scores[id]?.passed).length;const review=reviews[curriculumSelected+'-'+i];const passed=!!review?.passed;const current=done<group.ids.length&&st.groups.slice(0,i).every(g=>g.ids.every(id=>st.scores[id]?.passed));card.classList.toggle('dl-path-passed',passed);card.classList.toggle('dl-path-current',current);card.classList.toggle('dl-path-locked',!passed&&!current&&done===0&&i>0);const h=card.querySelector('.curriculum-module-heading');if(h&&!h.querySelector('.dl-path-chip')){const chip=document.createElement('span');chip.className='dl-path-chip';chip.textContent=passed?'✓ Review passed':current?'✦ Current module':done===group.ids.length?'Ready for review':'Module '+(i+1);h.querySelector('div:last-child')?.appendChild(chip);}});}catch(e){console.warn('Path decoration skipped',e)}return result};
- // Add a real progress ring using saved lesson completions, not placeholder figures.
- const oldProfile=window.dlProfile;
- if(typeof oldProfile==='function')window.dlProfile=function(){const result=oldProfile.apply(this,arguments);try{const level='A1';const st=curriculumStats(level);const percent=st.all.length?Math.round(st.done/st.all.length*100):0;const card=document.querySelector('#app .card');if(card&&!card.querySelector('.dl-profile-progress')){const panel=document.createElement('div');panel.className='dl-profile-progress';panel.innerHTML='<div class="dl-progress-ring" style="--percent:'+percent+'"><span>'+percent+'%<small>A1 complete</small></span></div><div><strong>Your learning progress</strong><p>'+st.done+' of '+st.all.length+' lessons completed</p><p>Keep going at your own pace.</p></div>';const anchor=card.querySelector('.dl-profile-top');if(anchor)anchor.after(panel);else card.append(panel);}}catch(e){console.warn('Progress ring skipped',e)}return result};
- // Compact the header only while scrolling down; restore it at the top.
- let lastY=0;let scheduled=false;
- window.addEventListener('scroll',function(){lastY=window.scrollY;if(scheduled)return;scheduled=true;requestAnimationFrame(function(){document.body.classList.toggle('dl-compact-header',lastY>140);scheduled=false;});},{passive:true});
- // Brief visible audio playback feedback on the button the learner pressed.
- document.addEventListener('click',function(e){const b=e.target.closest('button');if(!b)return;const text=(b.textContent||'').toLowerCase();if(!/listen|hear it|play audio|speak now|speak again/.test(text))return;b.classList.add('dl-audio-active');setTimeout(()=>b.classList.remove('dl-audio-active'),1100);});
-})();
-</script>
+<script src="./js/extracted-batch6-10.js"></script>
 
 <link rel="stylesheet" href="./css/legacy-part-2.css">
 <script id="dl-mobile-layout-repair-behavior">
@@ -1607,53 +1130,7 @@ window.dlResetAllProgress=function(){
 })();
 </script>
 
-<script id="dl-a1-alphabet-lesson-one-scope-fix">
-(function(){
- const lesson=FULL_UNITS.find(u=>u.level==='A1'&&u.title==='Alphabet and spelling');
- if(!lesson)return;
- lesson.rule='German uses the same 26 basic letters as English, but some are pronounced differently. German J sounds like English Y in yes; W sounds like English V; and V often sounds like English F. Listen to Januar, Wasser and Vater, then practice recognizing those sounds. German also has additional letters, which you will learn in Lesson 2.';
- lesson.examples=[['Januar','January — J sounds like English Y'],['Wasser','water — W sounds like English V'],['Vater','father — V often sounds like English F']];
- lesson.checkpoint={prompt:'In the German word Wasser, which letter makes the English V sound?',options:['W','J','V'],answer:0,why:'German W is pronounced like English V, as in Wasser.'};
- const questions=[
-  ['Which letter in German usually sounds like English Y?', ['J','W','V'],0,'German J sounds like English Y, as in Jahr (year).'],
-  ['In the new word Jahr (year), how does the first letter sound?', ['Like English Y','Like English J','Like English V'],0,'J in Jahr sounds like English Y.'],
-  ['Which German letter usually sounds like English V?', ['W','J','V'],0,'German W sounds like English V.'],
-  ['In Winter (winter), how is the first letter pronounced?', ['Like English V','Like English W','Like English F'],0,'W in Winter sounds like English V.'],
-  ['Which German letter often sounds like English F?', ['V','W','J'],0,'German V often sounds like English F, as in Vogel (bird).'],
-  ['In Vogel (bird), which English sound begins the word?', ['F','V','Y'],0,'The V in Vogel is usually pronounced like English F.'],
-  ['Which pair starts with the same German letter sound?', ['Wasser and Winter','Vater and Jahr','Jahr and Wasser'],0,'Wasser and Winter both begin with German W, which sounds like English V.']
- ];
- const speaking=[
-  ['Jahr','year','German J sounds like English Y. Listen to Jahr, then say it aloud.'],
-  ['Winter','winter','German W sounds like English V. Listen to Winter, then say it aloud.'],
-  ['Vogel','bird','German V often sounds like English F. Listen to Vogel, then say it aloud.']
- ];
- const shuffle=a=>{const x=[...a];for(let i=x.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[x[i],x[j]]=[x[j],x[i]];}return x;};
- const oldBegin=fullBegin;
- fullBegin=function(id){
-  const result=oldBegin.apply(this,arguments);
-  if(FULL_UNITS[id]!==lesson||!fullSession)return result;
-  const knowledge=shuffle(questions).map(([prompt,choices,right,why])=>{
-   const correct=choices[right],options=shuffle(choices);
-   return {type:'grammar',prompt,options,answer:options.indexOf(correct),why};
-  });
-  const speakingChecks=speaking.map(([word,meaning,why])=>({type:'speak-word',prompt:'Listen, then say this German word aloud',options:['Recognized','Try again'],answer:0,dlSpeakWord:word,dlSpeakMeaning:meaning,why}));
-  // Alternate recognition and spoken production, with each new word introduced by its meaning.
-  fullSession.questions=[...knowledge.slice(0,2),speakingChecks[0],...knowledge.slice(2,4),speakingChecks[1],...knowledge.slice(4,6),speakingChecks[2],...knowledge.slice(6)];
-  fullSession.idx=0;fullSession.score=0;fullSession.results=[];
-  fullRender();
-  return result;
- };
- const oldStudy=fullStudy;
- fullStudy=function(id){
-  const result=oldStudy.apply(this,arguments);
-  if(FULL_UNITS[id]===lesson){
-   document.querySelectorAll('.dl-alphabet-audio,.dl-letters-intro').forEach(el=>el.remove());
-  }
-  return result;
- };
-})();
-</script>
+<script src="./js/extracted-batch6-9.js"></script>
 
 <!-- Keep the lesson introduction action visible while browsing examples. -->
 <style>
@@ -1972,29 +1449,7 @@ body.dl-review-next-visible #app{padding-bottom:calc(92px + env(safe-area-inset-
 </script>
 <style>.dl-grammar-help{margin-top:12px}.dl-grammar-help summary{cursor:pointer;font-weight:650;padding:8px 0}.dl-grammar-help p{margin:8px 0 2px;line-height:1.5}</style>
 
-<script id="dl-context-lesson-upgrade">
-(function(){
- const id=FULL_UNITS.findIndex(u=>u.title==='Everyday conversations: Understanding in context');
- if(id<0)return;
- const u=FULL_UNITS[id];
- u.rule='Use these phrases when you need help in a conversation.\n\nICH VERSTEHE DIE FRAGE NICHT.\nI do not understand the question.\n• ich = I\n• verstehe = understand\n• die Frage = the question\n• nicht = not\nTry replacing die Frage with das Wort (the word) or den Satz (the sentence).\n\nKÖNNEN SIE MIR HELFEN?\nCan you help me?\n• können = can\n• Sie = formal you\n• mir = me\n• helfen = help\n\nSPRECHEN SIE BITTE LANGSAM.\nPlease speak slowly.\n• sprechen = speak\n• Sie = formal you\n• bitte = please\n• langsam = slowly.';
- u.examples=[['Ich verstehe die Frage nicht.','I do not understand the question.'],['Ich verstehe das Wort nicht.','I do not understand the word.'],['Können Sie mir helfen?','Can you help me?'],['Sprechen Sie bitte langsam.','Please speak slowly.'],['Ich verstehe den Satz nicht.','I do not understand the sentence.'],['Können Sie das bitte wiederholen?','Could you please repeat that?']];
- u.checkpoint={prompt:'Which phrase asks someone to speak more slowly?',options:['Sprechen Sie bitte langsam.','Ich verstehe die Frage nicht.','Können Sie mir helfen?'],answer:0,why:'Sprechen Sie bitte langsam is a polite request. Sie is the formal you; bitte means please; langsam means slowly.'};
- const previous=fullQuestions;
- fullQuestions=function(unit){
-  if(unit!==u)return previous(unit);
-  return [
-   {type:'grammar',prompt:'Someone speaks too quickly. What would you say?',options:['Sprechen Sie bitte langsam.','Ich verstehe das Wort nicht.','Können Sie mir helfen?'],answer:0,why:'Sprechen Sie bitte langsam asks a person to speak slowly. Bitte softens the request.'},
-   {type:'grammar',prompt:'In “Ich verstehe die Frage nicht,” what does “nicht” do?',options:['Makes the statement negative','Turns it into a question','Makes it more polite'],answer:0,why:'Nicht negates the verb verstehe: I do not understand.'},
-   {type:'grammar',prompt:'You understand the question, but not one word. Which sentence fits?',options:['Ich verstehe das Wort nicht.','Ich verstehe die Frage nicht.','Sprechen Sie bitte langsam.'],answer:0,why:'Das Wort means the word. Replace die Frage with das Wort while keeping Ich verstehe … nicht.'},
-   {type:'grammar',prompt:'What does “Sie” mean in “Können Sie mir helfen?”',options:['Formal you','She','We'],answer:0,why:'Capitalized Sie is the formal form of you in this question. Können Sie …? is a polite way to ask someone.'},
-   {type:'grammar',prompt:'Which phrase politely asks someone to repeat something?',options:['Können Sie das bitte wiederholen?','Ich verstehe den Satz nicht.','Sprechen Sie bitte langsam.'],answer:0,why:'Wiederholen means repeat. Können Sie …? makes a polite request; bitte means please.'},
-   {type:'grammar',prompt:'Which German noun means “sentence” in “Ich verstehe den Satz nicht”?',options:['Satz','Frage','Wort'],answer:0,why:'Der Satz means sentence; it becomes den Satz as the direct object of verstehen.'},
-   {type:'grammar',prompt:'A stranger offers to explain something. How do you ask for help politely?',options:['Können Sie mir helfen?','Ich verstehe das Wort nicht.','Sprechen Sie bitte langsam.'],answer:0,why:'Können Sie mir helfen? means Can you help me? Mir is the form of I used for the person receiving help.'}
-  ];
- };
-})();
-</script>
+<script src="./js/extracted-batch6-11.js"></script>
 <style id="dl-rule-paragraph-spacing">.unit-explain.dl-rule-breakdown{white-space:pre-line;line-height:1.55}.unit-explain.dl-rule-breakdown::first-line{font-weight:600}</style><script id="dl-rule-breakdown-format">(function(){const previous=fullStudy;fullStudy=function(id){previous(id);if(FULL_UNITS[id]?.title==='Everyday conversations: Understanding in context'){const el=app.querySelector('.unit-explain');if(el)el.classList.add('dl-rule-breakdown')}}})();</script>
 <script id="dl-conversation-section-cards">
 (function(){
@@ -2040,55 +1495,7 @@ body.dl-home-banner .app-header::after{content:none!important}
 body.dl-home-banner .app-header h1,body.dl-home-banner .app-header p,body.dl-home-banner .app-header .menu-toggle{position:relative;z-index:1}
 </style>
 <style id="dl-flow-conversation-cards">.dl-conversation-cards{display:grid;gap:14px;margin:18px 0 24px}.dl-conversation-card{background:#2b435b;border:1px solid #4c6680;border-radius:16px;padding:16px}.dl-conversation-card h3{font-size:1.1rem;margin:0 0 8px;line-height:1.35}.dl-conversation-card p{margin:0 0 8px;line-height:1.45}.dl-conversation-card ul{margin:8px 0 0;padding-left:22px}.dl-conversation-card li{margin:5px 0;line-height:1.4}</style>
-<script id="dl-sentence-building-lesson">
-(function(){
- const unit={
-  level:'A1',title:'Building German sentences: Subject, verb and details',
-  rule:'Start with WHO is doing something (the subject), then the conjugated verb, then the rest of the sentence. In ordinary German statements, the conjugated verb is in position two. A time word can go first, but the verb must still be second. Objects answer what or whom; places tell us where.',
-  examples:[
-   ['Ich lerne Deutsch.','I am learning German.'],
-   ['Ich trinke heute Kaffee.','I am drinking coffee today.'],
-   ['Heute trinke ich Kaffee.','Today I am drinking coffee.'],
-   ['Wir lernen Deutsch zu Hause.','We are learning German at home.'],
-   ['Morgen kaufe ich Brot.','Tomorrow I am buying bread.']
-  ],
-  checkpoint:{prompt:'Which sentence keeps the verb in second position?',options:['Heute lerne ich Deutsch.','Heute ich lerne Deutsch.','Heute Deutsch ich lerne.'],answer:0,why:'Heute occupies the first position, so lerne must come next.'}
- };
- const id=FULL_UNITS.length;FULL_UNITS.push(unit);
- const module=STRUCTURED_PATH.A1.find(m=>m.title==='Everyday conversations'&&m.ids.includes(83));
- if(module){const pos=module.ids.indexOf(83);module.ids.splice(pos,0,id);module.context='Build your own sentences first, then use practical phrases to ask for help and clarification.';}
- const priorQuestions=fullQuestions;
- fullQuestions=function(u){
-  if(u!==unit)return priorQuestions(u);
-  return [
-   {type:'grammar',prompt:'Choose the correct basic statement.',options:['Ich lerne Deutsch.','Ich Deutsch lerne.','Lerne Deutsch ich.'],answer:0,why:'The subject Ich comes first and the conjugated verb lerne comes second.'},
-   {type:'grammar',prompt:'Start with Heute (today). Which sentence is correct?',options:['Heute trinke ich Kaffee.','Heute ich trinke Kaffee.','Heute Kaffee trinke ich.'],answer:0,why:'Heute takes position one, trinke stays in position two, and ich follows the verb.'},
-   {type:'grammar',prompt:'In “Wir lernen Deutsch zu Hause,” which word is the subject?',options:['Wir','lernen','Deutsch'],answer:0,why:'Wir means we: it tells who performs the action.'},
-   {type:'grammar',prompt:'In “Ich kaufe Brot,” which word is the conjugated verb?',options:['kaufe','Ich','Brot'],answer:0,why:'Kaufe expresses the action and changes to agree with ich.'},
-   {type:'grammar',prompt:'Which sentence adds a place naturally?',options:['Ich lerne Deutsch zu Hause.','Ich zu Hause lerne Deutsch.','Ich Deutsch zu Hause lerne.'],answer:0,why:'Ich is the subject, lerne is the second-position verb, and zu Hause adds where.'},
-   {type:'grammar',prompt:'Which sentence begins with a time expression correctly?',options:['Morgen kaufe ich Brot.','Morgen ich kaufe Brot.','Morgen Brot ich kaufe.'],answer:0,why:'Morgen is first, so kaufe must immediately follow.'},
-   {type:'grammar',prompt:'In “Ich trinke heute Kaffee,” what is Kaffee?',options:['What is being drunk','Who is drinking','The conjugated verb'],answer:0,why:'Kaffee is the object: it tells what the subject drinks.'}
-  ];
- };
- const priorStudy=fullStudy;
- fullStudy=function(lessonId){
-  const result=priorStudy.apply(this,arguments);
-  if(lessonId!==id)return result;
-  const h=Array.from(app.querySelectorAll('h2')).find(el=>el.textContent.includes("What you'll learn"));
-  const p=h?.nextElementSibling;
-  if(p?.tagName==='P'){
-   p.outerHTML='<div class="dl-conversation-cards">'+[
-    ['1. Subject — who?','Ich = I; wir = we. Start by identifying who is acting.'],
-    ['2. Verb — what action?','Ich lerne Deutsch. The conjugated verb lerne takes the second position.'],
-    ['3. Add an object','Ich trinke Kaffee. Kaffee tells us what is being drunk.'],
-    ['4. Add time and place','Ich lerne heute zu Hause. Heute says when; zu Hause says where.'],
-    ['5. Move time to the front','Heute lerne ich zu Hause. The verb stays second, so the subject moves after it.']
-   ].map(x=>'<section class="dl-conversation-card"><h3>'+safeText(x[0])+'</h3><p>'+safeText(x[1])+'</p></section>').join('')+'</div>';
-  }
-  return result;
- };
-})();
-</script>
+<script src="./js/extracted-batch6-3.js"></script>
 
 <script src="./js/extracted-batch4-4.js"></script>
 <style id="dl-a1-dialogue-styles">
@@ -2123,42 +1530,7 @@ body.dl-home-banner .app-header h1,body.dl-home-banner .app-header p,body.dl-hom
 .dl-pronunciation #dl-sound-speak{display:block;width:100%;min-height:68px;font-size:1.15rem;font-weight:750;margin:16px 0 10px}
 .dl-pronunciation .dl-sound-listening button{min-height:49px;font-size:.95rem}
 </style>
-<script id="dl-umlauts-sharp-s-balanced-questions">
-(function(){
- const umlautUnit=FULL_UNITS.find(u=>u.title==='Umlauts and ß');
- if(umlautUnit){
-  umlautUnit.rule='German has three umlaut vowels: ä, ö and ü. Ä can sound similar to the e in English “bed” (as in Mädchen, girl, or Käse, cheese). Ö is a rounded front vowel, as in schön (beautiful). Ü is another rounded front vowel, as in fünf (five). ß, called Eszett, represents a sharp s sound, as in Straße (street); it is not the letter B.';
-  umlautUnit.examples=[
-   ['Mädchen','girl — ä'],
-   ['schön','beautiful — ö'],
-   ['fünf','five — ü'],
-   ['Straße','street — ß'],
-   ['schon / schön','already / beautiful — different vowels']
-  ];
- }
- const oldBegin=fullBegin;
- fullBegin=function(id){
-  oldBegin.apply(this,arguments);
-  const session=fullSession,unit=FULL_UNITS[id];
-  if(!session||unit?.title!=='Umlauts and ß')return;
-  // One varied ten-question sequence: vowels, spelling, meaning, and ß.
-  session.questions=[
-   {type:'grammar',prompt:'Which letter is used in the German word for “five”?',options:['ü','u','ö'],answer:0,why:'Fünf is spelled with ü, which has a distinct vowel sound.'},
-   {type:'sound-choice',prompt:'Which audio says “schön”?',options:['Audio 1','Audio 2','Audio 3'],answer:1,dlAudioWords:['schon','schön','Sohn'],dlTarget:'schön',why:'Schön has ö; schon and Sohn have an o sound.'},
-   {type:'grammar',prompt:'What sound does ß represent in Straße?',options:['An s sound','A b sound','A z sound'],answer:0,why:'ß is called Eszett or sharp S. It represents an unvoiced s sound, not a b sound.'},
-   {type:'grammar',prompt:'Choose the correctly spelled German word for “street.”',options:['Straße','StraBe','Sträße'],answer:0,why:'Straße uses ß after a long vowel. The letter ß is not the letter B.'},
-   {type:'sound-choice',prompt:'Which audio says “Mütter”?',options:['Audio 1','Audio 2','Audio 3'],answer:2,dlAudioWords:['Mutter','Meter','Mütter'],dlTarget:'Mütter',why:'Mütter has ü; Mutter has u.'},
-   {type:'sound-choice',prompt:'Which audio says “Mädchen”?',options:['Audio 1','Audio 2','Audio 3'],answer:1,dlAudioWords:['Machen','Mädchen','Möchten'],dlTarget:'Mädchen',why:'Mädchen (girl) contains ä. Listen for the different vowel compared with machen.'},
-   {type:'grammar',prompt:'In Mädchen, which English vowel is ä closest to?',options:['The e in “bed”','The oo in “moon”','The ee in “see”'],answer:0,why:'The ä in Mädchen is similar to the short e in English bed. The German sound can vary by word and accent.'},
-   {type:'grammar',prompt:'Which pair changes meaning when an umlaut is added?',options:['schon → schön','Haus → Haus','und → und'],answer:0,why:'Schon means already; schön means beautiful or nice.'},
-   {type:'grammar',prompt:'Which spelling uses ß correctly?',options:['groß','groB','gröss'],answer:0,why:'Groß means big; ß represents the s sound after the long o.'},
-   {type:'grammar',prompt:'Which statement about German ß is correct?',options:['It is a distinct letter, not a capital B','It is pronounced like English B','It always makes a sh sound'],answer:0,why:'ß is a separate German letter called Eszett; it typically represents a sharp s sound.'}
-  ];
-  session.idx=0;session.score=0;session.results=[];
-  fullRender();
- };
-})();
-</script>
+<script src="./js/extracted-batch6-14.js"></script>
 
 <!-- DeutschLab unfinished activity exit confirmation -->
 <style>
@@ -2301,42 +1673,7 @@ body.dl-unified-active #app{padding-bottom:calc(105px + env(safe-area-inset-bott
 body.dl-unified-active #dl-fixed-next,body.dl-unified-active #dl-review-next-dock{display:none!important}\nbody.dl-unified-active #dl-unified-dock{display:flex!important}
 body.dl-unified-active #app button.dl-unified-source{display:none!important}
 </style>
-<script id="dl-unified-activity-script">
-(function(){
- const app=document.getElementById('app');if(!app)return;
- const dock=document.createElement('div');dock.id='dl-unified-dock';
- const back=document.createElement('button');back.type='button';back.className='secondary';back.textContent='Back';
- const next=document.createElement('button');next.type='button';next.className='dl-dock-next';next.textContent='Next';
- dock.append(back,next);document.body.appendChild(dock);
- let backTarget=null,nextTarget=null,backAction=null,lastFeedback='',lastChime=0,ctx=null;
- const nextRx=/^(next(?:\s+(?:question|word|item|sentence|exercise|round|picture|sound))?|continue|finish|finish (?:lesson|practice|review)|see results|show results)$/i;
- const backRx=/^(back|previous|previous question|go back)$/i;
- const feedbackSelector='#practiceFeedback,#fullFeedback,#moduleFeedback,#courseFeedback,#gameFeedback,#pictureFeedback,#dialogue-feedback,#reviewFeedback,#articleFeedback,#a12Feedback,#dl-result,.dl-flow-feedback,.game-feedback,.picture-answer';
- function chime(){try{const C=window.AudioContext||window.webkitAudioContext;if(!C)return;ctx=ctx||new C();if(ctx.state==='suspended')ctx.resume();const t=ctx.currentTime;[[660,0],[880,.115]].forEach(([hz,delay])=>{const o=ctx.createOscillator(),g=ctx.createGain();o.type='sine';o.frequency.value=hz;g.gain.setValueAtTime(.0001,t+delay);g.gain.exponentialRampToValueAtTime(.14,t+delay+.018);g.gain.exponentialRampToValueAtTime(.0001,t+delay+.19);o.connect(g);g.connect(ctx.destination);o.start(t+delay);o.stop(t+delay+.2)})}catch(e){}}
- function sync(){
-  const feedback=[...app.querySelectorAll(feedbackSelector)].filter(e=>e.getClientRects().length&&/correct!|well done|great job|not quite|incorrect|correct answer|try again/i.test(e.textContent||''));
-  const latest=feedback[feedback.length-1];
-  const positive=latest&&!!latest.querySelector('.correct')||latest&&/^(?:correct!|well done|great job)/i.test((latest.textContent||'').trim());
-  const key=latest?((latest.textContent||'').trim().slice(0,180)+'|'+(app.querySelector('h2,h3')?.textContent||'')):'';
-  if(positive&&key&&key!==lastFeedback&&Date.now()-lastChime>450){lastChime=Date.now();chime()}
-  lastFeedback=key;
-  app.querySelectorAll('.dl-unified-source').forEach(b=>b.classList.remove('dl-unified-source'));
-  const buttons=[...app.querySelectorAll('button')].filter(b=>b.getClientRects().length&&!b.disabled&&!b.closest('nav,#sideMenu,[hidden]'));
-  const find=(rx)=>buttons.find(b=>rx.test((b.textContent||'').trim()));
-  nextTarget=latest?buttons.find(b=>nextRx.test((b.textContent||'').trim())&& (latest.contains(b)||b.closest('.card')===latest.closest('.card')))||find(nextRx):null;
-  backTarget=nextTarget?find(backRx):null;
-  const finish=latest?buttons.find(b=>/^finish$/i.test((b.textContent||'').trim())):null;
-  backAction=null;
-  const show=!!nextTarget&&!document.getElementById('dl-exit-overlay');
-  if(show){next.textContent=(nextTarget.textContent||'Next').trim();nextTarget.classList.add('dl-unified-source');if(backTarget)backTarget.classList.add('dl-unified-source');}
-  back.style.display=backTarget?'block':'none';dock.style.display=show?'flex':'none';document.body.classList.toggle('dl-unified-active',show);
- }
- back.onclick=()=>{if(backTarget?.isConnected)backTarget.click();else backAction?.()};
- next.onclick=()=>{if(nextTarget?.isConnected)nextTarget.click()};
- let queued=false;new MutationObserver(()=>{if(queued)return;queued=true;requestAnimationFrame(()=>{queued=false;sync()})}).observe(app,{childList:true,subtree:true,characterData:true});
- sync();
-})();
-</script>
+<script src="./js/extracted-batch6-8.js"></script>
 
 <style id="dl-feedback-card-polish">
 /* Compact, unmistakable feedback separate from answer choices. */
@@ -2373,30 +1710,7 @@ const dlMascotPreloads=dlMascotFiles.map(src=>{const img=new Image();img.src=src
 <style id="dl-practice-hub-redesign">
 .dl-hub-heading{margin:25px 0 12px;font-size:1.35rem}.dl-hub-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.dl-hub-card{display:flex!important;flex-direction:column;align-items:flex-start;justify-content:center;gap:9px;min-height:146px;padding:17px!important;border-radius:18px!important;text-align:left!important;white-space:normal!important}.dl-hub-card .dl-hub-icon{font-size:2rem;line-height:1}.dl-hub-card strong{font-size:1.13rem;line-height:1.2}.dl-hub-card small{font-size:.87rem;line-height:1.35;opacity:.87}.dl-hub-continue{width:100%;min-height:55px;margin:12px 0!important;font-size:1.05rem}@media(max-width:360px){.dl-hub-grid{gap:9px}.dl-hub-card{padding:12px!important;min-height:138px}}
 </style>
-<script id="dl-practice-hub-redesign-script">
-(function(){
- const routes={review:'review',listening:'listeningPractice',sentences:'sentencePractice',findit:'findItHome',articles:'articleHome',pictures:'pictureHome',dialogue:'conversation',games:'gameHub'};
- window.dlOpenHubActivity=function(key){const fn=routes[key];if(typeof window[fn]!=='function')return;try{localStorage.setItem('dl_last_practice_activity',key)}catch(e){}window[fn]();window.scrollTo(0,0)};
- window.dlContinueHubActivity=function(){let key='review';try{key=localStorage.getItem('dl_last_practice_activity')||key}catch(e){}window.dlOpenHubActivity(key)};
- const previous=practiceHub;
- practiceHub=function(){previous();
-  const cards=[['review','🧠','Review','Revisit missed answers and refresh your memory'],['listening','🎧','Listening','Understand spoken German'],['sentences','🧩','Build sentences','Put German words in order'],['findit','🔎','Find It!','Find objects in illustrated rooms'],['articles','📚','Noun Articles','Practice der, die and das'],['pictures','🖼️','Picture Practice','Learn words from pictures'],['dialogue','💬','Dialogue','Practice real conversations'],['games','🎮','Practice Games','Play vocabulary and language games']];
-  const progress=app.querySelector('#progress')?.closest('.card');
-  const oldCards=app.querySelector('.sceneCards');if(oldCards)oldCards.remove();
-  const section=document.createElement('section');section.className='dl-hub-content';
-  const card=(c)=>'<button class="secondary dl-hub-card" onclick="dlOpenHubActivity(\''+c[0]+'\')"><span class="dl-hub-icon" aria-hidden="true">'+c[1]+'</span><strong>'+c[2]+'</strong><small>'+c[3]+'</small></button>';
-  section.innerHTML='<button class="dl-hub-continue" onclick="dlContinueHubActivity()">▶ Continue practicing</button><h2 class="dl-hub-heading">Daily practice</h2><div class="dl-hub-grid">'+cards.filter(c=>['review','listening','sentences','dialogue'].includes(c[0])).map(card).join('')+'</div><h2 class="dl-hub-heading">Practice games & activities</h2><div class="dl-hub-grid">'+cards.filter(c=>!['review','listening','sentences','dialogue'].includes(c[0])).map(card).join('')+'</div>';
-  if(progress)progress.after(section);else app.appendChild(section);
- };
- const menu=document.getElementById('sideMenu');if(menu){
-  const buttons=[...menu.querySelectorAll('button')];
-  for(const b of buttons){if(/Find It!|Noun Articles|Picture practice|Dialogue|Review|Practice games/i.test(b.textContent||''))b.remove()}
-  let hub=buttons.find(b=>/Practice Hub/i.test(b.textContent||''));
-  if(hub){const headings=[...menu.querySelectorAll('.dl-menu-group')];const practice=headings.find(h=>/PRACTICE/i.test(h.textContent));if(practice)practice.after(hub)}
-  const accountHeading=[...menu.querySelectorAll('.dl-menu-group')].find(h=>/ACCOUNT/i.test(h.textContent));if(accountHeading){const profile=buttons.find(b=>/Profile/i.test(b.textContent||''));if(profile)accountHeading.after(profile)}
- }
-})();
-</script>
+<script src="./js/extracted-batch6-19.js"></script>
 
 <style id="dl-feedback-popout">
 #app .dl-result-badge{position:relative!important;overflow:visible!important;margin:64px 0 12px 34px!important;min-height:92px!important;padding:20px 14px 18px 112px!important;display:flex!important;align-items:center!important;justify-content:flex-start!important;isolation:isolate}
@@ -3134,58 +2448,7 @@ body:has(#app .market-v2) .app-header::before,body:has(#app .market-v2) .app-hea
 #app .dl-beta-feedback .dl-feedback-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
 #sideMenu .dl-feedback-menu-entry{margin-top:10px}
 </style>
-<script id="dl-beta-feedback">
-(function(){
- const endpoint='https://api.web3forms.com/submit';
- // Replace this value with the Web3Forms access key issued for the receiving inbox.
- const accessKey='43637b95-3d3c-49e7-9551-07cce39724d0';
- function install(){
-  const nav=document.getElementById('sideMenu');
-  if(!nav||nav.querySelector('.dl-feedback-menu-entry'))return;
-  const button=document.createElement('button');
-  button.type='button';button.className='dl-feedback-menu-entry';
-  button.textContent='✉ Send Feedback';
-  button.addEventListener('click',function(){window.dlShowBetaFeedback()});
-  nav.appendChild(button);
-  const settings=nav.querySelector('.dl-settings-menu-entry');
-  if(settings)settings.after(button);
- }
- window.dlShowBetaFeedback=function(){
-  if(typeof window.toggleMenu==='function')window.toggleMenu(false);
-  const app=document.getElementById('app');if(!app)return;
-  app.innerHTML='<section class="card dl-beta-feedback"><h2>Send Feedback</h2><p>Found a bug or have an idea? Send it to the DeutschLab developer. No account or email required.</p>'+
-   '<form id="dlBetaFeedbackForm">'+
-   '<label for="dlFeedbackType">Feedback type</label><select id="dlFeedbackType" name="Feedback type" required><option value="Bug report">Bug report</option><option value="Suggestion">Suggestion</option><option value="Other">Other</option></select>'+
-   '<label for="dlFeedbackArea">Where did it happen?</label><input id="dlFeedbackArea" name="Screen or lesson" maxlength="150" placeholder="e.g. Supermarkt, A1 Lesson 3">'+
-   '<label for="dlFeedbackMessage">What happened, or what would you suggest?</label><textarea id="dlFeedbackMessage" name="Message" minlength="5" maxlength="5000" required placeholder="Describe the issue or suggestion"></textarea>'+
-   '<p class="muted">Do not include passwords or API keys.</p>'+
-   '<p id="dlFeedbackStatus" role="status" aria-live="polite"></p>'+
-   '<div class="dl-feedback-actions"><button id="dlFeedbackSend" type="submit">Send Feedback</button><button type="button" class="secondary" onclick="home()">Back to Home</button></div></form></section>';
-  const form=document.getElementById('dlBetaFeedbackForm');
-  const status=document.getElementById('dlFeedbackStatus');
-  const send=document.getElementById('dlFeedbackSend');
-  if(!accessKey){send.disabled=true;status.textContent='Feedback is temporarily unavailable while the new service is being configured.';}
-  form.addEventListener('submit',async function(event){
-   event.preventDefault();
-   if(!accessKey)return;
-   send.disabled=true;status.textContent='Sending feedback…';
-   const payload=new FormData(form);
-   payload.append('access_key',accessKey);
-   payload.append('subject','DeutschLab beta feedback');
-   payload.append('from_name','DeutschLab Tester');
-   try{
-    const response=await fetch(endpoint,{method:'POST',body:payload,headers:{Accept:'application/json'}});
-    const result=await response.json();
-    if(!response.ok||!result.success)throw new Error('Submission failed');
-    form.reset();status.textContent='Feedback sent successfully. Thank you!';
-   }catch(error){status.textContent='Feedback could not be sent. Please try again later.';}
-   finally{send.disabled=false;}
-  });
-  window.scrollTo(0,0);
- };
- if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',install);else install();
-})();
-</script>
+<script src="./js/extracted-batch6-13.js"></script>
 <style id="dl-menu-cleanup">#sideMenu .dl-menu-group{margin:14px 0 5px!important;padding-bottom:5px!important;font-size:.76rem!important}#sideMenu button:not(.menu-close){margin-top:3px!important;margin-bottom:3px!important}#sideMenu .dl-menu-home-prominent{font-size:1.22rem!important;font-weight:800!important;padding-top:12px!important;padding-bottom:12px!important;min-height:52px!important}
 </style>
 <script id="dl-menu-utilities-order">
