@@ -157,7 +157,7 @@ function sceneMarkup(){
  const room=activeRoom();const zones=room.items.map((o,i)=>({...o,item:i})).concat(room.extras);
  return '<div class="findit-scene"><img class="findit-room-art" src="'+room.image+'" alt="'+room.name+' with objects to find">'+zones.map((o,i)=>'<button class="findit-target" data-fi="'+i+'" aria-label="Select '+room.items[o.item].en+'" style="left:'+o.x+'%;top:'+o.y+'%;width:'+o.w+'%;height:'+o.h+'%;z-index:'+(room.items[o.item]===session?.queue[session.idx]?5:2)+'" onclick="findItTap('+i+')"></button>').join('')+'</div>'
 }
-function feedback(message,translation,voice){const el=document.getElementById('findit-feedback');if(!el)return;el.innerHTML='<strong>'+message+'</strong> <span>'+translation+'</span>'+(voice?'<button class="secondary" onclick="findItPraise()">🔊 Hear phrase</button>':'')}
+function feedback(message,translation,voice){const el=document.getElementById('findit-feedback');if(!el)return;el.innerHTML='<strong>'+message+'</strong> <span>'+translation+'</span>'}
 window.findItPraise=function(){if(session&&session.phrase&&typeof speak==='function')speak(session.phrase)};
 window.findItHome=function(){
  session={room:0,queue:order(),idx:0,hearts:3,locked:false,phrase:''};
