@@ -5019,7 +5019,7 @@ function quickRandomPractice(){
 #app .dl-listen-practice-card.dl-listen-complete .dl-listen-choice{display:none!important}
 #app .dl-listen-practice-card.dl-listen-complete .dl-listen-prompt{display:none!important}
 #app #listenFeedback .dl-result-badge{min-height:92px!important;padding:9px 12px!important;margin:10px 0!important;gap:12px!important;font-size:1.35rem!important}
-#app #listenFeedback .dl-result-badge img{width:88px!important;height:88px!important;max-width:32%!important}
+#app #listenFeedback .dl-result-badge img{width:116px!important;height:116px!important;max-width:42%!important;object-fit:contain!important;object-position:center bottom!important}
 #app #listenFeedback .explain-box{margin:10px 0!important;padding:12px!important}
 #app #listenFeedback .explain-box h3{margin:0 0 7px!important}
 #app #listenFeedback .explain-box p{margin:7px 0!important}
@@ -5037,6 +5037,30 @@ function quickRandomPractice(){
   const explain=box.querySelector('.explain-box');if(explain){const germanLine=box.querySelector(':scope > p');if(germanLine)germanLine.remove();explain.querySelector('h3')?.remove()}
   const actions=[...box.querySelectorAll(':scope > button')];if(actions.length){const row=document.createElement('div');row.className='dl-listen-actions';row.style.cssText='display:flex;gap:10px;flex-wrap:wrap;margin:10px 0';actions[0].before(row);actions.forEach(b=>row.append(b))}
  };
+})();
+</script>
+
+<style id="dl-listen-fixed-actions-style">
+#dlListenFixedActions{position:fixed;left:0;right:0;bottom:env(safe-area-inset-bottom,0px);z-index:2147483000;display:flex;gap:12px;justify-content:space-between;align-items:center;padding:12px max(18px,env(safe-area-inset-right,0px)) 12px max(18px,env(safe-area-inset-left,0px));background:#142a3c;border-top:1px solid #3b5c70;box-sizing:border-box}
+#dlListenFixedActions button{flex:1;min-width:0;max-width:320px;margin:0!important;min-height:54px}
+body:has(#dlListenFixedActions) #app{padding-bottom:115px!important}
+</style>
+<script id="dl-listen-fixed-actions-script">
+(function(){
+ const root=document.getElementById('app');if(!root)return;
+ function sync(){
+  const box=root.querySelector('#listenFeedback');
+  const answered=!!(box&&box.closest('.dl-listen-complete'));
+  let bar=document.getElementById('dlListenFixedActions');
+  if(!answered){bar?.remove();return}
+  const row=box.querySelector('.dl-listen-actions');
+  if(!row)return;
+  if(!bar){bar=document.createElement('div');bar.id='dlListenFixedActions';document.body.appendChild(bar)}
+  for(const b of [...row.querySelectorAll('button')])bar.appendChild(b);
+ }
+ let pending=false;
+ new MutationObserver(()=>{if(pending)return;pending=true;requestAnimationFrame(()=>{pending=false;sync()})}).observe(root,{subtree:true,childList:true});
+ sync();
 })();
 </script>
 </body></html>
