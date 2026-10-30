@@ -5364,7 +5364,7 @@ body:has(#dlDialogueExitBar) #app{padding-bottom:112px!important}
     '<div class="market-scene market-illustrated"><div class="market-sign">'+aisle[2]+' '+aisle[1]+'</div><div class="market-shelf">'+items.map(p=>'<button class="market-item" onclick="supermarktPick(\''+p.id+'\')" '+(state.cart.includes(p.id)?'disabled':'')+'><span class="market-emoji">'+p.emoji+'</span><span class="market-name">'+p.name+'</span></button>').join('')+'</div></div>';
   app.innerHTML='<div class="market-wrap market-v2"><div class="market-head"><h2>🛒 Supermarkt</h2><div class="market-progress">'+state.cart.length+' / '+state.list.length+' items found</div><div class="market-list market-always-visible"><strong>📝 Einkaufsliste</strong><ul>'+list+'</ul></div></div>'+
   '<div class="market-swipe-hint">‹ Swipe to explore · '+aisle[1]+' ›</div><div class="market-swipe-zone" ontouchstart="supermarktTouchStart(event)" ontouchend="supermarktTouchEnd(event)">'+scene+'</div>'+
-  '<div class="market-cart"><div class="market-cart-title"><strong>🛒 Einkaufswagen</strong><strong>'+euro(total)+'</strong></div><div class="market-cart-items">'+(state.cart.length?state.cart.map(id=>'<span title="'+byId(id).name+'">'+byId(id).emoji+'</span>').join(''):'<span class="muted">Your cart is empty.</span>')+'</div><p class="market-status '+(state.wrong?'bad':'good')+'" role="status">'+(state.message||'Tap a grocery from your list. Swipe sideways for another aisle.')+'</p><div class="market-actions"><button class="secondary" onclick="practiceHub()">Back to Games</button><button '+(!done?'disabled':'')+' onclick="supermarktCheckout()">Zur Kasse →</button></div></div></div>';
+  '<div class="market-cart"><div class="market-cart-handle" aria-hidden="true"></div><div class="market-cart-title"><strong>🛒 Einkaufswagen</strong><strong>'+euro(total)+'</strong></div><div class="market-cart-items">'+(state.cart.length?state.cart.map(id=>'<span title="'+byId(id).name+'">'+byId(id).emoji+'</span>').join(''):'<span class="muted">Your cart is empty.</span>')+'</div><p class="market-status '+(state.wrong?'bad':'good')+'" role="status">'+(state.message||'Tap a grocery from your list. Swipe sideways for another aisle.')+'</p><div class="market-actions market-actions-docked"><button class="secondary" onclick="practiceHub()">Back to Games</button><button '+(!done?'disabled':'')+' onclick="supermarktCheckout()">Zur Kasse →</button></div></div></div>';
  }
  window.supermarktHome=function(){
   try{const saved=JSON.parse(sessionStorage.getItem('dl-supermarkt-session')||'null');if(saved&&Array.isArray(saved.list)&&Array.isArray(saved.cart)&&Number.isInteger(saved.aisle)&&saved.aisle>=0&&saved.aisle<3&&saved.list.every(id=>byId(id))&&saved.cart.every(id=>byId(id))){state=saved;const validProduce=new Set(['banane','apfel','orange','ananas','tomate','gurke','paprika','karotte','salat','brokkoli','blumenkohl','radieschen','kartoffel','zwiebel','knoblauch','zitrone','wassermelone']);if(state.list.some(id=>!validProduce.has(id))){state.list=missions[state.round%missions.length]||missions[0];state.cart=state.cart.filter(id=>state.list.includes(id));state.aisle=0;state.message='';state.wrong=false;save()}render();window.scrollTo(0,0);return}}catch(e){}
@@ -5425,4 +5425,17 @@ body:has(#dlDialogueExitBar) #app{padding-bottom:112px!important}
 #app .market-hotspot{position:absolute;background:transparent;border:0;box-shadow:none;padding:0;touch-action:pan-y}
 #app .market-hotspot:focus-visible{outline:3px solid #fff;outline-offset:-3px}
 #app .market-swipe-zone{touch-action:pan-y}
+</style><style id="dl-market-compact-cart">
+#app .market-v2{padding-bottom:calc(90px + env(safe-area-inset-bottom,0px))}
+#app .market-v2 .market-swipe-hint{padding:4px}
+#app .market-v2 .market-cart{margin:9px 14px 28px 27px;padding:12px 15px 15px;border:3px solid #78cbbb;border-top-width:5px;border-radius:12px 12px 24px 24px;background:#173b45;transform:skewX(-2deg)}
+#app .market-v2 .market-cart>*{transform:skewX(2deg)}
+#app .market-v2 .market-cart:before,#app .market-v2 .market-cart:after{content:"";position:absolute;bottom:-22px;width:18px;height:18px;border-radius:50%;background:#20313d;border:4px solid #91d4c7;box-sizing:border-box}
+#app .market-v2 .market-cart:before{left:16%}#app .market-v2 .market-cart:after{right:16%}
+#app .market-v2 .market-cart-handle{position:absolute;left:-23px;top:-13px;width:26px;height:29px;border-left:6px solid #91d4c7;border-top:6px solid #91d4c7;border-radius:8px 0 0 0}
+#app .market-v2 .market-cart-items{min-height:28px;padding-top:5px}
+#app .market-v2 .market-status{min-height:22px;margin:6px 0 0}
+#app .market-v2 .market-actions-docked{position:fixed;z-index:1000;left:0;right:0;bottom:0;margin:0;padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px));background:#102b38;border-top:1px solid #70c8b7;display:flex;gap:10px;transform:none}
+#app .market-v2 .market-actions-docked button{min-height:52px}
+@media(max-width:700px){#app .market-v2 .market-photo{height:min(54vh,490px);overflow:hidden;border-radius:12px}#app .market-v2 .market-photo img{height:100%;width:100%;object-fit:fill}#app .market-v2 .market-illustrated{max-height:54vh;overflow:auto}}
 </style></body></html>
