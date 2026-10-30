@@ -5913,4 +5913,21 @@ html body .app-header .menu-toggle,html body.dl-compact-header .app-header .menu
  ];};
 })();
 </script>
+<script id="dl-pronouns-before-conversation">
+(function(){
+ const conversation=FULL_UNITS.findIndex(u=>u.title==='Everyday conversations: Understanding in context');
+ const pronouns=FULL_UNITS.findIndex(u=>u.title==='Personal pronouns: ich and du');
+ if(conversation<0||pronouns<0)return;
+ const u=FULL_UNITS[pronouns];
+ u.title='Personal pronouns: ich, du, and Sie';
+ u.rule='Ich means I. Du means informal you when speaking to one person, such as a friend or family member. Sie means formal you when politely addressing a stranger, customer, or someone in a professional situation. Formal Sie is always capitalized, even in the middle of a sentence. Compare: Du lernst Deutsch. (You are learning German, informal.) and Sie lernen Deutsch. (You are learning German, formal.) Do not confuse formal Sie with lowercase sie (she or they).';
+ u.examples=[['ich','I'],['du','you (informal, singular)'],['Sie','you (formal, singular or plural)'],['Du lernst Deutsch.','You are learning German. (informal)'],['Sie lernen Deutsch.','You are learning German. (formal)'],['Können Sie mir helfen?','Can you help me? (formal)']];
+ u.checkpoint={prompt:'Which pronoun means formal “you”?',options:['du','Sie','ich'],answer:1,why:'Sie (capital S) is formal you. Du is informal singular you; ich means I.'};
+ // Reorder the existing module by stable lesson IDs, preserving saved progress.
+ for(const group of STRUCTURED_PATH.A1){
+  const a=group.ids.indexOf(conversation),b=group.ids.indexOf(pronouns);
+  if(a>=0&&b>=0&&a<b){group.ids.splice(b,1);group.ids.splice(a,0,pronouns);break;}
+ }
+})();
+</script>
 </body></html>
