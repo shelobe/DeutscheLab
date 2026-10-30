@@ -5122,4 +5122,41 @@ body:has(#dlListenFixedActions) #app{padding-bottom:115px!important}
 #app .dl-result-badge .dl-result-label{display:flex!important;align-items:center!important;justify-content:center!important;text-align:center!important;font-family:'Fredoka',system-ui,sans-serif!important;font-weight:600!important;font-size:clamp(1.45rem,5.8vw,1.9rem)!important;line-height:1.12!important;letter-spacing:0!important;min-width:0!important;flex:1!important}
 @media(max-width:400px){#app .dl-result-badge{padding-left:172px!important;padding-right:10px!important}#app .dl-result-badge .dl-result-label{font-size:clamp(1.3rem,5.6vw,1.7rem)!important}}
 </style>
+
+<style id="dl-dialogue-answer-exit-fix">
+/* Feedback takes the answer choices' place on either outcome. */
+#app .card.dl-dialogue-answered .dl-dialogue-answer-choice,
+#app .card.dl-dialogue-answered .dl-dialogue-choose-label{display:none!important}
+#dlDialogueExitBar{position:fixed;left:0;right:0;bottom:env(safe-area-inset-bottom,0px);z-index:2147483001;display:flex;align-items:center;justify-content:flex-start;gap:12px;padding:12px 20px;background:#142a3c;border-top:1px solid #3b5c70;box-sizing:border-box}
+#dlDialogueExitBar button{margin:0!important;min-height:54px}
+body:has(#dlDialogueExitBar) #app{padding-bottom:112px!important}
+</style>
+<script id="dl-dialogue-answer-exit-fix-script">
+(function(){
+ const root=document.getElementById('app');if(!root)return;
+ function sync(){
+  const feedback=root.querySelector('#dialogue-feedback');
+  let bar=document.getElementById('dlDialogueExitBar');
+  if(!feedback){bar?.remove();return}
+  const card=feedback.closest('.card');if(!card)return;
+  const choiceButtons=[...card.querySelectorAll('button[onclick^="answerDialogue("]')];
+  choiceButtons.forEach(b=>b.classList.add('dl-dialogue-answer-choice'));
+  const label=choiceButtons[0]?.previousElementSibling;
+  if(label?.tagName==='P'&&/choose your response/i.test(label.textContent))label.classList.add('dl-dialogue-choose-label');
+  const wrong=!!feedback.querySelector('.wrong,.dl-result-bad');
+  const correct=!!feedback.querySelector('.correct,.dl-result-good');
+  card.classList.toggle('dl-dialogue-answered',wrong||correct);
+  if(wrong&&!feedback.querySelector('.dl-dialogue-retry')){
+   const retry=document.createElement('button');retry.className='secondary dl-dialogue-retry';retry.textContent='Try again';
+   retry.onclick=()=>{feedback.replaceChildren();card.classList.remove('dl-dialogue-answered');choiceButtons.forEach(b=>b.disabled=false)};
+   feedback.appendChild(retry);
+  }
+  const exit=card.querySelector('button[onclick="conversation()"]');
+  if(!bar){bar=document.createElement('div');bar.id='dlDialogueExitBar';document.body.appendChild(bar)}
+  if(exit)bar.appendChild(exit);
+ }
+ let pending=false;
+ new MutationObserver(()=>{if(pending)return;pending=true;requestAnimationFrame(()=>{pending=false;sync()})}).observe(root,{childList:true,subtree:true});sync();
+})();
+</script>
 </body></html>
