@@ -1704,7 +1704,7 @@ function dlInstallSettingsMenu(){
  if(!nav||nav.querySelector('.dl-settings-menu-entry'))return;
  const button=document.createElement('button');
  button.type='button';button.className='dl-settings-menu-entry';
- button.textContent='⚙ Settings';button.addEventListener('click',dlShowSettings);
+ button.textContent='⚙ Settings';button.addEventListener('click',()=>window.dlShowSettings());
  nav.appendChild(button);
 }
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',dlInstallSettingsMenu);else dlInstallSettingsMenu();
@@ -4971,7 +4971,7 @@ function quickRandomPractice(){
 /* Make Android/browser Back navigate app screens, never quiz questions. */
 (function(){
  const views=[];let restoring=false;
- const tracked=['home','friendlyCourse','curriculumView','practiceHub','gameHub','articleHome','photoMenu','aiTutor','placementResults','review','fullStudy','dlLessonIntro','fullBegin','gameStart','startSentenceRound','listeningPractice','quickRandomPractice'];
+ const tracked=['home','friendlyCourse','curriculumView','practiceHub','gameHub','articleHome','photoMenu','aiTutor','placementResults','review','fullStudy','dlLessonIntro','fullBegin','gameStart','startSentenceRound','listeningPractice','quickRandomPractice','dlShowSettings','dlShowBetaFeedback'];
  function capture(){return {name:'home',args:[]}}
  for(const name of tracked){
   const original=window[name];if(typeof original!=='function')continue;
@@ -4980,6 +4980,7 @@ function quickRandomPractice(){
     const lesson=['fullStudy','dlLessonIntro','fullBegin'].includes(name);
     const view=lesson?{name:'home',args:[]}:{name,args};
     views.push(view);
+    try{sessionStorage.setItem('dl-current-view',JSON.stringify(view))}catch(e){}
     history.pushState({dlNav:true,step:views.length},'','#dl-screen-'+views.length);
    }
    return original.apply(this,args);
@@ -5012,8 +5013,19 @@ function quickRandomPractice(){
    }else{
     const fn=window[previous.name];
     if(typeof fn==='function')fn(...previous.args);else home();
+    try{sessionStorage.setItem('dl-current-view',JSON.stringify(previous))}catch(e){}
    }
   }finally{restoring=false;history.pushState({dlNav:true,step:views.length},'','#dl-screen-'+views.length)}
+ });
+ window.addEventListener('load',()=>{
+  let saved=null;
+  try{saved=JSON.parse(sessionStorage.getItem('dl-current-view')||'null')}catch(e){}
+  if(!saved||saved.name==='home'||!tracked.includes(saved.name))return;
+  const fn=window[saved.name];
+  if(typeof fn!=='function')return;
+  restoring=true;
+  try{fn(...(Array.isArray(saved.args)?saved.args:[]))}catch(e){console.warn('Unable to restore DeutschLab view',e)}
+  finally{restoring=false}
  });
 })();
 </script>
@@ -5661,6 +5673,8 @@ body:has(#app .market-v2) .app-header .menu-toggle{width:44px;height:44px;min-he
   button.textContent='✉ Send Feedback';
   button.addEventListener('click',function(){window.dlShowBetaFeedback()});
   nav.appendChild(button);
+  const settings=nav.querySelector('.dl-settings-menu-entry');
+  if(settings){const heading=document.createElement('p');heading.className='muted dl-menu-group';heading.textContent='APP';settings.before(heading);heading.after(settings);settings.after(button);}
  }
  window.dlShowBetaFeedback=function(){
   if(typeof window.toggleMenu==='function')window.toggleMenu(false);
