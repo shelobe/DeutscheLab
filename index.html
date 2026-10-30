@@ -5979,4 +5979,20 @@ html body .app-header .menu-toggle,html body.dl-compact-header .app-header .menu
   window.addEventListener('load',()=>setTimeout(repair,50));
   setTimeout(repair,0);
 })();
+</script><script id="dl-refresh-always-home">
+(function(){
+  // Refresh starts at Home; normal in-app navigation still retains its history.
+  // Clear only transient screen routing, never saved lesson progress.
+  try{
+    sessionStorage.removeItem('dl-current-view');
+    sessionStorage.removeItem('dl-current-navigation');
+  }catch(e){}
+  window.addEventListener('load',function(){
+    try{
+      sessionStorage.removeItem('dl-current-view');
+      sessionStorage.removeItem('dl-current-navigation');
+    }catch(e){}
+    if(typeof home==='function')home();
+  });
+})();
 </script></body></html>
