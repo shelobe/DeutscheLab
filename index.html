@@ -2986,7 +2986,20 @@ curriculumModuleIntro=function(level,n){
    if(currentRecognition){try{currentRecognition.stop()}catch(e){}return}
    const rec=new Rec();currentRecognition=rec;rec.lang='de-DE';rec.continuous=false;rec.interimResults=false;rec.maxAlternatives=5;
    const start=panel.querySelector('#dl-speak-start');start.textContent='Listening… tap to stop';status.textContent='Listening for German speech…';
+   let speechFinished=false;
+   const speechTimeout=setTimeout(()=>{
+    if(speechFinished||currentRecognition!==rec)return;
+    speechFinished=true;
+    currentRecognition=null;
+    try{rec.abort()}catch(e){}
+    if(fullSession===s&&s.questions[s.idx]===q&&!dlAnswered){
+     status.textContent='No speech detected after 10 seconds. Tap Speak again to retry, or Skip speaking to continue.';
+     if(start.isConnected)start.textContent='🎤 Speak again';
+    }
+   },10000);
    rec.onresult=e=>{
+    if(speechFinished)return;
+    speechFinished=true;clearTimeout(speechTimeout);
     if(fullSession!==s||s.questions[s.idx]!==q)return;
     const alternatives=Array.from(e.results[0]||[]).map(x=>x.transcript);
     const norm=t=>String(t).toLocaleLowerCase('de').normalize('NFC').replace(/[.,!?„“"']/g,'').replace(/\s+/g,' ').trim();
@@ -2995,9 +3008,9 @@ curriculumModuleIntro=function(level,n){
     status.textContent=match?'Great — I heard “'+recognized+'”.':'I heard “'+recognized+'”. Try listening again and repeating the word.';
     if(match)finish(true,false,recognized);
    };
-   rec.onerror=e=>{if(fullSession===s&&s.questions[s.idx]===q)status.textContent='Microphone: '+e.error+'. You can retry or skip.'};
-   rec.onend=()=>{if(currentRecognition===rec)currentRecognition=null;if(start.isConnected)start.textContent='🎤 Speak again'};
-   try{rec.start()}catch(e){currentRecognition=null;status.textContent='Could not start microphone: '+e.message}
+   rec.onerror=e=>{if(speechFinished)return;speechFinished=true;clearTimeout(speechTimeout);if(fullSession===s&&s.questions[s.idx]===q)status.textContent='Microphone: '+e.error+'. You can retry or skip.'};
+   rec.onend=()=>{clearTimeout(speechTimeout);if(currentRecognition===rec)currentRecognition=null;if(start.isConnected)start.textContent='🎤 Speak again';if(!speechFinished&&fullSession===s&&s.questions[s.idx]===q&&!dlAnswered)status.textContent='No speech recognized. Tap Speak again to retry, or Skip speaking to continue.';speechFinished=true;};
+   try{rec.start()}catch(e){speechFinished=true;clearTimeout(speechTimeout);currentRecognition=null;status.textContent='Could not start microphone: '+e.message}
   };
   card.querySelector('.dl-flow-options')?.before(panel);
   function finish(matched,skipped,heard){
