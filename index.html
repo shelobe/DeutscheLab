@@ -4076,6 +4076,9 @@ body:has(#app .market-v2) .app-header::before,body:has(#app .market-v2) .app-hea
  font-family:"Trebuchet MS",Verdana,Arial,sans-serif!important;
  font-size:.96rem!important;font-weight:600!important;letter-spacing:.01em!important;line-height:1.5!important;
 }
+#app .market-v2 .market-list.market-always-visible ul{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;column-gap:12px!important;row-gap:4px!important}
+#app .market-v2 .market-list.market-always-visible li{display:flex!important;align-items:baseline!important;min-width:0!important;white-space:nowrap!important;font-size:clamp(.72rem,2.7vw,.96rem)!important;letter-spacing:0!important}
+#app .market-v2 .market-list.market-always-visible li::before{flex:0 0 auto!important}
 #app .market-v2 .market-list.market-always-visible li::before{content:"□";margin-right:5px;color:#687a7e}
 #app .market-v2 .market-list.market-always-visible li:has(.market-checked)::before{content:"✓";color:#448374}
 </style>
