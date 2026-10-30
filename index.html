@@ -5564,4 +5564,10 @@ if(typeof old==='function')window.navigateTo=function(fn){
 #app .market-v2 .market-cart-items{padding-top:2px!important;min-height:0!important;line-height:1!important;display:flex;align-items:center;flex-wrap:wrap;gap:3px}
 #app .market-v2 .market-cart-items span{display:inline-flex;align-items:center;justify-content:center;line-height:1}
 #app .market-v2 .market-veggie-icon{width:1.25em;height:1.25em;display:inline-block;vertical-align:middle}
+</style><style id="dl-market-photo-natural-aspect">
+/* Keep the illustrated aisle's original proportions; never stretch to fit a fixed height. */
+@media(max-width:700px){
+#app .market-v2 .market-photo{height:auto!important;max-height:none!important;overflow:visible!important}
+#app .market-v2 .market-photo img{display:block!important;width:100%!important;height:auto!important;object-fit:contain!important;aspect-ratio:auto!important}
+}
 </style></body></html>
