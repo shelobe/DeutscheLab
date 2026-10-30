@@ -120,7 +120,22 @@ body:has(#dl-sentence-next-dock) #dl-fixed-next{display:none!important}
  letter-spacing:.01em;
 }
 </style>
-</head><body><main><header class="app-header"><button class="menu-toggle" onclick="toggleMenu(true)" aria-label="Open navigation menu" aria-controls="sideMenu" aria-expanded="false">☰</button><div><h1>DeutschLab 🇩🇪</h1><p class="muted">German practice studio</p></div></header><div id="menuBackdrop" class="menu-backdrop" onclick="toggleMenu(false)" hidden></div><nav id="sideMenu" class="side-menu" aria-label="Main navigation" aria-hidden="true"><div class="menu-heading"><strong>DeutschLab</strong><button class="menu-close secondary" onclick="toggleMenu(false)" aria-label="Close menu">✕</button></div><p class="muted">LEARN</p><button onclick="navigateTo('home')">⌂ Home</button><button onclick="navigateTo('placement')">◈ Placement test</button><button onclick="navigateTo('lessonMenu')">▤ Lessons</button><button onclick="navigateTo('articleHome')">◉ Noun Articles</button><p class="muted">PRACTICE</p><button onclick="navigateTo('review')">↻ Review</button><button onclick="navigateTo('conversation')">☏ Dialogue</button><button onclick="navigateTo('aiTutor')">✦ AI Tutor & Voice</button></nav><div id="app"></div></main><script>
+<style id="dl-browser-compact-nav-and-articles">
+/* Compact global navigation: only the menu button stays visible while scrolling. */
+.app-header{position:sticky!important;top:env(safe-area-inset-top,0px)!important;z-index:30!important;display:flex!important;align-items:center!important;width:max-content!important;max-width:100%!important;background:transparent!important;border:0!important;box-shadow:none!important;backdrop-filter:none!important;padding:0!important;margin:0 0 12px!important;border-radius:0!important;min-height:0!important}
+.app-header .menu-toggle{display:grid!important;place-items:center!important;background:#65cfbd!important;color:#102b34!important;border:0!important;box-shadow:0 3px 12px #071b2540!important;border-radius:15px!important;width:54px!important;height:54px!important;font-size:29px!important;margin:0!important}
+.dl-accusative-guide{display:grid;gap:14px;margin:14px 0 20px}
+.dl-accusative-intro,.dl-accusative-panel,.dl-accusative-tip{background:#294059;border:1px solid #6a91a54d;border-radius:16px;padding:17px 16px}
+.dl-accusative-guide h3{font-size:1.04rem;margin:0 0 12px;line-height:1.35}
+.dl-accusative-guide h3 small{font-weight:400;color:#b9cbd3;font-size:.86em}
+.dl-accusative-guide p{margin:7px 0;line-height:1.5}
+.dl-article-table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:clamp(.82rem,3.5vw,1rem)}
+.dl-article-table th,.dl-article-table td{text-align:left;padding:10px 5px;border-bottom:1px solid #aac7d02b;overflow-wrap:break-word}
+.dl-article-table th{font-weight:600;color:#b7d9dc;font-size:.88em}
+.dl-article-table tr:last-child td{border-bottom:0}
+.dl-article-table td:last-child strong,.dl-accusative-tip span{color:#79e1cf;font-weight:700}
+.dl-accusative-tip span{display:block;margin-top:8px}
+</style></head><body><main><header class="app-header"><button class="menu-toggle" onclick="toggleMenu(true)" aria-label="Open navigation menu" aria-controls="sideMenu" aria-expanded="false">☰</button></header><div id="menuBackdrop" class="menu-backdrop" onclick="toggleMenu(false)" hidden></div><nav id="sideMenu" class="side-menu" aria-label="Main navigation" aria-hidden="true"><div class="menu-heading"><strong>DeutschLab</strong><button class="menu-close secondary" onclick="toggleMenu(false)" aria-label="Close menu">✕</button></div><p class="muted">LEARN</p><button onclick="navigateTo('home')">⌂ Home</button><button onclick="navigateTo('placement')">◈ Placement test</button><button onclick="navigateTo('lessonMenu')">▤ Lessons</button><button onclick="navigateTo('articleHome')">◉ Noun Articles</button><p class="muted">PRACTICE</p><button onclick="navigateTo('review')">↻ Review</button><button onclick="navigateTo('conversation')">☏ Dialogue</button><button onclick="navigateTo('aiTutor')">✦ AI Tutor & Voice</button></nav><div id="app"></div></main><script>
 function dlAudioExample(value){
   // Read only the German example, not symbols or explanatory annotations.
   return String(value).replace(/\s*[→⇒]\s*/g, ', ').replace(/\s*\([^)]*\)/g, '').trim();
@@ -1813,12 +1828,12 @@ function dlLessonIntro(id){
   ['Sprechen Sie bitte langsam.','Please speak slowly.','sprechen — speak','Sie — formal you','bitte — please','langsam — slowly']
  ].map((part,i)=>'<section class="dl-conversation-card"><h3>'+dlEscape(part[0])+'</h3><p>'+dlEscape(part[1])+'</p>'+(i?'<ul>'+part.slice(2).map(t=>'<li>'+dlEscape(t)+'</li>').join('')+'</ul>':'')+'</section>').join('')+'</div>':
  (u.level==='A2'&&u.title==='Accusative articles'?
- '<div class="dl-accusative-guide">'+[
-  ['What is the accusative?','The accusative marks the direct object: the person or thing receiving the action. Example: Ich sehe den Hund. (I see the dog.)'],
-  ['Definite articles — the','Masculine: der → den (der Hund → den Hund).','Feminine: die → die (die Katze → die Katze).','Neuter: das → das (das Buch → das Buch).','Plural: die → die (die Bücher → die Bücher).'],
-  ['Indefinite articles — a/an','Masculine: ein → einen (ein Apfel → einen Apfel).','Feminine: eine → eine (eine Banane → eine Banane).','Neuter: ein → ein (ein Buch → ein Buch).'],
-  ['Remember','Only masculine articles change in the accusative. Compare: Der Hund schläft (subject) and Ich sehe den Hund (direct object).']
- ].map(parts=>'<section class="dl-conversation-card"><h3>'+dlEscape(parts[0])+'</h3>'+parts.slice(1).map(line=>'<p>'+dlEscape(line)+'</p>').join('')+'</section>').join('')+'</div>':
+ '<div class="dl-accusative-guide">'+
+ '<section class="dl-accusative-intro"><h3>What is the accusative?</h3><p>The accusative identifies the direct object — who or what receives the action.</p><p><strong>Ich sehe den Hund.</strong> — I see the dog.</p></section>'+
+ '<section class="dl-accusative-panel"><h3>Definite articles <small>(the)</small></h3><table class="dl-article-table"><thead><tr><th>Gender</th><th>Before</th><th>Accusative</th></tr></thead><tbody><tr><td>Masculine</td><td>der</td><td><strong>den</strong></td></tr><tr><td>Feminine</td><td>die</td><td>die</td></tr><tr><td>Neuter</td><td>das</td><td>das</td></tr><tr><td>Plural</td><td>die</td><td>die</td></tr></tbody></table></section>'+
+ '<section class="dl-accusative-panel"><h3>Indefinite articles <small>(a/an)</small></h3><table class="dl-article-table"><thead><tr><th>Gender</th><th>Before</th><th>Accusative</th></tr></thead><tbody><tr><td>Masculine</td><td>ein</td><td><strong>einen</strong></td></tr><tr><td>Feminine</td><td>eine</td><td>eine</td></tr><tr><td>Neuter</td><td>ein</td><td>ein</td></tr></tbody></table></section>'+
+ '<section class="dl-accusative-tip"><strong>Remember:</strong> Only masculine articles change. <span>der → den · ein → einen</span></section>'+
+ '</div>':
  '<p>'+dlEscape(u.rule)+'</p>')}<h3>See it in German</h3>
  ${u.examples.map(([de,en])=>`<div class="vocab-row"><div class="vocab-copy"><strong>${dlEscape(de)}</strong><span>${dlEscape(en)}</span></div><button class="secondary" onclick='speak(${JSON.stringify(dlAudioExample(de))})'>Listen</button></div>`).join('')}
  <button class="dl-flow-action" onclick="fullBegin(${id})">Start practice</button></section></div>`;
