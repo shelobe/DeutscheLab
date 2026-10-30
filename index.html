@@ -5859,13 +5859,13 @@ body:has(#app .market-v2) .app-header::before,body:has(#app .market-v2) .app-hea
  fullQuestions=function(u){
   if(u!==unit)return previous(u);
   return [
-   {type:'grammar',prompt:'Ich sehe ___ Hund. (the dog)',options:['der','den','dem'],answer:1,why:'Hund is masculine; the definite article der becomes den for a direct object.'},
-   {type:'grammar',prompt:'Sie kauft ___ Apfel. (an apple)',options:['eine','einen','ein'],answer:1,why:'Apfel is masculine; indefinite ein becomes einen in the accusative.'},
-   {type:'grammar',prompt:'Ich habe ___ Katze. (a cat)',options:['einen','ein','eine'],answer:2,why:'Katze is feminine. Eine stays eine in the accusative.'},
-   {type:'grammar',prompt:'Wir lesen ___ Buch. (the book)',options:['das','den','die'],answer:0,why:'Buch is neuter. The definite article das does not change in the accusative.'},
-   {type:'grammar',prompt:'Er braucht ___ Auto. (a car)',options:['einen','eine','ein'],answer:2,why:'Auto is neuter. Indefinite ein stays ein in the accusative.'},
-   {type:'grammar',prompt:'Ich sehe ___ Kinder. (the children)',options:['den','das','die'],answer:2,why:'Kinder is plural. The plural definite article die stays die in the accusative.'},
-   {type:'grammar',prompt:'___ Mann liest ein Buch. (the man is the subject)',options:['Den','Der','Dem'],answer:1,why:'Mann is the subject, not the direct object, so nominative der is required. Buch is a neuter object and keeps ein.'}
+   {type:'grammar',prompt:'Ich sehe ___ Hund. (masculine)',options:['der','den','dem'],answer:1,why:'Hund is masculine; the definite article der becomes den for a direct object.'},
+   {type:'grammar',prompt:'Sie kauft ___ Apfel. (masculine)',options:['eine','einen','ein'],answer:1,why:'Apfel is masculine; indefinite ein becomes einen in the accusative.'},
+   {type:'grammar',prompt:'Ich habe ___ Katze. (feminine)',options:['einen','ein','eine'],answer:2,why:'Katze is feminine. Eine stays eine in the accusative.'},
+   {type:'grammar',prompt:'Wir lesen ___ Buch. (neuter)',options:['das','den','die'],answer:0,why:'Buch is neuter. The definite article das does not change in the accusative.'},
+   {type:'grammar',prompt:'Er braucht ___ Auto. (neuter)',options:['einen','eine','ein'],answer:2,why:'Auto is neuter. Indefinite ein stays ein in the accusative.'},
+   {type:'grammar',prompt:'Ich sehe ___ Kinder. (plural)',options:['den','das','die'],answer:2,why:'Kinder is plural. The plural definite article die stays die in the accusative.'},
+   {type:'grammar',prompt:'___ Mann liest ein Buch. (masculine · subject)',options:['Den','Der','Dem'],answer:1,why:'Mann is the subject, not the direct object, so nominative der is required. Buch is a neuter object and keeps ein.'}
   ];
  };
 })();
