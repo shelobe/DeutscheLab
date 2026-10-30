@@ -6132,4 +6132,15 @@ html body .app-header .menu-toggle,html body.dl-compact-header .app-header .menu
     return curriculumView('A1');
   };
 })();
+</script><script id="dl-continue-learning-target-fix">
+(function(){
+  // Keep the full lesson list for menu navigation, but send Continue Learning
+  // directly to the next actual lesson instead of a scrolled module card.
+  curriculumContinueFromHome=function(){
+    const level='A1';
+    const next=curriculumNext(level);
+    if(next!==undefined&&next!==null) return curriculumLesson(next);
+    return curriculumView(level);
+  };
+})();
 </script></body></html>
