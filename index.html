@@ -1812,7 +1812,14 @@ function dlLessonIntro(id){
   ['Können Sie mir helfen?','Can you help me?','können — can','Sie — formal you','mir — me','helfen — help'],
   ['Sprechen Sie bitte langsam.','Please speak slowly.','sprechen — speak','Sie — formal you','bitte — please','langsam — slowly']
  ].map((part,i)=>'<section class="dl-conversation-card"><h3>'+dlEscape(part[0])+'</h3><p>'+dlEscape(part[1])+'</p>'+(i?'<ul>'+part.slice(2).map(t=>'<li>'+dlEscape(t)+'</li>').join('')+'</ul>':'')+'</section>').join('')+'</div>':
- '<p>'+dlEscape(u.rule)+'</p>'}<h3>See it in German</h3>
+ (u.level==='A2'&&u.title==='Accusative articles'?
+ '<div class="dl-accusative-guide">'+[
+  ['What is the accusative?','The accusative marks the direct object: the person or thing receiving the action. Example: Ich sehe den Hund. (I see the dog.)'],
+  ['Definite articles — the','Masculine: der → den (der Hund → den Hund).','Feminine: die → die (die Katze → die Katze).','Neuter: das → das (das Buch → das Buch).','Plural: die → die (die Bücher → die Bücher).'],
+  ['Indefinite articles — a/an','Masculine: ein → einen (ein Apfel → einen Apfel).','Feminine: eine → eine (eine Banane → eine Banane).','Neuter: ein → ein (ein Buch → ein Buch).'],
+  ['Remember','Only masculine articles change in the accusative. Compare: Der Hund schläft (subject) and Ich sehe den Hund (direct object).']
+ ].map(parts=>'<section class="dl-conversation-card"><h3>'+dlEscape(parts[0])+'</h3>'+parts.slice(1).map(line=>'<p>'+dlEscape(line)+'</p>').join('')+'</section>').join('')+'</div>':
+ '<p>'+dlEscape(u.rule)+'</p>')}<h3>See it in German</h3>
  ${u.examples.map(([de,en])=>`<div class="vocab-row"><div class="vocab-copy"><strong>${dlEscape(de)}</strong><span>${dlEscape(en)}</span></div><button class="secondary" onclick='speak(${JSON.stringify(dlAudioExample(de))})'>Listen</button></div>`).join('')}
  <button class="dl-flow-action" onclick="fullBegin(${id})">Start practice</button></section></div>`;
  window.scrollTo(0,0);
