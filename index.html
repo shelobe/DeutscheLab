@@ -4502,7 +4502,7 @@ body.dl-home-banner .app-header h1,body.dl-home-banner .app-header p,body.dl-hom
   const start=card?.querySelector('.dl-flow-action');
   if(!card||card.querySelector('.dl-a1-dialogue'))return result;
   const block=document.createElement('section');block.className='dl-a1-dialogue';
-  block.innerHTML='<h3>Short conversation</h3><p class="muted">Listen to each line, then try saying it yourself.</p>'+lines.map(([speaker,line])=>'<div class="dl-a1-dialogue-line"><div class="dl-speaker"><img class="dl-conversation-avatar" src="./'+(speaker==='Katze'?'file_000000003ba881f5874140d280c0ed4d.png':'file_00000000d60c81f5926a379c283707d8.png')+'" alt="" loading="lazy"><strong>'+safeText(speaker==='Katze'?'Minka':'Fritzi')+'</strong></div><span>'+safeText(line)+'</span><button type="button" class="secondary" data-line="'+encodeURIComponent(line)+'">Hear</button></div>').join('');
+  block.innerHTML='<h3>Short conversation</h3><p class="muted">Listen to each line, then try saying it yourself.</p>'+lines.map(([speaker,line])=>'<div class="dl-a1-dialogue-line"><div class="dl-speaker"><img class="dl-conversation-avatar" src="./'+(speaker==='Katze'?'file_000000003ba881f5874140d280c0ed4d.png':'file_00000000c71081f5ae55b48a9389c582.png')+'" alt="" loading="lazy"><strong>'+safeText(speaker==='Katze'?'Minka':'Fritzi')+'</strong></div><span>'+safeText(line)+'</span><button type="button" class="secondary" data-line="'+encodeURIComponent(line)+'">Hear</button></div>').join('');
   block.querySelectorAll('[data-line]').forEach(btn=>btn.addEventListener('click',()=>speak(decodeURIComponent(btn.dataset.line))));
   if(start)start.before(block);else card.append(block);
   return result;
