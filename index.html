@@ -5124,10 +5124,8 @@ body:has(#dlListenFixedActions) #app{padding-bottom:115px!important}
 </style>
 
 <style id="dl-dialogue-answer-exit-fix">
-/* Feedback takes the answer choices' place on either outcome. */
-#app .card.dl-dialogue-answered .dl-dialogue-answer-choice,
-#app .card.dl-dialogue-answered .dl-dialogue-choose-label{display:none!important}
-#dlDialogueExitBar{position:fixed;left:0;right:0;bottom:env(safe-area-inset-bottom,0px);z-index:2147483001;display:flex;align-items:center;justify-content:flex-start;gap:12px;padding:12px 20px;background:#142a3c;border-top:1px solid #3b5c70;box-sizing:border-box}
+#app .card.dl-dialogue-answered .dl-dialogue-answer-choice,#app .card.dl-dialogue-answered .dl-dialogue-choose-label{display:none!important}
+#dlDialogueExitBar{position:fixed;left:0;right:0;bottom:env(safe-area-inset-bottom,0px);z-index:2147483001;display:flex;align-items:center;justify-content:flex-end;padding:12px 20px;background:#142a3c;border-top:1px solid #3b5c70;box-sizing:border-box}
 #dlDialogueExitBar button{margin:0!important;min-height:54px}
 body:has(#dlDialogueExitBar) #app{padding-bottom:112px!important}
 </style>
@@ -5136,24 +5134,36 @@ body:has(#dlDialogueExitBar) #app{padding-bottom:112px!important}
  const root=document.getElementById('app');if(!root)return;
  function sync(){
   const feedback=root.querySelector('#dialogue-feedback');
+  const complete=[...root.querySelectorAll('.card h2')].some(h=>h.textContent.trim()==='Conversation complete');
   let bar=document.getElementById('dlDialogueExitBar');
-  if(!feedback){bar?.remove();return}
-  const card=feedback.closest('.card');if(!card)return;
-  const choiceButtons=[...card.querySelectorAll('button[onclick^="answerDialogue("]')];
-  choiceButtons.forEach(b=>b.classList.add('dl-dialogue-answer-choice'));
-  const label=choiceButtons[0]?.previousElementSibling;
-  if(label?.tagName==='P'&&/choose your response/i.test(label.textContent))label.classList.add('dl-dialogue-choose-label');
-  const wrong=!!feedback.querySelector('.wrong,.dl-result-bad');
-  const correct=!!feedback.querySelector('.correct,.dl-result-good');
-  card.classList.toggle('dl-dialogue-answered',wrong||correct);
-  if(wrong&&!feedback.querySelector('.dl-dialogue-retry')){
-   const retry=document.createElement('button');retry.className='secondary dl-dialogue-retry';retry.textContent='Try again';
-   retry.onclick=()=>{feedback.replaceChildren();card.classList.remove('dl-dialogue-answered');choiceButtons.forEach(b=>b.disabled=false)};
-   feedback.appendChild(retry);
+  if(!feedback&&!complete){bar?.remove();return}
+  const card=feedback?.closest('.card');
+  if(card){
+   const choices=[...card.querySelectorAll('button[onclick^="answerDialogue("]')];
+   choices.forEach(el=>el.classList.add('dl-dialogue-answer-choice'));
+   const label=choices[0]?.previousElementSibling;
+   if(label?.tagName==='P'&&/choose your response/i.test(label.textContent))label.classList.add('dl-dialogue-choose-label');
+   const wrong=!!feedback.querySelector('.wrong,.dl-result-bad');
+   const correct=!!feedback.querySelector('.correct,.dl-result-good');
+   card.classList.toggle('dl-dialogue-answered',wrong||correct);
+   if(wrong&&!feedback.querySelector('.dl-dialogue-retry')){
+    const retry=document.createElement('button');retry.className='secondary dl-dialogue-retry';retry.textContent='Try again';
+    retry.onclick=()=>{feedback.replaceChildren();card.classList.remove('dl-dialogue-answered');choices.forEach(el=>el.disabled=false)};
+    feedback.appendChild(retry);
+   }
+   // During exchanges, never anchor Back to dialogues; anchor Continue only after a correct answer.
+   if(!correct){bar?.remove();return}
+   const next=feedback.querySelector('button[onclick="nextDialogueStep()"]')||bar?.querySelector('button[onclick="nextDialogueStep()"]');
+   if(!next)return;
+   if(!bar){bar=document.createElement('div');bar.id='dlDialogueExitBar';document.body.appendChild(bar)}
+   if(next.parentNode!==bar)bar.replaceChildren(next);
+   return;
   }
-  const exit=card.querySelector('button[onclick="conversation()"]');
+  // Only on the conversation-complete screen anchor All dialogues.
+  const all=root.querySelector('button[onclick="conversation()"]');
+  if(!all){bar?.remove();return}
   if(!bar){bar=document.createElement('div');bar.id='dlDialogueExitBar';document.body.appendChild(bar)}
-  if(exit)bar.appendChild(exit);
+  bar.replaceChildren(all);
  }
  let pending=false;
  new MutationObserver(()=>{if(pending)return;pending=true;requestAnimationFrame(()=>{pending=false;sync()})}).observe(root,{childList:true,subtree:true});sync();
