@@ -97,7 +97,30 @@ body:has(#dl-sentence-next-dock) #dl-fixed-next{display:none!important}
 #dl-review-choices .dl-review-selected{background:#69cdbb!important;color:#102e38!important;border:2px solid #e0fff5!important;box-shadow:0 0 0 3px #69cdbb55}
 #dl-review-confirm{display:block;min-height:52px;margin:16px 0}
 #dl-review-confirm:disabled{opacity:.45}
-</style></head><body><main><header class="app-header"><button class="menu-toggle" onclick="toggleMenu(true)" aria-label="Open navigation menu" aria-controls="sideMenu" aria-expanded="false">☰</button><div><h1>DeutschLab 🇩🇪</h1><p class="muted">German practice studio</p></div></header><div id="menuBackdrop" class="menu-backdrop" onclick="toggleMenu(false)" hidden></div><nav id="sideMenu" class="side-menu" aria-label="Main navigation" aria-hidden="true"><div class="menu-heading"><strong>DeutschLab</strong><button class="menu-close secondary" onclick="toggleMenu(false)" aria-label="Close menu">✕</button></div><p class="muted">LEARN</p><button onclick="navigateTo('home')">⌂ Home</button><button onclick="navigateTo('placement')">◈ Placement test</button><button onclick="navigateTo('lessonMenu')">▤ Lessons</button><button onclick="navigateTo('articleHome')">◉ Noun Articles</button><p class="muted">PRACTICE</p><button onclick="navigateTo('review')">↻ Review</button><button onclick="navigateTo('conversation')">☏ Dialogue</button><button onclick="navigateTo('aiTutor')">✦ AI Tutor & Voice</button></nav><div id="app"></div></main><script>
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
+<style id="dl-feedback-fredoka-font">
+/* Consistent rounded reward typography for feedback messages, not questions or explanations. */
+#app .dl-result-badge .dl-result-label,
+#app .dl-result-badge > strong,
+#app .dl-flow-feedback > strong,
+#app .game-feedback > strong,
+#app .picture-answer > h3,
+#app .correct,
+#app .wrong,
+#app #feedback.correct,
+#app #feedback.wrong,
+#app #listenFeedback > .correct,
+#app #listenFeedback > .wrong,
+#app .dl-result-symbol {
+ font-family:'Fredoka',system-ui,sans-serif!important;
+ font-weight:600!important;
+ letter-spacing:.01em;
+}
+</style>
+</head><body><main><header class="app-header"><button class="menu-toggle" onclick="toggleMenu(true)" aria-label="Open navigation menu" aria-controls="sideMenu" aria-expanded="false">☰</button><div><h1>DeutschLab 🇩🇪</h1><p class="muted">German practice studio</p></div></header><div id="menuBackdrop" class="menu-backdrop" onclick="toggleMenu(false)" hidden></div><nav id="sideMenu" class="side-menu" aria-label="Main navigation" aria-hidden="true"><div class="menu-heading"><strong>DeutschLab</strong><button class="menu-close secondary" onclick="toggleMenu(false)" aria-label="Close menu">✕</button></div><p class="muted">LEARN</p><button onclick="navigateTo('home')">⌂ Home</button><button onclick="navigateTo('placement')">◈ Placement test</button><button onclick="navigateTo('lessonMenu')">▤ Lessons</button><button onclick="navigateTo('articleHome')">◉ Noun Articles</button><p class="muted">PRACTICE</p><button onclick="navigateTo('review')">↻ Review</button><button onclick="navigateTo('conversation')">☏ Dialogue</button><button onclick="navigateTo('aiTutor')">✦ AI Tutor & Voice</button></nav><div id="app"></div></main><script>
 function dlAudioExample(value){
   // Read only the German example, not symbols or explanatory annotations.
   return String(value).replace(/\s*[→⇒]\s*/g, ', ').replace(/\s*\([^)]*\)/g, '').trim();
