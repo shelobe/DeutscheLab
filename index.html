@@ -1591,6 +1591,17 @@ function curriculumReviewAnswer(i){
  app.querySelectorAll('.picture-choices button').forEach(b=>b.disabled=true);
  document.getElementById('moduleFeedback').innerHTML=`<div class="unit-explain"><strong>${ok?'Correct':'Not quite'}</strong><p>${safeText(q.options[q.answer])}</p><p>${safeText(q.why||FULL_UNITS[q.unitId].rule)}</p><button onclick="moduleSession.idx++;moduleSession.answered=false;curriculumReviewRender()">Next question</button></div>`;
 }
+function curriculumContinueFromHome(){
+ curriculumView('A1');
+ const target=app.querySelector('.curriculum-next-lesson')||app.querySelector('.curriculum-path-module[open]');
+ if(!target)return;
+ requestAnimationFrame(()=>{
+  const header=document.querySelector('header');
+  const headerHeight=header?Math.min(header.getBoundingClientRect().height,160):0;
+  const top=Math.max(0,window.scrollY+target.getBoundingClientRect().top-headerHeight-20);
+  window.scrollTo({top,behavior:'instant'});
+ });
+}
 const structuredOldHome=home;
 home=function(){
  structuredOldHome();
@@ -1604,7 +1615,7 @@ home=function(){
   let p=main.querySelector('p.path-small');
   if(p)p.textContent='Build skills in order, with connected modules and reviews.';
   let b=main.querySelector('button.dashboard-main-btn')||main.querySelector('button');
-  if(b){b.textContent='Continue learning';b.setAttribute('onclick',"curriculumView('A1')")}
+  if(b){b.textContent='Continue learning';b.setAttribute('onclick',"curriculumContinueFromHome()")}
  }
  let shortcuts=app.querySelector('.dashboard-shortcuts');
  if(shortcuts){
