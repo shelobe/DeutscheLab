@@ -4229,15 +4229,15 @@ html body.dl-home-banner.dl-compact-header .app-header .menu-toggle {
  const pick=(needle)=>buttons.find(b=>b.textContent.toLowerCase().includes(needle.toLowerCase()));
  const makeHeading=(name)=>{const p=document.createElement('p');p.className='muted dl-menu-group';p.textContent=name;return p};
  const items=[
- ['HOME',['Home']],
- ['ACCOUNT',['Profile','Practice Hub']],
+ ['', ['Home']],
  ['LEARNING',['Lessons','Placement test']],
- ['PRACTICE',['Find It!','Noun Articles','Picture practice','Dialogue','Review','Practice games']],
- ['AI TOOLS',['AI Tutor & Voice']]
+ ['PRACTICE',['Practice Hub','AI Tutor & Voice']],
+ ['ACCOUNT',['Profile']],
+ ['SUPPORT',[]]
  ];
  const frag=document.createDocumentFragment();
  for(const [title,names] of items){
-  frag.appendChild(makeHeading(title));
+  if(title)frag.appendChild(makeHeading(title));
   for(const name of names){const btn=pick(name);if(btn){frag.appendChild(btn)}}
  }
  const heading=nav.querySelector('.menu-heading');
@@ -5710,6 +5710,22 @@ body:has(#app .market-v2) .app-header .menu-toggle{width:44px;height:44px;min-he
   window.scrollTo(0,0);
  };
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',install);else install();
+})();
+</script>
+<style id="dl-menu-cleanup">#sideMenu .dl-menu-group{margin:14px 0 5px!important;padding-bottom:5px!important;font-size:.76rem!important}#sideMenu button:not(.menu-close){margin-top:3px!important;margin-bottom:3px!important}</style>
+<script id="dl-menu-utilities-order">
+(function(){
+ function apply(){
+ const nav=document.getElementById('sideMenu');if(!nav)return;
+ const settings=nav.querySelector('.dl-settings-menu-entry');
+ const feedback=nav.querySelector('.dl-feedback-menu-entry');
+ const headings=Array.from(nav.querySelectorAll('.dl-menu-group'));
+ const account=headings.find(e=>e.textContent.trim()==='ACCOUNT');
+ const support=headings.find(e=>e.textContent.trim()==='SUPPORT');
+ if(account&&settings)account.nextElementSibling?.after(settings);
+ if(support&&feedback)support.after(feedback);
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',apply);else apply();
 })();
 </script>
 </body></html>
