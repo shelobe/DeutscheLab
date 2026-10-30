@@ -5084,4 +5084,12 @@ body:has(#dlListenFixedActions) #app{padding-bottom:115px!important}
  #app .dl-result-badge img,#app #dialogue-feedback .dl-result-badge img,#app #listenFeedback .dl-result-badge img,#app .card.dl-listening-answered .dl-result-badge img{width:140px!important;height:158px!important;left:-12px!important}
 }
 </style>
+
+<style id="dl-feedback-text-spacing-v2">
+/* Reserve a safe text column beside pop-out mascots across feedback screens. */
+#app .dl-result-badge{padding-left:180px!important;padding-right:12px!important;min-height:112px!important;gap:0!important}
+#app .dl-result-badge .dl-result-label{display:block!important;min-width:0!important;width:100%!important;text-align:center!important;font-size:clamp(1.2rem,5vw,1.65rem)!important;line-height:1.18!important;position:relative!important;z-index:1!important}
+#app .dl-result-badge img{z-index:0!important}
+@media(max-width:400px){#app .dl-result-badge{padding-left:155px!important;padding-right:10px!important}}
+</style>
 </body></html>
