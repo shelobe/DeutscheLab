@@ -5444,7 +5444,7 @@ body:has(#dlDialogueExitBar) #app{padding-bottom:112px!important}
  window.supermarktCheckout=function(){
   if(!state||!state.list.every(id=>state.cart.includes(id)))return;
   const total=state.cart.reduce((sum,id)=>sum+byId(id).price,0);
-  app.innerHTML='<div class="market-wrap market-v2"><section class="market-head"><h2>🛒 An der Kasse · Checkout</h2><div class="market-checkout-character">🦊</div><p><strong>Fritzi:</strong> „Guten Tag! Das macht '+euro(total)+'.“</p><p>How do you respond?</p><div class="market-actions"><button onclick="supermarktPay(true)">Mit Karte, bitte.</button><button onclick="supermarktPay(false)">Ich bin ein Bahnhof.</button></div><div id="market-pay-result" aria-live="polite"></div></section><button class="secondary" onclick="supermarktHome()">Back to shopping</button></div>';window.scrollTo(0,0);
+  app.innerHTML='<div class="market-wrap market-v2"><section class="market-head"><h2>🛒 An der Kasse · Checkout</h2><div class="market-checkout-scene" role="img" aria-label="Oskar the owl cashier welcomes you at the supermarket checkout"><div class="market-checkout-dialogue"><strong>Oskar:</strong> „Guten Tag! Das macht '+euro(total)+'.“</div></div><p class="market-checkout-prompt">How do you respond?</p><div class="market-actions"><button onclick="supermarktPay(true)">Mit Karte, bitte.</button><button onclick="supermarktPay(false)">Ich bin ein Bahnhof.</button></div><div id="market-pay-result" aria-live="polite"></div></section><button class="secondary" onclick="supermarktHome()">Back to shopping</button></div>';window.scrollTo(0,0);
  };
  window.supermarktPay=function(correct){
   const target=document.getElementById('market-pay-result');if(!target)return;
@@ -5743,6 +5743,24 @@ body:has(#app .market-v2) .app-header .menu-toggle{width:44px;height:44px;min-he
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',apply);else apply();
 })();
 </script>
+<style id="dl-supermarkt-checkout-scene">
+#app .market-v2 .market-checkout-scene{
+ position:relative; width:100%; aspect-ratio:4/5; max-height:510px;
+ background:#23443a url("file_0000000022c481f5a8611191dd557079.png") center 39%/cover no-repeat;
+ border-radius:18px; overflow:hidden; border:2px solid #7bcab8;
+ box-shadow:0 5px 16px #0003; margin:12px 0;
+}
+#app .market-v2 .market-checkout-dialogue{
+ position:absolute;bottom:12px;left:12px;right:12px;
+ background:rgba(16,43,52,.94);color:#fff;border:1px solid #90d7c8;
+ border-radius:15px;padding:12px 14px;line-height:1.4;
+ font-size:clamp(.98rem,3.8vw,1.12rem);text-align:left;
+}
+#app .market-v2 .market-checkout-prompt{font-weight:700;margin:10px 0!important}
+#app .market-v2 .market-actions{gap:10px}
+#app .market-v2 .market-actions button{min-width:0;flex:1}
+@media(max-width:390px){#app .market-v2 .market-checkout-scene{aspect-ratio:1/1;max-height:390px}}
+</style>
 <style id="dl-supermarkt-notepaper">
 /* A compact handwritten shopping note, limited to the in-game list. */
 #app .market-v2 .market-list.market-always-visible{
