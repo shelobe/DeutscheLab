@@ -1,0 +1,35 @@
+
+/* Navigation: uniform rows, no individual underline/shadow decorations. */
+#sideMenu{display:flex!important;flex-direction:column!important;gap:0!important}
+#sideMenu>button,#sideMenu>button.dl-placement-subitem,#sideMenu>button.dl-menu-profile-link{box-sizing:border-box!important;display:flex!important;align-items:center!important;min-height:54px!important;height:auto!important;width:100%!important;padding:13px 18px!important;margin:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;outline:0!important;transform:none!important;font-size:1rem!important;font-weight:650!important;letter-spacing:normal!important;color:#f0f5fc!important;text-align:left!important}
+#sideMenu>button:hover,#sideMenu>button:focus-visible{background:rgba(114,216,198,.13)!important}
+#sideMenu>p.muted{margin:22px 18px 8px!important;padding:0 0 9px!important;border-bottom:1px solid rgba(150,211,206,.38)!important;color:#b5c8d6!important;letter-spacing:.13em!important}
+#sideMenu .menu-heading{margin-bottom:8px!important}
+/* Module cards: keep the heading readable, don't stagger or squeeze it. */
+.curriculum-path-module,.curriculum-path-module:nth-of-type(even),.curriculum-path-module:nth-of-type(odd){margin:12px 0 16px!important;width:100%!important;border-radius:18px!important;overflow:hidden!important;box-sizing:border-box!important;border:1px solid rgba(127,208,199,.35)!important;box-shadow:0 6px 18px rgba(0,0,0,.16)!important}
+.curriculum-path-module:before,.curriculum-path-module:after{display:none!important;content:none!important}
+.curriculum-path-module>summary,.curriculum-path-module:nth-of-type(even)>summary{padding:17px 15px!important;min-height:0!important;border-left:0!important;border-bottom:0!important;background:#214659!important;display:flex!important;align-items:flex-start!important;gap:8px!important;box-sizing:border-box!important}
+.curriculum-path-module:nth-of-type(even)>summary{background:#273e58!important}
+.curriculum-path-module .curriculum-module-heading{display:grid!important;grid-template-columns:44px minmax(0,1fr)!important;align-items:start!important;gap:12px!important;flex:1 1 auto!important;width:0!important;min-width:0!important}
+.curriculum-path-module .curriculum-module-heading>div{width:100%!important;min-width:0!important;overflow-wrap:break-word!important}
+.curriculum-path-module .curriculum-module-heading h3{font-size:1.15rem!important;line-height:1.28!important;margin:5px 0 7px!important;overflow-wrap:break-word!important;word-break:normal!important}
+.curriculum-path-module .curriculum-module-heading p{font-size:.9rem!important;line-height:1.4!important;margin:4px 0!important}
+.curriculum-path-module .curriculum-module-number{width:44px!important;height:44px!important;min-width:44px!important;flex:0 0 44px!important;border-radius:13px!important;box-shadow:none!important}
+.curriculum-path-module .curriculum-chevron{flex:0 0 16px!important;margin-top:10px!important}
+.curriculum-path-module .dl-gate-status{font-size:.78rem!important;line-height:1.4!important;max-width:100%!important;margin:8px 0 0!important}
+.curriculum-path-module .dl-path-chip{display:table!important;font-size:.65rem!important;white-space:normal!important;max-width:100%!important}
+.curriculum-path-module .curriculum-module-content{padding:7px!important}
+.curriculum-path-module .curriculum-path-lesson{margin:6px 0!important;padding:12px 10px!important}
+.curriculum-path-module .curriculum-check{margin:7px 0!important}
+.curriculum-path-summary{padding:18px!important}
+.curriculum-path-summary h2{font-size:1.45rem!important}
+@media(max-width:420px){.curriculum-path-module>summary{padding:15px 12px!important}.curriculum-path-module .curriculum-module-heading{gap:10px!important;grid-template-columns:40px minmax(0,1fr)!important}.curriculum-path-module .curriculum-module-number{width:40px!important;height:40px!important;min-width:40px!important}.curriculum-path-module .curriculum-module-heading h3{font-size:1.08rem!important}}
+/* Avoid the sticky header hiding the first heading on mobile. */
+#app{scroll-margin-top:90px}.app-header{position:sticky!important;top:8px!important}
+.dl-letters-intro{margin:14px 0 20px;padding:16px;border:1px solid rgba(112,224,203,.35);border-radius:15px;background:#1b3b4a}
+.dl-letters-intro h3{margin:0 0 9px}.dl-letters-intro p{margin:8px 0 12px;line-height:1.45}
+.dl-letters-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.dl-letter-item{border:1px solid #527986;border-radius:12px;padding:11px;background:#253e54}
+.dl-letter-item strong{font-size:1.3rem;display:block;color:#a9f1df}
+.dl-letter-item span{display:block;font-size:.82rem;line-height:1.4;margin:4px 0 10px;color:#d8e6ed}
+.dl-letter-item button{padding:8px 12px!important;width:100%;font-size:.87rem!important}
