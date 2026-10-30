@@ -5367,7 +5367,7 @@ body:has(#dlDialogueExitBar) #app{padding-bottom:112px!important}
   '<div class="market-cart"><div class="market-cart-handle" aria-hidden="true"></div><div class="market-cart-title"><strong>🛒 Einkaufswagen</strong><strong>'+euro(total)+'</strong></div><div class="market-cart-items">'+(state.cart.length?state.cart.map(id=>'<span title="'+byId(id).name+'">'+byId(id).emoji+'</span>').join(''):'<span class="muted">Your cart is empty.</span>')+'</div><p class="market-status '+(state.wrong?'bad':'good')+'" role="status">'+(state.message||'Tap a grocery from your list. Swipe sideways for another aisle.')+'</p><div class="market-actions market-actions-docked"><button class="secondary" onclick="supermarktLeave(practiceHub)">Back to Games</button><button '+(!done?'disabled':'')+' onclick="supermarktCheckout()">Zur Kasse →</button></div></div></div>';
  }
  window.supermarktReset=function(){state=null;sessionStorage.removeItem('dl-supermarkt-session')};
- window.supermarktLeave=function(destination){if(!window.confirm('Leave Grocery Shopping? Your current shopping progress will be reset.'))return false;supermarktReset();if(typeof destination==='function')destination();else practiceHub();return true};
+ window.supermarktLeave=function(destination){dlAppConfirm({title:'Leave Grocery Shopping?',message:'Your current shopping progress will be reset.',cancelText:'Keep Shopping',confirmText:'Leave Game',danger:true,onConfirm:()=>{supermarktReset();if(typeof destination==='function')destination();else practiceHub()}});return false};
  window.supermarktHome=function(){
   try{const saved=JSON.parse(sessionStorage.getItem('dl-supermarkt-session')||'null');if(saved&&Array.isArray(saved.list)&&Array.isArray(saved.cart)&&Number.isInteger(saved.aisle)&&saved.aisle>=0&&saved.aisle<3&&saved.list.every(id=>byId(id))&&saved.cart.every(id=>byId(id))){state=saved;const validProduce=new Set(['banane','apfel','orange','ananas','tomate','gurke','paprika','karotte','salat','brokkoli','blumenkohl','radieschen','kartoffel','zwiebel','knoblauch','zitrone','wassermelone']);if(state.list.some(id=>!validProduce.has(id))){state.list=missions[state.round%missions.length]||missions[0];state.cart=state.cart.filter(id=>state.list.includes(id));state.aisle=0;state.message='';state.wrong=false;save()}render();window.scrollTo(0,0);return}}catch(e){}
   const n=Number(sessionStorage.getItem('dl-market-round')||0)%missions.length;
@@ -5443,12 +5443,16 @@ body:has(#dlDialogueExitBar) #app{padding-bottom:112px!important}
 </style><script id="dl-market-exit-guard">
 (function(){
 const app=document.getElementById('app');
+let menuBypass=false;
 document.addEventListener('click',function(e){
- if(!app?.querySelector('.market-v2'))return;
+ if(menuBypass||!app?.querySelector('.market-v2'))return;
  const link=e.target.closest('#sideMenu a,#sideMenu button,.menu a,.menu button');
  if(!link)return;
- if(!confirm('Leave Grocery Shopping? Your current shopping progress will be reset.')){e.preventDefault();e.stopImmediatePropagation();return}
- window.supermarktReset?.();
+ e.preventDefault();e.stopImmediatePropagation();
+ window.supermarktLeave(()=>{
+   menuBypass=true;
+   try{link.click()}finally{menuBypass=false}
+ });
 },true);
 const old=window.navigateTo;
 if(typeof old==='function')window.navigateTo=function(fn){
