@@ -4989,4 +4989,28 @@ function quickRandomPractice(){
  new MutationObserver(()=>{if(queued)return;queued=true;requestAnimationFrame(()=>{queued=false;update()})}).observe(root,{subtree:true,childList:true});update();
 })();
 </script>
+
+<style id="dl-dialogue-feedback-consistency">
+/* Preserve retry on wrong dialogue choices; hide choices once the correct response is accepted. */
+#app .card.dl-dialogue-answered .dl-dialogue-answer-choice{display:none!important}
+#app .card.dl-dialogue-answered .dl-dialogue-choose-label{display:none!important}
+#app #dialogue-feedback .dl-result-badge{margin:8px 0!important;min-height:90px!important;padding:8px 12px!important;gap:10px!important}
+#app #dialogue-feedback .dl-result-badge img{width:88px!important;height:88px!important;max-width:33%!important}
+</style>
+<script id="dl-dialogue-feedback-consistency-script">
+(function(){
+ const root=document.getElementById('app');if(!root)return;
+ function sync(){
+  const feedback=root.querySelector('#dialogue-feedback');if(!feedback)return;
+  const card=feedback.closest('.card');if(!card)return;
+  const buttons=[...card.querySelectorAll('button[onclick^="answerDialogue("]')];
+  buttons.forEach(b=>b.classList.add('dl-dialogue-answer-choice'));
+  const label=buttons[0]?.previousElementSibling;
+  if(label&&label.tagName==='P'&&/choose your response/i.test(label.textContent))label.classList.add('dl-dialogue-choose-label');
+  const correct=!!feedback.querySelector('.correct,.dl-result-good');
+  card.classList.toggle('dl-dialogue-answered',correct);
+ }
+ let queued=false;new MutationObserver(()=>{if(queued)return;queued=true;requestAnimationFrame(()=>{queued=false;sync()})}).observe(root,{childList:true,subtree:true});sync();
+})();
+</script>
 </body></html>
