@@ -82,6 +82,8 @@ function photoGrade(id,choice){
  state.pictureProgress??={attempts:0,correct:0};state.pictureProgress.attempts++;if(ok)state.pictureProgress.correct++;save();
  app.querySelectorAll('.picture-choices button,form button,.picture-input').forEach(b=>b.disabled=true);
  document.getElementById('pictureFeedback').innerHTML=`<div class="picture-answer"><h3>${ok?'Richtig!':'Not quite'}</h3><p><strong>${safeText(w[0])}</strong> — ${safeText(w[1])}</p><button class="secondary" onclick="speak(${JSON.stringify(w[0]).replace(/"/g,'&quot;')})">Hear pronunciation</button><button onclick="pictureSession.index++;photoShow()">Next picture</button></div>`;
+ const feedback=document.getElementById('pictureFeedback');
+ if(feedback){requestAnimationFrame(()=>feedback.scrollIntoView({behavior:'smooth',block:'center'}));}
 }
 pictureHome=photoMenu;
 pictureStart=photoStart;
