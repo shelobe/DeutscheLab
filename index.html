@@ -5625,4 +5625,44 @@ body:has(#app .market-v2) .app-header{position:static!important;top:auto!importa
 body:has(#app .market-v2) .app-header>div{display:none!important}
 body:has(#app .market-v2) .app-header .menu-toggle{width:44px;height:44px;min-height:44px}
 </style>
+<style id="dl-beta-feedback-styles">
+#app .dl-beta-feedback{max-width:640px;margin:0 auto 100px}
+#app .dl-beta-feedback label{display:block;font-weight:700;margin:16px 0 6px}
+#app .dl-beta-feedback select,#app .dl-beta-feedback textarea,#app .dl-beta-feedback input{display:block;box-sizing:border-box;width:100%;max-width:100%;font:inherit;padding:12px;border-radius:12px;border:1px solid #8abbb6;background:#102e3d;color:#f5fffc}
+#app .dl-beta-feedback textarea{min-height:140px;resize:vertical}
+#app .dl-beta-feedback .dl-feedback-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+#sideMenu .dl-feedback-menu-entry{margin-top:10px}
+</style>
+<script id="dl-beta-feedback">
+(function(){
+ const endpoint='https://formsubmit.co/shelobe@gmail.com';
+ function install(){
+  const nav=document.getElementById('sideMenu');
+  if(!nav||nav.querySelector('.dl-feedback-menu-entry'))return;
+  const button=document.createElement('button');
+  button.type='button';
+  button.className='dl-feedback-menu-entry';
+  button.textContent='✉ Send Feedback';
+  button.addEventListener('click',function(){window.dlShowBetaFeedback()});
+  nav.appendChild(button);
+ }
+ window.dlShowBetaFeedback=function(){
+  if(typeof window.toggleMenu==='function')window.toggleMenu(false);
+  const app=document.getElementById('app');if(!app)return;
+  app.innerHTML='<section class="card dl-beta-feedback"><h2>Send Feedback</h2><p>Found a bug or have an idea? Send it to the DeutschLab developer. No account required.</p>'+
+   '<form action="'+endpoint+'" method="POST" target="_blank">'+
+   '<input type="hidden" name="_subject" value="DeutschLab beta feedback">'+
+   '<input type="hidden" name="_captcha" value="true">'+
+   '<input type="hidden" name="_template" value="table">'+
+   '<label for="dlFeedbackType">Feedback type</label><select id="dlFeedbackType" name="Feedback type" required><option value="Bug report">Bug report</option><option value="Suggestion">Suggestion</option><option value="Other">Other</option></select>'+
+   '<label for="dlFeedbackArea">Where did it happen?</label><input id="dlFeedbackArea" name="Screen or lesson" maxlength="150" placeholder="e.g. Supermarkt, A1 Lesson 3">'+
+   '<label for="dlFeedbackMessage">What happened, or what would you suggest?</label><textarea id="dlFeedbackMessage" name="Message" minlength="5" maxlength="5000" required placeholder="Describe the issue or suggestion"></textarea>'+
+   '<label for="dlFeedbackEmail">Your email (optional)</label><input id="dlFeedbackEmail" type="email" name="Reply email" autocomplete="email" placeholder="Only if you want a reply">'+
+   '<p class="muted">Submitting opens the feedback service in a new tab. Do not include passwords or API keys.</p>'+
+   '<div class="dl-feedback-actions"><button type="submit">Send Feedback</button><button type="button" class="secondary" onclick="home()">Back to Home</button></div></form></section>';
+  window.scrollTo(0,0);
+ };
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',install);else install();
+})();
+</script>
 </body></html>
