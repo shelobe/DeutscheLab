@@ -5332,12 +5332,13 @@ body:has(#dlDialogueExitBar) #app{padding-bottom:112px!important}
 <script id="dl-supermarkt-prototype">
 (function(){
  const catalog=[
+ ['orange','die Orange','🍊',1.99,'produce'],['ananas','die Ananas','🍍',2.49,'produce'],['gurke','die Gurke','🥒',1.49,'produce'],['paprika','die Paprika','🫑',2.99,'produce'],['salat','der Salat','🥬',1.49,'produce'],['brokkoli','der Brokkoli','🥦',1.99,'produce'],['blumenkohl','der Blumenkohl','🥦',1.99,'produce'],['radieschen','das Radieschen','🔴',1.49,'produce'],['zwiebel','die Zwiebel','🧅',1.29,'produce'],['knoblauch','der Knoblauch','🧄',2.49,'produce'],['zitrone','die Zitrone','🍋',1.49,'produce'],['wassermelone','die Wassermelone','🍉',2.49,'produce'],
  ['apfel','der Apfel','🍎',.8,'produce'],['banane','die Banane','🍌',1.1,'produce'],['karotte','die Karotte','🥕',.9,'produce'],['tomate','die Tomate','🍅',.7,'produce'],['kartoffel','die Kartoffel','🥔',.6,'produce'],['trauben','die Trauben','🍇',2.3,'produce'],
  ['milch','die Milch','🥛',1.5,'dairy'],['kaese','der Käse','🧀',3.4,'dairy'],['ei','das Ei','🥚',.6,'dairy'],['butter','die Butter','🧈',2.5,'dairy'],['joghurt','der Joghurt','🥣',1.2,'dairy'],['wasser','das Wasser','💧',1.3,'dairy'],
  ['brot','das Brot','🍞',2.2,'bakery'],['croissant','das Croissant','🥐',1.7,'bakery'],['brezel','die Brezel','🥨',1.3,'bakery'],['kuchen','der Kuchen','🍰',3.2,'bakery'],['keks','der Keks','🍪',.9,'bakery'],['baguette','das Baguette','🥖',2.6,'bakery']
  ].map(([id,name,emoji,price,aisle])=>({id,name,emoji,price,aisle}));
  const aisles=[['produce','Obst & Gemüse','🥕'],['dairy','Milchprodukte','🥛'],['bakery','Bäckerei','🥨']];
- const missions=[['apfel','banane','milch','brot','kaese'],['karotte','tomate','butter','brezel','joghurt'],['kartoffel','trauben','ei','croissant','wasser'],['apfel','kuchen','milch','baguette','karotte']];
+ const missions=[['apfel','banane','milch','brot','kaese'],['karotte','tomate','butter','brezel','joghurt'],['kartoffel','orange','ei','croissant','wasser'],['apfel','kuchen','milch','baguette','karotte']];
  let state=null;
  const euro=n=>n.toFixed(2).replace('.',',')+' €';
  const byId=id=>catalog.find(p=>p.id===id);
@@ -5349,16 +5350,28 @@ body:has(#dlDialogueExitBar) #app{padding-bottom:112px!important}
   const aisle=aisles[state.aisle],items=catalog.filter(p=>p.aisle===aisle[0]);
   const total=state.cart.reduce((n,id)=>n+byId(id).price,0);
   const list=state.list.map(id=>'<li class="'+(state.cart.includes(id)?'market-checked':'')+'">'+byId(id).name+(state.cart.includes(id)?' ✓':'')+'</li>').join('');
-  app.innerHTML='<div class="market-wrap market-v2"><div class="market-head"><h2>🛒 Supermarkt</h2><p>Hilf Fritzi beim Einkaufen! · Help Fritzi shop.</p><div class="market-progress">'+state.cart.length+' / '+state.list.length+' items found</div><details class="market-list" '+(state.cart.length===0?'open':'')+'><summary>📝 Einkaufsliste · Shopping list</summary><ul>'+list+'</ul></details></div>'+
-  '<nav class="market-aisles" aria-label="Supermarket aisles">'+aisles.map((a,i)=>'<button class="'+(i===state.aisle?'active':'')+'" onclick="supermarktAisle('+i+')">'+a[2]+'<span>'+a[1]+'</span></button>').join('')+'</nav>'+
-  '<div class="market-scene market-illustrated"><div class="market-ceiling"><span>FRITZIS MARKT</span><span>Frisch & lecker!</span></div><div class="market-sign">'+aisle[2]+' '+aisle[1]+'</div><div class="market-shelf">'+items.map(p=>'<button class="market-item" onclick="supermarktPick(\''+p.id+'\')" '+(state.cart.includes(p.id)?'disabled':'')+'><span class="market-emoji">'+p.emoji+'</span><span class="market-name">'+p.name+'</span><span class="market-price">'+euro(p.price)+'</span></button>').join('')+'</div><div class="market-floor"></div></div>'+
-  '<div class="market-cart"><div class="market-cart-title"><strong>🛒 Einkaufswagen</strong><strong>'+euro(total)+'</strong></div><div class="market-cart-items">'+(state.cart.length?state.cart.map(id=>'<span title="'+byId(id).name+'">'+byId(id).emoji+'</span>').join(''):'<span class="muted">Your cart is empty.</span>')+'</div><p class="market-status '+(state.wrong?'bad':'good')+'" role="status">'+(state.message||'Tap the groceries on your list.')+'</p><div class="market-actions"><button class="secondary" onclick="practiceHub()">Back to Games</button><button '+(!done?'disabled':'')+' onclick="supermarktCheckout()">Zur Kasse →</button></div></div></div>';
+  const hotspots=[
+  ['banane',5,28,21,11],['apfel',28,28,21,11],['orange',51,28,21,11],['ananas',75,28,22,11],
+  ['tomate',5,40,21,12],['gurke',28,40,21,12],['paprika',51,40,21,12],['karotte',75,40,22,12],
+  ['salat',5,53,21,11],['brokkoli',28,53,21,11],['blumenkohl',51,53,21,11],['radieschen',75,53,22,11],
+  ['kartoffel',5,65,21,11],['zwiebel',28,65,21,11],['zwiebel',51,65,21,11],['knoblauch',75,65,22,11],
+  ['zitrone',14,77,26,11],['wassermelone',0,77,15,15]
+  ];
+  const produce=state.aisle===0;
+  const scene=produce?'<div class="market-photo" aria-label="Illustrated produce shelves">'+
+    '<img src="file_00000000128481f5b6b20f46b8b3d474.png" alt="Produce aisle with fruit and vegetables in wooden crates" draggable="false">'+
+    hotspots.map(([id,x,y,w,h])=>'<button class="market-hotspot" style="left:'+x+'%;top:'+y+'%;width:'+w+'%;height:'+h+'%" aria-label="Select grocery item" onclick="supermarktPick(\''+id+'\')"></button>').join('')+'</div>':
+    '<div class="market-scene market-illustrated"><div class="market-sign">'+aisle[2]+' '+aisle[1]+'</div><div class="market-shelf">'+items.map(p=>'<button class="market-item" onclick="supermarktPick(\''+p.id+'\')" '+(state.cart.includes(p.id)?'disabled':'')+'><span class="market-emoji">'+p.emoji+'</span><span class="market-name">'+p.name+'</span></button>').join('')+'</div></div>';
+  app.innerHTML='<div class="market-wrap market-v2"><div class="market-head"><h2>🛒 Supermarkt</h2><div class="market-progress">'+state.cart.length+' / '+state.list.length+' items found</div><div class="market-list market-always-visible"><strong>📝 Einkaufsliste</strong><ul>'+list+'</ul></div></div>'+
+  '<div class="market-swipe-hint">‹ Swipe to explore · '+aisle[1]+' ›</div><div class="market-swipe-zone" ontouchstart="supermarktTouchStart(event)" ontouchend="supermarktTouchEnd(event)">'+scene+'</div>'+
+  '<div class="market-cart"><div class="market-cart-title"><strong>🛒 Einkaufswagen</strong><strong>'+euro(total)+'</strong></div><div class="market-cart-items">'+(state.cart.length?state.cart.map(id=>'<span title="'+byId(id).name+'">'+byId(id).emoji+'</span>').join(''):'<span class="muted">Your cart is empty.</span>')+'</div><p class="market-status '+(state.wrong?'bad':'good')+'" role="status">'+(state.message||'Tap a grocery from your list. Swipe sideways for another aisle.')+'</p><div class="market-actions"><button class="secondary" onclick="practiceHub()">Back to Games</button><button '+(!done?'disabled':'')+' onclick="supermarktCheckout()">Zur Kasse →</button></div></div></div>';
  }
  window.supermarktHome=function(){
   try{const saved=JSON.parse(sessionStorage.getItem('dl-supermarkt-session')||'null');if(saved&&Array.isArray(saved.list)&&Array.isArray(saved.cart)&&Number.isInteger(saved.aisle)&&saved.aisle>=0&&saved.aisle<3&&saved.list.every(id=>byId(id))&&saved.cart.every(id=>byId(id))){state=saved;render();window.scrollTo(0,0);return}}catch(e){}
   const n=Number(sessionStorage.getItem('dl-market-round')||0)%missions.length;
   state={list:missions[n],cart:[],aisle:0,round:n,message:'',wrong:false};save();render();window.scrollTo(0,0);
  };
+ let touchX=null;window.supermarktTouchStart=function(e){touchX=e.changedTouches[0].clientX};window.supermarktTouchEnd=function(e){if(touchX===null)return;const delta=e.changedTouches[0].clientX-touchX;touchX=null;if(Math.abs(delta)>65)supermarktAisle(Math.max(0,Math.min(2,state.aisle+(delta<0?1:-1))))};
  window.supermarktAisle=function(n){if(!state)return;state.aisle=n;save();render()};
  window.supermarktPick=function(id){
   if(!state||state.cart.includes(id))return;
@@ -5403,4 +5416,13 @@ body:has(#dlDialogueExitBar) #app{padding-bottom:112px!important}
 #app .market-cart-title{display:flex;justify-content:space-between;gap:10px}
 #app .market-cart-items{min-height:38px;padding-top:9px;font-size:1.5rem}
 #app .market-checkout-character{text-align:center;font-size:5rem;margin:12px}
+</style><style id="dl-supermarkt-photo-style">
+#app .market-v2 .market-always-visible{display:block;padding:10px 12px;margin:8px 0;background:#f4e8c9;color:#253c36;border-radius:12px}
+#app .market-always-visible ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:3px 12px;margin:6px 0 0;padding-left:20px;font-size:.9rem}
+#app .market-v2 .market-swipe-hint{text-align:center;padding:8px;font-weight:700;color:#e1f6ee}
+#app .market-photo{position:relative;width:100%;line-height:0}
+#app .market-photo img{width:100%;height:auto;display:block;border-radius:12px}
+#app .market-hotspot{position:absolute;background:transparent;border:0;box-shadow:none;padding:0;touch-action:pan-y}
+#app .market-hotspot:focus-visible{outline:3px solid #fff;outline-offset:-3px}
+#app .market-swipe-zone{touch-action:pan-y}
 </style></body></html>
