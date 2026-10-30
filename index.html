@@ -4491,7 +4491,7 @@ body.dl-home-banner .app-header h1,body.dl-home-banner .app-header p,body.dl-hom
   const start=card?.querySelector('.dl-flow-action');
   if(!card||card.querySelector('.dl-a1-dialogue'))return result;
   const block=document.createElement('section');block.className='dl-a1-dialogue';
-  block.innerHTML='<h3>Short conversation</h3><p class="muted">Listen to each line, then try saying it yourself.</p>'+lines.map(([speaker,line])=>'<div class="dl-a1-dialogue-line"><strong>'+safeText(speaker)+'</strong><span>'+safeText(line)+'</span><button type="button" class="secondary" data-line="'+encodeURIComponent(line)+'">Hear</button></div>').join('');
+  block.innerHTML='<h3>Short conversation</h3><p class="muted">Listen to each line, then try saying it yourself.</p>'+lines.map(([speaker,line])=>'<div class="dl-a1-dialogue-line"><div class="dl-speaker"><img src="./'+(speaker==='Katze'?'katze.png':'hund.png')+'" alt="" loading="lazy"><strong>'+safeText(speaker==='Katze'?'Mia':'Max')+'</strong></div><span>'+safeText(line)+'</span><button type="button" class="secondary" data-line="'+encodeURIComponent(line)+'">Hear</button></div>').join('');
   block.querySelectorAll('[data-line]').forEach(btn=>btn.addEventListener('click',()=>speak(decodeURIComponent(btn.dataset.line))));
   if(start)start.before(block);else card.append(block);
   return result;
@@ -4501,7 +4501,7 @@ body.dl-home-banner .app-header h1,body.dl-home-banner .app-header p,body.dl-hom
 <style id="dl-a1-dialogue-styles">
 .dl-a1-dialogue{margin:22px 0;padding:16px;border:1px solid #527587;border-radius:16px;background:#1e3b50}
 .dl-a1-dialogue h3{margin:0 0 8px}.dl-a1-dialogue-line{display:grid;grid-template-columns:55px 1fr auto;gap:9px;align-items:center;margin:10px 0;padding:10px;background:#29495c;border-radius:12px}
-.dl-a1-dialogue-line strong{color:#8fe0cb}.dl-a1-dialogue-line button{padding:9px;min-height:40px}
+.dl-a1-dialogue-line strong{color:#8fe0cb}.dl-speaker{display:flex;align-items:center;gap:6px}.dl-speaker img{width:32px;height:32px;object-fit:contain;border-radius:50%;background:#385d70;flex-shrink:0}.dl-a1-dialogue-line button{padding:9px;min-height:40px}
 @media(max-width:420px){.dl-a1-dialogue-line{grid-template-columns:1fr auto}.dl-a1-dialogue-line strong{grid-column:1/-1}}
 </style>
 <style id="dl-speaking-primary-layout">
