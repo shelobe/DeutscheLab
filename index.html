@@ -4967,4 +4967,26 @@ function quickRandomPractice(){
  });
 })();
 </script>
+
+<style id="dl-listening-feedback-fit">
+/* Listening: reclaim the answer grid after a selection so the complete mascot feedback fits. */
+#app .card.dl-listening-answered .picture-choices{display:none!important}
+#app .card.dl-listening-answered .game-feedback{margin-top:10px!important}
+#app .card.dl-listening-answered .dl-result-badge{min-height:88px!important;padding:8px 12px!important;gap:10px!important;font-size:1.3rem!important}
+#app .card.dl-listening-answered .dl-result-badge img{width:88px!important;height:88px!important;max-width:32%!important;transform:none!important}
+#app .card.dl-listening-answered .game-feedback p{margin:7px 0!important}
+</style>
+<script id="dl-listening-feedback-fit-script">
+(function(){
+ const root=document.getElementById('app');if(!root)return;
+ function update(){
+  const g=typeof gameSession!=='undefined'?gameSession:null;
+  root.querySelectorAll('.card').forEach(card=>{
+   card.classList.toggle('dl-listening-answered',!!(g&&g.mode==='listen'&&g.answered&&card.querySelector('.picture-choices')&&card.querySelector('#gameFeedback .game-feedback')));
+  });
+ }
+ let queued=false;
+ new MutationObserver(()=>{if(queued)return;queued=true;requestAnimationFrame(()=>{queued=false;update()})}).observe(root,{subtree:true,childList:true});update();
+})();
+</script>
 </body></html>
