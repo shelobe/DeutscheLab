@@ -5712,7 +5712,8 @@ body:has(#app .market-v2) .app-header .menu-toggle{width:44px;height:44px;min-he
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',install);else install();
 })();
 </script>
-<style id="dl-menu-cleanup">#sideMenu .dl-menu-group{margin:14px 0 5px!important;padding-bottom:5px!important;font-size:.76rem!important}#sideMenu button:not(.menu-close){margin-top:3px!important;margin-bottom:3px!important}</style>
+<style id="dl-menu-cleanup">#sideMenu .dl-menu-group{margin:14px 0 5px!important;padding-bottom:5px!important;font-size:.76rem!important}#sideMenu button:not(.menu-close){margin-top:3px!important;margin-bottom:3px!important}#sideMenu .dl-menu-home-prominent{font-size:1.22rem!important;font-weight:800!important;padding-top:12px!important;padding-bottom:12px!important;min-height:52px!important}
+</style>
 <script id="dl-menu-utilities-order">
 (function(){
  function apply(){
@@ -5724,6 +5725,11 @@ body:has(#app .market-v2) .app-header .menu-toggle{width:44px;height:44px;min-he
  const support=headings.find(e=>e.textContent.trim()==='SUPPORT');
  if(account&&settings)account.nextElementSibling?.after(settings);
  if(support&&feedback)support.after(feedback);
+ nav.querySelectorAll('.dl-menu-group').forEach(el=>{
+  if(el.textContent.trim()==='APP')el.remove();
+ });
+ const home=Array.from(nav.querySelectorAll('button')).find(b=>b.textContent.trim().includes('Home'));
+ if(home)home.classList.add('dl-menu-home-prominent');
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',apply);else apply();
 })();
