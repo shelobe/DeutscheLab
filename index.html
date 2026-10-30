@@ -5448,7 +5448,7 @@ body:has(#dlDialogueExitBar) #app{padding-bottom:112px!important}
  };
  window.supermarktPay=function(correct){
   const target=document.getElementById('market-pay-result');if(!target)return;
-  if(correct){target.innerHTML='<p class="correct">Richtig! “Mit Karte, bitte.” means “By card, please.” Einkauf geschafft!</p><button onclick="supermarktNextMission()">Next shopping list →</button>';if(typeof findItSound==='function')findItSound(true)}
+  if(correct){target.innerHTML='<p class="correct">Richtig! “Mit Karte, bitte.” means “By card, please.” Einkauf geschafft!</p><button onclick="supermarktNextMission()">Next shopping list →</button>';const scene=document.querySelector('#app .market-checkout-scene');if(scene){scene.classList.remove('market-oskar-celebrate');void scene.offsetWidth;scene.classList.add('market-oskar-celebrate');const bubble=scene.querySelector('.market-checkout-dialogue');if(bubble)bubble.innerHTML='<strong>Oskar:</strong> „Wunderbar! Sehr gut gemacht!“';}if(typeof findItSound==='function')findItSound(true)}
   else{target.innerHTML='<p class="wrong">Not quite. Try the polite payment response.</p>';if(typeof dlWrongHaptic==='function')dlWrongHaptic()}
  };
  window.supermarktNextMission=function(){sessionStorage.setItem('dl-market-round',String((state.round+1)%missions.length));sessionStorage.removeItem('dl-supermarkt-session');state=null;supermarktHome()};
@@ -5760,6 +5760,34 @@ body:has(#app .market-v2) .app-header .menu-toggle{width:44px;height:44px;min-he
 #app .market-v2 .market-actions{gap:10px}
 #app .market-v2 .market-actions button{min-width:0;flex:1}
 @media(max-width:390px){#app .market-v2 .market-checkout-scene{aspect-ratio:1/1;max-height:390px}}
+</style>
+<style id="dl-oskar-checkout-celebration">
+/* Small prototype reaction on correct checkout answers; no new artwork required. */
+#app .market-v2 .market-checkout-scene.market-oskar-celebrate{
+ animation:dlOskarHappyBounce 1.15s ease-in-out both;
+ transform-origin:center 85%;
+}
+#app .market-v2 .market-checkout-scene.market-oskar-celebrate::after{
+ content:"✦  ✨  ✦";position:absolute;top:24%;left:0;right:0;
+ text-align:center;font-size:2.1rem;color:#fff4a6;pointer-events:none;
+ text-shadow:0 2px 8px #364f45;animation:dlOskarSparkle 1.3s ease-out both;
+}
+@keyframes dlOskarHappyBounce{
+ 0%,100%{transform:translateY(0) rotate(0)}
+ 22%{transform:translateY(-10px) rotate(-1.6deg)}
+ 46%{transform:translateY(0) rotate(1.2deg)}
+ 68%{transform:translateY(-5px) rotate(-.7deg)}
+ 84%{transform:translateY(0) rotate(.4deg)}
+}
+@keyframes dlOskarSparkle{
+ 0%{opacity:0;transform:translateY(15px) scale(.65)}
+ 35%{opacity:1;transform:translateY(-8px) scale(1.1)}
+ 100%{opacity:0;transform:translateY(-28px) scale(1)}
+}
+@media(prefers-reduced-motion:reduce){
+ #app .market-v2 .market-checkout-scene.market-oskar-celebrate,
+ #app .market-v2 .market-checkout-scene.market-oskar-celebrate::after{animation:none!important}
+}
 </style>
 <style id="dl-supermarkt-notepaper">
 /* A compact handwritten shopping note, limited to the in-game list. */
