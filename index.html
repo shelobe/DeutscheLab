@@ -1692,7 +1692,22 @@ pictureGrade=function(...args){let s=pictureSession;if(s?.photo)return soundOldP
 const soundOldReviewAnswer=curriculumReviewAnswer;
 curriculumReviewAnswer=function(i){let s=moduleSession;if(s&&!s.answered)feedbackSound(i===s.questions[s.idx].answer);return soundOldReviewAnswer(i)};
 const soundOldHome=home;
-home=function(){soundOldHome();const target=app.querySelector('.dashboard-shortcuts')||app.lastElementChild;if(target)target.insertAdjacentHTML('afterend',soundSettingHTML())};
+home=function(){soundOldHome()};
+function dlShowSettings(){
+ if(typeof toggleMenu==='function')toggleMenu(false);
+ app.innerHTML='<section class="card"><h2>Settings</h2><p class="muted">Choose your practice preferences.</p><div id="dlSoundSettings"></div><button class="secondary" onclick="home()">Back to Home</button></section>';
+ document.getElementById('dlSoundSettings').innerHTML=soundSettingHTML();
+ window.scrollTo(0,0);
+}
+function dlInstallSettingsMenu(){
+ const nav=document.getElementById('sideMenu');
+ if(!nav||nav.querySelector('.dl-settings-menu-entry'))return;
+ const button=document.createElement('button');
+ button.type='button';button.className='dl-settings-menu-entry';
+ button.textContent='⚙ Settings';button.addEventListener('click',dlShowSettings);
+ nav.appendChild(button);
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',dlInstallSettingsMenu);else dlInstallSettingsMenu();
 </script>
 
 <style>
