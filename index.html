@@ -4972,7 +4972,18 @@ function quickRandomPractice(){
  }
  /* One initial browser history entry anchors the in-app Back behavior. */
  if(!history.state?.dlNav){history.replaceState({dlNav:true,step:0},'',location.pathname+location.search);}
- window.addEventListener('popstate',()=>{\n  if(document.querySelector('#app .market-v2')&&typeof window.supermarktLeave==='function'){\n   const previous=views.length>1?views[views.length-2]:{name:'practiceHub',args:[]};\n   if(views.length)views.pop();\n   const dest=window[previous.name]||window.practiceHub;\n   const accepted=window.supermarktLeave(()=>{restoring=true;try{dest(...previous.args)}finally{restoring=false}});\n   history.pushState({dlNav:true,step:views.length},'','#dl-screen-'+views.length);\n   return;\n  }
+ window.addEventListener('popstate',()=>{\n  if(document.querySelector('#app .market-v2')&&typeof window.supermarktLeave==='function'){
+   // Restore the history entry immediately so cancelling keeps the game active.
+   history.pushState({dlNav:true,step:views.length},'','#dl-screen-'+views.length);
+   window.supermarktLeave(()=>{
+    restoring=true;
+    try{
+     views.length=0;
+     window.practiceHub();
+    }finally{restoring=false}
+   });
+   return;
+  }
   const lesson=!!(document.body.classList.contains('lesson-screen')||window.fullSession&&document.querySelector('.dl-flow'));
   const previous=lesson?capture():(views.length>1?views[views.length-2]:capture());
   if(views.length)views.pop();
