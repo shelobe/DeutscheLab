@@ -6055,7 +6055,6 @@ html body .app-header .menu-toggle,html body.dl-compact-header .app-header .menu
    const guide=document.createElement('div');
    guide.className='dl-pronoun-guide';
    const sections=[
-     ['A note about German pronouns','Er, sie, and es can refer to people, animals, and objects. For objects, the pronoun follows the noun’s grammatical gender (der, die, or das), not biological sex. You’ll learn how this works in a later lesson.'],
      ['er — he','Use er when talking about a male person.\n\nEr ist hier. — He is here.'],
      ['sie — she','Use lowercase sie when talking about a female person.\n\nAnna lernt Deutsch. → Sie lernt Deutsch.\nAnna is learning German. → She is learning German.'],
      ['es — it','Use es for something referred to with the neuter pronoun. German grammatical gender matters: es does not always mean an object is lifeless.\n\nDas Kind spielt. → Es spielt.\nThe child is playing. → It is playing.'],
@@ -6068,7 +6067,8 @@ html body .app-header .menu-toggle,html body.dl-compact-header .app-header .menu
      const p=document.createElement('p');p.textContent=body;p.style.whiteSpace='pre-line';
      card.append(h,p);guide.append(card);
    }
-   paragraph.replaceWith(guide);
+   paragraph.textContent='In this lesson, you’ll practice er, sie, and es when talking about people. These pronouns can also refer to animals and objects according to a noun’s grammatical gender (der, die, das). We’ll explore that use in a later lesson.';
+   paragraph.insertAdjacentElement('afterend',guide);
    return result;
  }
  dlLessonIntro=expandedIntro;
