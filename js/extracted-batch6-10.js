@@ -1,0 +1,17 @@
+
+(function(){
+ // Keep Placement test in the same visual hierarchy as other menu entries.
+ function tidyMenu(){const menu=document.getElementById('sideMenu');if(!menu)return;const profile=menu.querySelector('.dl-menu-profile-link');const placement=[...menu.querySelectorAll('button')].find(b=>b.textContent.trim()==='Placement test');if(profile&&placement){profile.after(placement);placement.classList.remove('dl-placement-subitem');placement.removeAttribute('aria-label');}}
+ tidyMenu();
+ // Decorate the existing learning path, without replacing its controls or navigation.
+ const oldView=window.curriculumView;
+ if(typeof oldView==='function')window.curriculumView=function(level){const result=oldView.apply(this,arguments);try{const st=curriculumStats(curriculumSelected);const reviews=state.learning?.moduleReviews||{};document.querySelectorAll('.curriculum-path-module').forEach((card,i)=>{const group=st.groups[i];if(!group)return;const done=group.ids.filter(id=>st.scores[id]?.passed).length;const review=reviews[curriculumSelected+'-'+i];const passed=!!review?.passed;const current=done<group.ids.length&&st.groups.slice(0,i).every(g=>g.ids.every(id=>st.scores[id]?.passed));card.classList.toggle('dl-path-passed',passed);card.classList.toggle('dl-path-current',current);card.classList.toggle('dl-path-locked',!passed&&!current&&done===0&&i>0);const h=card.querySelector('.curriculum-module-heading');if(h&&!h.querySelector('.dl-path-chip')){const chip=document.createElement('span');chip.className='dl-path-chip';chip.textContent=passed?'✓ Review passed':current?'✦ Current module':done===group.ids.length?'Ready for review':'Module '+(i+1);h.querySelector('div:last-child')?.appendChild(chip);}});}catch(e){console.warn('Path decoration skipped',e)}return result};
+ // Add a real progress ring using saved lesson completions, not placeholder figures.
+ const oldProfile=window.dlProfile;
+ if(typeof oldProfile==='function')window.dlProfile=function(){const result=oldProfile.apply(this,arguments);try{const level='A1';const st=curriculumStats(level);const percent=st.all.length?Math.round(st.done/st.all.length*100):0;const card=document.querySelector('#app .card');if(card&&!card.querySelector('.dl-profile-progress')){const panel=document.createElement('div');panel.className='dl-profile-progress';panel.innerHTML='<div class="dl-progress-ring" style="--percent:'+percent+'"><span>'+percent+'%<small>A1 complete</small></span></div><div><strong>Your learning progress</strong><p>'+st.done+' of '+st.all.length+' lessons completed</p><p>Keep going at your own pace.</p></div>';const anchor=card.querySelector('.dl-profile-top');if(anchor)anchor.after(panel);else card.append(panel);}}catch(e){console.warn('Progress ring skipped',e)}return result};
+ // Compact the header only while scrolling down; restore it at the top.
+ let lastY=0;let scheduled=false;
+ window.addEventListener('scroll',function(){lastY=window.scrollY;if(scheduled)return;scheduled=true;requestAnimationFrame(function(){document.body.classList.toggle('dl-compact-header',lastY>140);scheduled=false;});},{passive:true});
+ // Brief visible audio playback feedback on the button the learner pressed.
+ document.addEventListener('click',function(e){const b=e.target.closest('button');if(!b)return;const text=(b.textContent||'').toLowerCase();if(!/listen|hear it|play audio|speak now|speak again/.test(text))return;b.classList.add('dl-audio-active');setTimeout(()=>b.classList.remove('dl-audio-active'),1100);});
+})();
