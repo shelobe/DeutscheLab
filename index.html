@@ -4972,7 +4972,7 @@ function quickRandomPractice(){
  }
  /* One initial browser history entry anchors the in-app Back behavior. */
  if(!history.state?.dlNav){history.replaceState({dlNav:true,step:0},'',location.pathname+location.search);}
- window.addEventListener('popstate',()=>{
+ window.addEventListener('popstate',()=>{\n  if(document.querySelector('#app .market-v2')&&typeof window.supermarktLeave==='function'){\n   const previous=views.length>1?views[views.length-2]:{name:'practiceHub',args:[]};\n   if(views.length)views.pop();\n   const dest=window[previous.name]||window.practiceHub;\n   const accepted=window.supermarktLeave(()=>{restoring=true;try{dest(...previous.args)}finally{restoring=false}});\n   history.pushState({dlNav:true,step:views.length},'','#dl-screen-'+views.length);\n   return;\n  }
   const lesson=!!(document.body.classList.contains('lesson-screen')||window.fullSession&&document.querySelector('.dl-flow'));
   const previous=lesson?capture():(views.length>1?views[views.length-2]:capture());
   if(views.length)views.pop();
@@ -5364,8 +5364,10 @@ body:has(#dlDialogueExitBar) #app{padding-bottom:112px!important}
     '<div class="market-scene market-illustrated"><div class="market-sign">'+aisle[2]+' '+aisle[1]+'</div><div class="market-shelf">'+items.map(p=>'<button class="market-item" onclick="supermarktPick(\''+p.id+'\')" '+(state.cart.includes(p.id)?'disabled':'')+'><span class="market-emoji">'+p.emoji+'</span><span class="market-name">'+p.name+'</span></button>').join('')+'</div></div>';
   app.innerHTML='<div class="market-wrap market-v2"><div class="market-head"><h2>🛒 Supermarkt</h2><div class="market-progress">'+state.cart.length+' / '+state.list.length+' items found</div><div class="market-list market-always-visible"><strong>📝 Einkaufsliste</strong><ul>'+list+'</ul></div></div>'+
   '<div class="market-swipe-hint">‹ Swipe to explore · '+aisle[1]+' ›</div><div class="market-swipe-zone" ontouchstart="supermarktTouchStart(event)" ontouchend="supermarktTouchEnd(event)">'+scene+'</div>'+
-  '<div class="market-cart"><div class="market-cart-handle" aria-hidden="true"></div><div class="market-cart-title"><strong>🛒 Einkaufswagen</strong><strong>'+euro(total)+'</strong></div><div class="market-cart-items">'+(state.cart.length?state.cart.map(id=>'<span title="'+byId(id).name+'">'+byId(id).emoji+'</span>').join(''):'<span class="muted">Your cart is empty.</span>')+'</div><p class="market-status '+(state.wrong?'bad':'good')+'" role="status">'+(state.message||'Tap a grocery from your list. Swipe sideways for another aisle.')+'</p><div class="market-actions market-actions-docked"><button class="secondary" onclick="practiceHub()">Back to Games</button><button '+(!done?'disabled':'')+' onclick="supermarktCheckout()">Zur Kasse →</button></div></div></div>';
+  '<div class="market-cart"><div class="market-cart-handle" aria-hidden="true"></div><div class="market-cart-title"><strong>🛒 Einkaufswagen</strong><strong>'+euro(total)+'</strong></div><div class="market-cart-items">'+(state.cart.length?state.cart.map(id=>'<span title="'+byId(id).name+'">'+byId(id).emoji+'</span>').join(''):'<span class="muted">Your cart is empty.</span>')+'</div><p class="market-status '+(state.wrong?'bad':'good')+'" role="status">'+(state.message||'Tap a grocery from your list. Swipe sideways for another aisle.')+'</p><div class="market-actions market-actions-docked"><button class="secondary" onclick="supermarktLeave(practiceHub)">Back to Games</button><button '+(!done?'disabled':'')+' onclick="supermarktCheckout()">Zur Kasse →</button></div></div></div>';
  }
+ window.supermarktReset=function(){state=null;sessionStorage.removeItem('dl-supermarkt-session')};
+ window.supermarktLeave=function(destination){if(!window.confirm('Leave Grocery Shopping? Your current shopping progress will be reset.'))return false;supermarktReset();if(typeof destination==='function')destination();else practiceHub();return true};
  window.supermarktHome=function(){
   try{const saved=JSON.parse(sessionStorage.getItem('dl-supermarkt-session')||'null');if(saved&&Array.isArray(saved.list)&&Array.isArray(saved.cart)&&Number.isInteger(saved.aisle)&&saved.aisle>=0&&saved.aisle<3&&saved.list.every(id=>byId(id))&&saved.cart.every(id=>byId(id))){state=saved;const validProduce=new Set(['banane','apfel','orange','ananas','tomate','gurke','paprika','karotte','salat','brokkoli','blumenkohl','radieschen','kartoffel','zwiebel','knoblauch','zitrone','wassermelone']);if(state.list.some(id=>!validProduce.has(id))){state.list=missions[state.round%missions.length]||missions[0];state.cart=state.cart.filter(id=>state.list.includes(id));state.aisle=0;state.message='';state.wrong=false;save()}render();window.scrollTo(0,0);return}}catch(e){}
   const n=Number(sessionStorage.getItem('dl-market-round')||0)%missions.length;
@@ -5438,4 +5440,20 @@ body:has(#dlDialogueExitBar) #app{padding-bottom:112px!important}
 #app .market-v2 .market-actions-docked{position:fixed;z-index:1000;left:0;right:0;bottom:0;margin:0;padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px));background:#102b38;border-top:1px solid #70c8b7;display:flex;gap:10px;transform:none}
 #app .market-v2 .market-actions-docked button{min-height:52px}
 @media(max-width:700px){#app .market-v2 .market-photo{height:min(54vh,490px);overflow:hidden;border-radius:12px}#app .market-v2 .market-photo img{height:100%;width:100%;object-fit:fill}#app .market-v2 .market-illustrated{max-height:54vh;overflow:auto}}
-</style></body></html>
+</style><script id="dl-market-exit-guard">
+(function(){
+const app=document.getElementById('app');
+document.addEventListener('click',function(e){
+ if(!app?.querySelector('.market-v2'))return;
+ const link=e.target.closest('#sideMenu a,#sideMenu button,.menu a,.menu button');
+ if(!link)return;
+ if(!confirm('Leave Grocery Shopping? Your current shopping progress will be reset.')){e.preventDefault();e.stopImmediatePropagation();return}
+ window.supermarktReset?.();
+},true);
+const old=window.navigateTo;
+if(typeof old==='function')window.navigateTo=function(fn){
+ if(app?.querySelector('.market-v2')&&window.supermarktLeave){window.supermarktLeave(()=>old(fn));return}
+ return old(fn);
+};
+})();
+</script></body></html>
