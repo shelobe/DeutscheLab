@@ -5625,29 +5625,4 @@ body:has(#app .market-v2) .app-header{position:static!important;top:auto!importa
 body:has(#app .market-v2) .app-header>div{display:none!important}
 body:has(#app .market-v2) .app-header .menu-toggle{width:44px;height:44px;min-height:44px}
 </style>
-
-<script id="dl-beta-hide-ai-conversation">
-/* Temporarily omit the paid AI conversation feature from the public beta UI. */
-(function(){
- const isAIButton=el=>{
-  const action=el.getAttribute('onclick')||'';
-  const label=(el.textContent||'').trim();
-  return /(?:navigateTo\(['"]aiTutor['"]\)|\baiTutor\s*\(\s*\)|dlOpenOrganizedActivity\(['"]ai['"]\))/.test(action)
-    || /^(?:🎙️?\s*)?(?:AI Conversation|AI voice tutor|AI Tutor & Voice)(?:\s|$)/i.test(label);
- };
- function hideAIEntries(){
-  document.querySelectorAll('button,a').forEach(el=>{if(isAIButton(el))el.hidden=true;});
-  document.querySelectorAll('#sideMenu .menu-heading,#sideMenu .dl-menu-heading').forEach(el=>{
-   if(/AI TOOLS/i.test(el.textContent||''))el.hidden=true;
-  });
- }
- const observer=new MutationObserver(hideAIEntries);
- observer.observe(document.documentElement,{childList:true,subtree:true});
- if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',hideAIEntries);
- else hideAIEntries();
-})();
-</script>
-<style id="dl-beta-hide-ai-conversation-style">
-button[hidden],a[hidden]{display:none!important}
-</style>
 </body></html>
