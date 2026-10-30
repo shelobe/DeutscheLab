@@ -5000,7 +5000,7 @@ function quickRandomPractice(){
   window[name]=function(...args){
    if(!restoring){
     const lesson=['fullStudy','dlLessonIntro','fullBegin'].includes(name);
-    const view=lesson?{name:'home',args:[]}:{name,args};
+    const view=lesson?{name:name==='fullBegin'?'fullStudy':name,args}: {name,args};
     views.push(view);
     try{sessionStorage.setItem('dl-current-view',JSON.stringify(view))}catch(e){}
     history.pushState({dlNav:true,step:views.length},'','#dl-screen-'+views.length);
@@ -5040,6 +5040,7 @@ function quickRandomPractice(){
   }finally{restoring=false;history.pushState({dlNav:true,step:views.length},'','#dl-screen-'+views.length)}
  });
  window.addEventListener('load',()=>{
+  // Restore the exact lesson introduction instead of resetting to Home.
   let saved=null;
   try{saved=JSON.parse(sessionStorage.getItem('dl-current-view')||'null')}catch(e){}
   if(!saved||saved.name==='home'||!tracked.includes(saved.name))return;
