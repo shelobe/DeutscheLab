@@ -4502,7 +4502,7 @@ body.dl-home-banner .app-header h1,body.dl-home-banner .app-header p,body.dl-hom
   const start=card?.querySelector('.dl-flow-action');
   if(!card||card.querySelector('.dl-a1-dialogue'))return result;
   const block=document.createElement('section');block.className='dl-a1-dialogue';
-  block.innerHTML='<h3>Short conversation</h3><p class="muted">Listen to each line, then try saying it yourself.</p>'+lines.map(([speaker,line])=>'<div class="dl-a1-dialogue-line"><div class="dl-speaker"><span class="dl-speaker-portrait" style="background-image:url(./'+(speaker==='Katze'?'katze.png':'hund.png')+')"></span><strong>'+safeText(speaker==='Katze'?'Minka':'Fritzi')+'</strong></div><span>'+safeText(line)+'</span><button type="button" class="secondary" data-line="'+encodeURIComponent(line)+'">Hear</button></div>').join('');
+  block.innerHTML='<h3>Short conversation</h3><p class="muted">Listen to each line, then try saying it yourself.</p>'+lines.map(([speaker,line])=>'<div class="dl-a1-dialogue-line"><div class="dl-speaker"><span class="dl-speaker-portrait '+(speaker==='Katze'?'dl-cat-portrait':'dl-dog-portrait')+'" aria-hidden="true"></span><strong>'+safeText(speaker==='Katze'?'Minka':'Fritzi')+'</strong></div><span>'+safeText(line)+'</span><button type="button" class="secondary" data-line="'+encodeURIComponent(line)+'">Hear</button></div>').join('');
   block.querySelectorAll('[data-line]').forEach(btn=>btn.addEventListener('click',()=>speak(decodeURIComponent(btn.dataset.line))));
   if(start)start.before(block);else card.append(block);
   return result;
@@ -4511,13 +4511,17 @@ body.dl-home-banner .app-header h1,body.dl-home-banner .app-header p,body.dl-hom
 </script>
 <style id="dl-a1-dialogue-styles">
 .dl-a1-dialogue{margin:22px 0;padding:16px;border:1px solid #527587;border-radius:16px;background:#1e3b50}
-.dl-a1-dialogue h3{margin:0 0 8px}.dl-a1-dialogue-line{display:flex!important;flex-wrap:wrap!important;align-items:center!important;gap:10px!important;margin:10px 0!important;padding:12px!important;background:#29495c;border-radius:12px;min-width:0!important;max-width:100%!important;box-sizing:border-box!important}
-.dl-a1-dialogue-line .dl-speaker{display:flex!important;align-items:center!important;gap:8px!important;flex:0 0 auto!important;min-width:0!important;white-space:nowrap}
-.dl-a1-dialogue-line .dl-speaker strong{color:#8fe0cb}
-.dl-a1-dialogue-line .dl-speaker-portrait{display:inline-block!important;flex:0 0 42px!important;width:42px!important;height:42px!important;max-width:42px!important;max-height:42px!important;min-width:42px!important;min-height:42px!important;border-radius:50%!important;overflow:hidden!important;background-color:#385d70;background-size:260% auto!important;background-position:center 23%!important;background-repeat:no-repeat!important}
-.dl-a1-dialogue-line>span:not(.dl-speaker-portrait){flex:1 1 160px!important;min-width:0!important;overflow-wrap:normal!important;word-break:normal!important;line-height:1.45}
-.dl-a1-dialogue-line>button{flex:0 0 auto!important;width:auto!important;min-width:110px!important;max-width:100%!important;padding:10px 20px!important;min-height:42px!important;margin:0!important}
-@media(max-width:480px){.dl-a1-dialogue-line>button{flex-basis:100%!important;max-width:130px!important}.dl-a1-dialogue-line .dl-speaker-portrait{flex-basis:38px!important;width:38px!important;height:38px!important;min-width:38px!important;min-height:38px!important}}
+.dl-a1-dialogue h3{margin:0 0 8px}.dl-a1-dialogue-line{display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:10px!important;margin:12px 0!important;padding:14px!important;background:#29495c;border:1px solid #527587;border-radius:14px;min-width:0!important;max-width:100%!important;box-sizing:border-box!important}
+.dl-a1-dialogue-line:nth-child(even){background:#28465c;border-left:4px solid #70cfc0}
+.dl-a1-dialogue-line:nth-child(odd){background:#233f58;border-left:4px solid #e2b77e}
+.dl-a1-dialogue-line .dl-speaker{display:flex!important;align-items:center!important;gap:10px!important;min-width:0!important;white-space:nowrap}
+.dl-a1-dialogue-line .dl-speaker strong{color:#8fe0cb;font-size:1.05em}
+.dl-a1-dialogue-line .dl-speaker-portrait{display:block!important;flex:none!important;width:52px!important;height:52px!important;min-width:52px!important;min-height:52px!important;max-width:52px!important;max-height:52px!important;border-radius:50%!important;overflow:hidden!important;background-color:#385d70!important;background-repeat:no-repeat!important;background-size:185% auto!important}
+.dl-a1-dialogue-line .dl-cat-portrait{background-image:url('./katze.png')!important;background-position:50% 10%!important}
+.dl-a1-dialogue-line .dl-dog-portrait{background-image:url('./hund.png')!important;background-position:50% 12%!important}
+.dl-a1-dialogue-line>span:not(.dl-speaker-portrait){display:block!important;width:100%!important;min-width:0!important;max-width:100%!important;overflow-wrap:break-word!important;word-break:normal!important;line-height:1.5;font-size:1.05em}
+.dl-a1-dialogue-line>button{display:inline-block!important;align-self:flex-start!important;flex:none!important;width:auto!important;min-width:110px!important;max-width:100%!important;padding:10px 20px!important;min-height:42px!important;margin:0!important}
+@media(max-width:480px){.dl-a1-dialogue-line{padding:12px!important}.dl-a1-dialogue-line .dl-speaker-portrait{width:48px!important;height:48px!important;min-width:48px!important;min-height:48px!important;max-width:48px!important;max-height:48px!important}}
 
 </style>
 <style id="dl-speaking-primary-layout">
