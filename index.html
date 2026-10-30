@@ -6043,6 +6043,41 @@ html body .app-header .menu-toggle,html body.dl-compact-header .app-header .menu
     original.some(id=>!after.includes(id)))console.warn('A1 sequence integrity check failed');
 })();
 </script>
+<script id="dl-pronoun-he-she-it-guide">
+(function(){
+ const oldIntro=dlLessonIntro;
+ function expandedIntro(id){
+   const result=oldIntro.apply(this,arguments);
+   if(FULL_UNITS[id]?.title!=='Personal pronouns: he, she, it')return result;
+   const heading=app.querySelector('.dl-flow-card h2');
+   const paragraph=heading?.nextElementSibling;
+   if(!paragraph||paragraph.tagName!=='P')return result;
+   const guide=document.createElement('div');
+   guide.className='dl-pronoun-guide';
+   const sections=[
+     ['er — he','Use er when talking about a male person.\n\nEr ist hier. — He is here.'],
+     ['sie — she','Use lowercase sie when talking about a female person.\n\nAnna lernt Deutsch. → Sie lernt Deutsch.\nAnna is learning German. → She is learning German.'],
+     ['es — it','Use es for something referred to with the neuter pronoun. German grammatical gender matters: es does not always mean an object is lifeless.\n\nDas Kind spielt. → Es spielt.\nThe child is playing. → It is playing.'],
+     ['How do you choose?','A pronoun replaces a noun or name so you do not have to repeat it. For people, er and sie often correspond to he and she. For German nouns, follow grammatical gender: der Tisch → er; die Lampe → sie; das Buch → es.'],
+     ['Compare','Er lernt Deutsch. — He is learning German.\nSie lernt Deutsch. — She is learning German.\nEs ist neu. — It is new.'],
+     ['Remember','Lowercase sie can also mean they. Look at the verb: sie lernt = she learns; sie lernen = they learn. Capitalized Sie is formal you.']
+   ];
+   for(const [title,body] of sections){
+     const card=document.createElement('section');
+     const h=document.createElement('h3');h.textContent=title;
+     const p=document.createElement('p');p.textContent=body;p.style.whiteSpace='pre-line';
+     card.append(h,p);guide.append(card);
+   }
+   paragraph.replaceWith(guide);
+   return result;
+ }
+ dlLessonIntro=expandedIntro;
+ fullStudy=function(id){
+   if(FULL_UNITS[id]?.title==='Personal pronouns: he, she, it')return expandedIntro(id);
+   return oldIntro(id);
+ };
+})();
+</script>
 <script id="dl-refresh-always-home">
 (function(){
   // Refresh starts at Home; normal in-app navigation still retains its history.
