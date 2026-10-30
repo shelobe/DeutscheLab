@@ -5444,11 +5444,12 @@ body:has(#dlDialogueExitBar) #app{padding-bottom:112px!important}
  window.supermarktCheckout=function(){
   if(!state||!state.list.every(id=>state.cart.includes(id)))return;
   const total=state.cart.reduce((sum,id)=>sum+byId(id).price,0);
-  app.innerHTML='<div class="market-wrap market-v2"><section class="market-head"><h2>🛒 An der Kasse · Checkout</h2><div class="market-checkout-scene" role="img" aria-label="Oskar the owl cashier welcomes you at the supermarket checkout"><div class="market-checkout-dialogue"><strong>Oskar:</strong> „Guten Tag! Das macht '+euro(total)+'.“</div></div><p class="market-checkout-prompt">How do you respond?</p><div class="market-actions"><button onclick="supermarktPay(true)">Mit Karte, bitte.</button><button onclick="supermarktPay(false)">Ich bin ein Bahnhof.</button></div><div id="market-pay-result" aria-live="polite"></div></section><button class="secondary" onclick="supermarktHome()">Back to shopping</button></div>';window.scrollTo(0,0);
+  app.innerHTML='<div class="market-wrap market-v2"><section class="market-head"><h2>🛒 An der Kasse · Checkout</h2><div class="market-checkout-scene" role="img" aria-label="Oskar the owl cashier welcomes you at the supermarket checkout"><div class="market-checkout-dialogue"><strong>Oskar:</strong> „Guten Tag! Das macht '+euro(total)+'.“</div></div><p class="market-checkout-prompt">How do you respond?</p><div class="market-actions"><button onclick="supermarktPay(true)">Mit Karte, bitte.</button><button onclick="supermarktPay(false)">Ich bin ein Bahnhof.</button></div><div id="market-pay-result" aria-live="polite"></div></section><div class="market-checkout-footer" id="market-checkout-footer"><button class="secondary" onclick="supermarktHome()">Back to shopping</button></div></div>';window.scrollTo(0,0);
  };
  window.supermarktPay=function(correct){
+  try{if('speechSynthesis' in window){speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(correct?'Mit Karte, bitte.':'Ich bin ein Bahnhof.');u.lang='de-DE';u.rate=0.88;const v=speechSynthesis.getVoices().find(v=>v.lang.toLowerCase().startsWith('de'));if(v)u.voice=v;speechSynthesis.speak(u)}}catch(e){}
   const target=document.getElementById('market-pay-result');if(!target)return;
-  if(correct){target.innerHTML='<p class="correct">Richtig! “Mit Karte, bitte.” means “By card, please.” Einkauf geschafft!</p><button onclick="supermarktNextMission()">Next shopping list →</button>';const scene=document.querySelector('#app .market-checkout-scene');if(scene){scene.classList.remove('market-oskar-celebrate');void scene.offsetWidth;scene.classList.add('market-oskar-celebrate');const bubble=scene.querySelector('.market-checkout-dialogue');if(bubble)bubble.innerHTML='<strong>Oskar:</strong> „Wunderbar! Sehr gut gemacht!“';}if(typeof findItSound==='function')findItSound(true)}
+  if(correct){target.innerHTML='<p class="correct">Richtig! “Mit Karte, bitte.” means “By card, please.” Einkauf geschafft!</p>';const footer=document.getElementById('market-checkout-footer');if(footer)footer.innerHTML='<button onclick="supermarktNextMission()">Next shopping list →</button>';const scene=document.querySelector('#app .market-checkout-scene');if(scene){scene.classList.remove('market-oskar-celebrate');void scene.offsetWidth;scene.classList.add('market-oskar-celebrate');const bubble=scene.querySelector('.market-checkout-dialogue');if(bubble)bubble.innerHTML='<strong>Oskar:</strong> „Wunderbar! Sehr gut gemacht!“';}if(typeof findItSound==='function')findItSound(true)}
   else{target.innerHTML='<p class="wrong">Not quite. Try the polite payment response.</p>';if(typeof dlWrongHaptic==='function')dlWrongHaptic()}
  };
  window.supermarktNextMission=function(){sessionStorage.setItem('dl-market-round',String((state.round+1)%missions.length));sessionStorage.removeItem('dl-supermarkt-session');state=null;supermarktHome()};
@@ -5651,6 +5652,16 @@ if(typeof old==='function')window.navigateTo=function(fn){
 body:has(#app .market-v2) .app-header{position:static!important;top:auto!important;left:auto!important;right:auto!important;transform:none!important;padding:5px 7px!important;margin:0 0 8px!important;min-height:0!important;width:max-content!important;max-width:100%;border-radius:13px!important}
 body:has(#app .market-v2) .app-header>div{display:none!important}
 body:has(#app .market-v2) .app-header .menu-toggle{width:44px;height:44px;min-height:44px}
+</style>
+<style id="dl-market-checkout-footer-fix">
+/* Keep only the menu button, without a second dark frame. */
+body:has(#app .market-v2) .app-header{background:transparent!important;border:0!important;box-shadow:none!important;backdrop-filter:none!important;padding:0!important;margin:0 0 8px!important}
+body:has(#app .market-v2) .app-header::before,body:has(#app .market-v2) .app-header::after{display:none!important}
+#app .market-v2:has(.market-checkout-scene){padding-bottom:calc(100px + env(safe-area-inset-bottom,0px))!important}
+#app .market-v2 .market-checkout-footer{position:fixed;bottom:0;left:0;right:0;z-index:1100;display:flex;align-items:center;justify-content:center;box-sizing:border-box;padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px));background:#102b38;border-top:1px solid #70c8b7}
+#app .market-v2 .market-checkout-footer button{flex:1;max-width:720px;min-height:52px;margin:0}
+#app .market-v2 #market-pay-result .correct,#app .market-v2 #market-pay-result .wrong{font-size:1.05rem!important;line-height:1.4!important;font-weight:700!important;margin:14px 0!important}
+@media(max-width:480px){#app .market-v2 #market-pay-result .correct,#app .market-v2 #market-pay-result .wrong{font-size:1rem!important}}
 </style>
 <style id="dl-beta-feedback-styles">
 #app .dl-beta-feedback{max-width:640px;margin:0 auto 100px}
