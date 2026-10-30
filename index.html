@@ -3972,7 +3972,9 @@ const gardenItems=[
 const gardenExtras=[
  {item:3,x:91,y:54,w:9,h:13},
  {item:3,x:76,y:54,w:11,h:11},
- {item:3,x:0,y:88,w:14,h:12},
+ {item:3,x:0,y:78,w:19,h:22},
+ {item:3,x:0,y:65,w:12,h:15},
+ {item:3,x:13,y:83,w:12,h:17},
  {item:4,x:51,y:29,w:7,h:10},
  {item:4,x:55,y:29,w:6,h:11},
  {item:7,x:60,y:35,w:10,h:23},
@@ -4018,7 +4020,7 @@ const rooms=[
  {name:'Minka’s living room',image:'./file_0000000028f881f5bd5c11ffc7a7f4cc.png',items,extras:extraFindItZones},
  {name:'The sunny kitchen',image:'./file_00000000f6dc81f5a53d075ab54c5e25.png',items:kitchenItems,extras:kitchenExtraZones},
  {name:'The cozy bathroom',image:'./a_warm_cozy_colorful_cartoon_illustration_of_a_d.png',items:bathroomItems,extras:bathroomExtras},
- {name:'The sunny garden',image:'./file_00000000dca881f5b90c49c8ddc2f964.png',items:gardenItems,extras:gardenExtras},
+ {name:'The blooming garden',image:'./file_00000000dca881f5b90c49c8ddc2f964.png',items:gardenItems,extras:gardenExtras},
  {name:'The farm',image:'./file_0000000093d081f5aac5488c3d81882b.png',items:farmItems,extras:farmExtras}
 ];
 function activeRoom(){return rooms[session?.room||0]}
@@ -4031,7 +4033,7 @@ window.findItPraise=function(){if(session&&session.phrase&&typeof speak==='funct
 window.findItHome=function(){
  session={room:0,queue:order(),idx:0,hearts:3,locked:false,phrase:''};
  document.body.classList.remove('lesson-screen');
- app.innerHTML='<div class="findit-shell"><section class="findit-intro"><h2>Find It! — Choose a scene</h2><p>Find ten German words in each scene. You have three hearts.</p><div class="findit-room-choices"><button class="findit-room-choice" onclick="findItStart(0)"><img src="./file_0000000028f881f5bd5c11ffc7a7f4cc.png" alt="" loading="lazy"><span>Living room</span></button><button class="findit-room-choice" onclick="findItStart(1)"><img src="./file_00000000f6dc81f5a53d075ab54c5e25.png" alt="" loading="lazy"><span>Sunny kitchen</span></button><button class="findit-room-choice" onclick="findItStart(2)"><img src="./a_warm_cozy_colorful_cartoon_illustration_of_a_d.png" alt="" loading="lazy"><span>Cozy bathroom</span></button><button class="findit-room-choice" onclick="findItStart(3)"><img src="./file_00000000dca881f5b90c49c8ddc2f964.png" alt="" loading="lazy"><span>Sunny garden</span></button><button class="findit-room-choice" onclick="findItStart(4)"><img src="./file_0000000093d081f5aac5488c3d81882b.png" alt="" loading="lazy"><span>The farm</span></button></div></section></div>';
+ app.innerHTML='<div class="findit-shell"><section class="findit-intro"><h2>Find It! — Choose a scene</h2><p>Find ten German words in each scene. You have three hearts.</p><div class="findit-room-choices"><button class="findit-room-choice" onclick="findItStart(0)"><img src="./file_0000000028f881f5bd5c11ffc7a7f4cc.png" alt="" loading="lazy"><span>Living room</span></button><button class="findit-room-choice" onclick="findItStart(1)"><img src="./file_00000000f6dc81f5a53d075ab54c5e25.png" alt="" loading="lazy"><span>Sunny kitchen</span></button><button class="findit-room-choice" onclick="findItStart(2)"><img src="./a_warm_cozy_colorful_cartoon_illustration_of_a_d.png" alt="" loading="lazy"><span>Cozy bathroom</span></button><button class="findit-room-choice" onclick="findItStart(3)"><img src="./file_00000000dca881f5b90c49c8ddc2f964.png" alt="" loading="lazy"><span>Blooming garden</span></button><button class="findit-room-choice" onclick="findItStart(4)"><img src="./file_0000000093d081f5aac5488c3d81882b.png" alt="" loading="lazy"><span>The farm</span></button></div></section></div>';
  window.scrollTo(0,0);
 };
 window.findItStart=function(roomIndex=0){const room=rooms[roomIndex]||rooms[0];session={room:roomIndex,queue:room.items.slice().sort(()=>Math.random()-.5),idx:0,hearts:3,locked:false,phrase:''};render()};
