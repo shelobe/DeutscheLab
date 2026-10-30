@@ -4882,4 +4882,32 @@ const dlMascotPreloads=dlMascotFiles.map(src=>{const img=new Image();img.src=src
 /* Red panda has more transparent padding than the newer dog/cat art. */
 #app .dl-result-badge img.dl-avatar-panda{transform:scale(1.15)!important;transform-origin:center bottom!important}
 </style>
+
+<style id="dl-global-answer-reveal">
+/* Hide completed multiple-choice answers so feedback remains in view. */
+#app .dl-flow-options.dl-answered-hidden{display:none!important}
+#app .dl-flow-card.dl-answer-revealed{padding-bottom:14px}
+#app .dl-flow-card.dl-answer-revealed h2{margin-bottom:12px}
+#app .dl-flow-card.dl-answer-revealed .dl-flow-feedback{margin-top:8px;padding:12px}
+</style>
+<script>
+/* Shared post-confirmation behavior for guided A1/A2/B1 multiple-choice lessons.
+   Keep choices visible while selecting; remove them only after feedback exists. */
+(function(){
+ const root=document.getElementById('app');if(!root)return;
+ function compactAnswered(){
+  root.querySelectorAll('.dl-flow-card').forEach(card=>{
+   const choices=card.querySelector('.dl-flow-options');
+   const feedback=card.querySelector('#dl-result .dl-flow-feedback');
+   if(!choices)return;
+   const answered=!!feedback;
+   choices.classList.toggle('dl-answered-hidden',answered);
+   card.classList.toggle('dl-answer-revealed',answered);
+  });
+ }
+ let pending=false;
+ new MutationObserver(()=>{if(pending)return;pending=true;requestAnimationFrame(()=>{pending=false;compactAnswered()})}).observe(root,{subtree:true,childList:true});
+ compactAnswered();
+})();
+</script>
 </body></html>
