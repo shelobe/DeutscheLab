@@ -5970,7 +5970,8 @@ html body .app-header .menu-toggle,html body.dl-compact-header .app-header .menu
     const isCourse=[a?.name,b?.name].some(n=>n==='curriculumView'||n==='friendlyCourse');
     if(!isCourse)return;
     const legacy=!!document.querySelector('#app .path-list, #app .path-panel');
-    if(legacy){
+    const curriculumMissing=!document.querySelector('#app .curriculum-path-module');
+    if(legacy || curriculumMissing){
       const level=a?.args?.[0]||b?.args?.[0]||'A1';
       curriculumView(level);
     }
