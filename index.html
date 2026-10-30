@@ -5063,4 +5063,25 @@ body:has(#dlListenFixedActions) #app{padding-bottom:115px!important}
  sync();
 })();
 </script>
+
+<style id="dl-unified-feedback-avatar-sizing">
+/* One optical size and pop-out position for every correct/incorrect character. */
+#app .dl-result-badge{position:relative!important;overflow:visible!important;min-height:104px!important;margin:28px 0 12px 12px!important;padding:10px 14px 10px 145px!important;display:flex!important;align-items:center!important;gap:6px!important}
+#app .dl-result-badge img,
+#app #dialogue-feedback .dl-result-badge img,
+#app #listenFeedback .dl-result-badge img,
+#app .card.dl-listening-answered .dl-result-badge img{
+ position:absolute!important;left:-14px!important;bottom:-2px!important;
+ width:160px!important;height:178px!important;max-width:none!important;min-width:0!important;
+ object-fit:contain!important;object-position:center bottom!important;
+ transform:none!important;transform-origin:center bottom!important;
+ background:transparent!important;flex:none!important;
+}
+#app .dl-result-badge img.dl-avatar-panda{transform:none!important}
+#app .dl-result-badge .dl-result-label{flex:1!important;text-align:center!important;font-size:clamp(1.1rem,4.7vw,1.5rem)!important;line-height:1.15!important}
+@media(max-width:400px){
+ #app .dl-result-badge{padding-left:127px!important;min-height:92px!important}
+ #app .dl-result-badge img,#app #dialogue-feedback .dl-result-badge img,#app #listenFeedback .dl-result-badge img,#app .card.dl-listening-answered .dl-result-badge img{width:140px!important;height:158px!important;left:-12px!important}
+}
+</style>
 </body></html>
