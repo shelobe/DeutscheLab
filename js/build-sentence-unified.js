@@ -34,6 +34,11 @@
   if(instruction&&instruction.tagName==='P')instruction.classList.add('dl-build-instruction');
   const existing=card.querySelector('.dl-unified-build-dock');if(existing)existing.remove();
   if(isGerman){
+   card.classList.add('dl-german-english-layout');
+   const built=card.querySelector('#gameBuilt');
+   const bank=card.querySelector('#gameBank');
+   if(built){built.classList.add('dl-shared-built');built.textContent='Tap the German words below';}
+   if(bank){bank.classList.add('dl-shared-bank');const title=document.createElement('div');title.className='dl-shared-bank-title';title.textContent='WORD BANK';bank.before(title);}
    const originalRestart=card.querySelector('button[onclick="gameRender()"]');if(originalRestart)originalRestart.remove();
    const check=card.querySelector('button[onclick="gameCheckBuild()"]');if(check){check.textContent='Check translation';check.classList.add('dl-build-check');}
    const bank=card.querySelector('#gameBank');if(bank){

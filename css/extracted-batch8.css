@@ -1313,3 +1313,14 @@ body:has(#app .dl-unified-build-dock) #dl-fixed-next{display:none!important}
 #app .dl-build-unified-tile .tile-icon{display:block!important;font-size:2.35rem!important;line-height:1.25!important;margin:0 0 10px!important;width:auto!important;height:auto!important;transform:none!important}
 #app .dl-build-unified-tile .tile-title{display:block;font-size:inherit;font-weight:750;line-height:1.25}
 #app .dl-build-unified-tile small{display:block;margin-top:12px;font-size:.82em;line-height:1.35}
+
+/* Match German sentence builder to the established English card geometry. */
+#app .dl-german-english-layout #gameBuilt{display:flex;align-items:flex-start;min-height:145px;padding:24px 26px;border:2px dashed #83bdb9;border-radius:20px;background:#102b39;color:#f4f7f7;font-size:1.15rem;line-height:1.5;margin:14px 0 22px;box-sizing:border-box}
+#app .dl-german-english-layout #gameBank{display:flex;flex-wrap:wrap;justify-content:flex-start;gap:16px;padding:22px 18px;border:1px dashed #557e84;border-radius:20px;background:#112d3b;margin:10px 0 24px}
+#app .dl-german-english-layout #gameBank button{min-width:90px;min-height:60px;padding:12px 18px;margin:0;border-radius:17px;font-size:1rem}
+#app .dl-german-english-layout .dl-shared-bank-title{font-size:.9rem;font-weight:750;letter-spacing:.13em;color:#8ccac1;margin:16px 0 6px}
+#app .dl-german-english-layout .dl-build-edit-controls{border-top:1px solid #54717b;padding-top:20px;margin:18px 0 20px}
+#app .dl-german-english-layout .dl-build-edit-controls button{background:transparent;border:1px solid #698994;color:#d7e3e5;font-size:1rem;border-radius:12px;min-height:55px}
+#app .dl-build-unified-tile .tile-icon{font-size:1.9rem!important;line-height:1.1!important;margin-bottom:7px!important}
+#app .dl-build-unified-tile .tile-title{font-size:1em!important;line-height:1.2!important}
+#app .dl-build-unified-tile small{margin-top:7px!important;font-size:.76em!important}
