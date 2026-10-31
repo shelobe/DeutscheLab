@@ -1180,7 +1180,7 @@ body:has(#app .market-v2) .app-header::before,body:has(#app .market-v2) .app-hea
 
 #app .market-v2 .market-checkout-scene{
  position:relative; width:100%; aspect-ratio:4/5; max-height:510px;
- background:#23443a url("file_0000000022c481f5a8611191dd557079.png") center 39%/cover no-repeat;
+ background:#23443a url("../file_0000000022c481f5a8611191dd557079.png") center 39%/cover no-repeat;
  border-radius:18px; overflow:hidden; border:2px solid #7bcab8;
  box-shadow:0 5px 16px #0003; margin:12px 0;
 }
