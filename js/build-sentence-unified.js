@@ -19,14 +19,42 @@
    '<section class="card"><h2>Choose your mode</h2><div class="game-grid"><button onclick="dlBuildModeStart(\'de\')">🇩🇪 Build in German<br><small>Arrange German words</small></button><button onclick="dlBuildModeStart(\'en\')">🇺🇸 Build in English<br><small>Arrange English words</small></button></div><button class="secondary" onclick="practiceHub()">Back to Practice Hub</button></section>';
   window.scrollTo(0,0);
  };
- window.dlBuildModeStart=function(mode){if(mode==='de')startSentenceRound();else gameStart('reverse');};
+ window.dlBuildModeStart=function(mode){gameStart(mode==='de'?'build':'reverse');};
  const oldGameHub=gameHub;
  gameHub=function(){return practiceHub();};
  const oldGameRender=gameRender;
- gameRender=function(){oldGameRender();if(!gameSession||gameSession.mode!=='reverse')return;
+ gameRender=function(){
+  oldGameRender();
+  if(!gameSession||!['build','reverse'].includes(gameSession.mode)||gameSession.idx>=gameSession.seq.length)return;
   const card=app.querySelector('.card');if(!card)return;
-  const back=document.createElement('div');back.className='dl-unified-build-dock';
-  back.innerHTML='<button class="secondary" onclick="dlBuildModeMenu()">Back</button>';
-  card.after(back);
+  const isGerman=gameSession.mode==='build';
+  const heading=[...card.querySelectorAll('h3')][0];
+  if(heading){heading.classList.add('dl-build-prompt');}
+  const instruction=heading?.previousElementSibling;
+  if(instruction&&instruction.tagName==='P')instruction.classList.add('dl-build-instruction');
+  const existing=card.querySelector('.dl-unified-build-dock');if(existing)existing.remove();
+  if(isGerman){
+   const originalRestart=card.querySelector('button[onclick="gameRender()"]');if(originalRestart)originalRestart.remove();
+   const check=card.querySelector('button[onclick="gameCheckBuild()"]');if(check){check.textContent='Check translation';check.classList.add('dl-build-check');}
+   const bank=card.querySelector('#gameBank');if(bank){
+    const controls=document.createElement('div');controls.className='dl-build-edit-controls';
+    controls.innerHTML='<button type="button" class="secondary" onclick="dlUnifiedUndo()">↶ Undo last word</button><button type="button" class="secondary" onclick="dlUnifiedReset()">↺ Start over</button>';
+    bank.after(controls);
+   }
+  }
+  const dock=document.createElement('div');dock.className='dl-unified-build-dock';
+  dock.innerHTML='<button type="button" class="secondary" onclick="dlBuildModeMenu()">Back</button>';
+  card.after(dock);
+ };
+ window.dlUnifiedUndo=function(){
+  const g=gameSession;if(!g||g.answered||!g.picked?.length)return;
+  const index=g.picked.pop(),button=document.getElementById('gb'+index);if(button)button.disabled=false;
+  const item=g.pool[g.seq[g.idx]];
+  const built=document.getElementById('gameBuilt');if(built)built.textContent=g.picked.length?g.picked.map(i=>item.tokens[g.order[i]]).join(' ').replace(/[.!?]+(?=\\s|$)/g,''):'Tap the words below ↓';
+ };
+ window.dlUnifiedReset=function(){
+  const g=gameSession;if(!g||g.answered)return;
+  g.picked=[];document.querySelectorAll('#gameBank button').forEach(b=>b.disabled=false);
+  const built=document.getElementById('gameBuilt');if(built)built.textContent='Tap the words below ↓';
  };
 })();

@@ -1279,3 +1279,14 @@ html body .app-header .menu-toggle,html body.dl-compact-header .app-header .menu
 #app .dl-sentence-edit-actions button{flex:1 1 130px;min-width:0;margin:0}
 #app #dlSentenceHelp:not([hidden]){position:static!important;max-height:none!important;overflow:visible!important;font-weight:400!important}
 #app #dlSentenceHelp:not([hidden]) p{font-size:clamp(.95rem,3.7vw,1.1rem)!important;line-height:1.5!important;font-weight:400!important}
+
+/* Shared compact sentence-building presentation */
+#app .dl-build-prompt{border:2px solid #76cbbf;background:#203e49;border-radius:16px;padding:18px 20px;line-height:1.4;margin:14px 0 20px;font-size:clamp(1.25rem,4.6vw,1.7rem);overflow-wrap:anywhere}
+#app .dl-build-instruction{margin-bottom:6px}
+#app .dl-build-edit-controls{display:flex;gap:12px;margin:16px 0}
+#app .dl-build-edit-controls button{flex:1;min-width:0;margin:0}
+#app .dl-build-check{margin-top:12px}
+#app .dl-unified-build-dock{position:fixed;bottom:0;left:0;right:0;z-index:9500;background:#112c38;border-top:1px solid #4d797e;padding:12px 20px calc(12px + env(safe-area-inset-bottom,0px));box-sizing:border-box;display:flex;gap:12px}
+#app .dl-unified-build-dock button{width:100%;min-height:54px;margin:0}
+body:has(.dl-unified-build-dock) #app{padding-bottom:110px!important}
+body:has(.dl-unified-build-dock) #dlReverseNextBar{bottom:76px}
