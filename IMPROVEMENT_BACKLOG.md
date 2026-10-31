@@ -26,3 +26,10 @@ This file tracks deferred changes discussed during development. It is a planning
 - Make changes directly on `main`, test what is possible, and record the actual commit SHA.
 - Move an item to **In progress** only when implementation starts, and **Completed** only after a successful commit; distinguish automated checks from user-confirmed browser testing.
 - Add new requests here when the user asks to defer them.
+
+## Additional items to review
+
+- **A2 and B1 expansion — Planned:** Expand lessons and varied exercises in the established teaching format; audit existing coverage first.
+- **Pronunciation discoverability — Review needed:** Check how learners access pronunciation and push-to-talk activities from Practice.
+- **Dialogue visuals — Verify status:** Check earlier request for compact dialogue panels and Fritzi artwork without a white background; inspect existing assets before changing.
+- **Mobile consistency — Audit needed:** Review anchored Back/Next controls, feedback visibility, sounds, haptics, and character placement across activities. Do not redo completed fixes.
