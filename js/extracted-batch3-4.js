@@ -126,7 +126,7 @@ function dlRenderSentenceFeedback(feedback,ok,correct,hint){
  if(!feedback)return;
  const image=ok?'feedback_correct_dog.png':'feedback_incorrect_cat.png';
  const detail=ok?'':`<p>Correct: ${safeText(correct)}</p>${hint?`<p class="dl-sentence-hint"><b>Why?</b> ${safeText(hint)}</p>`:''}`;
- feedback.innerHTML=`<div class="dl-sentence-result"><div class="dl-sentence-character"><img src="./${image}" alt=""><strong>${ok?'Well done!':'Not quite.'}</strong></div>${detail}</div>`;
+ feedback.innerHTML=`<div class="dl-sentence-result"><div class="dl-result-badge ${ok?'dl-result-good':'dl-result-bad'}"><img src="./${image}" alt=""><strong class="dl-result-label">${ok?'Well done!':'Not quite.'}</strong></div>${detail}</div>`;
  feedback.classList.add('dl-sentence-feedback-visible');
  feedback.classList.toggle('dl-feedback-correct',!!ok);
  feedback.classList.toggle('dl-feedback-incorrect',!ok);
