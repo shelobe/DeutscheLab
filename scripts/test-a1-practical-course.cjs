@@ -15,8 +15,8 @@ for(const m of fs.readFileSync(path.join(repo,'index.html'),'utf8').matchAll(/<s
  assert.doesNotThrow(()=>vm.runInContext(code,c,{filename:src||'inline',timeout:2000}),src||'inline script');
 }
 const data=plain(run('({groups:STRUCTURED_PATH,units:FULL_UNITS,packs:DL_LESSON_ENRICHMENT,progress:state.learning})'));
-assert.equal(data.groups.A1.length,22);const ids=data.groups.A1.flatMap(g=>g.ids);assert.equal(ids.length,101);assert.equal(new Set(ids).size,ids.length);assert.ok(data.groups.A1.every(g=>g.ids.length&&g.key&&g.goal));
-for(const id of before.groups.A1.flatMap(g=>g.ids))assert.ok(ids.includes(id),'Lost old lesson '+id);
+assert.equal(data.groups.A1.length,22);const ids=data.groups.A1.flatMap(g=>g.ids);assert.equal(ids.length,100);assert.equal(new Set(ids).size,ids.length);assert.ok(data.groups.A1.every(g=>g.ids.length&&g.key&&g.goal));
+for(const id of before.groups.A1.flatMap(g=>g.ids))assert.ok(ids.includes(id)||ids.includes(data.units[id].dlConsolidatedInto),'Lost old lesson '+id);
 for(const [i,u]of before.units.entries()){assert.equal(data.units[i].title,u.title);assert.equal(data.units[i].level,u.level)}
 assert.deepEqual(data.groups.A2,before.groups.A2);assert.deepEqual(data.groups.B1,before.groups.B1);
 assert.equal(data.progress.fullScores[85].passed,true);assert.equal(data.progress.a1LegacyReviews['a1-practical-2026-01']['A1-1'].passed,true);assert.equal(data.progress.moduleReviews['A2-0'].passed,true);
@@ -43,4 +43,17 @@ for(let trial=0;trial<40;trial++)for(const [n,g]of data.groups.A1.entries()){
 run('state.learning.moduleReviews={};state.learning.fullScores={85:{passed:true,best:6}};delete state.learning.a1Practical;curriculumView("A1")');
 assert.equal(run('state.learning.fullScores[85].best'),6);assert.equal(run('state.learning.moduleReviews["A1-1"]?.passed'),undefined);
 const migrated=JSON.stringify(plain(run('state.learning.a1Practical')));run('curriculumView("A1")');assert.equal(JSON.stringify(plain(run('state.learning.a1Practical'))),migrated);
-console.log('PASS: actual load order; 22 nonempty modules/101 unique lessons; '+questionCount+' lesson tasks; 880 review runs; full per-module/final-topic coverage; stable IDs, archived passes, retained lesson results/access; A2/B1 isolation; idempotent migration');
+console.log('PASS: actual load order; 22 nonempty modules/100 unique lessons; '+questionCount+' lesson tasks; 880 review runs; full per-module/final-topic coverage; stable IDs, archived passes, retained lesson results/access; A2/B1 isolation; idempotent migration');
+
+const greetingsId=data.units.findIndex(u=>u.level==='A1'&&u.title==='Greetings and goodbyes');
+const oldGreetingsId=data.units.findIndex(u=>u.level==='A1'&&u.title==='Greetings and introductions');
+const introId=data.units.findIndex(u=>u.level==='A1'&&u.title==='Introducing yourself: heißen and wohnen');
+assert.equal(data.groups.A1[1].ids.length,5);assert.equal(data.groups.A1[1].ids[0],greetingsId);assert.equal(data.groups.A1[1].ids[1],introId);assert.ok(!ids.includes(oldGreetingsId));
+const greetingPack=data.packs['A1|Greetings and goodbyes'],introPack=data.packs['A1|Introducing yourself: heißen and wohnen'];
+assert.ok(greetingPack.sections.some(s=>s[0]==='Being polite'));assert.ok(!greetingPack.sections.some(s=>s[0]==='Names'));assert.ok(!introPack.sections.some(s=>s[0]==='Choose a greeting'));
+run('state.learning.fullScores['+oldGreetingsId+']={passed:true,best:6};delete state.learning.fullScores['+greetingsId+'];state.learning.moduleReviews["A1-1"]={passed:true,best:15};state.learning.a1Practical.reviews.introductions={passed:true,best:15};curriculumView("A1")');
+assert.equal(run('state.learning.fullScores['+greetingsId+'].passed'),true);assert.equal(run('state.learning.fullScores['+oldGreetingsId+'].best'),6);assert.equal(run('state.learning.moduleReviews["A1-1"].passed'),true);assert.equal(run('state.learning.a1Practical.reviews.introductions.passed'),true);
+run('state.learning.fullScores['+greetingsId+']={passed:true,best:8};curriculumView("A1")');assert.equal(run('state.learning.fullScores['+greetingsId+'].best'),8);
+run('state.learning.moduleReviews["A1-0"]={passed:true}');
+for(let t=0;t<50;t++){run('curriculumReview("A1",1)');const qs=plain(run('moduleSession.questions'));assert.ok(qs.every(q=>q.unitId!==oldGreetingsId));assert.ok(qs.some(q=>q.unitId===greetingsId));assert.ok(qs.some(q=>q.unitId===introId));for(const topic of ['greeting','farewell','wellbeing','politeness','names','home','origins'])assert.ok(qs.some(q=>q.dlTopic===topic),'Review misses '+topic);}
+console.log('PASS: two focused lessons/five Module 2 lessons; broad lesson retired with stable ID; completed results and practical module passes preserved; 50 reviews exclude retired bank.');

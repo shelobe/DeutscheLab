@@ -135,72 +135,125 @@ window.DL_A1_PRACTICAL_PACKS = {
   "sections": [
    [
     "What you will be able to do",
-    "Choose a greeting or goodbye that fits the person and time."
+    "Greet someone, say goodbye, ask how they are and use please and thank you."
    ],
    [
-    "Time of day",
+    "Choose a greeting",
     [
-     "Guten Morgen — good morning: use it to greet someone in the morning.",
-     "Guten Tag — good day / hello: use it to greet someone during the day.",
-     "Guten Abend — good evening: use it to greet someone in the evening."
+     "Hallo — hello",
+     "Guten Morgen — good morning",
+     "Guten Tag — good day / hello",
+     "Guten Abend — good evening"
     ]
    ],
    [
-    "Tone",
+    "Say goodbye",
     [
-     "Hallo — hello: an informal greeting when you meet someone.",
-     "Tschüss — bye / goodbye: an informal farewell when you leave someone.",
-     "Auf Wiedersehen is a polite goodbye.",
-     "Danke means thank you; bitte can mean please or you are welcome."
+     "Tschüss — bye / goodbye (informal)",
+     "Auf Wiedersehen — goodbye (polite/formal)"
     ]
    ],
    [
-    "Useful examples",
+    "Ask how someone is",
     [
-     "Guten Abend, Frau Müller. — Good evening, Ms Müller.",
-     "Auf Wiedersehen! — Goodbye!",
-     "Danke! — Bitte! — Thank you! — You are welcome!"
+     "Wie geht es dir? — How are you?\nUse it with one person you address informally.",
+     "Danke, gut. — Fine, thanks.\nUse it to answer how you are."
+    ]
+   ],
+   [
+    "Being polite",
+    [
+     "Danke. — Thank you.\nUse it when someone helps you or gives you something.",
+     "Bitte. — You’re welcome.\nUse it as a reply when someone thanks you.",
+     "Bitte. — Please.\nUse it when making a request: Einen Kaffee, bitte. — A coffee, please."
     ]
    ]
   ],
   "examples": [
    [
-    "Guten Abend, Frau Müller.",
-    "Good evening, Ms Müller."
+    "Hallo",
+    "Hello"
    ],
    [
-    "Auf Wiedersehen!",
-    "Goodbye!"
+    "Guten Morgen",
+    "Good morning"
    ],
    [
-    "Danke! — Bitte!",
-    "Thank you! — You are welcome!"
+    "Guten Tag",
+    "Good day / hello"
+   ],
+   [
+    "Guten Abend",
+    "Good evening"
+   ],
+   [
+    "Tschüss",
+    "Bye / goodbye (informal)"
+   ],
+   [
+    "Auf Wiedersehen",
+    "Goodbye (polite/formal)"
+   ],
+   [
+    "Wie geht es dir?",
+    "How are you?"
+   ],
+   [
+    "Danke, gut.",
+    "Fine, thanks."
+   ],
+   [
+    "Danke.",
+    "Thank you."
+   ],
+   [
+    "Bitte.",
+    "Please / you’re welcome"
+   ],
+   [
+    "Einen Kaffee, bitte.",
+    "A coffee, please."
    ]
   ],
   "questions": [
    {
     "type": "grammar",
-    "prompt": "You arrive in the evening. What fits?",
+    "prompt": "It is morning. Greet your neighbor.",
     "options": [
-     "Guten Abend!",
      "Guten Morgen!",
-     "Auf Wiedersehen!"
+     "Guten Abend!",
+     "Tschüss!"
     ],
     "answer": 0,
-    "why": "Choose Guten Abend for evening.",
-    "dlSkill": "situation"
+    "why": "Guten Morgen is a greeting used in the morning.",
+    "dlSkill": "situation",
+    "dlTopic": "greeting"
    },
    {
     "type": "grammar",
-    "prompt": "You finish a formal appointment. What fits?",
+    "prompt": "You finish a formal appointment. Choose a goodbye.",
     "options": [
      "Auf Wiedersehen!",
      "Hallo!",
-     "Guten Morgen!"
+     "Guten Tag!"
     ],
     "answer": 0,
     "why": "Auf Wiedersehen is a polite goodbye.",
-    "dlSkill": "situation"
+    "dlSkill": "situation",
+    "dlTopic": "farewell"
+   },
+   {
+    "type": "grammar",
+    "prompt": "A friend asks “Wie geht es dir?” Choose a reply.",
+    "options": [
+     "Danke, gut.",
+     "Auf Wiedersehen.",
+     "Guten Morgen."
+    ],
+    "answer": 0,
+    "why": "Danke, gut means Fine, thanks and answers how you are.",
+    "dlSkill": "situation",
+    "dlTopic": "wellbeing"
    },
    {
     "type": "grammar",
@@ -208,11 +261,25 @@ window.DL_A1_PRACTICAL_PACKS = {
     "options": [
      "Bitte!",
      "Guten Abend!",
-     "Wie heißt du?"
+     "Tschüss!"
     ],
     "answer": 0,
-    "why": "Bitte can mean You are welcome.",
-    "dlSkill": "situation"
+    "why": "Bitte means You’re welcome when replying to thanks.",
+    "dlSkill": "situation",
+    "dlTopic": "politeness"
+   },
+   {
+    "type": "grammar",
+    "prompt": "You ask for a coffee politely. Complete: Einen Kaffee, ___.",
+    "options": [
+     "bitte",
+     "danke",
+     "hallo"
+    ],
+    "answer": 0,
+    "why": "Bitte means please in a request.",
+    "dlSkill": "use",
+    "dlTopic": "politeness"
    },
    {
     "type": "grammar",
@@ -225,7 +292,36 @@ window.DL_A1_PRACTICAL_PACKS = {
     "answer": 0,
     "why": "Danke means thank you.",
     "dlSkill": "write",
-    "dlWriteAnswer": "Danke"
+    "dlWriteAnswer": "Danke",
+    "dlTopic": "politeness"
+   },
+   {
+    "type": "grammar",
+    "prompt": "You leave a friend. Write the informal goodbye.",
+    "options": [
+     "Tschüss",
+     "Hallo",
+     "Danke"
+    ],
+    "answer": 0,
+    "why": "Tschüss is an informal goodbye.",
+    "dlSkill": "write",
+    "dlWriteAnswer": "Tschüss",
+    "dlTopic": "farewell"
+   },
+   {
+    "type": "grammar",
+    "prompt": "Listen and choose the phrase you hear.",
+    "options": [
+     "Guten Abend",
+     "Guten Morgen",
+     "Guten Tag"
+    ],
+    "answer": 0,
+    "why": "Guten Abend means good evening.",
+    "dlSkill": "listen",
+    "dlReviewAudio": "Guten Abend",
+    "dlTopic": "greeting"
    }
   ]
  },
@@ -233,48 +329,110 @@ window.DL_A1_PRACTICAL_PACKS = {
   "sections": [
    [
     "What you will be able to do",
-    "Say your name and where you live, and ask someone the same."
+    "Give and ask for names, say where you live and where you are from, and choose informal or polite questions."
    ],
    [
     "Names",
     [
-     "Ich heiße … — My name is …",
-     "Du heißt … — Your name is …",
-     "Wie heißt du? — What is your name?",
-     "Wie heißen Sie? — What is your name? (polite)"
+     "Ich heiße … — My name is …\nUse it to introduce yourself: Ich heiße Lea.",
+     "Wie heißt du? — What is your name?\nUse it with one person you address informally.",
+     "Wie heißen Sie? — What is your name?\nUse it politely with a stranger or customer."
     ]
    ],
    [
     "Home",
     [
-     "Ich wohne in Berlin. — I live in Berlin.",
-     "Wo wohnst du? — Where do you live?",
-     "Wo wohnen Sie? — Where do you live? (polite)"
+     "Ich wohne in Berlin. — I live in Berlin.\nUse wohnen in to say where you live now.",
+     "Wo wohnst du? — Where do you live?\nUse it with one person you address informally.",
+     "Wo wohnen Sie? — Where do you live?\nUse it when addressing someone politely."
     ]
    ],
    [
-    "A useful difference",
-    "Wohnen describes where you live now. Kommen aus describes your origin: Ich komme aus Kanada, aber ich wohne in Berlin. Aber means but."
-   ],
-   [
-    "Useful examples",
+    "Origins",
     [
-     "Ich heiße Lea und wohne in Berlin. — My name is Lea and I live in Berlin.",
-     "Wo wohnen Sie? — Where do you live? (polite)"
+     "Ich komme aus Kanada. — I come from Canada.\nUse kommen aus to say where you are from.",
+     "Woher kommst du? — Where are you from?\nUse it with one person you address informally.",
+     "Woher kommen Sie? — Where are you from?\nUse it when addressing someone politely."
     ]
+   ],
+   [
+    "Where you live versus where you are from",
+    "Ich komme aus Kanada, aber ich wohne in Berlin. — I come from Canada, but I live in Berlin.\n\nYour origin and your current home can be different. Aber means but."
+   ],
+   [
+    "Coming up",
+    "For now, learn these as complete phrases. In a later lesson, you’ll learn how verbs change depending on who is speaking or acting—for example, ich heiße and du heißt."
    ]
   ],
   "examples": [
    [
-    "Ich heiße Lea und wohne in Berlin.",
-    "My name is Lea and I live in Berlin."
+    "Ich heiße Lea.",
+    "My name is Lea."
+   ],
+   [
+    "Wie heißt du?",
+    "What is your name? (informal)"
+   ],
+   [
+    "Wie heißen Sie?",
+    "What is your name? (polite)"
+   ],
+   [
+    "Ich wohne in Berlin.",
+    "I live in Berlin."
+   ],
+   [
+    "Wo wohnst du?",
+    "Where do you live? (informal)"
    ],
    [
     "Wo wohnen Sie?",
     "Where do you live? (polite)"
+   ],
+   [
+    "Ich komme aus Kanada.",
+    "I come from Canada."
+   ],
+   [
+    "Woher kommst du?",
+    "Where are you from? (informal)"
+   ],
+   [
+    "Woher kommen Sie?",
+    "Where are you from? (polite)"
+   ],
+   [
+    "Ich komme aus Kanada, aber ich wohne in Berlin.",
+    "I come from Canada, but I live in Berlin."
    ]
   ],
   "questions": [
+   {
+    "type": "grammar",
+    "prompt": "A friend asks “Wie heißt du?” Choose your reply.",
+    "options": [
+     "Ich heiße Lea.",
+     "Ich wohne in Berlin.",
+     "Ich komme aus Kanada."
+    ],
+    "answer": 0,
+    "why": "Ich heiße Lea gives your name.",
+    "dlSkill": "situation",
+    "dlTopic": "names"
+   },
+   {
+    "type": "grammar",
+    "prompt": "Ask a stranger their name politely.",
+    "options": [
+     "Wie heißen Sie?",
+     "Wie heißt du?",
+     "Wo wohnen Sie?"
+    ],
+    "answer": 0,
+    "why": "Use Wie heißen Sie? to ask a name politely.",
+    "dlSkill": "situation",
+    "dlTopic": "names"
+   },
    {
     "type": "grammar",
     "prompt": "A form asks where you live now. Which sentence supplies that information?",
@@ -284,45 +442,77 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Ich komme aus Kanada."
     ],
     "answer": 0,
-    "why": "Wohnen gives your current home.",
-    "dlSkill": "situation"
+    "why": "Wohnen describes your current home.",
+    "dlSkill": "situation",
+    "dlTopic": "home"
    },
    {
     "type": "grammar",
-    "prompt": "Ask a stranger their name politely.",
+    "prompt": "Ask a friend where they are from.",
     "options": [
-     "Wie heißen Sie?",
-     "Wie heißt du?",
-     "Wo wohnst du?"
+     "Woher kommst du?",
+     "Wo wohnst du?",
+     "Wie heißt du?"
     ],
     "answer": 0,
-    "why": "Use Sie when addressing someone politely.",
-    "dlSkill": "situation"
+    "why": "Woher kommst du? asks about origin; Wo wohnst du? asks about current home.",
+    "dlSkill": "situation",
+    "dlTopic": "origins"
    },
    {
     "type": "grammar",
-    "prompt": "Complete: Ich wohne ___ Berlin.",
+    "prompt": "Ask a stranger where they live politely.",
     "options": [
-     "in",
+     "Wo wohnen Sie?",
+     "Wo wohnst du?",
+     "Woher kommen Sie?"
+    ],
+    "answer": 0,
+    "why": "Wo wohnen Sie? asks where someone lives using polite Sie.",
+    "dlSkill": "situation",
+    "dlTopic": "home"
+   },
+   {
+    "type": "grammar",
+    "prompt": "Write the missing word: Ich ___ Lea. (My name is Lea.)",
+    "options": [
+     "heiße",
+     "wohne",
+     "komme"
+    ],
+    "answer": 0,
+    "why": "Ich heiße is the phrase for introducing your name.",
+    "dlSkill": "write",
+    "dlWriteAnswer": "heiße",
+    "dlTopic": "names"
+   },
+   {
+    "type": "grammar",
+    "prompt": "Write the missing word: Ich komme ___ Kanada.",
+    "options": [
      "aus",
+     "in",
      "wie"
     ],
     "answer": 0,
-    "why": "Use in with the city where you live.",
-    "dlSkill": "use"
+    "why": "Ich komme aus gives your origin.",
+    "dlSkill": "write",
+    "dlWriteAnswer": "aus",
+    "dlTopic": "origins"
    },
    {
     "type": "grammar",
-    "prompt": "Write the missing word: Wo ___ du? (Where do you live?)",
+    "prompt": "Listen and choose the meaning of the sentence.",
     "options": [
-     "wohnst",
-     "wohne",
-     "wohnen"
+     "I come from Canada, but I live in Berlin.",
+     "I live in Canada, but I come from Berlin.",
+     "My name is Lea and I live in Berlin."
     ],
     "answer": 0,
-    "why": "The phrase is Wo wohnst du?",
-    "dlSkill": "write",
-    "dlWriteAnswer": "wohnst"
+    "why": "Komme aus gives origin; wohne in gives current home. Aber means but.",
+    "dlSkill": "listen",
+    "dlReviewAudio": "Ich komme aus Kanada, aber ich wohne in Berlin.",
+    "dlTopic": "origins"
    }
   ]
  },

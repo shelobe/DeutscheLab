@@ -17,7 +17,6 @@
   "title": "Hello, names and personal information",
   "goal": "Greet someone, introduce yourself and give basic personal details.",
   "lessons": [
-   "Greetings and introductions",
    "Greetings and goodbyes",
    "Introducing yourself: heißen and wohnen",
    "Countries, nationalities and languages",
@@ -272,7 +271,9 @@
  const groups=definitions.map(g=>({key:g.key,title:g.title,goal:g.goal,context:g.goal,ids:g.lessons.map(find)}));
  const linked=groups.flatMap(g=>g.ids);
  if(linked.some(i=>i<0)||new Set(linked).size!==linked.length)throw Error('Invalid A1 lesson mapping');
- for(const i of legacy.flatMap(g=>g.ids))if(!linked.includes(i))throw Error('Existing A1 lesson lost: '+FULL_UNITS[i]?.title);
+ const consolidatedGreeting=find('Greetings and introductions'),greeting=find('Greetings and goodbyes');
+ if(consolidatedGreeting>=0)FULL_UNITS[consolidatedGreeting].dlConsolidatedInto=greeting;
+ for(const i of legacy.flatMap(g=>g.ids))if(!linked.includes(i)&&i!==consolidatedGreeting)throw Error('Existing A1 lesson lost: '+FULL_UNITS[i]?.title);
  for(const unitId of linked){
   const u=FULL_UNITS[unitId];
   if(u.title==='Basic word order'&&!packs['A1|'+u.title])packs['A1|'+u.title]={sections:[['Build a statement',u.rule]],examples:u.examples,questions:[]};
@@ -289,7 +290,14 @@
  const signature=g=>[...g.ids].sort((a,b)=>a-b).join(',');
  function migrate(){
   ensureLearning();const learning=state.learning;
-  if(learning.a1Practical?.version===version)return;
+  // Retain a completed broad introduction when its content becomes the greeting lesson.
+  // Keep both original score records and never overwrite a completed destination.
+  const source=learning.fullScores?.[consolidatedGreeting],target=learning.fullScores?.[greeting];
+  let consolidated=false;
+  if(source?.passed&&!target?.passed&&greeting>=0){
+   learning.fullScores[greeting]={...source,...target,best:Math.max(source.best||0,target?.best||0),passed:true,consolidatedFrom:consolidatedGreeting};consolidated=true;
+  }
+  if(learning.a1Practical?.version===version){if(consolidated&&typeof save==='function')save();return;}
   const oldReviews=learning.moduleReviews||{},oldAccess=new Set();let open=true;
   for(let n=0;n<legacy.length;n++){
    if(open)legacy[n].ids.forEach(i=>oldAccess.add(i));
@@ -340,6 +348,11 @@
    // One task from each earlier practical topic: this is deliberately cumulative.
    pools=groups.slice(0,-1).map(topic=>shuffle(topic.ids.flatMap(pool)));
   }else pools=g.ids.map(pool);
+  if(g.key==='introductions'){
+   // Cover each communication goal, rather than drawing three near-identical tasks.
+   const [greetings,introductions,...otherLessons]=pools;
+   pools=[...['greeting','farewell','wellbeing','politeness'].map(topic=>greetings.filter(q=>q.dlTopic===topic)),...['names','home','origins'].map(topic=>introductions.filter(q=>q.dlTopic===topic)),...otherLessons];
+  }
   if(pools.some(a=>!a.length))throw Error('A1 review has an empty lesson pool');
   const available=pools.flat();
   // A normal review is at most 15; the final has one task per earlier topic.

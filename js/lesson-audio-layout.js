@@ -8,8 +8,16 @@
    ['Ask how someone is',[['Wie geht es dir?','How are you?'],['Danke, gut.','Fine, thanks.']]]
   ],
   'Greetings and goodbyes':[
-   ['Time of day',[['Guten Morgen','Good morning'],['Guten Tag','Good day / hello'],['Guten Abend','Good evening']]],
-   ['Tone',[['Hallo','Hello'],['Tschüss','Bye / goodbye (informal)'],['Auf Wiedersehen','Goodbye (polite/formal)'],['Danke','Thank you'],['Bitte','Please / you are welcome']]]
+   ['Choose a greeting',[['Hallo','Hello'],['Guten Morgen','Good morning'],['Guten Tag','Good day / hello'],['Guten Abend','Good evening']]],
+   ['Say goodbye',[['Tschüss','Bye / goodbye (informal)'],['Auf Wiedersehen','Goodbye (polite/formal)']]],
+   ['Ask how someone is',[['Wie geht es dir?','How are you?'],['Danke, gut.','Fine, thanks.']]],
+   ['Being polite',[['Danke.','Thank you.'],['Bitte.','Please / you’re welcome'],['Einen Kaffee, bitte.','A coffee, please.']]]
+  ],
+  'Introducing yourself: heißen and wohnen':[
+   ['Names',[['Ich heiße Lea.','My name is Lea.'],['Wie heißt du?','What is your name? (informal)'],['Wie heißen Sie?','What is your name? (polite)']]],
+   ['Home',[['Ich wohne in Berlin.','I live in Berlin.'],['Wo wohnst du?','Where do you live? (informal)'],['Wo wohnen Sie?','Where do you live? (polite)']]],
+   ['Origins',[['Ich komme aus Kanada.','I come from Canada.'],['Woher kommst du?','Where are you from? (informal)'],['Woher kommen Sie?','Where are you from? (polite)']]],
+   ['Where you live versus where you are from',[['Ich komme aus Kanada, aber ich wohne in Berlin.','I come from Canada, but I live in Berlin.']]]
   ]
  };
  function audioRow(de,en){
@@ -55,8 +63,9 @@
    put(section,row,de);
   }
   // This card is a phrase list, so the playable rows replace its plain list.
-  if(u.level==='A1'&&u.title==='Greetings and introductions'){
-   const section=sections.find(s=>s.querySelector('h3')?.textContent==='Choose a greeting');
+  const phraseOnly=u.level==='A1'&&(u.title==='Greetings and introductions'?['Choose a greeting']:u.title==='Greetings and goodbyes'?['Choose a greeting','Say goodbye']:[]);
+  for(const title of phraseOnly||[]){
+   const section=sections.find(s=>s.querySelector('h3')?.textContent===title);
    const list=insertions.get(section);
    if(list){
     [...section.children].filter(child=>child.tagName!=='H3').forEach(child=>child.remove());
