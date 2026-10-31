@@ -1,6 +1,22 @@
 
 /* Unified Build a Sentence entry and corrected listening completion navigation. */
 (function(){
+
+ const sharedStyle=document.createElement('style');
+ sharedStyle.textContent=`
+ .dl-build-shared-layout.dl-german-english-layout{background:#172c3b!important;color:#edf4f5!important;border-radius:24px!important}
+ .dl-build-shared-layout.dl-german-english-layout .dl-build-instruction{font-size:1.08rem!important;color:#e0e9eb!important;margin:16px 0 12px!important}
+ .dl-build-shared-layout.dl-german-english-layout .dl-build-prompt{display:block!important;background:#203f4b!important;color:#fff!important;border:3px solid #70c9c0!important;border-radius:22px!important;padding:25px 22px!important;font-size:1.45rem!important;line-height:1.4!important;margin:12px 0 20px!important}
+ .dl-build-shared-layout.dl-german-english-layout #gameBuilt{display:block!important;background:#152e3b!important;color:#edf5f5!important;border:3px dashed #8bc8c4!important;border-radius:22px!important;min-height:104px!important;padding:20px 22px!important;font-size:1.2rem!important;box-sizing:border-box!important;margin:0 0 20px!important}
+ .dl-build-shared-layout.dl-german-english-layout #gameBank{background:#17353e!important;border:1px solid #547f83!important;border-radius:22px!important;padding:22px 16px!important;display:flex!important;flex-wrap:wrap!important;gap:12px!important;margin:0 0 20px!important}
+ .dl-build-shared-layout.dl-german-english-layout #gameBank button{background:#395771!important;color:#fff!important;border:1px solid #65849b!important;border-radius:18px!important;box-shadow:none!important;min-height:62px!important;padding:14px 18px!important;font-size:1rem!important}
+ .dl-build-shared-layout.dl-german-english-layout #gameBank button:disabled{opacity:.38!important}
+ .dl-build-shared-layout.dl-german-english-layout .dl-shared-bank-title{display:none!important}
+ .dl-build-shared-layout.dl-german-english-layout .dl-build-edit-controls{display:flex!important;gap:12px!important;flex-wrap:wrap!important;margin:14px 0!important}
+ .dl-build-shared-layout.dl-german-english-layout .dl-build-edit-controls button{flex:1!important;min-width:125px!important;background:#344a65!important;color:#fff!important;border-radius:15px!important;padding:15px 10px!important}
+ .dl-build-shared-layout.dl-german-english-layout .dl-build-help{background:#344a65!important;color:#fff!important;border-radius:15px!important;margin-top:10px!important}
+ `;
+ document.head.appendChild(sharedStyle);
  const previousPracticeHub=practiceHub;
  function unifyBuildCards(){
   const buttons=[...app.querySelectorAll('button')];
@@ -66,6 +82,15 @@
    const label=bank.previousElementSibling?.classList.contains('dl-shared-bank-title')?bank.previousElementSibling:null;
    answer.after(label||bank);
    if(label)label.after(bank);
+  }
+  if(isGerman){
+   const label=card.querySelector('.dl-shared-bank-title');
+   if(label&&bank)bank.before(label);
+   const help=card.querySelector('button[onclick="dlSentenceHelpToggle()"]');
+   if(help)help.classList.add('dl-build-help');
+  }else{
+   /* Remove the redundant label that appears below the English word tiles. */
+   card.querySelectorAll('.dl-shared-bank-title').forEach(label=>label.remove());
   }
   const check=card.querySelector(isGerman?'button[onclick="gameCheckBuild()"]':'button[onclick="gameCheckReverse()"],button[onclick="reverseCheck()"]');
   const dock=document.createElement('div');dock.className='dl-unified-build-dock';
