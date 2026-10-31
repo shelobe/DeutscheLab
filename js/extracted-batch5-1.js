@@ -54,7 +54,7 @@
     const distractors=u.examples.filter(x=>Array.isArray(x)&&x[1]!==ex[1]).map(x=>x[1]).slice(0,2);
     if(distractors.length<2)continue;
     const opts=shuffle([ex[1],...distractors]);
-    stretch.push({type:'transfer',prompt:'New vocabulary challenge: What does “'+ex[0]+'” mean?',options:opts,answer:opts.indexOf(ex[1]),why:'New word: “'+ex[0]+'” means “'+ex[1]+'”. You can apply the recognition skills you just practiced to unfamiliar German.',unitId:id,dlStretch:true});
+    stretch.push({type:'transfer',prompt:'What does “'+ex[0]+'” mean?',options:opts,answer:opts.indexOf(ex[1]),why:'New word: “'+ex[0]+'” means “'+ex[1]+'”. You can apply the recognition skills you just practiced to unfamiliar German.',unitId:id,dlStretch:true});
    }
   }
   if(stretch.length)questions.push(stretch[0]);
@@ -78,12 +78,6 @@
   if(s.idx<s.questions.length){
    oldRender();
    const q=s.questions[s.idx];
-   if(q.dlStretch){
-    const title=app.querySelector('.curriculum-pill');if(title)title.textContent='BONUS · Apply what you learned to a new word';
-    const prompt=app.querySelector('.card h2');if(prompt)prompt.textContent=q.prompt.replace(/^New vocabulary challenge: /,'');
-    const note=document.createElement('p');note.className='muted';note.textContent='This introduces unfamiliar vocabulary using skills you already practiced. It does not affect your pass score.';
-    prompt?.after(note);
-   }
    return;
   }
   const g=STRUCTURED_PATH[s.level]?.[s.n],total=s.dlCoreCount,correct=s.dlCoreScore;
@@ -101,7 +95,7 @@
    <div class="dl-review-summary"><h3>What you practiced</h3><p>${esc(g?.goal||'The key skills from this module.')}</p><p>${esc(g?.context||'')}</p>
    ${examples.length?'<h4>Key examples</h4><ul>'+examples.map(x=>'<li><strong>'+esc(x[0])+'</strong> — '+esc(x[1])+'</li>').join('')+'</ul>':''}
    ${s.dlMissed.length?'<h4>Answers to revisit</h4><ul>'+s.dlMissed.slice(0,4).map(x=>'<li>'+esc(x.prompt)+' — <strong>'+esc(x.correct)+'</strong></li>').join('')+'</ul>':'<p>You answered all the core review questions correctly.</p>'}
-   <p class="muted">Bonus questions are just for practice. They don’t affect your score.</p></div>
+   </div>
    <button onclick="curriculumView('${s.level}')">Learning path</button><button class="secondary" onclick="curriculumReview('${s.level}',${s.n})">Practice again</button></section>`;
   moduleSession=null;window.scrollTo(0,0);
  };
