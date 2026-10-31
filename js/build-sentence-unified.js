@@ -132,7 +132,12 @@
   card.classList.toggle('dl-build-answered',answered);
   if(answered){
    /* Keep feedback directly below the completed answer; remove the spent bank. */
-   card.querySelectorAll('#gameBank,.reverse-wordbank,.dl-reverse-wordbank,.dl-shared-bank-title,.dl-build-edit-controls').forEach(el=>el.remove());
+   /* Hide the entire spent word-bank section and controls, regardless of legacy class names. */
+   const bank=card.querySelector('#gameBank,.reverse-wordbank,.dl-reverse-wordbank');
+   if(bank){const parent=bank.parentElement;bank.remove();if(parent&&parent!==card&&!parent.querySelector('button,input')&&parent.textContent.trim()==='')parent.remove();}
+   card.querySelectorAll('.dl-shared-bank-title,.dl-build-edit-controls').forEach(el=>el.remove());
+   card.querySelectorAll('button').forEach(button=>{if(/^(listen to german|start over|undo last word)$/i.test(button.textContent.trim().replace(/[↶↺]/g,'').trim()))button.remove();});
+   card.querySelectorAll('*').forEach(el=>{if(el.children.length===0&&/^word bank$/i.test(el.textContent.trim()))el.remove();});
    document.getElementById('dlReverseNextBar')?.remove();
    document.body.classList.remove('dl-reverse-answered');
    const feedback=card.querySelector('#gameFeedback');
