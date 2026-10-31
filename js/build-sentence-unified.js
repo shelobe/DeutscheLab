@@ -172,6 +172,12 @@
  const previousMark=gameMark;
  gameMark=function(ok,answer){
   const result=previousMark(ok,answer);
+  /* Original English renderer uses the game-feedback outer panel.
+     German must retain the same outer container, not only its badge. */
+  if(gameSession?.mode==='build'){
+   const feedback=document.getElementById('gameFeedback');
+   if(feedback)feedback.classList.add('game-feedback');
+  }
   if(gameSession?.mode==='build'&&gameSession.answered&&!ok){
    const feedback=document.getElementById('gameFeedback');
    const item=gameSession.pool[gameSession.seq[gameSession.idx]];
