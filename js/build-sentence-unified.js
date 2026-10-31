@@ -54,13 +54,6 @@
    const originalCheck=card.querySelector('button[onclick="gameCheckBuild()"]');
    if(originalCheck){originalCheck.textContent='Check translation';originalCheck.classList.add('dl-build-check');}
   }
-  const check=card.querySelector('button[onclick="gameCheckBuild()"]');if(check){check.textContent='Check translation';check.classList.add('dl-build-check');}
-   if(bank){
-    const controls=document.createElement('div');controls.className='dl-build-edit-controls';
-    controls.innerHTML='<button type="button" class="secondary" onclick="dlUnifiedUndo()">↶ Undo last word</button><button type="button" class="secondary" onclick="dlUnifiedReset()">↺ Start over</button>';
-    bank.after(controls);
-   }
-  }
   const check=card.querySelector(isGerman?'button[onclick="gameCheckBuild()"]':'button[onclick="gameCheckReverse()"],button[onclick="reverseCheck()"]');
   const dock=document.createElement('div');dock.className='dl-unified-build-dock';
   dock.innerHTML='<button type="button" class="secondary" onclick="dlBuildModeMenu()">Back</button><button type="button" class="dl-build-dock-check" onclick="dlUnifiedCheck()">Check</button>';
