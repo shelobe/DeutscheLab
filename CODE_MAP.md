@@ -33,8 +33,8 @@
 - The scoped `dlCheck` wrapper retains authored explanations, explicit corrections and supplied translations when legacy feedback cleanup would remove them. Existing scoring, sound, avatar, completion and navigation handlers still run.
 
 ## Pronunciation practice
-- `js/extracted-batch7-1.js` provides the introduction and 15 sound drills. Next/Finish requires a nonempty speech result for each sound; silence and mic startup do not count. Correct results retain automatic advancement; nonmatching results allow retry or Next.
-- Unsupported speech recognition or microphone/service errors expose an explicit continue-without-recognition action. Review resets attempts; completion requires all 15 sounds. Rendering cancels active recognition and removes detached pronunciation docks before creating the next one.
+- `js/extracted-batch7-1.js` provides the introduction and 16 sound drills, including TSCH in Tschüss. Next/Finish requires a nonempty speech result for each sound; silence and mic startup do not count. Correct results retain automatic advancement; nonmatching results allow retry or Next.
+- Unsupported speech recognition or microphone/service errors expose an explicit continue-without-recognition action. Review resets attempts; completion requires all 16 sounds. Rendering cancels active recognition and removes detached pronunciation docks before creating the next one.
 
 ## Legacy Module 2 review
 - `js/extracted-batch5-8.js`: `personalPronounReview` supplies 18 questions, six for each current Module 2 lesson. Every run covers ich/du/formal Sie, conversation requests and understanding, and er/sie/es plus she/they distinctions. Question and option order shuffle without dropping topics. Other modules retain their existing selection and all reviews keep native scoring, feedback and mastery handling.
@@ -62,3 +62,5 @@
 - Progress migration preserves lesson IDs and `fullScores`, archives the old A1 module-review records, and retains review passes only for identical lesson membership. Previously available lessons retain access through stable module keys; the mastery gate in `extracted-batch7-7.js` honors that access. Revised review passes are also stored by stable module key. A2/B1 records are untouched; migration is idempotent and runs after later legacy/cloud progress loads as needed.
 - Reference for prerequisite checks: Deutsche Welle, Nicos Weg A1 grammar overview, https://static.dw.com/downloads/52718691/grammar-overview-nicos-weg-a1.pdf. This informs progression; teaching/examples are authored for DeutschLab.
 - `scripts/test-a1-practical-course.cjs` executes real script order with inert DOM/storage doubles and validates 880 randomized review runs, complete lesson/topic coverage, ID preservation and migration. `test-a1-verb-sequence.cjs` checks semantic guides, real written lesson handlers and audio. `test-module-one-review.cjs` covers the shared review dock, correct/incorrect answers, matching, cleanup and written review input. None launches a browser.
+
+- TSCH is taught separately in the pronunciation introduction with playback, practiced in its own Tschüss drill, and assessed in every 15-task Module 1 review with a neutral listening prompt. W remains assessed in matching.

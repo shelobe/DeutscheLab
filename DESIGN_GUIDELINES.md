@@ -78,3 +78,5 @@ This document records established product decisions. The current `main` branch i
 - Teach vocabulary before its sentence-pattern and situation tasks. Provide examples and translations for every assessed expression, and list subject/verb forms separately. Introduce regular verbs before systematic vowel changes; teach noun articles before case changes.
 - Ordinary module reviews cover every lesson using only its own taught banks, up to 15 questions. The cumulative final reviews earlier topics deliberately. Mix meaning, practical situations, reading, short written recall and suitable listening; avoid technical terminology quizzes and answer-revealing hints.
 - Course reorganization retains lesson scores and prior access but must not turn an unrelated old module pass into a new pass. Archive legacy review records, migrate stable membership matches and test fresh/returning progress.
+
+- When adding lesson content, update its practice and module review to assess the new skill, and keep introductions/counts consistent. Preserve the agreed review length by replacing redundant coverage when appropriate.

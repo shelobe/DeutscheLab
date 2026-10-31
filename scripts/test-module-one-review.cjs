@@ -44,6 +44,7 @@ function open(mode){context.curriculumReview('A1',0);const s=context.moduleSessi
 function answerType(text){button('Listen to the word').click();const input=app.querySelector('input');input.value=text;input.oninput();button('Check answer').click()}
 for(let run=0;run<100;run++){
  context.curriculumReview('A1',0);const qs=context.moduleSession.questions,counts={};qs.forEach(q=>{counts[q.dlReviewMode]=(counts[q.dlReviewMode]||0)+1;assert.ok(q.prompt);assert.ok(q.why);assert.ok(q.options[q.answer])});
+ assert.ok(qs.some(q=>q.dlReviewAudio==='Tschüss'),'Every review practices the taught TSCH sound');
  assert.equal(qs.length,15);assert.equal(counts.choice,6);for(const n of ['type','compare','match'])assert.equal(counts[n],3);assert.equal(counts.speak,undefined);
  assert.ok(qs.some(q=>q.dlReviewMode==='type'&&q.options[0]==='Wein'));assert.ok(qs.some(q=>q.dlReviewMode==='type'&&q.options[0]==='Liebe'));
  for(let i=0;i<15;i+=5){assert.equal(new Set(qs.slice(i,i+5).map(q=>q.dlReviewMode)).size,4);assert.equal(qs.slice(i,i+5).filter(q=>q.dlReviewMode==='choice').length,2)}
@@ -66,7 +67,7 @@ assert.equal(app.querySelector('.dl-review-controls'),null);assert.equal(dockBut
 q=open('match');const columns=app.querySelector('.dl-review-match-columns');assert.equal(columns.children.length,2);assert.equal(columns.children[0].children.length,3);assert.equal(columns.children[1].children.length,3);
 q.clipOrder.forEach((word,i)=>{button('Listen '+String.fromCharCode(65+i)).click();button(word).click()});refreshDock();assert.equal(dockButton.textContent,'Check matches');assert.equal(dockButton.disabled,false);dockButton.click();assert.equal(app.querySelector('.dl-review-match-columns'),null);assert.equal(dockButton.textContent,'Next question');
 // Every replacement is answerable and advances through the same native footer.
-for(const target of ['schön','auch','Tür']){
+for(const target of ['schön','auch','Tür','Tschüss']){
  context.curriculumReview('A1',0);const session=context.moduleSession;session.idx=session.questions.findIndex(q=>q.dlReviewAudio===target);context.curriculumReviewRender();
  assert.equal(buttons().some(b=>b.textContent==='Speak now'),false);
  button(target).click();assert.equal(session.score,1);refreshDock();assert.equal(dockButton.textContent,'Next question');dockButton.click();assert.equal(session.answered,false);

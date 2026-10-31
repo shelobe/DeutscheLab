@@ -9,7 +9,7 @@
   const prompts={type:'Listen, then type the word you hear.',speak:'Read the word aloud.',compare:'Do you hear the same word or different words?',match:'Match each sound to its written word.'};
   const make=(mode,word,why,extra={})=>({type:'grammar',unitId:id,prompt:prompts[mode]||'Listen and choose the word you hear.',options:[word,'Try again'],answer:0,why,dlReviewMode:mode,...extra});
   const choice=(word,others,why)=>make('choice',word,why,{prompt:'Listen and choose the word you hear.',dlReviewAudio:word,options:shuffle([word,...others])});
-  const choices=[choice('Wasser',['Vater','Jahr'],'Wasser begins with W, pronounced like English V.'),choice('zwei',['drei','frei'],'Zwei begins with the ts sound written z.'),choice('Schule',['Stuhl','Schale'],'Schule begins with sch, pronounced sh.')];
+  const choices=[choice('Tschüss',['Schule','Straße'],'Tschüss means bye. Its initial tsch is one sound, like ch in English chair; sch in Schule starts with sh.'),choice('zwei',['drei','frei'],'Zwei begins with the ts sound written z.'),choice('Schule',['Stuhl','Schale'],'Schule begins with sch, pronounced sh.')];
   choices.forEach(q=>q.answer=q.options.indexOf(q.dlReviewAudio));
   const typing=[make('type','Wein','EI makes the eye sound in Wein.'),make('type','Liebe','IE makes the long ee sound in Liebe.'),make('type','Käse','The ä in Käse is a different vowel from a.',{unitId:umlaut})];
   const alternatives=[choice('schön',['schon','Schule'],'Schön begins with sch and contains ö.'),choice('auch',['auf','Auge'],'Auch contains the back ch sound after au.'),choice('Tür',['Tier','Tor'],'Tür contains ü, distinct from ie and o.')];
