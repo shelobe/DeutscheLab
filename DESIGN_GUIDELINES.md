@@ -80,3 +80,5 @@ This document records established product decisions. The current `main` branch i
 - Course reorganization retains lesson scores and prior access but must not turn an unrelated old module pass into a new pass. Archive legacy review records, migrate stable membership matches and test fresh/returning progress.
 
 - When adding lesson content, update its practice and module review to assess the new skill, and keep introductions/counts consistent. Preserve the agreed review length by replacing redundant coverage when appropriate.
+
+- Prioritize readable teaching over compactness: put distinct phrases, forms or instructional statements on separate bullets. Include a Remember card only when it provides a specific useful rule, contrast or memory aid; omit generic practice advice.

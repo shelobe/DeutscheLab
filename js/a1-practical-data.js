@@ -19,11 +19,19 @@ window.DL_A1_PRACTICAL_PACKS = {
    ],
    [
     "Names and origins",
-    "Ich heiße … means My name is … . Wie heißt du? asks a friend their name. Ich komme aus … means I come from … . Learn these as useful phrases; later lessons explain their grammar."
+    [
+     "Ich heiße … — My name is … . Use it to introduce yourself.",
+     "Wie heißt du? — What is your name? Use it with one friend or someone you address informally.",
+     "Ich komme aus … — I come from … . Use it to say where you are from.",
+     "Learn these as useful phrases; later lessons explain their grammar."
+    ]
    ],
    [
     "Ask how someone is",
-    "Wie geht es dir? means How are you? to one friend. Danke, gut means Fine, thanks."
+    [
+     "Wie geht es dir? — How are you? Use it with one person you address informally.",
+     "Danke, gut. — Fine, thanks. Use it to answer how you are."
+    ]
    ],
    [
     "Useful examples",
@@ -33,10 +41,6 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Ich komme aus Kanada. — I come from Canada.",
      "Wie geht es dir? — How are you?"
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -163,10 +167,6 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Auf Wiedersehen! — Goodbye!",
      "Danke! — Bitte! — Thank you! — You are welcome!"
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -268,10 +268,6 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Ich heiße Lea und wohne in Berlin. — My name is Lea and I live in Berlin.",
      "Wo wohnen Sie? — Where do you live? (polite)"
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -370,10 +366,6 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Ich spreche Englisch. — I speak English.",
      "Ich komme aus den USA. — I come from the USA."
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -465,10 +457,6 @@ window.DL_A1_PRACTICAL_PACKS = {
      "sie — they",
      "Sie — formal you"
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -574,10 +562,6 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Du bist hier. — You are here.",
      "Anna ist hier. — Anna is here."
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -703,10 +687,6 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Ich habe Hunger. — I am hungry.",
      "Wir haben Durst. — We are thirsty."
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -827,10 +807,6 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Das ist ein Buch. — That is a book.",
      "Die Lampe ist neu. — The lamp is new."
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -940,10 +916,6 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Die Tür ist offen. — The door is open.",
      "Der Stuhl ist neu. — The chair is new."
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -1046,10 +1018,6 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Zwei Kinder sind hier. — Two children are here.",
      "Die Bücher sind neu. — The books are new."
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -1145,10 +1113,6 @@ window.DL_A1_PRACTICAL_PACKS = {
     [
      "Die Tür ist offen. Sie ist groß. — The door is open. It is big."
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -1228,10 +1192,6 @@ window.DL_A1_PRACTICAL_PACKS = {
      "zwei Bücher — two books",
      "drei Euro — three euros"
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -1317,10 +1277,6 @@ window.DL_A1_PRACTICAL_PACKS = {
      "zwölf Euro — twelve euros",
      "siebzehn Jahre — seventeen years"
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -1407,10 +1363,6 @@ window.DL_A1_PRACTICAL_PACKS = {
      "zweiunddreißig — thirty-two",
      "vierundzwanzig Euro — twenty-four euros"
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -1503,10 +1455,6 @@ window.DL_A1_PRACTICAL_PACKS = {
     [
      "Ich bin einundzwanzig Jahre alt. — I am twenty-one years old."
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -1592,10 +1540,6 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Was ist das? — What is that?",
      "Wo wohnst du? — Where do you live?"
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -1689,10 +1633,6 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Warum lernst du Deutsch? — Why are you learning German?",
      "Wie geht es dir? — How are you?"
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -1786,10 +1726,6 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Woher kommst du? — Where are you from?",
      "Wohin gehst du? — Where are you going?"
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -1886,10 +1822,6 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Hast du Zeit? — Do you have time?",
      "Ja, ich habe Zeit. — Yes, I have time."
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -1986,10 +1918,6 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Nein, ich komme nicht. — No, I am not coming.",
      "Ich habe keine Zeit. — I have no time."
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -7238,10 +7166,6 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Meine Mutter ist hier. — My mother is here.",
      "Dein Buch ist neu. — Your book is new."
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -7338,10 +7262,6 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Anna und ihre Mutter sind hier. — Anna and her mother are here.",
      "Unser Haus ist groß. — Our house is big."
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -7440,10 +7360,6 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Meine Schwester ist älter. — My sister is older.",
      "Unsere Eltern sind zu Hause. — Our parents are at home."
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -7541,10 +7457,6 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Der Hund sieht den Mann. — The dog sees the man.",
      "Ich habe einen Hund. — I have a dog."
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -7669,10 +7581,6 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Anna kennt ihn. — Anna knows him.",
      "Wir hören euch. — We hear you all."
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -7785,10 +7693,6 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Ich möchte einen Kaffee, bitte. — I would like a coffee, please.",
      "Die Rechnung, bitte. — The bill, please."
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -7886,10 +7790,6 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Ein Kilo Äpfel, bitte. — One kilogram of apples, please.",
      "Das kostet drei Euro fünfzig. — That costs three euros fifty."
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -7987,10 +7887,6 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Die Jacke ist zu groß. — The jacket is too big.",
      "Haben Sie das in Größe M? — Do you have that in size M?"
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -8089,10 +7985,6 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Es ist halb neun. — It is half past eight.",
      "Wir kommen am Montag um acht Uhr. — We are coming on Monday at eight."
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -8202,10 +8094,6 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Der Termin ist am dritten Mai. — The appointment is on 3 May.",
      "Mein Geburtstag ist im Juni. — My birthday is in June."
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -8314,10 +8202,6 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Heute kaufe ich ein. — Today I am shopping.",
      "Rufst du Anna an? — Are you calling Anna?"
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -8426,10 +8310,6 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Wir müssen gehen. — We have to go.",
      "Darf ich hier sitzen? — May I sit here?"
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -8541,10 +8421,6 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Ich möchte einen Tee, bitte. — I would like a tea, please.",
      "Wir möchten bezahlen. — We would like to pay."
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -8651,10 +8527,6 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Ich fahre nach Berlin. — I am travelling to Berlin.",
      "Ich gehe zum Bahnhof. — I am going to the station."
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -8753,10 +8625,6 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Ich gehe zum Arzt. — I go to the doctor.",
      "Ich helfe der Frau. — I help the woman."
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -8861,10 +8729,6 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Können Sie mir helfen? — Can you help me?",
      "Wir helfen Ihnen. — We help you (formal)."
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -8967,10 +8831,6 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Ich brauche einen Termin. — I need an appointment.",
      "Haben Sie am Montag Zeit? — Do you have time on Monday?"
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -9186,10 +9046,6 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Wir hatten keine Zeit. — We had no time.",
      "Sie hat ein Buch gelesen. — She read a book."
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -9289,10 +9145,6 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Das ist meine Schwester. — That is my sister.",
      "Das sind meine Eltern. — Those are my parents."
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -9388,10 +9240,6 @@ window.DL_A1_PRACTICAL_PACKS = {
      "der Apfel — the apple",
      "die Milch — the milk"
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -9490,10 +9338,6 @@ window.DL_A1_PRACTICAL_PACKS = {
      "die Schule — the school",
      "das Krankenhaus — the hospital"
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -9587,10 +9431,6 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Gehen Sie nach links. — Go to the left.",
      "Gehen Sie nach rechts. — Go to the right."
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -9680,10 +9520,6 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Das Bett ist bequem. — The bed is comfortable.",
      "Es gibt zwei Zimmer. — There are two rooms."
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -9773,10 +9609,6 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Abends lese ich. — I read in the evenings.",
      "Ich gehe um zehn ins Bett. — I go to bed at ten."
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -9866,10 +9698,6 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Wir lernen jeden Abend. — We study every evening.",
      "Ich arbeite am Montag. — I work on Monday."
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -9959,10 +9787,6 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Ich höre gern Musik. — I like listening to music.",
      "Ich schwimme nicht gern. — I do not like swimming."
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -10052,10 +9876,6 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Das Haus ist groß. — The house is big.",
      "Die Wohnung ist klein. — The apartment is small."
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -10145,10 +9965,6 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Es ist warm. — It is warm.",
      "Im Winter ist es kalt. — It is cold in winter."
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -10238,10 +10054,6 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Ich arbeite im Büro. — I work in an office.",
      "Ich suche Arbeit. — I am looking for work."
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -10341,10 +10153,6 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Der Kurs ist am Dienstag. — The class is on Tuesday.",
      "Wir kommen am Freitag. — We are coming on Friday."
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -10439,10 +10247,6 @@ window.DL_A1_PRACTICAL_PACKS = {
     [
      "Leider habe ich keine Zeit. — Unfortunately I do not have time."
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -10535,10 +10339,6 @@ window.DL_A1_PRACTICAL_PACKS = {
     [
      "Mein Nachname ist Weber. — My surname is Weber."
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -10632,10 +10432,6 @@ window.DL_A1_PRACTICAL_PACKS = {
     [
      "Bitte warten! — Please wait!"
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -10714,10 +10510,6 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Hast du Zeit? — Do you have time?",
      "Wir lernen Deutsch. — We are learning German."
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -10807,10 +10599,6 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Sie hilft der Frau. — She helps the woman.",
      "Die Kinder sind hier. — The children are here."
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -10900,10 +10688,6 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Leider habe ich keine Zeit. — Unfortunately I do not have time.",
      "Der Zug fährt um zehn Uhr. — The train leaves at ten."
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -11015,10 +10799,6 @@ window.DL_A1_PRACTICAL_PACKS = {
     [
      "Können Sie das bitte wiederholen? — Could you please repeat that?"
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
@@ -11115,10 +10895,6 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Warten Sie bitte hier. — Please wait here.",
      "Man darf hier nicht rauchen. — Smoking is not allowed here."
     ]
-   ],
-   [
-    "Remember",
-    "Use the examples to understand the meaning, then practice applying the pattern in a new situation."
    ]
   ],
   "examples": [
