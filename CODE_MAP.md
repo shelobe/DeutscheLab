@@ -35,3 +35,6 @@
 ## Pronunciation practice
 - `js/extracted-batch7-1.js` provides the introduction and 15 sound drills. Next/Finish requires a nonempty speech result for each sound; silence and mic startup do not count. Correct results retain automatic advancement; nonmatching results allow retry or Next.
 - Unsupported speech recognition or microphone/service errors expose an explicit continue-without-recognition action. Review resets attempts; completion requires all 15 sounds. Rendering cancels active recognition and removes detached pronunciation docks before creating the next one.
+
+## Module 2 review
+- `js/extracted-batch5-8.js`: `personalPronounReview` supplies 18 questions, six for each current Module 2 lesson. Every run covers ich/du/formal Sie, conversation requests and understanding, and er/sie/es plus she/they distinctions. Question and option order shuffle without dropping topics. Other modules retain their existing selection and all reviews keep native scoring, feedback and mastery handling.
