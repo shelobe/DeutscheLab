@@ -20,7 +20,11 @@
  .dl-sentence-english-style #sentenceFeedback:empty{display:none!important}
  .dl-sentence-english-style .dl-sentence-completed{display:none!important}
  .dl-sentence-english-style #sentenceFeedback.dl-sentence-feedback-visible{display:block!important;background:#173b3b!important;border:2px solid #70c9c0!important;border-radius:20px!important;padding:18px!important;margin:14px 0!important;color:#e9f6f3!important}
- .dl-sentence-english-style #sentenceFeedback .dl-sentence-result{font-size:1.15rem!important}
+ .dl-sentence-english-style #sentenceFeedback .dl-sentence-result{font-size:1rem!important;line-height:1.45!important;padding:0!important;background:transparent!important;border:0!important}
+ .dl-sentence-english-style #sentenceFeedback .dl-sentence-result p{margin:8px 0!important}
+ .dl-sentence-english-style #sentenceFeedback .dl-sentence-hint{font-size:.95rem!important;line-height:1.4!important;font-weight:400!important}
+ .dl-sentence-english-style.dl-sentence-answered #sentenceFeedback .explain-box,
+ .dl-sentence-english-style.dl-sentence-answered #sentenceFeedback .sentence-explanation{display:none!important}
  .dl-sentence-english-style #sentenceFeedback .dl-sentence-result strong{display:block!important;font-size:1.35rem!important;color:#91e0ad!important;margin-bottom:8px!important}
  .dl-build-shared-layout.dl-german-english-layout{background:#172c3b!important;color:#edf4f5!important;border-radius:24px!important}
  .dl-build-shared-layout.dl-german-english-layout .dl-build-instruction{font-size:1.08rem!important;color:#e0e9eb!important;margin:16px 0 12px!important}
