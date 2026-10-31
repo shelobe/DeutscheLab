@@ -27,7 +27,7 @@ function sentencePractice(){
   if(sentenceRound.idx>=sentenceRound.seq.length){
    const score=sentenceRound.correct,total=sentenceRound.seq.length;
    sentenceRound=null;
-   app.innerHTML=illustratedHero('Round complete!',score+' of '+total+' correct.','forest','hund.png')+`<section class="card"><h2>${score}/${total} correct</h2><button onclick="startSentenceRound()">Try another round</button><button class="secondary" onclick="gameHub()">All practice games</button></section>`;
+   app.innerHTML=illustratedHero('Round complete!',score+' of '+total+' correct.','forest','hund.png')+`<section class="card"><h2>${score}/${total} correct</h2><button onclick="startSentenceRound()">Try another round</button><button class="secondary" onclick="practiceHub()">All practice games</button></section>`;
    window.scrollTo(0,0);return;
   }
   const item=GAME_ITEMS[sentenceRound.seq[sentenceRound.idx]];
@@ -44,7 +44,7 @@ function sentencePractice(){
  window.scrollTo(0,0);
 }
 function advanceSentenceRound(){if(sentenceRound)sentenceRound.idx++;sentencePractice()}
-function exitSentenceRound(){sentenceRound=null;gameHub()}
+function exitSentenceRound(){sentenceRound=null;practiceHub()}
 function updateSentenceBuilt(){
  const el=document.getElementById('sentenceBuilt');if(!el)return;
  el.innerHTML=sentenceChosen.length?sentenceChosen.map((w,n)=>'<button type="button" class="secondary" style="display:inline-block;margin:3px;padding:8px 12px" onclick="removeSentenceWord('+n+')" aria-label="Remove '+safeText(w)+'">'+safeText(w.replace(/[.!?]+$/,''))+' ×</button>').join(' '):'Tap words below…';

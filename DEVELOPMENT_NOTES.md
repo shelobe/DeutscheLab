@@ -103,3 +103,4 @@ These notes combine product decisions and reported issues from prior development
 - Replace individual selected-word X buttons with Undo Last Word and Start Over.
 - Preserve game mechanics and test both directions on Android.
 - Module reviews are functional but may need refinement.
+\n## Pending batch updates (2026-10-30)\n- Build a Sentence uses one Practice Hub tile and German/English mode selection with flags. Further control alignment remains to be verified on Android.\n- Supermarkt shopping missions draw random produce items available in the illustrated aisle.\n- Listening completion routes back to the main Practice Hub.\n- Checkout artwork path corrected earlier; stylesheet version bumped to refresh browser cache. Confirm image visually on device.\n

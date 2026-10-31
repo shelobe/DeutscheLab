@@ -7,7 +7,9 @@
  ['brot','das Brot','🍞',2.2,'bakery'],['croissant','das Croissant','🥐',1.7,'bakery'],['brezel','die Brezel','🥨',1.3,'bakery'],['kuchen','der Kuchen','🍰',3.2,'bakery'],['keks','der Keks','🍪',.9,'bakery'],['baguette','das Baguette','🥖',2.6,'bakery']
  ].map(([id,name,emoji,price,aisle])=>({id,name,emoji,price,aisle}));
  const aisles=[['produce','Obst & Gemüse','🥕'],['dairy','Milchprodukte','🥛'],['bakery','Bäckerei','🥨']];
- const missions=[['apfel','banane','tomate','karotte','orange'],['karotte','tomate','gurke','paprika','kartoffel'],['kartoffel','orange','salat','brokkoli','zwiebel'],['apfel','banane','blumenkohl','radieschen','karotte']];
+ const produceIds=['orange','ananas','gurke','paprika','salat','brokkoli','blumenkohl','radieschen','zwiebel','knoblauch','zitrone','wassermelone','apfel','banane','karotte','tomate','kartoffel','trauben'].filter(id=>catalog.some(p=>p.id===id));
+ const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+ const newMission=()=>shuffle([...produceIds]).slice(0,5);
  let state=null;
  const euro=n=>n.toFixed(2).replace('.',',')+' €';
  const byId=id=>catalog.find(p=>p.id===id);
@@ -60,7 +62,7 @@
  window.supermarktReset=function(){if(basketPeekTimer)clearTimeout(basketPeekTimer);basketPeekTimer=null;basketManuallyOpen=false;window.dlMarketBasketOpen=false;state=null;sessionStorage.removeItem('dl-supermarkt-session')};
  window.supermarktLeave=function(destination){dlAppConfirm({title:'Leave Grocery Shopping?',message:'Your current shopping progress will be reset.',cancelText:'Keep Shopping',confirmText:'Leave Game',danger:true,onConfirm:()=>{supermarktReset();if(typeof destination==='function')destination();else practiceHub()}});return false};
  window.supermarktHome=function(){
-  try{const saved=JSON.parse(sessionStorage.getItem('dl-supermarkt-session')||'null');if(saved&&Array.isArray(saved.list)&&Array.isArray(saved.cart)&&Number.isInteger(saved.aisle)&&saved.aisle>=0&&saved.aisle<3&&saved.list.every(id=>byId(id))&&saved.cart.every(id=>byId(id))){state=saved;const validProduce=new Set(['banane','apfel','orange','ananas','tomate','gurke','paprika','karotte','salat','brokkoli','blumenkohl','radieschen','kartoffel','zwiebel','knoblauch','zitrone','wassermelone']);if(state.list.some(id=>!validProduce.has(id))){state.list=missions[state.round%missions.length]||missions[0];state.cart=state.cart.filter(id=>state.list.includes(id));state.aisle=0;state.message='';state.wrong=false;save()}render();window.scrollTo(0,0);return}}catch(e){}
+  try{const saved=JSON.parse(sessionStorage.getItem('dl-supermarkt-session')||'null');if(saved&&Array.isArray(saved.list)&&Array.isArray(saved.cart)&&Number.isInteger(saved.aisle)&&saved.aisle>=0&&saved.aisle<3&&saved.list.every(id=>byId(id))&&saved.cart.every(id=>byId(id))){state=saved;const validProduce=new Set(['banane','apfel','orange','ananas','tomate','gurke','paprika','karotte','salat','brokkoli','blumenkohl','radieschen','kartoffel','zwiebel','knoblauch','zitrone','wassermelone']);if(state.list.some(id=>!validProduce.has(id))){state.list=newMission();state.cart=state.cart.filter(id=>state.list.includes(id));state.aisle=0;state.message='';state.wrong=false;save()}render();window.scrollTo(0,0);return}}catch(e){}
   const n=Number(sessionStorage.getItem('dl-market-round')||0)%missions.length;
   state={list:missions[n],cart:[],aisle:0,round:n,message:'',wrong:false};save();render();window.scrollTo(0,0);
  };
@@ -83,5 +85,5 @@
   if(correct){target.innerHTML='<p class="correct">Richtig! “Mit Karte, bitte.” means “By card, please.” Einkauf geschafft!</p>';const footer=document.getElementById('market-checkout-footer');if(footer)footer.innerHTML='<button class="secondary" onclick="supermarktLeave(practiceHub)">← Back to Games</button><button onclick="supermarktNextMission()">Next shopping list →</button>';const scene=document.querySelector('#app .market-checkout-scene');if(scene){scene.classList.remove('market-oskar-celebrate');void scene.offsetWidth;scene.classList.add('market-oskar-celebrate');const bubble=scene.querySelector('.market-checkout-dialogue');if(bubble)bubble.innerHTML='<strong>Oskar:</strong> „Wunderbar! Sehr gut gemacht!“';}if(typeof findItSound==='function')findItSound(true)}
   else{target.innerHTML='<p class="wrong">Not quite. Try the polite payment response.</p>';if(typeof dlWrongHaptic==='function')dlWrongHaptic()}
  };
- window.supermarktNextMission=function(){sessionStorage.setItem('dl-market-round',String((state.round+1)%missions.length));sessionStorage.removeItem('dl-supermarkt-session');state=null;supermarktHome()};
+ window.supermarktNextMission=function(){sessionStorage.setItem('dl-market-round',String(state.round+1));sessionStorage.removeItem('dl-supermarkt-session');state=null;supermarktHome()};
 })();
