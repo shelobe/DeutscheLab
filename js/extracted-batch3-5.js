@@ -63,8 +63,8 @@
  window.supermarktLeave=function(destination){dlAppConfirm({title:'Leave Grocery Shopping?',message:'Your current shopping progress will be reset.',cancelText:'Keep Shopping',confirmText:'Leave Game',danger:true,onConfirm:()=>{supermarktReset();if(typeof destination==='function')destination();else practiceHub()}});return false};
  window.supermarktHome=function(){
   try{const saved=JSON.parse(sessionStorage.getItem('dl-supermarkt-session')||'null');if(saved&&Array.isArray(saved.list)&&Array.isArray(saved.cart)&&Number.isInteger(saved.aisle)&&saved.aisle>=0&&saved.aisle<3&&saved.list.every(id=>byId(id))&&saved.cart.every(id=>byId(id))){state=saved;const validProduce=new Set(['banane','apfel','orange','ananas','tomate','gurke','paprika','karotte','salat','brokkoli','blumenkohl','radieschen','kartoffel','zwiebel','knoblauch','zitrone','wassermelone']);if(state.list.some(id=>!validProduce.has(id))){state.list=newMission();state.cart=state.cart.filter(id=>state.list.includes(id));state.aisle=0;state.message='';state.wrong=false;save()}render();window.scrollTo(0,0);return}}catch(e){}
-  const n=Number(sessionStorage.getItem('dl-market-round')||0)%missions.length;
-  state={list:missions[n],cart:[],aisle:0,round:n,message:'',wrong:false};save();render();window.scrollTo(0,0);
+  const n=Number(sessionStorage.getItem('dl-market-round')||0);
+  state={list:newMission(),cart:[],aisle:0,round:n,message:'',wrong:false};save();render();window.scrollTo(0,0);
  };
  let touchX=null;window.supermarktTouchStart=function(e){touchX=e.changedTouches[0].clientX};window.supermarktTouchEnd=function(e){if(touchX===null)return;const delta=e.changedTouches[0].clientX-touchX;touchX=null;if(Math.abs(delta)>65)supermarktAisle(Math.max(0,Math.min(2,state.aisle+(delta<0?1:-1))))};
  window.supermarktAisle=function(n){if(!state)return;state.aisle=n;save();render()};
