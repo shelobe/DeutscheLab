@@ -1290,3 +1290,9 @@ html body .app-header .menu-toggle,html body.dl-compact-header .app-header .menu
 #app .dl-unified-build-dock button{width:100%;min-height:54px;margin:0}
 body:has(.dl-unified-build-dock) #app{padding-bottom:110px!important}
 body:has(.dl-unified-build-dock) #dlReverseNextBar{bottom:76px}
+
+/* Sentence-building actions always remain visible at the bottom. */
+#app .dl-unified-build-dock{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:12px}
+#app .dl-unified-build-dock .dl-build-dock-check{background:#68cbbc;color:#102b32;border:0;font-weight:700}
+#app .dl-build-check-original{display:none!important}
+body:has(.dl-unified-build-dock) #app{padding-bottom:125px!important}

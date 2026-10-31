@@ -42,9 +42,17 @@
     bank.after(controls);
    }
   }
+  const check=card.querySelector(isGerman?'button[onclick="gameCheckBuild()"]':'button[onclick="gameCheckReverse()"],button[onclick="reverseCheck()"]');
   const dock=document.createElement('div');dock.className='dl-unified-build-dock';
-  dock.innerHTML='<button type="button" class="secondary" onclick="dlBuildModeMenu()">Back</button>';
+  dock.innerHTML='<button type="button" class="secondary" onclick="dlBuildModeMenu()">Back</button><button type="button" class="dl-build-dock-check" onclick="dlUnifiedCheck()">Check</button>';
+  if(check)check.classList.add('dl-build-check-original');
   card.after(dock);
+ };
+ window.dlUnifiedCheck=function(){
+  const g=gameSession;if(!g||g.answered)return;
+  const card=app.querySelector('.card');if(!card)return;
+  const original=[...card.querySelectorAll('button')].find(b=>/^(Check translation|Check sentence)$/i.test(b.textContent.trim()));
+  if(original)original.click();
  };
  window.dlUnifiedUndo=function(){
   const g=gameSession;if(!g||g.answered||!g.picked?.length)return;
