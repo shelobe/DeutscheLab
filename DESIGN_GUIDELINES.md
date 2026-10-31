@@ -51,3 +51,9 @@ This document records established product decisions. The current `main` branch i
 - Teach both subject-first and time-first statements using paired examples and word-arranging exercises with supplied verb forms.
 - Explain that a multiword time expression can occupy one position. Use explicit starting-word instructions when practicing a particular order; distinguish grammatical alternatives from failure to follow that instruction.
 - Preserve the standard lesson score, progress, feedback and exit behavior; keep Back and Check reachable at the bottom on phones.
+
+## Lesson teaching and question variety
+- Present teaching in short, titled sections with examples and a highlighted Remember card. Preserve established detailed guides rather than replacing them with a generic layout.
+- A1 topic stages have distinct jobs: vocabulary connects expressions to meanings; sentence patterns practice construction; understanding in context uses practical situations. Do not give all three stages the same translation bank.
+- Include examples for every expression assessed in a topic stage. Advanced lessons mix meaning, usage, sentence structure and applied grammar; vary vocabulary and retain established checkpoints where useful.
+- Keep corrections and useful explanations after checking, and preserve the existing lesson scoring, saved IDs, progress gates, audio and navigation.

@@ -1,3 +1,24 @@
+# Current checklist — verified 2026-10-31
+
+This status supersedes older pending-work notes below. Keep the original numbering.
+
+1. Global banner and font consistency — previously completed.
+2. Quick Practice functionality — provisionally verified; not fully audited in this session.
+3. Match German and English Build a Sentence feedback — completed and browser-verified.
+4. Word Matching: hide the completed answer bank — completed and browser-verified.
+5. Build a Sentence: verify Home shortcut and Practice Hub routing — verified; no code change needed.
+6. Create CODE_MAP.md — completed.
+7. Automated JavaScript syntax checks — committed for pushes and pull requests; local positive/negative checks passed. First hosted workflow run was not confirmed.
+
+Separate improvement list:
+1. Build a Sentence contextual help — confirmed in the live German app.
+2. A1 Basic Word Order: time-first/subject-first teaching and sentence-building practice — completed; full 7/8 passing attempt and saved progress verified.
+3. Lesson expansion, question variety and consistency — current update: 66 authored guides, 336 new/reworked question entries, distinct A1 topic stages, and expanded existing A2/B1 content. Plain A1–B1 introductions are sectioned; bespoke guides and B2 are preserved. This updates current lessons, not a claim of exhaustive CEFR coverage.
+
+Validation for item 3: all question schemas/options and A1 gap-fill reconstruction checked; correct answer mappings checked after shuffling; JavaScript syntax and script paths/order checked. Browser QA at 390px covered A1 patterns, full context completion (5/6 passing with saved progress), A2 meaning feedback, B1 correct/incorrect feedback, unchanged dative/word-order guides and a general lesson introduction. Not every individual lesson was manually played end to end.
+
+---
+
 # DeutschLab — Development Notes
 Last consolidated: 2026-10-29
 

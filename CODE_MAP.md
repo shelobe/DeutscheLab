@@ -25,3 +25,9 @@
 - `js/a1-word-order.js`, loaded after existing lesson wrappers, updates only the A1 `Basic word order` unit. It provides the sectioned introduction, eight paired subject-first/time-first exercises, and a scoped word-bank renderer.
 - Questions retain real multiple-choice alternatives for module reviews. The lesson uses `fullSession.picks`, then delegates checking, sounds, feedback, scoring, saving and completion to the existing `dlCheck` pipeline. Explicit valid end-time alternatives are accepted; prompts require a particular opening.
 - Only this lesson uses `.dl-order-check-dock` before submission. After submission it hands navigation back to the existing fixed lesson controls. No standalone sentence-game code or existing lesson IDs are changed.
+
+## Lesson content and consistency (A1–B1)
+- `js/lesson-enrichment-data.js` contains 66 authored teaching guides and 336 question entries: 35 A1 topic stages with distinct vocabulary, sentence-pattern and scenario tasks; ten A1 core guides; and 21 A2/B1 guides with six applied questions each.
+- `js/lesson-consistency.js` loads last, after the content and existing lesson wrappers. It selects the authored A1 stage banks and combines advanced banks with up to two existing checkpoints. It preserves shuffled answer mappings, stable lesson IDs, saved progress and the existing lesson flow.
+- Plain A1–B1 introductions use sectioned cards; existing bespoke guides (including articles, pronouns and Basic word order) remain authoritative. B2 is unchanged.
+- The scoped `dlCheck` wrapper retains authored explanations, explicit corrections and supplied translations when legacy feedback cleanup would remove them. Existing scoring, sound, avatar, completion and navigation handlers still run.
