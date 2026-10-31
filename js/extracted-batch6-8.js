@@ -23,6 +23,10 @@
   nextTarget=latest?buttons.find(b=>nextRx.test((b.textContent||'').trim())&& (latest.contains(b)||b.closest('.card')===latest.closest('.card')))||find(nextRx):null;
   backTarget=nextTarget?find(backRx):null;
   const finish=latest?buttons.find(b=>/^finish$/i.test((b.textContent||'').trim())):null;
+  // Saved-question reviews use Finish as the left-hand exit beside Next.
+  const reviewFinish=app.querySelector('#dl-review-choices')&&finish!==nextTarget?finish:null;
+  if(reviewFinish)backTarget=reviewFinish;
+  back.textContent=reviewFinish?'Finish':'Back';
   backAction=null;
   const show=!!nextTarget&&!document.getElementById('dl-exit-overlay');
   if(show){next.textContent=(nextTarget.textContent||'Next').trim();nextTarget.classList.add('dl-unified-source');if(backTarget)backTarget.classList.add('dl-unified-source');}
