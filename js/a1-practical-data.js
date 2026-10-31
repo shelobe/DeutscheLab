@@ -523,7 +523,7 @@ window.DL_A1_PRACTICAL_PACKS = {
     "Say where you come from and which languages you speak."
    ],
    [
-    "Origin",
+    "Where are you from?",
     [
      "Ich komme aus Deutschland. — I come from Germany.",
      "Ich komme aus Kanada. — I come from Canada.",
@@ -532,7 +532,7 @@ window.DL_A1_PRACTICAL_PACKS = {
     ]
    ],
    [
-    "Languages",
+    "Example languages",
     [
      "Deutsch — German",
      "Englisch — English",
@@ -542,25 +542,58 @@ window.DL_A1_PRACTICAL_PACKS = {
    ],
    [
     "Nationality",
-    "Ich bin Amerikanerin means I am an American woman; Ich bin Amerikaner means I am an American man. German nationality nouns and language names begin with capitals."
-   ],
-   [
-    "Useful examples",
     [
-     "Ich spreche Englisch. — I speak English.",
-     "Ich komme aus den USA. — I come from the USA."
+     "Ich bin Amerikanerin. — I am an American woman.",
+     "Ich bin Amerikaner. — I am an American man.",
+     "German nationality nouns and language names begin with capital letters."
     ]
    ]
   ],
   "examples": [
-   [
-    "Ich spreche Englisch.",
-    "I speak English."
-   ],
-   [
-    "Ich komme aus den USA.",
-    "I come from the USA."
-   ]
+    [
+      "Ich komme aus Deutschland.",
+      "I come from Germany."
+    ],
+    [
+      "Ich komme aus Kanada.",
+      "I come from Canada."
+    ],
+    [
+      "Ich komme aus den USA.",
+      "I come from the USA."
+    ],
+    [
+      "Woher kommst du?",
+      "Where are you from?"
+    ],
+    [
+      "Deutsch",
+      "German"
+    ],
+    [
+      "Englisch",
+      "English"
+    ],
+    [
+      "Französisch",
+      "French"
+    ],
+    [
+      "Ich spreche ein bisschen Deutsch.",
+      "I speak a little German."
+    ],
+    [
+      "Ich spreche Englisch.",
+      "I speak English."
+    ],
+    [
+      "Ich bin Amerikanerin.",
+      "I am an American woman."
+    ],
+    [
+      "Ich bin Amerikaner.",
+      "I am an American man."
+    ]
   ],
   "questions": [
    {
