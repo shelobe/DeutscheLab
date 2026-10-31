@@ -32,3 +32,13 @@ input=open();input.value='hast';input.oninput();input.onkeydown({key:'Enter',pre
 const old=input;open();old.value='wrong';old.oninput();assert.equal(c.dlSelected,null,'Detached inputs cannot change the new question');
 c.fullSession.questions[0]={...c.fullSession.questions[0],dlWriteAnswer:undefined,dlReviewAudio:'drei'};c.fullRender();const audio=card.querySelector('.dl-practical-audio');assert.ok(audio);audio.children[0].click();audio.children[1].click();assert.deepEqual(played,[['drei'],['drei',.7]]);
 console.log('PASS: semantic lists replace old guide; written lesson answers hide choices, guard blanks, normalize case, score once, support Enter/special letters and clean feedback; stale input isolation; normal/slow audio works');
+// Real greeting teaching keeps phrase/translation bold and usage on its own line.
+vm.runInContext(fs.readFileSync(path.join(__dirname,'../js/a1-practical-data.js'),'utf8'),c);
+const greeting=c.window.DL_A1_PRACTICAL_PACKS['A1|Greetings and introductions'];
+c.window.DL_LESSON_ENRICHMENT['A1|Greetings and introductions']=greeting;
+units.push({level:'A1',title:'Greetings and introductions',dlPracticalCourse:true});
+c.dlLessonIntro(1);
+assert.equal(card.querySelectorAll('.dl-phrase-usage').length,5);
+for(const note of card.querySelectorAll('.dl-phrase-usage')){assert.equal(note.style.display,'block');assert.equal(note.parent.children[0].tagName,'STRONG');assert.ok(note.textContent.startsWith('Use it'));}
+assert.ok(!card.querySelectorAll('h3').some(h=>h.textContent==='Useful examples'));
+console.log('PASS: actual greeting guide has five bold bilingual phrases with separate usage lines and no redundant Useful examples card.');

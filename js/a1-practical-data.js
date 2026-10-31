@@ -20,9 +20,9 @@ window.DL_A1_PRACTICAL_PACKS = {
    [
     "Names and origins",
     [
-     "Ich heiße … — My name is … . Use it to introduce yourself.",
-     "Wie heißt du? — What is your name? Use it with one friend or someone you address informally.",
-     "Ich komme aus … — I come from … . Use it to say where you are from."
+     "Ich heiße … — My name is … .\nUse it to introduce yourself.",
+     "Wie heißt du? — What is your name?\nUse it with one friend or someone you address informally.",
+     "Ich komme aus … — I come from … .\nUse it to say where you are from."
     ]
    ],
    [
@@ -32,17 +32,8 @@ window.DL_A1_PRACTICAL_PACKS = {
    [
     "Ask how someone is",
     [
-     "Wie geht es dir? — How are you? Use it with one person you address informally.",
-     "Danke, gut. — Fine, thanks. Use it to answer how you are."
-    ]
-   ],
-   [
-    "Useful examples",
-    [
-     "Ich heiße Lea. — My name is Lea.",
-     "Wie heißt du? — What is your name?",
-     "Ich komme aus Kanada. — I come from Canada.",
-     "Wie geht es dir? — How are you?"
+     "Wie geht es dir? — How are you?\nUse it with one person you address informally.",
+     "Danke, gut. — Fine, thanks.\nUse it to answer how you are."
     ]
    ]
   ],

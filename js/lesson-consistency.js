@@ -51,7 +51,16 @@
   for(const [title,body] of sections){
    const section=document.createElement('section'),h=document.createElement('h3'),p=document.createElement(Array.isArray(body)?'ul':'p');
    h.textContent=title;
-   if(Array.isArray(body)){for(const line of body){const li=document.createElement('li');li.textContent=line;p.append(li)}}
+   if(Array.isArray(body)){for(const line of body){
+    const li=document.createElement('li');
+    if(line.includes(' — ')&&line.includes('\n')){
+     const [phrase,...notes]=line.split('\n');
+     const strong=document.createElement('strong');strong.textContent=phrase;
+     const usage=document.createElement('span');usage.className='dl-phrase-usage';usage.textContent=notes.join(' ');usage.style.display='block';usage.style.fontWeight='400';
+     li.append(strong,usage);
+    }else li.textContent=line;
+    p.append(li);
+   }}
    else{p.textContent=body;p.style.whiteSpace='pre-line'}
    if(title==='Remember'||title==='Coming up')section.classList.add('dl-lesson-remember');
    section.append(h,p);guide.append(section);
