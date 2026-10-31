@@ -42,3 +42,5 @@ assert.equal(card.querySelectorAll('.dl-phrase-usage').length,5);
 for(const note of card.querySelectorAll('.dl-phrase-usage')){assert.equal(note.style.display,'block');assert.equal(note.parent.children[0].tagName,'STRONG');assert.ok(note.textContent.startsWith('Use it'));}
 assert.ok(!card.querySelectorAll('h3').some(h=>h.textContent==='Useful examples'));
 console.log('PASS: actual greeting guide has five bold bilingual phrases with separate usage lines and no redundant Useful examples card.');
+
+assert.ok(!greeting.sections.some(([,body])=>Array.isArray(body)&&body.some(line=>line.includes("… ."))),"Phrase placeholders have no stray period after the ellipsis");

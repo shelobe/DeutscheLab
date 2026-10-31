@@ -88,3 +88,5 @@ This document records established product decisions. The current `main` branch i
 - When a teaching card only lists the same phrases and meanings as its audio rows, prefer one titled card containing the playable rows. Preserve explanations that provide additional usage or grammar information.
 
 - For bilingual phrase bullets with usage advice, bold the German–English phrase line and put the usage explanation on a separate line consistently. Remove redundant example-only cards when the same examples are already taught and playable above.
+
+- Teaching-card headings use a consistent larger 1.3rem bold style across lesson guides, pronunciation, conversation, article/case and word-order explanations so titles stand apart from body text. Avoid a separate full stop after an ellipsis placeholder.

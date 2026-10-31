@@ -20,9 +20,9 @@ window.DL_A1_PRACTICAL_PACKS = {
    [
     "Names and origins",
     [
-     "Ich heiße … — My name is … .\nUse it to introduce yourself.",
+     "Ich heiße … — My name is …\nUse it to introduce yourself.",
      "Wie heißt du? — What is your name?\nUse it with one friend or someone you address informally.",
-     "Ich komme aus … — I come from … .\nUse it to say where you are from."
+     "Ich komme aus … — I come from …\nUse it to say where you are from."
     ]
    ],
    [
