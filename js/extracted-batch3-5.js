@@ -7,7 +7,7 @@
  ['brot','das Brot','🍞',2.2,'bakery'],['croissant','das Croissant','🥐',1.7,'bakery'],['brezel','die Brezel','🥨',1.3,'bakery'],['kuchen','der Kuchen','🍰',3.2,'bakery'],['keks','der Keks','🍪',.9,'bakery'],['baguette','das Baguette','🥖',2.6,'bakery']
  ].map(([id,name,emoji,price,aisle])=>({id,name,emoji,price,aisle}));
  const aisles=[['produce','Obst & Gemüse','🥕'],['dairy','Milchprodukte','🥛'],['bakery','Bäckerei','🥨']];
- const produceIds=['orange','ananas','gurke','paprika','salat','brokkoli','blumenkohl','radieschen','zwiebel','knoblauch','zitrone','wassermelone','apfel','banane','karotte','tomate','kartoffel','trauben'].filter(id=>catalog.some(p=>p.id===id));
+ const produceIds=['orange','ananas','gurke','paprika','salat','brokkoli','blumenkohl','radieschen','zwiebel','knoblauch','zitrone','wassermelone','apfel','banane','karotte','tomate','kartoffel'].filter(id=>catalog.some(p=>p.id===id));
  const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
  const newMission=()=>shuffle([...produceIds]).slice(0,5);
  let state=null;
