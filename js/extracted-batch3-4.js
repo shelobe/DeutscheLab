@@ -49,7 +49,7 @@ function sentencePractice(){
  const nextAction=sentenceRound?'advanceSentenceRound()':'sentencePractice()';
  const backAction='dlBuildModeMenu()';
  const counter=sentenceRound?`<p class="muted">Translate into German · ${sentenceRound.idx+1} of ${sentenceRound.seq.length}</p><div class="game-progress"><div style="width:${sentenceRound.idx/sentenceRound.seq.length*100}%"></div></div>`:'';
- app.innerHTML=`<section class="card dl-build-shared-layout dl-sentence-english-style">${counter}<p class="dl-sentence-instruction">Build the German translation:</p><div class="dl-sentence-prompt"><strong>${safeText(pair[1])}</strong></div><div id="sentenceBuilt" class="bubble">Tap the German words below</div><div id="sentenceTiles" class="dl-sentence-bank">${shuffled.map(x=>`<button class="secondary" id="word${x.i}" onclick="chooseSentenceWord(${x.i},${JSON.stringify(x.w).replace(/"/g,'&quot;')})">${safeText(x.w.replace(/[.!?]+$/,''))}</button>`).join('')}</div><div id="sentenceFeedback" aria-live="assertive"></div><div class="dl-sentence-edit-actions"><button type="button" class="secondary" onclick="undoSentenceWord()">↶ Undo last word</button><button type="button" class="secondary" onclick="resetSentenceWords()">↺ Start over</button></div><button class="secondary" onclick="dlSentenceHelpToggle()">Show grammar help</button><div id="dlSentenceHelp" class="explain-box" hidden></div></section><div id="dl-sentence-next-dock"><button type="button" class="secondary" onclick="${backAction}">Back</button><button type="button" id="dl-sentence-next-button" onclick="dlSentenceCheckOrNext()">Check</button></div>`;
+ app.innerHTML=`<section class="card dl-build-shared-layout dl-sentence-english-style">${counter}<p class="dl-sentence-instruction">Build the German translation:</p><div class="dl-sentence-prompt"><strong>${safeText(pair[1])}</strong></div><div id="sentenceBuilt" class="bubble">Tap the German words below</div><div id="sentenceTiles" class="dl-sentence-bank">${shuffled.map(x=>`<button class="secondary" id="word${x.i}" onclick="chooseSentenceWord(${x.i},${JSON.stringify(x.w).replace(/"/g,'&quot;')})">${safeText(x.w.replace(/[.!?]+$/,''))}</button>`).join('')}</div><div id="gameFeedback" aria-live="assertive"></div><div class="dl-sentence-edit-actions"><button type="button" class="secondary" onclick="undoSentenceWord()">↶ Undo last word</button><button type="button" class="secondary" onclick="resetSentenceWords()">↺ Start over</button></div><button class="secondary" onclick="dlSentenceHelpToggle()">Show grammar help</button><div id="dlSentenceHelp" class="explain-box" hidden></div></section><div id="dl-sentence-next-dock"><button type="button" class="secondary" onclick="${backAction}">Back</button><button type="button" id="dl-sentence-next-button" onclick="dlSentenceCheckOrNext()">Check</button></div>`;
  window.scrollTo(0,0);
 }
 function dlSentenceCheckOrNext(){
@@ -65,14 +65,14 @@ function updateSentenceBuilt(){
  el.textContent=sentenceChosen.length?sentenceChosen.map(w=>w.replace(/[.!?]+$/,'')).join(' '):'Tap words below…';
 }
 function removeSentenceWord(n){
- if(document.getElementById('sentenceFeedback')?.innerHTML)return;
+ if(document.getElementById('gameFeedback')?.innerHTML)return;
  const id=sentenceChosenIds.splice(n,1)[0];sentenceChosen.splice(n,1);
  const tile=document.getElementById('word'+id);if(tile)tile.disabled=false;
  updateSentenceBuilt();
 }
 function undoSentenceWord(){if(sentenceChosen.length)removeSentenceWord(sentenceChosen.length-1)}
 function resetSentenceWords(){
- if(document.getElementById('sentenceFeedback')?.innerHTML)return;
+ if(document.getElementById('gameFeedback')?.innerHTML)return;
  sentenceChosen=[];sentenceChosenIds=[];
  document.querySelectorAll('#sentenceTiles button').forEach(b=>b.disabled=false);
  updateSentenceBuilt();
@@ -124,15 +124,13 @@ function dlSentenceMistakeHint(chosen,target){
 }
 function dlRenderSentenceFeedback(feedback,ok,correct,hint){
  if(!feedback)return;
- const image=ok?'feedback_correct_dog.png':'feedback_incorrect_cat.png';
- const detail=ok?'':`<p>Correct: ${safeText(correct)}</p>${hint?`<p class="dl-sentence-hint"><b>Why?</b> ${safeText(hint)}</p>`:''}`;
- feedback.innerHTML=`<div class="dl-sentence-result"><div class="dl-result-badge ${ok?'dl-result-good':'dl-result-bad'}"><img src="./${image}" alt=""><strong class="dl-result-label">${ok?'Well done!':'Not quite.'}</strong></div>${detail}</div>`;
- feedback.classList.add('dl-sentence-feedback-visible');
- feedback.classList.toggle('dl-feedback-correct',!!ok);
- feedback.classList.toggle('dl-feedback-incorrect',!ok);
+ // Use the native English feedback markup. The existing avatar observer in
+ // extracted-batch7-13.js supplies the same artwork, label and badge classes.
+ const detail=ok?'':`<p>Correct translation: ${safeText(correct)}</p>${hint?`<p class="dl-sentence-hint">Why? ${safeText(hint)}</p>`:''}`;
+ feedback.innerHTML=`<div class="game-feedback"><strong>${ok?'Correct!':'Not quite.'}</strong>${detail}</div>`;
 }
 function chooseSentenceWord(i,w){
- if(sentenceChosenIds.includes(i)||document.getElementById('sentenceFeedback')?.innerHTML)return;
+ if(sentenceChosenIds.includes(i)||document.getElementById('gameFeedback')?.innerHTML)return;
  sentenceChosen.push(w);sentenceChosenIds.push(i);
  try{speechSynthesis.cancel();const utterance=new SpeechSynthesisUtterance(w.replace(/[.!?]+$/,''));utterance.lang='de-DE';utterance.rate=0.84;const voice=speechSynthesis.getVoices().find(v=>v.lang.toLowerCase().startsWith('de'));if(voice)utterance.voice=voice;speechSynthesis.speak(utterance)}catch(e){}
  document.getElementById('word'+i).disabled=true;updateSentenceBuilt();
@@ -140,11 +138,11 @@ function chooseSentenceWord(i,w){
   let ok=sentenceAnswerIsCorrect(sentenceChosen,sentenceTarget);
   practiceLog(ok?10:2);
   if(sentenceRound&&ok)sentenceRound.correct++;
-  const feedback=document.getElementById('sentenceFeedback');
+  const feedback=document.getElementById('gameFeedback');
   if(feedback){
    dlRenderSentenceFeedback(feedback,ok,sentenceTarget.join(' '),ok?'':dlSentenceMistakeHint(sentenceChosen,sentenceTarget));
    const card=feedback.closest('.dl-sentence-english-style');
-   if(card){card.classList.add('dl-sentence-answered');card.querySelectorAll('#sentenceTiles,.dl-sentence-edit-actions,button[onclick="dlSentenceHelpToggle()"],#dlSentenceHelp').forEach(el=>el.remove());}
+   if(card){card.classList.add('dl-sentence-answered','dl-build-answered');card.querySelectorAll('#sentenceTiles,.dl-sentence-edit-actions,button[onclick="dlSentenceHelpToggle()"],#dlSentenceHelp').forEach(el=>el.remove());}
   }
   document.getElementById('sentenceTiles')?.classList.add('dl-sentence-completed');
   document.querySelector('.dl-sentence-edit-actions')?.classList.add('dl-sentence-completed');
