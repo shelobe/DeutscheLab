@@ -26,17 +26,12 @@
  .dl-sentence-english-style.dl-sentence-answered #sentenceFeedback .explain-box,
  .dl-sentence-english-style.dl-sentence-answered #sentenceFeedback .sentence-explanation{display:none!important}
  .dl-sentence-english-style #sentenceFeedback .dl-sentence-result strong{display:block!important;font-size:1.35rem!important;color:#91e0ad!important;margin-bottom:8px!important}
- /* Share one compact feedback-card layout across English and German. */
+ /* Both sentence modes now use the existing .dl-result-badge component.
+    Leave its original colors, character overlap and dimensions untouched. */
  .dl-build-shared-layout #gameFeedback.dl-sentence-feedback-visible,
- .dl-sentence-english-style #sentenceFeedback.dl-sentence-feedback-visible{display:block!important;margin:14px 0!important;padding:12px!important;border-radius:18px!important;background:#203e48!important;border:1px solid #608c91!important}
+ .dl-sentence-english-style #sentenceFeedback.dl-sentence-feedback-visible{display:block!important;background:transparent!important;border:0!important;padding:0!important;margin:14px 0!important}
  .dl-build-shared-layout #gameFeedback .dl-sentence-result,
- .dl-sentence-english-style #sentenceFeedback .dl-sentence-result{display:block!important;width:100%!important;min-height:0!important;height:auto!important;padding:0!important;margin:0!important;background:transparent!important;border:0!important}
- .dl-build-shared-layout #gameFeedback .dl-sentence-character,
- .dl-sentence-english-style #sentenceFeedback .dl-sentence-character{display:flex!important;flex-direction:row!important;align-items:center!important;gap:12px!important;min-height:0!important;height:112px!important;max-height:112px!important;width:100%!important;padding:0!important;margin:0!important;overflow:hidden!important;background:transparent!important;border:0!important}
- .dl-build-shared-layout #gameFeedback .dl-sentence-character img,
- .dl-sentence-english-style #sentenceFeedback .dl-sentence-character img{display:block!important;position:static!important;float:none!important;transform:none!important;flex:0 0 38%!important;width:38%!important;min-width:0!important;max-width:38%!important;height:110px!important;max-height:110px!important;min-height:0!important;object-fit:contain!important;object-position:center bottom!important;margin:0!important;padding:0!important}
- .dl-build-shared-layout #gameFeedback .dl-sentence-character strong,
- .dl-sentence-english-style #sentenceFeedback .dl-sentence-character strong{display:block!important;flex:1 1 auto!important;min-width:0!important;font-size:1.35rem!important;line-height:1.2!important;color:#fff!important;margin:0!important;padding:0!important}
+ .dl-sentence-english-style #sentenceFeedback .dl-sentence-result{background:transparent!important;border:0!important;padding:0!important;margin:0!important}
  .dl-build-shared-layout #gameFeedback .dl-sentence-result p,
  .dl-sentence-english-style #sentenceFeedback .dl-sentence-result p{font-size:.98rem!important;line-height:1.4!important;margin:10px 0 0!important;color:#fff!important;font-weight:400!important}
  .dl-build-shared-layout.dl-german-english-layout{background:#172c3b!important;color:#edf4f5!important;border-radius:24px!important}
