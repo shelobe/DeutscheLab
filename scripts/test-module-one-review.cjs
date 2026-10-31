@@ -73,3 +73,12 @@ for(const target of ['schön','auch','Tür']){
 }
 context.curriculumReview('A1',1);context.curriculumReviewRender();refreshDock();assert.equal(dock.style.display,'none');
 console.log('PASS: real shared dock, disabled checks, repeated refresh, match columns, submitted bank cleanup, feedback visibility, all three microphone-free replacements through Next, navigation cleanup');
+
+q=open('compare');const groups=app.querySelectorAll('.dl-review-compare-group');assert.equal(groups.length,2);
+assert.equal(groups[0].attributes['aria-label'],'Listen to both recordings');assert.equal(groups[1].attributes['aria-label'],'Choose your answer');
+button('Play recording 1').click();button('Play recording 2').click();
+const same=button('Same word'),different=button('Different words');same.click();
+assert.equal(same.attributes['aria-pressed'],'true');assert.equal(different.attributes['aria-pressed'],'false');
+different.click();assert.equal(same.attributes['aria-pressed'],'false');assert.equal(different.attributes['aria-pressed'],'true');
+assert.equal(context.moduleSession.answered,false);refreshDock();assert.equal(dockButton.disabled,false);dockButton.click();assert.equal(context.moduleSession.answered,true);
+console.log('PASS: separate labeled playback/answer groups; selected state switches exclusively; explicit check still submits');

@@ -85,8 +85,16 @@
   }else if(q.dlReviewMode==='compare'){
    heading.textContent='Do the two recordings say the same word or different words?';
    const heard=new Set(),answers=[];let selected=null;
-   q.clips.forEach((word,i)=>button('Play recording '+(i+1),()=>play(word,()=>{heard.add(i);answers.forEach(b=>b.disabled=heard.size!==2)})));
-   q.options.forEach((label,i)=>{const b=button(label,()=>{if(heard.size!==2)return;selected=i;answers.forEach((answer,j)=>answer.setAttribute('aria-pressed',String(i===j)));check.disabled=false});b.disabled=true;answers.push(b)});
+   const group=(title,kind)=>{
+    const area=document.createElement('div');area.className='dl-review-compare-group';
+    area.setAttribute('role','group');area.setAttribute('aria-label',title);
+    const label=document.createElement('p');label.className='dl-review-group-label';label.textContent=title;area.append(label);
+    const row=document.createElement('div');row.className=kind;area.append(row);controls.append(area);return row;
+   };
+   const playback=group('Listen to both recordings','dl-review-playback');
+   const choices=group('Choose your answer','dl-review-comparison-answers');
+   q.clips.forEach((word,i)=>{const b=button('Play recording '+(i+1),()=>play(word,()=>{heard.add(i);answers.forEach(b=>b.disabled=heard.size!==2)}),playback);b.className='secondary dl-review-play-button'});
+   q.options.forEach((label,i)=>{const b=button(label,()=>{if(heard.size!==2)return;selected=i;answers.forEach((answer,j)=>answer.setAttribute('aria-pressed',String(i===j)));status.textContent='Selected: '+label+'.';check.disabled=false},choices);b.className='dl-review-answer-button';b.setAttribute('aria-pressed','false');b.disabled=true;answers.push(b)});
    const check=primary(button('Check answer',()=>{if(selected!==null)submit(selected===q.answer)}));check.disabled=true;
   }else if(q.dlReviewMode==='match'){
    heading.textContent='Match each recording to its written word.';
@@ -114,5 +122,5 @@
  };
  const observer=new MutationObserver(()=>{if(!document.querySelector('#app .dl-review-controls'))dispose()});
  observer.observe(app,{childList:true,subtree:true});
- const style=document.createElement('style');style.textContent='.dl-review-controls{display:flex;flex-wrap:wrap;gap:12px;margin:20px 0}.dl-review-controls p,.dl-review-controls label{flex-basis:100%;margin:0}.dl-review-controls input{box-sizing:border-box;width:100%;padding:14px;border:1px solid #70c9c0;border-radius:12px;background:#20374e;color:#fff;font:inherit}.dl-review-controls button{white-space:normal;min-height:48px}.dl-review-character-keys{display:flex;gap:8px;width:100%}.dl-review-speaking-word{font-size:2.4rem;font-weight:700}.dl-review-controls [aria-pressed=true]{outline:2px solid #70c9c0}.dl-review-controls button:disabled{opacity:.5}.dl-review-match-columns{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;width:100%;align-items:start}.dl-review-match-column{display:grid;gap:12px;min-width:0}.dl-review-match-column button{width:100%;margin:0!important;min-height:72px;padding:12px 8px;overflow-wrap:anywhere;font:inherit}.dl-review-controls>p:empty{display:none}';document.head.append(style);
+ const style=document.createElement('style');style.textContent='.dl-review-controls{display:flex;flex-wrap:wrap;gap:12px;margin:20px 0}.dl-review-controls p,.dl-review-controls label{flex-basis:100%;margin:0}.dl-review-controls input{box-sizing:border-box;width:100%;padding:14px;border:1px solid #70c9c0;border-radius:12px;background:#20374e;color:#fff;font:inherit}.dl-review-controls button{white-space:normal;min-height:48px}.dl-review-character-keys{display:flex;gap:8px;width:100%}.dl-review-speaking-word{font-size:2.4rem;font-weight:700}.dl-review-controls [aria-pressed=true]{outline:2px solid #70c9c0}.dl-review-controls button:disabled{opacity:.5}.dl-review-match-columns{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;width:100%;align-items:start}.dl-review-match-column{display:grid;gap:12px;min-width:0}.dl-review-match-column button{width:100%;margin:0!important;min-height:72px;padding:12px 8px;overflow-wrap:anywhere;font:inherit}.dl-review-controls>p:empty{display:none}.dl-review-compare-group{width:100%}.dl-review-controls .dl-review-group-label{font-weight:600;font-size:.9rem;margin:0 0 10px;color:#b8d9dc}.dl-review-playback,.dl-review-comparison-answers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.dl-review-compare-group button{width:100%;margin:0!important;padding:12px 8px}#app .dl-review-controls .dl-review-play-button{background:#34475e;color:#f4f8fb;border:1px solid #68879b;box-shadow:none}#app .dl-review-controls .dl-review-answer-button{background:#20374e;color:#fff;border:2px solid #6faaa9;box-shadow:none}#app .dl-review-controls .dl-review-answer-button[aria-pressed=true]{background:#79e1cf;color:#102a3b;border-color:#e4fff7;outline:2px solid #79e1cf;outline-offset:3px}#app .dl-review-controls .dl-review-answer-button[aria-pressed=true]::before{content:"✓ ";font-weight:800}';document.head.append(style);
 })();
