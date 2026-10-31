@@ -124,6 +124,15 @@
  window.dlUnifiedCheck=function(){
   const g=gameSession;if(!g||g.answered)return;
   const card=app.querySelector('.card');if(!card)return;
+  if(g.mode==='reverse'){
+   const item=(g.pool&&g.pool[g.seq[g.idx]])||GAME_ITEMS[g.seq[g.idx]];
+   const answer=card.querySelector('#reverseBuilt,.reverse-built,.dl-reverse-built,.game-built');
+   const chosen=answer?.textContent?.trim()||'';
+   if(!item||!chosen||/^(tap|select)\b/i.test(chosen))return;
+   const normalize=value=>String(value||'').toLocaleLowerCase('en').replace(/[.!?,;:]/g,'').replace(/\s+/g,' ').trim();
+   gameMark(normalize(chosen)===normalize(item.en),item.en);
+   return;
+  }
   const original=[...card.querySelectorAll('button')].find(b=>/^(Check translation|Check sentence)$/i.test(b.textContent.trim()));
   if(original){original.click();if(gameSession?.answered)syncAnswered();}
  };
