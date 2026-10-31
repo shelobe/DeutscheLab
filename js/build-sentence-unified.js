@@ -43,7 +43,7 @@
    if(bank){bank.classList.add('dl-shared-bank');const title=document.createElement('div');title.className='dl-shared-bank-title';title.textContent='WORD BANK';bank.before(title);}
    const originalRestart=card.querySelector('button[onclick="gameRender()"]');if(originalRestart)originalRestart.remove();
    const check=card.querySelector('button[onclick="gameCheckBuild()"]');if(check){check.textContent='Check translation';check.classList.add('dl-build-check');}
-   const bank=card.querySelector('#gameBank');if(bank){
+   if(bank){
     const controls=document.createElement('div');controls.className='dl-build-edit-controls';
     controls.innerHTML='<button type="button" class="secondary" onclick="dlUnifiedUndo()">↶ Undo last word</button><button type="button" class="secondary" onclick="dlUnifiedReset()">↺ Start over</button>';
     bank.after(controls);
