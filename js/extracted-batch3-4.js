@@ -39,9 +39,15 @@ function sentencePractice(){
  let shuffled=sentenceTarget.map((w,i)=>({w,i})).sort(()=>Math.random()-.5);
  const nextAction=sentenceRound?'advanceSentenceRound()':'sentencePractice()';
  const backAction=sentenceRound?'exitSentenceRound()':'practiceHub()';
- const counter=sentenceRound?`<p class="muted">Sentence ${sentenceRound.idx+1} of ${sentenceRound.seq.length}</p>`:'';
- app.innerHTML=`<section class="card dl-build-shared-layout dl-sentence-english-style">${counter}<p class="dl-sentence-instruction">Build the German translation:</p><div class="dl-sentence-prompt"><strong>${safeText(pair[1])}</strong></div><div id="sentenceBuilt" class="bubble">Tap the German words below</div><div id="sentenceTiles" class="dl-sentence-bank">${shuffled.map(x=>`<button class="secondary" id="word${x.i}" onclick="chooseSentenceWord(${x.i},${JSON.stringify(x.w).replace(/"/g,'&quot;')})">${safeText(x.w.replace(/[.!?]+$/,''))}</button>`).join('')}</div><div id="sentenceFeedback" aria-live="assertive"></div><div class="dl-sentence-edit-actions"><button type="button" class="secondary" onclick="undoSentenceWord()">Undo Last Word</button><button type="button" class="secondary" onclick="resetSentenceWords()">Start Over</button></div><button class="secondary" onclick="dlSentenceHelpToggle()">Show grammar help</button><div id="dlSentenceHelp" class="explain-box" hidden></div></section><div id="dl-sentence-next-dock"><button type="button" class="secondary" onclick="${backAction}">Back</button><button type="button" id="dl-sentence-next-button" onclick="${nextAction}" hidden>Next sentence</button></div>`;
+ const counter=sentenceRound?`<p class="muted">Translate into German · ${sentenceRound.idx+1} of ${sentenceRound.seq.length}</p><div class="game-progress"><div style="width:${sentenceRound.idx/sentenceRound.seq.length*100}%"></div></div>`:'';
+ app.innerHTML=`<section class="card dl-build-shared-layout dl-sentence-english-style">${counter}<p class="dl-sentence-instruction">Build the German translation:</p><div class="dl-sentence-prompt"><strong>${safeText(pair[1])}</strong></div><div id="sentenceBuilt" class="bubble">Tap the German words below</div><div id="sentenceTiles" class="dl-sentence-bank">${shuffled.map(x=>`<button class="secondary" id="word${x.i}" onclick="chooseSentenceWord(${x.i},${JSON.stringify(x.w).replace(/"/g,'&quot;')})">${safeText(x.w.replace(/[.!?]+$/,''))}</button>`).join('')}</div><div id="sentenceFeedback" aria-live="assertive"></div><div class="dl-sentence-edit-actions"><button type="button" class="secondary" onclick="undoSentenceWord()">↶ Undo last word</button><button type="button" class="secondary" onclick="resetSentenceWords()">↺ Start over</button></div><button class="secondary" onclick="dlSentenceHelpToggle()">Show grammar help</button><div id="dlSentenceHelp" class="explain-box" hidden></div></section><div id="dl-sentence-next-dock"><button type="button" class="secondary" onclick="${backAction}">Back</button><button type="button" id="dl-sentence-next-button" onclick="dlSentenceCheckOrNext()">Check</button></div>`;
  window.scrollTo(0,0);
+}
+function dlSentenceCheckOrNext(){
+ const next=document.getElementById('dl-sentence-next-button');
+ if(next?.dataset.answered==='true'){if(sentenceRound)advanceSentenceRound();else sentencePractice();return;}
+ const feedback=document.getElementById('sentenceFeedback');
+ if(feedback)feedback.textContent='Tap all the words to check your sentence.';
 }
 function advanceSentenceRound(){if(sentenceRound)sentenceRound.idx++;sentencePractice()}
 function exitSentenceRound(){sentenceRound=null;practiceHub()}
@@ -99,7 +105,7 @@ function chooseSentenceWord(i,w){
   practiceLog(ok?10:2);
   if(sentenceRound&&ok)sentenceRound.correct++;
   document.getElementById('sentenceFeedback').innerHTML=`<p class="${ok?'correct':'wrong'}">${ok?'Correct!':'Correct order: '+safeText(sentenceTarget.join(' '))}</p>`;
-  document.getElementById('dl-sentence-next-button').hidden=false;
+  const nextButton=document.getElementById('dl-sentence-next-button');if(nextButton){nextButton.textContent='Next';nextButton.dataset.answered='true';}
   if(ok){
    // Start the chime directly from the word-tap gesture, rather than waiting on speech synthesis.
    try{
