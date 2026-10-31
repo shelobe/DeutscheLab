@@ -46,8 +46,8 @@ function sentencePractice(){
 function dlSentenceCheckOrNext(){
  const next=document.getElementById('dl-sentence-next-button');
  if(next?.dataset.answered==='true'){if(sentenceRound)advanceSentenceRound();else sentencePractice();return;}
- const feedback=document.getElementById('sentenceFeedback');
- if(feedback)feedback.textContent='Tap all the words to check your sentence.';
+ const nextButton=document.getElementById('dl-sentence-next-button');
+ if(nextButton)nextButton.title='Tap all the words to check your sentence.';
 }
 function advanceSentenceRound(){if(sentenceRound)sentenceRound.idx++;sentencePractice()}
 function exitSentenceRound(){sentenceRound=null;practiceHub()}
