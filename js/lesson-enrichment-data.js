@@ -6761,5 +6761,64 @@ window.DL_LESSON_ENRICHMENT = {
     "I am speaking with the colleague."
    ]
   ]
+ },
+ "A1|Umlauts and ß": {
+  "sections": [
+   [
+    "Ä — a separate vowel",
+    "Ä often sounds similar to the e in English “bed”: Mädchen (girl), Käse (cheese). It is a distinct German vowel, not decoration on an a."
+   ],
+   [
+    "Ö — round your lips",
+    "Start with an e-like sound and round your lips while keeping your tongue forward. Listen to schön (beautiful). Compare schon (already) and schön: the vowel changes the meaning."
+   ],
+   [
+    "Ü — a different rounded vowel",
+    "Try saying ee while rounding your lips. Listen to fünf (five). Ü is a distinct vowel; it is not pronounced like an English u."
+   ],
+   [
+    "ß — Eszett, or sharp S",
+    "ß is a consonant letter called Eszett or scharfes S (sharp S). It makes an unvoiced s sound, like the s in English “see”. It is not a B and it is not an umlaut.\n\nStraße — street\ngroß — big\nheißen — to be called\n\nIn each example, ß represents an s sound."
+   ],
+   [
+    "Choosing between ß and ss",
+    "In standard German spelling, ß follows a long vowel or a diphthong (two vowel sounds in one syllable), while ss follows a short vowel. This helps you choose between these two spellings.\n\nFuß — foot: the u is long, so use ß.\nFluss — river: the u is short, so use ss.\nHeißen — to be called: ei is a diphthong, so use ß."
+   ],
+   [
+    "Remember",
+    "Ä, ö and ü are vowels. ß is a separate consonant with an s sound. Learn the spelling and sound together: Straße contains ß, not B. The capital form is ẞ; you may also see SS in all-capital writing."
+   ]
+  ],
+  "examples": [
+   [
+    "Mädchen",
+    "girl — ä"
+   ],
+   [
+    "schön",
+    "beautiful — ö"
+   ],
+   [
+    "fünf",
+    "five — ü"
+   ],
+   [
+    "Straße",
+    "street — ß, pronounced with an s sound"
+   ],
+   [
+    "schon / schön",
+    "already / beautiful — different vowels"
+   ],
+   [
+    "Fuß / Fluss",
+    "foot / river — long u + ß / short u + ss"
+   ],
+   [
+    "heißen",
+    "to be called — ei + ß"
+   ]
+  ],
+  "questions": []
  }
 };
