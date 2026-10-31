@@ -4,7 +4,7 @@
  const activityRoutes={
   quick:()=>quickRandomPractice(),review:()=>review(),mistakes:()=>practiceQuiz('mistakes'),
   listening:()=>listeningLevels(),articles:()=>articleHome(),
-  build:()=>gameStart('build'),reverse:()=>gameStart('reverse'),
+  build:()=>dlBuildModeMenu(),reverse:()=>dlBuildModeMenu(),
   findit:()=>findItHome(),match:()=>gameStart('match'),pictures:()=>photoMenu(),supermarkt:()=>supermarktHome(),
   dialogues:()=>typeof dialoguesHome==='function'?dialoguesHome():conversation(),
   ai:()=>aiTutor()
@@ -16,8 +16,7 @@
   ['Daily Practice','Reinforce vocabulary, grammar and comprehension.',[
    ['quick','⭐','Quick Practice','A short mixed exercise'],['review','🧠','Review','Refresh learned material'],
    ['mistakes','🔁','Fix Mistakes','Retry missed questions'],['listening','🎧','Listening','Understand spoken German'],
-   ['articles','📚','Noun Articles','Practice der, die and das'],['build','🧩','Build Sentences','Put German words in order'],
-   ['reverse','🔤','Build in English','Translate German sentences']]],
+   ['articles','📚','Noun Articles','Practice der, die and das'],['build','🧩','Build a Sentence','Choose German or English']]],
   ['Games','Learn through interactive challenges.',[
    ['findit','🔎','Find It!','Explore illustrated rooms'],['match','🔗','Match Pairs','German and English word pairs'],
    ['pictures','🖼️','Picture Practice','Identify pictured vocabulary'],['supermarkt','🛒','Supermarkt (Test)','Shop with a German list']]],

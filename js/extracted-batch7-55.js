@@ -8,7 +8,7 @@
   const section=document.createElement('section');
   section.className='card dl-home-practice-section';
   section.innerHTML='<h2>Practice Hub</h2><p>Strengthen your German with quick, interactive exercises.</p><div class="game-grid dl-home-practice">'+
-  '<button onclick="gameStart(\'build\')"><span class="dl-practice-icon">🧩</span><span>Build sentences</span></button>'+
+  '<button onclick="dlBuildModeMenu()"><span class="dl-practice-icon">🧩</span><span>Build sentences</span></button>'+
   '<button onclick="gameStart(\'match\')"><span class="dl-practice-icon">🔗</span><span>Match pairs</span></button>'+
   '<button onclick="listeningLevels()"><span class="dl-practice-icon">🎧</span><span>Listening</span></button>'+
   '<button onclick="photoMenu()"><span class="dl-practice-icon">🖼️</span><span>Picture practice</span></button>'+
