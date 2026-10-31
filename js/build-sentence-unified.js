@@ -35,10 +35,11 @@
   const instruction=heading?.previousElementSibling;
   if(instruction&&instruction.tagName==='P')instruction.classList.add('dl-build-instruction');
   const existing=card.querySelector('.dl-unified-build-dock');if(existing)existing.remove();
+  card.classList.add('dl-build-shared-layout');
   if(isGerman){
    /* Build the German view with the same component order as the English builder,
       while retaining the existing game IDs, event handlers and scoring logic. */
-   card.classList.add('dl-german-english-layout','dl-build-shared-layout');
+   card.classList.add('dl-german-english-layout');
    const built=card.querySelector('#gameBuilt');
    const bank=card.querySelector('#gameBank');
    if(built){built.classList.add('dl-shared-built');built.textContent='Tap the German words below';}
@@ -53,6 +54,18 @@
    card.querySelector('button[onclick="gameRender()"]')?.remove();
    const originalCheck=card.querySelector('button[onclick="gameCheckBuild()"]');
    if(originalCheck){originalCheck.textContent='Check translation';originalCheck.classList.add('dl-build-check');}
+  }
+  /* Both modes use the same prompt/answer/bank/control/feedback structure.
+     Preserve the mode-specific word selection and answer checking handlers. */
+  const answer=card.querySelector('#gameBuilt,#reverseBuilt,.reverse-built,.dl-reverse-built,.game-built');
+  const bank=card.querySelector('#gameBank,.reverse-wordbank,.dl-reverse-wordbank');
+  if(answer)answer.classList.add('dl-shared-built');
+  if(bank)bank.classList.add('dl-shared-bank');
+  if(heading&&answer&&heading.nextElementSibling!==answer)heading.after(answer);
+  if(answer&&bank&&answer.nextElementSibling!==bank){
+   const label=bank.previousElementSibling?.classList.contains('dl-shared-bank-title')?bank.previousElementSibling:null;
+   answer.after(label||bank);
+   if(label)label.after(bank);
   }
   const check=card.querySelector(isGerman?'button[onclick="gameCheckBuild()"]':'button[onclick="gameCheckReverse()"],button[onclick="reverseCheck()"]');
   const dock=document.createElement('div');dock.className='dl-unified-build-dock';
