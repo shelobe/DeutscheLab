@@ -84,3 +84,5 @@ This document records established product decisions. The current `main` branch i
 - Prioritize readable teaching over compactness: put distinct phrases, forms or instructional statements on separate bullets. Include a Remember card only when it provides a specific useful rule, contrast or memory aid; omit generic practice advice.
 
 - Place German example/translation/Listen rows immediately beneath the relevant teaching card, outside its explanation box. Include audio for taught greetings. Avoid a duplicate audio bank at the bottom; keep Start practice anchored after moving examples.
+
+- When a teaching card only lists the same phrases and meanings as its audio rows, prefer one titled card containing the playable rows. Preserve explanations that provide additional usage or grammar information.

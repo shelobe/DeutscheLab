@@ -54,12 +54,21 @@
    if(!section){section=document.createElement('section');const h=document.createElement('h3');h.textContent='Examples';section.append(h);guide.append(section);fallback=section;}
    put(section,row,de);
   }
+  // This card is a phrase list, so the playable rows replace its plain list.
+  if(u.level==='A1'&&u.title==='Greetings and introductions'){
+   const section=sections.find(s=>s.querySelector('h3')?.textContent==='Choose a greeting');
+   const list=insertions.get(section);
+   if(list){
+    [...section.children].filter(child=>child.tagName!=='H3').forEach(child=>child.remove());
+    section.classList.add('dl-audio-only-section');section.append(list);
+   }
+  }
   if(insertions.size){heading?.remove();card.classList.add('dl-inline-lesson-audio');}
  }
  const previousIntro=dlLessonIntro,previousStudy=fullStudy;
  dlLessonIntro=function(id){const result=previousIntro.apply(this,arguments);placeAudio(id);return result};
  fullStudy=function(id){const result=previousStudy.apply(this,arguments);placeAudio(id);return result};
  const style=document.createElement('style');
- style.textContent='.dl-section-audio{display:grid;gap:10px;margin:0 0 20px;min-width:0}.dl-section-audio .vocab-row{margin:0;min-width:0}.dl-section-audio .vocab-copy{min-width:0;overflow-wrap:anywhere}.dl-section-audio button{flex-shrink:0;min-height:44px}body.lesson-screen .dl-flow-card.dl-inline-lesson-audio{padding-bottom:100px}body.lesson-screen .dl-flow-card.dl-inline-lesson-audio>.dl-flow-action{position:fixed;bottom:max(12px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);width:min(calc(100vw - 48px),640px);z-index:1000;margin:0;box-shadow:0 8px 30px rgba(0,0,0,.45)}';
+ style.textContent='.dl-audio-only-section .dl-section-audio{margin:12px 0 0}.dl-audio-only-section .vocab-row{background:transparent;border:0;border-radius:0;padding:12px 0;box-shadow:none}.dl-section-audio{display:grid;gap:10px;margin:0 0 20px;min-width:0}.dl-section-audio .vocab-row{margin:0;min-width:0}.dl-section-audio .vocab-copy{min-width:0;overflow-wrap:anywhere}.dl-section-audio button{flex-shrink:0;min-height:44px}body.lesson-screen .dl-flow-card.dl-inline-lesson-audio{padding-bottom:100px}body.lesson-screen .dl-flow-card.dl-inline-lesson-audio>.dl-flow-action{position:fixed;bottom:max(12px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);width:min(calc(100vw - 48px),640px);z-index:1000;margin:0;box-shadow:0 8px 30px rgba(0,0,0,.45)}';
  document.head.append(style);
 })();

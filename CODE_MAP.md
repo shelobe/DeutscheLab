@@ -71,3 +71,5 @@
 
 ## Audio beside lesson teaching
 - `js/lesson-audio-layout.js`, loaded after `lesson-consistency.js`, places native example rows beneath the section mentioning the phrase or its translation. Explicit greeting groups add greeting/farewell and Danke, gut playback. Unmatched examples remain beneath an Examples section. Existing rows retain their audio handlers; repeated wrappers deduplicate playback rows and preserve the fixed Start practice button. Pronunciation groups render their word/translation/Listen rows directly after the matching sound card. `scripts/test-lesson-audio-layout.cjs` checks grouping, deduplication, playback, advanced lesson behavior, unmatched examples and navigation without a browser.
+
+- In Greetings and introductions, Choose a greeting is an audio-only teaching card: its title and six playable phrase/meaning rows replace the redundant plain list. Other cards retain their explanations and nearby audio.
