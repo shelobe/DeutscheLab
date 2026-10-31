@@ -104,7 +104,15 @@ function chooseSentenceWord(i,w){
   let ok=sentenceAnswerIsCorrect(sentenceChosen,sentenceTarget);
   practiceLog(ok?10:2);
   if(sentenceRound&&ok)sentenceRound.correct++;
-  document.getElementById('sentenceFeedback').innerHTML=`<p class="${ok?'correct':'wrong'}">${ok?'Correct!':'Correct order: '+safeText(sentenceTarget.join(' '))}</p>`;
+  const feedback=document.getElementById('sentenceFeedback');
+  if(feedback){
+   const message=ok?'Well done!':'Not quite.';
+   const detail=ok?'':`<p>Correct order: ${safeText(sentenceTarget.join(' '))}</p>`;
+   feedback.innerHTML=`<div class="game-feedback dl-sentence-result"><strong>${message}</strong>${detail}</div>`;
+   feedback.classList.add('dl-sentence-feedback-visible');
+  }
+  document.getElementById('sentenceTiles')?.classList.add('dl-sentence-completed');
+  document.querySelector('.dl-sentence-edit-actions')?.classList.add('dl-sentence-completed');
   const nextButton=document.getElementById('dl-sentence-next-button');if(nextButton){nextButton.textContent='Next';nextButton.dataset.answered='true';}
   if(ok){
    // Start the chime directly from the word-tap gesture, rather than waiting on speech synthesis.
