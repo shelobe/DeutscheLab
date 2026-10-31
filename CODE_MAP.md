@@ -20,3 +20,8 @@
 ## Automated validation
 - `.github/workflows/javascript-syntax.yml` runs on pushes, pull requests and manual dispatch, using Node.js 22 and read-only repository access.
 - `scripts/check-javascript.sh` checks every tracked `.js`, `.mjs` and `.cjs` file with `node --check`, reports failures and exits unsuccessfully if any file fails. Run locally with `bash scripts/check-javascript.sh`. It parses code without executing the app; visual and behavioral verification remains separate.
+
+## A1 Basic word order
+- `js/a1-word-order.js`, loaded after existing lesson wrappers, updates only the A1 `Basic word order` unit. It provides the sectioned introduction, eight paired subject-first/time-first exercises, and a scoped word-bank renderer.
+- Questions retain real multiple-choice alternatives for module reviews. The lesson uses `fullSession.picks`, then delegates checking, sounds, feedback, scoring, saving and completion to the existing `dlCheck` pipeline. Explicit valid end-time alternatives are accepted; prompts require a particular opening.
+- Only this lesson uses `.dl-order-check-dock` before submission. After submission it hands navigation back to the existing fixed lesson controls. No standalone sentence-game code or existing lesson IDs are changed.

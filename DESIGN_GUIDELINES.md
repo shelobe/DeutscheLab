@@ -46,3 +46,8 @@ This document records established product decisions. The current `main` branch i
 - Reuse already-created files; verify exact content mapping and avoid duplicate script execution before committing.
 - Validate JavaScript syntax and script references before the bulk commit, and verify the resulting `main` commit and changed files afterward. Never assume a partially interrupted operation failed without checking GitHub.
 - Avoid unnecessary GitHub calls and report tool limits or incomplete validation accurately.
+
+## A1 Basic word order lesson
+- Teach both subject-first and time-first statements using paired examples and word-arranging exercises with supplied verb forms.
+- Explain that a multiword time expression can occupy one position. Use explicit starting-word instructions when practicing a particular order; distinguish grammatical alternatives from failure to follow that instruction.
+- Preserve the standard lesson score, progress, feedback and exit behavior; keep Back and Check reachable at the bottom on phones.
