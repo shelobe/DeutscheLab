@@ -96,3 +96,10 @@ These notes combine product decisions and reported issues from prior development
 4. Make a minimal change, validate syntax and functionality, and preserve unrelated assets.
 5. Record what changed, what was tested, and any remaining issues.
 6. Update this file when decisions or behavior materially change.
+
+## Next batch: Build a Sentence UI consistency (planned, not implemented)
+- Unify the German and English sentence-building layouts.
+- Keep bottom-anchored Back and Check Answer buttons on both screens.
+- Replace individual selected-word X buttons with Undo Last Word and Start Over.
+- Preserve game mechanics and test both directions on Android.
+- Module reviews are functional but may need refinement.
