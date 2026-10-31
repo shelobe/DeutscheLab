@@ -277,7 +277,13 @@
   "schön"
  ]
 ];
-  return shuffle(rows.map(([section,prompt,options,why,audio])=>{
+  const alphabetRows=shuffle(rows.filter(row=>row[0]===0)).slice(0,3);
+  const umlautRows=shuffle(rows.filter(row=>row[0]===1)).slice(0,4);
+  const sounds=rows.filter(row=>row[0]===2);
+  const required=sounds.filter(row=>/\b(?:EI|IE)\b/.test(row[1]));
+  const rotating=shuffle(sounds.filter(row=>!required.includes(row))).slice(0,6);
+  const selected=[...alphabetRows,...umlautRows,...required,...rotating];
+  return shuffle(selected.map(([section,prompt,options,why,audio])=>{
    const correct=options[0],choices=shuffle(options.slice());
    return {type:'grammar',unitId:ids[section],prompt,options:choices,answer:choices.indexOf(correct),why,...(audio?{dlReviewAudio:audio}:{}),dlReviewTopic:['Alphabet and spelling','Umlauts and ß','German pronunciation'][section]};
   }));
