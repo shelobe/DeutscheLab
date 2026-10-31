@@ -307,16 +307,123 @@
   "hören"
  ]
 ];
-  const alphabetRows=shuffle(rows.filter(row=>row[0]===0)).slice(0,3);
-  const umlautRows=shuffle(rows.filter(row=>row[0]===1)).slice(0,4);
-  const sounds=rows.filter(row=>row[0]===2);
-  const required=sounds.filter(row=>row[4]==='Wein'||row[4]==='Liebe');
-  const rotating=shuffle(sounds.filter(row=>!required.includes(row))).slice(0,6);
-  const selected=[...alphabetRows,...umlautRows,...required,...rotating];
-  return shuffle(selected.map(([section,prompt,options,why,audio])=>{
-   const correct=options[0],choices=shuffle(options.slice());
-   return {type:'grammar',unitId:ids[section],prompt,options:choices,answer:choices.indexOf(correct),why,...(audio?{dlReviewAudio:audio}:{}),dlReviewTopic:['Alphabet and spelling','Umlauts and ß','German pronunciation'][section]};
-  }));
+  // Five listening tasks, five written sound-pattern tasks, five spelling completions.
+  const soundRows=rows.filter(row=>row[4]);
+  const required=soundRows.filter(row=>row[4]==='Wein'||row[4]==='Liebe');
+  const pick=words=>shuffle(soundRows.filter(row=>words.includes(row[4])))[0];
+  const listening=[...required,pick(['Käse','schon','Tür']),pick(['ich','Buch','zwei','sprechen','stehen']),pick(['Jahr','Wasser','Vater','Winter','Januar'])];
+  const reading=[
+ [
+  0,
+  "Which word begins with the same sound as Jahr?",
+  [
+   "Januar",
+   "Wasser",
+   "Vater"
+  ],
+  "Jahr and Januar both begin with J, pronounced like English Y."
+ ],
+ [
+  0,
+  "Which word begins with a different sound from the other two?",
+  [
+   "Vater",
+   "Wasser",
+   "Winter"
+  ],
+  "Wasser and Winter start with a v sound. Vater starts with an f sound."
+ ],
+ [
+  2,
+  "Which word has the same vowel sound as mein?",
+  [
+   "Wein",
+   "Wien",
+   "neun"
+  ],
+  "Mein and Wein share the ei sound, like English eye. Wien has the long ie sound."
+ ],
+ [
+  2,
+  "Which pair shares the same vowel sound?",
+  [
+   "Liebe and sieben",
+   "Liebe and mein",
+   "sieben and neun"
+  ],
+  "Liebe and sieben both have long ie, like English ee."
+ ],
+ [
+  2,
+  "Read Schule, schön, and Buch. Which starts with a different sound?",
+  [
+   "Buch",
+   "Schule",
+   "schön"
+  ],
+  "Schule and schön both begin with sch (sh). Buch begins with b."
+ ]
+];
+  const spelling=[
+ [
+  1,
+  "Complete the written word for “five”: f_nf.",
+  [
+   "ü",
+   "u",
+   "o"
+  ],
+  "Fünf is spelled with ü. The dots change the vowel; funf is not the standard spelling."
+ ],
+ [
+  1,
+  "Complete the written word for “street”: Stra_e.",
+  [
+   "ß",
+   "b",
+   "z"
+  ],
+  "Straße is spelled with ß, which represents a voiceless s sound."
+ ],
+ [
+  2,
+  "Complete the written word for “school”: Sch_le.",
+  [
+   "u",
+   "ü",
+   "o"
+  ],
+  "Schule is spelled with u. Sch at the beginning makes a sh sound."
+ ],
+ [
+  2,
+  "Complete the written word for “I”: i__.",
+  [
+   "ch",
+   "sch",
+   "ck"
+  ],
+  "Ich ends in ch. Its soft ch sound is different from sch."
+ ],
+ [
+  2,
+  "Complete the written word for “book”: B_ch.",
+  [
+   "u",
+   "ü",
+   "o"
+  ],
+  "Buch has u followed by the back ch sound."
+ ]
+];
+  const make=(row,format)=>{
+   const [section,prompt,options,why,audio]=row,correct=options[0],choices=shuffle(options.slice());
+   return {type:'grammar',unitId:ids[section],prompt,options:choices,answer:choices.indexOf(correct),why,...(audio?{dlReviewAudio:audio}:{}),dlReviewFormat:format,dlReviewTopic:['Alphabet and spelling','Umlauts and ß','German pronunciation'][section]};
+  };
+  const buckets=[shuffle(listening.map(row=>make(row,'listening'))),shuffle(reading.map(row=>make(row,'reading'))),shuffle(spelling.map(row=>make(row,'spelling')))];
+  const mixed=[];
+  for(let i=0;i<5;i++)for(const bucket of shuffle(buckets.slice()))mixed.push(bucket[i]);
+  return mixed;
  }
  function personalPronounReview(group){
   const titles=['Personal pronouns: ich, du, and Sie','Everyday conversations: Understanding in context','Personal pronouns: he, she, it'];

@@ -62,3 +62,5 @@ This document records established product decisions. The current `main` branch i
 - Assess practical language understanding: recognize spoken words, match sounds to usable spellings, interpret taught words and phrases, or choose language for a situation. Avoid trivia about letter counts/names, abstract sound-sequence puzzles, and tests of pronunciation terminology. Keep technical explanations as teaching or feedback rather than mastery requirements.
 
 - Review prompts must not reveal the target letter/sound, grammatical gender/case, or solving rule before submission. Listening prompts should simply ask learners to choose the word they hear. Keep required meaning/context, and place sound or grammar explanations in post-answer feedback.
+
+- Module reviews should mix task formats appropriate to the taught skills. For Module 1, use five listening, five written sound-pattern, and five spelling-completion tasks, interleaved rather than grouped into long repetitive blocks. Test taught spelling/pronunciation with familiar examples; do not turn the entire review into listening or unrelated vocabulary recall.
