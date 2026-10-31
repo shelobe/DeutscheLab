@@ -38,3 +38,6 @@
 
 ## Module 2 review
 - `js/extracted-batch5-8.js`: `personalPronounReview` supplies 18 questions, six for each current Module 2 lesson. Every run covers ich/du/formal Sie, conversation requests and understanding, and er/sie/es plus she/they distinctions. Question and option order shuffle without dropping topics. Other modules retain their existing selection and all reviews keep native scoring, feedback and mastery handling.
+
+## Module 1 review
+- `js/extracted-batch5-8.js`: `soundReview` retains all 26 authored questions each run: five alphabet/spelling checks, six umlaut/ß checks, and all 15 pronunciation focuses. EI and IE have separate contrast questions and the English letter-name memory aid in feedback. Five listening questions keep explicit audio playback. Question/option order shuffles without reducing topic coverage; native scoring and mastery remain unchanged.

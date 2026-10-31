@@ -5,20 +5,282 @@
  function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
  function isSoundGloss(x){return /\([^)]*(sounds? like|pronounced|letter|vowel|different from|compare|unlike)[^)]*\)/i.test(String(x));}
  function cleanAnswer(x){return String(x).replace(/\s*\([^)]*\)/g,'').trim();}
- function soundReview(id){
-  const make=(prompt,options,correct,why,audio)=>{const opts=shuffle(options.slice());return {type:'grammar',unitId:id,prompt,options:opts,answer:opts.indexOf(correct),why,...(audio?{dlReviewAudio:audio}:{})};};
-  return [
-   make('Listen to the first sound. Which German letter makes it?',['J','W','V'],'J','Junge begins with J, pronounced like English Y.','Junge'),
-   make('You encounter “Wolke” (cloud) for the first time. How is W pronounced?',['Like English V','Like English W','Like English F'],'Like English V','German W sounds like English V.'),
-   make('Listen to the vowel sound. Which German letter produces it?',['ö','o','ü'],'ö','Schön uses ö, a rounded front vowel.','schön'),
-   make('In the new word “Vogel” (bird), how is the initial V usually pronounced?',['Like English F','Like English V','Like English Y'],'Like English F','Vogel begins with an F sound.'),
-   make('Listen to the vowel sound. Which German letter produces it?',['ü','u','ö'],'ü','Fünf contains the vowel ü.','fünf'),
-   make('What changes when you write schon as schön?',['The pronunciation and meaning','Only the capitalization','Nothing; they are interchangeable'],'The pronunciation and meaning','Schon means already; schön means beautiful.'),
-   make('Listen to the first vowel sound. Which German letter produces it?',['ä','a','ö'],'ä','Mädchen contains ä.','Mädchen'),
-   make('You see the unfamiliar word “Fuß” (foot). What sound does ß represent?',['An s sound','A b sound','A z sound'],'An s sound','ß represents a voiceless s sound.'),
-   make('Listen to the first sound. Which German letter makes it?',['W','V','J'],'W','Wasser begins with W, pronounced like English V.','Wasser'),
-   make('Listen to the German word. Which vowel sound do you hear?',['ü','u','ö'],'ü','The word grün contains the German ü vowel.','grün')
-  ];
+ function soundReview(group){
+  const alphabet=group.ids.find(id=>/alphabet|spelling/i.test(FULL_UNITS[id]?.title||''))??group.ids[0];
+  const umlauts=group.ids.find(id=>/umlaut/i.test(FULL_UNITS[id]?.title||''))??alphabet;
+  // Pronunciation is a separate drill route, not a FULL_UNITS lesson ID.
+  const ids=[alphabet,umlauts,alphabet];
+  const rows=[
+ [
+  0,
+  "How many basic letters does German share with English?",
+  [
+   "26",
+   "24",
+   "30"
+  ],
+  "German uses the same 26 basic letters as English, with ä, ö, ü and ß added."
+ ],
+ [
+  0,
+  "Listen to the first sound. Which German letter makes it?",
+  [
+   "J",
+   "W",
+   "V"
+  ],
+  "German J sounds like English Y, as in Januar.",
+  "Januar"
+ ],
+ [
+  0,
+  "Listen to this word. Which letter makes its first sound?",
+  [
+   "W",
+   "V",
+   "J"
+  ],
+  "Wasser starts with W, pronounced like English V.",
+  "Wasser"
+ ],
+ [
+  0,
+  "How is V usually pronounced in Vater?",
+  [
+   "Like English F",
+   "Like English W",
+   "Like English Y"
+  ],
+  "In common words such as Vater, V sounds like English F."
+ ],
+ [
+  0,
+  "Which pair begins with the same sound?",
+  [
+   "Wasser and Winter",
+   "Vater and Januar",
+   "Januar and Wasser"
+  ],
+  "Both Wasser and Winter start with German W, pronounced like English V."
+ ],
+ [
+  1,
+  "Which set contains all three German umlaut vowels?",
+  [
+   "ä, ö, ü",
+   "a, o, u",
+   "ei, ie, eu"
+  ],
+  "The umlaut vowels are ä, ö and ü. They are distinct vowels."
+ ],
+ [
+  1,
+  "Listen to the first vowel. Which German letter makes this sound?",
+  [
+   "ä",
+   "a",
+   "ö"
+  ],
+  "Mädchen contains ä, a distinct German vowel that can sound similar to e in bed.",
+  "Mädchen"
+ ],
+ [
+  1,
+  "What changes between schon and schön?",
+  [
+   "Both pronunciation and meaning",
+   "Only capitalization",
+   "Nothing"
+  ],
+  "Schon means already; schön means beautiful. The umlaut changes the vowel and meaning."
+ ],
+ [
+  1,
+  "What is the letter ß called?",
+  [
+   "Eszett",
+   "Umlaut",
+   "Be"
+  ],
+  "ß is called Eszett or scharfes S. It is not the letter B."
+ ],
+ [
+  1,
+  "What sound does ß represent in Straße?",
+  [
+   "A voiceless s sound",
+   "A b sound",
+   "An English z sound"
+  ],
+  "ß represents a voiceless s sound, as in Straße."
+ ],
+ [
+  1,
+  "Which spelling pattern is usual in German?",
+  [
+   "ß after a long vowel or diphthong; ss after a short vowel",
+   "ß after a short vowel; ss after a long vowel",
+   "ß and ss can always be swapped"
+  ],
+  "Compare Straße with its long vowel and Wasser with its short vowel. ß and ss are not freely interchangeable."
+ ],
+ [
+  2,
+  "How is z pronounced in zwei?",
+  [
+   "As a single ts sound",
+   "Like English z",
+   "Like sh"
+  ],
+  "German z combines t and s into one /ts/ sound."
+ ],
+ [
+  2,
+  "How is sch pronounced in Schule?",
+  [
+   "Like English sh",
+   "Like sk",
+   "Like ch in chair"
+  ],
+  "The three letters sch represent one sh sound."
+ ],
+ [
+  2,
+  "At the beginning of sprechen, how is sp pronounced?",
+  [
+   "shp",
+   "sp as in English spin",
+   "ts"
+  ],
+  "At the start of a word or stressed syllable, sp usually begins with sh followed by p."
+ ],
+ [
+  2,
+  "At the beginning of stehen, how is st pronounced?",
+  [
+   "sht",
+   "st as in English stop",
+   "ts"
+  ],
+  "Initial st usually begins with sh followed by t."
+ ],
+ [
+  2,
+  "Which description fits the soft ch in ich?",
+  [
+   "Friction with the middle of the tongue raised toward the roof of the mouth",
+   "English sh",
+   "A hard k sound"
+  ],
+  "The soft ch /ç/ after i is not English sh. Raise the middle of the tongue toward the roof of the mouth."
+ ],
+ [
+  2,
+  "How does ch in Buch differ from ch in ich?",
+  [
+   "It is made farther back in the mouth",
+   "It is silent",
+   "It is English sh"
+  ],
+  "After a, o or u, ch is usually the back friction sound /x/."
+ ],
+ [
+  2,
+  "Which sound does EI make in mein and Wein?",
+  [
+   "“Eye,” like the English letter I",
+   "“Ee,” like the English letter E",
+   "“Oy,” as in boy"
+  ],
+  "eI → eye: the second letter suggests its English letter name, I."
+ ],
+ [
+  2,
+  "Which sound does IE usually make in Liebe and Biene?",
+  [
+   "Long “ee,” like the English letter E",
+   "“Eye,” like the English letter I",
+   "“Ow,” as in cow"
+  ],
+  "iE → ee: the second letter suggests its English letter name, E. IE usually represents a long vowel."
+ ],
+ [
+  2,
+  "How does eu sound in neun and heute?",
+  [
+   "Similar to oy in boy",
+   "Like eye",
+   "Like long ee"
+  ],
+  "Eu makes the /ɔʏ/ diphthong; äu often makes the same sound."
+ ],
+ [
+  2,
+  "How does au sound in Haus?",
+  [
+   "Similar to ow in cow",
+   "Like long ee",
+   "Like oy in boy"
+  ],
+  "Au glides roughly like English ow in cow."
+ ],
+ [
+  2,
+  "Which English sound matches w in wir?",
+  [
+   "V",
+   "W",
+   "F"
+  ],
+  "German W sounds like English V; touch upper teeth lightly to the lower lip."
+ ],
+ [
+  2,
+  "Which statement about German v is accurate?",
+  [
+   "It often sounds like f, but some borrowed words use v",
+   "It always sounds like English w",
+   "It is always silent"
+  ],
+  "V often sounds like f in common German words such as Vater and vier; borrowed words can differ."
+ ],
+ [
+  2,
+  "In heißen, what sound does ß represent?",
+  [
+   "A voiceless s sound",
+   "A b sound",
+   "A sh sound"
+  ],
+  "ß sounds like a voiceless s, including after the diphthong ei in heißen."
+ ],
+ [
+  2,
+  "Listen to this vowel. Which German letter produces it?",
+  [
+   "ü",
+   "u",
+   "ö"
+  ],
+  "Fünf contains ü. Practice it by saying ee while rounding the lips as for oo.",
+  "fünf"
+ ],
+ [
+  2,
+  "Listen to the vowel. Which German letter produces this sound?",
+  [
+   "ö",
+   "o",
+   "ü"
+  ],
+  "Schön contains ö: start with an eh-like front vowel and round your lips.",
+  "schön"
+ ]
+];
+  return shuffle(rows.map(([section,prompt,options,why,audio])=>{
+   const correct=options[0],choices=shuffle(options.slice());
+   return {type:'grammar',unitId:ids[section],prompt,options:choices,answer:choices.indexOf(correct),why,...(audio?{dlReviewAudio:audio}:{}),dlReviewTopic:['Alphabet and spelling','Umlauts and ß','German pronunciation'][section]};
+  }));
  }
  function personalPronounReview(group){
   const titles=['Personal pronouns: ich, du, and Sie','Everyday conversations: Understanding in context','Personal pronouns: he, she, it'];
@@ -229,7 +491,7 @@
   }
   if(clean.length){
    const isAlphabet=n===0&&/alphabet|spelling/i.test(g.title||'');
-   const candidates=isAlphabet?soundReview(g.ids[0]):clean;
+   const candidates=isAlphabet?soundReview(g):clean;
    // Interleave different exercise types instead of repeating one prompt pattern.
    const buckets=new Map();
    for(const q of shuffle(candidates)){
@@ -243,11 +505,19 @@
    }
    // Cover every taught distinction in this three-lesson module.
    const pronouns=g.title==='I, you, we: personal pronouns'?personalPronounReview(g):null;
-   s.questions=pronouns||mixed;
+   s.questions=isAlphabet?candidates:(pronouns||mixed);
    s.idx=0;s.score=0;s.answered=false;s.dlCoreScore=0;s.dlCoreCount=s.questions.length;s.dlMissed=[];
   }else{
    s.dlCoreCount=s.questions.length;
   }
   curriculumReviewRender();
+ };
+ const previousReviewRender=curriculumReviewRender;
+ curriculumReviewRender=function(){
+  const result=previousReviewRender.apply(this,arguments);
+  const q=moduleSession?.questions?.[moduleSession.idx];
+  const label=document.querySelector('#app .card > p.muted');
+  if(q?.dlReviewTopic&&label)label.textContent=q.dlReviewTopic;
+  return result;
  };
 })();
