@@ -97,3 +97,8 @@ assert.equal(audioGroup.children[0].textContent,'Listen to the word');assert.equ
 button('Listen slowly').click();assert.equal(played[played.length-1][0],q.options[0]);assert.equal(played[played.length-1][1],.7);
 const typed=app.querySelector('input');typed.value=q.options[0];typed.oninput();button('Check answer').click();assert.equal(context.moduleSession.score,1);assert.equal(app.querySelector('.dl-review-dictation-audio'),null);
 console.log('PASS: stacked normal/slow playback; slow speed and answer checking preserved; audio controls removed after checking');
+// The same tested review controls also serve short written answers outside Module 1.
+open('type');context.moduleSession.n=3;const write=current();write.dlReviewMode='write';write.dlWriteAnswer='hast';write.prompt='Write the missing word: Du ___ Zeit.';write.options=['habe','hat','hast'];write.answer=2;
+context.curriculumReviewRender();assert.equal(buttons().some(b=>b.textContent==='Listen to the word'),false);assert.equal(button('Check answer').disabled,true);
+let written=app.querySelector('input');written.value=' HAST ';written.oninput();refreshDock();assert.equal(dockButton.disabled,false);dockButton.click();assert.equal(context.moduleSession.score,1);assert.equal(app.querySelector('input'),null);assert.equal(dockButton.textContent,'Next question');
+console.log('PASS: written review requires no audio, accepts normalized answer with shuffled correct index, cleans controls and advances through native dock');

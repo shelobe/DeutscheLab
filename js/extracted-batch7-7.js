@@ -2,7 +2,7 @@
 /* Module mastery: 80% review score unlocks the next module. */
 (function(){
  const passed=(level,n)=>!!state.learning?.moduleReviews?.[level+'-'+n]?.passed;
- const unlocked=(level,n)=>Array.from({length:n},(_,i)=>i).every(i=>passed(level,i));
+ const unlocked=(level,n)=>(level==='A1'&&!!state.learning?.a1Practical?.access?.includes(STRUCTURED_PATH.A1[n]?.key))||Array.from({length:n},(_,i)=>i).every(i=>passed(level,i));
  const moduleOf=(level,id)=>(STRUCTURED_PATH[level]||[]).findIndex(g=>g.ids.includes(id));
  const oldView=curriculumView;
  curriculumView=function(level){

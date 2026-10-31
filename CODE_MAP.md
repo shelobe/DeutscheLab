@@ -36,7 +36,7 @@
 - `js/extracted-batch7-1.js` provides the introduction and 15 sound drills. Next/Finish requires a nonempty speech result for each sound; silence and mic startup do not count. Correct results retain automatic advancement; nonmatching results allow retry or Next.
 - Unsupported speech recognition or microphone/service errors expose an explicit continue-without-recognition action. Review resets attempts; completion requires all 15 sounds. Rendering cancels active recognition and removes detached pronunciation docks before creating the next one.
 
-## Module 2 review
+## Legacy Module 2 review
 - `js/extracted-batch5-8.js`: `personalPronounReview` supplies 18 questions, six for each current Module 2 lesson. Every run covers ich/du/formal Sie, conversation requests and understanding, and er/sie/es plus she/they distinctions. Question and option order shuffle without dropping topics. Other modules retain their existing selection and all reviews keep native scoring, feedback and mastery handling.
 
 ## Module 1 review
@@ -50,3 +50,15 @@
 - `js/extracted-batch5-8.js`: `reviewPromptWithoutHints` runs before rendering module-review questions at every level. Listening prompts use neutral wording; pronunciation labels remain in feedback. Review-only cleanup removes explanatory sound glosses, grammar labels and noun-ending instructions, while retaining semantic requirements such as “me”, “formal you”, or “she” needed to make a task unambiguous.
 
 - Module 1 review controls opt into the shared fixed footer through `data-dl-review-action`; typed/comparison/matching checks remain anchored even when disabled. Review questions never require a microphone. Matching uses two explicit grid columns. The answer wrapper removes submitted controls and banks before scrolling feedback into view and refreshing native Next. Regression checks execute the real shared dock as well as review handlers.
+
+## Practical A1 course
+- `js/a1-verb-sequence.js` now supplies the foundational pronoun, regular-verb and stem-vowel teaching packs. It no longer independently reorders modules or builds reviews.
+- `js/a1-practical-data.js` contains authored teaching, examples and focused questions, including the revised topic stages and new forms, messages, schedules and instruction lessons.
+- `js/a1-practical-course.js` resolves lessons by their exact A1 titles, replacing fragile numeric module definitions with 22 stable module keys and 101 unique linked lessons. All 95 formerly linked lessons remain; Places around town is recovered, and five focused new lessons are added including the stem-vowel lesson. Unlinked duplicate legacy units retain their IDs for old saved results/direct links.
+- Load data and course definitions after the foundation packs but before `lesson-consistency.js`. The course validates lesson membership, required teaching packs and question availability before exposing the new path.
+- Ordinary A1 module reviews use at most 15 questions and cover every lesson before adding more from one lesson. They reuse taught question banks and include written recall/listening where available. The 21-question final review draws one task from each preceding module. Module 1 keeps its existing five interaction buckets/four formats, adding soft-ch, au and eu coverage.
+- `lesson-consistency.js` renders list-valued sections as semantic bullets, refreshes authored A1 guides while preserving the custom word-order teaching, and uses native checking/feedback/scoring for short written responses. It provides normal/slow playback for audio questions. A2/B1 teaching content is unchanged.
+- `module-one-review.js` also renders the explicit `write` mode outside Module 1, preserving the normal fixed footer and answered-bank cleanup. No microphone is required.
+- Progress migration preserves lesson IDs and `fullScores`, archives the old A1 module-review records, and retains review passes only for identical lesson membership. Previously available lessons retain access through stable module keys; the mastery gate in `extracted-batch7-7.js` honors that access. Revised review passes are also stored by stable module key. A2/B1 records are untouched; migration is idempotent and runs after later legacy/cloud progress loads as needed.
+- Reference for prerequisite checks: Deutsche Welle, Nicos Weg A1 grammar overview, https://static.dw.com/downloads/52718691/grammar-overview-nicos-weg-a1.pdf. This informs progression; teaching/examples are authored for DeutschLab.
+- `scripts/test-a1-practical-course.cjs` executes real script order with inert DOM/storage doubles and validates 880 randomized review runs, complete lesson/topic coverage, ID preservation and migration. `test-a1-verb-sequence.cjs` checks semantic guides, real written lesson handlers and audio. `test-module-one-review.cjs` covers the shared review dock, correct/incorrect answers, matching, cleanup and written review input. None launches a browser.

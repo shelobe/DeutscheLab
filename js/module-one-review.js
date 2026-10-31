@@ -17,10 +17,10 @@
   alternatives[0].unitId=umlaut;alternatives[2].unitId=umlaut;
   const pairA=Math.random()<.5?['schon','schön']:['schön','schön'];
   const pairB=Math.random()<.5?['mein','mein']:['mein','Wein'];
-  const pairC=Math.random()<.5?['Tier','Tür']:['Tür','Tür'];
-  const pairs=[make('compare','',pairA[0]===pairA[1]?'Both recordings say schön.':'Schon and schön have different vowel sounds.',{unitId:umlaut,clips:pairA}),make('compare','',pairB[0]===pairB[1]?'Both recordings say mein.':'The recordings say mein and Wein: the initial consonants differ.',{clips:pairB}),make('compare','',pairC[0]===pairC[1]?'Both recordings say Tür.':'Tier has ie; Tür has ü.',{unitId:umlaut,clips:pairC})];
+  const pairC=Math.random()<.5?['ich','Buch']:['ich','ich'];
+  const pairs=[make('compare','',pairA[0]===pairA[1]?'Both recordings say schön.':'Schon and schön have different vowel sounds.',{unitId:umlaut,clips:pairA}),make('compare','',pairB[0]===pairB[1]?'Both recordings say mein.':'The recordings say mein and Wein: the initial consonants differ.',{clips:pairB}),make('compare','',pairC[0]===pairC[1]?'Both recordings say ich.':'Ich has the soft ch sound; Buch has the back ch sound.',{unitId:umlaut,clips:pairC})];
   pairs.forEach(q=>{q.options=['Same word','Different words'];q.answer=q.clips[0]===q.clips[1]?0:1});
-  const sets=[['Jahr','Wasser','Vater'],['Schule','sprechen','stehen'],['Straße','heißen','fünf']];
+  const sets=[['Jahr','Wasser','Vater'],['Schule','sprechen','stehen'],['Straße','Haus','neun']];
   const matches=sets.map((words,i)=>make('match',words.join(' · '),'Listen for the full word and connect its sound to its spelling.',{unitId:i===2?umlaut:id,words,clipOrder:shuffle(words),wordOrder:shuffle(words)}));
   matches.forEach(q=>q.options[0]=q.clipOrder.map((word,i)=>clipLabel(i)+': '+word).join('; '));
   const buckets=[choices,typing,alternatives,pairs,matches].map(shuffle),questions=[];
@@ -54,7 +54,7 @@
   if(!q?.dlReviewMode||s.answered)return result;
   const card=app.querySelector('.card'),heading=card?.querySelector('h2'),original=card?.querySelector('.picture-choices');
   if(!heading||!original)return result;
-  const section=card.querySelector('p.muted');if(section)section.textContent='Sounds and spelling';
+  const section=card.querySelector('p.muted');if(section)section.textContent=s.level==='A1'&&s.n===0?'Sounds and spelling':FULL_UNITS[q.unitId]?.title||'Practice';
   if(q.dlReviewMode==='choice')return result;
   card.querySelectorAll('.dl-review-listen').forEach(el=>el.remove());
   const controls=document.createElement('div');controls.className='dl-review-controls';original.replaceWith(controls);
@@ -72,17 +72,19 @@
    curriculumReviewAnswer(ok?q.answer:(q.answer===0?1:0));
   }
   function play(word,after){if(!alive())return;speak(word);if(after)after()}
-  if(q.dlReviewMode==='type'){
-   heading.textContent='Listen, then type the word you hear.';
-   let heard=false;
+  if(q.dlReviewMode==='type'||q.dlReviewMode==='write'){
+   heading.textContent=q.dlReviewMode==='write'?q.prompt:'Listen, then type the word you hear.';
+   const writing=q.dlReviewMode==='write';let heard=writing;
+   if(!writing){
    const audio=document.createElement('div');audio.className='dl-review-dictation-audio';controls.append(audio);
    const listen=button('Listen to the word',()=>play(q.options[0],()=>{heard=true;check.disabled=!input.value.trim()}),audio);listen.className='dl-review-listen-main';
    const slow=button('Listen slowly',()=>{if(alive()){speak(q.options[0],0.7);heard=true;check.disabled=!input.value.trim()}},audio);slow.className='secondary dl-review-listen-slow';
+   }
    const label=document.createElement('label');label.textContent='Your answer';label.htmlFor='dl-review-typed';controls.append(label);
    const input=document.createElement('input');input.id='dl-review-typed';input.type='text';input.autocomplete='off';input.autocapitalize='none';input.spellcheck=false;input.setAttribute('autocorrect','off');controls.append(input);
    const keys=document.createElement('div');keys.className='dl-review-character-keys';controls.append(keys);
    for(const ch of ['ä','ö','ü','ß'])button(ch,()=>{input.setRangeText(ch,input.selectionStart,input.selectionEnd,'end');input.focus();check.disabled=!heard||!input.value.trim()},keys);
-   const check=primary(button('Check answer',()=>{if(heard&&input.value.trim())submit(normalize(input.value)===normalize(q.options[0]))}));check.disabled=true;
+   const check=primary(button('Check answer',()=>{if(heard&&input.value.trim())submit(normalize(input.value)===normalize(q.dlWriteAnswer??q.options[0]))}));check.disabled=true;
    input.oninput=()=>check.disabled=!heard||!input.value.trim();input.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();check.click()}};
   }else if(q.dlReviewMode==='compare'){
    heading.textContent='Do the two recordings say the same word or different words?';
