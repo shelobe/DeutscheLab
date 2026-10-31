@@ -1,0 +1,1 @@
+(function(){const previous=fullStudy;fullStudy=function(id){previous(id);if(FULL_UNITS[id]?.title==='Everyday conversations: Understanding in context'){const el=app.querySelector('.unit-explain');if(el)el.classList.add('dl-rule-breakdown')}}})();

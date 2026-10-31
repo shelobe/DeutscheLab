@@ -39,3 +39,10 @@ This document records established product decisions. The current `main` branch i
 - Commit directly to `main` through GitHub. Report the actual commit SHA; if access or validation fails, state what was not completed.
 - No ZIP files or manual uploads unless explicitly requested.
 - For major redesigns or character replacements, obtain approval first. Minor targeted corrections can be committed directly.
+
+## Efficient GitHub change management
+- For multi-file refactors or extraction batches, first inspect the latest `main` state, existing extracted files, and available GitHub Git Data API capabilities.
+- Prefer a single atomic tree/commit/ref update for related files instead of creating or committing files individually. Preserve existing files and original script execution order.
+- Reuse already-created files; verify exact content mapping and avoid duplicate script execution before committing.
+- Validate JavaScript syntax and script references before the bulk commit, and verify the resulting `main` commit and changed files afterward. Never assume a partially interrupted operation failed without checking GitHub.
+- Avoid unnecessary GitHub calls and report tool limits or incomplete validation accurately.

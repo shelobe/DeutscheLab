@@ -1,0 +1,1 @@
+(function(){const previous=friendlyCourse;friendlyCourse=function(level){return curriculumView(level||state.learning?.placement?.recommended||'A1')};window.addEventListener('load',()=>{const el=document.querySelector('#app .path-list');if(el){curriculumView(state.learning?.placement?.recommended||'A1')}});})();

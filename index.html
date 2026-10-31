@@ -248,25 +248,7 @@ body:has(#dl-sentence-next-dock) #dl-fixed-next{display:none!important}
 /* Keep the shared navigation visible without scrolling. */
 #screenBack{position:sticky!important;top:8px!important;z-index:200!important}
 </style>
-<script>
-(function(){
-  // Capture the back action before the older general-purpose handlers.
-  // Picture rounds go to their picture menu; the picture menu goes home.
-  document.getElementById('app').addEventListener('click',function(event){
-    const back=event.target.closest('#screenBack');
-    if(!back)return;
-    const appNode=document.getElementById('app');
-    const isPictureRound=!!appNode.querySelector('.picture-card') || !!appNode.querySelector('.picture-status') ||
-      (typeof pictureSession!=='undefined' && pictureSession && appNode.textContent.includes('You finished this picture round'));
-    const isPictureMenu=appNode.textContent.includes('32 everyday objects') && appNode.textContent.includes('What do you see?');
-    if(!isPictureRound && !isPictureMenu)return;
-    event.preventDefault();event.stopImmediatePropagation();
-    if(isPictureRound){pictureSession=null;pictureHome();}
-    else home();
-    window.scrollTo(0,0);
-  },true);
-})();
-</script>
+<script src="./js/extracted-batch7-22.js"></script>
 
 <style>
 .game-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.game-grid button{min-height:75px;padding:12px;white-space:normal}
@@ -291,28 +273,7 @@ body:has(#dl-sentence-next-dock) #dl-fixed-next{display:none!important}
 #photoLoading.photo-placeholder{min-height:220px;height:auto;display:flex;flex-direction:column;gap:14px;justify-content:center}
 .picture-card:has(.photo-image:not([hidden])){padding:10px}
 </style>
-<script>
-(function(){
- const appNode=document.getElementById('app');
- const back=document.createElement('button');back.id='picturePersistentBack';back.type='button';back.textContent='Back';
- appNode.parentNode.insertBefore(back,appNode);
- let current='none';
- function sync(){
-  const round=!!appNode.querySelector('#photoActual');
-  const menu=appNode.textContent.includes('Choose a topic')&&appNode.textContent.includes('Picture practice');
-  const complete=!!(typeof pictureSession!=='undefined'&&pictureSession?.photo&&appNode.textContent.includes('Round complete'));
-  current=round||complete?'round':menu?'menu':'none';
-  back.style.display=current==='none'?'none':'inline-flex';
-  const older=document.getElementById('screenBack');if(older&&current!=='none')older.style.display='none';
- }
- back.addEventListener('click',()=>{
-  if(current==='round'){pictureSession=null;photoMenu()}
-  else if(current==='menu'){pictureSession=null;home()}
-  window.scrollTo(0,0);
- });
- new MutationObserver(sync).observe(appNode,{childList:true,subtree:false});sync();
-})();
-</script>
+<script src="./js/extracted-batch7-23.js"></script>
 
 <style>
 #picturePersistentBack{display:none!important}
@@ -325,22 +286,7 @@ body:has(#dl-sentence-next-dock) #dl-fixed-next{display:none!important}
 #app .card{margin-top:10px}
 .dl-home-practice button{min-height:106px;padding:14px 9px;font-size:1rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;border:1px solid rgba(255,255,255,.18);border-radius:17px;background:linear-gradient(155deg,#75d7c8,#5fc7b9);box-shadow:0 5px 0 #154c4c,0 12px 18px rgba(0,0,0,.13);transition:transform .12s,box-shadow .12s}.dl-home-practice button:active{transform:translateY(3px);box-shadow:0 2px 0 #154c4c}.dl-home-practice .dl-practice-icon{font-size:1.8rem;line-height:1.1;filter:drop-shadow(0 2px 2px rgba(0,0,0,.12))}.dl-home-practice button span:last-child{line-height:1.2}.dl-practice-explore{width:100%;margin:14px 0 0;min-height:56px}.dl-home-practice{gap:10px}
 </style>
-<script>
-(function(){
-const CURATED_IDS=[25, 43, 44, 45, 46, 50, 51, 70, 73, 99, 105, 111, 114, 116, 122, 123, 124, 128, 138, 139, 140, 152, 156, 157, 159, 163, 170, 175, 176, 184, 188, 189, 199];
-const oldHome=home;
-home=function(){oldHome();let first=app.querySelector('.dashboard-primary');if(first){const card=document.createElement('section');card.className='card';card.innerHTML='<h2>Practice Hub</h2><p>Strengthen your German with quick, interactive exercises.</p><div class="game-grid dl-home-practice"><button onclick="gameStart(&quot;build&quot;)"><span class="dl-practice-icon">🧩</span><span>Build sentences</span></button><button onclick="gameStart(&quot;match&quot;)"><span class="dl-practice-icon">🔗</span><span>Match pairs</span></button><button onclick="listeningLevels()"><span class="dl-practice-icon">🎧</span><span>Listening</span></button><button onclick="photoMenu()"><span class="dl-practice-icon">🖼️</span><span>Picture practice</span></button><button onclick="articleHome()"><span class="dl-practice-icon">📚</span><span>Noun articles</span></button><button onclick="dlOpenOrganizedActivity(\'review\')"><span class="dl-practice-icon">🧠</span><span>Review</span></button></div><button class="dl-practice-explore" onclick="practiceHub();window.scrollTo({top:0,left:0,behavior:'instant'})">Explore Practice Hub →</button>';first.after(card)}};
-const originalPhotoMenu=photoMenu;
-photoMenu=function(){pictureSession=null;originalPhotoMenu();let card=app.querySelector('.card');if(card){let note=card.querySelector('.muted:last-child');if(note)note.textContent='Illustrations are bundled with the app and work offline. Only visually clear vocabulary is used in picture quizzes.';let count=card.querySelector('p');if(count)count.textContent=CURATED_IDS.length+' illustrated words available for picture quizzes; 200 vocabulary words in the full bank.';}}
-photoStart=function(mode){let pool=CURATED_IDS.filter(i=>photoCategory==='All topics'||PHOTO_WORDS[i][2]===photoCategory);if(!pool.length){photoCategory='All topics';pool=[...CURATED_IDS]}for(let i=pool.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[pool[i],pool[j]]=[pool[j],pool[i]]}pictureSession={mode,queue:pool.slice(0,Math.min(10,pool.length)),index:0,correct:0,answered:false,photo:true};photoShow()};
-photoLoad=function(i){let img=document.getElementById('photoActual');if(!img)return;img.src='./illustrations/'+i+'.svg';img.hidden=false;let loading=document.getElementById('photoLoading');if(loading)loading.remove();};
-// Correctly placed back button, within the content below the sticky app header.
-function navSync(){let b=document.getElementById('screenBack');if(!b)return;let isPhoto=!!app.querySelector('#photoActual')||app.textContent.includes('Choose a topic')&&app.textContent.includes('Picture practice');let isGame=!!gameSession||app.textContent.includes('Choose an activity');if(isPhoto||isGame){b.style.display='inline-flex';b.onclick=function(e){e.preventDefault();e.stopImmediatePropagation();if(isPhoto){if(pictureSession?.photo){pictureSession=null;photoMenu()}else home()}else if(gameSession){gameHub()}else home();window.scrollTo(0,0)};let persistent=document.getElementById('picturePersistentBack');if(persistent)persistent.style.display='none'}}
-new MutationObserver(navSync).observe(app,{childList:true,subtree:false});navSync();
-// Keep the new games accessible through the menu even when the original home is re-rendered.
-const menu=document.getElementById('sideMenu');if(menu&&!Array.from(menu.querySelectorAll('button')).some(x=>x.textContent.includes('Practice games'))){let b=document.createElement('button');b.textContent='Practice games';b.onclick=()=>navigateTo('gameHub');menu.appendChild(b)}
-})();
-</script>
+<script src="./js/extracted-batch7-24.js"></script>
 
 <style>
 #app .picture-art{font-size:clamp(7rem,30vw,11rem);line-height:1.4;display:block;text-align:center}
@@ -348,20 +294,7 @@ const menu=document.getElementById('sideMenu');if(menu&&!Array.from(menu.querySe
 #app .picture-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 #app .picture-choices button{min-height:64px}
 </style>
-<script>
-// Restore the reliable, recognizable emoji quiz instead of photos or SVG illustrations.
-photoMenu=function(){pictureSession=null;pictureHome();};
-photoStart=function(mode){pictureStart(mode);};
-// Use the same clear emoji vocabulary in the main picture quiz and practice games.
-const emojiBackSync=()=>{
- const b=document.getElementById('screenBack');if(!b)return;
- const isEmojiRound=!!app.querySelector('.picture-art');
- const isEmojiMenu=app.textContent.includes('32 everyday objects')&&app.textContent.includes('What do you see?');
- if(isEmojiRound||isEmojiMenu){b.style.display='inline-flex';b.onclick=function(e){e.preventDefault();e.stopImmediatePropagation();if(isEmojiRound){pictureSession=null;pictureHome()}else home();window.scrollTo(0,0)};}
-};
-new MutationObserver(emojiBackSync).observe(app,{childList:true,subtree:false});
-emojiBackSync();
-</script>
+<script src="./js/extracted-batch7-25.js"></script>
 
 <script src="./js/lesson-question-bank.js"></script>
 
@@ -404,26 +337,7 @@ body.lesson-screen #app>.curriculum-summary,body.lesson-screen #app>.curriculum-
 </style>
 <script src="./js/extracted-batch6-16.js"></script>
 
-<script>
-// Picture practice must use the bundled emoji bank, never absent SVG files or remote photos.
-function reliablePictureMenu(){
- pictureSession=null;
- const saved=state.pictureProgress||{attempts:0,correct:0};
- app.innerHTML=illustratedHero('Picture practice','See it. Name it. Remember the article.','forest','katze.png')+
- `<section class="card"><h2>What do you see?</h2><p>Identify familiar objects and learn their German articles.</p><p class="muted">${saved.attempts} answers · ${saved.correct} correct</p><div class="picture-tabs"><button onclick="pictureStart('choice')">Choose the word</button><button onclick="pictureStart('type')">Type the word</button></div><p class="muted">32 everyday objects · works offline.</p></section>`;
- window.scrollTo(0,0);
-}
-function reliablePictureStart(mode){
- const pool=[...PICTURE_WORDS.keys()];
- for(let i=pool.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[pool[i],pool[j]]=[pool[j],pool[i]]}
- pictureSession={mode,queue:pool.slice(0,10),index:0,correct:0,answered:false,photo:false};
- pictureShow();
-}
-photoMenu=reliablePictureMenu;
-pictureHome=reliablePictureMenu;
-photoStart=reliablePictureStart;
-pictureStart=reliablePictureStart;
-</script>
+<script src="./js/extracted-batch7-26.js"></script>
 
 <style>
 .dl-flow{max-width:720px;margin:0 auto;padding:14px 0 32px}
@@ -460,62 +374,10 @@ pictureStart=reliablePictureStart;
 .dl-hero-cheer:before{content:'';position:absolute;left:-9px;top:18px;border-top:9px solid transparent;border-bottom:9px solid transparent;border-right:10px solid #e8fff7}
 @media(max-width:390px){.scene-hero.dl-completed-hero{gap:9px}.dl-hero-cheer{padding:10px 12px}}
 </style>
-<script>
-(function(){
- const root=document.getElementById('app');
- if(!root)return;
- const messages=['Excellent work! Keep it up!','You’re making real progress!','Well done! Every bit of practice counts.','Great job! Keep building your German skills.','You did it! Keep up the good work!'];
- const resultTitles=/^(Nice work!|Round complete!?|Lesson complete!|Lesson results|Unit results|Extended practice complete|Deep dive complete)$/i;
- let previousHero=null,sequence=0,updating=false;
- function render(){
-  if(updating)return;
-  const hero=root.querySelector('.scene-hero');
-  if(!hero){previousHero=null;return}
-  const heading=hero.querySelector('.hero-copy h2');
-  if(!heading||!resultTitles.test(heading.textContent.trim())){previousHero=null;return}
-  updating=true;
-  try{
-   // Remove older duplicate completion blocks, if present.
-   root.querySelectorAll('.completion-cheer,.dl-auto-cheer').forEach(el=>el.remove());
-   if(hero.querySelector('.dl-hero-cheer'))return;
-   if(hero!==previousHero){previousHero=hero;sequence++}
-   hero.classList.add('dl-completed-hero');
-   const bubble=document.createElement('div');bubble.className='dl-hero-cheer';bubble.setAttribute('role','status');
-   bubble.textContent=messages[(sequence-1)%messages.length];
-   hero.querySelector('.hero-copy').append(bubble);
-  }finally{updating=false}
- }
- new MutationObserver(render).observe(root,{childList:true,subtree:true});
- render();
-})();
-</script>
+<script src="./js/extracted-batch7-27.js"></script>
 <script src="./js/extracted-batch6-6.js"></script>
 
-<script>
-/* Reliable guided lesson start: initialize the question set before rendering.
-   Avoid legacy nested start handlers that may leave the introduction in place. */
-fullBegin = function(id) {
-  const unit = FULL_UNITS[id];
-  if (!unit) return;
-  fullSession = null;
-  const questions = fullQuestions(unit);
-  if (!Array.isArray(questions) || questions.length === 0) {
-    alert('No practice questions are available for this lesson.');
-    return;
-  }
-  fullSession = {id, idx:0, score:0, picks:[], results:[], questions};
-  dlSelected = null; dlAnswered = false; dlShowTip = false;
-  activeLessonScreen = id;
-  document.body.classList.add('lesson-screen');
-  try {
-    ensureLearning();
-    state.learning.fullAttempts ??= {};
-    state.learning.fullAttempts[id] = (state.learning.fullAttempts[id] || 0) + 1;
-    save();
-  } catch (error) { console.warn('Unable to save lesson attempt', error); }
-  fullRender();
-};
-</script>
+<script src="./js/extracted-batch7-28.js"></script>
 <script src="./js/extracted-batch6-5.js"></script>
 <script src="./js/extracted-batch5-10.js"></script>
 
@@ -539,56 +401,11 @@ body.dl-answer-ready .dl-flow #dl-check {
 }
 body.dl-answer-ready .dl-flow {padding-bottom:110px;}
 </style>
-<script>
-(function(){
- const priorCheck=dlCheck;
- dlCheck=function(){
-   const result=priorCheck();
-   const button=document.getElementById('dl-check');
-   if(typeof dlAnswered!=='undefined' && dlAnswered && button && !button.disabled){
-     document.body.classList.add('dl-answer-ready');
-   }
-   return result;
- };
- const priorRender=fullRender;
- fullRender=function(){
-   document.body.classList.remove('dl-answer-ready');
-   return priorRender.apply(this,arguments);
- };
- const observer=new MutationObserver(()=>{
-   if(!document.getElementById('dl-check'))document.body.classList.remove('dl-answer-ready');
- });
- observer.observe(document.getElementById('app'),{childList:true});
-})();
-</script>
+<script src="./js/extracted-batch7-29.js"></script>
 
 <script src="./js/legacy-part-2.js"></script>
 <script src="./js/extracted-batch4-3.js"></script>
-<script>
-/* Guard against incomplete learning-path rendering during asynchronous initialization. */
-(function(){
- const renderPath=curriculumView;
- let generation=0;
- curriculumView=function(level){
-  const token=++generation;
-  try{
-   renderPath(level);
-  }catch(error){
-   console.error('Learning path rendering failed',error);
-   const root=document.getElementById('app');
-   if(root)root.innerHTML='<section class="card"><h2>Lessons could not load</h2><p>Please try opening the learning path again.</p><button onclick="curriculumView(&quot;A1&quot;)">Retry lessons</button></section>';
-   return;
-  }
-  const root=document.getElementById('app');
-  if(root&&!root.querySelector('.curriculum-path-module')){
-   requestAnimationFrame(()=>{
-    if(token!==generation)return;
-    try{renderPath(level)}catch(error){console.error('Learning path retry failed',error)}
-   });
-  }
- };
-})();
-</script><script src="./js/extracted-batch6-4.js"></script><style>
+<script src="./js/extracted-batch7-30.js"></script><script src="./js/extracted-batch6-4.js"></script><style>
 /* Current avatar in hamburger navigation */
 #sideMenu .menu-heading{display:flex;align-items:center;gap:10px}
 #sideMenu .menu-heading .menu-close{margin-left:auto}
@@ -662,32 +479,7 @@ body.dl-answer-ready .dl-flow {padding-bottom:110px;}
 <script src="./js/extracted-batch7-14.js"></script>
 
 <!-- Native-speaker audio pilot: Mutter/Mütter. The single audio file is stored beside index.html. -->
-<script>
-(function(){
- const clips={Mutter:[0,1.46], 'Mütter':[1.96,3.44]};
- // Two clips separated by 0.5 seconds of silence.
- const sprite='deutschlab-native-audio.ogg';
- let active=null;
- const oldSpeak=speak;
- speak=function(text,rate=1){
-  const word=String(text||'').trim();
-  const range=clips[word];
-  if(!range){if(rate===1)return oldSpeak(text);try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(String(text));u.lang='de-DE';u.rate=rate;speechSynthesis.speak(u);return}catch(e){return oldSpeak(text)}}
-  try{
-   if(active){active.pause();active=null;}
-   if('speechSynthesis' in window)speechSynthesis.cancel();
-   const player=new Audio(sprite);player.playbackRate=rate;active=player;
-   player.preload='auto';
-   const start=range[0],end=range[1];
-   const begin=()=>{player.currentTime=start;player.play().catch(()=>oldSpeak(text));};
-   player.addEventListener('loadedmetadata',begin,{once:true});
-   player.addEventListener('timeupdate',()=>{if(player.currentTime>=end){player.pause();if(active===player)active=null;}});
-   player.addEventListener('error',()=>{if(active===player)active=null;oldSpeak(text);},{once:true});
-   player.load();
-  }catch(e){oldSpeak(text);}
- };
-})();
-</script>
+<script src="./js/extracted-batch7-31.js"></script>
 
 <script src="./js/extracted-batch5-8.js"></script>
 <style>
@@ -718,20 +510,7 @@ body.dl-answer-ready .dl-flow {padding-bottom:110px;}
 .dl-reset-section{border:1px solid rgba(243,163,153,.4)}
 .dl-reset-section .dl-reset-button{background:transparent;border:2px solid #d9958c;color:#ffd0c8;padding:15px 22px;border-radius:12px;font-weight:700}
 </style>
-<script>
-window.dlResetAllProgress=function(){
- dlAppConfirm({title:'Reset all progress?',message:'This will erase completed lessons, review results, XP, badges, and practice history.',cancelText:'Keep Progress',confirmText:'Continue',danger:true,onConfirm:()=>{
- dlAppConfirm({title:'Confirm permanent reset',message:'Are you sure? This cannot be undone.',cancelText:'Keep Progress',confirmText:'Erase Everything',danger:true,onConfirm:()=>{
- try{
-  localStorage.removeItem('deutschlab');
-  localStorage.removeItem('deutschlab_articles_v1');
-  localStorage.removeItem('deutschlab-active-screen-v2');
-  location.reload();
- }catch(err){alert('Unable to reset progress: '+err.message)}
- }});
- }});
-};
-</script>
+<script src="./js/extracted-batch7-32.js"></script>
 
 <style>
 /* Keep the placement test visually subordinate to Profile in the navigation. */
@@ -747,52 +526,12 @@ window.dlResetAllProgress=function(){
 }
 #sideMenu .dl-menu-profile-link{margin-bottom:0 !important;padding-bottom:8px !important}
 </style>
-<script>
-(function(){
-  function groupProfilePlacement(){
-    const menu=document.getElementById('sideMenu');
-    if(!menu)return;
-    const profile=menu.querySelector('.dl-menu-profile-link');
-    const placement=[...menu.querySelectorAll('button')].find(b=>b.textContent.includes('Placement test'));
-    if(!profile||!placement)return;
-    profile.after(placement);
-    placement.classList.add('dl-placement-subitem');
-    placement.textContent='Placement test';
-    placement.setAttribute('aria-label','Placement test under Profile');
-  }
-  groupProfilePlacement();
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',groupProfilePlacement,{once:true});
-})();
-</script>
+<script src="./js/extracted-batch7-33.js"></script>
 <link rel="stylesheet" href="./css/legacy-part-1.css">
 <script src="./js/extracted-batch6-10.js"></script>
 
 <link rel="stylesheet" href="./css/legacy-part-2.css">
-<script id="dl-mobile-layout-repair-behavior">
-(function(){
- const original=window.fullStudy;
- if(typeof original!=='function')return;
- window.fullStudy=function(id){
-  const result=original.apply(this,arguments);
-  const unit=FULL_UNITS[id];
-  if(!unit||!/alphabet and spelling/i.test(unit.title||''))return result;
-  const card=document.querySelector('#app .card');
-  if(!card||card.querySelector('.dl-letters-intro'))return result;
-  const section=document.createElement('section');section.className='dl-letters-intro';
-  section.innerHTML='<h3>Hear the extra German letters first</h3><p>German also uses <strong>ä, ö, ü</strong> (umlauts) and <strong>ß</strong> (Eszett). Listen to each example before you begin the pronunciation exercises. The umlauts are distinct vowel sounds; ß represents an s sound.</p>'+
-   '<div class="dl-letters-grid">'+[
-    ['Ä / ä','Mädchen','The ä vowel in Mädchen (girl)'],
-    ['Ö / ö','schön','The ö vowel in schön (beautiful)'],
-    ['Ü / ü','Mütter','The ü vowel in Mütter (mothers)'],
-    ['ẞ / ß','Straße','The ß sounds like ss in Straße (street)']
-   ].map(x=>'<div class="dl-letter-item"><strong>'+x[0]+'</strong><span>'+x[2]+'</span><button type="button" class="secondary" data-german-audio="'+x[1]+'">▶ Hear '+x[1]+'</button></div>').join('')+'</div>';
-  const examples=[...card.querySelectorAll('h3')].find(h=>h.textContent.trim()==='Examples');
-  if(examples)examples.before(section);else card.prepend(section);
-  section.querySelectorAll('[data-german-audio]').forEach(b=>b.addEventListener('click',()=>speak(b.dataset.germanAudio)));
-  return result;
- };
-})();
-</script>
+<script id="dl-mobile-layout-repair-behavior" src="./js/extracted-batch7-34.js"></script>
 
 <link rel="stylesheet" href="./css/legacy-part-3.css">
 <script src="./js/extracted-batch7-3.js"></script>
@@ -825,36 +564,9 @@ body.dl-home-banner .app-header h1 {font-size:clamp(1.65rem,5.5vw,2rem)!importan
 body.dl-home-banner .app-header p {font-size:.9rem!important;margin-top:5px!important;}
 body.dl-home-banner .app-header .menu-toggle {width:58px!important;height:58px!important;min-width:58px!important;font-size:30px!important;}
 </style>
-<script>
-(function(){
- const app=document.getElementById('app');
- if(!app)return;
- function sync(){document.body.classList.toggle('dl-home-banner',!!app.querySelector('[data-dl-home-banner]') && !document.body.classList.contains('lesson-screen'));}
- new MutationObserver(sync).observe(app,{childList:true});
- sync();
-})();
-</script>
+<script src="./js/extracted-batch7-35.js"></script>
 
-<script>
-/* Audio identification in A1 Module 1 review: play the German word, choose its letter. */
-(function(){
- const previous=curriculumReviewRender;
- curriculumReviewRender=function(){
-  previous.apply(this,arguments);
-  const s=moduleSession,q=s&&s.questions[s.idx];
-  if(!q||!q.dlReviewAudio)return;
-  const card=app.querySelector('.card');
-  const heading=card&&card.querySelector('h2');
-  if(!heading)return;
-  const button=document.createElement('button');
-  button.type='button';button.className='secondary dl-review-listen';
-  button.textContent='🔊 Play German word';
-  button.setAttribute('aria-label','Play the German word to identify its sound');
-  button.onclick=()=>speak(q.dlReviewAudio);
-  heading.after(button);
- };
-})();
-</script>
+<script src="./js/extracted-batch7-36.js"></script>
 <style>.dl-review-listen{display:block!important;width:100%!important;min-height:60px!important;margin:14px 0 22px!important;font-size:1.1rem!important}</style>
 
 <style id="dl-findit-room-thumbnails">
@@ -891,22 +603,7 @@ body.dl-home-banner .app-header .menu-toggle {width:58px!important;height:58px!i
 <script src="./js/extracted-batch2-2.js"></script>
 
 
-<script>
-/* Mark the real home dashboard rather than guessing from its layout. */
-(function(){
- const previousHome=home;
- home=function(){
-  previousHome.apply(this,arguments);
-  const root=document.getElementById('app');
-  if(root){const marker=document.createElement('span');marker.hidden=true;marker.setAttribute('data-dl-home-banner','');root.prepend(marker);}
-  document.body.classList.add('dl-home-banner');
- };
- if(document.querySelector('#app .dashboard-primary, #app .dashboard-shortcuts')){
-  const marker=document.createElement('span');marker.hidden=true;marker.setAttribute('data-dl-home-banner','');document.getElementById('app').prepend(marker);
-  document.body.classList.add('dl-home-banner');
- }
-})();
-</script>
+<script src="./js/extracted-batch7-37.js"></script>
 
 <style id="dl-home-header-size-fix">
 /* Higher specificity than compact-header and mobile repair overrides. */
@@ -930,17 +627,7 @@ html body.dl-home-banner.dl-compact-header .app-header .menu-toggle {
  html body.dl-home-banner .app-header h1{font-size:1.7rem!important}
 }
 </style>
-<script>
-/* Home marker is set by home(), while other views clear it. */
-(function(){
- const root=document.getElementById('app');
- if(!root)return;
- const sync=()=>document.body.classList.toggle('dl-home-banner',
-   !!root.querySelector('[data-dl-home-banner]')&&!document.body.classList.contains('lesson-screen'));
- new MutationObserver(sync).observe(root,{childList:true,subtree:true});
- sync();
-})();
-</script>
+<script src="./js/extracted-batch7-38.js"></script>
 <style id="dl-findit-cat-speech">
 .findit-cat-speech{position:absolute;left:21%;bottom:15%;z-index:5;display:flex;align-items:center;gap:7px;background:#f8faf5;color:#143244;border:3px solid #217b83;border-radius:18px;padding:8px 12px;box-shadow:0 5px 15px #0005;animation:findit-bubble-in .25s ease-out;max-width:65%;font-size:clamp(13px,3.4vw,20px)}
 .findit-cat-speech:before{content:"";position:absolute;left:-12px;bottom:12px;border-width:10px 12px 10px 0;border-style:solid;border-color:transparent #217b83 transparent transparent}
@@ -963,31 +650,7 @@ html body.dl-home-banner.dl-compact-header .app-header .menu-toggle {
 .findit-scene.findit-cat-sad::after{content:none;display:none}
 @keyframes dl-cat-pop{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-9px) scale(1.12)}}
 @keyframes dl-cat-no{0%,100%{transform:rotate(0)}30%{transform:rotate(-13deg)}70%{transform:rotate(13deg)}}
-</style><style>.dl-pronunciation h3{font-size:2rem;margin-bottom:0}.dl-pronunciation button{margin:5px}.dl-sound-navigation{display:flex;justify-content:space-between;gap:8px;margin-top:20px}.dl-sound-navigation button{flex:1}</style><style id="dl-findit-dynamic-bubbles">.findit-cat-speech{left:24%!important;bottom:15%!important;max-width:52%!important;min-width:0!important;z-index:8!important;font-weight:700}.findit-cat-speech-wrong{font-size:clamp(12px,3vw,18px)!important}</style><script>
-/* Organize navigation consistently after all feature buttons have been registered. */
-(function(){
- const nav=document.getElementById('sideMenu');
- if(!nav)return;
- const buttons=Array.from(nav.querySelectorAll('button'));
- const pick=(needle)=>buttons.find(b=>b.textContent.toLowerCase().includes(needle.toLowerCase()));
- const makeHeading=(name)=>{const p=document.createElement('p');p.className='muted dl-menu-group';p.textContent=name;return p};
- const items=[
- ['', ['Home']],
- ['LEARNING',['Lessons','Placement test']],
- ['PRACTICE',['Practice Hub','AI Tutor & Voice']],
- ['ACCOUNT',['Profile']],
- ['SUPPORT',[]]
- ];
- const frag=document.createDocumentFragment();
- for(const [title,names] of items){
-  if(title)frag.appendChild(makeHeading(title));
-  for(const name of names){const btn=pick(name);if(btn){frag.appendChild(btn)}}
- }
- const heading=nav.querySelector('.menu-heading');
- nav.querySelectorAll('p.muted').forEach(p=>p.remove());
- heading.after(frag);
-})();
-</script><style id="dl-pronunciation-mobile-repair">
+</style><style>.dl-pronunciation h3{font-size:2rem;margin-bottom:0}.dl-pronunciation button{margin:5px}.dl-sound-navigation{display:flex;justify-content:space-between;gap:8px;margin-top:20px}.dl-sound-navigation button{flex:1}</style><style id="dl-findit-dynamic-bubbles">.findit-cat-speech{left:24%!important;bottom:15%!important;max-width:52%!important;min-width:0!important;z-index:8!important;font-weight:700}.findit-cat-speech-wrong{font-size:clamp(12px,3vw,18px)!important}</style><script src="./js/extracted-batch7-39.js"></script><style id="dl-pronunciation-mobile-repair">
 body:not(.menu-open) #menuBackdrop{display:none!important;pointer-events:none!important}
 body:not(.menu-open) #sideMenu:not(.open){pointer-events:none!important}
 #app{position:relative;z-index:1}
@@ -1000,25 +663,7 @@ body:not(.menu-open) #sideMenu:not(.open){pointer-events:none!important}
 #app .dl-pronunciation .dl-sound-navigation{margin-top:12px}
 @media(max-width:600px){#app .dl-pronunciation{padding:16px!important}#app .dl-pronunciation .dl-sound-focus{padding:14px!important}#app .dl-pronunciation #dl-sound-hear,#app .dl-pronunciation #dl-sound-slow,#app .dl-pronunciation #dl-sound-speak{margin:5px 3px!important}}
 </style>
-<script>
-/* Rotate the home greeting instead of repeating Welcome back. */
-(function(){
- const greetings=['Willkommen zurück!','Schön, dass du da bist!','Bereit für Deutsch?','Weiter so!','Zeit für Deutsch!','Du schaffst das!','Auf geht’s!'];
- let last=-1;
- function updateGreeting(){
-  const heading=[...document.querySelectorAll('#app h2')].find(h=>['Welcome back','Willkommen zurück!',...greetings].includes(h.textContent.trim()));
-  if(!heading)return;
-  let next=Math.floor(Math.random()*greetings.length);
-  if(next===last)next=(next+1)%greetings.length;
-  last=next;heading.textContent=greetings[next];
- }
- const originalHome=window.home;
- if(typeof originalHome==='function'){
-  window.home=function(...args){const result=originalHome.apply(this,args);updateGreeting();return result};
- }
- updateGreeting();
-})();
-</script>
+<script src="./js/extracted-batch7-40.js"></script>
 <style id="dl-pronunciation-sticky-navigation">
 /* Only the pronunciation exercise has a persistent bottom navigation. */
 body:has(#app .dl-pronunciation .dl-sound-navigation) #app{padding-bottom:calc(100px + env(safe-area-inset-bottom,0px))!important}
@@ -1040,7 +685,7 @@ body:has(#app .dl-pronunciation .dl-sound-navigation) #app{padding-bottom:calc(1
 #app .dl-pronunciation .dl-sound-navigation button{flex:1!important;margin:0!important;min-height:52px!important}
 </style>
 <style id="dl-pronunciation-action-order">#app .dl-pronunciation #dl-sound-speak{display:block;width:100%;margin:14px 0 8px!important;min-height:52px}#app .dl-pronunciation .dl-sound-listening{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0 18px}#app .dl-pronunciation{padding-bottom:16px!important;min-height:0!important;height:auto!important}#app .dl-pronunciation .dl-sound-listening{margin-bottom:12px!important}#app .dl-pronunciation .dl-sound-listening button{flex:1 1 135px;min-height:50px;margin:0!important}#app .dl-pronunciation #dl-sound-status{margin:8px 0 12px}body:has(#app .dl-pronunciation .dl-sound-navigation) #app{padding-bottom:calc(88px + env(safe-area-inset-bottom,0px))!important}</style>
-<style id="dl-pronunciation-mobile-viewport-fix">#app .dl-pronunciation{min-height:0!important;max-height:none!important}body:has(.dl-pronunciation) .dl-sound-navigation{bottom:env(safe-area-inset-bottom,0px)!important}body:has(.dl-pronunciation) #app{min-height:0!important}</style><script>/* Keep navigation attached to the actual viewport, not a transformed lesson container. */(function(){const observer=new MutationObserver(()=>{const nav=document.querySelector('#app .dl-pronunciation .dl-sound-navigation');if(nav){document.body.appendChild(nav);document.body.classList.add('dl-pron-nav-active')}else if(!document.querySelector('#app .dl-pronunciation')&&document.body.classList.contains('dl-pron-nav-active')){document.body.querySelector('.dl-sound-navigation')?.remove();document.body.classList.remove('dl-pron-nav-active')}});observer.observe(document.getElementById('app'),{childList:true,subtree:true});})();</script><style>body.dl-pron-nav-active>.dl-sound-navigation{position:fixed!important;bottom:0!important;left:0!important;right:0!important;z-index:999!important;display:flex!important;gap:12px!important;padding:12px 18px calc(12px + env(safe-area-inset-bottom,0px))!important;margin:0!important;background:#142a3a!important;border-top:1px solid #4d797e!important;box-sizing:border-box!important}body.dl-pron-nav-active>.dl-sound-navigation button{flex:1;min-height:52px;margin:0!important}</style>
+<style id="dl-pronunciation-mobile-viewport-fix">#app .dl-pronunciation{min-height:0!important;max-height:none!important}body:has(.dl-pronunciation) .dl-sound-navigation{bottom:env(safe-area-inset-bottom,0px)!important}body:has(.dl-pronunciation) #app{min-height:0!important}</style><script src="./js/extracted-batch7-41.js"></script><style>body.dl-pron-nav-active>.dl-sound-navigation{position:fixed!important;bottom:0!important;left:0!important;right:0!important;z-index:999!important;display:flex!important;gap:12px!important;padding:12px 18px calc(12px + env(safe-area-inset-bottom,0px))!important;margin:0!important;background:#142a3a!important;border-top:1px solid #4d797e!important;box-sizing:border-box!important}body.dl-pron-nav-active>.dl-sound-navigation button{flex:1;min-height:52px;margin:0!important}</style>
 <style id="dl-pronunciation-compact-layout">
 /* Keep all pronunciation actions above the fixed bottom bar on short mobile screens. */
 #app .dl-pronunciation{padding:12px 14px 18px!important;margin:8px 0!important}
@@ -1062,89 +707,13 @@ body.dl-review-next-visible #app{padding-bottom:calc(92px + env(safe-area-inset-
 #dl-review-next-dock button{width:min(100%,650px);min-height:52px;margin:0!important}
 #moduleFeedback button{display:none!important}
 </style>
-<script>
-/* One persistent action button; original review button retains the answer handler. */
-(function(){
- const appNode=document.getElementById('app');
- // Reuse a single dock even if app initialization runs more than once.
- document.querySelectorAll('#dl-review-next-dock').forEach(el=>el.remove());
- const dock=document.createElement('div');
- dock.id='dl-review-next-dock';
- dock.hidden=true;
- const button=document.createElement('button');
- button.textContent='Next question';
- button.onclick=()=>appNode.querySelector('#moduleFeedback button')?.click();
- dock.appendChild(button);
- document.body.appendChild(dock);
- function sync(){
-  const show=!!appNode.querySelector('#moduleFeedback button');
-  if(!dock.isConnected)return;
-  dock.style.display=show?'flex':'none';
-  document.body.classList.toggle('dl-review-next-visible',show);
- }
- new MutationObserver(sync).observe(appNode,{childList:true,subtree:true});
- sync();
-})();
-</script>
-<script id="dl-concise-answer-feedback">
-(function(){
- const previousFullMark=fullMark;
- fullMark=function(ok,answer,why){
-  previousFullMark(ok,answer,why);
-  const box=document.querySelector('#fullFeedback .unit-explain');
-  if(!box)return;
-  const explanation=String(why||'').trim();
-  box.innerHTML='<strong>'+(ok?'Correct!':'Not quite')+'</strong>'+
-   (ok?'':'<p>Correct answer: '+safeText(answer)+'</p>')+
-   (explanation?'<details class="dl-grammar-help"><summary>Grammar help</summary><p>'+safeText(explanation)+'</p></details>':'');
- };
- const previousReviewAnswer=curriculumReviewAnswer;
- curriculumReviewAnswer=function(i){
-  const s=moduleSession,q=s&&s.questions[s.idx];
-  previousReviewAnswer(i);
-  if(!s||!q)return;
-  const box=document.querySelector('#moduleFeedback .unit-explain');
-  if(!box)return;
-  const ok=i===q.answer,explanation=String(q.why||FULL_UNITS[q.unitId]?.rule||'').trim();
-  const next=box.querySelector('button');
-  box.innerHTML='<strong>'+(ok?'Correct!':'Not quite')+'</strong>'+
-   (ok?'':'<p>Correct answer: '+safeText(q.options[q.answer])+'</p>')+
-   (explanation?'<details class="dl-grammar-help"><summary>Grammar help</summary><p>'+safeText(explanation)+'</p></details>':'');
-  if(next)box.appendChild(next);
- };
-})();
-</script>
+<script src="./js/extracted-batch7-42.js"></script>
+<script id="dl-concise-answer-feedback" src="./js/extracted-batch7-43.js"></script>
 <style>.dl-grammar-help{margin-top:12px}.dl-grammar-help summary{cursor:pointer;font-weight:650;padding:8px 0}.dl-grammar-help p{margin:8px 0 2px;line-height:1.5}</style>
 
 <script src="./js/extracted-batch6-11.js"></script>
-<style id="dl-rule-paragraph-spacing">.unit-explain.dl-rule-breakdown{white-space:pre-line;line-height:1.55}.unit-explain.dl-rule-breakdown::first-line{font-weight:600}</style><script id="dl-rule-breakdown-format">(function(){const previous=fullStudy;fullStudy=function(id){previous(id);if(FULL_UNITS[id]?.title==='Everyday conversations: Understanding in context'){const el=app.querySelector('.unit-explain');if(el)el.classList.add('dl-rule-breakdown')}}})();</script>
-<script id="dl-conversation-section-cards">
-(function(){
- const prior=fullStudy;
- fullStudy=function(id){
-  const result=prior.apply(this,arguments);
-  if(FULL_UNITS[id]?.title!=='Everyday conversations: Understanding in context')return result;
-  const card=Array.from(app.querySelectorAll('.card')).find(c=>/What you'll learn|Understand the rule/.test(c.querySelector('h2')?.textContent||''));
-  if(!card)return result;
-  const heading=card.querySelector('h2');
-  const rule=heading?.nextElementSibling;
-  if(!rule)return result;
-  const sections=[
-   ['When you need help','Use these expressions when you need help understanding someone.'],
-   ['Ich verstehe die Frage nicht.','I do not understand the question.','ich = I','verstehe = understand','die Frage = the question','nicht = not','You can replace die Frage with das Wort (the word) or den Satz (the sentence).'],
-   ['Können Sie mir helfen?','Can you help me?','können = can','Sie = formal you','mir = me','helfen = help'],
-   ['Sprechen Sie bitte langsam.','Please speak slowly.','sprechen = speak','Sie = formal you','bitte = please','langsam = slowly']
-  ];
-  rule.innerHTML=sections.map((parts,i)=>'<section class="dl-conversation-section">'+
-   '<h3>'+safeText(parts[0])+'</h3>'+
-   (i===0?'<p>'+safeText(parts[1])+'</p>':'<p class="dl-conversation-translation">'+safeText(parts[1])+'</p><ul>'+parts.slice(2).map(t=>'<li>'+safeText(t)+'</li>').join('')+'</ul>')+
-   '</section>').join('');
-  rule.style.whiteSpace='normal';
-  rule.classList.add('dl-conversation-breakdown');
-  return result;
- };
-})();
-</script>
+<style id="dl-rule-paragraph-spacing">.unit-explain.dl-rule-breakdown{white-space:pre-line;line-height:1.55}.unit-explain.dl-rule-breakdown::first-line{font-weight:600}</style><script id="dl-rule-breakdown-format" src="./js/extracted-batch7-44.js"></script>
+<script id="dl-conversation-section-cards" src="./js/extracted-batch7-45.js"></script>
 <style id="dl-conversation-section-style">
 .dl-conversation-breakdown{display:grid;gap:16px;background:transparent!important;border:0!important;padding:0!important}
 .dl-conversation-section{background:#29445b;border:1px solid #49677c;border-radius:15px;padding:16px}
@@ -1211,35 +780,7 @@ body.dl-home-banner .app-header h1,body.dl-home-banner .app-header p,body.dl-hom
 <script src="./js/extracted-batch7-18.js"></script>
 
 <!-- DeutschLab global incorrect-answer haptics -->
-<script>
-/* Consistent short haptic feedback for incorrect answers in lessons and games.
-   Observe answer feedback, not generic text elsewhere on the page. */
-(function(){
- if(!navigator.vibrate)return;
- const feedbackIds=new Set(['feedback','courseFeedback','deepFeedback','fullFeedback','gameFeedback','pictureFeedback','moduleFeedback','dl-result','dialogue-feedback','iFeedback','articleFeedback','practiceFeedback','a12Feedback','reviewFeedback']);
- let lastBuzz=0;
- function check(){
-  // Find It already vibrates in its own tap handler.
-  const root=document.getElementById('app');if(!root)return;
-  for(const el of root.querySelectorAll('[id],.game-feedback,.picture-answer,.dl-flow-feedback')){
-   if(!feedbackIds.has(el.id)&&!el.matches('.game-feedback,.picture-answer,.dl-flow-feedback'))continue;
-   const msg=(el.textContent||'').trim();
-   if(!msg||msg.length>650)continue;
-   const bad=/^(?:not quite|incorrect|wrong|fast!|try again|almost!)/i.test(msg)||
-    !!el.querySelector('.wrong,.incorrect')||
-    /^(?:correct answer:|answer:)/i.test(msg)&&/not quite|incorrect|wrong/i.test(msg);
-   if(bad){const now=Date.now();if(now-lastBuzz>220){lastBuzz=now;try{navigator.vibrate(110)}catch(e){}}return}
-  }
- }
- let queued=false;
- const observer=new MutationObserver(()=>{
-  if(queued)return;queued=true;
-  queueMicrotask(()=>{queued=false;check()});
- });
- const root=document.getElementById('app');
- if(root)observer.observe(root,{childList:true,subtree:true,characterData:true});
-})();
-</script>
+<script src="./js/extracted-batch7-46.js"></script>
 
 <!-- DeutschLab fixed activity advance controls -->
 <style>
@@ -1249,22 +790,7 @@ body.dl-has-fixed-next #app{padding-bottom:105px!important}
 body.dl-has-fixed-next #app button.dl-hidden-original-next{display:none!important}
 </style>
 <script src="./js/extracted-batch7-11.js"></script>
-<script>
-/* Keep the Practice Hub review entry functional and group it beneath Account. */
-(function(){
- const nav=document.getElementById('sideMenu');
- if(!nav)return;
- const hub=[...nav.querySelectorAll('button')].find(b=>b.textContent.includes('Practice Hub'));
- if(hub){
-  const account=[...nav.querySelectorAll('button')].find(b=>/account|profile/i.test(b.textContent));
-  if(account)account.after(hub);
-  else{
-   const home=[...nav.querySelectorAll('button')].find(b=>/home/i.test(b.textContent));
-   if(home)home.after(hub);
-  }
- }
-})();
-</script>
+<script src="./js/extracted-batch7-47.js"></script>
 <style id="dl-unified-activity-controls">
 /* Consistent feedback typography and bottom navigation throughout practice. */
 #app .correct,#app .unit-explain>strong,#app .dl-flow-feedback .correct,#app #practiceFeedback .correct{font-size:clamp(1.65rem,5vw,2rem)!important;font-weight:800!important;line-height:1.35!important;display:block;margin:12px 0!important}
@@ -1312,12 +838,7 @@ body.dl-unified-active #app button.dl-unified-source{display:none!important}
 #app .dl-result-badge{min-height:120px!important;padding-top:15px!important;padding-bottom:15px!important}
 #app .dl-result-badge img{bottom:-1px!important;height:142px!important;object-position:center bottom!important}
 </style>
-<script id="dl-lesson-exit-confirm">
-(function(){
- const original=window.navigateTo;
- if(typeof original==='function')window.navigateTo=function(fn){if(typeof activeLessonScreen!=='undefined'&&activeLessonScreen!==null){dlAppConfirm({title:'Leave this lesson?',message:'Your current lesson progress will be lost.',cancelText:'Stay in Lesson',confirmText:'Leave Lesson',onConfirm:()=>{activeLessonScreen=null;document.body.classList.remove('lesson-screen');original(fn)}});return}return original(fn)};
-})();
-</script>
+<script id="dl-lesson-exit-confirm" src="./js/extracted-batch7-48.js"></script>
 <style id="dl-feedback-proportion-test">
 /* Larger character, tighter feedback card, and responsive text. */
 #app .dl-result-badge{min-height:88px!important;margin:28px 0 8px 12px!important;padding:10px 12px 10px 143px!important;gap:5px!important;border-radius:17px!important}
@@ -1367,107 +888,11 @@ body.dl-unified-active #app button.dl-unified-source{display:none!important}
 #app .dl-flow-card.dl-answer-revealed h2{margin-bottom:12px}
 #app .dl-flow-card.dl-answer-revealed .dl-flow-feedback{margin-top:8px;padding:12px}
 </style>
-<script>
-/* Shared post-confirmation behavior for guided A1/A2/B1 multiple-choice lessons.
-   Keep choices visible while selecting; remove them only after feedback exists. */
-(function(){
- const root=document.getElementById('app');if(!root)return;
- function compactAnswered(){
-  root.querySelectorAll('.dl-flow-card').forEach(card=>{
-   const choices=card.querySelector('.dl-flow-options');
-   const feedback=card.querySelector('#dl-result .dl-flow-feedback');
-   if(!choices)return;
-   const answered=!!feedback;
-   choices.classList.toggle('dl-answered-hidden',answered);
-   card.classList.toggle('dl-answer-revealed',answered);
-  });
- }
- let pending=false;
- new MutationObserver(()=>{if(pending)return;pending=true;requestAnimationFrame(()=>{pending=false;compactAnswered()})}).observe(root,{subtree:true,childList:true});
- compactAnswered();
-})();
-</script>
+<script src="./js/extracted-batch7-49.js"></script>
 
-<script>
-/* Home Quick practice launches an activity immediately, rather than opening a menu. */
-function quickRandomPractice(){
- const activities=[
-  ()=>gameStart('build'),
-  ()=>gameStart('match'),
-  ()=>gameStart('listen', 'A1'),
-  ()=>gameStart('listen', 'A2'),
-  ()=>listeningPractice(),
-  ()=>startSentenceRound()
- ];
- const choice=activities[Math.floor(Math.random()*activities.length)];
- choice();
- window.scrollTo(0,0);
-}
-</script>
+<script src="./js/extracted-batch7-50.js"></script>
 
-<script id="dl-android-back-navigation">
-/* Make Android/browser Back navigate app screens, never quiz questions. */
-(function(){
- const views=[];let restoring=false;
- const tracked=['home','friendlyCourse','curriculumView','practiceHub','gameHub','articleHome','photoMenu','aiTutor','placementResults','review','fullStudy','dlLessonIntro','fullBegin','gameStart','startSentenceRound','listeningPractice','quickRandomPractice','dlShowSettings','dlShowBetaFeedback'];
- function capture(){return {name:'home',args:[]}}
- for(const name of tracked){
-  const original=window[name];if(typeof original!=='function')continue;
-  window[name]=function(...args){
-   if(!restoring){
-    const lesson=['fullStudy','dlLessonIntro','fullBegin'].includes(name);
-    const view=lesson?{name:name==='fullBegin'?'fullStudy':name,args}: {name,args};
-    views.push(view);
-    try{sessionStorage.setItem('dl-current-view',JSON.stringify(view))}catch(e){}
-    history.pushState({dlNav:true,step:views.length},'','#dl-screen-'+views.length);
-   }
-   return original.apply(this,args);
-  };
- }
- /* One initial browser history entry anchors the in-app Back behavior. */
- if(!history.state?.dlNav){history.replaceState({dlNav:true,step:0},'',location.pathname+location.search);}
- window.addEventListener('popstate',()=>{\n  if(document.querySelector('#app .market-v2')&&typeof window.supermarktLeave==='function'){
-   // Restore the history entry immediately so cancelling keeps the game active.
-   history.pushState({dlNav:true,step:views.length},'','#dl-screen-'+views.length);
-   window.supermarktLeave(()=>{
-    restoring=true;
-    try{
-     views.length=0;
-     window.practiceHub();
-    }finally{restoring=false}
-   });
-   return;
-  }
-  const lesson=!!(document.body.classList.contains('lesson-screen')||window.fullSession&&document.querySelector('.dl-flow'));
-  const previous=lesson?capture():(views.length>1?views[views.length-2]:capture());
-  if(views.length)views.pop();
-  restoring=true;
-  try{
-   if(lesson){
-    if(typeof leaveLessonScreen==='function'){
-     // Use the existing confirmation before discarding in-progress work.
-     leaveLessonScreen();
-    }else home();
-   }else{
-    const fn=window[previous.name];
-    if(typeof fn==='function')fn(...previous.args);else home();
-    try{sessionStorage.setItem('dl-current-view',JSON.stringify(previous))}catch(e){}
-   }
-  }finally{restoring=false;history.pushState({dlNav:true,step:views.length},'','#dl-screen-'+views.length)}
- });
- window.addEventListener('load',()=>{
-  // Restore the exact lesson introduction instead of resetting to Home.
-  let saved=null;
-  try{saved=JSON.parse(sessionStorage.getItem('dl-current-view')||'null')}catch(e){}
-  if(!saved||saved.name==='home'||!tracked.includes(saved.name))return;
-  const fn=window[saved.name];
-  if(typeof fn!=='function')return;
-  restoring=true;
-  try{fn(...(Array.isArray(saved.args)?saved.args:[]))}catch(e){console.warn('Unable to restore DeutschLab view',e)}
-  finally{restoring=false}
- });
-})();
-</script>
+<script id="dl-android-back-navigation" src="./js/extracted-batch7-51.js"></script>
 
 <style id="dl-listening-feedback-fit">
 /* Listening: reclaim the answer grid after a selection so the complete mascot feedback fits. */
@@ -1477,19 +902,7 @@ function quickRandomPractice(){
 #app .card.dl-listening-answered .dl-result-badge img{width:88px!important;height:88px!important;max-width:32%!important;transform:none!important}
 #app .card.dl-listening-answered .game-feedback p{margin:7px 0!important}
 </style>
-<script id="dl-listening-feedback-fit-script">
-(function(){
- const root=document.getElementById('app');if(!root)return;
- function update(){
-  const g=typeof gameSession!=='undefined'?gameSession:null;
-  root.querySelectorAll('.card').forEach(card=>{
-   card.classList.toggle('dl-listening-answered',!!(g&&g.mode==='listen'&&g.answered&&card.querySelector('.picture-choices')&&card.querySelector('#gameFeedback .game-feedback')));
-  });
- }
- let queued=false;
- new MutationObserver(()=>{if(queued)return;queued=true;requestAnimationFrame(()=>{queued=false;update()})}).observe(root,{subtree:true,childList:true});update();
-})();
-</script>
+<script id="dl-listening-feedback-fit-script" src="./js/extracted-batch7-52.js"></script>
 
 <style id="dl-dialogue-feedback-consistency">
 /* Preserve retry on wrong dialogue choices; hide choices once the correct response is accepted. */
@@ -1498,22 +911,7 @@ function quickRandomPractice(){
 #app #dialogue-feedback .dl-result-badge{margin:8px 0!important;min-height:90px!important;padding:8px 12px!important;gap:10px!important}
 #app #dialogue-feedback .dl-result-badge img{width:116px!important;height:116px!important;max-width:42%!important;object-fit:contain!important;object-position:center bottom!important}
 </style>
-<script id="dl-dialogue-feedback-consistency-script">
-(function(){
- const root=document.getElementById('app');if(!root)return;
- function sync(){
-  const feedback=root.querySelector('#dialogue-feedback');if(!feedback)return;
-  const card=feedback.closest('.card');if(!card)return;
-  const buttons=[...card.querySelectorAll('button[onclick^="answerDialogue("]')];
-  buttons.forEach(b=>b.classList.add('dl-dialogue-answer-choice'));
-  const label=buttons[0]?.previousElementSibling;
-  if(label&&label.tagName==='P'&&/choose your response/i.test(label.textContent))label.classList.add('dl-dialogue-choose-label');
-  const correct=!!feedback.querySelector('.correct,.dl-result-good');
-  card.classList.toggle('dl-dialogue-answered',correct);
- }
- let queued=false;new MutationObserver(()=>{if(queued)return;queued=true;requestAnimationFrame(()=>{queued=false;sync()})}).observe(root,{childList:true,subtree:true});sync();
-})();
-</script>
+<script id="dl-dialogue-feedback-consistency-script" src="./js/extracted-batch7-53.js"></script>
 
 <style id="dl-listen-practice-unified">
 #app .dl-listen-choice{display:block;width:100%;margin:8px 0;text-align:left}
@@ -1532,24 +930,7 @@ function quickRandomPractice(){
 #dlListenFixedActions button{flex:1;min-width:0;max-width:320px;margin:0!important;min-height:54px}
 body:has(#dlListenFixedActions) #app{padding-bottom:115px!important}
 </style>
-<script id="dl-listen-fixed-actions-script">
-(function(){
- const root=document.getElementById('app');if(!root)return;
- function sync(){
-  const box=root.querySelector('#listenFeedback');
-  const answered=!!(box&&box.closest('.dl-listen-complete'));
-  let bar=document.getElementById('dlListenFixedActions');
-  if(!answered){bar?.remove();return}
-  const row=box.querySelector('.dl-listen-actions');
-  if(!row)return;
-  if(!bar){bar=document.createElement('div');bar.id='dlListenFixedActions';document.body.appendChild(bar)}
-  for(const b of [...row.querySelectorAll('button')])bar.appendChild(b);
- }
- let pending=false;
- new MutationObserver(()=>{if(pending)return;pending=true;requestAnimationFrame(()=>{pending=false;sync()})}).observe(root,{subtree:true,childList:true});
- sync();
-})();
-</script>
+<script id="dl-listen-fixed-actions-script" src="./js/extracted-batch7-54.js"></script>
 
 <style id="dl-unified-feedback-avatar-sizing">
 /* One optical size and pop-out position for every correct/incorrect character. */
@@ -1637,62 +1018,13 @@ body:has(#dlDialogueExitBar) #app{padding-bottom:112px!important}
 @media(max-width:370px){#app .dl-hub-card{padding:12px 9px}#app .dl-hub-card strong{font-size:1rem}}
 </style>
 <script src="./js/extracted-batch7-8.js"></script>
-<script id="dl-home-practice-restored">
-(function(){
- const prior=home;
- home=function(){
-  const result=prior.apply(this,arguments);
-  if(!app.querySelector('.dashboard-primary'))return result;
-  if(app.querySelector('.dl-home-practice'))return result;
-  const section=document.createElement('section');
-  section.className='card dl-home-practice-section';
-  section.innerHTML='<h2>Practice Hub</h2><p>Strengthen your German with quick, interactive exercises.</p><div class="game-grid dl-home-practice">'+
-  '<button onclick="gameStart(\'build\')"><span class="dl-practice-icon">🧩</span><span>Build sentences</span></button>'+
-  '<button onclick="gameStart(\'match\')"><span class="dl-practice-icon">🔗</span><span>Match pairs</span></button>'+
-  '<button onclick="listeningLevels()"><span class="dl-practice-icon">🎧</span><span>Listening</span></button>'+
-  '<button onclick="photoMenu()"><span class="dl-practice-icon">🖼️</span><span>Picture practice</span></button>'+
-  '<button onclick="articleHome()"><span class="dl-practice-icon">📚</span><span>Noun articles</span></button>'+
-  '<button onclick="dlOpenOrganizedActivity(&quot;review&quot;)"><span class="dl-practice-icon">🧠</span><span>Review</span></button>'+
-  '</div><button class="dl-practice-explore" onclick="practiceHub();window.scrollTo({top:0,left:0,behavior:\'instant\'})">Explore Practice Hub →</button>';
-  const path=app.querySelector('.dashboard-primary');
-  path.after(section);
-  return result;
- };
- home();
-})();
-</script>
+<script id="dl-home-practice-restored" src="./js/extracted-batch7-55.js"></script>
 <style id="dl-home-shortcuts-refresh">
 #app .dl-home-ai-feature{grid-column:1/-1;min-height:118px;text-align:left;padding:20px 22px;background:linear-gradient(115deg,#245e67,#345478);border:1px solid #69cdbf;box-shadow:0 6px 18px #0003}
 #app .dl-home-ai-feature strong{font-size:1.35rem}
 #app .dl-home-ai-feature small{font-size:1rem;margin-top:7px}
 </style>
-<script id="dl-home-shortcuts-refresh-script">
-(function(){
- const previousHome=home;
- home=function(){
-  const result=previousHome.apply(this,arguments);
-  const shortcuts=app.querySelector('.dashboard-shortcuts');
-  if(!shortcuts)return result;
-  const buttons=[...shortcuts.querySelectorAll('button')];
-  const find=pattern=>buttons.find(b=>pattern.test(b.textContent||''));
-  const learning=find(/My learning path|My lessons/i);
-  if(learning)learning.remove();
-  const ai=find(/AI conversation/i);
-  if(ai){ai.classList.add('dl-home-ai-feature');ai.innerHTML='🎙️ <strong>AI Conversation</strong><small>Practice speaking German with your AI tutor</small>';shortcuts.prepend(ai)}
-  const review=find(/Review mistakes/i);
-  if(review)review.remove()
-  if(!find(/My profile/i)){
-   const profile=document.createElement('button');
-   profile.className='secondary';profile.type='button';
-   profile.innerHTML='🐾 My profile<small>Avatars, XP and rewards</small>';
-   profile.onclick=()=>{dlProfile();window.scrollTo({top:0,left:0,behavior:'instant'})};
-   shortcuts.appendChild(profile);
-  }
-  return result;
- };
- home();
-})();
-</script>
+<script id="dl-home-shortcuts-refresh-script" src="./js/extracted-batch7-56.js"></script>
 
 <style id="dl-supermarkt-style">
 #app .market-wrap{max-width:720px;margin:0 auto;padding:14px}
@@ -1762,27 +1094,7 @@ body:has(#dlDialogueExitBar) #app{padding-bottom:112px!important}
 #app .market-v2 .market-actions-docked{position:fixed;z-index:1000;left:0;right:0;bottom:0;margin:0;padding:10px 12px calc(10px + env(safe-area-inset-bottom,0px));background:#102b38;border-top:1px solid #70c8b7;display:flex;gap:10px;transform:none}
 #app .market-v2 .market-actions-docked button{min-height:52px}
 @media(max-width:700px){#app .market-v2 .market-photo{height:min(54vh,490px);overflow:hidden;border-radius:12px}#app .market-v2 .market-photo img{height:100%;width:100%;object-fit:fill}#app .market-v2 .market-illustrated{max-height:54vh;overflow:auto}}
-</style><script id="dl-market-exit-guard">
-(function(){
-const app=document.getElementById('app');
-let menuBypass=false;
-document.addEventListener('click',function(e){
- if(menuBypass||!app?.querySelector('.market-v2'))return;
- const link=e.target.closest('#sideMenu a,#sideMenu button,.menu a,.menu button');
- if(!link)return;
- e.preventDefault();e.stopImmediatePropagation();
- window.supermarktLeave(()=>{
-   menuBypass=true;
-   try{link.click()}finally{menuBypass=false}
- });
-},true);
-const old=window.navigateTo;
-if(typeof old==='function')window.navigateTo=function(fn){
- if(app?.querySelector('.market-v2')&&window.supermarktLeave){window.supermarktLeave(()=>old(fn));return}
- return old(fn);
-};
-})();
-</script><style id="dl-market-cart-overlap-fix">
+</style><script id="dl-market-exit-guard" src="./js/extracted-batch7-57.js"></script><style id="dl-market-cart-overlap-fix">
 /* Keep the shopping cart entirely above the persistent action bar. */
 #app .market-v2{padding-bottom:calc(110px + env(safe-area-inset-bottom,0px))}
 #app .market-v2 .market-cart{transform:none!important;margin:10px 18px 35px 24px!important;padding:12px 14px 16px!important;border:2px solid #78cbbb!important;border-top-width:5px!important;border-radius:12px 12px 20px 20px!important;min-height:110px}
@@ -1796,28 +1108,7 @@ if(typeof old==='function')window.navigateTo=function(fn){
 #app .market-v2 .market-photo img{object-fit:fill!important}
 #app .market-v2 .market-swipe-zone{margin-bottom:4px}
 }
-</style><script id="dl-market-refresh-restore">
-(function(){
-  const key='dl-supermarkt-active';
-  const originalHome=window.supermarktHome;
-  const originalReset=window.supermarktReset;
-  if(typeof originalHome!=='function'||typeof originalReset!=='function')return;
-  window.supermarktHome=function(){
-    sessionStorage.setItem(key,'1');
-    return originalHome.apply(this,arguments);
-  };
-  window.supermarktReset=function(){
-    sessionStorage.removeItem(key);
-    return originalReset.apply(this,arguments);
-  };
-  // Reloads retain the saved shopping state; explicit exits clear it.
-  if(sessionStorage.getItem(key)==='1'&&sessionStorage.getItem('dl-supermarkt-session')){
-    window.supermarktHome();
-  }else if(sessionStorage.getItem(key)==='1'){
-    sessionStorage.removeItem(key);
-  }
-})();
-</script><style id="dl-market-instructions-position">#app .market-v2 .market-instructions{margin:8px 0 10px;padding:10px 12px;border-radius:12px;background:#173b45;color:#8de2c2;font-weight:700;line-height:1.4}#app .market-v2 .market-status:empty{display:none}</style><style id="dl-market-fixed-actions">
+</style><script id="dl-market-refresh-restore" src="./js/extracted-batch7-58.js"></script><style id="dl-market-instructions-position">#app .market-v2 .market-instructions{margin:8px 0 10px;padding:10px 12px;border-radius:12px;background:#173b45;color:#8de2c2;font-weight:700;line-height:1.4}#app .market-v2 .market-status:empty{display:none}</style><style id="dl-market-fixed-actions">
 #app .market-v2 .market-actions-docked{position:fixed!important;left:0!important;right:0!important;bottom:0!important;width:100%!important;max-width:none!important;margin:0!important;padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px))!important;box-sizing:border-box!important;display:flex!important;gap:12px!important;background:#102b38!important;border-top:1px solid #70c8b7!important;z-index:1100!important}
 #app .market-v2 .market-actions-docked button{flex:1;min-width:0;min-height:52px;margin:0}
 #app .market-v2{padding-bottom:calc(100px + env(safe-area-inset-bottom,0px))!important}
@@ -1842,40 +1133,7 @@ if(typeof old==='function')window.navigateTo=function(fn){
 #app .market-v2 .market-feedback-toast.bad{color:#ffd5d5;border-color:#e58b91;background:rgba(75,27,38,.95)}
 #app .market-v2 .market-cart{min-height:0!important;padding:7px 12px 8px!important}
 #app .market-v2 .market-cart-items{min-height:0!important}
-</style><script id="dl-refresh-screen-restore">
-(function(){
- const key='dl-current-navigation';
- const safe=['home','friendlyCourse','curriculumView','practiceHub','gameHub','articleHome','photoMenu','aiTutor'];
- let restoring=false;
- for(const name of safe){
-  const original=window[name];
-  if(typeof original!=='function')continue;
-  window[name]=function(...args){
-   const result=original.apply(this,args);
-   if(!restoring){
-    try{sessionStorage.setItem(key,JSON.stringify({name,args}))}catch(e){}
-   }
-   return result;
-  };
- }
- // Preserve the supermarket's own in-progress restoration.
- if(document.querySelector('#app .market-v2'))return;
- try{
-  const saved=JSON.parse(sessionStorage.getItem(key)||'null');
-  if(!saved||!safe.includes(saved.name)||!Array.isArray(saved.args))return;
-  const courseScreen=saved.name==='friendlyCourse'||saved.name==='curriculumView';
-  const destination=window[courseScreen?'curriculumView':saved.name];
-  if(typeof destination!=='function')return;
-  const args=courseScreen?[STRUCTURED_PATH[saved.args[0]]?saved.args[0]:'A1']:saved.args;
-  restoring=true;
-  destination(...args);
-  if(courseScreen){
-   sessionStorage.setItem(key,JSON.stringify({name:'curriculumView',args}));
-   sessionStorage.setItem('dl-current-view',JSON.stringify({name:'curriculumView',args}));
-  }
- }catch(e){}finally{restoring=false}
-})();
-</script><style id="dl-market-short-cart-and-veggies">
+</style><script id="dl-refresh-screen-restore" src="./js/extracted-batch7-59.js"></script><style id="dl-market-short-cart-and-veggies">
 #app .market-v2 .market-cart{margin:5px 18px 20px 24px!important;padding:5px 11px 6px!important;min-height:0!important}
 #app .market-v2 .market-cart-title{line-height:1.15!important}
 #app .market-v2 .market-cart-items{padding-top:2px!important;min-height:0!important;line-height:1!important;display:flex;align-items:center;flex-wrap:wrap;gap:3px}
@@ -1941,35 +1199,7 @@ body:has(#app .market-v2) .app-header::before,body:has(#app .market-v2) .app-hea
 <script src="./js/extracted-batch6-13.js"></script>
 <style id="dl-menu-cleanup">#sideMenu .dl-menu-group{margin:14px 0 5px!important;padding-bottom:5px!important;font-size:.76rem!important}#sideMenu button:not(.menu-close){margin-top:3px!important;margin-bottom:3px!important}#sideMenu .dl-menu-home-prominent{font-size:1.22rem!important;font-weight:800!important;padding-top:12px!important;padding-bottom:12px!important;min-height:52px!important}
 </style>
-<script id="dl-menu-utilities-order">
-(function(){
- function apply(){
- const nav=document.getElementById('sideMenu');if(!nav)return;
- const settings=nav.querySelector('.dl-settings-menu-entry');
- const feedback=nav.querySelector('.dl-feedback-menu-entry');
- const headings=Array.from(nav.querySelectorAll('.dl-menu-group'));
- const account=headings.find(e=>e.textContent.trim()==='ACCOUNT');
- const support=headings.find(e=>e.textContent.trim()==='SUPPORT');
- if(account&&settings)account.nextElementSibling?.after(settings);
- if(support&&feedback)support.after(feedback);
- nav.querySelectorAll('.dl-menu-group').forEach(el=>{
-  if(el.textContent.trim()==='APP')el.remove();
- });
- const home=Array.from(nav.querySelectorAll('button')).find(b=>b.textContent.trim().includes('Home'));
- if(home){
-  home.classList.add('dl-menu-home-prominent');
-  home.style.setProperty('font-size','1.32rem','important');
-  home.style.setProperty('font-weight','800','important');
-  home.style.setProperty('min-height','56px','important');
-  home.style.setProperty('padding','12px 16px','important');
-  home.style.setProperty('background','#294a55','important');
-  home.style.setProperty('border-radius','14px','important');
-  home.style.setProperty('margin','8px 0 12px','important');
- }
- }
- if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',apply);else apply();
-})();
-</script>
+<script id="dl-menu-utilities-order" src="./js/extracted-batch7-60.js"></script>
 <style id="dl-supermarkt-checkout-scene">
 #app .market-v2 .market-checkout-scene{
  position:relative; width:100%; aspect-ratio:4/5; max-height:510px;
@@ -2051,141 +1281,14 @@ html body .app-header::before,html body .app-header::after{content:none!importan
 html body .app-header .menu-toggle,html body.dl-compact-header .app-header .menu-toggle{width:54px!important;height:54px!important;min-width:54px!important;min-height:54px!important;padding:0!important;margin:0!important;border:0!important;outline:0!important;border-radius:15px!important;background:#65cfbd!important;color:#102b34!important;box-shadow:none!important;display:grid!important;place-items:center!important;font-size:29px!important}
 </style>
 <style id="dl-accusative-example-readability">.dl-accusative-intro .dl-accusative-example{display:flex;flex-direction:column;gap:4px;margin-top:14px;padding:12px 14px;border-radius:12px;background:#1b3347}.dl-accusative-example span{font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;color:#a4dcd5;font-weight:700}.dl-accusative-example strong{font-size:1.06rem;line-height:1.35}.dl-accusative-example small{font-size:.91rem;color:#c4d2dc;line-height:1.4}</style>
-<script id="dl-a2-dative-expanded-questions">
-(function(){
- const unit=FULL_UNITS.find(u=>u.level==='A2'&&u.title==='Dative articles');if(!unit)return;
- unit.examples=[['Ich helfe der Frau.','I help the woman. (feminine: die → der)'],['Ich spreche mit dem Hund.','I speak with the dog. (masculine: der → dem)'],['Wir spielen mit den Kindern.','We play with the children. (plural: die Kinder → den Kindern)']];
- const prior=fullQuestions;
- fullQuestions=function(u){if(u!==unit)return prior(u);return [
- {type:'grammar',prompt:'Ich helfe ___ Frau. (feminine)',options:['die','der','dem'],answer:1,why:'Helfen requires dative; feminine die becomes der.'},
- {type:'grammar',prompt:'Ich spiele mit ___ Hund. (masculine)',options:['dem','den','der'],answer:0,why:'Mit requires dative; masculine der becomes dem.'},
- {type:'grammar',prompt:'Sie spricht mit ___ Kind. (neuter)',options:['das','dem','den'],answer:1,why:'Mit requires dative; neuter das becomes dem.'},
- {type:'grammar',prompt:'Wir danken ___ Lehrer. (masculine, a teacher)',options:['ein','einem','einen'],answer:1,why:'Danken requires dative; masculine ein becomes einem.'},
- {type:'grammar',prompt:'Er gibt ___ Frau ein Buch. (feminine, a woman)',options:['einer','eine','einem'],answer:0,why:'The woman receives the book, so feminine eine becomes einer in the dative.'},
- {type:'grammar',prompt:'Sie spielt mit ___ Kindern. (plural)',options:['die','den','dem'],answer:1,why:'Mit requires dative; plural die becomes den, and Kinder becomes Kindern.'},
- {type:'grammar',prompt:'Ich fahre zu ___ Schule. (feminine)',options:['die','der','das'],answer:1,why:'Zu requires dative; feminine die becomes der.'}
- ];};
-})();
-</script>
+<script id="dl-a2-dative-expanded-questions" src="./js/extracted-batch7-61.js"></script>
 <script src="./js/extracted-batch7-19.js"></script>
-<style id="dl-pronoun-paragraphs">.unit-explain.dl-pronoun-spaced{white-space:pre-line;line-height:1.55}</style><script id="dl-pronoun-paragraph-render">(function(){const prior=fullStudy;fullStudy=function(id){const result=prior.apply(this,arguments);if(FULL_UNITS[id]?.title==='Personal pronouns: ich, du, and Sie'){app.querySelectorAll('.unit-explain').forEach(el=>el.classList.add('dl-pronoun-spaced'));}return result;};})();</script><style id="dl-pronoun-intro-cards">.dl-pronoun-guide{display:grid;gap:12px;margin:16px 0 24px}.dl-pronoun-guide section{padding:15px 17px;border-radius:15px;background:#293f58;border:1px solid #405c72}.dl-pronoun-guide h3{margin:0 0 7px;color:#9bdcd1;font-size:1.05rem}.dl-pronoun-guide p{margin:0;line-height:1.5}.dl-pronoun-guide .dl-pronoun-pair{margin:8px 0}</style><script src="./js/extracted-batch7-17.js"></script><script id="dl-unified-lesson-navigation">(function(){const previous=friendlyCourse;friendlyCourse=function(level){return curriculumView(level||state.learning?.placement?.recommended||'A1')};window.addEventListener('load',()=>{const el=document.querySelector('#app .path-list');if(el){curriculumView(state.learning?.placement?.recommended||'A1')}});})();</script><script id="dl-canonical-course-refresh-fix">(function(){const oldFriendly=friendlyCourse;friendlyCourse=function(level){return curriculumView(level||state.learning?.placement?.recommended||'A1')};function repair(){let saved=null;try{saved=JSON.parse(sessionStorage.getItem('dl-current-view')||'null')}catch(e){}const isOld=!!document.querySelector('#app .path-list, #app .path-panel');const shouldShowCourse=isOld||saved?.name==='friendlyCourse';if(!shouldShowCourse)return;const level=(saved?.args?.[0]||state.learning?.placement?.recommended||'A1');curriculumView(level);try{sessionStorage.setItem('dl-current-view',JSON.stringify({name:'curriculumView',args:[level]}))}catch(e){}}window.addEventListener('load',()=>setTimeout(repair,0));})();</script><style id="dl-pronoun-remember-emphasis">
+<style id="dl-pronoun-paragraphs">.unit-explain.dl-pronoun-spaced{white-space:pre-line;line-height:1.55}</style><script id="dl-pronoun-paragraph-render" src="./js/extracted-batch7-62.js"></script><style id="dl-pronoun-intro-cards">.dl-pronoun-guide{display:grid;gap:12px;margin:16px 0 24px}.dl-pronoun-guide section{padding:15px 17px;border-radius:15px;background:#293f58;border:1px solid #405c72}.dl-pronoun-guide h3{margin:0 0 7px;color:#9bdcd1;font-size:1.05rem}.dl-pronoun-guide p{margin:0;line-height:1.5}.dl-pronoun-guide .dl-pronoun-pair{margin:8px 0}</style><script src="./js/extracted-batch7-17.js"></script><script id="dl-unified-lesson-navigation" src="./js/extracted-batch7-63.js"></script><script id="dl-canonical-course-refresh-fix" src="./js/extracted-batch7-64.js"></script><style id="dl-pronoun-remember-emphasis">
 #app .dl-pronoun-guide section:last-child{background:#194b4b;border:2px solid #79d8c6;box-shadow:0 0 0 3px rgba(121,216,198,.10)}
 #app .dl-pronoun-guide section:last-child h3{color:#b8fff0;font-weight:800;font-size:1.2rem}
 #app .dl-pronoun-guide section:last-child p{font-weight:600}
 </style>
-<script id="dl-curriculum-single-source-fix">
-(function(){
-  // The du/Sie explanation now lives in the first pronouns lesson.
-  STRUCTURED_PATH.A1=STRUCTURED_PATH.A1.filter(g=>g.title!=='Speaking politely: du and Sie');
-  // Restore the same canonical curriculum after refresh, regardless of which
-  // earlier navigation wrapper saved the route.
-  const old=curriculumView;
-  curriculumView=function(level){
-    const result=old.apply(this,arguments);
-    const selected=STRUCTURED_PATH[level]?level:'A1';
-    try{
-      sessionStorage.setItem('dl-current-navigation',JSON.stringify({name:'curriculumView',args:[selected]}));
-      sessionStorage.setItem('dl-current-view',JSON.stringify({name:'curriculumView',args:[selected]}));
-    }catch(e){}
-    return result;
-  };
-  function repair(){
-    let a=null,b=null;
-    try{
-      a=JSON.parse(sessionStorage.getItem('dl-current-navigation')||'null');
-      b=JSON.parse(sessionStorage.getItem('dl-current-view')||'null');
-    }catch(e){}
-    const isCourse=[a?.name,b?.name].some(n=>n==='curriculumView'||n==='friendlyCourse');
-    if(!isCourse)return;
-    const legacy=!!document.querySelector('#app .path-list, #app .path-panel');
-    const curriculumMissing=!document.querySelector('#app .curriculum-path-module');
-    if(legacy || curriculumMissing){
-      const level=a?.args?.[0]||b?.args?.[0]||'A1';
-      curriculumView(level);
-    }
-  }
-  window.addEventListener('load',()=>setTimeout(repair,50));
-  setTimeout(repair,0);
-})();
-</script><script src="./js/extracted-batch7-6.js"></script>
+<script id="dl-curriculum-single-source-fix" src="./js/extracted-batch7-65.js"></script><script src="./js/extracted-batch7-6.js"></script>
 <script src="./js/extracted-batch7-15.js"></script>
 <script src="./js/extracted-batch7-16.js"></script>
-<script id="dl-refresh-always-home">
-(function(){
-  // Refresh starts at Home; normal in-app navigation still retains its history.
-  // Clear only transient screen routing, never saved lesson progress.
-  try{
-    sessionStorage.removeItem('dl-current-view');
-    sessionStorage.removeItem('dl-current-navigation');
-  }catch(e){}
-  window.addEventListener('load',function(){
-    try{
-      sessionStorage.removeItem('dl-current-view');
-      sessionStorage.removeItem('dl-current-navigation');
-    }catch(e){}
-    if(typeof home==='function')home();
-  });
-})();
-</script><script id="dl-hamburger-lessons-unified">
-(function(){
-  // Use the same complete curriculum view as the Home Continue Learning route.
-  lessonMenu=function(){
-    return curriculumView('A1');
-  };
-})();
-</script><script id="dl-continue-learning-target-fix">
-(function(){
-  // Keep the full lesson list for menu navigation, but send Continue Learning
-  // directly to the next actual lesson instead of a scrolled module card.
-  curriculumContinueFromHome=function(){
-    const level='A1';
-    const next=curriculumNext(level);
-    if(next!==undefined&&next!==null) return curriculumLesson(next);
-    return curriculumView(level);
-  };
-})();
-</script><script id="dl-home-continue-direct-routing">
-(function(){
-  const previousHome=home;
-  home=function(){
-    const result=previousHome.apply(this,arguments);
-    // Later Home decorators can replace the dashboard; bind the visible
-    // Continue Learning control after all existing Home rendering completes.
-    const buttons=Array.from(app.querySelectorAll('button'));
-    for(const button of buttons){
-      if(button.textContent.trim().toLowerCase()==='continue learning'){
-        button.setAttribute('onclick','curriculumContinueFromHome()');
-      }
-    }
-    return result;
-  };
-})();
-</script><script id="dl-module-review-exit-guard">
-(function(){
- // A review can only award mastery after every question has been answered.
- // Leaving an unfinished review discards its session without changing saved mastery.
- const oldView=curriculumView;
- curriculumView=function(level){
-  const session=moduleSession;
-  if(session && session.idx<session.questions.length){
-   const destination=level||session.level;
-   dlConfirmReviewExit(function(){
-    moduleSession=null;
-    oldView(destination);
-   });
-   return;
-  }
-  return oldView.apply(this,arguments);
- };
- const oldHome=home;
- home=function(){
-  const session=moduleSession;
-  if(session && session.idx<session.questions.length){
-   const args=arguments,ctx=this;
-   dlConfirmReviewExit(function(){moduleSession=null;oldHome.apply(ctx,args)});
-   return;
-  }
-  return oldHome.apply(this,arguments);
- };
-})();
-</script><script src="./js/pronoun-curriculum.js"></script></body></html>
+<script id="dl-refresh-always-home" src="./js/extracted-batch7-66.js"></script><script id="dl-hamburger-lessons-unified" src="./js/extracted-batch7-67.js"></script><script id="dl-continue-learning-target-fix" src="./js/extracted-batch7-68.js"></script><script id="dl-home-continue-direct-routing" src="./js/extracted-batch7-69.js"></script><script id="dl-module-review-exit-guard" src="./js/extracted-batch7-70.js"></script><script src="./js/pronoun-curriculum.js"></script></body></html>

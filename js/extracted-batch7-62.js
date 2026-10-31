@@ -1,0 +1,1 @@
+(function(){const prior=fullStudy;fullStudy=function(id){const result=prior.apply(this,arguments);if(FULL_UNITS[id]?.title==='Personal pronouns: ich, du, and Sie'){app.querySelectorAll('.unit-explain').forEach(el=>el.classList.add('dl-pronoun-spaced'));}return result;};})();
