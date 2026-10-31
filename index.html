@@ -224,40 +224,7 @@ body:has(#dl-sentence-next-dock) #dl-fixed-next{display:none!important}
 .lesson-more{margin:16px 0}.lesson-more summary{cursor:pointer;padding:14px;border:1px solid #56717b;border-radius:12px;color:#d9ecea}
 .lesson-more[open] summary{margin-bottom:12px}
 </style>
-<script>
-(function(){
-const oldStudy=fullStudy;
-fullStudy=function(id){
- oldStudy(id);
- const u=FULL_UNITS[id],card=app.querySelector('.card');
- if(!u||!card)return;
- // The old rule explained masculine accusative den but omitted an example.
- if(u.title==='Two-way prepositions'){
-  const examplesHeading=[...card.querySelectorAll('h3')].find(h=>h.textContent.trim()==='Examples');
-  const lastExample=examplesHeading?.nextElementSibling?.nextElementSibling?.nextElementSibling;
-  if(lastExample&&lastExample.classList.contains('vocab-row')){
-   lastExample.insertAdjacentHTML('afterend',`<div class="vocab-row"><div class="vocab-copy"><strong>Ich lege das Buch auf den Tisch.</strong><span>I put the book onto the table.</span></div><button class="secondary" onclick="speak('Ich lege das Buch auf den Tisch.')">🔊</button></div>`);
-  }
- }
- const oldTitle=card.querySelector('h2');
- if(oldTitle)oldTitle.textContent='Let’s learn together';
- const oldButtons=[...card.querySelectorAll('button')].filter(b=>!b.closest('.vocab-row'));
- const main=oldButtons.find(b=>/Start 7 exercises|Try what you learned|Start exercises/i.test(b.textContent));
- if(main){main.textContent='Ready? Let’s practice';main.classList.add('lesson-next');}
- const back=oldButtons.find(b=>/Back to course|Back to my learning path/i.test(b.textContent));
- if(back){back.textContent='My learning path';back.classList.add('secondary');}
- const extra=card.querySelector('.unit-explain:has(button)');
- if(extra&&/Extended skill practice/i.test(extra.textContent)){
-  const details=document.createElement('details');details.className='lesson-more';
-  details.innerHTML='<summary>Want more practice? ▾</summary>';
-  extra.parentNode.insertBefore(details,extra);details.appendChild(extra);
-  const h=extra.querySelector('h3');if(h)h.textContent='Practice a little more';
-  const btn=extra.querySelector('button');if(btn)btn.textContent='Try extra activities';
- }
- card.insertAdjacentHTML('afterbegin',`<div class="lesson-welcome"><img src="${id%2?'katze.png':'hund.png'}" alt="Your learning companion"><div><h2>Lesson ${FULL_UNITS.filter(x=>x.level===u.level).findIndex(x=>x===u)+1}: ${safeText(u.title)}</h2><p>First, learn the pattern. Then try it yourself.</p></div></div>`);
-};
-})();
-</script>
+<script src="./js/extracted-batch7-12.js"></script>
 
 <style>
 #screenBack{position:sticky!important;top:8px!important;z-index:150!important;margin:8px 0 12px!important;padding:11px 18px!important;background:#28485b!important;border:1px solid #6ba9a4!important;color:white!important;border-radius:13px!important;display:inline-flex!important;align-items:center!important;box-shadow:0 3px 15px #07111d99}
@@ -556,42 +523,7 @@ fullBegin = function(id) {
 
 <script src="./js/extracted-batch6-18.js"></script>
 <script src="./js/extracted-batch5-7.js"></script>
-<script>
-/* Unified review entry: show saved mistakes and direct links to the relevant lesson. */
-(function(){
- const priorReview=review;
- review=function(){
-   ensureLearning();
-   const p=practiceState();
-   const snaps=Object.keys(p.mistakes||{}).filter(k=>k.startsWith('snap:')&&p.snapshots?.[k]);
-   const legacy=(state.mistakes||[]).filter(x=>x?.question);
-   const units=(state.learning.fullMistakes||[]).filter(x=>Number.isInteger(x.unit)&&FULL_UNITS[x.unit]);
-   const unitIds=[...new Set(units.map(x=>x.unit))];
-   const reviewCount=snaps.length+legacy.length+units.length;
-   const snapshotRows=snaps.map((key,i)=>{
-     const q=p.snapshots[key];
-     const unitId=FULL_UNITS.findIndex(u=>u.title===q.unitTitle&&u.level===q.level);
-     return `<div class="card"><p><strong>${safeText(q.prompt)}</strong></p><p>${safeText(q.level||'')} ${safeText(q.unitTitle||'')}</p><button onclick="dlReviewSaved(${i})">Practice missed questions</button>${unitId>=0?` <button class="secondary" onclick="fullStudy(${unitId})">Open lesson</button>`:''}</div>`;
-   }).join('');
-   const unitRows=unitIds.map(id=>`<div class="card"><strong>${safeText(FULL_UNITS[id].level+' · '+FULL_UNITS[id].title)}</strong><p>${units.filter(x=>x.unit===id).length} missed answer(s)</p><button onclick="fullBegin(${id})">Retake quiz</button> <button class="secondary" onclick="fullStudy(${id})">Review lesson</button></div>`).join('');
-   const legacyRow=legacy.length?`<div class="card"><p>${legacy.length} earlier missed question(s)</p><button onclick="dlLegacyReview()">Practice earlier mistakes</button></div>`:'';
-   app.innerHTML=`<section class="card"><h2>Review</h2><p>${reviewCount?`${reviewCount} missed answer records`:'No saved mistakes available yet.'}</p><p>Missed questions appear here after you check an answer. You can also retake a lesson directly.</p><button onclick="practiceHub()">Practice Hub</button> <button class="secondary" onclick="courseMenu('A1')">A1 lessons</button></section>`+snapshotRows+unitRows+legacyRow;
- };
- window.dlReviewSaved=function(i){const p=practiceState(),keys=Object.keys(p.mistakes||{}).filter(k=>k.startsWith('snap:')&&p.snapshots?.[k]);const key=keys[i];if(!key)return review();p.reviews[key]={step:0,due:Date.now()};save();practiceQuiz('mistakes');};
- window.dlLegacyReview=function(){priorReview();};
- const oldCheck=dlCheck;
- dlCheck=function(){
-   const s=fullSession,q=s?.questions?.[s.idx],isNew=!!(q&&!dlAnswered&&dlSelected!==null);
-   if(isNew){const p=practiceState();p.snapshots??={};}
-   const result=oldCheck();
-   if(isNew&&q){
-     const p=practiceState(),key='snap:'+encodeURIComponent([q.prompt||'',(q.options||[])[q.answer]||''].join('|'));
-     if(p.snapshots?.[key]){p.snapshots[key].unitTitle=FULL_UNITS[s.id]?.title||'';p.snapshots[key].level=FULL_UNITS[s.id]?.level||'';save();}
-   }
-   return result;
- };
-})();
-</script>
+<script src="./js/extracted-batch7-2.js"></script>
 
 <style>
 /* Keep the next-question action visible after feedback, without hiding translations. */
@@ -712,112 +644,7 @@ body.dl-answer-ready .dl-flow {padding-bottom:110px;}
 .dl-sound-focus .dl-sound-example{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:9px}
 .dl-sound-focus button{margin:0}
 </style>
-<script>
-(function(){
- const drills=[
-  {sound:'z → /ts/',word:'zwei',meaning:'two',example:'Zeit',detail:'German z is pronounced as a single ts sound. Start with the t and release immediately into s. Practice it at the start of zwei and Zeit.'},
-  {sound:'sch → /ʃ/',word:'Schule',meaning:'school',example:'schön',detail:'The three letters sch make one sh sound, like the beginning of English shoe.'},
-  {sound:'sp → /ʃp/',word:'sprechen',meaning:'to speak',example:'Sport',detail:'At the beginning of a word or stressed syllable, German sp usually starts with sh followed by p.'},
-  {sound:'st → /ʃt/',word:'Straße',meaning:'street',example:'stehen',detail:'At the beginning of a word or stressed syllable, German st usually starts with sh followed by t.'},
-  {sound:'ch (soft) → /ç/',word:'ich',meaning:'I',example:'Milch',detail:'The soft ch after i or other front vowels is made by raising the middle of your tongue toward the roof of your mouth. It is not English sh.'},
-  {sound:'ch (back) → /x/',word:'Buch',meaning:'book',example:'Bach',detail:'After a, o, or u, ch is usually a throaty friction sound made farther back in the mouth. Compare Buch with the softer ch in ich.'},
-  {sound:'ei → /aɪ/',word:'mein',meaning:'my',example:'drei',detail:'German ei sounds like English eye. Remember: the second letter helps tell you the sound.'},
-  {sound:'ie → /iː/',word:'Liebe',meaning:'love',example:'sieben',detail:'German ie usually makes a long ee sound, unlike ei. Hold the vowel a little longer.'},
-  {sound:'eu → /ɔʏ/',word:'neun',meaning:'nine',example:'heute',detail:'German eu makes a diphthong similar to English oy. The spelling äu often has the same sound.'},
-  {sound:'au → /aʊ/',word:'Haus',meaning:'house',example:'auch',detail:'German au glides from ah toward oo, roughly like English ow in cow.'},
-  {sound:'w → /v/',word:'Wasser',meaning:'water',example:'wir',detail:'German w sounds like English v, not English w. Touch your upper teeth lightly to your lower lip.'},
-  {sound:'v → /f/ (often)',word:'Vater',meaning:'father',example:'vier',detail:'In many common German words, v sounds like English f. Some borrowed words use v instead, so learn them individually.'},
-  {sound:'ß → /s/',word:'Straße',meaning:'street',example:'heißen',detail:'The letter ß represents a voiceless s sound, not a b. It generally follows a long vowel or diphthong.'},
-  {sound:'ü',word:'fünf',meaning:'five',example:'Tür',detail:'Say ee while rounding your lips as if to say oo. Keep your tongue forward.'},
-  {sound:'ö',word:'schön',meaning:'beautiful',example:'hören',detail:'Shape your tongue for an eh sound while rounding your lips. It is distinct from o.'}
- ];
- let soundIndex=0;
- window.dlPronunciationIntro=function(){
-  const root=document.getElementById('app');
-  root.innerHTML='<section class="card dl-pronunciation"><p class="muted">Module 1 · Lesson 3</p><h2>German pronunciation</h2><p>German letters and letter combinations sometimes sound different from English. In this lesson, you will learn 15 important sounds and practice recognizing and saying them.</p><h3>What you will learn</h3><p>Hear the difference between sounds such as <strong>ei</strong> and <strong>ie</strong>, pronounce combinations such as <strong>sch</strong> and <strong>ch</strong>, and practice familiar German words.</p><p>Listen to each example, try speaking it, and move through all 15 sounds to complete the lesson.</p><button id="dl-pron-begin">Begin lesson</button><button class="secondary" id="dl-pron-back">Back to Module 1</button></section>';
-  root.querySelector('#dl-pron-begin').onclick=()=>dlPronunciationHome(0);
-  root.querySelector('#dl-pron-back').onclick=()=>curriculumView('A1');
-  window.scrollTo(0,0);
- };
- window.dlPronunciationComplete=function(){
-  ensureLearning();state.learning.pronunciationLesson3Completed=true;save();
-  const root=document.getElementById('app');
-  root.innerHTML='<section class="card dl-pronunciation"><h2>Lesson 3 complete!</h2><p>Geschafft! You completed all '+drills.length+' German sounds. Lesson 3 is now marked completed in Module 1.</p><div class="dl-sound-navigation"><button class="secondary" id="dl-pron-repeat">Review sounds</button><button id="dl-pron-home">Return to Module 1</button></div></section>';
-  root.querySelector('#dl-pron-repeat').onclick=()=>dlPronunciationHome(0);
-  root.querySelector('#dl-pron-home').onclick=()=>curriculumView('A1');
-  window.scrollTo(0,0);
- };
- window.dlPronunciationHome=function(index){
-  soundIndex=Math.max(0,Math.min(drills.length-1,Number(index)||0));
-  const d=drills[soundIndex];
-  const root=document.getElementById('app');
-  root.innerHTML='<section class="card dl-pronunciation"><p class="muted">Pronunciation · '+(soundIndex+1)+' of '+drills.length+'</p><h2>German sounds</h2><div class="dl-sound-focus"><strong></strong><p class="dl-sound-detail"></p><p>Another example: <b class="dl-sound-example-word"></b></p><button class="secondary" id="dl-sound-example-play">🔊 Listen to example</button></div><h3 class="dl-pronunciation-word"></h3><p class="dl-pronunciation-meaning"></p><button id="dl-sound-speak">🎤 Speak now</button><p id="dl-sound-status" aria-live="polite">Listen, then practice saying the word.</p><div class="dl-sound-listening"><button class="secondary" id="dl-sound-hear">🔊 Hear it</button><button class="secondary" id="dl-sound-slow">🐢 Hear it slowly</button></div><div class="dl-sound-navigation"><button class="secondary" id="dl-sound-prev">Previous</button><button id="dl-sound-next">Next sound</button></div></section>';
-  root.querySelector('.dl-sound-focus strong').textContent='Sound focus: '+d.sound;
-  root.querySelector('.dl-sound-detail').textContent=d.detail;
-  root.querySelector('.dl-sound-example-word').textContent=d.example;
-  root.querySelector('.dl-pronunciation-word').textContent=d.word;
-  root.querySelector('.dl-pronunciation-meaning').textContent=d.meaning;
-  root.querySelector('#dl-sound-example-play').onclick=()=>speak(d.example);
-  root.querySelector('#dl-sound-hear').onclick=()=>speak(d.word);
-  root.querySelector('#dl-sound-slow').onclick=()=>speak(d.word,0.7);
-  root.querySelector('#dl-sound-prev').disabled=soundIndex===0;
-  root.querySelector('#dl-sound-prev').onclick=()=>dlPronunciationHome(soundIndex-1);
-  root.querySelector('#dl-sound-next').textContent=soundIndex===drills.length-1?'Finish pronunciation':'Next sound';
-  root.querySelector('#dl-sound-next').onclick=()=>soundIndex===drills.length-1?dlPronunciationComplete():dlPronunciationHome(soundIndex+1);
-  let activePronunciationRecognition=null;
-  let pronunciationTimer=null;
-  let pronunciationReceivedResult=false;
-  let pronunciationEnding=false;
-  function stopPronunciation(){
-   clearTimeout(pronunciationTimer);pronunciationTimer=null;
-   if(activePronunciationRecognition){const r=activePronunciationRecognition;activePronunciationRecognition=null;try{r.abort()}catch(e){}}
-  }
-  const speakButton=root.querySelector('#dl-sound-speak');
-  const status=root.querySelector('#dl-sound-status');
-  speakButton.onclick=()=>{
-   if(activePronunciationRecognition){
-    const r=activePronunciationRecognition;
-    clearTimeout(pronunciationTimer);pronunciationTimer=null;
-    status.textContent='Processing speech…';pronunciationEnding=true;
-    try{r.stop()}catch(e){stopPronunciation();status.textContent='No speech captured. Tap Speak now to retry.'}
-    pronunciationTimer=setTimeout(()=>{if(activePronunciationRecognition===r){stopPronunciation();status.textContent='No speech result received. Tap Speak now to retry.';speakButton.textContent='🎤 Speak now'}},4500);
-    return;
-   }
-   const Rec=window.SpeechRecognition||window.webkitSpeechRecognition;
-   if(!Rec){status.textContent='Speech recognition is unavailable in this browser.';return}
-   const rec=new Rec();activePronunciationRecognition=rec;rec.lang='de-DE';rec.continuous=false;rec.interimResults=false;rec.maxAlternatives=3;
-   pronunciationReceivedResult=false;pronunciationEnding=false;
-   speakButton.textContent='⏹ Stop listening';
-   status.textContent='Listening…';
-   pronunciationTimer=setTimeout(()=>{if(activePronunciationRecognition===rec){status.textContent='Processing speech…';pronunciationEnding=true;try{rec.stop()}catch(e){}pronunciationTimer=setTimeout(()=>{if(activePronunciationRecognition===rec){stopPronunciation();status.textContent='No speech result received. Tap Speak now to retry.';speakButton.textContent='🎤 Speak now'}},2500)}},10000);
-   rec.onresult=e=>{
-    if(activePronunciationRecognition!==rec||!status.isConnected)return;
-    pronunciationReceivedResult=true;
-    const words=Array.from(e.results[0]||[]).map(x=>x.transcript.trim().toLocaleLowerCase('de-DE').replace(/[.!?]/g,''));
-    const expected=d.word.toLocaleLowerCase('de-DE');
-    const normalized=words.map(w=>w.replace(/ß/g,'ss'));const target=expected.replace(/ß/g,'ss');
-    const ok=normalized.includes(target);
-    const uncertain=(expected==='liebe'&&words.some(w=>w==='lieber'))||(expected==='straße'&&normalized.some(w=>/^strass(e|er|a)$/.test(w)))||words.some(w=>!/[äöüß]/.test(w)&&/^[a-z ]+$/.test(w)&&!w.includes(target.slice(0,Math.min(3,target.length))));
-    status.textContent=ok?'Richtig! Well done!':uncertain?'Speech recognition was uncertain (heard: '+words[0]+'). This does not mean your pronunciation was wrong. Try again.':'Heard: '+(words[0]||'nothing')+'. Try again.';
-    stopPronunciation();speakButton.textContent='🎤 Speak now';
-    if(ok){
-     speakButton.disabled=true;
-     setTimeout(()=>{
-      if(!status.isConnected||document.querySelector('#dl-sound-status')!==status)return;
-      if(soundIndex===drills.length-1)dlPronunciationComplete();
-      else dlPronunciationHome(soundIndex+1);
-     },1100);
-    }
-   };
-   rec.onerror=e=>{if(activePronunciationRecognition!==rec)return;stopPronunciation();if(status.isConnected)status.textContent=e.error==='no-speech'?'No speech detected by the browser. Try again or use Next sound to continue.':e.error==='network'?'Speech recognition service unavailable. You can continue with Next sound.':'Microphone: '+e.error+'. Try again.';if(speakButton.isConnected)speakButton.textContent='🎤 Speak now'};
-   rec.onend=()=>{if(activePronunciationRecognition!==rec)return;if(pronunciationEnding){pronunciationTimer=setTimeout(()=>{if(activePronunciationRecognition!==rec)return;stopPronunciation();if(status.isConnected)status.textContent='No speech result returned. Use Next sound to continue or retry.';if(speakButton.isConnected)speakButton.textContent='🎤 Speak now'},3500);return;}stopPronunciation();if(status.isConnected&&!pronunciationReceivedResult)status.textContent='No speech detected by the browser. Try again or use Next sound to continue.';if(speakButton.isConnected)speakButton.textContent='🎤 Speak now'};
-   try{rec.start()}catch(e){stopPronunciation();status.textContent='Unable to start microphone: '+e.message;speakButton.textContent='🎤 Speak now'}
-  };
-  window.scrollTo(0,0);
- };
-
-})();
-</script>
+<script src="./js/extracted-batch7-1.js"></script>
 <style>
 .dl-review-result{display:flex;align-items:center;gap:16px;margin:16px 0;padding:16px;border-radius:16px;background:rgba(36,88,94,.55)}
 .dl-review-result img{width:100px;height:100px;object-fit:contain;flex-shrink:0}
@@ -832,37 +659,7 @@ body.dl-answer-ready .dl-flow {padding-bottom:110px;}
      Audio remains available for explicitly listening-based prompts. -->
 
 <!-- Pronunciation curriculum: sound recognition instead of vocabulary translation. -->
-<script>
-(function(){
- const contrasts=[
-  {words:['schon','schön','Sohn'],target:'schön',why:'The ö in schön is a rounded front vowel. Compare it with the plain o in schon and Sohn.'},
-  {words:['Mutter','Mütter','Meter'],target:'Mütter',why:'ü is different from u: round your lips while keeping your tongue forward. Compare Mutter and Mütter.'},
-  {words:['Kuchen','Küche','Kirche'],target:'Küche',why:'Küche has ü, while Kuchen has u. Listen to how the vowel changes.'},
-  {words:['Straße','Strauß','Stress'],target:'Straße',why:'At the start of Straße, str sounds like shtr. The letter ß makes a sharp s sound.'},
-  {words:['ich','ach','auch'],target:'ich',why:'The ch in ich is a soft sound made near the front of the mouth, unlike the back-of-the-mouth ch in ach.'},
-  {words:['mein','Miene','Mann'],target:'mein',why:'ei sounds like English eye, while ie makes a long ee sound. Listen to mein and Miene.'},
-  {words:['neun','nein','nun'],target:'neun',why:'eu sounds similar to oy in English boy; ei sounds like eye.'},
-  {words:['zwei','drei','frei'],target:'zwei',why:'German z begins with a ts sound, as in zwei.'}
- ];
- const priorBegin=fullBegin;
- fullBegin=function(id){
-  priorBegin.apply(this,arguments);
-  const session=fullSession,unit=FULL_UNITS[id];
-  if(!session||!unit||unit.level!=='A1'||!/(umlaut|pronunc|sounds? of|alphabet|spelling)/i.test(String(unit.title||'')))return;
-  // Replace translation/definition questions: a sound lesson should assess listening, not English meanings.
-  let changed=0;
-  session.questions=session.questions.map((q,i)=>{
-   if(q.type==='sound-choice'||q.type==='speak-word')return q;
-   if(!/(choose the german for|what does|which word means|what is the meaning|translate|means “|means ")/i.test(String(q.prompt||'')))return q;
-   const c=contrasts[(i+changed)%contrasts.length];changed++;
-   const rotation=(i+changed)%3;
-   const words=c.words.map((_,j)=>c.words[(j+rotation)%3]);
-   return {type:'sound-choice',prompt:'Which audio says “'+c.target+'”?',options:['Audio 1','Audio 2','Audio 3'],answer:words.indexOf(c.target),why:c.why,dlAudioWords:words,dlTarget:c.target};
-  });
-  if(changed)fullRender();
- };
-})();
-</script>
+<script src="./js/extracted-batch7-14.js"></script>
 
 <!-- Native-speaker audio pilot: Mutter/Mütter. The single audio file is stored beside index.html. -->
 <script>
@@ -907,66 +704,7 @@ body.dl-answer-ready .dl-flow {padding-bottom:110px;}
 .curriculum-module.dl-locked summary{cursor:not-allowed}
 .dl-gate-note{font-size:.85rem;color:#a6d7cd;margin:8px 0}
 </style>
-<script>
-/* Module mastery: 80% review score unlocks the next module. */
-(function(){
- const passed=(level,n)=>!!state.learning?.moduleReviews?.[level+'-'+n]?.passed;
- const unlocked=(level,n)=>Array.from({length:n},(_,i)=>i).every(i=>passed(level,i));
- const moduleOf=(level,id)=>(STRUCTURED_PATH[level]||[]).findIndex(g=>g.ids.includes(id));
- const oldView=curriculumView;
- curriculumView=function(level){
-  oldView(level);
-  const groups=STRUCTURED_PATH[level]||[];
-  document.querySelectorAll('.curriculum-path-module').forEach((card,n)=>{
-   if(!groups[n])return;
-   const summary=card.querySelector('summary');
-   const note=document.createElement('p');note.className='dl-gate-note';
-   if(!unlocked(level,n)){
-    card.classList.add('dl-locked');card.open=false;
-    note.textContent='Locked · Pass the previous module review with at least 80%';
-    summary?.addEventListener('click',e=>e.preventDefault());
-    card.querySelectorAll('button').forEach(b=>b.disabled=true);
-   }else if(passed(level,n)){
-    note.textContent='Review passed · Lessons remain available';
-   }else{
-    note.textContent='Score 80% or higher on this review to unlock the next module';
-   }
-   summary?.appendChild(note);
-  });
-  const top=document.querySelector('.curriculum-path-summary');
-  const continueButton=top?.querySelector('button[onclick^="curriculumLesson("]');
-  if(continueButton){
-   let n=groups.findIndex((g,i)=>unlocked(level,i)&&!passed(level,i));
-   if(n<0)n=groups.length-1;
-   if(n>=0){
-    const nextId=groups[n].ids.find(id=>!state.learning?.fullScores?.[id]?.passed);
-    if(nextId!==undefined){
-     continueButton.textContent='Continue: '+(FULL_UNITS[nextId]?.title||'next lesson');
-     continueButton.setAttribute('onclick','curriculumLesson('+nextId+')');
-    }else if(!passed(level,n)){
-     continueButton.textContent='Take module '+(n+1)+' review · 80% to pass';
-     continueButton.setAttribute('onclick',"curriculumReview('"+level+"',"+n+")");
-    }
-   }
-  }
- };
- function deny(level,n){
-  if(unlocked(level,n))return false;
-  curriculumView(level);
-  return true;
- }
- const oldLesson=curriculumLesson;
- curriculumLesson=function(id){
-  const level=FULL_UNITS[id]?.level,n=moduleOf(level,id);
-  if(n>=0&&deny(level,n))return;
-  return oldLesson(id);
- };
- const oldIntro=curriculumModuleIntro;
- curriculumModuleIntro=function(level,n){if(deny(level,n))return;return oldIntro(level,n)};
- const oldReview=curriculumReview;
- curriculumReview=function(level,n){if(deny(level,n))return;return oldReview(level,n)};
-})();
-</script>
+<script src="./js/extracted-batch7-7.js"></script>
 
 <style>
 .dl-article-teaching{margin:18px 0;padding:18px;border:1px solid #5a8e86;border-radius:16px;background:rgba(33,84,78,.28)}
@@ -1057,49 +795,7 @@ window.dlResetAllProgress=function(){
 </script>
 
 <link rel="stylesheet" href="./css/legacy-part-3.css">
-<script id="dl-final-layout-stabilization-js">
-(function(){
- function normalizeMenu(){
-  const menu=document.getElementById('sideMenu');if(!menu)return;
-  const profile=menu.querySelector('.dl-menu-profile-link');
-  const placement=[...menu.querySelectorAll('button')].find(b=>b.textContent.trim()==='Placement test');
-  if(profile&&placement){profile.after(placement);placement.classList.remove('dl-placement-subitem');}
- }
- function normalizeModules(){
-  document.querySelectorAll('.curriculum-path-module>summary').forEach(summary=>{
-   const heading=summary.querySelector('.curriculum-module-heading');
-   if(!heading)return;
-   const content=heading.querySelector('div');
-   if(!content)return;
-   // Gate status was inserted as a third flex child, squeezing the title to one character per line.
-   summary.querySelectorAll(':scope > .dl-gate-status').forEach(status=>content.appendChild(status));
-  });
- }
- normalizeMenu();
- const oldView=window.curriculumView;
- if(typeof oldView==='function')window.curriculumView=function(){const result=oldView.apply(this,arguments);normalizeModules();return result};
- // Insert letter-sound examples in the lesson's explanation, not at the end of the card.
- const oldStudy=window.fullStudy;
- if(typeof oldStudy==='function')window.fullStudy=function(id){
-  const result=oldStudy.apply(this,arguments);
-  const unit=FULL_UNITS[id];if(!unit||unit.level!=='A1'||!/alphabet and spelling/i.test(unit.title||''))return result;
-  const card=document.querySelector('#app .card');if(!card)return result;
-  card.querySelectorAll('.dl-letters-intro,.dl-alphabet-audio').forEach(el=>el.remove());
-  const section=document.createElement('section');section.className='dl-alphabet-audio';
-  const examples=[
-   ['Ä / ä','Mädchen','ä as in Mädchen (girl)'],
-   ['Ö / ö','schön','ö as in schön (beautiful)'],
-   ['Ü / ü','Mütter','ü as in Mütter (mothers)'],
-   ['ẞ / ß','Straße','ß makes a sharp s sound (street)']
-  ];
-  section.innerHTML='<h3>Hear the extra German letters</h3><p>German uses <strong>ä, ö, ü</strong> and <strong>ß</strong> in addition to the English alphabet. Listen to each example before starting the exercises.</p><div class="dl-alphabet-audio-grid">'+examples.map(e=>'<div class="dl-alphabet-audio-item"><strong>'+e[0]+'</strong><span>'+e[2]+'</span><button type="button" class="secondary" data-dl-letter-word="'+e[1]+'">Hear '+e[1]+'</button></div>').join('')+'</div><p>Ä, Ö and Ü are different vowel sounds, not just decorated letters. ß represents the sound of ss.</p>';
-  const rule=card.querySelector('.unit-explain');
-  if(rule)rule.after(section);else card.insertBefore(section,card.children[1]||null);
-  section.querySelectorAll('button').forEach(button=>button.addEventListener('click',()=>speak(button.dataset.dlLetterWord)));
-  return result;
- };
-})();
-</script>
+<script src="./js/extracted-batch7-3.js"></script>
 
 <script src="./js/extracted-batch6-9.js"></script>
 
@@ -1512,42 +1208,7 @@ body.dl-home-banner .app-header h1,body.dl-home-banner .app-header p,body.dl-hom
 #dl-exit-dialog .dl-exit-actions{display:flex;gap:10px;flex-wrap:wrap}
 #dl-exit-dialog button{flex:1;min-width:125px;margin:0}
 </style>
-<script>
-(function(){
- let bypass=false,dialogOpen=false;
- function unfinished(){
-  const root=document.getElementById('app');
-  if(!root)return false;
-  if(root.querySelector('.findit-scene'))return true;
-  if(document.body.classList.contains('lesson-screen'))return true;
-  return false;
- }
- function confirmExit(action){
-  if(bypass||!unfinished()){action();return}
-  if(dialogOpen)return;
-  dialogOpen=true;
-  const overlay=document.createElement('div');
-  overlay.id='dl-exit-overlay';
-  overlay.innerHTML='<div id="dl-exit-dialog" role="alertdialog" aria-modal="true" aria-labelledby="dl-exit-title" aria-describedby="dl-exit-text"><h2 id="dl-exit-title">Leave this lesson?</h2><p id="dl-exit-text">You haven\'t finished yet. Your progress in this activity may be lost.</p><div class="dl-exit-actions"><button class="secondary" id="dl-stay">Keep Learning</button><button id="dl-leave">Leave Lesson</button></div></div>';
-  document.body.appendChild(overlay);
-  const close=()=>{overlay.remove();dialogOpen=false};
-  overlay.querySelector('#dl-stay').onclick=close;
-  overlay.querySelector('#dl-leave').onclick=()=>{close();bypass=true;try{action()}finally{bypass=false}};
-  overlay.querySelector('#dl-stay').focus();
- }
- const originalNavigate=navigateTo;
- navigateTo=function(destination){confirmExit(()=>originalNavigate(destination))};
- const originalHome=home;
- home=function(){confirmExit(()=>originalHome.apply(this,arguments))};
- if(typeof leaveLessonScreen==='function'){
-  const originalLeave=leaveLessonScreen;
-  leaveLessonScreen=function(){confirmExit(()=>originalLeave.apply(this,arguments))};
- }
- document.addEventListener('keydown',function(e){
-  if(e.key==='Escape'&&dialogOpen){e.stopImmediatePropagation();e.preventDefault();document.getElementById('dl-stay')?.click()}
- },true);
-})();
-</script>
+<script src="./js/extracted-batch7-18.js"></script>
 
 <!-- DeutschLab global incorrect-answer haptics -->
 <script>
@@ -1587,37 +1248,7 @@ body.dl-home-banner .app-header h1,body.dl-home-banner .app-header p,body.dl-hom
 body.dl-has-fixed-next #app{padding-bottom:105px!important}
 body.dl-has-fixed-next #app button.dl-hidden-original-next{display:none!important}
 </style>
-<script>
-(function(){
- const bar=document.createElement('div');bar.id='dl-fixed-next';
- const btn=document.createElement('button');btn.type='button';bar.appendChild(btn);document.body.appendChild(bar);
- const label=/^(?:next(?:\s+(?:picture|question|word|sound|item|sentence|exercise|round))?|continue|check next|see results|finish(?:\s+(?:lesson|practice|pronunciation|review))?|show results)$/i;
- let target=null;
- function update(){
-  const root=document.getElementById('app');
-  if(!root||document.getElementById('dl-exit-overlay')){bar.style.display='none';document.body.classList.remove('dl-has-fixed-next');return}
-  const candidates=Array.from(root.querySelectorAll('button')).filter(b=>{
-   const name=(b.textContent||'').trim().replace(/^[^\p{L}]+/u,'').trim();
-   if(!label.test(name)||b.disabled||b.hidden||b.closest('[hidden],.findit-room-choices,.dashboard-primary,.dashboard-shortcuts,nav'))return false;
-   const box=b.getBoundingClientRect();return box.width>0&&box.height>0;
-  });
-  // Only pin an advance button in an active question/feedback screen, not a home menu.
-  const active=!!root.querySelector('#fullFeedback,#gameFeedback,#pictureFeedback,#moduleFeedback,#courseFeedback,#dl-result,#intensiveFeedback,#dialogue-feedback,.dl-flow-feedback,.picture-answer,.game-feedback,.lesson-screen-heading,#dl-sound-next');
-  target=active?candidates[candidates.length-1]||null:null;
-  root.querySelectorAll('button.dl-hidden-original-next').forEach(b=>b.classList.remove('dl-hidden-original-next'));
-  if(target)target.classList.add('dl-hidden-original-next');
-  if(target){
-   btn.textContent=target.textContent.trim();btn.disabled=target.disabled;
-   bar.style.display='flex';document.body.classList.add('dl-has-fixed-next');
-  }else{bar.style.display='none';document.body.classList.remove('dl-has-fixed-next')}
- }
- btn.onclick=()=>{if(target&&target.isConnected&&!target.disabled)target.click()};
- let scheduled=false;
- const observer=new MutationObserver(()=>{if(scheduled)return;scheduled=true;requestAnimationFrame(()=>{scheduled=false;update()})});
- const root=document.getElementById('app');if(root)observer.observe(root,{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:['disabled','hidden']});
- update();
-})();
-</script>
+<script src="./js/extracted-batch7-11.js"></script>
 <script>
 /* Keep the Practice Hub review entry functional and group it beneath Account. */
 (function(){
@@ -1655,28 +1286,7 @@ body.dl-unified-active #app button.dl-unified-source{display:none!important}
 #app .dl-result-badge .dl-result-symbol{display:grid;place-items:center;width:38px;height:38px;flex:none;border-radius:50%;background:#f4a0a6;color:#51212b;font-size:1.55rem}
 #app .dl-result-badge .dl-result-label{font-size:inherit!important;margin:0!important;padding:0!important;background:none!important;border:0!important;color:inherit!important}
 </style>
-<script id="dl-feedback-card-polish-script">
-const dlMascotFiles=['correct_dog_transparent.png','incorrect_dog_transparent.png','a_clean_high_resolution_png_style_illustration_o-8%20(1).png','a_crisp_high_resolution_cartoon_illustration_sty.png','file_00000000392481f5808e9f44f95b1e2d.png','file_0000000094cc81f586867a5e426d23a4.png'];
-const dlMascotPreloads=dlMascotFiles.map(src=>{const img=new Image();img.src=src;return img});
-
-(function(){
- const root=document.getElementById('app');if(!root)return;
- const selectors='#fullFeedback,#moduleFeedback,#courseFeedback,#practiceFeedback,#gameFeedback,#pictureFeedback,#dialogue-feedback,#reviewFeedback,#articleFeedback,#a12Feedback,#dl-result,.dl-flow-feedback';
- function apply(){for(const area of root.querySelectorAll(selectors)){
-  const label=[...area.querySelectorAll('.correct,.wrong,.unit-explain>strong,.dl-flow-feedback>strong,.game-feedback>strong,.picture-answer>h3')].find(el=>/^(correct!?|not quite[.!]?|richtig!?)/i.test((el.textContent||'').trim()));
-  if(!label||label.classList.contains('dl-result-label'))continue;
-  const good=/^(correct|richtig)/i.test(label.textContent.trim());
-  const box=document.createElement('div');box.className='dl-result-badge '+(good?'dl-result-good':'dl-result-bad');
-  const icon=document.createElement('img');
-  const ids=['dog','panda','cat'];const id=ids[Math.floor(Math.random()*ids.length)];
-  const images={dog:['correct_dog_transparent.png','incorrect_dog_transparent.png'],panda:['a_clean_high_resolution_png_style_illustration_o-8%20(1).png','a_crisp_high_resolution_cartoon_illustration_sty.png'],cat:['file_00000000392481f5808e9f44f95b1e2d.png','file_0000000094cc81f586867a5e426d23a4.png']};
-  icon.src=images[id][good?0:1];icon.classList.add('dl-avatar-'+id);icon.alt=(good?'Happy ':'Thoughtful ')+({dog:'German Shepherd',panda:'red panda',cat:'gray tabby cat'}[id]);
-  icon.onerror=function(){this.onerror=null;this.src='avatar_'+id+'.webp'};
-  label.classList.add('dl-result-label');label.textContent=good?'Well done!':'Not quite!';label.before(box);box.append(icon,label);
- }}
- let queued=false;new MutationObserver(()=>{if(queued)return;queued=true;requestAnimationFrame(()=>{queued=false;apply()})}).observe(root,{childList:true,subtree:true});apply();
-})();
-</script>
+<script src="./js/extracted-batch7-13.js"></script>
 
 <style id="dl-practice-hub-redesign">
 .dl-hub-heading{margin:25px 0 12px;font-size:1.35rem}.dl-hub-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.dl-hub-card{display:flex!important;flex-direction:column;align-items:flex-start;justify-content:center;gap:9px;min-height:146px;padding:17px!important;border-radius:18px!important;text-align:left!important;white-space:normal!important}.dl-hub-card .dl-hub-icon{font-size:2rem;line-height:1}.dl-hub-card strong{font-size:1.13rem;line-height:1.2}.dl-hub-card small{font-size:.87rem;line-height:1.35;opacity:.87}.dl-hub-continue{width:100%;min-height:55px;margin:12px 0!important;font-size:1.05rem}@media(max-width:360px){.dl-hub-grid{gap:9px}.dl-hub-card{padding:12px!important;min-height:138px}}
@@ -1915,21 +1525,7 @@ function quickRandomPractice(){
 #app #listenFeedback .explain-box h3{margin:0 0 7px!important}
 #app #listenFeedback .explain-box p{margin:7px 0!important}
 </style>
-<script id="dl-listen-practice-unified-script">
-/* Unify standalone Listening Practice with the app's avatar feedback convention. */
-(function(){
- const oldPractice=listeningPractice;
- listeningPractice=function(){oldPractice();const card=document.getElementById('listenFeedback')?.closest('.card');if(!card)return;card.classList.add('dl-listen-practice-card');card.querySelectorAll('button[onclick^="listeningAnswer("]').forEach(b=>b.classList.add('dl-listen-choice'));const h=[...card.querySelectorAll('h3')].find(el=>el.textContent.trim()==='What did you hear?');h?.classList.add('dl-listen-prompt')};
- const oldAnswer=listeningAnswer;
- listeningAnswer=function(choice,answer,german){oldAnswer(choice,answer,german);const box=document.getElementById('listenFeedback');if(!box)return;const card=box.closest('.card');card?.classList.add('dl-listen-complete');const ok=choice===answer;const label=box.querySelector('.correct,.wrong');if(!label)return;
-  const badge=document.createElement('div');badge.className='dl-result-badge '+(ok?'dl-result-good':'dl-result-bad');
-  const avatar=document.createElement('img');const names=['dog','cat','panda'];const name=names[Math.floor(Math.random()*names.length)];const files={dog:['correct_dog_transparent.png','incorrect_dog_transparent.png'],cat:['file_00000000392481f5808e9f44f95b1e2d.png','file_0000000094cc81f586867a5e426d23a4.png'],panda:['a_clean_high_resolution_png_style_illustration_o-8%20(1).png','a_crisp_high_resolution_cartoon_illustration_sty.png']};avatar.src=files[name][ok?0:1];avatar.alt=ok?'Happy animal avatar':'Encouraging animal avatar';avatar.onerror=()=>{avatar.onerror=null;avatar.src='avatar_'+name+'.webp'};
-  const title=document.createElement('strong');title.className='dl-result-label';title.textContent=ok?'Well done!':'Not quite!';badge.append(avatar,title);label.replaceWith(badge);
-  const explain=box.querySelector('.explain-box');if(explain){const germanLine=box.querySelector(':scope > p');if(germanLine)germanLine.remove();explain.querySelector('h3')?.remove()}
-  const actions=[...box.querySelectorAll(':scope > button')];if(actions.length){const row=document.createElement('div');row.className='dl-listen-actions';row.style.cssText='display:flex;gap:10px;flex-wrap:wrap;margin:10px 0';actions[0].before(row);actions.forEach(b=>row.append(b))}
- };
-})();
-</script>
+<script src="./js/extracted-batch7-10.js"></script>
 
 <style id="dl-listen-fixed-actions-style">
 #dlListenFixedActions{position:fixed;left:0;right:0;bottom:env(safe-area-inset-bottom,0px);z-index:2147483000;display:flex;gap:12px;justify-content:space-between;align-items:center;padding:12px max(18px,env(safe-area-inset-right,0px)) 12px max(18px,env(safe-area-inset-left,0px));background:#142a3c;border-top:1px solid #3b5c70;box-sizing:border-box}
@@ -1997,46 +1593,7 @@ body:has(#dlListenFixedActions) #app{padding-bottom:115px!important}
 #dlDialogueExitBar button{margin:0!important;min-height:54px}
 body:has(#dlDialogueExitBar) #app{padding-bottom:112px!important}
 </style>
-<script id="dl-dialogue-answer-exit-fix-script">
-(function(){
- const root=document.getElementById('app');if(!root)return;
- function sync(){
-  const feedback=root.querySelector('#dialogue-feedback');
-  const complete=[...root.querySelectorAll('.card h2')].some(h=>h.textContent.trim()==='Conversation complete');
-  let bar=document.getElementById('dlDialogueExitBar');
-  if(!feedback&&!complete){bar?.remove();return}
-  const card=feedback?.closest('.card');
-  if(card){
-   const choices=[...card.querySelectorAll('button[onclick^="answerDialogue("]')];
-   choices.forEach(el=>el.classList.add('dl-dialogue-answer-choice'));
-   const label=choices[0]?.previousElementSibling;
-   if(label?.tagName==='P'&&/choose your response/i.test(label.textContent))label.classList.add('dl-dialogue-choose-label');
-   const wrong=!!feedback.querySelector('.wrong,.dl-result-bad');
-   const correct=!!feedback.querySelector('.correct,.dl-result-good');
-   card.classList.toggle('dl-dialogue-answered',wrong||correct);
-   if(wrong&&!feedback.querySelector('.dl-dialogue-retry')){
-    const retry=document.createElement('button');retry.className='secondary dl-dialogue-retry';retry.textContent='Try again';
-    retry.onclick=()=>{feedback.replaceChildren();card.classList.remove('dl-dialogue-answered');choices.forEach(el=>el.disabled=false)};
-    feedback.appendChild(retry);
-   }
-   // During exchanges, never anchor Back to dialogues; anchor Continue only after a correct answer.
-   if(!correct){bar?.remove();return}
-   const next=feedback.querySelector('button[onclick="nextDialogueStep()"],button[onclick="conversation()"]')||bar?.querySelector('button[onclick="nextDialogueStep()"],button[onclick="conversation()"]');
-   if(!next)return;
-   if(!bar){bar=document.createElement('div');bar.id='dlDialogueExitBar';document.body.appendChild(bar)}
-   if(next.parentNode!==bar)bar.replaceChildren(next);
-   return;
-  }
-  // Only on the conversation-complete screen anchor All dialogues.
-  const all=root.querySelector('button[onclick="conversation()"]');
-  if(!all){bar?.remove();return}
-  if(!bar){bar=document.createElement('div');bar.id='dlDialogueExitBar';document.body.appendChild(bar)}
-  bar.replaceChildren(all);
- }
- let pending=false;
- new MutationObserver(()=>{if(pending)return;pending=true;requestAnimationFrame(()=>{pending=false;sync()})}).observe(root,{childList:true,subtree:true});sync();
-})();
-</script>
+<script src="./js/extracted-batch7-9.js"></script>
 
 <style id="dl-feedback-label-visible-emphasis">
 /* Reward headline gets its own clear area, rather than competing with mascot flex sizing. */
@@ -2079,45 +1636,7 @@ body:has(#dlDialogueExitBar) #app{padding-bottom:112px!important}
 #app .dl-hub-level{width:100%;box-sizing:border-box;margin:10px 0 14px}
 @media(max-width:370px){#app .dl-hub-card{padding:12px 9px}#app .dl-hub-card strong{font-size:1rem}}
 </style>
-<script id="dl-hub-reorganized">
-(function(){
- const previousHub=practiceHub;
- const activityRoutes={
-  quick:()=>quickRandomPractice(),review:()=>review(),mistakes:()=>practiceQuiz('mistakes'),
-  listening:()=>listeningLevels(),articles:()=>articleHome(),
-  build:()=>gameStart('build'),reverse:()=>gameStart('reverse'),
-  findit:()=>findItHome(),match:()=>gameStart('match'),pictures:()=>photoMenu(),supermarkt:()=>supermarktHome(),
-  dialogues:()=>typeof dialoguesHome==='function'?dialoguesHome():conversation(),
-  ai:()=>aiTutor()
- };
- window.dlOpenOrganizedActivity=function(key){
-  const fn=activityRoutes[key];if(fn){fn();window.scrollTo({top:0,left:0,behavior:'instant'})}
- };
- const sections=[
-  ['Daily Practice','Reinforce vocabulary, grammar and comprehension.',[
-   ['quick','⭐','Quick Practice','A short mixed exercise'],['review','🧠','Review','Refresh learned material'],
-   ['mistakes','🔁','Fix Mistakes','Retry missed questions'],['listening','🎧','Listening','Understand spoken German'],
-   ['articles','📚','Noun Articles','Practice der, die and das'],['build','🧩','Build Sentences','Put German words in order'],
-   ['reverse','🔤','Build in English','Translate German sentences']]],
-  ['Games','Learn through interactive challenges.',[
-   ['findit','🔎','Find It!','Explore illustrated rooms'],['match','🔗','Match Pairs','German and English word pairs'],
-   ['pictures','🖼️','Picture Practice','Identify pictured vocabulary'],['supermarkt','🛒','Supermarkt (Test)','Shop with a German list']]],
-  ['Conversations','Practice using German in context.',[
-   ['dialogues','💬','Dialogues','Guided everyday conversations'],['ai','🎙️','AI Conversation','Free-form speaking practice']]]
- ];
- const card=c=>'<button class="secondary dl-hub-card" onclick="dlOpenOrganizedActivity(\''+c[0]+'\')"><span class="dl-hub-icon">'+c[1]+'</span><strong>'+c[2]+'</strong><small>'+c[3]+'</small></button>';
- practiceHub=function(){
-  previousHub();
-  const old=app.querySelector('.dl-hub-content');
-  if(!old)return;
-  old.innerHTML='<button class="dl-hub-continue" onclick="dlOpenOrganizedActivity(\'quick\')">▶ Quick Practice</button>'+
-   sections.map(([name,desc,cards])=>'<h2 class="dl-hub-heading">'+name+'</h2><p class="dl-hub-subtitle">'+desc+'</p><div class="dl-hub-grid">'+cards.map(card).join('')+'</div>').join('');
-  app.querySelectorAll('.card').forEach(el=>{
-   if(el.textContent.trim()==='Continue learning')el.remove();
-  });
- };
-})();
-</script>
+<script src="./js/extracted-batch7-8.js"></script>
 <script id="dl-home-practice-restored">
 (function(){
  const prior=home;
@@ -2524,29 +2043,7 @@ body:has(#app .market-v2) .app-header::before,body:has(#app .market-v2) .app-hea
 #app .market-v2 .market-list.market-always-visible li:has(.market-checked)::before{content:"✓";color:#448374}
 </style>
 
-<script id="dl-a2-accusative-complete-lesson">
-// Shared web lesson improvement. Android branch intentionally unchanged.
-(function(){
- const unit=FULL_UNITS.find(u=>u.level==='A2'&&u.title==='Accusative articles');
- if(!unit)return;
- unit.rule='The accusative marks the direct object: the person or thing receiving the action.\n\nDEFINITE ARTICLES (the):\nMasculine: der → den (der Hund → den Hund).\nFeminine: die → die (die Katze → die Katze).\nNeuter: das → das (das Buch → das Buch).\nPlural: die → die (die Bücher → die Bücher).\n\nINDEFINITE ARTICLES (a/an):\nMasculine: ein → einen (ein Apfel → einen Apfel).\nFeminine: eine → eine (eine Banane → eine Banane).\nNeuter: ein → ein (ein Buch → ein Buch).\n\nOnly masculine articles change in the accusative. Compare: Der Hund schläft (subject), but Ich sehe den Hund (direct object).';
- unit.examples=[['Ich sehe den Hund.','I see the dog. (masculine: der → den)'],['Sie kauft eine Banane.','She buys a banana. (feminine: eine stays eine)'],['Wir lesen das Buch.','We read the book. (neuter: das stays das)']];
- unit.checkpoint={prompt:'Ich kaufe ___ Apfel.',options:['einen','ein','eine'],answer:0,why:'Apfel is masculine and the direct object, so ein changes to einen.'};
- const previous=fullQuestions;
- fullQuestions=function(u){
-  if(u!==unit)return previous(u);
-  return [
-   {type:'grammar',prompt:'Ich sehe ___ Hund. (masculine)',options:['der','den','dem'],answer:1,why:'Hund is masculine; the definite article der becomes den for a direct object.'},
-   {type:'grammar',prompt:'Sie kauft ___ Apfel. (masculine)',options:['eine','einen','ein'],answer:1,why:'Apfel is masculine; indefinite ein becomes einen in the accusative.'},
-   {type:'grammar',prompt:'Ich habe ___ Katze. (feminine)',options:['einen','ein','eine'],answer:2,why:'Katze is feminine. Eine stays eine in the accusative.'},
-   {type:'grammar',prompt:'Wir lesen ___ Buch. (neuter)',options:['das','den','die'],answer:0,why:'Buch is neuter. The definite article das does not change in the accusative.'},
-   {type:'grammar',prompt:'Er braucht ___ Auto. (neuter)',options:['einen','eine','ein'],answer:2,why:'Auto is neuter. Indefinite ein stays ein in the accusative.'},
-   {type:'grammar',prompt:'Ich sehe ___ Kinder. (plural)',options:['den','das','die'],answer:2,why:'Kinder is plural. The plural definite article die stays die in the accusative.'},
-   {type:'grammar',prompt:'___ Mann liest ein Buch. (masculine · subject)',options:['Den','Der','Dem'],answer:1,why:'Mann is the subject, not the direct object, so nominative der is required. Buch is a neuter object and keeps ein.'}
-  ];
- };
-})();
-</script>
+<script src="./js/extracted-batch7-5.js"></script>
 <style id="dl-header-frame-final-override">
 /* Override legacy late-loaded header styles across all browser screens. */
 html body .app-header,html body.dl-compact-header .app-header,html body.dl-home-banner .app-header,html body:has(#app .market-v2) .app-header{position:sticky!important;top:8px!important;z-index:45!important;display:flex!important;align-items:center!important;justify-content:flex-start!important;width:max-content!important;max-width:100%!important;min-height:0!important;gap:0!important;padding:0!important;margin:0 0 12px!important;border:0!important;outline:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;backdrop-filter:none!important;filter:none!important}
@@ -2570,28 +2067,8 @@ html body .app-header .menu-toggle,html body.dl-compact-header .app-header .menu
  ];};
 })();
 </script>
-<script id="dl-pronouns-before-conversation">
-(function(){
- const conversation=FULL_UNITS.findIndex(u=>u.title==='Everyday conversations: Understanding in context');
- const pronouns=FULL_UNITS.findIndex(u=>u.title==='Personal pronouns: ich and du');
- if(conversation<0||pronouns<0)return;
- const u=FULL_UNITS[pronouns];
- u.title='Personal pronouns: ich, du, and Sie';
- u.rule="ICH — I\nUse ich when talking about yourself.\n\nDU — INFORMAL YOU\nUse du with a friend, family member, or someone you know well.\n\nSIE — FORMAL YOU\nUse Sie when politely addressing strangers, customers, or people in professional settings. It can address one person or several.\n\nCOMPARE\nDu lernst Deutsch. — You are learning German. (informal)\nSie lernen Deutsch. — You are learning German. (formal)\n\nREMEMBER\nFormal Sie always uses a capital S, even in the middle of a sentence. Lowercase sie means she or they."
- u.examples=[['ich','I'],['du','you (informal, singular)'],['Sie','you (formal, singular or plural)'],['Du lernst Deutsch.','You are learning German. (informal)'],['Sie lernen Deutsch.','You are learning German. (formal)'],['Können Sie mir helfen?','Can you help me? (formal)']];
- u.checkpoint={prompt:'Which pronoun means formal “you”?',options:['du','Sie','ich'],answer:1,why:'Sie (capital S) is formal you. Du is informal singular you; ich means I.'};
- // Move the pronoun lesson before conversation even when they are in different modules.
-  // Preserve stable lesson IDs and existing completion scores.
-  const groups=STRUCTURED_PATH.A1;
-  const destination=groups.find(g=>g.ids.includes(conversation));
-  if(destination){
-    for(const group of groups)group.ids=group.ids.filter(id=>id!==pronouns);
-    const position=destination.ids.indexOf(conversation);
-    destination.ids.splice(position,0,pronouns);
-  }
-})();
-</script>
-<style id="dl-pronoun-paragraphs">.unit-explain.dl-pronoun-spaced{white-space:pre-line;line-height:1.55}</style><script id="dl-pronoun-paragraph-render">(function(){const prior=fullStudy;fullStudy=function(id){const result=prior.apply(this,arguments);if(FULL_UNITS[id]?.title==='Personal pronouns: ich, du, and Sie'){app.querySelectorAll('.unit-explain').forEach(el=>el.classList.add('dl-pronoun-spaced'));}return result;};})();</script><style id="dl-pronoun-intro-cards">.dl-pronoun-guide{display:grid;gap:12px;margin:16px 0 24px}.dl-pronoun-guide section{padding:15px 17px;border-radius:15px;background:#293f58;border:1px solid #405c72}.dl-pronoun-guide h3{margin:0 0 7px;color:#9bdcd1;font-size:1.05rem}.dl-pronoun-guide p{margin:0;line-height:1.5}.dl-pronoun-guide .dl-pronoun-pair{margin:8px 0}</style><script id="dl-pronoun-intro-cards-script">(function(){const priorPronounStudy=fullStudy;const previous=dlLessonIntro;const enhancedPronounIntro=function(id){const result=previous.apply(this,arguments);if(FULL_UNITS[id]?.title!=='Personal pronouns: ich, du, and Sie')return result;const heading=app.querySelector('.dl-flow-card h2');const paragraph=heading?.nextElementSibling;if(!paragraph||paragraph.tagName!=='P')return result;const guide=document.createElement('div');guide.className='dl-pronoun-guide';const sections=[['ich — I','Use ich when talking about yourself.'],['du — informal you','Use du with friends, family, children, people you know well, or someone who has agreed to speak informally.'],['Sie — formal you','Use Sie with strangers, customers, clients, or in professional situations to show respect.\n\nOne person or several?\nSie works for both! Unlike du, the formal form does not change based on how many people you are addressing.\n\nWhen should you switch to du?\nIf you are unsure, start with Sie. Someone may invite you to speak informally by saying:\n\n“Wir können uns duzen.”\n(We can use du with each other.)'],['Compare','Du lernst Deutsch. — You are learning German (informal).\nSie lernen Deutsch. — You are learning German (formal).'],['Remember','Formal Sie always has a capital S, even in the middle of a sentence. Lowercase sie means she or they.']];for(const [title,body] of sections){const card=document.createElement('section');const h=document.createElement('h3');h.textContent=title;const p=document.createElement('p');p.textContent=body;p.style.whiteSpace='pre-line';card.append(h,p);guide.append(card)}paragraph.replaceWith(guide);return result;};dlLessonIntro=enhancedPronounIntro;fullStudy=function(id){if(FULL_UNITS[id]?.title==='Personal pronouns: ich, du, and Sie')return enhancedPronounIntro(id);return priorPronounStudy(id)};})();</script><script id="dl-unified-lesson-navigation">(function(){const previous=friendlyCourse;friendlyCourse=function(level){return curriculumView(level||state.learning?.placement?.recommended||'A1')};window.addEventListener('load',()=>{const el=document.querySelector('#app .path-list');if(el){curriculumView(state.learning?.placement?.recommended||'A1')}});})();</script><script id="dl-canonical-course-refresh-fix">(function(){const oldFriendly=friendlyCourse;friendlyCourse=function(level){return curriculumView(level||state.learning?.placement?.recommended||'A1')};function repair(){let saved=null;try{saved=JSON.parse(sessionStorage.getItem('dl-current-view')||'null')}catch(e){}const isOld=!!document.querySelector('#app .path-list, #app .path-panel');const shouldShowCourse=isOld||saved?.name==='friendlyCourse';if(!shouldShowCourse)return;const level=(saved?.args?.[0]||state.learning?.placement?.recommended||'A1');curriculumView(level);try{sessionStorage.setItem('dl-current-view',JSON.stringify({name:'curriculumView',args:[level]}))}catch(e){}}window.addEventListener('load',()=>setTimeout(repair,0));})();</script><style id="dl-pronoun-remember-emphasis">
+<script src="./js/extracted-batch7-19.js"></script>
+<style id="dl-pronoun-paragraphs">.unit-explain.dl-pronoun-spaced{white-space:pre-line;line-height:1.55}</style><script id="dl-pronoun-paragraph-render">(function(){const prior=fullStudy;fullStudy=function(id){const result=prior.apply(this,arguments);if(FULL_UNITS[id]?.title==='Personal pronouns: ich, du, and Sie'){app.querySelectorAll('.unit-explain').forEach(el=>el.classList.add('dl-pronoun-spaced'));}return result;};})();</script><style id="dl-pronoun-intro-cards">.dl-pronoun-guide{display:grid;gap:12px;margin:16px 0 24px}.dl-pronoun-guide section{padding:15px 17px;border-radius:15px;background:#293f58;border:1px solid #405c72}.dl-pronoun-guide h3{margin:0 0 7px;color:#9bdcd1;font-size:1.05rem}.dl-pronoun-guide p{margin:0;line-height:1.5}.dl-pronoun-guide .dl-pronoun-pair{margin:8px 0}</style><script src="./js/extracted-batch7-17.js"></script><script id="dl-unified-lesson-navigation">(function(){const previous=friendlyCourse;friendlyCourse=function(level){return curriculumView(level||state.learning?.placement?.recommended||'A1')};window.addEventListener('load',()=>{const el=document.querySelector('#app .path-list');if(el){curriculumView(state.learning?.placement?.recommended||'A1')}});})();</script><script id="dl-canonical-course-refresh-fix">(function(){const oldFriendly=friendlyCourse;friendlyCourse=function(level){return curriculumView(level||state.learning?.placement?.recommended||'A1')};function repair(){let saved=null;try{saved=JSON.parse(sessionStorage.getItem('dl-current-view')||'null')}catch(e){}const isOld=!!document.querySelector('#app .path-list, #app .path-panel');const shouldShowCourse=isOld||saved?.name==='friendlyCourse';if(!shouldShowCourse)return;const level=(saved?.args?.[0]||state.learning?.placement?.recommended||'A1');curriculumView(level);try{sessionStorage.setItem('dl-current-view',JSON.stringify({name:'curriculumView',args:[level]}))}catch(e){}}window.addEventListener('load',()=>setTimeout(repair,0));})();</script><style id="dl-pronoun-remember-emphasis">
 #app .dl-pronoun-guide section:last-child{background:#194b4b;border:2px solid #79d8c6;box-shadow:0 0 0 3px rgba(121,216,198,.10)}
 #app .dl-pronoun-guide section:last-child h3{color:#b8fff0;font-weight:800;font-size:1.2rem}
 #app .dl-pronoun-guide section:last-child p{font-weight:600}
@@ -2630,123 +2107,9 @@ html body .app-header .menu-toggle,html body.dl-compact-header .app-header .menu
   window.addEventListener('load',()=>setTimeout(repair,50));
   setTimeout(repair,0);
 })();
-</script><script id="dl-a1-learning-sequence">
-/* Curriculum-only sequencing: preserve all lesson IDs, scores, exercises and games. */
-(function(){
- const groups=STRUCTURED_PATH.A1;
- if(!Array.isArray(groups)||!groups.length)return;
- const original=groups.flatMap(g=>g.ids);
- const find=title=>groups.find(g=>g.title===title);
- const move=(id,targetTitle,position)=>{
-   const target=find(targetTitle);
-   if(!target||!original.includes(id))return;
-   for(const g of groups)g.ids=g.ids.filter(x=>x!==id);
-   target.ids.splice(Math.min(position,target.ids.length),0,id);
- };
- const moveTitle=(title,targetTitle,position)=>{
-   const id=FULL_UNITS.findIndex(u=>u.title===title);
-   if(id>=0)move(id,targetTitle,position);
- };
- // Introduce sentence patterns alongside essential verbs, before long vocabulary units.
- const sentences=find('Building German sentences');
- const verbs=find('Essential verbs: be, have, live');
- if(sentences&&verbs){
-   const idx=groups.indexOf(sentences);
-   const target=groups.indexOf(verbs);
-   if(idx>target+1){groups.splice(idx,1);groups.splice(target+1,0,sentences);}
- }
- // Teach noun gender before possessive endings and family descriptions.
- const objects=find('Everyday objects and articles');
- const family=find('People and family');
- if(objects&&family&&groups.indexOf(objects)>groups.indexOf(family)){
-   groups.splice(groups.indexOf(objects),1);
-   groups.splice(groups.indexOf(family),0,objects);
- }
- // Build basic questions immediately after sentence structure.
- const questions=find('Questions and answers');
- const sentenceGroup=find('Building German sentences');
- if(questions&&sentenceGroup&&groups.indexOf(questions)>groups.indexOf(sentenceGroup)+1){
-   groups.splice(groups.indexOf(questions),1);
-   groups.splice(groups.indexOf(sentenceGroup)+1,0,questions);
- }
- // Introduce cases in a progression before applied movement/preposition lessons.
- moveTitle('Accusative: direct objects','Building German sentences',99);
- moveTitle('Accusative pronouns','Building German sentences',99);
- moveTitle('Dative: with and to','Places and directions',0);
- moveTitle('Dative pronouns: to me and you','Places and directions',1);
- // Keep consolidated formal-address lesson early, rather than buried in conversations.
- moveTitle('Personal pronouns: ich, du, and Sie','I, you, we: personal pronouns',0);
- // Leave all other lessons, stable IDs and completion data untouched.
- const after=groups.flatMap(g=>g.ids);
- if(after.length!==original.length||new Set(after).size!==after.length||
-    original.some(id=>!after.includes(id)))console.warn('A1 sequence integrity check failed');
-})();
-</script>
-<script id="dl-pronoun-he-she-it-guide">
-(function(){
- const oldIntro=dlLessonIntro;
- function expandedIntro(id){
-   const result=oldIntro.apply(this,arguments);
-   if(FULL_UNITS[id]?.title!=='Personal pronouns: he, she, it')return result;
-   const heading=app.querySelector('.dl-flow-card h2');
-   const paragraph=heading?.nextElementSibling;
-   if(!paragraph||paragraph.tagName!=='P')return result;
-   const guide=document.createElement('div');
-   guide.className='dl-pronoun-guide';
-   const sections=[
-     ['er — he','Use er when talking about a male person.\n\nEr ist hier. — He is here.'],
-     ['sie — she','Use lowercase sie when talking about a female person.\n\nAnna lernt Deutsch. → Sie lernt Deutsch.\nAnna is learning German. → She is learning German.'],
-     ['es — it','Use es for something referred to with the neuter pronoun. German grammatical gender matters: es does not always mean an object is lifeless.\n\nDas Kind spielt. → Es spielt.\nThe child is playing. → It is playing.'],
-     ['Compare','Er lernt Deutsch. — He is learning German.\nSie lernt Deutsch. — She is learning German.\nEs ist neu. — It is new.'],
-     ['Remember','Lowercase sie can also mean they. Look at the verb:\n\nsie lernt — she learns\n\nsie lernen — they learn\n\nCapitalized Sie is formal you.']
-   ];
-   for(const [title,body] of sections){
-     const card=document.createElement('section');
-     const h=document.createElement('h3');h.textContent=title;
-     const p=document.createElement('p');p.textContent=body;p.style.whiteSpace='pre-line';
-     card.append(h,p);guide.append(card);
-   }
-   paragraph.textContent='In this lesson, you’ll practice er, sie, and es when talking about people. These pronouns can also refer to animals and objects according to a noun’s grammatical gender (der, die, das). We’ll explore that use in a later lesson.';
-   paragraph.insertAdjacentElement('afterend',guide);
-   return result;
- }
- dlLessonIntro=expandedIntro;
- fullStudy=function(id){
-   if(FULL_UNITS[id]?.title==='Personal pronouns: he, she, it')return expandedIntro(id);
-   return oldIntro(id);
- };
-})();
-</script>
-<script id="dl-pronoun-varied-practice">
-(function(){
- const target='Personal pronouns: he, she, it';
- const pool=[
-  ['Anna ist hier. ___ lernt Deutsch.',['Sie','Er','Es'],0,'Anna is referred to with sie (she).'],
-  ['Paul wohnt in Berlin. ___ spricht Deutsch.',['Es','Er','Sie'],1,'Paul is referred to with er (he).'],
-  ['Maria arbeitet heute. ___ ist beschäftigt.',['Er','Sie','Es'],1,'Use sie for Maria.'],
-  ['Max ist müde. ___ schläft jetzt.',['Er','Es','Sie'],0,'Use er for Max.'],
-  ['Lisa spricht Deutsch. ___ lernt Englisch.',['Es','Er','Sie'],2,'Use sie for Lisa.'],
-  ['Tom und Anna lernen. ___ sprechen Deutsch.',['Sie','Er','Es'],0,'Plural sie refers to both people.'],
-  ['Which pronoun means “he”?',['sie','es','er'],2,'Er means he.'],
-  ['Which pronoun means “she”?',['er','sie','es'],1,'Sie means she.'],
-  ['Which sentence means “She is here”?',['Sie ist hier.','Er ist hier.','Es ist hier.'],0,'Sie ist hier means She is here.'],
-  ['Which sentence means “He is learning German”?',['Sie lernt Deutsch.','Es lernt Deutsch.','Er lernt Deutsch.'],2,'Er is he, and lernt means learns.'],
-  ['Anna und Paul sind hier. Which means “They are here”?',['Sie sind hier.','Sie ist hier.','Er ist hier.'],0,'Plural sie uses sind; singular sie uses ist.'],
- ];
- const prior=fullQuestions;
- fullQuestions=function(unit){
-   if(unit?.title!==target)return prior(unit);
-   if(fullSession?.id===FULL_UNITS.indexOf(unit)&&fullSession.questions)return fullSession.questions;
-   // Mix recognition, contextual substitution and short sentence comprehension.
-   const shuffled=pool.map((row,i)=>({row,i})).sort(()=>Math.random()-.5).slice(0,7);
-   return shuffled.map(({row})=>{
-     const [prompt,options,correct,why]=row;
-     const shuffledOptions=options.map((label,i)=>({label,correct:i===correct})).sort(()=>Math.random()-.5);
-     return {type:'grammar',prompt,options:shuffledOptions.map(o=>o.label),answer:shuffledOptions.findIndex(o=>o.correct),why};
-   });
- };
-})();
-</script>
+</script><script src="./js/extracted-batch7-6.js"></script>
+<script src="./js/extracted-batch7-15.js"></script>
+<script src="./js/extracted-batch7-16.js"></script>
 <script id="dl-refresh-always-home">
 (function(){
   // Refresh starts at Home; normal in-app navigation still retains its history.
