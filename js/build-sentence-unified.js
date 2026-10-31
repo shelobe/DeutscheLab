@@ -74,7 +74,7 @@
  gameRender=function(){
   oldGameRender();
   if(!gameSession||!['build','reverse'].includes(gameSession.mode)||gameSession.idx>=gameSession.seq.length)return;
-  const card=app.querySelector('.card');if(!card)return;
+  let card=app.querySelector('.card');if(!card)return;
   const isGerman=gameSession.mode==='build';
   const heading=[...card.querySelectorAll('h3')][0];
   if(heading){heading.classList.add('dl-build-prompt');}
@@ -83,23 +83,28 @@
   const existing=card.querySelector('.dl-unified-build-dock');if(existing)existing.remove();
   card.classList.add('dl-build-shared-layout');
   if(isGerman){
-   /* Build the German view with the same component order as the English builder,
-      while retaining the existing game IDs, event handlers and scoring logic. */
-   card.classList.add('dl-german-english-layout');
-   const built=card.querySelector('#gameBuilt');
-   const bank=card.querySelector('#gameBank');
-   if(built){built.classList.add('dl-shared-built');built.textContent='Tap the German words below';}
-   if(bank){
-    bank.classList.add('dl-shared-bank');
-    const title=document.createElement('div');title.className='dl-shared-bank-title';title.textContent='WORD BANK';
-    bank.before(title);
-    const controls=document.createElement('div');controls.className='dl-build-edit-controls';
-    controls.innerHTML='<button type="button" class="secondary" onclick="dlUnifiedUndo()">↶ Undo last word</button><button type="button" class="secondary" onclick="dlUnifiedReset()">↺ Start over</button>';
-    bank.after(controls);
-   }
-   card.querySelector('button[onclick="gameRender()"]')?.remove();
-   const originalCheck=card.querySelector('button[onclick="gameCheckBuild()"]');
-   if(originalCheck){originalCheck.textContent='Check translation';originalCheck.classList.add('dl-build-check');}
+   /* Rebuild German using the English game's native card/word-bank structure.
+      Preserve original German word buttons, click handlers, and answer checking. */
+   const oldBuilt=card.querySelector('#gameBuilt');
+   const oldBank=card.querySelector('#gameBank');
+   const oldCheck=card.querySelector('button[onclick="gameCheckBuild()"]');
+   const prompt=card.querySelector('h3');
+   if(!oldBuilt||!oldBank||!oldCheck||!prompt)throw Error('German sentence game structure changed');
+   const g=gameSession,item=g.pool[g.seq[g.idx]];
+   const rebuilt=document.createElement('section');
+   rebuilt.className='card';
+   rebuilt.innerHTML=`<p class="muted">Translate into German · ${g.idx+1} of ${g.seq.length}</p><div class="game-progress"><div style="width:${g.idx/g.seq.length*100}%"></div></div><p>Build the German translation:</p><h3 class="dl-build-prompt">${safeText(item.en)}</h3><div id="dl-german-answer-slot"></div><div class="dl-bank-label">WORD BANK</div><div id="dl-german-bank-slot"></div><div class="dl-reverse-controls"><button class="secondary" onclick="dlUnifiedUndo()">↶ Undo last word</button><button class="secondary" onclick="dlUnifiedReset()">↺ Start over</button></div><div id="dl-german-check-slot"></div><div id="gameFeedback" aria-live="polite"></div>`;
+   oldBuilt.className='game-built dl-shared-built';
+   oldBuilt.textContent='Tap the German words below';
+   oldBank.className='game-wordbank dl-shared-bank';
+   rebuilt.querySelector('#dl-german-answer-slot').replaceWith(oldBuilt);
+   rebuilt.querySelector('#dl-german-bank-slot').replaceWith(oldBank);
+   oldCheck.textContent='Check translation';
+   oldCheck.classList.add('dl-build-check-original');
+   rebuilt.querySelector('#dl-german-check-slot').replaceWith(oldCheck);
+   card.replaceWith(rebuilt);
+   card=rebuilt;
+   card.classList.add('dl-build-shared-layout');
   }
   /* Both modes use the same prompt/answer/bank/control/feedback structure.
      Preserve the mode-specific word selection and answer checking handlers. */
@@ -172,12 +177,7 @@
  const previousMark=gameMark;
  gameMark=function(ok,answer){
   const result=previousMark(ok,answer);
-  /* Original English renderer uses the game-feedback outer panel.
-     German must retain the same outer container, not only its badge. */
-  if(gameSession?.mode==='build'){
-   const feedback=document.getElementById('gameFeedback');
-   if(feedback)feedback.classList.add('game-feedback');
-  }
+
   if(gameSession?.mode==='build'&&gameSession.answered&&!ok){
    const feedback=document.getElementById('gameFeedback');
    const item=gameSession.pool[gameSession.seq[gameSession.idx]];
