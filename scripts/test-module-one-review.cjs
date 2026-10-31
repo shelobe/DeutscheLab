@@ -44,11 +44,11 @@ function open(mode){context.curriculumReview('A1',0);const s=context.moduleSessi
 function answerType(text){button('Play word').click();const input=app.querySelector('input');input.value=text;input.oninput();button('Check answer').click()}
 for(let run=0;run<100;run++){
  context.curriculumReview('A1',0);const qs=context.moduleSession.questions,counts={};qs.forEach(q=>{counts[q.dlReviewMode]=(counts[q.dlReviewMode]||0)+1;assert.ok(q.prompt);assert.ok(q.why);assert.ok(q.options[q.answer])});
- assert.equal(qs.length,15);for(const n of ['choice','type','speak','compare','match'])assert.equal(counts[n],3);
+ assert.equal(qs.length,15);assert.equal(counts.choice,6);for(const n of ['type','compare','match'])assert.equal(counts[n],3);assert.equal(counts.speak,undefined);
  assert.ok(qs.some(q=>q.dlReviewMode==='type'&&q.options[0]==='Wein'));assert.ok(qs.some(q=>q.dlReviewMode==='type'&&q.options[0]==='Liebe'));
- for(let i=0;i<15;i+=5)assert.equal(new Set(qs.slice(i,i+5).map(q=>q.dlReviewMode)).size,5);
+ for(let i=0;i<15;i+=5){assert.equal(new Set(qs.slice(i,i+5).map(q=>q.dlReviewMode)).size,4);assert.equal(qs.slice(i,i+5).filter(q=>q.dlReviewMode==='choice').length,2)}
 }
-console.log('PASS: 100 runs retain 15 tasks, five formats, EI/IE and interleaving');
+console.log('PASS: 100 runs retain 15 tasks, four formats, EI/IE and interleaving; no microphone requirement');
 let q=open('type');assert.equal(app.querySelector('input').autocomplete,'off');assert.equal(button('Check answer').disabled,true);assert.ok(!app.querySelector('.dl-review-controls').textContent.includes(q.options[0]));answerType(' '+q.options[0].toUpperCase()+' ');assert.equal(context.moduleSession.score,1);context.curriculumReviewAnswer(0);assert.equal(context.moduleSession.score,1);assert.equal(app.querySelector('.dl-review-controls'),null);assert.equal(app.querySelector('.picture-choices'),null);
 open('type');answerType('wrong');assert.equal(context.moduleSession.score,0);assert.equal(context.moduleSession.answered,true);
 open('type');const input=app.querySelector('input');input.value='Kase';input.selectionStart=1;input.selectionEnd=2;button('ä').click();assert.equal(input.value,'Käse');
@@ -57,16 +57,6 @@ q=open('compare');button('Play recording 1').click();button('Play recording 2').
 q=open('match');assert.equal(button('Check matches').disabled,true);q.clipOrder.forEach((word,i)=>{button('Recording '+(i+1)).click();button(word).click()});assert.equal(button('Check matches').disabled,false);button('Check matches').click();assert.equal(context.moduleSession.score,1);
 q=open('match');q.clipOrder.forEach((word,i)=>{button('Recording '+(i+1)).click();button(q.clipOrder[(i+1)%3]).click()});button('Check matches').click();assert.equal(context.moduleSession.score,0);
 console.log('PASS: typing, special keys, blank-answer guard, compare, matching and once-only scoring');
-class Recognition{constructor(){Recognition.current=this}start(){}stop(){}abort(){cancelCount++}}
-context.window.SpeechRecognition=Recognition;
-q=open('speak');button('Speak now').click();let rec=Recognition.current;rec.onresult({results:[[{transcript:'wrong'}]]});assert.equal(context.moduleSession.answered,false);button('Speak now').click();Recognition.current.onresult({results:[[{transcript:q.options[0]}]]});assert.equal(context.moduleSession.score,1);
-open('speak');button('Speak now').click();Recognition.current.onerror({error:'no-speech'});assert.equal(context.moduleSession.answered,false);button('Use a listening question instead').click();assert.equal(current().dlReviewMode,'choice');assert.ok(current().options.includes(current().dlReviewAudio));button(current().dlReviewAudio).click();assert.equal(context.moduleSession.score,1);
-open('speak');button('Speak now').click();rec=Recognition.current;open('type');rec.onresult({results:[[{transcript:'Schule'}]]});assert.equal(context.moduleSession.score,0);assert.ok(cancelCount>0);
-open('speak');button('Speak now').click();for(const fn of [...timers.values()])fn();assert.equal(button('Speak now').disabled,false);assert.equal(context.moduleSession.answered,false);
-delete context.window.SpeechRecognition;open('speak');button('Speak now').click();assert.equal(context.moduleSession.answered,false);button('Use a listening question instead').click();assert.equal(current().dlReviewMode,'choice');
-context.curriculumReview('A1',1);assert.equal(context.moduleSession.questions[0].prompt,'Other module');
-console.log('PASS: simulated speech success, misrecognition, silence, timeout, cancellation, fallback and other-module isolation');
-
 const dock=body.querySelector('#dl-fixed-next'),dockButton=dock.querySelector('button');
 function refreshDock(){context.window.dlRefreshFixedNext()}
 q=open('type');refreshDock();assert.equal(dock.style.display,'flex');assert.equal(dockButton.textContent,'Check answer');assert.equal(dockButton.disabled,true);
@@ -75,6 +65,11 @@ assert.equal(dockButton.disabled,false);refreshDock();assert.equal(dock.style.di
 assert.equal(app.querySelector('.dl-review-controls'),null);assert.equal(dockButton.textContent,'Next question');assert.equal(app.querySelector('#moduleFeedback').scrolled,true);dockButton.click();assert.equal(context.moduleSession.answered,false);
 q=open('match');const columns=app.querySelector('.dl-review-match-columns');assert.equal(columns.children.length,2);assert.equal(columns.children[0].children.length,3);assert.equal(columns.children[1].children.length,3);
 q.clipOrder.forEach((word,i)=>{button('Recording '+(i+1)).click();button(word).click()});refreshDock();assert.equal(dockButton.textContent,'Check matches');assert.equal(dockButton.disabled,false);dockButton.click();assert.equal(app.querySelector('.dl-review-match-columns'),null);assert.equal(dockButton.textContent,'Next question');
-context.window.SpeechRecognition=Recognition;open('speak');refreshDock();assert.equal(dockButton.textContent,'Use a listening question instead');button('Speak now').click();Recognition.current.onresult({results:[[{transcript:'schuler'}]]});refreshDock();assert.equal(dockButton.disabled,false);dockButton.click();assert.equal(current().dlReviewMode,'choice');button(current().dlReviewAudio).click();assert.equal(app.querySelector('.picture-choices'),null);refreshDock();assert.equal(dockButton.textContent,'Next question');dockButton.click();assert.equal(context.moduleSession.answered,false);
+// Every replacement is answerable and advances through the same native footer.
+for(const target of ['schön','auch','Tür']){
+ context.curriculumReview('A1',0);const session=context.moduleSession;session.idx=session.questions.findIndex(q=>q.dlReviewAudio===target);context.curriculumReviewRender();
+ assert.equal(buttons().some(b=>b.textContent==='Speak now'),false);
+ button(target).click();assert.equal(session.score,1);refreshDock();assert.equal(dockButton.textContent,'Next question');dockButton.click();assert.equal(session.answered,false);
+}
 context.curriculumReview('A1',1);context.curriculumReviewRender();refreshDock();assert.equal(dock.style.display,'none');
-console.log('PASS: real shared dock, disabled checks, repeated refresh, match columns, submitted bank cleanup, feedback visibility, speech fallback through Next, navigation cleanup');
+console.log('PASS: real shared dock, disabled checks, repeated refresh, match columns, submitted bank cleanup, feedback visibility, all three microphone-free replacements through Next, navigation cleanup');

@@ -63,7 +63,7 @@ This document records established product decisions. The current `main` branch i
 
 - Review prompts must not reveal the target letter/sound, grammatical gender/case, or solving rule before submission. Listening prompts should simply ask learners to choose the word they hear. Keep required meaning/context, and place sound or grammar explanations in post-answer feedback.
 
-- Module reviews should mix interactions appropriate to the taught skills, including recall and production rather than only multiple-choice recognition. Module 1 uses three each of listening choice, dictation, read aloud, recording comparison and audio-to-word matching, interleaved across 15 tasks. Future modules should choose formats that assess their own learning objectives, use taught examples, and avoid visual matching shortcuts, trivia and unrelated vocabulary recall.
+- Module reviews should mix interactions appropriate to the taught skills, including recall and production rather than only multiple-choice recognition. Module 1 uses six listening choices and three each of dictation, recording comparison and audio-to-word matching, interleaved across 15 tasks. Future modules should choose formats that assess their own learning objectives, use taught examples, and avoid visual matching shortcuts, trivia and unrelated vocabulary recall.
 
 ## Verification preference
 - Do not open or interact with the live app in a browser unless the user explicitly asks. Do not navigate lessons, capture browser screenshots or visually inspect the app independently. Make changes through GitHub and use code inspection, syntax checks and lightweight automated tests. The user will test the app and report issues. Keep other troubleshooting and code-quality checks in place.

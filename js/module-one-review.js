@@ -11,7 +11,9 @@
   const choices=[choice('Wasser',['Vater','Jahr'],'Wasser begins with W, pronounced like English V.'),choice('zwei',['drei','frei'],'Zwei begins with the ts sound written z.'),choice('Schule',['Stuhl','Schale'],'Schule begins with sch, pronounced sh.')];
   choices.forEach(q=>q.answer=q.options.indexOf(q.dlReviewAudio));
   const typing=[make('type','Wein','EI makes the eye sound in Wein.'),make('type','Liebe','IE makes the long ee sound in Liebe.'),make('type','Käse','The ä in Käse is a different vowel from a.',{unitId:umlaut})];
-  const speaking=[make('speak','Schule','Sch makes the sh sound in Schule.',{alternative:{word:'schön',others:['schon','Schule'],why:'Schön begins with sch and contains ö.'}}),make('speak','Buch','After u, ch is made farther back in the mouth.',{alternative:{word:'auch',others:['auf','Auge'],why:'Auch contains the back ch sound after au.'}}),make('speak','fünf','Ü is made with a forward tongue and rounded lips.',{unitId:umlaut,alternative:{word:'Tür',others:['Tier','Tor'],why:'Tür contains ü, distinct from ie and o.'}})];
+  const alternatives=[choice('schön',['schon','Schule'],'Schön begins with sch and contains ö.'),choice('auch',['auf','Auge'],'Auch contains the back ch sound after au.'),choice('Tür',['Tier','Tor'],'Tür contains ü, distinct from ie and o.')];
+  alternatives.forEach(q=>q.answer=q.options.indexOf(q.dlReviewAudio));
+  alternatives[0].unitId=umlaut;alternatives[2].unitId=umlaut;
   const pairA=Math.random()<.5?['schon','schön']:['schön','schön'];
   const pairB=Math.random()<.5?['mein','mein']:['mein','Wein'];
   const pairC=Math.random()<.5?['Tier','Tür']:['Tür','Tür'];
@@ -20,7 +22,7 @@
   const sets=[['Jahr','Wasser','Vater'],['Schule','sprechen','stehen'],['Straße','heißen','fünf']];
   const matches=sets.map((words,i)=>make('match',words.join(' · '),'Listen for the full word and connect its sound to its spelling.',{unitId:i===2?umlaut:id,words,clipOrder:shuffle(words),wordOrder:shuffle(words)}));
   matches.forEach(q=>q.options[0]=q.clipOrder.map((word,i)=>'Recording '+(i+1)+': '+word).join('; '));
-  const buckets=[choices,typing,speaking,pairs,matches].map(shuffle),questions=[];
+  const buckets=[choices,typing,alternatives,pairs,matches].map(shuffle),questions=[];
   for(let i=0;i<3;i++)for(const bucket of shuffle(buckets))questions.push(bucket[i]);
   return questions;
  }
@@ -106,34 +108,6 @@
     check.disabled=picks.size!==q.words.length;
    }
    update();
-  }else if(q.dlReviewMode==='speak'){
-   heading.textContent='Read this word aloud.';
-   const word=document.createElement('p');word.className='dl-review-speaking-word';word.textContent=q.options[0];controls.append(word);
-   note('Tap Speak now, then say the word. You can retry if recognition mishears you.');
-   function alternative(){
-    if(!alive())return;stop();const a=q.alternative;
-    q.dlReviewMode='choice';q.prompt='Listen and choose the word you hear.';q.options=shuffle([a.word,...a.others]);q.answer=q.options.indexOf(a.word);q.dlReviewAudio=a.word;q.why=a.why;curriculumReviewRender();
-   }
-   const speakButton=button('Speak now',()=>{
-    if(!alive())return;
-    if(recognition){const r=recognition;speakButton.disabled=true;status.textContent='Checking speech…';try{r.stop()}catch(e){stop();speakButton.disabled=false;speakButton.textContent='Speak now'}return}
-    const Rec=window.SpeechRecognition||window.webkitSpeechRecognition;
-    if(!Rec){status.textContent='Speech recognition is unavailable. Use the listening question instead.';return}
-    const r=new Rec();recognition=r;r.lang='de-DE';r.continuous=false;r.interimResults=false;r.maxAlternatives=3;
-    speakButton.textContent='Stop listening';status.textContent='Listening…';
-    r.onresult=e=>{
-     if(!alive()||recognition!==r)return;
-     const words=Array.from(e.results[0]||[]).map(x=>normalize(x.transcript));
-     stop();speakButton.disabled=false;speakButton.textContent='Speak now';
-     if(words.includes(normalize(q.options[0])))submit(true);
-     else status.textContent='Not recognized clearly'+(words[0]?' (heard “'+words[0]+'”)':'')+'. Retry or use the listening question. This has not been marked wrong.';
-    };
-    r.onerror=e=>{if(!alive()||recognition!==r)return;stop();speakButton.disabled=false;speakButton.textContent='Speak now';status.textContent=e.error==='no-speech'?'No speech detected. Try again.':'Speech recognition is unavailable. Retry or use the listening question.'};
-    r.onend=()=>{if(!alive()||recognition!==r)return;stop();speakButton.disabled=false;speakButton.textContent='Speak now';status.textContent='No recognized word returned. Retry or use the listening question.'};
-    timer=setTimeout(()=>{if(!alive()||recognition!==r)return;stop();speakButton.disabled=false;speakButton.textContent='Speak now';status.textContent='Speech recognition timed out. Retry or use the listening question.'},12000);
-    try{r.start()}catch(e){stop();speakButton.textContent='Speak now';status.textContent='Unable to start speech recognition. Use the listening question instead.'}
-   });
-   primary(button('Use a listening question instead',alternative));
   }
   window.dlRefreshFixedNext?.();
   return result;
