@@ -4,6 +4,16 @@
  const prior=curriculumReview;
  function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
  function isSoundGloss(x){return /\([^)]*(sounds? like|pronounced|letter|vowel|different from|compare|unlike)[^)]*\)/i.test(String(x));}
+ function reviewPromptWithoutHints(q){
+  if(q.dlReviewAudio)return 'Listen and choose the word you hear.';
+  return String(q.prompt||'')
+   .replace(/\s*[—–]\s*[^”"]*(?:sounds? like|often sounds? like)[^”"]*/gi,'')
+   .replace(/\s*\((?:subject|object|same form|masculine(?:\s*[·,]\s*subject|\s+subject\s*→\s*object)?|feminine|neuter|plural)\)/gi,'')
+   .replace(/\((?:masculine|feminine|neuter),\s*([^)]*)\)/gi,'($1)')
+   .replace(/A new (?:German )?noun ends in -[a-zäöüß]+:\s*/gi,'')
+   .replace(/\s*Use the noun ending\./gi,'')
+   .trim();
+ }
  function cleanAnswer(x){return String(x).replace(/\s*\([^)]*\)/g,'').trim();}
  function soundReview(group){
   const alphabet=group.ids.find(id=>/alphabet|spelling/i.test(FULL_UNITS[id]?.title||''))??group.ids[0];
@@ -13,7 +23,7 @@
   const rows=[
  [
   0,
-  "Listen and choose the word you hear (first word).",
+  "Listen and choose the word you hear.",
   [
    "Jahr",
    "wir",
@@ -24,7 +34,7 @@
  ],
  [
   0,
-  "Listen and choose the word you hear (season).",
+  "Listen and choose the word you hear.",
   [
    "Winter",
    "Vater",
@@ -35,7 +45,7 @@
  ],
  [
   0,
-  "Listen and choose the word you hear (family word).",
+  "Listen and choose the word you hear.",
   [
    "Vater",
    "Wasser",
@@ -46,7 +56,7 @@
  ],
  [
   0,
-  "Listen and choose the word you hear (month).",
+  "Listen and choose the word you hear.",
   [
    "Januar",
    "Winter",
@@ -57,7 +67,7 @@
  ],
  [
   0,
-  "Listen and choose the word you hear (everyday word).",
+  "Listen and choose the word you hear.",
   [
    "Wasser",
    "Vater",
@@ -68,7 +78,7 @@
  ],
  [
   1,
-  "Listen and choose the word you hear (ä).",
+  "Listen and choose the word you hear.",
   [
    "Käse",
    "Kasse",
@@ -79,7 +89,7 @@
  ],
  [
   1,
-  "Listen and choose the word you hear (ö).",
+  "Listen and choose the word you hear.",
   [
    "schön",
    "schon",
@@ -90,7 +100,7 @@
  ],
  [
   1,
-  "Listen and choose the word you hear (ü).",
+  "Listen and choose the word you hear.",
   [
    "fünf",
    "fand",
@@ -121,7 +131,7 @@
  ],
  [
   1,
-  "Listen and choose the word you hear (spelling with ß).",
+  "Listen and choose the word you hear.",
   [
    "heißen",
    "heilen",
@@ -132,7 +142,7 @@
  ],
  [
   2,
-  "Listen and choose the word you hear (z).",
+  "Listen and choose the word you hear.",
   [
    "zwei",
    "frei",
@@ -143,7 +153,7 @@
  ],
  [
   2,
-  "Listen and choose the word you hear (sch).",
+  "Listen and choose the word you hear.",
   [
    "Schule",
    "Stuhl",
@@ -154,7 +164,7 @@
  ],
  [
   2,
-  "Listen and choose the word you hear (sp).",
+  "Listen and choose the word you hear.",
   [
    "sprechen",
    "brechen",
@@ -165,7 +175,7 @@
  ],
  [
   2,
-  "Listen and choose the word you hear (st).",
+  "Listen and choose the word you hear.",
   [
    "stehen",
    "sehen",
@@ -176,7 +186,7 @@
  ],
  [
   2,
-  "Listen and choose the word you hear (soft ch).",
+  "Listen and choose the word you hear.",
   [
    "ich",
    "ist",
@@ -187,7 +197,7 @@
  ],
  [
   2,
-  "Listen and choose the word you hear (back ch).",
+  "Listen and choose the word you hear.",
   [
    "Buch",
    "Bus",
@@ -198,7 +208,7 @@
  ],
  [
   2,
-  "Listen and choose the word you hear (EI versus IE).",
+  "Listen and choose the word you hear.",
   [
    "Wein",
    "Wien",
@@ -209,7 +219,7 @@
  ],
  [
   2,
-  "Listen and choose the word you hear (IE versus EI).",
+  "Listen and choose the word you hear.",
   [
    "Liebe",
    "Leibe",
@@ -220,7 +230,7 @@
  ],
  [
   2,
-  "Listen and choose the word you hear (eu).",
+  "Listen and choose the word you hear.",
   [
    "neun",
    "nein",
@@ -231,7 +241,7 @@
  ],
  [
   2,
-  "Listen and choose the word you hear (au).",
+  "Listen and choose the word you hear.",
   [
    "Haus",
    "Hase",
@@ -242,7 +252,7 @@
  ],
  [
   2,
-  "Listen and choose the word you hear (w).",
+  "Listen and choose the word you hear.",
   [
    "wir",
    "vier",
@@ -253,7 +263,7 @@
  ],
  [
   2,
-  "Listen and choose the word you hear (v).",
+  "Listen and choose the word you hear.",
   [
    "vier",
    "wir",
@@ -264,7 +274,7 @@
  ],
  [
   2,
-  "Listen and choose the word you hear (ß).",
+  "Listen and choose the word you hear.",
   [
    "Straße",
    "Strafe",
@@ -275,7 +285,7 @@
  ],
  [
   2,
-  "Listen and choose the word you hear (rounded ü).",
+  "Listen and choose the word you hear.",
   [
    "Tür",
    "Tier",
@@ -286,7 +296,7 @@
  ],
  [
   2,
-  "Listen and choose the word you hear (rounded ö).",
+  "Listen and choose the word you hear.",
   [
    "hören",
    "Herren",
@@ -498,12 +508,13 @@
    const u=FULL_UNITS[id];if(!u)continue;
    const qs=fullQuestions(u).filter(q=>Array.isArray(q.options)&&q.options.length>=2&&q.answer>=0&&q.answer<q.options.length&&q.type!=='listen'&&!q.options.some(isSoundGloss));
    for(const q of shuffle(qs)){
-    const key=String(q.prompt).trim().toLowerCase();
+    const prompt=reviewPromptWithoutHints(q);
+    const key=prompt.toLowerCase();
     if(seen.has(key))continue;
     seen.add(key);
     const opts=q.options.map(cleanAnswer);
     if(opts.some(x=>!x)||new Set(opts.map(x=>x.toLowerCase())).size!==opts.length)continue;
-    clean.push({...q,options:opts,unitId:id});
+    clean.push({...q,prompt,options:opts,unitId:id});
    }
   }
   // Generalization: apply the already-taught regular present-tense pattern to a new verb.
@@ -539,6 +550,8 @@
  };
  const previousReviewRender=curriculumReviewRender;
  curriculumReviewRender=function(){
+  const current=moduleSession?.questions?.[moduleSession.idx];
+  if(current)current.prompt=reviewPromptWithoutHints(current);
   const result=previousReviewRender.apply(this,arguments);
   const q=moduleSession?.questions?.[moduleSession.idx];
   const label=document.querySelector('#app .card > p.muted');

@@ -42,3 +42,6 @@
 ## Module 1 review
 - `js/extracted-batch5-8.js`: `soundReview` selects 15 practical questions from a 26-question bank: three alphabet/spelling checks, four umlaut/ß checks, and eight pronunciation checks. Tasks match spoken real words to spellings or apply taught vocabulary in writing. Wein/Wien (EI) and Liebe/Leibe (IE) checks are always included; the others rotate.
 - Listening uses explicit playback through `dlReviewAudio`; prompts do not display the spoken answer. Teaching explanations remain in feedback. Letter counts, letter names, sound-sequence trivia and articulatory terminology are not scored questions. Native scoring, topic labels and mastery remain unchanged.
+
+## Review prompt hints
+- `js/extracted-batch5-8.js`: `reviewPromptWithoutHints` runs before rendering module-review questions at every level. Listening prompts use neutral wording; pronunciation labels remain in feedback. Review-only cleanup removes explanatory sound glosses, grammar labels and noun-ending instructions, while retaining semantic requirements such as “me”, “formal you”, or “she” needed to make a task unambiguous.
