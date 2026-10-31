@@ -95,6 +95,24 @@ function sentenceAnswerIsCorrect(chosen,target){
  const actual=normalizeSentenceAnswer(chosen);
  return [canonical,...(SENTENCE_VALID_ALTERNATIVES[canonical]||[])].some(candidate=>normalizeSentenceAnswer([candidate])===actual);
 }
+function dlSentenceMistakeHint(chosen,target){
+ const actual=chosen.map(w=>w.replace(/[.!?]+$/,''));
+ const correct=target.map(w=>w.replace(/[.!?]+$/,''));
+ const first=actual.findIndex((word,i)=>word!==correct[i]);
+ if(first<0)return '';
+ const verbWords=['bin','bist','ist','sind','seid','war','waren','habe','hast','hat','haben','habt','werde','wird','werden','kann','kannst','können','muss','musst','müssen','will','willst','wollen','gehe','gehst','geht','gehen','trinke','trinkst','trinkt','trinken','esse','isst','essen','mag','magst','mögen','spiele','spielt','spielen','lerne','lernt','lernen','kaufe','kauft','kaufen','lese','liest','lesen','schlafe','schläft','schlafen','suche','sucht','suchen'];
+ const second=correct[1]?.toLocaleLowerCase('de-DE');
+ const participle=correct[correct.length-1];
+ if(verbWords.includes(second)&&actual.indexOf(correct[1])!==1){
+  const extra=/^(ge.+(?:t|en)|.+iert)$/.test(participle||'')?' The past participle '+participle+' belongs at the end.':'';
+  return 'The conjugated verb '+correct[1]+' belongs in second position, after '+correct[0]+'.'+extra;
+ }
+ const timeWords=['heute','morgen','gestern','morgens','abends','mittags','nachmittags','vormittags','oft','immer','manchmal','schon','jetzt','später'];
+ const time=correct.find(w=>timeWords.includes(w.toLocaleLowerCase('de-DE')));
+ if(time&&actual.indexOf(time)!==correct.indexOf(time))return 'The time expression '+time+' belongs '+(correct.indexOf(time)===0?'at the beginning':'after '+correct[correct.indexOf(time)-1])+ ' in this sentence.';
+ if(correct.length>2&&/^(ge.+(?:t|en)|.+iert)$/.test(participle||'')&&actual.indexOf(participle)!==correct.length-1)return 'The past participle '+participle+' belongs at the end of this sentence.';
+ return 'Put '+correct[first]+' '+(first===0?'at the beginning':'after '+correct[first-1])+'.';
+}
 function chooseSentenceWord(i,w){
  if(sentenceChosenIds.includes(i)||document.getElementById('sentenceFeedback')?.innerHTML)return;
  sentenceChosen.push(w);sentenceChosenIds.push(i);
@@ -107,7 +125,7 @@ function chooseSentenceWord(i,w){
   const feedback=document.getElementById('sentenceFeedback');
   if(feedback){
    const message=ok?'Well done!':'Not quite.';
-   const detail=ok?'':`<p>Correct order: ${safeText(sentenceTarget.join(' '))}</p>`;
+   const detail=ok?'':`<p>Correct: ${safeText(sentenceTarget.join(' '))}</p><p class="dl-sentence-hint"><b>Why?</b> ${safeText(dlSentenceMistakeHint(sentenceChosen,sentenceTarget))}</p>`;
    feedback.innerHTML=`<div class="game-feedback dl-sentence-result"><strong>${message}</strong>${detail}</div>`;
    feedback.classList.add('dl-sentence-feedback-visible');
    const card=feedback.closest('.dl-sentence-english-style');
