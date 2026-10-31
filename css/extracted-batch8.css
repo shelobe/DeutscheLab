@@ -1331,3 +1331,9 @@ body:has(#app .dl-unified-build-dock) .app-header{position:relative!important;to
 body:has(#app .dl-unified-build-dock) .app-header::before,body:has(#app .dl-unified-build-dock) .app-header::after{display:none!important}
 body:has(#app .dl-unified-build-dock) .app-header .menu-toggle{position:relative!important;top:auto!important;left:auto!important;transform:none!important;margin:0!important;z-index:2}
 body:has(#app .dl-unified-build-dock) #app>.card:first-child{margin-top:6px!important}
+
+/* Compact sentence response areas and consistent writing icon. */
+#app .dl-build-unified-tile .tile-icon{font-size:1.7rem!important;line-height:1!important;margin:0 0 8px!important}
+#app .dl-hub-card[onclick*="'build'"] .dl-hub-icon{font-size:1.7rem!important;line-height:1!important}
+#app .dl-german-english-layout #gameBuilt{min-height:78px!important;padding:14px 18px!important;margin:10px 0 14px!important;display:block!important;line-height:1.45!important}
+#app .card:has(+ .dl-unified-build-dock) .game-built{min-height:78px!important;height:auto!important;padding:14px 18px!important;margin:10px 0 14px!important;line-height:1.45!important}
