@@ -13,13 +13,13 @@
   const rows=[
  [
   0,
-  "How many basic letters does German share with English?",
+  "Which German letter sequence matches the English sounds Y–V–F?",
   [
-   "26",
-   "24",
-   "30"
+   "J–W–V",
+   "W–J–V",
+   "V–W–J"
   ],
-  "German uses the same 26 basic letters as English, with ä, ö, ü and ß added."
+  "German J sounds like English Y, W sounds like English V, and V often sounds like English F: J–W–V."
  ],
  [
   0,
