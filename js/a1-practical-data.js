@@ -22,9 +22,12 @@ window.DL_A1_PRACTICAL_PACKS = {
     [
      "Ich heiße … — My name is … . Use it to introduce yourself.",
      "Wie heißt du? — What is your name? Use it with one friend or someone you address informally.",
-     "Ich komme aus … — I come from … . Use it to say where you are from.",
-     "Learn these as useful phrases; later lessons explain their grammar."
+     "Ich komme aus … — I come from … . Use it to say where you are from."
     ]
+   ],
+   [
+    "Coming up",
+    "For now, learn these as complete phrases. In a later lesson, you’ll learn how verbs change depending on who is speaking or acting—for example, ich heiße and du heißt."
    ],
    [
     "Ask how someone is",

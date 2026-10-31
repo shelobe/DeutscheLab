@@ -53,7 +53,7 @@
    h.textContent=title;
    if(Array.isArray(body)){for(const line of body){const li=document.createElement('li');li.textContent=line;p.append(li)}}
    else{p.textContent=body;p.style.whiteSpace='pre-line'}
-   if(title==='Remember')section.classList.add('dl-lesson-remember');
+   if(title==='Remember'||title==='Coming up')section.classList.add('dl-lesson-remember');
    section.append(h,p);guide.append(section);
   }
   anchor.replaceWith(guide);
