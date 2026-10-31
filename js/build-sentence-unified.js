@@ -36,7 +36,7 @@
   if(instruction&&instruction.tagName==='P')instruction.classList.add('dl-build-instruction');
   const existing=card.querySelector('.dl-unified-build-dock');if(existing)existing.remove();
   if(isGerman){
-   card.classList.add('dl-german-english-layout');
+   card.classList.add('dl-german-english-layout','dl-build-shared-layout');
    const built=card.querySelector('#gameBuilt');
    const bank=card.querySelector('#gameBank');
    if(built){built.classList.add('dl-shared-built');built.textContent='Tap the German words below';}

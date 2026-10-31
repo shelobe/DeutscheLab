@@ -1347,3 +1347,17 @@ html body .app-header .dl-restored-wordmark h1{font-family:Fredoka,sans-serif;fo
 html body .app-header .dl-restored-wordmark p{font-size:.83rem!important;margin:3px 0 0!important;color:#bddbd9!important}
 /* Compact sentence selection box in both language directions, including legacy English markup. */
 #app .card:has(+ .dl-unified-build-dock) .game-built,#app .card:has(+ .dl-unified-build-dock) #gameBuilt,#app .card:has(+ .dl-unified-build-dock) [id*="Built"],#app .card:has(+ .dl-unified-build-dock) [class*="built-sentence"]{height:auto!important;min-height:58px!important;max-height:none!important;padding:10px 14px!important;margin:8px 0 12px!important;line-height:1.35!important;box-sizing:border-box!important}
+
+/* Home: restore the existing cabin-and-trees silhouette from the original header artwork. */
+html body.dl-header-home .app-header{position:relative!important;isolation:isolate!important;overflow:hidden!important;min-height:94px!important;padding:12px 14px!important;border-radius:20px!important;background:linear-gradient(125deg,#10263b 0%,#173850 58%,#132b42 100%)!important}
+html body.dl-header-home .app-header::before{content:""!important;display:block!important;position:absolute!important;right:0!important;bottom:0!important;width:47%!important;height:85%!important;background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20320%20170%22%3E%3Cg%20opacity%3D%22.65%22%3E%3Cpath%20fill%3D%22%23396e66%22%20d%3D%22M0%20170V125l20-30%2020%2030%2020-48%2020%2048%2020-62%2020%2062%2020-35%2020%2035%2020-70%2020%2070%2020-35%2020%2035%2020-65%2020%2065%2020-28%2020%2028%2020-48%2020%2048v45z%22%2F%3E%3Cpath%20fill%3D%22%2382b49b%22%20d%3D%22M115%20170v-44l45-34%2045%2034v44z%22%2F%3E%3Cpath%20fill%3D%22%23396e66%22%20d%3D%22M154%20170v-28h15v28z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E")!important;background-position:right bottom!important;background-size:contain!important;background-repeat:no-repeat!important;pointer-events:none!important;z-index:0!important}
+html body.dl-header-home .app-header .dl-restored-wordmark,html body.dl-header-home .app-header .menu-toggle{position:relative!important;z-index:1!important}
+/* Plain hamburger icon, without the turquoise square or its surrounding frame. */
+html body .app-header .menu-toggle,html body.dl-header-home .app-header .menu-toggle{width:44px!important;height:48px!important;min-width:44px!important;min-height:48px!important;flex:0 0 44px!important;background:transparent!important;border:0!important;outline:0!important;border-radius:0!important;box-shadow:none!important;padding:0!important;color:#e6fff2!important;font-size:34px!important;line-height:1!important}
+/* German sentence builder uses the compact English arrangement and spacing. */
+#app .dl-build-shared-layout .dl-build-prompt{margin:6px 0 12px!important}
+#app .dl-build-shared-layout .dl-build-instruction{margin:6px 0!important}
+#app .dl-build-shared-layout #gameBuilt{display:block!important;height:auto!important;min-height:58px!important;padding:10px 14px!important;margin:8px 0 12px!important;line-height:1.35!important}
+#app .dl-build-shared-layout .dl-shared-bank-title{margin:10px 0 8px!important}
+#app .dl-build-shared-layout #gameBank{margin:0 0 10px!important}
+#app .dl-build-shared-layout .dl-build-edit-controls{margin:8px 0 0!important}
