@@ -118,7 +118,26 @@ function gameStart(mode,level){
   try{localStorage.setItem(key,JSON.stringify([...recent,...chosen].slice(-24)))}catch(e){}
   seq=chosen;
  }
- for(let i=seq.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[seq[i],seq[j]]=[seq[j],seq[i]]}
+ if(mode==='build'){
+  // A graded six-question round: short main clauses first, then modestly longer ones.
+  // Exclude advanced constructions from beginner sentence practice.
+  const complexity=i=>{
+   const item=GAME_ITEMS[i],de=item.de||item.tokens.join(' ');
+   const count=item.tokens.length;
+   if(count>8||/\\b(?:anstatt|stattdessen|obwohl|während|sollten|hätten|würden|könnten|damit|dennoch|allerdings|vermutungen|beweise)\\b/i.test(de))return 99;
+   return count+( /\\b(?:weil|dass|wenn|würde|hätte|wäre)\\b/i.test(de)?5:0);
+  };
+  const eligible=seq.filter(i=>complexity(i)<9);
+  const shuffle=a=>{for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+  const short=shuffle(eligible.filter(i=>complexity(i)<=4));
+  const medium=shuffle(eligible.filter(i=>complexity(i)>4&&complexity(i)<=6));
+  const longer=shuffle(eligible.filter(i=>complexity(i)>6));
+  const chosen=[...short.slice(0,3),...medium.slice(0,2),...longer.slice(0,1)];
+  const remainder=shuffle(eligible.filter(i=>!chosen.includes(i))).sort((a,b)=>complexity(a)-complexity(b));
+  seq=[...chosen,...remainder].slice(0,6).sort((a,b)=>complexity(a)-complexity(b));
+ }else{
+  for(let i=seq.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[seq[i],seq[j]]=[seq[j],seq[i]]}
+ }
  gameSession={mode,level:level||null,pool:mode==='listen'?LISTENING_ITEMS[level]:GAME_ITEMS,seq:seq.slice(0,6),idx:0,correct:0,answered:false,picked:[],matches:[],selected:null};
  gameRender();
 }
