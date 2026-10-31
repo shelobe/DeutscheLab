@@ -1296,3 +1296,11 @@ body:has(.dl-unified-build-dock) #dlReverseNextBar{bottom:76px}
 #app .dl-unified-build-dock .dl-build-dock-check{background:#68cbbc;color:#102b32;border:0;font-weight:700}
 #app .dl-build-check-original{display:none!important}
 body:has(.dl-unified-build-dock) #app{padding-bottom:125px!important}
+
+/* One bottom action row; answered sentence feedback replaces word-bank controls. */
+body:has(#app .dl-unified-build-dock) #dlReverseNextBar{display:none!important}
+body:has(#app .dl-unified-build-dock) #dl-fixed-next{display:none!important}
+#app .dl-build-answered #gameBank,#app .dl-build-answered .game-wordbank,#app .dl-build-answered .dl-build-edit-controls,#app .dl-build-answered .dl-sentence-edit-actions,#app .dl-build-answered button[onclick*="Undo"],#app .dl-build-answered button[onclick*="Reset"]{display:none!important}
+#app .dl-build-answered #gameFeedback{margin:12px 0!important}
+#app .dl-build-answered #gameFeedback button[onclick="gameNext()"]{display:none!important}
+#app .dl-build-answered .game-feedback{margin-top:0!important}

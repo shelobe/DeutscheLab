@@ -54,6 +54,28 @@
   const original=[...card.querySelectorAll('button')].find(b=>/^(Check translation|Check sentence)$/i.test(b.textContent.trim()));
   if(original)original.click();
  };
+ function syncAnswered(){
+  const g=gameSession,card=app.querySelector('.card'),dock=app.querySelector('.dl-unified-build-dock');
+  if(!g||!['build','reverse'].includes(g.mode)||!card||!dock)return;
+  const answered=!!g.answered;
+  const action=dock.querySelector('.dl-build-dock-check');
+  if(action){action.textContent=answered?'Next':'Check';action.onclick=answered?()=>gameNext():()=>dlUnifiedCheck();}
+  card.classList.toggle('dl-build-answered',answered);
+  if(answered){
+   document.getElementById('dlReverseNextBar')?.remove();
+   document.body.classList.remove('dl-reverse-answered');
+   const feedback=card.querySelector('#gameFeedback');
+   const built=card.querySelector('#gameBuilt');
+   if(feedback&&built&&feedback.previousElementSibling!==built)built.after(feedback);
+   if(feedback&&!built){const prompt=card.querySelector('.dl-build-prompt');if(prompt)prompt.after(feedback);}
+  }
+ }
+ const previousMark=gameMark;
+ gameMark=function(ok,answer){const result=previousMark(ok,answer);syncAnswered();return result;};
+ const previousNext=gameNext;
+ gameNext=function(){document.getElementById('dlReverseNextBar')?.remove();document.body.classList.remove('dl-reverse-answered');return previousNext();};
+ const feedbackObserver=new MutationObserver(()=>{if(gameSession?.answered&&app.querySelector('.dl-unified-build-dock'))syncAnswered()});
+ feedbackObserver.observe(app,{childList:true,subtree:true});
  window.dlUnifiedUndo=function(){
   const g=gameSession;if(!g||g.answered||!g.picked?.length)return;
   const index=g.picked.pop(),button=document.getElementById('gb'+index);if(button)button.disabled=false;
