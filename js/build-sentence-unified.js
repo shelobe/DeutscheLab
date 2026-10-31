@@ -8,6 +8,15 @@
  #dl-sentence-next-dock #dl-sentence-next-button{display:block!important;flex:2!important;min-width:0!important;background:#65c9bd!important;color:#102d35!important;border:0!important;border-radius:14px!important;font-weight:700!important;min-height:56px!important}
  #dl-sentence-next-dock button.secondary{flex:1!important;min-width:0!important;min-height:56px!important;margin:0!important}
  .dl-sentence-english-style .game-progress{margin:14px 0 18px!important}
+ .dl-sentence-english-style{padding:24px 20px!important}
+ .dl-sentence-english-style .dl-sentence-prompt{border-width:2px!important;border-radius:18px!important;padding:17px 16px!important;margin-bottom:14px!important}
+ .dl-sentence-english-style .dl-sentence-prompt strong{font-size:1.3rem!important;line-height:1.35!important}
+ .dl-sentence-english-style #sentenceBuilt{border-width:2px!important;border-radius:18px!important;min-height:84px!important;padding:16px!important;margin-bottom:14px!important;font-size:1.1rem!important}
+ .dl-sentence-english-style #sentenceTiles{border-radius:18px!important;padding:14px 12px!important;gap:10px!important;margin-bottom:14px!important}
+ .dl-sentence-english-style #sentenceTiles button{min-height:54px!important;padding:12px 14px!important;font-size:1rem!important;border-radius:15px!important}
+ .dl-sentence-english-style .dl-sentence-instruction{margin:8px 0 10px!important;font-size:1.05rem!important}
+ .dl-sentence-english-style .game-progress{margin:10px 0 12px!important}
+ .dl-sentence-english-style .dl-sentence-edit-actions button{padding:12px 8px!important;font-size:.95rem!important}
  .dl-sentence-english-style{background:#172c3b!important;color:#edf4f5!important;border-radius:24px!important;padding:24px 20px!important}
  .dl-sentence-english-style .dl-sentence-instruction{color:#eaf1f3!important;font-size:1.15rem!important;margin:10px 0 14px!important}
  .dl-sentence-english-style .dl-sentence-prompt{background:#203f4b!important;color:#fff!important;border:3px solid #70c9c0!important;border-radius:22px!important;padding:25px 22px!important;margin:0 0 20px!important;box-sizing:border-box!important}
