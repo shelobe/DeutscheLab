@@ -167,17 +167,23 @@
    if(feedback&&!built){const answer=card.querySelector('#reverseBuilt,.reverse-built,.dl-reverse-built,.game-built');const prompt=card.querySelector('.dl-build-prompt');const anchor=answer||prompt;if(anchor&&feedback.previousElementSibling!==anchor)anchor.after(feedback);}
   }
  }
+ /* Use the same original gameMark feedback renderer for German and English.
+    Never replace its generated card with a sentence-specific imitation. */
  const previousMark=gameMark;
  gameMark=function(ok,answer){
   const result=previousMark(ok,answer);
-  if(gameSession?.mode==='build'&&gameSession.answered){
+  if(gameSession?.mode==='build'&&gameSession.answered&&!ok){
    const feedback=document.getElementById('gameFeedback');
    const item=gameSession.pool[gameSession.seq[gameSession.idx]];
    if(feedback&&item){
     const selected=(gameSession.picked||[]).map(i=>item.tokens[gameSession.order[i]]);
-    const hint=!ok&&typeof dlSentenceMistakeHint==='function'?dlSentenceMistakeHint(selected,item.tokens):'';
-    dlRenderSentenceFeedback(feedback,ok,item.de,hint);
-
+    const hint=typeof dlSentenceMistakeHint==='function'?dlSentenceMistakeHint(selected,item.tokens):'';
+    if(hint&&!feedback.querySelector('.dl-sentence-hint')){
+     const explanation=document.createElement('p');
+     explanation.className='dl-sentence-hint';
+     explanation.textContent='Why? '+hint;
+     feedback.appendChild(explanation);
+    }
    }
   }
   syncAnswered();
