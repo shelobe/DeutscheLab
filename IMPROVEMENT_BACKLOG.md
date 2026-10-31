@@ -33,3 +33,10 @@ This file tracks deferred changes discussed during development. It is a planning
 - **Pronunciation discoverability — Review needed:** Check how learners access pronunciation and push-to-talk activities from Practice.
 - **Dialogue visuals — Verify status:** Check earlier request for compact dialogue panels and Fritzi artwork without a white background; inspect existing assets before changing.
 - **Mobile consistency — Audit needed:** Review anchored Back/Next controls, feedback visibility, sounds, haptics, and character placement across activities. Do not redo completed fixes.
+
+### A1 Basic Word Order — time expressions and verb-second practice
+- **Status:** Not started; schedule after modularization and Batch 6 regression testing.
+- Replace excessive pronoun/verb-conjugation multiple choice with sentence-order activities.
+- Teach that the finite verb stays in position two in ordinary declarative main clauses, while the subject can follow the verb when a time expression comes first.
+- Contrast examples such as `Ich habe heute Zeit.` and `Heute habe ich Zeit.`; include `Morgen gehe ich einkaufen.`
+- Vary time placement, sentence rearrangement, and meaningful distractors. Retain the established explanation-style feedback cards.
