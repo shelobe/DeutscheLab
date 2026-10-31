@@ -142,15 +142,16 @@ window.DL_A1_PRACTICAL_PACKS = {
    [
     "Time of day",
     [
-     "Guten Morgen — morning",
-     "Guten Tag — daytime",
-     "Guten Abend — evening"
+     "Guten Morgen — good morning: use it to greet someone in the morning.",
+     "Guten Tag — good day / hello: use it to greet someone during the day.",
+     "Guten Abend — good evening: use it to greet someone in the evening."
     ]
    ],
    [
     "Tone",
     [
-     "Hallo and Tschüss are common informal choices.",
+     "Hallo — hello: an informal greeting when you meet someone.",
+     "Tschüss — bye / goodbye: an informal farewell when you leave someone.",
      "Auf Wiedersehen is a polite goodbye.",
      "Danke means thank you; bitte can mean please or you are welcome."
     ]
