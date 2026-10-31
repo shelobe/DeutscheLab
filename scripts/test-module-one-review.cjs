@@ -41,7 +41,7 @@ vm.runInContext(fs.readFileSync(path.join(__dirname,'../js/module-one-review.js'
 const buttons=()=>app.querySelectorAll('button'),button=text=>{const b=buttons().find(b=>b.textContent===text);assert.ok(b,'Missing button '+text);return b};
 const current=()=>context.moduleSession.questions[context.moduleSession.idx];
 function open(mode){context.curriculumReview('A1',0);const s=context.moduleSession;s.idx=s.questions.findIndex(q=>q.dlReviewMode===mode);context.curriculumReviewRender();return current()}
-function answerType(text){button('Play word').click();const input=app.querySelector('input');input.value=text;input.oninput();button('Check answer').click()}
+function answerType(text){button('Listen to the word').click();const input=app.querySelector('input');input.value=text;input.oninput();button('Check answer').click()}
 for(let run=0;run<100;run++){
  context.curriculumReview('A1',0);const qs=context.moduleSession.questions,counts={};qs.forEach(q=>{counts[q.dlReviewMode]=(counts[q.dlReviewMode]||0)+1;assert.ok(q.prompt);assert.ok(q.why);assert.ok(q.options[q.answer])});
  assert.equal(qs.length,15);assert.equal(counts.choice,6);for(const n of ['type','compare','match'])assert.equal(counts[n],3);assert.equal(counts.speak,undefined);
@@ -60,7 +60,7 @@ console.log('PASS: typing, special keys, blank-answer guard, compare, matching a
 const dock=body.querySelector('#dl-fixed-next'),dockButton=dock.querySelector('button');
 function refreshDock(){context.window.dlRefreshFixedNext()}
 q=open('type');refreshDock();assert.equal(dock.style.display,'flex');assert.equal(dockButton.textContent,'Check answer');assert.equal(dockButton.disabled,true);
-button('Play word').click();app.querySelector('input').value=q.options[0];app.querySelector('input').oninput();refreshDock();
+button('Listen to the word').click();app.querySelector('input').value=q.options[0];app.querySelector('input').oninput();refreshDock();
 assert.equal(dockButton.disabled,false);refreshDock();assert.equal(dock.style.display,'flex','Dock persists across repeated updates');dockButton.click();
 assert.equal(app.querySelector('.dl-review-controls'),null);assert.equal(dockButton.textContent,'Next question');assert.equal(app.querySelector('#moduleFeedback').scrolled,true);dockButton.click();assert.equal(context.moduleSession.answered,false);
 q=open('match');const columns=app.querySelector('.dl-review-match-columns');assert.equal(columns.children.length,2);assert.equal(columns.children[0].children.length,3);assert.equal(columns.children[1].children.length,3);
@@ -91,3 +91,9 @@ const chosen=button(q.clipOrder[0]);assert.ok(chosen.className.includes('dl-revi
 assert.equal(listenA.textContent,'Listen A → '+q.clipOrder[0]);assert.equal(chosen.attributes['aria-pressed'],'true');
 listenA.click();assert.equal(played[played.length-1][0],q.clipOrder[0]);
 console.log('PASS: friendly labels, distinct audio/word classes, assigned pair label, selection and replay');
+
+q=open('type');const audioGroup=app.querySelector('.dl-review-dictation-audio');
+assert.equal(audioGroup.children[0].textContent,'Listen to the word');assert.equal(audioGroup.children[1].textContent,'Listen slowly');
+button('Listen slowly').click();assert.equal(played[played.length-1][0],q.options[0]);assert.equal(played[played.length-1][1],.7);
+const typed=app.querySelector('input');typed.value=q.options[0];typed.oninput();button('Check answer').click();assert.equal(context.moduleSession.score,1);assert.equal(app.querySelector('.dl-review-dictation-audio'),null);
+console.log('PASS: stacked normal/slow playback; slow speed and answer checking preserved; audio controls removed after checking');
