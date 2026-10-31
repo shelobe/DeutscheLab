@@ -16,9 +16,18 @@ function listeningAnswer(choice,answer,german){let ok=choice===answer;practiceLo
 const sentences=[['Ich habe einen Hund','I have a dog'],['Heute gehe ich einkaufen','Today I am going shopping'],['Wir lernen Deutsch','We are learning German'],['Die Katze schläft auf dem Sofa','The cat sleeps on the sofa'],['Morgen rufe ich dich an','Tomorrow I will call you']];let sentenceTarget=[],sentenceChosen=[],sentenceChosenIds=[];
 let sentenceRound=null;
 function startSentenceRound(){
- const seq=[...GAME_ITEMS.keys()];
- for(let i=seq.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[seq[i],seq[j]]=[seq[j],seq[i]]}
- sentenceRound={seq:seq.slice(0,6),idx:0,correct:0};
+ const tier=item=>{
+  const count=item.tokens.length;
+  const de=item.de||item.tokens.join(' ');
+  if(/\\b(?:anstatt|stattdessen|obwohl|während|sollten|hätten|würden|könnten|damit|dennoch|allerdings|Beweise|Vermutungen)\\b/i.test(de)||count>=10)return 3;
+  if(count>=7||/\\b(?:weil|dass|wenn|hatte|wäre|würde|sollte)\\b/i.test(de))return 2;
+  return count>=5?1:0;
+ };
+ const groups=[[],[],[],[]];
+ GAME_ITEMS.forEach((item,i)=>groups[tier(item)].push(i));
+ for(const group of groups)for(let i=group.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[group[i],group[j]]=[group[j],group[i]]}
+ const seq=groups.flat().slice(0,6);
+ sentenceRound={seq,idx:0,correct:0};
  sentencePractice();
 }
 function sentencePractice(){
@@ -126,7 +135,8 @@ function chooseSentenceWord(i,w){
   if(feedback){
    const message=ok?'Well done!':'Not quite.';
    const detail=ok?'':`<p>Correct: ${safeText(sentenceTarget.join(' '))}</p><p class="dl-sentence-hint"><b>Why?</b> ${safeText(dlSentenceMistakeHint(sentenceChosen,sentenceTarget))}</p>`;
-   feedback.innerHTML=`<div class="game-feedback dl-sentence-result"><strong>${message}</strong>${detail}</div>`;
+   const image=ok?'hund.png':'katze.png';
+   feedback.innerHTML=`<div class="dl-sentence-result"><div class="dl-sentence-character"><img src="assets/${image}" alt="" onerror="this.style.display='none'"><strong>${message}</strong></div>${detail}</div>`;
    feedback.classList.add('dl-sentence-feedback-visible');
    const card=feedback.closest('.dl-sentence-english-style');
    if(card){card.classList.add('dl-sentence-answered');card.querySelectorAll('#sentenceTiles,.dl-sentence-edit-actions,button[onclick="dlSentenceHelpToggle()"],#dlSentenceHelp').forEach(el=>el.remove());}
