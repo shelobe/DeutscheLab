@@ -120,15 +120,16 @@
   "Straße means street. ß represents an s sound, not a b sound."
  ],
  [
-  1,
-  "Someone describes a place as beautiful. Which word fits?",
-  [
-   "schön",
-   "schon",
-   "Schule"
-  ],
-  "Schön means beautiful. Schon means already; the umlaut matters."
+ 1,
+ "Listen and choose the word you hear.",
+ [
+  "schon",
+  "schön",
+  "Schule"
  ],
+ "You heard schon, with o, not schön, with ö. Listen for the difference between the two vowels.",
+ "schon"
+],
  [
   1,
   "Listen and choose the word you hear.",
