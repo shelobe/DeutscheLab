@@ -16,3 +16,7 @@
 ## Word Matching
 - Home and Practice Hub launch `gameStart('match')`; `js/extracted-batch2-1.js` renders `.match-columns` and handles tile selection in `gameMatch`.
 - After all pairs are matched, `gameMatch` removes the completed bank following `#gameMatched`, then calls the existing `gameMark` feedback/stats pipeline. Partial matches and incorrect pairs keep the bank; `gameNext`/`gameRender` create the next bank.
+
+## Automated validation
+- `.github/workflows/javascript-syntax.yml` runs on pushes, pull requests and manual dispatch, using Node.js 22 and read-only repository access.
+- `scripts/check-javascript.sh` checks every tracked `.js`, `.mjs` and `.cjs` file with `node --check`, reports failures and exits unsuccessfully if any file fails. Run locally with `bash scripts/check-javascript.sh`. It parses code without executing the app; visual and behavioral verification remains separate.
