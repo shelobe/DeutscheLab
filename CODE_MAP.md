@@ -33,8 +33,8 @@
 - The scoped `dlCheck` wrapper retains authored explanations, explicit corrections and supplied translations when legacy feedback cleanup would remove them. Existing scoring, sound, avatar, completion and navigation handlers still run.
 
 ## Pronunciation practice
-- `js/extracted-batch7-1.js` provides the introduction and 16 sound drills, including TSCH in Tschüss. Next/Finish requires a nonempty speech result for each sound; silence and mic startup do not count. Correct results retain automatic advancement; nonmatching results allow retry or Next.
-- Unsupported speech recognition or microphone/service errors expose an explicit continue-without-recognition action. Review resets attempts; completion requires all 16 sounds. Rendering cancels active recognition and removes detached pronunciation docks before creating the next one.
+- `js/extracted-batch7-1.js` provides the introduction and 14 sound drills, including TSCH in Tschüss. Next/Finish requires a nonempty speech result for each sound; silence and mic startup do not count. Correct results retain automatic advancement; nonmatching results allow retry or Next.
+- Unsupported speech recognition or microphone/service errors expose an explicit continue-without-recognition action. Review resets attempts; completion requires all 14 sounds. Rendering cancels active recognition and removes detached pronunciation docks before creating the next one.
 
 ## Legacy Module 2 review
 - `js/extracted-batch5-8.js`: `personalPronounReview` supplies 18 questions, six for each current Module 2 lesson. Every run covers ich/du/formal Sie, conversation requests and understanding, and er/sie/es plus she/they distinctions. Question and option order shuffle without dropping topics. Other modules retain their existing selection and all reviews keep native scoring, feedback and mastery handling.
@@ -65,4 +65,6 @@
 
 - TSCH is taught separately in the pronunciation introduction with playback, practiced in its own Tschüss drill, and assessed in every 15-task Module 1 review with a neutral listening prompt. W remains assessed in matching.
 
-- Pronunciation introductions derive grouped bullet explanations from all 16 drills and use standard `vocab-row` word/translation/Listen rows outside explanation cards. No generic How to practice/Remember cards. Speech feedback separates no detected speech, detected speech without a transcript, a nonmatching transcript, and a correct match. Detected but unrecognized attempts can continue without a pronunciation verdict. `scripts/test-pronunciation.cjs` checks introduction coverage, playback and recognition outcomes without a browser.
+- Pronunciation introductions derive grouped bullet explanations from all 14 drills and use standard `vocab-row` word/translation/Listen rows outside explanation cards. No generic How to practice/Remember cards. Speech feedback separates no detected speech, detected speech without a transcript, a nonmatching transcript, and a correct match. Detected but unrecognized attempts can continue without a pronunciation verdict. `scripts/test-pronunciation.cjs` checks introduction coverage, playback and recognition outcomes without a browser.
+
+- Dedicated ö/ü teaching remains in Umlauts and ß; pronunciation omits the duplicate Rounded vowels section and its two drills. Its sound count and completion requirement derive from the 14 remaining drills.

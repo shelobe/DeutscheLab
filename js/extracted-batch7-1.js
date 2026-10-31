@@ -15,8 +15,6 @@
   {sound:'w → /v/',word:'Wasser',meaning:'water',example:'wir',detail:'German w sounds like English v, not English w. Touch your upper teeth lightly to your lower lip.'},
   {sound:'v → /f/ (often)',word:'Vater',meaning:'father',example:'vier',detail:'In many common German words, v sounds like English f. Some borrowed words use v instead, so learn them individually.'},
   {sound:'ß → /s/',word:'Straße',meaning:'street',example:'heißen',detail:'The letter ß represents a voiceless s sound, not a b. It generally follows a long vowel or diphthong.'},
-  {sound:'ü',word:'fünf',meaning:'five',example:'Tür',detail:'Say ee while rounding your lips as if to say oo. Keep your tongue forward.'},
-  {sound:'ö',word:'schön',meaning:'beautiful',example:'hören',detail:'Shape your tongue for an eh sound while rounding your lips. It is distinct from o.'}
  ];
  let soundIndex=0;
  const attempted=new Set();
@@ -35,8 +33,7 @@
   const groups=[
    ['Vowel combinations',[7,8,9,10]],
    ['Consonant combinations',[1,2,3,4,5,6]],
-   ['Single letters',[0,11,12,13]],
-   ['Rounded vowels',[14,15]]
+   ['Single letters',[0,11,12,13]]
   ];
   const explanations=groups.map(([title,indices])=>'<section><h3>'+title+'</h3><ul>'+indices.map(i=>'<li><strong>'+drills[i].sound+'</strong> — '+drills[i].detail+'</li>').join('')+'</ul></section>').join('');
   const words=drills.filter((d,i)=>drills.findIndex(x=>x.word===d.word)===i);
