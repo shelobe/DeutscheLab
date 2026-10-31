@@ -7,25 +7,16 @@
  #dl-sentence-next-dock:has(#dl-sentence-next-button){display:flex!important;align-items:stretch!important;gap:14px!important;justify-content:center!important;padding:12px 20px calc(12px + env(safe-area-inset-bottom,0px))!important}
  #dl-sentence-next-dock #dl-sentence-next-button{display:block!important;flex:2!important;min-width:0!important;background:#65c9bd!important;color:#102d35!important;border:0!important;border-radius:14px!important;font-weight:700!important;min-height:56px!important}
  #dl-sentence-next-dock button.secondary{flex:1!important;min-width:0!important;min-height:56px!important;margin:0!important}
- .dl-sentence-english-style .game-progress{margin:14px 0 18px!important}
- .dl-sentence-english-style{padding:24px 20px!important}
- .dl-sentence-english-style .dl-sentence-prompt{border-width:2px!important;border-radius:18px!important;padding:17px 16px!important;margin-bottom:14px!important}
- .dl-sentence-english-style .dl-sentence-prompt strong{font-size:1.3rem!important;line-height:1.35!important}
- .dl-sentence-english-style #sentenceBuilt{border-width:2px!important;border-radius:18px!important;min-height:84px!important;padding:16px!important;margin-bottom:14px!important;font-size:1.1rem!important}
- .dl-sentence-english-style #sentenceTiles{border-radius:18px!important;padding:14px 12px!important;gap:10px!important;margin-bottom:14px!important}
- .dl-sentence-english-style #sentenceTiles button{min-height:54px!important;padding:12px 14px!important;font-size:1rem!important;border-radius:15px!important}
- .dl-sentence-english-style .dl-sentence-instruction{margin:8px 0 10px!important;font-size:1.05rem!important}
- .dl-sentence-english-style .game-progress{margin:10px 0 12px!important}
- .dl-sentence-english-style .dl-sentence-edit-actions button{padding:12px 8px!important;font-size:.95rem!important}
  .dl-sentence-english-style{background:#172c3b!important;color:#edf4f5!important;border-radius:24px!important;padding:24px 20px!important}
- .dl-sentence-english-style .dl-sentence-instruction{color:#eaf1f3!important;font-size:1.15rem!important;margin:10px 0 14px!important}
- .dl-sentence-english-style .dl-sentence-prompt{background:#203f4b!important;color:#fff!important;border:3px solid #70c9c0!important;border-radius:22px!important;padding:25px 22px!important;margin:0 0 20px!important;box-sizing:border-box!important}
- .dl-sentence-english-style .dl-sentence-prompt strong{color:#fff!important;font-size:1.45rem!important;line-height:1.4!important}
- .dl-sentence-english-style #sentenceBuilt{background:#152e3b!important;color:#edf5f5!important;border:3px dashed #8bc8c4!important;border-radius:22px!important;min-height:104px!important;padding:20px 22px!important;font-size:1.2rem!important;margin:0 0 20px!important;box-sizing:border-box!important}
- .dl-sentence-english-style #sentenceTiles{background:#17353e!important;border:1px solid #547f83!important;border-radius:22px!important;padding:22px 16px!important;display:flex!important;flex-wrap:wrap!important;gap:12px!important;margin:0 0 20px!important}
- .dl-sentence-english-style #sentenceTiles button{background:#395771!important;color:#fff!important;border:1px solid #65849b!important;border-radius:18px!important;box-shadow:none!important;min-height:62px!important;padding:14px 18px!important;font-size:1rem!important}
+ .dl-sentence-english-style .game-progress{margin:14px 0 18px!important}
+ .dl-sentence-english-style .dl-sentence-instruction{color:#eaf1f3!important;font-size:1rem!important;margin:10px 0 12px!important}
+ .dl-sentence-english-style .dl-sentence-prompt{background:#203f4b!important;color:#fff!important;border:2px solid #70c9c0!important;border-radius:18px!important;padding:16px!important;margin:0 0 14px!important;box-sizing:border-box!important}
+ .dl-sentence-english-style .dl-sentence-prompt strong{color:#fff!important;font-size:1.25rem!important;line-height:1.35!important}
+ .dl-sentence-english-style #sentenceBuilt{background:#152e3b!important;color:#edf5f5!important;border:2px dashed #8bc8c4!important;border-radius:18px!important;min-height:80px!important;padding:15px 16px!important;font-size:1.05rem!important;margin:0 0 14px!important;box-sizing:border-box!important}
+ .dl-sentence-english-style #sentenceTiles{background:#17353e!important;border:1px solid #547f83!important;border-radius:18px!important;padding:14px 12px!important;display:flex!important;flex-wrap:wrap!important;gap:10px!important;margin:0 0 14px!important}
+ .dl-sentence-english-style #sentenceTiles button{background:#395771!important;color:#fff!important;border:1px solid #65849b!important;border-radius:15px!important;box-shadow:none!important;min-height:54px!important;padding:12px 14px!important;font-size:1rem!important}
  .dl-sentence-english-style .dl-sentence-edit-actions{display:flex!important;gap:12px!important;flex-wrap:wrap!important}
- .dl-sentence-english-style .dl-sentence-edit-actions button{flex:1!important;min-width:125px!important;background:#344a65!important;color:#fff!important;border-radius:15px!important;padding:15px 10px!important}
+ .dl-sentence-english-style .dl-sentence-edit-actions button{flex:1!important;min-width:125px!important;background:#344a65!important;color:#fff!important;border-radius:15px!important;padding:12px 8px!important;font-size:.95rem!important}
  .dl-sentence-english-style #sentenceFeedback:empty{display:none!important}
  .dl-build-shared-layout.dl-german-english-layout{background:#172c3b!important;color:#edf4f5!important;border-radius:24px!important}
  .dl-build-shared-layout.dl-german-english-layout .dl-build-instruction{font-size:1.08rem!important;color:#e0e9eb!important;margin:16px 0 12px!important}
