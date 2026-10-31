@@ -52,10 +52,10 @@ console.log('PASS: 100 runs retain 15 tasks, four formats, EI/IE and interleavin
 let q=open('type');assert.equal(app.querySelector('input').autocomplete,'off');assert.equal(button('Check answer').disabled,true);assert.ok(!app.querySelector('.dl-review-controls').textContent.includes(q.options[0]));answerType(' '+q.options[0].toUpperCase()+' ');assert.equal(context.moduleSession.score,1);context.curriculumReviewAnswer(0);assert.equal(context.moduleSession.score,1);assert.equal(app.querySelector('.dl-review-controls'),null);assert.equal(app.querySelector('.picture-choices'),null);
 open('type');answerType('wrong');assert.equal(context.moduleSession.score,0);assert.equal(context.moduleSession.answered,true);
 open('type');const input=app.querySelector('input');input.value='Kase';input.selectionStart=1;input.selectionEnd=2;button('ä').click();assert.equal(input.value,'Käse');
-q=open('compare');assert.equal(button('Same word').disabled,true);button('Play recording 1').click();assert.equal(button('Same word').disabled,true);button('Play recording 2').click();button(q.options[q.answer]).click();button('Check answer').click();assert.equal(context.moduleSession.score,1);
-q=open('compare');button('Play recording 1').click();button('Play recording 2').click();button(q.options[1-q.answer]).click();button('Check answer').click();assert.equal(context.moduleSession.score,0);
-q=open('match');assert.equal(button('Check matches').disabled,true);q.clipOrder.forEach((word,i)=>{button('Recording '+(i+1)).click();button(word).click()});assert.equal(button('Check matches').disabled,false);button('Check matches').click();assert.equal(context.moduleSession.score,1);
-q=open('match');q.clipOrder.forEach((word,i)=>{button('Recording '+(i+1)).click();button(q.clipOrder[(i+1)%3]).click()});button('Check matches').click();assert.equal(context.moduleSession.score,0);
+q=open('compare');assert.equal(button('Same word').disabled,true);button('Listen A').click();assert.equal(button('Same word').disabled,true);button('Listen B').click();button(q.options[q.answer]).click();button('Check answer').click();assert.equal(context.moduleSession.score,1);
+q=open('compare');button('Listen A').click();button('Listen B').click();button(q.options[1-q.answer]).click();button('Check answer').click();assert.equal(context.moduleSession.score,0);
+q=open('match');assert.equal(button('Check matches').disabled,true);q.clipOrder.forEach((word,i)=>{button('Listen '+String.fromCharCode(65+i)).click();button(word).click()});assert.equal(button('Check matches').disabled,false);button('Check matches').click();assert.equal(context.moduleSession.score,1);
+q=open('match');q.clipOrder.forEach((word,i)=>{button('Listen '+String.fromCharCode(65+i)).click();button(q.clipOrder[(i+1)%3]).click()});button('Check matches').click();assert.equal(context.moduleSession.score,0);
 console.log('PASS: typing, special keys, blank-answer guard, compare, matching and once-only scoring');
 const dock=body.querySelector('#dl-fixed-next'),dockButton=dock.querySelector('button');
 function refreshDock(){context.window.dlRefreshFixedNext()}
@@ -64,7 +64,7 @@ button('Play word').click();app.querySelector('input').value=q.options[0];app.qu
 assert.equal(dockButton.disabled,false);refreshDock();assert.equal(dock.style.display,'flex','Dock persists across repeated updates');dockButton.click();
 assert.equal(app.querySelector('.dl-review-controls'),null);assert.equal(dockButton.textContent,'Next question');assert.equal(app.querySelector('#moduleFeedback').scrolled,true);dockButton.click();assert.equal(context.moduleSession.answered,false);
 q=open('match');const columns=app.querySelector('.dl-review-match-columns');assert.equal(columns.children.length,2);assert.equal(columns.children[0].children.length,3);assert.equal(columns.children[1].children.length,3);
-q.clipOrder.forEach((word,i)=>{button('Recording '+(i+1)).click();button(word).click()});refreshDock();assert.equal(dockButton.textContent,'Check matches');assert.equal(dockButton.disabled,false);dockButton.click();assert.equal(app.querySelector('.dl-review-match-columns'),null);assert.equal(dockButton.textContent,'Next question');
+q.clipOrder.forEach((word,i)=>{button('Listen '+String.fromCharCode(65+i)).click();button(word).click()});refreshDock();assert.equal(dockButton.textContent,'Check matches');assert.equal(dockButton.disabled,false);dockButton.click();assert.equal(app.querySelector('.dl-review-match-columns'),null);assert.equal(dockButton.textContent,'Next question');
 // Every replacement is answerable and advances through the same native footer.
 for(const target of ['schön','auch','Tür']){
  context.curriculumReview('A1',0);const session=context.moduleSession;session.idx=session.questions.findIndex(q=>q.dlReviewAudio===target);context.curriculumReviewRender();
@@ -75,10 +75,19 @@ context.curriculumReview('A1',1);context.curriculumReviewRender();refreshDock();
 console.log('PASS: real shared dock, disabled checks, repeated refresh, match columns, submitted bank cleanup, feedback visibility, all three microphone-free replacements through Next, navigation cleanup');
 
 q=open('compare');const groups=app.querySelectorAll('.dl-review-compare-group');assert.equal(groups.length,2);
-assert.equal(groups[0].attributes['aria-label'],'Listen to both recordings');assert.equal(groups[1].attributes['aria-label'],'Choose your answer');
-button('Play recording 1').click();button('Play recording 2').click();
+assert.equal(groups[0].attributes['aria-label'],'Listen to both words');assert.equal(groups[1].attributes['aria-label'],'Choose your answer');
+button('Listen A').click();button('Listen B').click();
 const same=button('Same word'),different=button('Different words');same.click();
 assert.equal(same.attributes['aria-pressed'],'true');assert.equal(different.attributes['aria-pressed'],'false');
 different.click();assert.equal(same.attributes['aria-pressed'],'false');assert.equal(different.attributes['aria-pressed'],'true');
 assert.equal(context.moduleSession.answered,false);refreshDock();assert.equal(dockButton.disabled,false);dockButton.click();assert.equal(context.moduleSession.answered,true);
 console.log('PASS: separate labeled playback/answer groups; selected state switches exclusively; explicit check still submits');
+
+q=open('match');
+assert.equal(buttons().some(b=>/recording/i.test(b.textContent)),false);
+const listenA=button('Listen A');assert.ok(listenA.className.includes('dl-review-play-button'));
+listenA.click();assert.equal(listenA.attributes['aria-pressed'],'true');
+const chosen=button(q.clipOrder[0]);assert.ok(chosen.className.includes('dl-review-answer-button'));chosen.click();
+assert.equal(listenA.textContent,'Listen A → '+q.clipOrder[0]);assert.equal(chosen.attributes['aria-pressed'],'true');
+listenA.click();assert.equal(played[played.length-1][0],q.clipOrder[0]);
+console.log('PASS: friendly labels, distinct audio/word classes, assigned pair label, selection and replay');

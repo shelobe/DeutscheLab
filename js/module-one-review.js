@@ -2,10 +2,11 @@
 (function(){
  const shuffle=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
  const normalize=s=>String(s).normalize('NFC').trim().toLocaleLowerCase('de-DE').replace(/[.!?]+$/,'');
+ const clipLabel=i=>'Listen '+String.fromCharCode(65+i);
  let dispose=()=>{};
  function bank(group){
   const id=group.ids[0],umlaut=group.ids.find(i=>/umlaut/i.test(FULL_UNITS[i]?.title||''))??id;
-  const prompts={type:'Listen, then type the word you hear.',speak:'Read the word aloud.',compare:'Do the two recordings say the same word or different words?',match:'Match each recording to its written word.'};
+  const prompts={type:'Listen, then type the word you hear.',speak:'Read the word aloud.',compare:'Do you hear the same word or different words?',match:'Match each sound to its written word.'};
   const make=(mode,word,why,extra={})=>({type:'grammar',unitId:id,prompt:prompts[mode]||'Listen and choose the word you hear.',options:[word,'Try again'],answer:0,why,dlReviewMode:mode,...extra});
   const choice=(word,others,why)=>make('choice',word,why,{prompt:'Listen and choose the word you hear.',dlReviewAudio:word,options:shuffle([word,...others])});
   const choices=[choice('Wasser',['Vater','Jahr'],'Wasser begins with W, pronounced like English V.'),choice('zwei',['drei','frei'],'Zwei begins with the ts sound written z.'),choice('Schule',['Stuhl','Schale'],'Schule begins with sch, pronounced sh.')];
@@ -21,7 +22,7 @@
   pairs.forEach(q=>{q.options=['Same word','Different words'];q.answer=q.clips[0]===q.clips[1]?0:1});
   const sets=[['Jahr','Wasser','Vater'],['Schule','sprechen','stehen'],['Straße','heißen','fünf']];
   const matches=sets.map((words,i)=>make('match',words.join(' · '),'Listen for the full word and connect its sound to its spelling.',{unitId:i===2?umlaut:id,words,clipOrder:shuffle(words),wordOrder:shuffle(words)}));
-  matches.forEach(q=>q.options[0]=q.clipOrder.map((word,i)=>'Recording '+(i+1)+': '+word).join('; '));
+  matches.forEach(q=>q.options[0]=q.clipOrder.map((word,i)=>clipLabel(i)+': '+word).join('; '));
   const buckets=[choices,typing,alternatives,pairs,matches].map(shuffle),questions=[];
   for(let i=0;i<3;i++)for(const bucket of shuffle(buckets))questions.push(bucket[i]);
   return questions;
@@ -91,27 +92,27 @@
     const label=document.createElement('p');label.className='dl-review-group-label';label.textContent=title;area.append(label);
     const row=document.createElement('div');row.className=kind;area.append(row);controls.append(area);return row;
    };
-   const playback=group('Listen to both recordings','dl-review-playback');
+   const playback=group('Listen to both words','dl-review-playback');
    const choices=group('Choose your answer','dl-review-comparison-answers');
-   q.clips.forEach((word,i)=>{const b=button('Play recording '+(i+1),()=>play(word,()=>{heard.add(i);answers.forEach(b=>b.disabled=heard.size!==2)}),playback);b.className='secondary dl-review-play-button'});
+   q.clips.forEach((word,i)=>{const b=button(clipLabel(i),()=>play(word,()=>{heard.add(i);answers.forEach(b=>b.disabled=heard.size!==2)}),playback);b.className='secondary dl-review-play-button'});
    q.options.forEach((label,i)=>{const b=button(label,()=>{if(heard.size!==2)return;selected=i;answers.forEach((answer,j)=>answer.setAttribute('aria-pressed',String(i===j)));status.textContent='Selected: '+label+'.';check.disabled=false},choices);b.className='dl-review-answer-button';b.setAttribute('aria-pressed','false');b.disabled=true;answers.push(b)});
    const check=primary(button('Check answer',()=>{if(selected!==null)submit(selected===q.answer)}));check.disabled=true;
   }else if(q.dlReviewMode==='match'){
-   heading.textContent='Match each recording to its written word.';
-   note('Play a recording, then select its word. Each word can be used once.');
+   heading.textContent='Match each sound to its written word.';
+   note('Tap Listen, then choose the word you hear. Each word can be used once.');
    let selected=null;const picks=new Map(),heard=new Set(),audioButtons=[],wordButtons=[];
    const columns=document.createElement('div');columns.className='dl-review-match-columns';controls.append(columns);
    const recordings=document.createElement('div'),words=document.createElement('div');
    recordings.className=words.className='dl-review-match-column';columns.append(recordings,words);
-   q.clipOrder.forEach((word,i)=>{const b=button('Recording '+(i+1),()=>play(word,()=>{selected=i;heard.add(i);status.textContent='Choose a word for recording '+(i+1)+'.';update()}),recordings);audioButtons.push(b)});
-   q.wordOrder.forEach(word=>wordButtons.push(button(word,()=>{
+   q.clipOrder.forEach((word,i)=>{const b=button(clipLabel(i),()=>play(word,()=>{selected=i;heard.add(i);status.textContent='Choose a word for '+clipLabel(i)+'.';update()}),recordings);b.className='secondary dl-review-play-button';audioButtons.push(b)});
+   q.wordOrder.forEach(word=>{const b=button(word,()=>{
     if(selected===null||!heard.has(selected))return;
     for(const [i,value] of picks)if(value===word)picks.delete(i);
-    picks.set(selected,word);status.textContent='Recording '+(selected+1)+' matched to '+word+'.';selected=null;update();
-   },words)));
+    picks.set(selected,word);status.textContent=clipLabel(selected)+' matched to '+word+'.';selected=null;update();
+   },words);b.className='dl-review-answer-button';wordButtons.push(b)});
    const check=primary(button('Check matches',()=>{if(picks.size===q.words.length)submit(q.clipOrder.every((word,i)=>picks.get(i)===word))}));
    function update(){
-    audioButtons.forEach((b,i)=>{b.textContent='Recording '+(i+1)+(picks.has(i)?': '+picks.get(i):'');b.setAttribute('aria-pressed',String(selected===i))});
+    audioButtons.forEach((b,i)=>{b.textContent=clipLabel(i)+(picks.has(i)?' → '+picks.get(i):'');b.setAttribute('aria-pressed',String(selected===i))});
     wordButtons.forEach(b=>{b.setAttribute('aria-pressed',String([...picks.values()].includes(b.textContent)))});
     check.disabled=picks.size!==q.words.length;
    }
@@ -122,5 +123,5 @@
  };
  const observer=new MutationObserver(()=>{if(!document.querySelector('#app .dl-review-controls'))dispose()});
  observer.observe(app,{childList:true,subtree:true});
- const style=document.createElement('style');style.textContent='.dl-review-controls{display:flex;flex-wrap:wrap;gap:12px;margin:20px 0}.dl-review-controls p,.dl-review-controls label{flex-basis:100%;margin:0}.dl-review-controls input{box-sizing:border-box;width:100%;padding:14px;border:1px solid #70c9c0;border-radius:12px;background:#20374e;color:#fff;font:inherit}.dl-review-controls button{white-space:normal;min-height:48px}.dl-review-character-keys{display:flex;gap:8px;width:100%}.dl-review-speaking-word{font-size:2.4rem;font-weight:700}.dl-review-controls [aria-pressed=true]{outline:2px solid #70c9c0}.dl-review-controls button:disabled{opacity:.5}.dl-review-match-columns{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;width:100%;align-items:start}.dl-review-match-column{display:grid;gap:12px;min-width:0}.dl-review-match-column button{width:100%;margin:0!important;min-height:72px;padding:12px 8px;overflow-wrap:anywhere;font:inherit}.dl-review-controls>p:empty{display:none}.dl-review-compare-group{width:100%}.dl-review-controls .dl-review-group-label{font-weight:600;font-size:.9rem;margin:0 0 10px;color:#b8d9dc}.dl-review-playback,.dl-review-comparison-answers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.dl-review-compare-group button{width:100%;margin:0!important;padding:12px 8px}#app .dl-review-controls .dl-review-play-button{background:#34475e;color:#f4f8fb;border:1px solid #68879b;box-shadow:none}#app .dl-review-controls .dl-review-answer-button{background:#20374e;color:#fff;border:2px solid #6faaa9;box-shadow:none}#app .dl-review-controls .dl-review-answer-button[aria-pressed=true]{background:#79e1cf;color:#102a3b;border-color:#e4fff7;outline:2px solid #79e1cf;outline-offset:3px}#app .dl-review-controls .dl-review-answer-button[aria-pressed=true]::before{content:"✓ ";font-weight:800}';document.head.append(style);
+ const style=document.createElement('style');style.textContent='.dl-review-controls{display:flex;flex-wrap:wrap;gap:12px;margin:20px 0}.dl-review-controls p,.dl-review-controls label{flex-basis:100%;margin:0}.dl-review-controls input{box-sizing:border-box;width:100%;padding:14px;border:1px solid #70c9c0;border-radius:12px;background:#20374e;color:#fff;font:inherit}.dl-review-controls button{white-space:normal;min-height:48px}.dl-review-character-keys{display:flex;gap:8px;width:100%}.dl-review-speaking-word{font-size:2.4rem;font-weight:700}.dl-review-controls [aria-pressed=true]{outline:2px solid #70c9c0}.dl-review-controls button:disabled{opacity:.5}.dl-review-match-columns{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;width:100%;align-items:start}.dl-review-match-column{display:grid;gap:12px;min-width:0}.dl-review-match-column button{width:100%;margin:0!important;min-height:72px;padding:12px 8px;overflow-wrap:anywhere;font:inherit}.dl-review-controls>p:empty{display:none}.dl-review-compare-group{width:100%}.dl-review-controls .dl-review-group-label{font-weight:600;font-size:.9rem;margin:0 0 10px;color:#b8d9dc}.dl-review-playback,.dl-review-comparison-answers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.dl-review-compare-group button{width:100%;margin:0!important;padding:12px 8px}#app .dl-review-controls .dl-review-play-button{background:#34475e;color:#f4f8fb;border:1px solid #68879b;box-shadow:none}#app .dl-review-controls .dl-review-play-button::before{content:"";display:inline-block;vertical-align:-.15em;width:1.1em;height:1.1em;margin-right:.4em;background:currentColor;mask:url("data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20viewBox=%270%200%2024%2024%27%3E%3Cpath%20fill=%27black%27%20d=%27M3%209v6h4l5%204V5L7%209H3zm12-1v8a5%205%200%20000-8zm0-5v2a8%208%200%20010%2014v2a10%2010%200%20000-18z%27/%3E%3C/svg%3E") center/contain no-repeat}#app .dl-review-controls .dl-review-play-button[aria-pressed=true]{background:#496b80;border-color:#d6fff4;outline:2px solid #79e1cf;outline-offset:2px}#app .dl-review-controls .dl-review-answer-button{background:#20374e;color:#fff;border:2px solid #6faaa9;box-shadow:none}#app .dl-review-controls .dl-review-answer-button[aria-pressed=true]{background:#79e1cf;color:#102a3b;border-color:#e4fff7;outline:2px solid #79e1cf;outline-offset:3px}#app .dl-review-controls .dl-review-answer-button[aria-pressed=true]::before{content:"✓ ";font-weight:800}';document.head.append(style);
 })();
