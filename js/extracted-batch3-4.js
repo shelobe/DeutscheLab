@@ -110,6 +110,8 @@ function chooseSentenceWord(i,w){
    const detail=ok?'':`<p>Correct order: ${safeText(sentenceTarget.join(' '))}</p>`;
    feedback.innerHTML=`<div class="game-feedback dl-sentence-result"><strong>${message}</strong>${detail}</div>`;
    feedback.classList.add('dl-sentence-feedback-visible');
+   const card=feedback.closest('.dl-sentence-english-style');
+   if(card){card.classList.add('dl-sentence-answered');card.querySelectorAll('#sentenceTiles,.dl-sentence-edit-actions,button[onclick="dlSentenceHelpToggle()"],#dlSentenceHelp').forEach(el=>el.remove());}
   }
   document.getElementById('sentenceTiles')?.classList.add('dl-sentence-completed');
   document.querySelector('.dl-sentence-edit-actions')?.classList.add('dl-sentence-completed');
