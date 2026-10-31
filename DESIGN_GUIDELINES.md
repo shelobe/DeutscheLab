@@ -82,3 +82,5 @@ This document records established product decisions. The current `main` branch i
 - When adding lesson content, update its practice and module review to assess the new skill, and keep introductions/counts consistent. Preserve the agreed review length by replacing redundant coverage when appropriate.
 
 - Prioritize readable teaching over compactness: put distinct phrases, forms or instructional statements on separate bullets. Include a Remember card only when it provides a specific useful rule, contrast or memory aid; omit generic practice advice.
+
+- Place German example/translation/Listen rows immediately beneath the relevant teaching card, outside its explanation box. Include audio for taught greetings. Avoid a duplicate audio bank at the bottom; keep Start practice anchored after moving examples.
