@@ -1324,3 +1324,10 @@ body:has(#app .dl-unified-build-dock) #dl-fixed-next{display:none!important}
 #app .dl-build-unified-tile .tile-icon{font-size:1.9rem!important;line-height:1.1!important;margin-bottom:7px!important}
 #app .dl-build-unified-tile .tile-title{font-size:1em!important;line-height:1.2!important}
 #app .dl-build-unified-tile small{margin-top:7px!important;font-size:.76em!important}
+
+/* Compact navigation strip on either sentence-building mode only. */
+body:has(#app .dl-unified-build-dock) main{padding-top:8px!important}
+body:has(#app .dl-unified-build-dock) .app-header{position:relative!important;top:auto!important;left:auto!important;right:auto!important;min-height:0!important;height:56px!important;max-height:56px!important;padding:0!important;margin:0 0 6px!important;background:transparent!important;border:0!important;box-shadow:none!important;backdrop-filter:none!important;display:flex!important;align-items:center!important}
+body:has(#app .dl-unified-build-dock) .app-header::before,body:has(#app .dl-unified-build-dock) .app-header::after{display:none!important}
+body:has(#app .dl-unified-build-dock) .app-header .menu-toggle{position:relative!important;top:auto!important;left:auto!important;transform:none!important;margin:0!important;z-index:2}
+body:has(#app .dl-unified-build-dock) #app>.card:first-child{margin-top:6px!important}
