@@ -178,7 +178,11 @@ function gameMatch(side,n){
  if(g.selected===null){g.selected={side,n};document.getElementById((side==='l'?'gl':'gr')+n).style.outline='3px solid #f4d487';return}
  let a=g.selected;document.getElementById((a.side==='l'?'gl':'gr')+a.n).style.outline='';
  g.selected=null;if(a.side===side){g.selected={side,n};document.getElementById((side==='l'?'gl':'gr')+n).style.outline='3px solid #f4d487';return}
- if(a.n===n){g.matches.push(n);document.getElementById('gl'+n).disabled=true;document.getElementById('gr'+n).disabled=true;document.getElementById('gl'+n).classList.add('match-complete');document.getElementById('gr'+n).classList.add('match-complete');document.getElementById('gameMatched').textContent=g.matches.length+' / 4 pairs matched';if(g.matches.length===4)gameMark(true,'All four pairs matched!')}
+ if(a.n===n){g.matches.push(n);document.getElementById('gl'+n).disabled=true;document.getElementById('gr'+n).disabled=true;document.getElementById('gl'+n).classList.add('match-complete');document.getElementById('gr'+n).classList.add('match-complete');document.getElementById('gameMatched').textContent=g.matches.length+' / 4 pairs matched';if(g.matches.length===g.pairs.length){
+  // Remove only this completed matching bank before rendering feedback.
+  document.getElementById('gameMatched')?.nextElementSibling?.remove();
+  gameMark(true,'All four pairs matched!');
+ }}
  else{dlWrongHaptic();document.getElementById('gameFeedback').textContent='Not a match. Try another pair.'}
 }
 function dlReverseGrammarNote(de){

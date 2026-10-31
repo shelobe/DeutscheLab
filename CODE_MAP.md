@@ -12,3 +12,7 @@
 - **Shared character rendering:** `js/extracted-batch7-13.js` observes `#gameFeedback`, replaces `.game-feedback > strong` with `.dl-result-badge`, and supplies existing dog/red panda/cat artwork and `.dl-result-label`. It runs on the next animation frame; inspect feedback after that mutation.
 - **Shared visual rules:** `.game-feedback`, `.dl-result-badge`, avatar and label rules in `css/extracted-batch8.css`; targeted panel/hint rules in `build-sentence-unified.js`. Old `#sentenceFeedback`/`.dl-sentence-result` styles do not apply to active German feedback.
 - **Navigation:** `js/extracted-batch7-11.js` supplies the global anchored dock and can hide/move original Next buttons. German Next remains `dlSentenceCheckOrNext` → `advanceSentenceRound`.
+
+## Word Matching
+- Home and Practice Hub launch `gameStart('match')`; `js/extracted-batch2-1.js` renders `.match-columns` and handles tile selection in `gameMatch`.
+- After all pairs are matched, `gameMatch` removes the completed bank following `#gameMatched`, then calls the existing `gameMark` feedback/stats pipeline. Partial matches and incorrect pairs keep the bank; `gameNext`/`gameRender` create the next bank.
