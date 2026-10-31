@@ -13,274 +13,293 @@
   const rows=[
  [
   0,
-  "Which German letter sequence matches the English sounds Y–V–F?",
+  "Listen and choose the word you hear (first word).",
   [
-   "J–W–V",
-   "W–J–V",
-   "V–W–J"
+   "Jahr",
+   "wir",
+   "vier"
   ],
-  "German J sounds like English Y, W sounds like English V, and V often sounds like English F: J–W–V."
+  "You heard Jahr (year). Its J sounds like English Y.",
+  "Jahr"
  ],
  [
   0,
-  "Listen to the first sound. Which German letter makes it?",
+  "Listen and choose the word you hear (season).",
   [
-   "J",
-   "W",
-   "V"
+   "Winter",
+   "Vater",
+   "Januar"
   ],
-  "German J sounds like English Y, as in Januar.",
+  "You heard Winter (winter). German W sounds like English V.",
+  "Winter"
+ ],
+ [
+  0,
+  "Listen and choose the word you hear (family word).",
+  [
+   "Vater",
+   "Wasser",
+   "Jahr"
+  ],
+  "You heard Vater (father). Here V sounds like English F.",
+  "Vater"
+ ],
+ [
+  0,
+  "Listen and choose the word you hear (month).",
+  [
+   "Januar",
+   "Winter",
+   "Vater"
+  ],
+  "You heard Januar (January). Its J sounds like English Y.",
   "Januar"
  ],
  [
   0,
-  "Listen to this word. Which letter makes its first sound?",
+  "Listen and choose the word you hear (everyday word).",
   [
-   "W",
-   "V",
-   "J"
+   "Wasser",
+   "Vater",
+   "Jahr"
   ],
-  "Wasser starts with W, pronounced like English V.",
+  "You heard Wasser (water). Its W sounds like English V.",
   "Wasser"
  ],
  [
-  0,
-  "How is V usually pronounced in Vater?",
+  1,
+  "Listen and choose the word you hear (ä).",
   [
-   "Like English F",
-   "Like English W",
-   "Like English Y"
+   "Käse",
+   "Kasse",
+   "Kiste"
   ],
-  "In common words such as Vater, V sounds like English F."
- ],
- [
-  0,
-  "Which pair begins with the same sound?",
-  [
-   "Wasser and Winter",
-   "Vater and Januar",
-   "Januar and Wasser"
-  ],
-  "Both Wasser and Winter start with German W, pronounced like English V."
+  "You heard Käse (cheese). The ä vowel is different from the short a in Kasse.",
+  "Käse"
  ],
  [
   1,
-  "Which set contains all three German umlaut vowels?",
+  "Listen and choose the word you hear (ö).",
   [
-   "ä, ö, ü",
-   "a, o, u",
-   "ei, ie, eu"
+   "schön",
+   "schon",
+   "Schule"
   ],
-  "The umlaut vowels are ä, ö and ü. They are distinct vowels."
+  "You heard schön (beautiful), not schon (already). The umlaut changes the sound and meaning.",
+  "schön"
  ],
  [
   1,
-  "Listen to the first vowel. Which German letter makes this sound?",
+  "Listen and choose the word you hear (ü).",
   [
-   "ä",
-   "a",
-   "ö"
+   "fünf",
+   "fand",
+   "fein"
   ],
-  "Mädchen contains ä, a distinct German vowel that can sound similar to e in bed.",
-  "Mädchen"
- ],
- [
-  1,
-  "What changes between schon and schön?",
-  [
-   "Both pronunciation and meaning",
-   "Only capitalization",
-   "Nothing"
-  ],
-  "Schon means already; schön means beautiful. The umlaut changes the vowel and meaning."
- ],
- [
-  1,
-  "What is the letter ß called?",
-  [
-   "Eszett",
-   "Umlaut",
-   "Be"
-  ],
-  "ß is called Eszett or scharfes S. It is not the letter B."
- ],
- [
-  1,
-  "What sound does ß represent in Straße?",
-  [
-   "A voiceless s sound",
-   "A b sound",
-   "An English z sound"
-  ],
-  "ß represents a voiceless s sound, as in Straße."
- ],
- [
-  1,
-  "Which spelling pattern is usual in German?",
-  [
-   "ß after a long vowel or diphthong; ss after a short vowel",
-   "ß after a short vowel; ss after a long vowel",
-   "ß and ss can always be swapped"
-  ],
-  "Compare Straße with its long vowel and Wasser with its short vowel. ß and ss are not freely interchangeable."
- ],
- [
-  2,
-  "How is z pronounced in zwei?",
-  [
-   "As a single ts sound",
-   "Like English z",
-   "Like sh"
-  ],
-  "German z combines t and s into one /ts/ sound."
- ],
- [
-  2,
-  "How is sch pronounced in Schule?",
-  [
-   "Like English sh",
-   "Like sk",
-   "Like ch in chair"
-  ],
-  "The three letters sch represent one sh sound."
- ],
- [
-  2,
-  "At the beginning of sprechen, how is sp pronounced?",
-  [
-   "shp",
-   "sp as in English spin",
-   "ts"
-  ],
-  "At the start of a word or stressed syllable, sp usually begins with sh followed by p."
- ],
- [
-  2,
-  "At the beginning of stehen, how is st pronounced?",
-  [
-   "sht",
-   "st as in English stop",
-   "ts"
-  ],
-  "Initial st usually begins with sh followed by t."
- ],
- [
-  2,
-  "Which description fits the soft ch in ich?",
-  [
-   "Friction with the middle of the tongue raised toward the roof of the mouth",
-   "English sh",
-   "A hard k sound"
-  ],
-  "The soft ch /ç/ after i is not English sh. Raise the middle of the tongue toward the roof of the mouth."
- ],
- [
-  2,
-  "How does ch in Buch differ from ch in ich?",
-  [
-   "It is made farther back in the mouth",
-   "It is silent",
-   "It is English sh"
-  ],
-  "After a, o or u, ch is usually the back friction sound /x/."
- ],
- [
-  2,
-  "Which sound does EI make in mein and Wein?",
-  [
-   "“Eye,” like the English letter I",
-   "“Ee,” like the English letter E",
-   "“Oy,” as in boy"
-  ],
-  "eI → eye: the second letter suggests its English letter name, I."
- ],
- [
-  2,
-  "Which sound does IE usually make in Liebe and Biene?",
-  [
-   "Long “ee,” like the English letter E",
-   "“Eye,” like the English letter I",
-   "“Ow,” as in cow"
-  ],
-  "iE → ee: the second letter suggests its English letter name, E. IE usually represents a long vowel."
- ],
- [
-  2,
-  "How does eu sound in neun and heute?",
-  [
-   "Similar to oy in boy",
-   "Like eye",
-   "Like long ee"
-  ],
-  "Eu makes the /ɔʏ/ diphthong; äu often makes the same sound."
- ],
- [
-  2,
-  "How does au sound in Haus?",
-  [
-   "Similar to ow in cow",
-   "Like long ee",
-   "Like oy in boy"
-  ],
-  "Au glides roughly like English ow in cow."
- ],
- [
-  2,
-  "Which English sound matches w in wir?",
-  [
-   "V",
-   "W",
-   "F"
-  ],
-  "German W sounds like English V; touch upper teeth lightly to the lower lip."
- ],
- [
-  2,
-  "Which statement about German v is accurate?",
-  [
-   "It often sounds like f, but some borrowed words use v",
-   "It always sounds like English w",
-   "It is always silent"
-  ],
-  "V often sounds like f in common German words such as Vater and vier; borrowed words can differ."
- ],
- [
-  2,
-  "In heißen, what sound does ß represent?",
-  [
-   "A voiceless s sound",
-   "A b sound",
-   "A sh sound"
-  ],
-  "ß sounds like a voiceless s, including after the diphthong ei in heißen."
- ],
- [
-  2,
-  "Listen to this vowel. Which German letter produces it?",
-  [
-   "ü",
-   "u",
-   "ö"
-  ],
-  "Fünf contains ü. Practice it by saying ee while rounding the lips as for oo.",
+  "You heard fünf (five). Listen for the rounded ü vowel.",
   "fünf"
  ],
  [
-  2,
-  "Listen to the vowel. Which German letter produces this sound?",
+  1,
+  "You want to write “street.” Which spelling is correct?",
   [
-   "ö",
-   "o",
-   "ü"
+   "Straße",
+   "Strabe",
+   "Strase"
   ],
-  "Schön contains ö: start with an eh-like front vowel and round your lips.",
-  "schön"
+  "Straße means street. ß represents an s sound, not a b sound."
+ ],
+ [
+  1,
+  "Someone describes a place as beautiful. Which word fits?",
+  [
+   "schön",
+   "schon",
+   "Schule"
+  ],
+  "Schön means beautiful. Schon means already; the umlaut matters."
+ ],
+ [
+  1,
+  "Listen and choose the word you hear (spelling with ß).",
+  [
+   "heißen",
+   "heilen",
+   "heizen"
+  ],
+  "You heard heißen (to be called). Its ß is a voiceless s sound.",
+  "heißen"
+ ],
+ [
+  2,
+  "Listen and choose the word you hear (z).",
+  [
+   "zwei",
+   "frei",
+   "drei"
+  ],
+  "You heard zwei (two). Z makes a single ts sound.",
+  "zwei"
+ ],
+ [
+  2,
+  "Listen and choose the word you hear (sch).",
+  [
+   "Schule",
+   "Stuhl",
+   "Schale"
+  ],
+  "You heard Schule (school). Sch makes a sh sound.",
+  "Schule"
+ ],
+ [
+  2,
+  "Listen and choose the word you hear (sp).",
+  [
+   "sprechen",
+   "brechen",
+   "rechnen"
+  ],
+  "You heard sprechen (to speak). At the beginning, sp sounds like shp.",
+  "sprechen"
+ ],
+ [
+  2,
+  "Listen and choose the word you hear (st).",
+  [
+   "stehen",
+   "sehen",
+   "gehen"
+  ],
+  "You heard stehen (to stand). At the beginning, st sounds like sht.",
+  "stehen"
+ ],
+ [
+  2,
+  "Listen and choose the word you hear (soft ch).",
+  [
+   "ich",
+   "ist",
+   "ihr"
+  ],
+  "You heard ich (I). Its soft ch is different from sch.",
+  "ich"
+ ],
+ [
+  2,
+  "Listen and choose the word you hear (back ch).",
+  [
+   "Buch",
+   "Bus",
+   "Bauch"
+  ],
+  "You heard Buch (book). Ch after u is made farther back in the mouth.",
+  "Buch"
+ ],
+ [
+  2,
+  "Listen and choose the word you hear (EI versus IE).",
+  [
+   "Wein",
+   "Wien",
+   "Wahn"
+  ],
+  "You heard Wein (wine), not Wien (Vienna). EI sounds like eye: remember the English letter I.",
+  "Wein"
+ ],
+ [
+  2,
+  "Listen and choose the word you hear (IE versus EI).",
+  [
+   "Liebe",
+   "Leibe",
+   "Löwe"
+  ],
+  "You heard Liebe (love). IE sounds like long ee: remember the English letter E.",
+  "Liebe"
+ ],
+ [
+  2,
+  "Listen and choose the word you hear (eu).",
+  [
+   "neun",
+   "nein",
+   "nun"
+  ],
+  "You heard neun (nine), not nein (no). Eu has an oy-like sound.",
+  "neun"
+ ],
+ [
+  2,
+  "Listen and choose the word you hear (au).",
+  [
+   "Haus",
+   "Hase",
+   "Hose"
+  ],
+  "You heard Haus (house). Au sounds roughly like ow in cow.",
+  "Haus"
+ ],
+ [
+  2,
+  "Listen and choose the word you hear (w).",
+  [
+   "wir",
+   "vier",
+   "Bier"
+  ],
+  "You heard wir (we). German W sounds like English V.",
+  "wir"
+ ],
+ [
+  2,
+  "Listen and choose the word you hear (v).",
+  [
+   "vier",
+   "wir",
+   "Tier"
+  ],
+  "You heard vier (four). Here V sounds like English F.",
+  "vier"
+ ],
+ [
+  2,
+  "Listen and choose the word you hear (ß).",
+  [
+   "Straße",
+   "Strafe",
+   "Sprache"
+  ],
+  "You heard Straße (street). ß represents a voiceless s sound.",
+  "Straße"
+ ],
+ [
+  2,
+  "Listen and choose the word you hear (rounded ü).",
+  [
+   "Tür",
+   "Tier",
+   "Tor"
+  ],
+  "You heard Tür (door). Ü is distinct from ie and o.",
+  "Tür"
+ ],
+ [
+  2,
+  "Listen and choose the word you hear (rounded ö).",
+  [
+   "hören",
+   "Herren",
+   "Haare"
+  ],
+  "You heard hören (to hear). Keep the ö vowel distinct from e and u.",
+  "hören"
  ]
 ];
   const alphabetRows=shuffle(rows.filter(row=>row[0]===0)).slice(0,3);
   const umlautRows=shuffle(rows.filter(row=>row[0]===1)).slice(0,4);
   const sounds=rows.filter(row=>row[0]===2);
-  const required=sounds.filter(row=>/\b(?:EI|IE)\b/.test(row[1]));
+  const required=sounds.filter(row=>row[4]==='Wein'||row[4]==='Liebe');
   const rotating=shuffle(sounds.filter(row=>!required.includes(row))).slice(0,6);
   const selected=[...alphabetRows,...umlautRows,...required,...rotating];
   return shuffle(selected.map(([section,prompt,options,why,audio])=>{

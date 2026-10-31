@@ -57,3 +57,6 @@ This document records established product decisions. The current `main` branch i
 - A1 topic stages have distinct jobs: vocabulary connects expressions to meanings; sentence patterns practice construction; understanding in context uses practical situations. Do not give all three stages the same translation bank.
 - Include examples for every expression assessed in a topic stage. Advanced lessons mix meaning, usage, sentence structure and applied grammar; vary vocabulary and retain established checkpoints where useful.
 - Keep corrections and useful explanations after checking, and preserve the existing lesson scoring, saved IDs, progress gates, audio and navigation.
+
+## Review question relevance
+- Assess practical language understanding: recognize spoken words, match sounds to usable spellings, interpret taught words and phrases, or choose language for a situation. Avoid trivia about letter counts/names, abstract sound-sequence puzzles, and tests of pronunciation terminology. Keep technical explanations as teaching or feedback rather than mastery requirements.
