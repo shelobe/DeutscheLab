@@ -135,8 +135,8 @@ function chooseSentenceWord(i,w){
   if(feedback){
    const message=ok?'Well done!':'Not quite.';
    const detail=ok?'':`<p>Correct: ${safeText(sentenceTarget.join(' '))}</p><p class="dl-sentence-hint"><b>Why?</b> ${safeText(dlSentenceMistakeHint(sentenceChosen,sentenceTarget))}</p>`;
-   const image=ok?'hund.png':'katze.png';
-   feedback.innerHTML=`<div class="dl-sentence-result"><div class="dl-sentence-character"><img src="assets/${image}" alt="" onerror="this.style.display='none'"><strong>${message}</strong></div>${detail}</div>`;
+   const image=ok?'feedback_correct_dog.png':'feedback_incorrect_cat.png';
+   feedback.innerHTML=`<div class="dl-sentence-result"><div class="dl-sentence-character"><img src="./${image}" alt="" onerror="this.style.display='none'"><strong>${message}</strong></div>${detail}</div>`;
    feedback.classList.add('dl-sentence-feedback-visible');
    const card=feedback.closest('.dl-sentence-english-style');
    if(card){card.classList.add('dl-sentence-answered');card.querySelectorAll('#sentenceTiles,.dl-sentence-edit-actions,button[onclick="dlSentenceHelpToggle()"],#dlSentenceHelp').forEach(el=>el.remove());}
