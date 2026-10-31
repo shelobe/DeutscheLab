@@ -124,10 +124,9 @@ function dlSentenceMistakeHint(chosen,target){
 }
 function dlRenderSentenceFeedback(feedback,ok,correct,hint){
  if(!feedback)return;
- // Use the same complete, established feedback-card artwork in both modes.
- const artwork=ok?'feedback_correct_dog.png':'feedback_incorrect_cat.png';
- const detail=ok?'':`<p class="dl-sentence-correction">Correct: ${safeText(correct)}</p>${hint?`<p class="dl-sentence-hint"><b>Why?</b> ${safeText(hint)}</p>`:''}`;
- feedback.innerHTML=`<div class="dl-sentence-result"><div class="dl-sentence-character"><img src="./${artwork}" alt="${ok?'Well done!':'Not quite!'}"></div>${detail}</div>`;
+ const image=ok?'feedback_correct_dog.png':'feedback_incorrect_cat.png';
+ const detail=ok?'':`<p>Correct: ${safeText(correct)}</p>${hint?`<p class="dl-sentence-hint"><b>Why?</b> ${safeText(hint)}</p>`:''}`;
+ feedback.innerHTML=`<div class="dl-sentence-result"><div class="dl-sentence-character"><img src="./${image}" alt=""><strong>${ok?'Well done!':'Not quite.'}</strong></div>${detail}</div>`;
  feedback.classList.add('dl-sentence-feedback-visible');
  feedback.classList.toggle('dl-feedback-correct',!!ok);
  feedback.classList.toggle('dl-feedback-incorrect',!ok);
