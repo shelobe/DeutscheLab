@@ -351,7 +351,7 @@
   if(g.key==='introductions'){
    // Cover each communication goal, rather than drawing three near-identical tasks.
    const [greetings,introductions,...otherLessons]=pools;
-   pools=[...['greeting','farewell','wellbeing','politeness'].map(topic=>greetings.filter(q=>q.dlTopic===topic)),...['names','home','origins'].map(topic=>introductions.filter(q=>q.dlTopic===topic)),...otherLessons];
+   pools=[...['greeting','farewell','wellbeing','politeness'].map(topic=>greetings.filter(q=>q.dlTopic===topic)),...['names','home','origins'].map(topic=>introductions.filter(q=>q.dlTopic===topic)),...otherLessons.flatMap((questions,i)=>i===0?['country-origin','languages'].map(topic=>questions.filter(q=>q.dlTopic===topic)): [questions])];
   }
   if(pools.some(a=>!a.length))throw Error('A1 review has an empty lesson pool');
   const available=pools.flat();

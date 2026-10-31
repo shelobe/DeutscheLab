@@ -520,7 +520,7 @@ window.DL_A1_PRACTICAL_PACKS = {
   "sections": [
    [
     "What you will be able to do",
-    "Say where you come from and which languages you speak."
+    "Say where you come from, describe your nationality, and ask and answer which languages someone speaks."
    ],
    [
     "Where are you from?",
@@ -536,9 +536,25 @@ window.DL_A1_PRACTICAL_PACKS = {
     [
      "Deutsch — German",
      "Englisch — English",
-     "Französisch — French",
-     "Ich spreche ein bisschen Deutsch. — I speak a little German."
+     "Französisch — French"
     ]
+   ],
+   [
+    "Talk about the languages you speak",
+    [
+     "Ich spreche … — I speak …",
+     "Ich spreche Englisch. — I speak English.",
+     "Ich spreche Englisch und ein bisschen Deutsch. — I speak English and a little German.",
+     "Welche Sprachen sprichst du? — Which languages do you speak?",
+     "Sprichst du Englisch? — Do you speak English?",
+     "Ja, ich spreche Englisch. — Yes, I speak English.",
+     "Use ich spreche to talk about yourself and du sprichst to ask one person informally.",
+     "Ein bisschen means a little; und means and."
+    ]
+   ],
+   [
+    "Coming up",
+    "Some German verbs change their vowel with du and er/sie/es. With sprechen, e changes to i: ich spreche → du sprichst. For now, learn these as useful phrases. A later lesson explains this pattern and gives you more practice."
    ],
    [
     "Nationality",
@@ -550,50 +566,62 @@ window.DL_A1_PRACTICAL_PACKS = {
    ]
   ],
   "examples": [
-    [
-      "Ich komme aus Deutschland.",
-      "I come from Germany."
-    ],
-    [
-      "Ich komme aus Kanada.",
-      "I come from Canada."
-    ],
-    [
-      "Ich komme aus den USA.",
-      "I come from the USA."
-    ],
-    [
-      "Woher kommst du?",
-      "Where are you from?"
-    ],
-    [
-      "Deutsch",
-      "German"
-    ],
-    [
-      "Englisch",
-      "English"
-    ],
-    [
-      "Französisch",
-      "French"
-    ],
-    [
-      "Ich spreche ein bisschen Deutsch.",
-      "I speak a little German."
-    ],
-    [
-      "Ich spreche Englisch.",
-      "I speak English."
-    ],
-    [
-      "Ich bin Amerikanerin.",
-      "I am an American woman."
-    ],
-    [
-      "Ich bin Amerikaner.",
-      "I am an American man."
-    ]
+   [
+    "Ich komme aus Deutschland.",
+    "I come from Germany."
+   ],
+   [
+    "Ich komme aus Kanada.",
+    "I come from Canada."
+   ],
+   [
+    "Ich komme aus den USA.",
+    "I come from the USA."
+   ],
+   [
+    "Woher kommst du?",
+    "Where are you from?"
+   ],
+   [
+    "Deutsch",
+    "German"
+   ],
+   [
+    "Englisch",
+    "English"
+   ],
+   [
+    "Französisch",
+    "French"
+   ],
+   [
+    "Ich spreche Englisch.",
+    "I speak English."
+   ],
+   [
+    "Ich bin Amerikanerin.",
+    "I am an American woman."
+   ],
+   [
+    "Ich bin Amerikaner.",
+    "I am an American man."
+   ],
+   [
+    "Ich spreche Englisch und ein bisschen Deutsch.",
+    "I speak English and a little German."
+   ],
+   [
+    "Welche Sprachen sprichst du?",
+    "Which languages do you speak?"
+   ],
+   [
+    "Sprichst du Englisch?",
+    "Do you speak English?"
+   ],
+   [
+    "Ja, ich spreche Englisch.",
+    "Yes, I speak English."
+   ]
   ],
   "questions": [
    {
@@ -606,7 +634,8 @@ window.DL_A1_PRACTICAL_PACKS = {
     ],
     "answer": 0,
     "why": "Woher asks your origin.",
-    "dlSkill": "situation"
+    "dlSkill": "situation",
+    "dlTopic": "country-origin"
    },
    {
     "type": "grammar",
@@ -618,7 +647,8 @@ window.DL_A1_PRACTICAL_PACKS = {
     ],
     "answer": 0,
     "why": "Aus gives origin.",
-    "dlSkill": "use"
+    "dlSkill": "use",
+    "dlTopic": "country-origin"
    },
    {
     "type": "grammar",
@@ -630,7 +660,8 @@ window.DL_A1_PRACTICAL_PACKS = {
     ],
     "answer": 0,
     "why": "Ein bisschen means a little.",
-    "dlSkill": "situation"
+    "dlSkill": "situation",
+    "dlTopic": "languages"
    },
    {
     "type": "grammar",
@@ -643,7 +674,61 @@ window.DL_A1_PRACTICAL_PACKS = {
     "answer": 0,
     "why": "Englisch means English.",
     "dlSkill": "write",
-    "dlWriteAnswer": "Englisch"
+    "dlWriteAnswer": "Englisch",
+    "dlTopic": "languages"
+   },
+   {
+    "type": "grammar",
+    "prompt": "Ask a friend which languages they speak.",
+    "options": [
+     "Welche Sprachen sprichst du?",
+     "Woher kommst du?",
+     "Wie heißt du?"
+    ],
+    "answer": 0,
+    "why": "Welche Sprachen sprichst du? asks which languages someone speaks.",
+    "dlTopic": "languages",
+    "dlSkill": "situation"
+   },
+   {
+    "type": "grammar",
+    "prompt": "A friend asks “Sprichst du Englisch?” Choose a suitable reply.",
+    "options": [
+     "Ja, ich spreche Englisch.",
+     "Ich komme aus Kanada.",
+     "Ich heiße Lea."
+    ],
+    "answer": 0,
+    "why": "Answer the language question with Ja, ich spreche Englisch.",
+    "dlTopic": "languages",
+    "dlSkill": "situation"
+   },
+   {
+    "type": "grammar",
+    "prompt": "Read: “Ich spreche Englisch und ein bisschen Deutsch.” What does the person speak?",
+    "options": [
+     "English and a little German",
+     "Only German",
+     "French and English"
+    ],
+    "answer": 0,
+    "why": "Und means and; ein bisschen Deutsch means a little German.",
+    "dlTopic": "languages",
+    "dlSkill": "reading"
+   },
+   {
+    "type": "grammar",
+    "prompt": "Write the missing word: Ich spreche Englisch und ein ___ Deutsch.",
+    "options": [
+     "bisschen",
+     "komme",
+     "heiße"
+    ],
+    "answer": 0,
+    "why": "Ein bisschen means a little.",
+    "dlTopic": "languages",
+    "dlSkill": "write",
+    "dlWriteAnswer": "bisschen"
    }
   ]
  },
