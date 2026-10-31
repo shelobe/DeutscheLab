@@ -40,3 +40,4 @@ This file tracks deferred changes discussed during development. It is a planning
 - Teach that the finite verb stays in position two in ordinary declarative main clauses, while the subject can follow the verb when a time expression comes first.
 - Contrast examples such as `Ich habe heute Zeit.` and `Heute habe ich Zeit.`; include `Morgen gehe ich einkaufen.`
 - Vary time placement, sentence rearrangement, and meaningful distractors. Retain the established explanation-style feedback cards.
+- **Possible activity format:** Reuse the existing Build a Sentence word-arrangement interaction so learners place the time expression, verb, subject, and other words in the correct order. Evaluate sentence structure rather than just verb conjugation; preserve the lesson's explanation-style feedback.
