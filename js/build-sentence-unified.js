@@ -176,9 +176,8 @@
    if(feedback&&item){
     const selected=(gameSession.picked||[]).map(i=>item.tokens[gameSession.order[i]]);
     const hint=!ok&&typeof dlSentenceMistakeHint==='function'?dlSentenceMistakeHint(selected,item.tokens):'';
-    const image=ok?'feedback_correct_dog.png':'feedback_incorrect_cat.png';
-    const detail=ok?'':`<p class="dl-build-correct-answer">Correct: ${safeText(item.de)}</p>${hint?`<p class="dl-sentence-hint"><strong>Why?</strong> ${safeText(hint)}</p>`:''}`;
-    feedback.innerHTML=`<div class="dl-sentence-result"><div class="dl-sentence-character"><img src="./${image}" alt="" /><strong>${ok?'Well done!':'Not quite!'}</strong></div>${detail}</div>`;
+    dlRenderSentenceFeedback(feedback,ok,item.de,hint);
+
    }
   }
   syncAnswered();
