@@ -26,23 +26,17 @@
  .dl-sentence-english-style.dl-sentence-answered #sentenceFeedback .explain-box,
  .dl-sentence-english-style.dl-sentence-answered #sentenceFeedback .sentence-explanation{display:none!important}
  .dl-sentence-english-style #sentenceFeedback .dl-sentence-result strong{display:block!important;font-size:1.35rem!important;color:#91e0ad!important;margin-bottom:8px!important}
- /* The original feedback artwork already includes its character, message and
-    background. Render it as a single complete card; never crop it into a portrait. */
+ /* Full feedback artwork supplies its own color and framing. */
  .dl-build-shared-layout #gameFeedback.dl-sentence-feedback-visible,
- .dl-sentence-english-style #sentenceFeedback.dl-sentence-feedback-visible{display:block!important;padding:14px!important;border-radius:20px!important;margin:14px 0!important;box-sizing:border-box!important}
- .dl-build-shared-layout #gameFeedback.dl-feedback-correct,
- .dl-sentence-english-style #sentenceFeedback.dl-feedback-correct{background:#1d5046!important;border:2px solid #70c9c0!important}
- .dl-build-shared-layout #gameFeedback.dl-feedback-incorrect,
- .dl-sentence-english-style #sentenceFeedback.dl-feedback-incorrect{background:#50343f!important;border:2px solid #b98793!important}
+ .dl-sentence-english-style #sentenceFeedback.dl-sentence-feedback-visible{display:block!important;background:transparent!important;border:0!important;padding:0!important;margin:14px 0!important}
  .dl-build-shared-layout #gameFeedback .dl-sentence-result,
- .dl-sentence-english-style #sentenceFeedback .dl-sentence-result{background:transparent!important;border:0!important;padding:0!important;margin:0!important;width:100%!important;max-width:100%!important;min-height:0!important;height:auto!important}
+ .dl-sentence-english-style #sentenceFeedback .dl-sentence-result{background:transparent!important;border:0!important;padding:0!important;margin:0!important}
  .dl-build-shared-layout #gameFeedback .dl-sentence-character,
- .dl-sentence-english-style #sentenceFeedback .dl-sentence-character{display:block!important;position:static!important;background:transparent!important;border:0!important;padding:0!important;margin:0!important;width:100%!important;max-width:100%!important;min-height:0!important;height:auto!important;max-height:none!important;overflow:visible!important}
+ .dl-sentence-english-style #sentenceFeedback .dl-sentence-character{display:block!important;background:transparent!important;border:0!important;padding:0!important;margin:0!important;height:auto!important;max-height:none!important}
  .dl-build-shared-layout #gameFeedback .dl-sentence-character img,
- .dl-sentence-english-style #sentenceFeedback .dl-sentence-character img{display:block!important;position:static!important;float:none!important;transform:none!important;width:100%!important;max-width:100%!important;min-width:0!important;height:auto!important;max-height:none!important;min-height:0!important;object-fit:contain!important;object-position:center!important;margin:0!important;padding:0!important;box-sizing:border-box!important}
+ .dl-sentence-english-style #sentenceFeedback .dl-sentence-character img{display:block!important;position:static!important;float:none!important;transform:none!important;width:100%!important;max-width:100%!important;height:auto!important;max-height:none!important;object-fit:contain!important;margin:0!important}
  .dl-build-shared-layout #gameFeedback .dl-sentence-result p,
  .dl-sentence-english-style #sentenceFeedback .dl-sentence-result p{font-size:1rem!important;line-height:1.4!important;margin:12px 4px 0!important;color:#fff!important;font-weight:400!important}
- .dl-build-answered #gameFeedback{padding:14px!important}
  .dl-build-shared-layout.dl-german-english-layout{background:#172c3b!important;color:#edf4f5!important;border-radius:24px!important}
  .dl-build-shared-layout.dl-german-english-layout .dl-build-instruction{font-size:1.08rem!important;color:#e0e9eb!important;margin:16px 0 12px!important}
  .dl-build-shared-layout.dl-german-english-layout .dl-build-prompt{display:block!important;background:#203f4b!important;color:#fff!important;border:3px solid #70c9c0!important;border-radius:22px!important;padding:25px 22px!important;font-size:1.45rem!important;line-height:1.4!important;margin:12px 0 20px!important}
