@@ -36,13 +36,25 @@
   if(instruction&&instruction.tagName==='P')instruction.classList.add('dl-build-instruction');
   const existing=card.querySelector('.dl-unified-build-dock');if(existing)existing.remove();
   if(isGerman){
+   /* Build the German view with the same component order as the English builder,
+      while retaining the existing game IDs, event handlers and scoring logic. */
    card.classList.add('dl-german-english-layout','dl-build-shared-layout');
    const built=card.querySelector('#gameBuilt');
    const bank=card.querySelector('#gameBank');
    if(built){built.classList.add('dl-shared-built');built.textContent='Tap the German words below';}
-   if(bank){bank.classList.add('dl-shared-bank');const title=document.createElement('div');title.className='dl-shared-bank-title';title.textContent='WORD BANK';bank.before(title);}
-   const originalRestart=card.querySelector('button[onclick="gameRender()"]');if(originalRestart)originalRestart.remove();
-   const check=card.querySelector('button[onclick="gameCheckBuild()"]');if(check){check.textContent='Check translation';check.classList.add('dl-build-check');}
+   if(bank){
+    bank.classList.add('dl-shared-bank');
+    const title=document.createElement('div');title.className='dl-shared-bank-title';title.textContent='WORD BANK';
+    bank.before(title);
+    const controls=document.createElement('div');controls.className='dl-build-edit-controls';
+    controls.innerHTML='<button type="button" class="secondary" onclick="dlUnifiedUndo()">↶ Undo last word</button><button type="button" class="secondary" onclick="dlUnifiedReset()">↺ Start over</button>';
+    bank.after(controls);
+   }
+   card.querySelector('button[onclick="gameRender()"]')?.remove();
+   const originalCheck=card.querySelector('button[onclick="gameCheckBuild()"]');
+   if(originalCheck){originalCheck.textContent='Check translation';originalCheck.classList.add('dl-build-check');}
+  }
+  const check=card.querySelector('button[onclick="gameCheckBuild()"]');if(check){check.textContent='Check translation';check.classList.add('dl-build-check');}
    if(bank){
     const controls=document.createElement('div');controls.className='dl-build-edit-controls';
     controls.innerHTML='<button type="button" class="secondary" onclick="dlUnifiedUndo()">↶ Undo last word</button><button type="button" class="secondary" onclick="dlUnifiedReset()">↺ Start over</button>';
@@ -92,6 +104,6 @@
  window.dlUnifiedReset=function(){
   const g=gameSession;if(!g||g.answered)return;
   g.picked=[];document.querySelectorAll('#gameBank button').forEach(b=>b.disabled=false);
-  const built=document.getElementById('gameBuilt');if(built)built.textContent='Tap the words below ↓';
+  const built=document.getElementById('gameBuilt');if(built)built.textContent='Tap the German words below';
  };
 })();

@@ -1361,3 +1361,17 @@ html body .app-header .menu-toggle,html body.dl-header-home .app-header .menu-to
 #app .dl-build-shared-layout .dl-shared-bank-title{margin:10px 0 8px!important}
 #app .dl-build-shared-layout #gameBank{margin:0 0 10px!important}
 #app .dl-build-shared-layout .dl-build-edit-controls{margin:8px 0 0!important}
+
+/* Shared English/German builder geometry; German markup uses existing game IDs. */
+#app .dl-build-shared-layout{display:block!important}
+#app .dl-build-shared-layout .dl-build-instruction{margin:4px 0 8px!important}
+#app .dl-build-shared-layout .dl-build-prompt{padding:14px 16px!important;margin:8px 0 12px!important;border-radius:16px!important}
+#app .dl-build-shared-layout #gameBuilt{min-height:58px!important;height:auto!important;display:block!important;padding:10px 14px!important;margin:8px 0 12px!important;border-radius:14px!important;font-size:1rem!important;line-height:1.35!important}
+#app .dl-build-shared-layout #gameBank{display:flex!important;flex-wrap:wrap!important;justify-content:flex-start!important;gap:9px!important;padding:14px 10px 18px!important;border:1px solid #54877f!important;border-radius:16px!important;background:rgba(28,77,76,.25)!important;margin:8px 0 12px!important}
+#app .dl-build-shared-layout #gameBank button{width:auto!important;min-width:65px!important;min-height:48px!important;padding:10px 13px!important;margin:0!important;border-radius:12px!important;background:#3a5570!important;border:1px solid #6a859c!important}
+#app .dl-build-shared-layout .dl-shared-bank-title{font-size:.8rem!important;font-weight:800!important;letter-spacing:.12em!important;color:#9fdacf!important;margin:10px 0 6px!important}
+#app .dl-build-shared-layout .dl-build-edit-controls{display:flex!important;gap:10px!important;flex-wrap:wrap!important;padding:12px 0 20px!important;margin:0!important;border-top:1px solid #456779!important}
+#app .dl-build-shared-layout .dl-build-edit-controls button{flex:1 1 130px!important;min-height:48px!important;margin:0!important;padding:10px!important}
+/* German village character, subtle half-timber detail and mountain silhouette. */
+html body.dl-header-home .app-header::before{background-image:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20320%20170%22%3E%3Cpath%20fill%3D%22%232c5b60%22%20opacity%3D%22.55%22%20d%3D%22M0%20120L52%2068l42%2038%2052-69%2054%2064%2045-45%2075%2068v46H0z%22%2F%3E%3Cpath%20fill%3D%22%23396e66%22%20d%3D%22M0%20170v-37l22-49%2022%2049%2022-67%2022%2067%2022-43%2022%2043%2022-63%2022%2063%2022-47%2022%2047%2022-70%2022%2070%2022-40%2022%2040%2022-55%2022%2055%2022-35%2022%2035v37z%22%2F%3E%3Cpath%20fill%3D%22%2382b49b%22%20d%3D%22M113%20170v-49l47-36%2047%2036v49z%22%2F%3E%3Cpath%20fill%3D%22%23396e66%22%20stroke%3D%22%23396e66%22%20stroke-width%3D%225%22%20d%3D%22M137%20112v58m45-58v58m-69-23h94m-70-35l45%2035m0-35l-45%2035%22%2F%3E%3C%2Fsvg%3E")!important}
+html body.dl-header-home .app-header .dl-restored-wordmark h1{font-size:clamp(1.85rem,7vw,2.55rem)!important;letter-spacing:.01em!important}
