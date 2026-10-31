@@ -18,6 +18,10 @@
  .dl-sentence-english-style .dl-sentence-edit-actions{display:flex!important;gap:12px!important;flex-wrap:wrap!important}
  .dl-sentence-english-style .dl-sentence-edit-actions button{flex:1!important;min-width:125px!important;background:#344a65!important;color:#fff!important;border-radius:15px!important;padding:12px 8px!important;font-size:.95rem!important}
  .dl-sentence-english-style #sentenceFeedback:empty{display:none!important}
+ .dl-sentence-english-style .dl-sentence-completed{display:none!important}
+ .dl-sentence-english-style #sentenceFeedback.dl-sentence-feedback-visible{display:block!important;background:#173b3b!important;border:2px solid #70c9c0!important;border-radius:20px!important;padding:18px!important;margin:14px 0!important;color:#e9f6f3!important}
+ .dl-sentence-english-style #sentenceFeedback .dl-sentence-result{font-size:1.15rem!important}
+ .dl-sentence-english-style #sentenceFeedback .dl-sentence-result strong{display:block!important;font-size:1.35rem!important;color:#91e0ad!important;margin-bottom:8px!important}
  .dl-build-shared-layout.dl-german-english-layout{background:#172c3b!important;color:#edf4f5!important;border-radius:24px!important}
  .dl-build-shared-layout.dl-german-english-layout .dl-build-instruction{font-size:1.08rem!important;color:#e0e9eb!important;margin:16px 0 12px!important}
  .dl-build-shared-layout.dl-german-english-layout .dl-build-prompt{display:block!important;background:#203f4b!important;color:#fff!important;border:3px solid #70c9c0!important;border-radius:22px!important;padding:25px 22px!important;font-size:1.45rem!important;line-height:1.4!important;margin:12px 0 20px!important}
@@ -127,6 +131,8 @@
   if(action&&action.dataset.stage!==(answered?'next':'check')){action.dataset.stage=answered?'next':'check';action.textContent=answered?'Next':'Check';action.onclick=answered?()=>gameNext():()=>dlUnifiedCheck();}
   card.classList.toggle('dl-build-answered',answered);
   if(answered){
+   /* Keep feedback directly below the completed answer; remove the spent bank. */
+   card.querySelectorAll('#gameBank,.reverse-wordbank,.dl-reverse-wordbank,.dl-shared-bank-title,.dl-build-edit-controls').forEach(el=>el.remove());
    document.getElementById('dlReverseNextBar')?.remove();
    document.body.classList.remove('dl-reverse-answered');
    const feedback=card.querySelector('#gameFeedback');
