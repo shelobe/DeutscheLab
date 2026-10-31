@@ -128,6 +128,15 @@ function dlRenderSentenceFeedback(feedback,ok,correct,hint){
  const detail=ok?'':`<p>Correct: ${safeText(correct)}</p>${hint?`<p class="dl-sentence-hint"><b>Why?</b> ${safeText(hint)}</p>`:''}`;
  feedback.innerHTML=`<div class="dl-sentence-result"><div class="dl-sentence-character"><img src="./${image}" alt="" onerror="this.style.display='none'"><strong>${ok?'Well done!':'Not quite.'}</strong></div>${detail}</div>`;
  feedback.classList.add('dl-sentence-feedback-visible');
+ // Keep the established feedback banner compact even when legacy global image
+ // and character styles have higher specificity in the German game screen.
+ const banner=feedback.querySelector('.dl-sentence-character');
+ const portrait=banner?.querySelector('img');
+ const title=banner?.querySelector('strong');
+ const set=(el,styles)=>{if(!el)return;for(const [key,value] of Object.entries(styles))el.style.setProperty(key,value,'important');};
+ set(banner,{'display':'flex','flex-direction':'row','align-items':'center','justify-content':'flex-start','gap':'12px','height':'132px','min-height':'132px','max-height':'132px','width':'100%','max-width':'100%','overflow':'hidden','box-sizing':'border-box','padding':'0 12px 0 0','border-radius':'16px','background':ok?'#21624f':'#62414a','border':'1px solid '+(ok?'#70c9c0':'#b98793')});
+ set(portrait,{'display':'block','position':'static','float':'none','flex':'0 0 42%','width':'42%','min-width':'0','max-width':'42%','height':'130px','min-height':'0','max-height':'130px','object-fit':'contain','object-position':'center bottom','margin':'0','padding':'0','transform':'none'});
+ set(title,{'display':'block','position':'static','flex':'1 1 auto','min-width':'0','width':'auto','font-size':'1.4rem','line-height':'1.2','color':'#fff','margin':'0','padding':'0','text-align':'left'});
 }
 function chooseSentenceWord(i,w){
  if(sentenceChosenIds.includes(i)||document.getElementById('sentenceFeedback')?.innerHTML)return;
