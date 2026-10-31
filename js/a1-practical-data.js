@@ -356,6 +356,14 @@ window.DL_A1_PRACTICAL_PACKS = {
     ]
    ],
    [
+    "What does woher mean?",
+    [
+     "Woher? — Where … from?",
+     "Woher kommst du? asks where you are from, rather than where you live.",
+     "For now, learn this as a complete question. A later lesson explains question words and how to build your own questions."
+    ]
+   ],
+   [
     "Where you live versus where you are from",
     "Ich komme aus Kanada, aber ich wohne in Berlin. — I come from Canada, but I live in Berlin.\n\nYour origin and your current home can be different. Aber means but."
    ],

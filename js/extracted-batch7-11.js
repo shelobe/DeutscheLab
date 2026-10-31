@@ -12,11 +12,12 @@
   const reviewAction=root.querySelector('.dl-review-controls [data-dl-review-action]');
   const candidates=Array.from(root.querySelectorAll('button')).filter(b=>{
    const name=(b.textContent||'').trim().replace(/^[^\p{L}]+/u,'').trim();
-   if(!label.test(name)||b.disabled||b.hidden||b.closest('[hidden],.findit-room-choices,.dashboard-primary,.dashboard-shortcuts,nav'))return false;
+   const checking=/^check answer$/i.test(name);
+   if((!label.test(name)&&!checking)||(b.disabled&&!checking)||b.hidden||b.closest('[hidden],.findit-room-choices,.dashboard-primary,.dashboard-shortcuts,nav'))return false;
    const box=b.getBoundingClientRect();return box.width>0&&box.height>0;
   });
   // Only pin an advance button in an active question/feedback screen, not a home menu.
-  const active=!!root.querySelector('#fullFeedback:not(:empty),#gameFeedback:not(:empty),#pictureFeedback:not(:empty),#moduleFeedback:not(:empty),#courseFeedback:not(:empty),#dl-result:not(:empty),#intensiveFeedback:not(:empty),#dialogue-feedback:not(:empty),.dl-flow-feedback:not(:empty),.picture-answer,.game-feedback,.lesson-screen-heading,#dl-sound-next');
+  const active=candidates.some(b=>/^check answer$/i.test(b.textContent.trim()))||!!root.querySelector('#fullFeedback:not(:empty),#gameFeedback:not(:empty),#pictureFeedback:not(:empty),#moduleFeedback:not(:empty),#courseFeedback:not(:empty),#dl-result:not(:empty),#intensiveFeedback:not(:empty),#dialogue-feedback:not(:empty),.dl-flow-feedback:not(:empty),.picture-answer,.game-feedback,.lesson-screen-heading,#dl-sound-next');
   target=reviewAction||(active?candidates[candidates.length-1]||null:null);
   if(!target||!target.isConnected){target=null;bar.style.display='none';document.body.classList.remove('dl-has-fixed-next');}
   root.querySelectorAll('button.dl-hidden-original-next').forEach(b=>b.classList.remove('dl-hidden-original-next'));
