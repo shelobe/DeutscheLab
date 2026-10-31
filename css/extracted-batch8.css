@@ -1270,3 +1270,12 @@ html body .app-header .menu-toggle,html body.dl-compact-header .app-header .menu
 #app .dl-pronoun-guide section:last-child h3{color:#b8fff0;font-weight:800;font-size:1.2rem}
 #app .dl-pronoun-guide section:last-child p{font-weight:600}
 
+
+/* Sentence builder: in-flow feedback, compact help and word editing controls. */
+#app #sentenceFeedback:not(:empty){position:static!important;top:auto!important;z-index:auto!important;box-shadow:none!important;margin:12px 0!important;padding:12px 14px!important}
+#app #sentenceFeedback:not(:empty) p{font-size:clamp(1.1rem,4.4vw,1.45rem)!important;line-height:1.4!important;margin:0!important}
+#app #sentenceBuilt{overflow-wrap:anywhere;min-height:52px}
+#app .dl-sentence-edit-actions{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
+#app .dl-sentence-edit-actions button{flex:1 1 130px;min-width:0;margin:0}
+#app #dlSentenceHelp:not([hidden]){position:static!important;max-height:none!important;overflow:visible!important;font-weight:400!important}
+#app #dlSentenceHelp:not([hidden]) p{font-size:clamp(.95rem,3.7vw,1.1rem)!important;line-height:1.5!important;font-weight:400!important}

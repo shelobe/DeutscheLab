@@ -40,14 +40,14 @@ function sentencePractice(){
  const nextAction=sentenceRound?'advanceSentenceRound()':'sentencePractice()';
  const backAction=sentenceRound?'exitSentenceRound()':'practiceHub()';
  const counter=sentenceRound?`<p class="muted">Sentence ${sentenceRound.idx+1} of ${sentenceRound.seq.length}</p>`:'';
- app.innerHTML=illustratedHero('Build a sentence','Arrange the German words below.','village','hund.png')+`<section class="card">${counter}<h3>Tap the words in the correct order</h3><div class="dl-sentence-prompt"><span>Translate into German</span><strong>${safeText(pair[1])}</strong></div><div id="sentenceBuilt" class="bubble">Tap words below…</div><div id="sentenceFeedback" aria-live="assertive"></div><div id="sentenceTiles" class="dl-sentence-bank">${shuffled.map(x=>`<button class="secondary" id="word${x.i}" onclick="chooseSentenceWord(${x.i},${JSON.stringify(x.w).replace(/"/g,'&quot;')})">${safeText(x.w.replace(/[.!?]+$/,''))}</button>`).join('')}</div><button onclick="${nextAction}">Skip</button><button class="secondary" onclick="dlSentenceHelpToggle()">Show grammar help</button><div id="dlSentenceHelp" class="explain-box" hidden></div></section><div id="dl-sentence-next-dock"><button type="button" class="secondary" onclick="${backAction}">Back</button><button type="button" id="dl-sentence-next-button" onclick="${nextAction}" hidden>Next sentence</button></div>`;
+ app.innerHTML=illustratedHero('Build a sentence','Arrange the German words below.','village','hund.png')+`<section class="card">${counter}<h3>Tap the words in the correct order</h3><div class="dl-sentence-prompt"><span>Translate into German</span><strong>${safeText(pair[1])}</strong></div><div id="sentenceBuilt" class="bubble">Tap words below…</div><div id="sentenceFeedback" aria-live="assertive"></div><div id="sentenceTiles" class="dl-sentence-bank">${shuffled.map(x=>`<button class="secondary" id="word${x.i}" onclick="chooseSentenceWord(${x.i},${JSON.stringify(x.w).replace(/"/g,'&quot;')})">${safeText(x.w.replace(/[.!?]+$/,''))}</button>`).join('')}</div><div class="dl-sentence-edit-actions"><button type="button" class="secondary" onclick="undoSentenceWord()">Undo Last Word</button><button type="button" class="secondary" onclick="resetSentenceWords()">Start Over</button></div><button class="secondary" onclick="dlSentenceHelpToggle()">Show grammar help</button><div id="dlSentenceHelp" class="explain-box" hidden></div></section><div id="dl-sentence-next-dock"><button type="button" class="secondary" onclick="${backAction}">Back</button><button type="button" id="dl-sentence-next-button" onclick="${nextAction}" hidden>Next sentence</button></div>`;
  window.scrollTo(0,0);
 }
 function advanceSentenceRound(){if(sentenceRound)sentenceRound.idx++;sentencePractice()}
 function exitSentenceRound(){sentenceRound=null;practiceHub()}
 function updateSentenceBuilt(){
  const el=document.getElementById('sentenceBuilt');if(!el)return;
- el.innerHTML=sentenceChosen.length?sentenceChosen.map((w,n)=>'<button type="button" class="secondary" style="display:inline-block;margin:3px;padding:8px 12px" onclick="removeSentenceWord('+n+')" aria-label="Remove '+safeText(w)+'">'+safeText(w.replace(/[.!?]+$/,''))+' ×</button>').join(' '):'Tap words below…';
+ el.textContent=sentenceChosen.length?sentenceChosen.map(w=>w.replace(/[.!?]+$/,'')).join(' '):'Tap words below…';
 }
 function removeSentenceWord(n){
  if(document.getElementById('sentenceFeedback')?.innerHTML)return;
@@ -55,6 +55,7 @@ function removeSentenceWord(n){
  const tile=document.getElementById('word'+id);if(tile)tile.disabled=false;
  updateSentenceBuilt();
 }
+function undoSentenceWord(){if(sentenceChosen.length)removeSentenceWord(sentenceChosen.length-1)}
 function resetSentenceWords(){
  if(document.getElementById('sentenceFeedback')?.innerHTML)return;
  sentenceChosen=[];sentenceChosenIds=[];
