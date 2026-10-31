@@ -18,29 +18,40 @@
   {sound:'ö',word:'schön',meaning:'beautiful',example:'hören',detail:'Shape your tongue for an eh sound while rounding your lips. It is distinct from o.'}
  ];
  let soundIndex=0;
+ const attempted=new Set();
+ let cancelCurrentPronunciation=()=>{};
+ function clearPronunciationScreen(){
+  cancelCurrentPronunciation();
+  document.querySelectorAll('body > .dl-sound-navigation').forEach(nav=>nav.remove());
+ }
+ function startPronunciationPractice(){attempted.clear();dlPronunciationHome(0)}
  const introStyle=document.createElement('style');
  introStyle.textContent='.dl-pronunciation-intro{padding-bottom:100px!important}.dl-pronunciation-intro #dl-pron-begin{position:fixed;bottom:max(12px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);width:min(calc(100vw - 48px),640px);z-index:1000;margin:0;box-shadow:0 8px 30px rgba(0,0,0,.45)}';
  document.head.append(introStyle);
  window.dlPronunciationIntro=function(){
+  clearPronunciationScreen();
   const root=document.getElementById('app');
-  root.innerHTML='<div class="dl-flow"><div class="dl-flow-top"><button class="secondary" id="dl-pron-back">Back</button><div class="dl-flow-progress"><span style="width:0%"></span></div></div><section class="dl-flow-card dl-pronunciation-intro"><div class="dl-flow-label">A1 · German pronunciation</div><h2>What you\'ll learn</h2><div class="dl-pronoun-guide dl-lesson-guide"><section><h3>German sounds</h3><p>German letters and letter combinations sometimes sound different from English. Learn 15 important sounds and practice recognizing and saying them.</p></section><section><h3>Hear the differences</h3><p>Compare <strong>ei</strong> and <strong>ie</strong>, learn combinations such as <strong>sch</strong> and <strong>ch</strong>, and practice familiar German words.</p></section><section class="dl-lesson-remember"><h3>Remember EI and IE</h3><p>The second letter gives you the sound of its <strong>English letter name</strong>.</p><p><strong>eI → “eye”</strong>, like English <strong>I</strong>: <em>mein</em>, <em>Wein</em>.</p><p><strong>iE → “ee”</strong>, like English <strong>E</strong>: <em>Liebe</em>, <em>Biene</em>.</p></section><section><h3>How to practice</h3><p>Listen to each example, then tap Speak now to try the word. Hear it and Hear it slowly let you listen again. Use Next sound to move through all 15 sounds.</p></section><section class="dl-lesson-remember"><h3>Remember</h3><p>Several letters can represent one sound. Listen and repeat the complete example word. You can retry a sound before moving on.</p></section></div><button class="dl-flow-action" id="dl-pron-begin">Start practice</button></section></div>';
-  root.querySelector('#dl-pron-begin').onclick=()=>dlPronunciationHome(0);
+  root.innerHTML='<div class="dl-flow"><div class="dl-flow-top"><button class="secondary" id="dl-pron-back">Back</button><div class="dl-flow-progress"><span style="width:0%"></span></div></div><section class="dl-flow-card dl-pronunciation-intro"><div class="dl-flow-label">A1 · German pronunciation</div><h2>What you\'ll learn</h2><div class="dl-pronoun-guide dl-lesson-guide"><section><h3>German sounds</h3><p>German letters and letter combinations sometimes sound different from English. Learn 15 important sounds and practice recognizing and saying them.</p></section><section><h3>Hear the differences</h3><p>Compare <strong>ei</strong> and <strong>ie</strong>, learn combinations such as <strong>sch</strong> and <strong>ch</strong>, and practice familiar German words.</p></section><section class="dl-lesson-remember"><h3>Remember EI and IE</h3><p>The second letter gives you the sound of its <strong>English letter name</strong>.</p><p><strong>eI → “eye”</strong>, like English <strong>I</strong>: <em>mein</em>, <em>Wein</em>.</p><p><strong>iE → “ee”</strong>, like English <strong>E</strong>: <em>Liebe</em>, <em>Biene</em>.</p></section><section><h3>How to practice</h3><p>Listen to each example, then tap Speak now to try the word. Hear it and Hear it slowly let you listen again. Next sound unlocks after you attempt the word. Practice all 15 sounds.</p></section><section class="dl-lesson-remember"><h3>Remember</h3><p>Several letters can represent one sound. Listen and repeat the complete example word. You can retry a sound before moving on.</p></section></div><button class="dl-flow-action" id="dl-pron-begin">Start practice</button></section></div>';
+  root.querySelector('#dl-pron-begin').onclick=startPronunciationPractice;
   root.querySelector('#dl-pron-back').onclick=()=>curriculumView('A1');
   window.scrollTo(0,0);
  };
  window.dlPronunciationComplete=function(){
+  if(attempted.size!==drills.length)return;
   ensureLearning();state.learning.pronunciationLesson3Completed=true;save();
+  clearPronunciationScreen();
   const root=document.getElementById('app');
   root.innerHTML='<section class="card dl-pronunciation"><h2>Lesson 3 complete!</h2><p>Geschafft! You completed all '+drills.length+' German sounds. Lesson 3 is now marked completed in Module 1.</p><div class="dl-sound-navigation"><button class="secondary" id="dl-pron-repeat">Review sounds</button><button id="dl-pron-home">Return to Module 1</button></div></section>';
-  root.querySelector('#dl-pron-repeat').onclick=()=>dlPronunciationHome(0);
+  root.querySelector('#dl-pron-repeat').onclick=startPronunciationPractice;
   root.querySelector('#dl-pron-home').onclick=()=>curriculumView('A1');
   window.scrollTo(0,0);
  };
  window.dlPronunciationHome=function(index){
   soundIndex=Math.max(0,Math.min(drills.length-1,Number(index)||0));
   const d=drills[soundIndex];
+  clearPronunciationScreen();
   const root=document.getElementById('app');
-  root.innerHTML='<section class="card dl-pronunciation"><p class="muted">Pronunciation · '+(soundIndex+1)+' of '+drills.length+'</p><h2>German sounds</h2><div class="dl-sound-focus"><strong></strong><p class="dl-sound-detail"></p><p>Another example: <b class="dl-sound-example-word"></b></p><button class="secondary" id="dl-sound-example-play">🔊 Listen to example</button></div><h3 class="dl-pronunciation-word"></h3><p class="dl-pronunciation-meaning"></p><button id="dl-sound-speak">🎤 Speak now</button><p id="dl-sound-status" aria-live="polite">Listen, then practice saying the word.</p><div class="dl-sound-listening"><button class="secondary" id="dl-sound-hear">🔊 Hear it</button><button class="secondary" id="dl-sound-slow">🐢 Hear it slowly</button></div><div class="dl-sound-navigation"><button class="secondary" id="dl-sound-prev">Previous</button><button id="dl-sound-next">Next sound</button></div></section>';
+  root.innerHTML='<section class="card dl-pronunciation"><p class="muted">Pronunciation · '+(soundIndex+1)+' of '+drills.length+'</p><h2>German sounds</h2><div class="dl-sound-focus"><strong></strong><p class="dl-sound-detail"></p><p>Another example: <b class="dl-sound-example-word"></b></p><button class="secondary" id="dl-sound-example-play">🔊 Listen to example</button></div><h3 class="dl-pronunciation-word"></h3><p class="dl-pronunciation-meaning"></p><button id="dl-sound-speak">🎤 Speak now</button><p id="dl-sound-status" aria-live="polite">Tap Speak now and attempt the word to unlock Next sound.</p><button class="secondary" id="dl-sound-fallback" hidden>Continue without speech recognition</button><div class="dl-sound-listening"><button class="secondary" id="dl-sound-hear">🔊 Hear it</button><button class="secondary" id="dl-sound-slow">🐢 Hear it slowly</button></div><div class="dl-sound-navigation"><button class="secondary" id="dl-sound-prev">Previous</button><button id="dl-sound-next">Next sound</button></div></section>';
   root.querySelector('.dl-sound-focus strong').textContent='Sound focus: '+d.sound;
   root.querySelector('.dl-sound-detail').textContent=d.detail;
   root.querySelector('.dl-sound-example-word').textContent=d.example;
@@ -52,7 +63,14 @@
   root.querySelector('#dl-sound-prev').disabled=soundIndex===0;
   root.querySelector('#dl-sound-prev').onclick=()=>dlPronunciationHome(soundIndex-1);
   root.querySelector('#dl-sound-next').textContent=soundIndex===drills.length-1?'Finish pronunciation':'Next sound';
-  root.querySelector('#dl-sound-next').onclick=()=>soundIndex===drills.length-1?dlPronunciationComplete():dlPronunciationHome(soundIndex+1);
+  const currentIndex=soundIndex;
+  const nextButton=root.querySelector('#dl-sound-next');
+  nextButton.disabled=!attempted.has(currentIndex);
+  nextButton.onclick=()=>{
+   if(!attempted.has(currentIndex))return;
+   if(currentIndex===drills.length-1)dlPronunciationComplete();
+   else dlPronunciationHome(currentIndex+1);
+  };
   let activePronunciationRecognition=null;
   let pronunciationTimer=null;
   let pronunciationReceivedResult=false;
@@ -62,27 +80,42 @@
    if(activePronunciationRecognition){const r=activePronunciationRecognition;activePronunciationRecognition=null;try{r.abort()}catch(e){}}
   }
   const speakButton=root.querySelector('#dl-sound-speak');
+  cancelCurrentPronunciation=stopPronunciation;
   const status=root.querySelector('#dl-sound-status');
+  const fallback=root.querySelector('#dl-sound-fallback');
+  function unlockAdvance(){attempted.add(currentIndex);nextButton.disabled=false;fallback.hidden=true}
+  function unavailable(message){
+   if(!status.isConnected)return;
+   status.textContent=message+' Say the word aloud, then choose Continue without speech recognition, or retry Speak now.';
+   fallback.hidden=false;
+  }
+  fallback.onclick=()=>{
+   stopPronunciation();unlockAdvance();speakButton.textContent='🎤 Speak now';
+   status.textContent='Continuing without speech recognition. Your pronunciation was not checked.';
+  };
+  if(attempted.has(currentIndex))status.textContent='You have already attempted this sound. Practice again or continue.';
+  if(!(window.SpeechRecognition||window.webkitSpeechRecognition))unavailable('Speech recognition is unavailable in this browser.');
   speakButton.onclick=()=>{
    if(activePronunciationRecognition){
     const r=activePronunciationRecognition;
     clearTimeout(pronunciationTimer);pronunciationTimer=null;
     status.textContent='Processing speech…';pronunciationEnding=true;
     try{r.stop()}catch(e){stopPronunciation();status.textContent='No speech captured. Tap Speak now to retry.'}
-    pronunciationTimer=setTimeout(()=>{if(activePronunciationRecognition===r){stopPronunciation();status.textContent='No speech result received. Tap Speak now to retry.';speakButton.textContent='🎤 Speak now'}},4500);
+    pronunciationTimer=setTimeout(()=>{if(activePronunciationRecognition===r){stopPronunciation();unavailable('Speech recognition did not return a result.');speakButton.textContent='🎤 Speak now'}},4500);
     return;
    }
    const Rec=window.SpeechRecognition||window.webkitSpeechRecognition;
-   if(!Rec){status.textContent='Speech recognition is unavailable in this browser.';return}
+   if(!Rec){unavailable('Speech recognition is unavailable in this browser.');return}
    const rec=new Rec();activePronunciationRecognition=rec;rec.lang='de-DE';rec.continuous=false;rec.interimResults=false;rec.maxAlternatives=3;
    pronunciationReceivedResult=false;pronunciationEnding=false;
    speakButton.textContent='⏹ Stop listening';
    status.textContent='Listening…';
-   pronunciationTimer=setTimeout(()=>{if(activePronunciationRecognition===rec){status.textContent='Processing speech…';pronunciationEnding=true;try{rec.stop()}catch(e){}pronunciationTimer=setTimeout(()=>{if(activePronunciationRecognition===rec){stopPronunciation();status.textContent='No speech result received. Tap Speak now to retry.';speakButton.textContent='🎤 Speak now'}},2500)}},10000);
+   pronunciationTimer=setTimeout(()=>{if(activePronunciationRecognition===rec){status.textContent='Processing speech…';pronunciationEnding=true;try{rec.stop()}catch(e){}pronunciationTimer=setTimeout(()=>{if(activePronunciationRecognition===rec){stopPronunciation();unavailable('Speech recognition did not return a result.');speakButton.textContent='🎤 Speak now'}},2500)}},10000);
    rec.onresult=e=>{
     if(activePronunciationRecognition!==rec||!status.isConnected)return;
-    pronunciationReceivedResult=true;
     const words=Array.from(e.results[0]||[]).map(x=>x.transcript.trim().toLocaleLowerCase('de-DE').replace(/[.!?]/g,''));
+    if(!words.some(Boolean)){stopPronunciation();speakButton.textContent='🎤 Speak now';status.textContent='No speech detected. Tap Speak now and try saying the word.';return}
+    pronunciationReceivedResult=true;unlockAdvance();
     const expected=d.word.toLocaleLowerCase('de-DE');
     const normalized=words.map(w=>w.replace(/ß/g,'ss'));const target=expected.replace(/ß/g,'ss');
     const ok=normalized.includes(target);
@@ -98,9 +131,17 @@
      },1100);
     }
    };
-   rec.onerror=e=>{if(activePronunciationRecognition!==rec)return;stopPronunciation();if(status.isConnected)status.textContent=e.error==='no-speech'?'No speech detected by the browser. Try again or use Next sound to continue.':e.error==='network'?'Speech recognition service unavailable. You can continue with Next sound.':'Microphone: '+e.error+'. Try again.';if(speakButton.isConnected)speakButton.textContent='🎤 Speak now'};
-   rec.onend=()=>{if(activePronunciationRecognition!==rec)return;if(pronunciationEnding){pronunciationTimer=setTimeout(()=>{if(activePronunciationRecognition!==rec)return;stopPronunciation();if(status.isConnected)status.textContent='No speech result returned. Use Next sound to continue or retry.';if(speakButton.isConnected)speakButton.textContent='🎤 Speak now'},3500);return;}stopPronunciation();if(status.isConnected&&!pronunciationReceivedResult)status.textContent='No speech detected by the browser. Try again or use Next sound to continue.';if(speakButton.isConnected)speakButton.textContent='🎤 Speak now'};
-   try{rec.start()}catch(e){stopPronunciation();status.textContent='Unable to start microphone: '+e.message;speakButton.textContent='🎤 Speak now'}
+   rec.onerror=e=>{
+    if(activePronunciationRecognition!==rec)return;
+    stopPronunciation();
+    if(status.isConnected){
+     if(e.error==='no-speech')status.textContent='No speech detected. Tap Speak now and try saying the word.';
+     else if(e.error!=='aborted')unavailable(e.error==='network'?'Speech recognition service unavailable.':'Microphone unavailable ('+e.error+').');
+    }
+    if(speakButton.isConnected)speakButton.textContent='🎤 Speak now';
+   };
+   rec.onend=()=>{if(activePronunciationRecognition!==rec)return;if(pronunciationEnding){pronunciationTimer=setTimeout(()=>{if(activePronunciationRecognition!==rec)return;stopPronunciation();if(status.isConnected)unavailable('Speech recognition did not return a result.');if(speakButton.isConnected)speakButton.textContent='🎤 Speak now'},3500);return;}stopPronunciation();if(status.isConnected&&!pronunciationReceivedResult)status.textContent='No speech detected. Tap Speak now and try saying the word.';if(speakButton.isConnected)speakButton.textContent='🎤 Speak now'};
+   try{rec.start()}catch(e){stopPronunciation();unavailable('Unable to start microphone: '+e.message);speakButton.textContent='🎤 Speak now'}
   };
   window.scrollTo(0,0);
  };
