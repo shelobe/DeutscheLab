@@ -4,8 +4,15 @@
  const previousPracticeHub=practiceHub;
  practiceHub=function(){
   previousPracticeHub();
-  const tile=[...app.querySelectorAll('button')].find(b=>/Build sentences/i.test(b.textContent));
-  if(tile){tile.setAttribute('onclick','dlBuildModeMenu()');tile.innerHTML='🧩<br>Build a Sentence';}
+  const buttons=[...app.querySelectorAll('button')];
+  const build=buttons.find(b=>/Build sentences?/i.test(b.textContent));
+  const english=buttons.find(b=>/Build in English/i.test(b.textContent));
+  if(build){
+   build.setAttribute('onclick','dlBuildModeMenu()');
+   build.innerHTML='<span class="tile-icon" aria-hidden="true">🧩</span><span class="tile-title">Build a Sentence</span><small>Choose German or English</small>';
+   build.classList.add('dl-build-unified-tile');
+  }
+  if(english&&english!==build)english.remove();
  };
  window.dlBuildModeMenu=function(){
   app.innerHTML=illustratedHero('Build a Sentence','Choose the language you want to build.','village','hund.png')+
