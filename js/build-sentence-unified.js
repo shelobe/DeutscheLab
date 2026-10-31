@@ -4,6 +4,10 @@
 
  const sharedStyle=document.createElement('style');
  sharedStyle.textContent=`
+ #dl-sentence-next-dock:has(#dl-sentence-next-button){display:flex!important;align-items:stretch!important;gap:14px!important;justify-content:center!important;padding:12px 20px calc(12px + env(safe-area-inset-bottom,0px))!important}
+ #dl-sentence-next-dock #dl-sentence-next-button{display:block!important;flex:2!important;min-width:0!important;background:#65c9bd!important;color:#102d35!important;border:0!important;border-radius:14px!important;font-weight:700!important;min-height:56px!important}
+ #dl-sentence-next-dock button.secondary{flex:1!important;min-width:0!important;min-height:56px!important;margin:0!important}
+ .dl-sentence-english-style .game-progress{margin:14px 0 18px!important}
  .dl-sentence-english-style{background:#172c3b!important;color:#edf4f5!important;border-radius:24px!important;padding:24px 20px!important}
  .dl-sentence-english-style .dl-sentence-instruction{color:#eaf1f3!important;font-size:1.15rem!important;margin:10px 0 14px!important}
  .dl-sentence-english-style .dl-sentence-prompt{background:#203f4b!important;color:#fff!important;border:3px solid #70c9c0!important;border-radius:22px!important;padding:25px 22px!important;margin:0 0 20px!important;box-sizing:border-box!important}
