@@ -26,6 +26,13 @@
  .dl-sentence-english-style.dl-sentence-answered #sentenceFeedback .explain-box,
  .dl-sentence-english-style.dl-sentence-answered #sentenceFeedback .sentence-explanation{display:none!important}
  .dl-sentence-english-style #sentenceFeedback .dl-sentence-result strong{display:block!important;font-size:1.35rem!important;color:#91e0ad!important;margin-bottom:8px!important}
+ .dl-build-character-feedback{background:#1d4c49;border-radius:20px;padding:18px;margin:12px 0;color:#f1faf7}
+ .dl-build-character-banner{display:flex;align-items:center;gap:14px;background:#21624f;border:1px solid #73cbb9;border-radius:18px;min-height:120px;overflow:hidden}
+ .dl-build-character-banner img{display:block;width:42%;max-width:190px;height:140px;object-fit:contain;object-position:center bottom;align-self:flex-end}
+ .dl-build-character-banner strong{font-size:clamp(1.2rem,5vw,1.65rem);line-height:1.2;color:#fff;flex:1}
+ .dl-build-character-feedback p{margin:12px 2px 0;font-size:1rem;line-height:1.45}
+ .dl-build-character-feedback .dl-build-hint{font-size:.94rem;font-weight:400}
+ .dl-build-answered #gameFeedback{padding:0!important;border:0!important;background:transparent!important}
  .dl-build-shared-layout.dl-german-english-layout{background:#172c3b!important;color:#edf4f5!important;border-radius:24px!important}
  .dl-build-shared-layout.dl-german-english-layout .dl-build-instruction{font-size:1.08rem!important;color:#e0e9eb!important;margin:16px 0 12px!important}
  .dl-build-shared-layout.dl-german-english-layout .dl-build-prompt{display:block!important;background:#203f4b!important;color:#fff!important;border:3px solid #70c9c0!important;border-radius:22px!important;padding:25px 22px!important;font-size:1.45rem!important;line-height:1.4!important;margin:12px 0 20px!important}
@@ -160,7 +167,22 @@
   }
  }
  const previousMark=gameMark;
- gameMark=function(ok,answer){const result=previousMark(ok,answer);syncAnswered();return result;};
+ gameMark=function(ok,answer){
+  const result=previousMark(ok,answer);
+  if(gameSession?.mode==='build'&&gameSession.answered){
+   const feedback=document.getElementById('gameFeedback');
+   const item=gameSession.pool[gameSession.seq[gameSession.idx]];
+   if(feedback&&item){
+    const selected=(gameSession.picked||[]).map(i=>item.tokens[gameSession.order[i]]);
+    const hint=!ok&&typeof dlSentenceMistakeHint==='function'?dlSentenceMistakeHint(selected,item.tokens):'';
+    const image=ok?'feedback_correct_dog.png':'feedback_incorrect_cat.png';
+    const detail=ok?'':`<p class="dl-build-correct-answer">Correct: ${safeText(item.de)}</p>${hint?`<p class="dl-build-hint"><strong>Why?</strong> ${safeText(hint)}</p>`:''}`;
+    feedback.innerHTML=`<div class="dl-build-character-feedback"><div class="dl-build-character-banner"><img src="./${image}" alt="" /><strong>${ok?'Well done!':'Not quite!'}</strong></div>${detail}</div>`;
+   }
+  }
+  syncAnswered();
+  return result;
+ };
  const previousNext=gameNext;
  gameNext=function(){document.getElementById('dlReverseNextBar')?.remove();document.body.classList.remove('dl-reverse-answered');return previousNext();};
  /* Avoid observing our own feedback mutations: that previously caused an infinite update loop. */
