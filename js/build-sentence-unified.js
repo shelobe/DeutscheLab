@@ -4,6 +4,16 @@
 
  const sharedStyle=document.createElement('style');
  sharedStyle.textContent=`
+ .dl-sentence-english-style{background:#172c3b!important;color:#edf4f5!important;border-radius:24px!important;padding:24px 20px!important}
+ .dl-sentence-english-style .dl-sentence-instruction{color:#eaf1f3!important;font-size:1.15rem!important;margin:10px 0 14px!important}
+ .dl-sentence-english-style .dl-sentence-prompt{background:#203f4b!important;color:#fff!important;border:3px solid #70c9c0!important;border-radius:22px!important;padding:25px 22px!important;margin:0 0 20px!important;box-sizing:border-box!important}
+ .dl-sentence-english-style .dl-sentence-prompt strong{color:#fff!important;font-size:1.45rem!important;line-height:1.4!important}
+ .dl-sentence-english-style #sentenceBuilt{background:#152e3b!important;color:#edf5f5!important;border:3px dashed #8bc8c4!important;border-radius:22px!important;min-height:104px!important;padding:20px 22px!important;font-size:1.2rem!important;margin:0 0 20px!important;box-sizing:border-box!important}
+ .dl-sentence-english-style #sentenceTiles{background:#17353e!important;border:1px solid #547f83!important;border-radius:22px!important;padding:22px 16px!important;display:flex!important;flex-wrap:wrap!important;gap:12px!important;margin:0 0 20px!important}
+ .dl-sentence-english-style #sentenceTiles button{background:#395771!important;color:#fff!important;border:1px solid #65849b!important;border-radius:18px!important;box-shadow:none!important;min-height:62px!important;padding:14px 18px!important;font-size:1rem!important}
+ .dl-sentence-english-style .dl-sentence-edit-actions{display:flex!important;gap:12px!important;flex-wrap:wrap!important}
+ .dl-sentence-english-style .dl-sentence-edit-actions button{flex:1!important;min-width:125px!important;background:#344a65!important;color:#fff!important;border-radius:15px!important;padding:15px 10px!important}
+ .dl-sentence-english-style #sentenceFeedback:empty{display:none!important}
  .dl-build-shared-layout.dl-german-english-layout{background:#172c3b!important;color:#edf4f5!important;border-radius:24px!important}
  .dl-build-shared-layout.dl-german-english-layout .dl-build-instruction{font-size:1.08rem!important;color:#e0e9eb!important;margin:16px 0 12px!important}
  .dl-build-shared-layout.dl-german-english-layout .dl-build-prompt{display:block!important;background:#203f4b!important;color:#fff!important;border:3px solid #70c9c0!important;border-radius:22px!important;padding:25px 22px!important;font-size:1.45rem!important;line-height:1.4!important;margin:12px 0 20px!important}
