@@ -1304,3 +1304,7 @@ body:has(#app .dl-unified-build-dock) #dl-fixed-next{display:none!important}
 #app .dl-build-answered #gameFeedback{margin:12px 0!important}
 #app .dl-build-answered #gameFeedback button[onclick="gameNext()"]{display:none!important}
 #app .dl-build-answered .game-feedback{margin-top:0!important}
+
+/* Hide the legacy inline check button in either sentence mode. */
+#app .dl-build-check-original{display:none!important}
+#app .dl-build-answered .dl-build-edit-controls,#app .dl-build-answered .game-wordbank,#app .dl-build-answered #gameBank{display:none!important}
