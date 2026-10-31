@@ -48,3 +48,5 @@
 
 ## Review prompt hints
 - `js/extracted-batch5-8.js`: `reviewPromptWithoutHints` runs before rendering module-review questions at every level. Listening prompts use neutral wording; pronunciation labels remain in feedback. Review-only cleanup removes explanatory sound glosses, grammar labels and noun-ending instructions, while retaining semantic requirements such as “me”, “formal you”, or “she” needed to make a task unambiguous.
+
+- Module 1 review controls opt into the shared fixed footer through `data-dl-review-action`; typed/comparison/matching checks remain anchored even when disabled. Speech retains an anchored listening alternative without changing assessment or penalizing misrecognition. Matching uses two explicit grid columns. The answer wrapper removes submitted controls and banks before scrolling feedback into view and refreshing native Next. Regression checks execute the real shared dock as well as review handlers.

@@ -7,6 +7,9 @@
  function update(){
   const root=document.getElementById('app');
   if(!root||document.getElementById('dl-exit-overlay')){bar.style.display='none';document.body.classList.remove('dl-has-fixed-next');return}
+  // Restore originals before measuring; hidden dock targets otherwise lose their box.
+  root.querySelectorAll('button.dl-hidden-original-next').forEach(b=>b.classList.remove('dl-hidden-original-next'));
+  const reviewAction=root.querySelector('.dl-review-controls [data-dl-review-action]');
   const candidates=Array.from(root.querySelectorAll('button')).filter(b=>{
    const name=(b.textContent||'').trim().replace(/^[^\p{L}]+/u,'').trim();
    if(!label.test(name)||b.disabled||b.hidden||b.closest('[hidden],.findit-room-choices,.dashboard-primary,.dashboard-shortcuts,nav'))return false;
@@ -14,7 +17,7 @@
   });
   // Only pin an advance button in an active question/feedback screen, not a home menu.
   const active=!!root.querySelector('#fullFeedback:not(:empty),#gameFeedback:not(:empty),#pictureFeedback:not(:empty),#moduleFeedback:not(:empty),#courseFeedback:not(:empty),#dl-result:not(:empty),#intensiveFeedback:not(:empty),#dialogue-feedback:not(:empty),.dl-flow-feedback:not(:empty),.picture-answer,.game-feedback,.lesson-screen-heading,#dl-sound-next');
-  target=active?candidates[candidates.length-1]||null:null;
+  target=reviewAction||(active?candidates[candidates.length-1]||null:null);
   if(!target||!target.isConnected){target=null;bar.style.display='none';document.body.classList.remove('dl-has-fixed-next');}
   root.querySelectorAll('button.dl-hidden-original-next').forEach(b=>b.classList.remove('dl-hidden-original-next'));
   if(target)target.classList.add('dl-hidden-original-next');

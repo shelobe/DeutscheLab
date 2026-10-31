@@ -67,3 +67,5 @@ This document records established product decisions. The current `main` branch i
 
 ## Verification preference
 - Do not open or interact with the live app in a browser unless the user explicitly asks. Do not navigate lessons, capture browser screenshots or visually inspect the app independently. Make changes through GitHub and use code inspection, syntax checks and lightweight automated tests. The user will test the app and report issues. Keep other troubleshooting and code-quality checks in place.
+
+- New review formats must integrate the existing fixed action dock before and after checking, remove submitted answer banks, and expose feedback without scrolling past disabled controls. Matching keeps recordings and words in separate aligned columns. Speech recognition failure must leave a reachable assessed alternative; never trap the learner or silently count misrecognition as wrong. Verify the shared footer and cleanup together with question handlers.

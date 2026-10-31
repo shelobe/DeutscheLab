@@ -32,6 +32,18 @@
   s.questions=bank(g);s.idx=0;s.score=0;s.answered=false;s.dlCoreScore=0;s.dlCoreCount=15;s.dlMissed=[];
   curriculumReviewRender();
  };
+ const priorAnswer=curriculumReviewAnswer;
+ curriculumReviewAnswer=function(){
+  const session=moduleSession,q=session?.questions?.[session.idx],wasAnswered=session?.answered;
+  const result=priorAnswer.apply(this,arguments);
+  if(q?.dlReviewMode&&!wasAnswered&&session.answered){
+   dispose();
+   app.querySelectorAll('.dl-review-controls,.picture-choices,.dl-review-listen').forEach(el=>el.remove());
+   window.dlRefreshFixedNext?.();
+   app.querySelector('#moduleFeedback')?.scrollIntoView?.({block:'nearest',behavior:'smooth'});
+  }
+  return result;
+ };
  const oldRender=curriculumReviewRender;
  curriculumReviewRender=function(){
   dispose();dispose=()=>{};
@@ -48,6 +60,7 @@
   function stop(){clearTimeout(timer);timer=null;const rec=recognition;recognition=null;if(rec)try{rec.abort()}catch(e){}}
   dispose=()=>{active=false;stop()};
   const button=(label,action,parent=controls)=>{const b=document.createElement('button');b.type='button';b.textContent=label;b.onclick=action;parent.append(b);return b};
+  const primary=b=>{b.setAttribute('data-dl-review-action','');return b};
   const note=text=>{const p=document.createElement('p');p.textContent=text;controls.append(p);return p};
   const status=note('');status.setAttribute('aria-live','polite');
   function submit(ok){
@@ -65,24 +78,28 @@
    const input=document.createElement('input');input.id='dl-review-typed';input.type='text';input.autocomplete='off';input.autocapitalize='none';input.spellcheck=false;input.setAttribute('autocorrect','off');controls.append(input);
    const keys=document.createElement('div');keys.className='dl-review-character-keys';controls.append(keys);
    for(const ch of ['ä','ö','ü','ß'])button(ch,()=>{input.setRangeText(ch,input.selectionStart,input.selectionEnd,'end');input.focus();check.disabled=!heard||!input.value.trim()},keys);
-   const check=button('Check answer',()=>{if(heard&&input.value.trim())submit(normalize(input.value)===normalize(q.options[0]))});check.disabled=true;
+   const check=primary(button('Check answer',()=>{if(heard&&input.value.trim())submit(normalize(input.value)===normalize(q.options[0]))}));check.disabled=true;
    input.oninput=()=>check.disabled=!heard||!input.value.trim();input.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();check.click()}};
   }else if(q.dlReviewMode==='compare'){
    heading.textContent='Do the two recordings say the same word or different words?';
-   const heard=new Set(),answers=[];
+   const heard=new Set(),answers=[];let selected=null;
    q.clips.forEach((word,i)=>button('Play recording '+(i+1),()=>play(word,()=>{heard.add(i);answers.forEach(b=>b.disabled=heard.size!==2)})));
-   q.options.forEach((label,i)=>{const b=button(label,()=>{if(heard.size===2)submit(i===q.answer)});b.disabled=true;answers.push(b)});
+   q.options.forEach((label,i)=>{const b=button(label,()=>{if(heard.size!==2)return;selected=i;answers.forEach((answer,j)=>answer.setAttribute('aria-pressed',String(i===j)));check.disabled=false});b.disabled=true;answers.push(b)});
+   const check=primary(button('Check answer',()=>{if(selected!==null)submit(selected===q.answer)}));check.disabled=true;
   }else if(q.dlReviewMode==='match'){
    heading.textContent='Match each recording to its written word.';
    note('Play a recording, then select its word. Each word can be used once.');
    let selected=null;const picks=new Map(),heard=new Set(),audioButtons=[],wordButtons=[];
-   q.clipOrder.forEach((word,i)=>{const b=button('Recording '+(i+1),()=>play(word,()=>{selected=i;heard.add(i);status.textContent='Choose a word for recording '+(i+1)+'.';update()}));audioButtons.push(b)});
+   const columns=document.createElement('div');columns.className='dl-review-match-columns';controls.append(columns);
+   const recordings=document.createElement('div'),words=document.createElement('div');
+   recordings.className=words.className='dl-review-match-column';columns.append(recordings,words);
+   q.clipOrder.forEach((word,i)=>{const b=button('Recording '+(i+1),()=>play(word,()=>{selected=i;heard.add(i);status.textContent='Choose a word for recording '+(i+1)+'.';update()}),recordings);audioButtons.push(b)});
    q.wordOrder.forEach(word=>wordButtons.push(button(word,()=>{
     if(selected===null||!heard.has(selected))return;
     for(const [i,value] of picks)if(value===word)picks.delete(i);
     picks.set(selected,word);status.textContent='Recording '+(selected+1)+' matched to '+word+'.';selected=null;update();
-   })));
-   const check=button('Check matches',()=>{if(picks.size===q.words.length)submit(q.clipOrder.every((word,i)=>picks.get(i)===word))});
+   },words)));
+   const check=primary(button('Check matches',()=>{if(picks.size===q.words.length)submit(q.clipOrder.every((word,i)=>picks.get(i)===word))}));
    function update(){
     audioButtons.forEach((b,i)=>{b.textContent='Recording '+(i+1)+(picks.has(i)?': '+picks.get(i):'');b.setAttribute('aria-pressed',String(selected===i))});
     wordButtons.forEach(b=>{b.setAttribute('aria-pressed',String([...picks.values()].includes(b.textContent)))});
@@ -116,11 +133,12 @@
     timer=setTimeout(()=>{if(!alive()||recognition!==r)return;stop();speakButton.disabled=false;speakButton.textContent='Speak now';status.textContent='Speech recognition timed out. Retry or use the listening question.'},12000);
     try{r.start()}catch(e){stop();speakButton.textContent='Speak now';status.textContent='Unable to start speech recognition. Use the listening question instead.'}
    });
-   button('Use a listening question instead',alternative);
+   primary(button('Use a listening question instead',alternative));
   }
+  window.dlRefreshFixedNext?.();
   return result;
  };
  const observer=new MutationObserver(()=>{if(!document.querySelector('#app .dl-review-controls'))dispose()});
  observer.observe(app,{childList:true,subtree:true});
- const style=document.createElement('style');style.textContent='.dl-review-controls{display:flex;flex-wrap:wrap;gap:12px;margin:20px 0}.dl-review-controls p,.dl-review-controls label{flex-basis:100%;margin:0}.dl-review-controls input{box-sizing:border-box;width:100%;padding:14px;border:1px solid #70c9c0;border-radius:12px;background:#20374e;color:#fff;font:inherit}.dl-review-controls button{white-space:normal;min-height:48px}.dl-review-character-keys{display:flex;gap:8px;width:100%}.dl-review-speaking-word{font-size:2.4rem;font-weight:700}.dl-review-controls [aria-pressed=true]{outline:2px solid #70c9c0}.dl-review-controls button:disabled{opacity:.5}';document.head.append(style);
+ const style=document.createElement('style');style.textContent='.dl-review-controls{display:flex;flex-wrap:wrap;gap:12px;margin:20px 0}.dl-review-controls p,.dl-review-controls label{flex-basis:100%;margin:0}.dl-review-controls input{box-sizing:border-box;width:100%;padding:14px;border:1px solid #70c9c0;border-radius:12px;background:#20374e;color:#fff;font:inherit}.dl-review-controls button{white-space:normal;min-height:48px}.dl-review-character-keys{display:flex;gap:8px;width:100%}.dl-review-speaking-word{font-size:2.4rem;font-weight:700}.dl-review-controls [aria-pressed=true]{outline:2px solid #70c9c0}.dl-review-controls button:disabled{opacity:.5}.dl-review-match-columns{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;width:100%;align-items:start}.dl-review-match-column{display:grid;gap:12px;min-width:0}.dl-review-match-column button{width:100%;margin:0!important;min-height:72px;padding:12px 8px;overflow-wrap:anywhere;font:inherit}.dl-review-controls>p:empty{display:none}';document.head.append(style);
 })();
