@@ -13,8 +13,9 @@
    const box=b.getBoundingClientRect();return box.width>0&&box.height>0;
   });
   // Only pin an advance button in an active question/feedback screen, not a home menu.
-  const active=!!root.querySelector('#fullFeedback,#gameFeedback,#pictureFeedback,#moduleFeedback,#courseFeedback,#dl-result,#intensiveFeedback,#dialogue-feedback,.dl-flow-feedback,.picture-answer,.game-feedback,.lesson-screen-heading,#dl-sound-next');
+  const active=!!root.querySelector('#fullFeedback:not(:empty),#gameFeedback:not(:empty),#pictureFeedback:not(:empty),#moduleFeedback:not(:empty),#courseFeedback:not(:empty),#dl-result:not(:empty),#intensiveFeedback:not(:empty),#dialogue-feedback:not(:empty),.dl-flow-feedback:not(:empty),.picture-answer,.game-feedback,.lesson-screen-heading,#dl-sound-next');
   target=active?candidates[candidates.length-1]||null:null;
+  if(!target||!target.isConnected){target=null;bar.style.display='none';document.body.classList.remove('dl-has-fixed-next');}
   root.querySelectorAll('button.dl-hidden-original-next').forEach(b=>b.classList.remove('dl-hidden-original-next'));
   if(target)target.classList.add('dl-hidden-original-next');
   if(target){
@@ -24,6 +25,9 @@
  }
  btn.onclick=()=>{if(target&&target.isConnected&&!target.disabled)target.click()};
  let scheduled=false;
+ window.dlRefreshFixedNext=update;
+ document.addEventListener('click',()=>requestAnimationFrame(update),true);
+ window.addEventListener('popstate',()=>requestAnimationFrame(update));
  const observer=new MutationObserver(()=>{if(scheduled)return;scheduled=true;requestAnimationFrame(()=>{scheduled=false;update()})});
  const root=document.getElementById('app');if(root)observer.observe(root,{childList:true,subtree:true,characterData:true,attributes:true,attributeFilter:['disabled','hidden']});
  update();
