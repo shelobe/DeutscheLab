@@ -26,12 +26,13 @@
  .dl-sentence-english-style.dl-sentence-answered #sentenceFeedback .explain-box,
  .dl-sentence-english-style.dl-sentence-answered #sentenceFeedback .sentence-explanation{display:none!important}
  .dl-sentence-english-style #sentenceFeedback .dl-sentence-result strong{display:block!important;font-size:1.35rem!important;color:#91e0ad!important;margin-bottom:8px!important}
- .dl-build-character-feedback{background:#1d4c49;border-radius:20px;padding:18px;margin:12px 0;color:#f1faf7}
- .dl-build-character-banner{display:flex;align-items:center;gap:14px;background:#21624f;border:1px solid #73cbb9;border-radius:18px;min-height:120px;overflow:hidden}
- .dl-build-character-banner img{display:block;width:42%;max-width:190px;height:140px;object-fit:contain;object-position:center bottom;align-self:flex-end}
- .dl-build-character-banner strong{font-size:clamp(1.2rem,5vw,1.65rem);line-height:1.2;color:#fff;flex:1}
- .dl-build-character-feedback p{margin:12px 2px 0;font-size:1rem;line-height:1.45}
- .dl-build-character-feedback .dl-build-hint{font-size:.94rem;font-weight:400}
+ /* Reuse the compact sentence feedback card already used by the English mode. */
+ .dl-build-shared-layout #gameFeedback .dl-sentence-result{background:#1e4d4a!important;border:0!important;border-radius:18px!important;padding:18px!important;margin:0!important;color:#f1faf7!important}
+ .dl-build-shared-layout #gameFeedback .dl-sentence-character{display:flex!important;flex-direction:row!important;align-items:center!important;gap:12px!important;width:100%!important;max-width:100%!important;min-height:0!important;height:138px!important;overflow:hidden!important;background:#62414a!important;border:1px solid #b98793!important;border-radius:18px!important;padding:0 12px 0 0!important;box-sizing:border-box!important}
+ .dl-build-shared-layout #gameFeedback .dl-sentence-character img{display:block!important;position:static!important;width:44%!important;max-width:190px!important;min-width:0!important;height:136px!important;max-height:136px!important;object-fit:contain!important;object-position:center bottom!important;flex:0 0 44%!important;margin:0!important;transform:none!important}
+ .dl-build-shared-layout #gameFeedback .dl-sentence-character strong{display:block!important;flex:1!important;min-width:0!important;font-size:clamp(1.15rem,5vw,1.65rem)!important;line-height:1.2!important;color:#fff!important}
+ .dl-build-shared-layout #gameFeedback .dl-sentence-result p{margin:12px 0 0!important;font-size:1rem!important;line-height:1.45!important;font-weight:400!important}
+ .dl-build-shared-layout #gameFeedback .dl-sentence-result .dl-sentence-hint{font-size:.94rem!important}
  .dl-build-answered #gameFeedback{padding:0!important;border:0!important;background:transparent!important}
  .dl-build-shared-layout.dl-german-english-layout{background:#172c3b!important;color:#edf4f5!important;border-radius:24px!important}
  .dl-build-shared-layout.dl-german-english-layout .dl-build-instruction{font-size:1.08rem!important;color:#e0e9eb!important;margin:16px 0 12px!important}
@@ -176,8 +177,8 @@
     const selected=(gameSession.picked||[]).map(i=>item.tokens[gameSession.order[i]]);
     const hint=!ok&&typeof dlSentenceMistakeHint==='function'?dlSentenceMistakeHint(selected,item.tokens):'';
     const image=ok?'feedback_correct_dog.png':'feedback_incorrect_cat.png';
-    const detail=ok?'':`<p class="dl-build-correct-answer">Correct: ${safeText(item.de)}</p>${hint?`<p class="dl-build-hint"><strong>Why?</strong> ${safeText(hint)}</p>`:''}`;
-    feedback.innerHTML=`<div class="dl-build-character-feedback"><div class="dl-build-character-banner"><img src="./${image}" alt="" /><strong>${ok?'Well done!':'Not quite!'}</strong></div>${detail}</div>`;
+    const detail=ok?'':`<p class="dl-build-correct-answer">Correct: ${safeText(item.de)}</p>${hint?`<p class="dl-sentence-hint"><strong>Why?</strong> ${safeText(hint)}</p>`:''}`;
+    feedback.innerHTML=`<div class="dl-sentence-result"><div class="dl-sentence-character"><img src="./${image}" alt="" /><strong>${ok?'Well done!':'Not quite!'}</strong></div>${detail}</div>`;
    }
   }
   syncAnswered();
