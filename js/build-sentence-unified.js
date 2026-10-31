@@ -34,17 +34,9 @@
  .dl-sentence-english-style #sentenceFeedback .dl-sentence-result{background:transparent!important;border:0!important;padding:0!important;margin:0!important}
  .dl-build-shared-layout #gameFeedback .dl-sentence-result p,
  .dl-sentence-english-style #sentenceFeedback .dl-sentence-result p{font-size:.98rem!important;line-height:1.4!important;margin:10px 0 0!important;color:#fff!important;font-weight:400!important}
- .dl-build-shared-layout.dl-german-english-layout{background:#172c3b!important;color:#edf4f5!important;border-radius:24px!important}
- .dl-build-shared-layout.dl-german-english-layout .dl-build-instruction{font-size:1.08rem!important;color:#e0e9eb!important;margin:16px 0 12px!important}
- .dl-build-shared-layout.dl-german-english-layout .dl-build-prompt{display:block!important;background:#203f4b!important;color:#fff!important;border:3px solid #70c9c0!important;border-radius:22px!important;padding:25px 22px!important;font-size:1.45rem!important;line-height:1.4!important;margin:12px 0 20px!important}
- .dl-build-shared-layout.dl-german-english-layout #gameBuilt{display:block!important;background:#152e3b!important;color:#edf5f5!important;border:3px dashed #8bc8c4!important;border-radius:22px!important;min-height:104px!important;padding:20px 22px!important;font-size:1.2rem!important;box-sizing:border-box!important;margin:0 0 20px!important}
- .dl-build-shared-layout.dl-german-english-layout #gameBank{background:#17353e!important;border:1px solid #547f83!important;border-radius:22px!important;padding:22px 16px!important;display:flex!important;flex-wrap:wrap!important;gap:12px!important;margin:0 0 20px!important}
- .dl-build-shared-layout.dl-german-english-layout #gameBank button{background:#395771!important;color:#fff!important;border:1px solid #65849b!important;border-radius:18px!important;box-shadow:none!important;min-height:62px!important;padding:14px 18px!important;font-size:1rem!important}
- .dl-build-shared-layout.dl-german-english-layout #gameBank button:disabled{opacity:.38!important}
- .dl-build-shared-layout.dl-german-english-layout .dl-shared-bank-title{display:none!important}
- .dl-build-shared-layout.dl-german-english-layout .dl-build-edit-controls{display:flex!important;gap:12px!important;flex-wrap:wrap!important;margin:14px 0!important}
- .dl-build-shared-layout.dl-german-english-layout .dl-build-edit-controls button{flex:1!important;min-width:125px!important;background:#344a65!important;color:#fff!important;border-radius:15px!important;padding:15px 10px!important}
- .dl-build-shared-layout.dl-german-english-layout .dl-build-help{background:#344a65!important;color:#fff!important;border-radius:15px!important;margin-top:10px!important}
+ /* German uses the same English game-feedback outer panel and badge. */
+ .dl-build-shared-layout #gameFeedback>.game-feedback{background:#204d4d;padding:14px;border-radius:12px;margin-top:12px}
+ .dl-build-shared-layout #gameFeedback .dl-sentence-hint{font-size:.98rem;line-height:1.45;font-weight:400;margin:12px 0 0}
  `;
  document.head.appendChild(sharedStyle);
  const previousPracticeHub=practiceHub;
@@ -177,6 +169,20 @@
  const previousMark=gameMark;
  gameMark=function(ok,answer){
   const result=previousMark(ok,answer);
+  if(gameSession?.mode==='build'&&gameSession.answered){
+   const feedback=document.getElementById('gameFeedback');
+   if(feedback){
+    /* Normalize only German's outer markup to English's original
+       <div class="game-feedback">…</div>, without touching English. */
+    let panel=feedback.querySelector(':scope > .game-feedback');
+    if(!panel){
+     panel=document.createElement('div');
+     panel.className='game-feedback';
+     while(feedback.firstChild)panel.appendChild(feedback.firstChild);
+     feedback.appendChild(panel);
+    }
+   }
+  }
 
   if(gameSession?.mode==='build'&&gameSession.answered&&!ok){
    const feedback=document.getElementById('gameFeedback');
