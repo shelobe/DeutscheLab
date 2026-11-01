@@ -10794,7 +10794,7 @@ window.DL_A1_PRACTICAL_PACKS = {
     "Form fields",
     [
      "Vorname — first name",
-     "Nachname / Familienname — surname",
+     "Nachname — surname",
      "Straße / Hausnummer — street / house number",
      "Postleitzahl (PLZ) — postcode",
      "Wohnort — town/city where you live",
@@ -10804,27 +10804,42 @@ window.DL_A1_PRACTICAL_PACKS = {
     ]
    ],
    [
-    "An example",
-    "Vorname: Lea; Nachname: Weber; Wohnort: Berlin; Geburtsdatum: 03.05.1995. Write the information that belongs in each field, not a complete introductory sentence."
+    "Example form",
+    [
+     "Vorname: Lea — First name",
+     "Nachname: Weber — Surname",
+     "Wohnort: Berlin — City of residence",
+     "Geburtsdatum: 03.05.1995 — Date of birth"
+    ]
    ],
    [
     "A useful request",
-    "Können Sie das bitte buchstabieren? means Could you please spell that? This helps with names and addresses."
+    [
+     "Können Sie das bitte buchstabieren? — Could you please spell that?",
+     "Use this polite question when you need someone to spell a name or address."
+    ]
    ],
    [
     "Useful examples",
     [
-     "Mein Nachname ist Weber. — My surname is Weber."
+     "Mein Vorname ist Lea. — My first name is Lea.",
+     "Mein Nachname ist Weber. — My surname is Weber.",
+     "Ich wohne in Berlin. — I live in Berlin.",
+     "Meine Postleitzahl ist 10115. — My postcode is 10115.",
+     "Meine Telefonnummer ist 030 123456. — My telephone number is 030 123456."
     ]
    ]
   ],
   "examples": [
-   [
-    "Mein Nachname ist Weber.",
-    "My surname is Weber."
-   ]
+   ["Mein Vorname ist Lea.", "My first name is Lea."],
+   ["Mein Nachname ist Weber.", "My surname is Weber."],
+   ["Ich wohne in Berlin.", "I live in Berlin."],
+   ["Meine Postleitzahl ist 10115.", "My postcode is 10115."],
+   ["Können Sie das bitte buchstabieren?", "Could you please spell that?"]
   ],
   "questions": [
+   {"type":"grammar","prompt":"Where would you enter 12 in the address Lindenstraße 12?","options":["Hausnummer","Wohnort","Postleitzahl"],"answer":0,"why":"Hausnummer is the house number.","dlSkill":"situation"},
+   {"type":"grammar","prompt":"You need someone to spell their surname. What do you ask politely?","options":["Können Sie das bitte buchstabieren?","Wo wohnen Sie?","Wie spät ist es?"],"answer":0,"why":"Buchstabieren means to spell out.","dlSkill":"situation"},
    {
     "type": "grammar",
     "prompt": "A form asks for Wohnort. What should you enter?",
