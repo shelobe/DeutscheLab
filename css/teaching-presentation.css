@@ -20,3 +20,9 @@
 #app :is(.dl-teaching-remember,.dl-teaching-note) :is(p,li,span){color:inherit}
 #app .dl-shared-teaching .dl-teaching-examples{background:transparent!important;border:0!important;box-shadow:none!important;padding:0;margin:12px 0}
 body.lesson-screen #app .dl-flow-card.dl-inline-lesson-audio{padding-bottom:24px;margin-bottom:100px}
+
+#app .dl-separated-audio-examples{display:grid;gap:14px;margin:24px 0;padding:0;background:transparent;border:0;box-shadow:none}
+#app .dl-separated-audio-examples>h3{font-size:1.3rem;color:#9bdcd1;margin:0}
+#app .dl-separated-example{min-width:0;margin:0}
+#app .dl-separated-example .vocab-row{margin:0}
+#app .dl-separated-example .dl-phrase-usage{display:block;margin-top:8px;line-height:1.5}

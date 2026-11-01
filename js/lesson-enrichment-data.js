@@ -6763,62 +6763,86 @@ window.DL_LESSON_ENRICHMENT = {
   ]
  },
  "A1|Umlauts and ß": {
-  "sections": [
+ "sections": [
+  [
+   "Ä — a separate vowel",
    [
-    "Ä — a separate vowel",
-    "Ä often sounds similar to the e in English “bed”: Mädchen (girl), Käse (cheese). It is a distinct German vowel, not decoration on an a."
-   ],
-   [
-    "Ö — round your lips",
-    "Start with an e-like sound and round your lips while keeping your tongue forward. Listen to schön (beautiful). Compare schon (already) and schön: the vowel changes the meaning."
-   ],
-   [
-    "Ü — a different rounded vowel",
-    "Try saying ee while rounding your lips. Listen to fünf (five). Ü is a distinct vowel; it is not pronounced like an English u."
-   ],
-   [
-    "ß — Eszett, or sharp S",
-    "ß is a consonant letter called Eszett or scharfes S (sharp S). It makes an unvoiced s sound, like the s in English “see”. It is not a B and it is not an umlaut.\n\nStraße — street\ngroß — big\nheißen — to be called\n\nIn each example, ß represents an s sound."
-   ],
-   [
-    "Choosing between ß and ss",
-    "In standard German spelling, ß follows a long vowel or a diphthong (two vowel sounds in one syllable), while ss follows a short vowel. This helps you choose between these two spellings.\n\nFuß — foot: the u is long, so use ß.\nFluss — river: the u is short, so use ss.\nHeißen — to be called: ei is a diphthong, so use ß."
-   ],
-   [
-    "Remember",
-    "Ä, ö and ü are vowels. ß is a separate consonant with an s sound. Learn the spelling and sound together: Straße contains ß, not B. The capital form is ẞ; you may also see SS in all-capital writing."
+    "Ä is a distinct German vowel. It often sounds similar to the e in English “bed”.",
+    "Mädchen — girl\nListen for ä in Mädchen.",
+    "Käse — cheese\nAnother word with the distinct vowel ä."
    ]
   ],
-  "examples": [
+  [
+   "Ö — round your lips",
    [
-    "Mädchen",
-    "girl — ä"
-   ],
-   [
-    "schön",
-    "beautiful — ö"
-   ],
-   [
-    "schon",
-    "already — o, without an umlaut"
-   ],
-   [
-    "fünf",
-    "five — ü"
-   ],
-   [
-    "Straße",
-    "street — ß, pronounced with an s sound"
-   ],
-   [
-    "Fuß / Fluss",
-    "foot / river — long u + ß / short u + ss"
-   ],
-   [
-    "heißen",
-    "to be called — ei + ß"
+    "Start with an e-like sound and round your lips while keeping your tongue forward. Changing o to ö can change a word’s meaning.",
+    "schön — beautiful\nListen to the rounded vowel ö.",
+    "schon — already\nCompare its o with the ö in schön."
    ]
   ],
-  "questions": []
- }
+  [
+   "Ü — a different rounded vowel",
+   [
+    "Ü is a distinct vowel, not an English u. Try saying ee while rounding your lips.",
+    "fünf — five\nListen to the rounded vowel ü."
+   ]
+  ],
+  [
+   "ß — Eszett, or sharp S",
+   [
+    "ß is a consonant called Eszett or scharfes S. It makes an unvoiced s sound, like the s in English “see”. It is not B or an umlaut.",
+    "Straße — street\nß represents an s sound.",
+    "groß — big\nß represents an s sound.",
+    "heißen — to be called\nThe ei combination is a diphthong, so this word uses ß."
+   ]
+  ],
+  [
+   "Choosing between ß and ss",
+   [
+    "In standard German spelling, ß follows a long vowel or a diphthong; ss follows a short vowel.",
+    "Fuß — foot\nThe u is long, so use ß.",
+    "Fluss — river\nThe u is short, so use ss."
+   ]
+  ],
+  [
+   "Remember",
+   "Ä, ö and ü are vowels. ß is a separate consonant with an s sound. Learn the spelling and sound together: Straße contains ß, not B. The capital form is ẞ; you may also see SS in all-capital writing."
+  ]
+ ],
+ "examples": [
+  [
+   "Mädchen",
+   "girl — ä"
+  ],
+  [
+   "schön",
+   "beautiful — ö"
+  ],
+  [
+   "schon",
+   "already — o, without an umlaut"
+  ],
+  [
+   "fünf",
+   "five — ü"
+  ],
+  [
+   "Straße",
+   "street — ß, pronounced with an s sound"
+  ],
+  [
+   "Fuß",
+   "foot — long u + ß"
+  ],
+  [
+   "Fluss",
+   "river — short u + ss"
+  ],
+  [
+   "heißen",
+   "to be called — ei + ß"
+  ]
+ ],
+ "questions": []
+}
 };

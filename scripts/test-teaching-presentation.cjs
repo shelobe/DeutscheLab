@@ -41,3 +41,57 @@ let guides=0,reminders=0,notes=0;for(const pack of Object.values({...packsContex
 assert(guides>100);assert(reminders>20);assert(notes>0);assert(delegations>0);
 const css=fs.readFileSync('css/teaching-presentation.css','utf8');assert(css.includes('[hidden]{display:none!important}'));assert(css.includes(':focus-visible'));
 console.log(`PASS: ${guides} authored guides, ${reminders} Remember cards, ${notes} Note/forward-reference cards; custom guides, in-card audio, translation deduplication, playback identity, repeat rendering and navigation preservation.`);
+
+{
+ clear();
+ const flow=el('section','','dl-flow-card'),g=el('div','','dl-lesson-guide'),s=box('Words','Meanings'),ul=el('ul'),li=el('li'),word=audio('wir','we'),phrase=audio('Wir lernen Deutsch.','We are learning German.');
+ li.append(el('strong','wir — we'),word);ul.append(li);s.append(ul,phrase);g.append(s);flow.append(g);root.append(flow);
+ const handler=phrase.querySelector('button').onclick;
+ callback();
+ assert.equal(word.parentElement,li,'Single word remains directly under its teaching item');
+ assert.equal(phrase.closest('.dl-lesson-guide'),null,'Sentence audio leaves information box');
+ assert(phrase.closest('.dl-separated-audio-examples'));
+ assert(!phrase.querySelector('.vocab-copy span').hidden);
+ assert.equal(phrase.querySelector('button').onclick,handler);
+ for(let i=0;i<5;i++)callback();
+ assert.equal(flow.querySelectorAll('.dl-separated-audio-examples').length,1);
+ assert.equal(flow.querySelectorAll('.vocab-row').length,2);
+ phrase.querySelector('button').click();assert.equal(heard.at(-1),'Wir lernen Deutsch.');
+ let auditedRows=0;
+ const isWord=s=>(s.match(/[\p{L}\p{N}]+(?:[-’'][\p{L}\p{N}]+)*/gu)||[]).length===1;
+ for(const pack of Object.values({...packsContext.window.DL_LESSON_ENRICHMENT,...packsContext.window.DL_A1_PRACTICAL_PACKS})){
+  clear();const card=el('section','','dl-flow-card'),g=el('div','','dl-lesson-guide'),section=box('Words and explanations','Teaching'),ul=el('ul');section.append(ul);g.append(section);card.append(g);root.append(card);
+  const rows=[];
+  for(const [de,en]of pack.examples||[]){const li=el('li'),r=audio(de,en);li.append(el('strong',de+' — '+en),r);ul.append(li);rows.push([de,r,li]);}
+  callback();callback();
+  for(const [de,r,li]of rows){if(isWord(de)){assert.equal(r.parentElement,li,de+' should stay under its word');assert.equal(r.closest('.dl-lesson-guide'),g)}else{assert.equal(r.closest('.dl-lesson-guide'),null,de+' must be outside the box');assert(r.closest('.dl-separated-audio-examples'))}auditedRows++;}
+  assert.equal(card.querySelectorAll('.vocab-row').length,rows.length,'No rows lost or duplicated');
+ }
+ assert(auditedRows>200);
+ console.log('PASS: single words inside matching items; phrases/sentences outside; '+auditedRows+' authored examples classified; repeat rendering and playback preserved.');
+}
+
+{
+ Object.defineProperty(Element.prototype,'childNodes',{get(){return this._text?[{textContent:this._text},...this.children]:this.children}});
+ Element.prototype.replaceWith=function(n){const p=this.parentElement,i=p.children.indexOf(this);n.remove();p.children[i]=n;n.parentElement=p;this.parentElement=null;};
+ const packs={...packsContext.window.DL_LESSON_ENRICHMENT,...packsContext.window.DL_A1_PRACTICAL_PACKS};
+ const units=Object.keys(packs).map(key=>({level:key.split('|')[0],title:key.split('|').slice(1).join('|'),dlPracticalCourse:true,rule:'Teaching',examples:packs[key].examples||[]}));
+ let refresh;const d={window:null,FULL_UNITS:units,DL_LESSON_ENRICHMENT:packs,app:root,fullSession:null,fullQuestions(){return []},fullRender(){},dlCheck(){},dlLessonIntro(){},fullStudy(){},speak(){},document:{getElementById:id=>id==='app'?root:null,querySelector:s=>root.querySelector(s),createElement:t=>el(t),createTextNode:t=>el('#text',t),head},MutationObserver:class{constructor(cb){refresh=cb}observe(){}}};d.window=d;vm.createContext(d);
+ for(const path of ['js/lesson-consistency.js','js/lesson-audio-layout.js','js/teaching-presentation.js'])vm.runInContext(fs.readFileSync(path,'utf8'),d);
+ let total=0;
+ for(let id=0;id<units.length;id++){
+  clear();const card=el('section','','dl-flow-card');card.append(el('h2',"What you'll learn"),el('p','Teaching'));
+  for(const [de,en]of units[id].examples)card.append(audio(de,en));
+  root.append(card);d.fullStudy(id);refresh();
+  const g=card.querySelector('.dl-lesson-guide'),rows=card.querySelectorAll('.vocab-row');
+  for(const r of rows){const text=r.querySelector('.vocab-copy strong')?.textContent;if(!text)continue;const word=(text.match(/[\p{L}\p{N}]+(?:[-’'][\p{L}\p{N}]+)*/gu)||[]).length===1;
+   if(word){assert.equal(r.closest('.dl-lesson-guide'),g,units[id].title+': word outside teaching box: '+text)}else assert.equal(r.closest('.dl-lesson-guide'),null,units[id].title+': phrase inside teaching box: '+text);
+  }
+  if(units[id].title==='Umlauts and ß'){
+   assert.equal(rows.length,8);
+   for(const r of rows){const word=r.querySelector('.vocab-copy strong').textContent;const item=r.closest('li');assert(item,'Umlaut word requires its own explanation bullet: '+word);assert(item.querySelector('strong').textContent.startsWith(word+' — '),'Audio must match the word above: '+word);assert.equal(item.querySelectorAll('.vocab-row').length,1);}
+  }
+  const count=rows.length;d.fullStudy(id);refresh();assert.equal(card.querySelectorAll('.vocab-row').length,count,'Repeat rendering duplicates '+units[id].title);total+=count;
+ }
+ console.log('PASS: real consistency/audio/presentation renderers across '+units.length+' authored guides; '+total+' rendered audio rows follow word/phrase placement without repeated-render duplicates.');
+}

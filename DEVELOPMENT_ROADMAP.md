@@ -80,3 +80,8 @@ Copy this section for each batch:
 - Shared presentation files apply the conventions to existing lesson, pronunciation, conversation, article/case and word-order guides. Grouping preserves playback handlers; sentence examples stay distinct from explanation cards.
 - Validation: JavaScript parsing, real script-order/course/progress checks, lesson/review/audio regression suites, and DOM-only presentation checks across 119 authored guides. Updated two stale test counts for the previously added pets lesson and final-d drill.
 - Status: Ready for user test. No browser testing performed. Next checkpoint: Android spot-check of the global presentation; curriculum content audit remains CUR-01.
+
+### CUR-04 follow-up — Correct word versus phrase audio placement
+- Single-word Listen boxes belong directly beneath the matching word/explanation inside its information box. All phrase and sentence audio belongs outside those boxes in a separate examples area.
+- Replaced the prior overly broad in-card grouping rule, corrected the guidelines/code map, and split umlaut/ß word comparisons into individually matched entries.
+- Real-renderer DOM checks cover 119 authored guides and 490 rendered playback rows, including repeated rendering. Browser/device verification remains pending; status is Ready for user test.
