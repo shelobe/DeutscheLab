@@ -329,7 +329,7 @@ window.DL_A1_PRACTICAL_PACKS = {
   "sections": [
    [
     "What you will be able to do",
-    "Give and ask for names, say where you live and where you are from, and choose informal or polite questions."
+    "Give and ask for names, say where you live, and choose informal or polite questions."
    ],
    [
     "Names",
@@ -346,26 +346,6 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Wo wohnst du? — Where do you live?\nUse it with one person you address informally.",
      "Wo wohnen Sie? — Where do you live?\nUse it when addressing someone politely."
     ]
-   ],
-   [
-    "Origins",
-    [
-     "Ich komme aus Kanada. — I come from Canada.\nUse kommen aus to say where you are from.",
-     "Woher kommst du? — Where are you from?\nUse it with one person you address informally.",
-     "Woher kommen Sie? — Where are you from?\nUse it when addressing someone politely."
-    ]
-   ],
-   [
-    "What does woher mean?",
-    [
-     "Woher? — Where … from?",
-     "Woher kommst du? asks where you are from, rather than where you live.",
-     "For now, learn this as a complete question. A later lesson explains question words and how to build your own questions."
-    ]
-   ],
-   [
-    "Where you live versus where you are from",
-    "Ich komme aus Kanada, aber ich wohne in Berlin. — I come from Canada, but I live in Berlin.\n\nYour origin and your current home can be different. Aber means but."
    ],
    [
     "Coming up",
@@ -396,22 +376,6 @@ window.DL_A1_PRACTICAL_PACKS = {
    [
     "Wo wohnen Sie?",
     "Where do you live? (polite)"
-   ],
-   [
-    "Ich komme aus Kanada.",
-    "I come from Canada."
-   ],
-   [
-    "Woher kommst du?",
-    "Where are you from? (informal)"
-   ],
-   [
-    "Woher kommen Sie?",
-    "Where are you from? (polite)"
-   ],
-   [
-    "Ich komme aus Kanada, aber ich wohne in Berlin.",
-    "I come from Canada, but I live in Berlin."
    ]
   ],
   "questions": [
@@ -421,7 +385,7 @@ window.DL_A1_PRACTICAL_PACKS = {
     "options": [
      "Ich heiße Lea.",
      "Ich wohne in Berlin.",
-     "Ich komme aus Kanada."
+     "Wo wohnst du?"
     ],
     "answer": 0,
     "why": "Ich heiße Lea gives your name.",
@@ -434,7 +398,7 @@ window.DL_A1_PRACTICAL_PACKS = {
     "options": [
      "Wie heißen Sie?",
      "Wie heißt du?",
-     "Wo wohnen Sie?"
+     "Ich wohne in Berlin."
     ],
     "answer": 0,
     "why": "Use Wie heißen Sie? to ask a name politely.",
@@ -447,7 +411,7 @@ window.DL_A1_PRACTICAL_PACKS = {
     "options": [
      "Ich wohne in Berlin.",
      "Ich heiße Lea.",
-     "Ich komme aus Kanada."
+     "Wie heißt du?"
     ],
     "answer": 0,
     "why": "Wohnen describes your current home.",
@@ -456,24 +420,11 @@ window.DL_A1_PRACTICAL_PACKS = {
    },
    {
     "type": "grammar",
-    "prompt": "Ask a friend where they are from.",
-    "options": [
-     "Woher kommst du?",
-     "Wo wohnst du?",
-     "Wie heißt du?"
-    ],
-    "answer": 0,
-    "why": "Woher kommst du? asks about origin; Wo wohnst du? asks about current home.",
-    "dlSkill": "situation",
-    "dlTopic": "origins"
-   },
-   {
-    "type": "grammar",
     "prompt": "Ask a stranger where they live politely.",
     "options": [
      "Wo wohnen Sie?",
      "Wo wohnst du?",
-     "Woher kommen Sie?"
+     "Wie heißen Sie?"
     ],
     "answer": 0,
     "why": "Wo wohnen Sie? asks where someone lives using polite Sie.",
@@ -486,7 +437,7 @@ window.DL_A1_PRACTICAL_PACKS = {
     "options": [
      "heiße",
      "wohne",
-     "komme"
+     "heißt"
     ],
     "answer": 0,
     "why": "Ich heiße is the phrase for introducing your name.",
@@ -496,31 +447,17 @@ window.DL_A1_PRACTICAL_PACKS = {
    },
    {
     "type": "grammar",
-    "prompt": "Write the missing word: Ich komme ___ Kanada.",
-    "options": [
-     "aus",
-     "in",
-     "wie"
-    ],
-    "answer": 0,
-    "why": "Ich komme aus gives your origin.",
-    "dlSkill": "write",
-    "dlWriteAnswer": "aus",
-    "dlTopic": "origins"
-   },
-   {
-    "type": "grammar",
     "prompt": "Listen and choose the meaning of the sentence.",
     "options": [
-     "I come from Canada, but I live in Berlin.",
-     "I live in Canada, but I come from Berlin.",
-     "My name is Lea and I live in Berlin."
+     "I live in Berlin.",
+     "My name is Lea.",
+     "Where do you live?"
     ],
     "answer": 0,
-    "why": "Komme aus gives origin; wohne in gives current home. Aber means but.",
+    "why": "Ich wohne in Berlin gives the speaker’s current home.",
     "dlSkill": "listen",
-    "dlReviewAudio": "Ich komme aus Kanada, aber ich wohne in Berlin.",
-    "dlTopic": "origins"
+    "dlReviewAudio": "Ich wohne in Berlin.",
+    "dlTopic": "home"
    }
   ]
  },
@@ -533,10 +470,19 @@ window.DL_A1_PRACTICAL_PACKS = {
    [
     "Where are you from?",
     [
+     "Ich komme aus Kanada. — I come from Canada.\nUse kommen aus to say where you are from.",
+     "Woher kommst du? — Where are you from?\nUse it with one person you address informally.",
+     "Woher kommen Sie? — Where are you from?\nUse it when addressing someone politely.",
      "Ich komme aus Deutschland. — I come from Germany.",
-     "Ich komme aus Kanada. — I come from Canada.",
-     "Ich komme aus den USA. — I come from the USA.",
-     "Woher kommst du? — Where are you from?"
+     "Ich komme aus den USA. — I come from the USA."
+    ]
+   ],
+   [
+    "What does woher mean?",
+    [
+     "Woher? — Where … from?",
+     "Woher kommst du? asks where you are from, rather than where you live.",
+     "For now, learn this as a complete question. A later lesson explains question words and how to build your own questions."
     ]
    ],
    [
@@ -567,10 +513,19 @@ window.DL_A1_PRACTICAL_PACKS = {
     [
      "Ich bin Amerikanerin. — I am an American woman.",
      "Ich bin Amerikaner. — I am an American man.",
-     "German nationality nouns and language names begin with capital letters.",
+     "German nationality nouns and language names begin with capital letters."
+    ]
+   ],
+   [
+    "A note on noun endings",
+    [
      "Amerikaner refers to a man; Amerikanerin refers to a woman. Here, adding -in changes the noun to the female form.",
      "The later Work and occupations lesson explains this common pattern with more examples and practice."
     ]
+   ],
+   [
+    "Where you live versus where you are from",
+    "Ich komme aus Kanada, aber ich wohne in Berlin. — I come from Canada, but I live in Berlin.\n\nYour origin and your current home can be different. Aber means but."
    ]
   ],
   "examples": [
@@ -625,6 +580,14 @@ window.DL_A1_PRACTICAL_PACKS = {
    [
     "Ja, ich spreche Englisch.",
     "Yes, I speak English."
+   ],
+   [
+    "Woher kommen Sie?",
+    "Where are you from? (polite)"
+   ],
+   [
+    "Ich komme aus Kanada, aber ich wohne in Berlin.",
+    "I come from Canada, but I live in Berlin."
    ]
   ],
   "questions": [
@@ -693,6 +656,47 @@ window.DL_A1_PRACTICAL_PACKS = {
     "why": "Answer the language question with Ja, ich spreche Englisch.",
     "dlTopic": "languages",
     "dlSkill": "situation"
+   },
+   {
+    "type": "grammar",
+    "prompt": "Ask a friend where they are from.",
+    "options": [
+     "Woher kommst du?",
+     "Wo wohnst du?",
+     "Wie heißt du?"
+    ],
+    "answer": 0,
+    "why": "Woher kommst du? asks about origin; Wo wohnst du? asks about current home.",
+    "dlSkill": "situation",
+    "dlTopic": "country-origin"
+   },
+   {
+    "type": "grammar",
+    "prompt": "Write the missing word: Ich komme ___ Kanada.",
+    "options": [
+     "aus",
+     "in",
+     "wie"
+    ],
+    "answer": 0,
+    "why": "Ich komme aus gives your origin.",
+    "dlSkill": "write",
+    "dlWriteAnswer": "aus",
+    "dlTopic": "country-origin"
+   },
+   {
+    "type": "grammar",
+    "prompt": "Listen and choose the meaning of the sentence.",
+    "options": [
+     "I come from Canada, but I live in Berlin.",
+     "I live in Canada, but I come from Berlin.",
+     "My name is Lea and I live in Berlin."
+    ],
+    "answer": 0,
+    "why": "Komme aus gives origin; wohne in gives current home. Aber means but.",
+    "dlSkill": "listen",
+    "dlReviewAudio": "Ich komme aus Kanada, aber ich wohne in Berlin.",
+    "dlTopic": "country-origin"
    }
   ]
  },

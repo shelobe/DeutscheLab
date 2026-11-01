@@ -16,8 +16,7 @@
   'Introducing yourself: heißen and wohnen':[
    ['Names',[['Ich heiße Lea.','My name is Lea.'],['Wie heißt du?','What is your name? (informal)'],['Wie heißen Sie?','What is your name? (polite)']]],
    ['Home',[['Ich wohne in Berlin.','I live in Berlin.'],['Wo wohnst du?','Where do you live? (informal)'],['Wo wohnen Sie?','Where do you live? (polite)']]],
-   ['Origins',[['Ich komme aus Kanada.','I come from Canada.'],['Woher kommst du?','Where are you from? (informal)'],['Woher kommen Sie?','Where are you from? (polite)']]],
-   ['Where you live versus where you are from',[['Ich komme aus Kanada, aber ich wohne in Berlin.','I come from Canada, but I live in Berlin.']]]
+
   ]
  };
  function audioRow(de,en){
