@@ -54,7 +54,7 @@
 ## Practical A1 course
 - `js/a1-verb-sequence.js` now supplies the foundational pronoun, regular-verb and stem-vowel teaching packs. It no longer independently reorders modules or builds reviews.
 - `js/a1-practical-data.js` contains authored teaching, examples and focused questions, including the revised topic stages and new forms, messages, schedules and instruction lessons.
-- `js/a1-practical-course.js` resolves lessons by their exact A1 titles, replacing fragile numeric module definitions with 22 stable module keys and 101 unique linked lessons. The former broad Greetings and introductions lesson is consolidated into Greetings and goodbyes; all other formerly linked lessons remain; Places around town is recovered, and five focused new lessons are added including the stem-vowel lesson. Unlinked duplicate legacy units retain their IDs for old saved results/direct links.
+- `js/a1-practical-course.js` resolves lessons by their exact A1 titles, replacing fragile numeric module definitions with 22 stable module keys and 101 unique linked lessons. The former broad Greetings and introductions lesson is consolidated into Greetings and polite expressions; all other formerly linked lessons remain; Places around town is recovered, and five focused new lessons are added including the stem-vowel lesson. Unlinked duplicate legacy units retain their IDs for old saved results/direct links.
 - Load data and course definitions after the foundation packs but before `lesson-consistency.js`. The course validates lesson membership, required teaching packs and question availability before exposing the new path.
 - Ordinary A1 module reviews use at most 15 questions and cover every lesson before adding more from one lesson. They reuse taught question banks and include written recall/listening where available. The 21-question final review draws one task from each preceding module. Module 1 keeps its existing five interaction buckets/four formats, adding soft-ch, au and eu coverage.
 - `lesson-consistency.js` renders list-valued sections as semantic bullets, refreshes authored A1 guides while preserving the custom word-order teaching, and uses native checking/feedback/scoring for short written responses. It provides normal/slow playback for audio questions. A2/B1 teaching content is unchanged.
@@ -75,7 +75,7 @@
 - Greeting grouping initially builds playable rows, then final presentation retains single-word greetings inside the information card and extracts multiword greetings into the external phrase/sentence examples section. Other teaching explanations are retained.
 
 ## Consolidated Module 2 introductions
-- The canonical path starts with Greetings and goodbyes (including wellbeing and danke/bitte), then Introducing yourself: heißen and wohnen (names, residence, origin, informal/polite questions), followed by the unchanged countries, people/names vocabulary and forms lessons. The retired broad lesson retains its original ID and score for old links; `dlConsolidatedInto` identifies its destination.
+- The canonical path starts with Greetings and polite expressions (including wellbeing and danke/bitte), then Introducing yourself: heißen and wohnen (names, residence, origin, informal/polite questions), followed by the unchanged countries, people/names vocabulary and forms lessons. The retired broad lesson retains its original ID and score for old links; `dlConsolidatedInto` identifies its destination.
 - Consolidation preserves completed greeting results and module passes. An existing passed broad introduction can supply the greeting completion if needed; it never replaces a completed destination or removes the source score. It reruns safely after cloud progress loads.
 - Revised sectioned teaching and grouped playback preserve phrase/usage formatting and audio-only greeting/farewell cards. The 15-question Module 2 review samples all seven communication goals plus every remaining lesson, without using the retired question bank. Course/load-order, migration, guide and audio tests cover the consolidation.
 
@@ -93,7 +93,7 @@
 - `js/extracted-batch6-14.js` supplies ten umlaut tasks: three shuffled recording/word matches, three same/different comparisons and four written tasks. `js/umlaut-listening-tasks.js` loads after answer audio and renders only the two custom lesson formats, using the native Check answer/dlCheck scoring, shared fixed dock and enriched feedback cleanup. Word matching does not speak printed answers; comparison requires both clips played. `scripts/test-umlaut-listening-tasks.cjs` checks handlers, scoring delegation, shuffled matching and stale controls without a browser.
 
 ## A1 pets and sound additions
-- `js/a1-practical-data.js` provides the Pets: Haustiere teaching/questions and Bis bald! in Greetings and goodbyes.
+- `js/a1-practical-data.js` provides the Pets: Haustiere teaching/questions and Bis bald! in Greetings and polite expressions.
 - `js/a1-practical-course.js` places Pets: Haustiere between direct objects and accusative pronouns, retaining stable existing lesson IDs.
 - `js/extracted-batch7-1.js` adds the final-d Hund/Hunde sound drill; the drill count is derived from the drills array.
 

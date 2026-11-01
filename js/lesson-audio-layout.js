@@ -11,8 +11,8 @@
    ['Names and origins',[['Ich heiße Lea.','My name is Lea.'],['Wie heißt du?','What is your name?'],['Ich komme aus Kanada.','I come from Canada.']]],
    ['Ask how someone is',[['Wie geht es dir?','How are you?'],['Danke, gut.','Fine, thanks.']]]
   ],
-  'Greetings and goodbyes':[
-   ['Choose a greeting',[['Hallo','Hello'],['Guten Morgen','Good morning'],['Guten Tag','Good day / hello'],['Guten Abend','Good evening']]],
+  'Greetings and polite expressions':[
+   ['Saying hello',[['Hallo','Hello'],['Guten Morgen','Good morning'],['Guten Tag','Good day / hello'],['Guten Abend','Good evening']]],
    ['Say goodbye',[['Tschüss','Bye / goodbye (informal)'],['Auf Wiedersehen','Goodbye (polite/formal)']]],
    ['Ask how someone is',[['Wie geht es dir?','How are you?'],['Danke, gut.','Fine, thanks.']]],
    ['Being polite',[['Danke.','Thank you.'],['Bitte.','Please'],['Einen Kaffee, bitte.','A coffee, please.'],['Entschuldigung.','Excuse me.'],['Es tut mir leid.','I’m sorry.'],['Gern geschehen.','You’re welcome.']]]
@@ -119,7 +119,7 @@
   const seen=new Set(),insertions=new Map();
   const put=(section,row,de)=>{
    const key=normalize(de);if(seen.has(key)){row.remove();return}seen.add(key);
-   const phraseOnly=/^(Choose a greeting|Say goodbye)$/.test(section.querySelector('h3')?.textContent||'');
+   const phraseOnly=/^(Choose a greeting|Saying hello|Say goodbye)$/.test(section.querySelector('h3')?.textContent||'');
    // Match a whole word/phrase in the teaching, never text from already placed audio.
    const item=phraseOnly?null:[...section.querySelectorAll('li')].find(li=>{
     const text=normalize([...li.childNodes].filter(n=>!n.classList?.contains('dl-section-audio')).map(n=>n.textContent).join(' '));
@@ -150,7 +150,7 @@
    put(section,row,de);
   }
   // This card is a phrase list, so the playable rows replace its plain list.
-  const phraseOnly=u.level==='A1'&&(u.title==='Greetings and introductions'?['Choose a greeting']:u.title==='Greetings and goodbyes'?['Choose a greeting','Say goodbye']:[]);
+  const phraseOnly=u.level==='A1'&&(u.title==='Greetings and introductions'?['Choose a greeting']:u.title==='Greetings and polite expressions'?['Saying hello','Say goodbye']:[]);
   for(const title of phraseOnly||[]){
    const section=sections.find(s=>s.querySelector('h3')?.textContent===title);
    const list=insertions.get(section);

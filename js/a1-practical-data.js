@@ -131,14 +131,14 @@ window.DL_A1_PRACTICAL_PACKS = {
    }
   ]
  },
- "A1|Greetings and goodbyes": {
+ "A1|Greetings and polite expressions": {
   "sections": [
    [
     "What you will be able to do",
     "Greet someone, say goodbye, ask how they are, make polite requests, apologize and reply to thanks."
    ],
    [
-    "Choose a greeting",
+    "Saying hello",
     [
      "Hallo — hello",
      "Guten Morgen — good morning",

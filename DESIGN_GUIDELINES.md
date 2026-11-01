@@ -107,7 +107,7 @@ This document records established product decisions. The current `main` branch i
 - Apply this rule to both regular Chat and Work development. It is a required development practice, **not** a background watcher: GitHub edits made outside this workflow will not automatically rewrite documentation. A separate GitHub Action would be needed to flag such edits.
 
 ## A1 pets, farewells and final-consonant pronunciation
-- Teach **Bis bald!** as a friendly “See you soon!” farewell in Greetings and goodbyes, with a playable example and a practical farewell question.
+- Teach **Bis bald!** as a friendly “See you soon!” farewell in Greetings and polite expressions, with a playable example and a practical farewell question.
 - Teach **Pets: Haustiere** after direct-object articles and before accusative pronouns; use common pets and real ownership questions, distinguishing einen Hund, eine Katze, plural quantities and keine Haustiere.
 - Include final **d** pronounced /t/ in the dedicated A1 pronunciation introduction and practice, contrasting Hund and Hunde. Retain the shared pronunciation controls and completion behavior.
 
@@ -139,4 +139,4 @@ This document records established product decisions. The current `main` branch i
 - Single-word audio boxes show the German word and Listen control without repeating translations or pronunciation explanations already given in the matching teaching item. Keep any unique meaning that is not taught there. Phrase/sentence examples retain their translations and context.
 
 ## Limited phrase-context trial
-- Greetings and goodbyes only: every phrase/sentence audio box has a short descriptive context heading outside and directly above it, including time-of-day greetings, farewells, wellbeing, polite requests, apologies and responses to thanks. Keep headings close to their matching audio and leave more space between pairs so following phrases cannot appear to belong to the previous heading. This remains a local trial, not approval for a global rollout.
+- Greetings and polite expressions only: every phrase/sentence audio box has a short descriptive context heading outside and directly above it, including time-of-day greetings, farewells, wellbeing, polite requests, apologies and responses to thanks. Keep headings close to their matching audio and leave more space between pairs so following phrases cannot appear to belong to the previous heading. This remains a local trial, not approval for a global rollout.

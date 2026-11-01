@@ -17,7 +17,7 @@
   "title": "Hello, names and personal information",
   "goal": "Greet someone, introduce yourself and give basic personal details.",
   "lessons": [
-   "Greetings and goodbyes",
+   "Greetings and polite expressions",
    "Introducing yourself: heißen and wohnen",
    "Countries, nationalities and languages",
    "People and names: Vocabulary and meaning",
@@ -263,6 +263,8 @@
  const packs=window.DL_LESSON_ENRICHMENT;
  Object.assign(packs,window.DL_A1_PRACTICAL_PACKS);
  const find=title=>FULL_UNITS.findIndex(u=>u.level==='A1'&&u.title===title);
+ // Rename in place so saved lesson IDs and scores remain unchanged.
+ for(const u of FULL_UNITS)if(u.level==='A1'&&u.title==='Greetings and goodbyes')u.title='Greetings and polite expressions';
  const needed=definitions.flatMap(g=>g.lessons);
  for(const title of needed){
   if(find(title)>=0)continue;
@@ -272,7 +274,7 @@
  const groups=definitions.map(g=>({key:g.key,title:g.title,goal:g.goal,context:g.goal,ids:g.lessons.map(find)}));
  const linked=groups.flatMap(g=>g.ids);
  if(linked.some(i=>i<0)||new Set(linked).size!==linked.length)throw Error('Invalid A1 lesson mapping');
- const consolidatedGreeting=find('Greetings and introductions'),greeting=find('Greetings and goodbyes');
+ const consolidatedGreeting=find('Greetings and introductions'),greeting=find('Greetings and polite expressions');
  if(consolidatedGreeting>=0)FULL_UNITS[consolidatedGreeting].dlConsolidatedInto=greeting;
  for(const i of legacy.flatMap(g=>g.ids))if(!linked.includes(i)&&i!==consolidatedGreeting)throw Error('Existing A1 lesson lost: '+FULL_UNITS[i]?.title);
  for(const unitId of linked){
