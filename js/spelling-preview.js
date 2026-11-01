@@ -93,4 +93,23 @@
  #dl-spelling-preview .sp-feedback strong{font-size:1.3rem}
  #dl-spelling-preview [hidden]{display:none!important}
  `;
+ // Later legacy startup code replaces the static navigation markup.
+ // Register in the live menu and restore the entry after any menu rebuild.
+ function ensurePreviewEntry(){
+  const nav=document.getElementById('sideMenu');
+  if(!nav||nav.querySelector('[data-spelling-preview-entry]'))return;
+  let entry=nav.querySelector('[onclick="dlOpenSpellingPreview()"]');
+  if(!entry)entry=btn('✎ Spelling preview',window.dlOpenSpellingPreview);
+  entry.setAttribute('data-spelling-preview-entry','');
+  const practice=Array.from(nav.querySelectorAll('button')).find(b=>/Practice Hub/.test(b.textContent));
+  if(practice)practice.after(entry);else nav.append(entry);
+ }
+ function watchPreviewMenu(){
+  ensurePreviewEntry();
+  const nav=document.getElementById('sideMenu');
+  if(nav)new MutationObserver(ensurePreviewEntry).observe(nav,{childList:true});
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',watchPreviewMenu);
+ else watchPreviewMenu();
+
 })();
