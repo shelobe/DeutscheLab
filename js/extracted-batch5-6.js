@@ -21,7 +21,7 @@ function intensiveRender(){let r=intensive;if(!r)return;let u=FULL_UNITS[r.id],q
 }
 function intensiveCheck(choice){let r=intensive;if(!r||r.answers.length!==r.idx)return;let q=intensiveTasks(FULL_UNITS[r.id])[r.idx],actual=q.options?q.options[choice]:document.getElementById('intensiveEntry').value;
  if(!actual||!actual.trim()){document.getElementById('intensiveFeedback').textContent='Enter an answer first.';return}
- let ok=deepNormalize(actual)===deepNormalize(q.expected);feedbackSound(ok);r.answers.push(ok);if(ok)r.correct++;
+ let ok=dlWrittenMatch(deepNormalize(actual),deepNormalize(q.expected),q.type==='dictation'||dlStrictSpelling(q,FULL_UNITS[r.id]));feedbackSound(ok);r.answers.push(ok);if(ok)r.correct++;
  document.querySelectorAll('.intensive-choice').forEach(b=>b.disabled=true);let entry=document.getElementById('intensiveEntry');if(entry)entry.disabled=true;
  let explanation=`<div class="unit-explain"><h3>${ok?'Correct!':'Review the model answer'}</h3><p><strong>Your answer:</strong> ${safeText(actual)}</p><p><strong>Model answer:</strong> ${safeText(q.expected)}</p><p>${safeText(q.explain)}</p>${q.type==='dictation'?`<button class="secondary" onclick="speak(${JSON.stringify(q.expected).replace(/"/g,'&quot;')})">🔊 Listen again</button>`:''}<p class="muted">Typed answers are compared with the model answer. Other valid translations may be marked incorrect.</p></div><button onclick="intensiveNext()">${r.idx===3?'See results':'Continue'}</button>`;
  document.getElementById('intensiveFeedback').innerHTML=explanation;

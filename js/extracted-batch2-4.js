@@ -27,7 +27,7 @@ function a12Render(){let s=a12Session;if(!s)return;let c=A12_CONTENT[s.id],q=a12
 }
 function a12Norm(t){return String(t).toLocaleLowerCase('de').normalize('NFC').replace(/[.,!?;:„“"']/g,'').replace(/\s+/g,' ').trim()}
 function a12Check(i){let s=a12Session;if(!s||s.results.length!==s.idx)return;let q=a12Questions(s.id)[s.idx],typed=!(q.kind==='choice'||q.kind==='listen'),actual=typed?document.getElementById('a12Entry').value:q.options[i];if(!String(actual||'').trim())return;
- let expected=typed?q.answer:q.options[q.answer],ok=typed?a12Norm(actual)===a12Norm(expected):i===q.answer;s.results.push(ok);if(ok)s.score++;
+ let expected=typed?q.answer:q.options[q.answer],ok=typed?dlWrittenMatch(a12Norm(actual),a12Norm(expected),dlStrictSpelling(q,FULL_UNITS[s.id])):i===q.answer;s.results.push(ok);if(ok)s.score++;
  app.querySelectorAll('.a12-question').forEach(b=>b.disabled=true);let entry=document.getElementById('a12Entry');if(entry)entry.disabled=true;
  document.getElementById('a12Feedback').innerHTML=`<div class="unit-explain"><h3>${ok?'Correct':'Review this answer'}</h3><p><b>Correct answer:</b> ${safeText(expected)}</p><p>${safeText(q.why)}</p>${typed?'<p class="muted">Typed answers currently use close text matching; other valid phrasing may not be recognized.</p>':''}</div><button onclick="a12Next()">${s.idx===7?'See results':'Next exercise'}</button>`;
 }

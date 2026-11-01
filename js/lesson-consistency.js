@@ -74,9 +74,11 @@
  // Preserve authored teaching when older feedback cleanup removes short explanations.
  const previousCheck=dlCheck;
  dlCheck=function(){
+  const input=app.querySelector('.dl-practical-input input'),typed=input?.value;
   const result=previousCheck.apply(this,arguments);
   const s=fullSession,q=s?.questions?.[s.idx];
   if(!q?.dlEnriched||!dlAnswered)return result;
+  if(typed&&q.dlWriteAnswer)window.dlSpellingNote?.(document.querySelector('#dl-result .dl-flow-feedback'),typed,q.dlWriteAnswer,window.dlStrictSpelling?.(q,FULL_UNITS[s.id]));
   app.querySelectorAll('.dl-practical-input,.dl-practical-audio').forEach(el=>el.remove());
   const box=document.querySelector('#dl-result .dl-flow-feedback');if(!box)return result;
   const add=(className,label,text)=>{if(!text||box.textContent.includes(text)||box.querySelector('.'+className))return;const p=document.createElement('p');p.className=className;p.textContent=label+text;box.append(p);};
@@ -111,7 +113,7 @@
    label.textContent='Your answer';label.htmlFor='dl-practical-answer';input.id='dl-practical-answer';
    input.autocomplete='off';input.autocapitalize='none';input.spellcheck=false;
    input.setAttribute('autocorrect','off');input.setAttribute('aria-label','Your written answer');
-   const update=()=>{if(fullSession!==s||dlAnswered)return;const ready=!!input.value.trim();dlSelected=ready?(normalize(input.value)===normalize(q.dlWriteAnswer)?q.answer:(q.answer===0?1:0)):null;check.disabled=!ready;window.dlRefreshFixedNext?.()};
+   const update=()=>{if(fullSession!==s||dlAnswered)return;const ready=!!input.value.trim();dlSelected=ready?((window.dlWrittenMatch?window.dlWrittenMatch(input.value,q.dlWriteAnswer,window.dlStrictSpelling(q,FULL_UNITS[s.id])):normalize(input.value)===normalize(q.dlWriteAnswer))?q.answer:(q.answer===0?1:0)):null;check.disabled=!ready;window.dlRefreshFixedNext?.()};
    input.oninput=update;input.onkeydown=e=>{if(e.key==='Enter'&&input.value.trim()){e.preventDefault();check.click()}};
    const keys=document.createElement('div');keys.className='dl-practical-keys';
    for(const ch of ['ä','ö','ü','ß']){const b=document.createElement('button');b.type='button';b.className='secondary';b.textContent=ch;b.onclick=()=>{if(fullSession!==s||dlAnswered)return;input.setRangeText(ch,input.selectionStart,input.selectionEnd,'end');input.focus();update()};keys.append(b);}

@@ -26,7 +26,7 @@ function pictureTyped(correct){pictureGrade(correct,document.getElementById('pic
 function pictureGrade(id,submitted){
  let s=pictureSession;if(!s||s.answered)return;
  let w=PICTURE_WORDS[id],norm=t=>t.toLocaleLowerCase('de-DE').trim().replace(/\s+/g,' ').normalize('NFC');
- let ok=norm(submitted)===norm(w[0]);if(!ok)dlWrongHaptic();s.answered=true;try{speak(w[0])}catch(e){}if(ok)s.correct++;
+ let ok=dlWrittenMatch(norm(submitted),norm(w[0]));if(!ok)dlWrongHaptic();s.answered=true;try{speak(w[0])}catch(e){}if(ok)s.correct++;
  state.pictureProgress??={attempts:0,correct:0};state.pictureProgress.attempts++;if(ok)state.pictureProgress.correct++;save();
  app.querySelectorAll('.picture-choices button,form button,.picture-input').forEach(b=>b.disabled=true);
  let feedback=document.getElementById('pictureFeedback');

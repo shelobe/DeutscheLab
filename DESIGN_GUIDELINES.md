@@ -92,3 +92,5 @@ This document records established product decisions. The current `main` branch i
 - Teaching-card headings use a consistent larger 1.3rem bold style across lesson guides, pronunciation, conversation, article/case and word-order explanations so titles stand apart from body text. Avoid a separate full stop after an ellipsis placeholder.
 
 - German-text answer choices play their phrase when selected in lessons and module reviews, so learners hear and read together. English choices stay silent. Preserve existing separate Check answer controls; custom dictation, comparison and matching submissions must not play synthetic answer choices.
+
+- Written-answer character keys are collapsed under a Special characters disclosure by default. General written German accepts ae/oe/ue for ä/ö/ü and ss for expected ß, with standard spelling in feedback. Do not accept plain a/o/u for umlauts. Sound, spelling and dictation tasks retain strict character checks.

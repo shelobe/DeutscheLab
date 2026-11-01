@@ -38,7 +38,9 @@
  const priorAnswer=curriculumReviewAnswer;
  curriculumReviewAnswer=function(){
   const session=moduleSession,q=session?.questions?.[session.idx],wasAnswered=session?.answered;
+  const typed=app.querySelector('.dl-review-controls input')?.value;
   const result=priorAnswer.apply(this,arguments);
+  if(typed&&q?.dlReviewMode==='write')window.dlSpellingNote?.(app.querySelector('#moduleFeedback'),typed,q.dlWriteAnswer??q.options[0],window.dlStrictSpelling?.(q,FULL_UNITS[q.unitId]));
   if(q?.dlReviewMode&&!wasAnswered&&session.answered){
    dispose();
    app.querySelectorAll('.dl-review-controls,.picture-choices,.dl-review-listen').forEach(el=>el.remove());
@@ -84,7 +86,7 @@
    const input=document.createElement('input');input.id='dl-review-typed';input.type='text';input.autocomplete='off';input.autocapitalize='none';input.spellcheck=false;input.setAttribute('autocorrect','off');controls.append(input);
    const keys=document.createElement('div');keys.className='dl-review-character-keys';controls.append(keys);
    for(const ch of ['ä','ö','ü','ß'])button(ch,()=>{input.setRangeText(ch,input.selectionStart,input.selectionEnd,'end');input.focus();check.disabled=!heard||!input.value.trim()},keys);
-   const check=primary(button('Check answer',()=>{if(heard&&input.value.trim())submit(normalize(input.value)===normalize(q.dlWriteAnswer??q.options[0]))}));check.disabled=true;
+   const check=primary(button('Check answer',()=>{if(heard&&input.value.trim())submit((window.dlWrittenMatch?window.dlWrittenMatch(input.value,q.dlWriteAnswer??q.options[0],!writing||window.dlStrictSpelling(q,FULL_UNITS[q.unitId])):normalize(input.value)===normalize(q.dlWriteAnswer??q.options[0])))}));check.disabled=true;
    input.oninput=()=>check.disabled=!heard||!input.value.trim();input.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();check.click()}};
   }else if(q.dlReviewMode==='compare'){
    heading.textContent='Do the two recordings say the same word or different words?';

@@ -83,3 +83,6 @@
 
 ## German answer-choice playback
 - `js/answer-choice-audio.js` loads after module review wrappers. It wraps `dlChoose` and `curriculumReviewAnswer` to speak German selected text while preserving native selection/checking. It identifies language from taught bilingual examples and German/English word cues; `dlAnswerLanguage` can explicitly override ambiguity. Custom non-choice review submissions are excluded. `scripts/test-answer-choice-audio.cjs` checks language selection, native delegation and custom-task isolation without a browser.
+
+## Written-answer keyboard tools
+- `js/written-answer-tools.js` loads before lesson consistency and module reviews, providing directional keyboard-substitute checks, strict sound/spelling detection, standard-spelling feedback and collapsed Special characters disclosures for lesson/review key rows. General lesson/review writing, deep-dive/extended writing and picture-answer comparisons use it; dictation stays strict. `scripts/test-written-answer-tools.cjs` checks matching, strict exceptions, toggle structure and feedback.
