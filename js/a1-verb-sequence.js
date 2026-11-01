@@ -32,7 +32,7 @@
  packs['A1|'+FULL_UNITS[third].title]={sections:[
   ['Talking about one person',['er — he: Paul ist hier. Er ist hier. — Paul is here. He is here.','sie — she: Anna ist hier. Sie ist hier. — Anna is here. She is here.','es — it: Das Kind spielt. Es spielt. — The child is playing.']],
   ['Why es with das Kind?','Das Kind means the child. The German noun Kind is grammatically neuter, so es can replace it even though a child is a person. Later lessons explain noun gender and pronouns for other animals and objects.'],
-  ['Talking about someone, not to them',['Use er or sie when talking about another person: Paul → er; Anna → sie.','When speaking directly to that person, use du or formal Sie, as in Lesson 1.']],
+  ['Talking about someone',['About Paul: er — he','About Anna: sie — she','To that person: du — you (informal)','To that person: Sie — you (polite)']],
   ['Remember','Here, sie means she: Anna ist hier. Sie ist hier. A sentence starts with a capital letter, so capital S alone does not mean formal you. Lesson 3 introduces sie meaning they; use context to tell who is meant.']
  ],examples:[['Paul ist hier. Er ist hier.','Paul is here. He is here.'],['Anna ist hier. Sie ist hier.','Anna is here. She is here.'],['Das Kind spielt. Es spielt.','The child is playing.']],questions:[
   q('Paul ist hier. ___ ist hier.',['Er','Sie','Es'],'Paul is referred to with er (he).'),
