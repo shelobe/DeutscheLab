@@ -2308,16 +2308,21 @@ window.DL_A1_PRACTICAL_PACKS = {
    [
     "Introduce yourself",
     [
-     "You already know Ich heiße … . Mein Name ist … is another way to give your name. Both mean “My name is …”.",
-     "Why mein, not meine? Name is masculine: der Name. Before a masculine noun used this way, “my” is mein: mein Name.",
-     "With a feminine noun, use meine here: meine Mutter means my mother. A later possessives lesson explains these endings in more detail."
+     "Ich heiße … / Mein Name ist … — My name is …\nUse either phrase to give your own name."
     ]
    ],
    [
     "Introduce someone else",
     [
-     "Use Das ist … to tell someone another person’s name. Das ist Paul means This is Paul.",
-     "Talking about yourself: Ich heiße … or Mein Name ist … . Introducing another person: Das ist … ."
+     "Das ist … — This is …\nUse this to introduce another person."
+    ]
+   ],
+   [
+    "Note: mein or meine?",
+    [
+     "Mein Name — my name\nName is masculine: der Name.",
+     "Meine Mutter — my mother\nMutter is feminine: die Mutter.",
+     "You’ll learn more about these endings in the possessives lesson."
     ]
    ]
   ],

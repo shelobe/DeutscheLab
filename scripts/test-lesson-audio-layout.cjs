@@ -23,9 +23,9 @@ guide=fixture([['A question','Wo wohnst du? means Where do you live?'],['Remembe
 console.log('PASS: greeting groups/playback, correct placement, deduplication, A2 isolation, preserved existing handlers, unmatched examples and Start practice.');
 
 units.push({level:'A1',title:'People and names: Vocabulary and meaning'});
-guide=fixture([['Introduce yourself','Ich heiße Lea. Mein Name ist Lea.'],['Introduce someone else','Das ist Paul.']],[['Ich heiße Lea.','My name is Lea.'],['Mein Name ist Lea.','My name is Lea.'],['Das ist Paul.','This is Paul.']]);
+guide=fixture([['Introduce yourself','Use either phrase to give your own name.'],['Introduce someone else','Use this to introduce another person.'],['Note: mein or meine?','Possessive endings come later.']],[['Ich heiße Lea.','My name is Lea.'],['Mein Name ist Lea.','My name is Lea.'],['Das ist Paul.','This is Paul.']]);
 c.fullStudy(units.length-1);
-assert.equal(guide.children.length,2,'Only two connected cards');
+assert.equal(guide.children.length,3,'Two connected cards and a separate note');
 assert.equal(guide.children[0].querySelectorAll('.vocab-row').length,2);
 assert.equal(guide.children[1].querySelectorAll('.vocab-row').length,1);
 guide.children[1].querySelector('button').click();assert.equal(heard.at(-1),'Das ist Paul.');

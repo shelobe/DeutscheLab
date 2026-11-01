@@ -65,7 +65,7 @@
     p.append(li);
    }}
    else{p.textContent=body;p.style.whiteSpace='pre-line'}
-   if(title==='Remember'||title==='Coming up')section.classList.add('dl-lesson-remember');
+   if(title==='Remember'||title==='Coming up'||title==='Note: mein or meine?')section.classList.add('dl-lesson-remember');
    section.append(h,p);guide.append(section);
   }
   anchor.replaceWith(guide);

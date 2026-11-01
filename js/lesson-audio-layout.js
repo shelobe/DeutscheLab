@@ -2,6 +2,10 @@
 (function(){
  const normalize=s=>String(s||'').normalize('NFC').toLocaleLowerCase('de-DE').replace(/[^\p{L}\p{N}]+/gu,' ').trim();
  const greetingAudio={
+  'People and names: Vocabulary and meaning':[
+   ['Introduce yourself',[['Ich heiße Lea.','My name is Lea.'],['Mein Name ist Lea.','My name is Lea.']]],
+   ['Introduce someone else',[['Das ist Paul.','This is Paul.']]]
+  ],
   'Greetings and introductions':[
    ['Choose a greeting',[['Hallo','Hello'],['Guten Morgen','Good morning'],['Guten Tag','Good day / hello'],['Guten Abend','Good evening'],['Tschüss','Bye / goodbye (informal)'],['Auf Wiedersehen','Goodbye (polite/formal)']]],
    ['Names and origins',[['Ich heiße Lea.','My name is Lea.'],['Wie heißt du?','What is your name?'],['Ich komme aus Kanada.','I come from Canada.']]],
