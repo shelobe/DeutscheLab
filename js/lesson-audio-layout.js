@@ -12,7 +12,7 @@
    ['Ask how someone is',[['Wie geht es dir?','How are you?'],['Danke, gut.','Fine, thanks.']]]
   ],
   'Greetings and polite expressions':[
-   ['Saying hello',[['Hallo','Hello'],['Guten Morgen','Good morning'],['Guten Tag','Good day / hello'],['Guten Abend','Good evening']]],
+   ['Saying hello',[['Hallo','Hello (informal)'],['Guten Morgen','Good morning'],['Guten Tag','Hello (polite)'],['Guten Abend','Good evening']]],
    ['Say goodbye',[['Tschüss','Bye / goodbye (informal)'],['Auf Wiedersehen','Goodbye (polite/formal)']]],
    ['Ask how someone is',[['Wie geht es dir?','How are you?'],['Danke, gut.','Fine, thanks.']]],
    ['Being polite',[['Danke.','Thank you.'],['Bitte.','Please'],['Einen Kaffee, bitte.','A coffee, please.'],['Entschuldigung.','Excuse me.'],['Es tut mir leid.','I’m sorry.'],['Gern geschehen.','You’re welcome.']]]
