@@ -52,12 +52,9 @@
  function placeAudio(id){
   const u=FULL_UNITS[id],card=app.querySelector('.dl-flow-card');if(!u||!card||card.classList.contains('dl-inline-lesson-audio'))return;
   const guide=card.querySelector('.dl-lesson-guide,.dl-pronoun-guide,.dl-conversation-cards,.dl-accusative-guide,#dl-order-guide');if(!guide)return;
-  // Module 3, lesson 2 already shows English meanings beside the pronouns.
-  // Omit the redundant explanatory card without changing the lesson or audio data.
   if(u.title==='Personal pronouns: he, she, it'){
    for(const section of guide.querySelectorAll('section')){
-    const heading=(section.querySelector('h3')?.textContent||'').trim();
-    if(/^Useful words(?: and examples)?$/i.test(heading))section.remove();
+    if((section.querySelector('h3')?.textContent||'').trim()==='Useful words in the examples')section.remove();
    }
   }
   const sections=[...guide.querySelectorAll('section')];if(!sections.length)return;
