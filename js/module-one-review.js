@@ -6,14 +6,14 @@
  let dispose=()=>{};
  function bank(group){
   const id=group.ids[0],umlaut=group.ids.find(i=>/umlaut/i.test(FULL_UNITS[i]?.title||''))??id;
-  const prompts={type:'Listen, then type the word you hear.',speak:'Read the word aloud.',compare:'Do you hear the same word or different words?',match:'Match each sound to its written word.'};
+  const prompts={tiles:'Listen, then build the word.',gap:'Listen and complete the word.',type:'Listen, then type the word you hear.',speak:'Read the word aloud.',compare:'Do you hear the same word or different words?',match:'Match each sound to its written word.'};
   const make=(mode,word,why,extra={})=>({type:'grammar',unitId:id,prompt:prompts[mode]||'Listen and choose the word you hear.',options:[word,'Try again'],answer:0,why,dlReviewMode:mode,...extra});
   const choice=(word,others,why)=>make('choice',word,why,{prompt:'Listen and choose the word you hear.',dlReviewAudio:word,options:shuffle([word,...others])});
   const choices=[choice('Tschüss',['Schule','Straße'],'Tschüss means bye. Its initial tsch is one sound, like ch in English chair; sch in Schule starts with sh.'),choice('zwei',['drei','frei'],'Zwei begins with the ts sound written z.'),choice('Schule',['Stuhl','Schale'],'Schule begins with sch, pronounced sh.')];
   choices.forEach(q=>q.answer=q.options.indexOf(q.dlReviewAudio));
-  const typing=[make('type','Wein','EI makes the eye sound in Wein.'),make('type','Liebe','IE makes the long ee sound in Liebe.'),make('type','Käse','The ä in Käse is a different vowel from a.',{unitId:umlaut})];
-  const alternatives=[choice('schön',['schon','Schule'],'Schön begins with sch and contains ö.'),choice('auch',['auf','Auge'],'Auch contains the back ch sound after au.'),choice('Tür',['Tier','Tor'],'Tür contains ü, distinct from ie and o.')];
-  alternatives.forEach(q=>q.answer=q.options.indexOf(q.dlReviewAudio));
+  const typing=[make('type','Wein','EI makes the eye sound in Wein.'),make('type','Liebe','IE makes the long ee sound in Liebe.'),make('tiles','Käse','The ä in Käse is a different vowel from a.',{unitId:umlaut})];
+  const alternatives=[make('gap','schön','Schön means beautiful and contains ö.',{unitId:umlaut,prompt:'Listen and complete the word.',spellingWord:'schön',spellingBefore:'sch',spellingAfter:'n',spellingAnswer:'ö'}),choice('auch',['auf','Auge'],'Auch contains the back ch sound after au.'),choice('Tür',['Tier','Tor'],'Tür contains ü, distinct from ie and o.')];
+  alternatives.forEach(q=>{if(q.dlReviewMode==='choice')q.answer=q.options.indexOf(q.dlReviewAudio)});
   alternatives[0].unitId=umlaut;alternatives[2].unitId=umlaut;
   const pairA=Math.random()<.5?['schon','schön']:['schön','schön'];
   const pairB=Math.random()<.5?['mein','mein']:['mein','Wein'];
@@ -74,6 +74,14 @@
    curriculumReviewAnswer(ok?q.answer:(q.answer===0?1:0));
   }
   function play(word,after){if(!alive())return;speak(word);if(after)after()}
+  if(q.dlReviewMode==='tiles'||q.dlReviewMode==='gap'){
+   heading.textContent=q.dlReviewMode==='tiles'?'Listen, then build the word.':'Listen and complete the word.';
+   const check=primary(button('Check answer',()=>{}));
+   window.dlMountSpelling({host:controls,question:q,mode:q.dlReviewMode,check,alive,onSubmit:submit,refresh:()=>window.dlRefreshFixedNext?.()});
+   // Keep the native pinned action after the answer controls in DOM order.
+   controls.append(check);
+   window.dlRefreshFixedNext?.();return result;
+  }
   if(q.dlReviewMode==='type'||q.dlReviewMode==='write'){
    heading.textContent=q.dlReviewMode==='write'?q.prompt:'Listen, then type the word you hear.';
    const writing=q.dlReviewMode==='write';let heard=writing;

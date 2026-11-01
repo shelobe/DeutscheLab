@@ -14,6 +14,11 @@
   const note=document.createElement('p');note.setAttribute('aria-live','polite');controls.append(note);
   let correct=()=>false;
   const ready=()=>{window.dlRefreshFixedNext?.()};
+  if(q.dlLessonMode==='tiles'||q.dlLessonMode==='gap'){
+   card.querySelector('.dl-flow-label').textContent=q.dlLessonMode==='tiles'?'BUILD THE WORD':'COMPLETE THE WORD';
+   window.dlMountSpelling({host:controls,question:q,mode:q.dlLessonMode,check,alive,refresh:ready,onSubmit:ok=>{dlSelected=ok?q.answer:(q.answer===0?1:0);dlCheck()}});
+   return result;
+  }
   if(q.dlLessonMode==='compare'){
    const heard=new Set(),answers=[];let selected=null;
    const audio=document.createElement('div');audio.className='dl-review-playback';controls.append(audio);

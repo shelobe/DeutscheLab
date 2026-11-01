@@ -176,6 +176,12 @@
   }
 ];
 
+  // Pilot spelling formats use only words introduced in this lesson.
+  session.questions[1]={type:'grammar',prompt:'Listen and complete the word.',options:['schön','Try again'],answer:0,why:'Schön means beautiful and contains ö.',dlEnriched:true,dlLessonMode:'gap',spellingWord:'schön',spellingBefore:'sch',spellingAfter:'n',spellingAnswer:'ö'};
+  for(const i of [2,5]){
+   const q=session.questions[i];q.dlLessonMode='tiles';q.spellingWord=q.dlWriteAnswer;q.prompt='Listen, then build the word.';
+   delete q.dlWriteAnswer;delete q.dlReviewAudio;
+  }
   session.idx=0;session.score=0;session.results=[];
   fullRender();
  };

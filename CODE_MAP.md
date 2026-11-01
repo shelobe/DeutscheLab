@@ -40,7 +40,7 @@
 - `js/extracted-batch5-8.js`: `personalPronounReview` supplies 18 questions, six for each current Module 2 lesson. Every run covers ich/du/formal Sie, conversation requests and understanding, and er/sie/es plus she/they distinctions. Question and option order shuffle without dropping topics. Other modules retain their existing selection and all reviews keep native scoring, feedback and mastery handling.
 
 ## Module 1 review
-- `js/module-one-review.js` loads after the existing lesson wrappers and replaces only A1 Module 1's review bank/rendering with 15 tasks: six listening choices and three each of dictation, recording comparison and audio-to-word matching. Each five-question block includes two listening choices and one of each other format.
+- `js/module-one-review.js` loads after the existing lesson wrappers and replaces only A1 Module 1's review bank/rendering with 15 tasks: five listening choices, two dictations, three recording comparisons, three audio-to-word matches, one letter-tile task and one inline missing-letter task. Each five-question block includes two listening choices and one of each other format.
 - Dictation always includes Wein and Liebe (EI/IE), uses a text input plus ä/ö/ü/ß keys, and accepts capitalization differences while requiring the actual German spelling. Matching requires all clips assigned; comparison requires both played. Written words and audio identities are concealed where they are the answer.
 - Module 1 review has no speech-recognition requirement: the former read-aloud slots use their listening alternatives (schön, auch and Tür). Dedicated pronunciation practice is separate.
 - Custom controls delegate once to the existing `curriculumReviewAnswer` pipeline, preserving feedback, sound, missed-answer summaries, score and mastery. Other modules are unchanged.
@@ -90,7 +90,7 @@
 - People and names vocabulary now teaches self-introductions versus introducing another person in two cards. Its brief mein/meine explanation points to possessives; audio stays inside those two cards, and practice/reviews use the same focused bank.
 
 ## Mixed umlaut lesson listening
-- `js/extracted-batch6-14.js` supplies ten umlaut tasks: three shuffled recording/word matches, three same/different comparisons and four written tasks. `js/umlaut-listening-tasks.js` loads after answer audio and renders only the two custom lesson formats, using the native Check answer/dlCheck scoring, shared fixed dock and enriched feedback cleanup. Word matching does not speak printed answers; comparison requires both clips played. `scripts/test-umlaut-listening-tasks.cjs` checks handlers, scoring delegation, shuffled matching and stale controls without a browser.
+- `js/extracted-batch6-14.js` supplies ten umlaut tasks: three shuffled recording/word matches, two same/different comparisons, two letter-tile tasks, one inline missing-letter task and two written tasks. `js/umlaut-listening-tasks.js` loads after answer audio and renders only the two custom lesson formats, using the native Check answer/dlCheck scoring, shared fixed dock and enriched feedback cleanup. Word matching does not speak printed answers; comparison requires both clips played. `scripts/test-umlaut-listening-tasks.cjs` checks handlers, scoring delegation, shuffled matching and stale controls without a browser.
 
 ## A1 pets and sound additions
 - `js/a1-practical-data.js` provides the Pets: Haustiere teaching/questions and Bis bald! in Greetings and polite expressions.
@@ -109,8 +109,14 @@
 - All shared flow teaching cards opt into `dl-integrated-teaching-audio`; phrase rows use `dl-compact-phrase-audio`. Alignment styles compensate for teaching-list indentation. The custom group-pronoun sentence examples remain within their teaching section.
 
 ## Spelling activity preview
-- `js/spelling-preview.js`, loaded last, provides the menu's isolated Spelling preview dialog: six tile, missing-letter, dictation and meaning-recall samples. It owns transient state only; it does not alter lesson banks, scores, XP or storage. Native dialog isolation keeps existing lessons intact. The dialog lives under #app to reuse shared result-badge styles, follows visualViewport resize events for keyboard-safe navigation, and removes listeners when closed.
+- `js/spelling-preview.js`, loaded last, provides the menu's isolated Spelling preview dialog: six tile, missing-letter, dictation and meaning-recall samples. It owns transient state only; it does not alter lesson banks, scores, XP or storage. Preview Back confirms before returning to Lessons. Native dialog isolation keeps existing lessons intact. The dialog lives under #app to reuse shared result-badge styles, follows visualViewport resize events for keyboard-safe navigation, and removes listeners when closed.
 
 - Menu cleanup in `js/extracted-batch6-19.js` matches Review as a whole word, so Spelling preview is retained. The preview also restores its entry after menu rebuilds.
 
 - The shared fixed-next handler in `js/extracted-batch7-11.js` excludes dialog controls: modal previews own their navigation, since body-level proxy docks render behind native modal dialogs.
+
+## Spelling pilot controls
+- `js/spelling-activities.js` loads before `module-one-review.js` and `umlaut-listening-tasks.js`. Its `dlMountSpelling` creates tiles/inline blanks and delegates submission to native handlers; it does not save progress or render separate feedback.
+- `js/extracted-batch6-14.js` keeps ten Umlauts and ß questions, replacing one same-word comparison with schön/ö and two dictations with Käse/Straße tiles. `umlaut-listening-tasks.js` binds these controls to dlCheck and the native dock.
+- `module-one-review.js` retains fifteen questions, replacing Käse dictation with tiles and schön choice with an inline ö blank. Native review score, progress, cleanup and Next remain authoritative. Other module banks are unchanged.
+- The listening-task and module-review tests exercise the actual shared helper, strict umlauts, repeated tiles, native submissions, cleanup and footer. Preview Back tests cover canceled and confirmed exits to Lessons.

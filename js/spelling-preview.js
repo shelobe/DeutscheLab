@@ -46,7 +46,7 @@
   }
   const feedback=el('div','',body);feedback.className='sp-feedback unit-explain';feedback.setAttribute('role','status');feedback.hidden=true;
   const foot=el('div','',dialog);foot.className='sp-footer';
-  btn('Back',()=>{if(index){index--;render()}else close()},foot);
+  btn('Back',()=>{if(window.confirm('Leave this preview and return to Lessons? Your current preview answers will be lost.')){close();lessonMenu()}},foot);
   check=btn('Check answer',()=>{
    if(checked){if(index<questions.length-1){index++;render()}else{index=0;render()}return}
    const answer=q.mode==='tiles'?chosen.map(i=>letters[i]).join(''):input.value;

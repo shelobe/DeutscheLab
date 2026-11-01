@@ -21,6 +21,7 @@ class Element{
  querySelector(s){if(s==='.dl-review-controls [data-dl-review-action]')return this.querySelector('.dl-review-controls')?.querySelector('[data-dl-review-action]')||null;return this.querySelectorAll(s)[0]||null}
  click(){if(!this.disabled)this.onclick?.()}
  focus(){}
+ blur(){}
  setRangeText(s,start=0,end=0){this.value=this.value.slice(0,start)+s+this.value.slice(end);this.selectionStart=this.selectionEnd=start+s.length}
 }
 const app=new Element('main'),head=new Element('head'),body=new Element('body'),played=[],timers=new Map();let timerId=0,cancelCount=0;
@@ -35,7 +36,7 @@ context.curriculumReviewRender=()=>{
 context.curriculumReviewAnswer=i=>{const s=context.moduleSession;if(s.answered)return;s.answered=true;const ok=i===s.questions[s.idx].answer;if(ok){s.score++;s.dlCoreScore++}
  const next=new Element('button');next.textContent='Next question';next.onclick=()=>{s.idx++;s.answered=false;context.curriculumReviewRender()};app.querySelector('#moduleFeedback').append(next);
 };
-vm.createContext(context);
+vm.createContext(context);vm.runInContext(fs.readFileSync('js/spelling-activities.js','utf8'),context);
 vm.runInContext(fs.readFileSync(path.join(__dirname,'../js/extracted-batch7-11.js'),'utf8'),context);
 vm.runInContext(fs.readFileSync(path.join(__dirname,'../js/module-one-review.js'),'utf8'),context);
 const buttons=()=>app.querySelectorAll('button'),button=text=>{const b=buttons().find(b=>b.textContent===text);assert.ok(b,'Missing button '+text);return b};
@@ -45,11 +46,11 @@ function answerType(text){button('Listen to the word').click();const input=app.q
 for(let run=0;run<100;run++){
  context.curriculumReview('A1',0);const qs=context.moduleSession.questions,counts={};qs.forEach(q=>{counts[q.dlReviewMode]=(counts[q.dlReviewMode]||0)+1;assert.ok(q.prompt);assert.ok(q.why);assert.ok(q.options[q.answer])});
  assert.ok(qs.some(q=>q.dlReviewAudio==='Tschüss'),'Every review practices the taught TSCH sound');
- assert.equal(qs.length,15);assert.equal(counts.choice,6);for(const n of ['type','compare','match'])assert.equal(counts[n],3);assert.equal(counts.speak,undefined);
+ assert.equal(qs.length,15);assert.equal(counts.choice,5);assert.equal(counts.type,2);assert.equal(counts.tiles,1);assert.equal(counts.gap,1);for(const n of ['compare','match'])assert.equal(counts[n],3);assert.equal(counts.speak,undefined);
  assert.ok(qs.some(q=>q.dlReviewMode==='type'&&q.options[0]==='Wein'));assert.ok(qs.some(q=>q.dlReviewMode==='type'&&q.options[0]==='Liebe'));
- for(let i=0;i<15;i+=5){assert.equal(new Set(qs.slice(i,i+5).map(q=>q.dlReviewMode)).size,4);assert.equal(qs.slice(i,i+5).filter(q=>q.dlReviewMode==='choice').length,2)}
+ for(let i=0;i<15;i+=5){assert.equal(qs.slice(i,i+5).filter(q=>['type','tiles'].includes(q.dlReviewMode)).length,1);assert.equal(qs.slice(i,i+5).filter(q=>['choice','gap'].includes(q.dlReviewMode)).length,2)}
 }
-console.log('PASS: 100 runs retain 15 tasks, four formats, EI/IE and interleaving; no microphone requirement');
+console.log('PASS: 100 runs retain 15 tasks, six formats, EI/IE and interleaving; no microphone requirement');
 let q=open('type');assert.equal(app.querySelector('input').autocomplete,'off');assert.equal(button('Check answer').disabled,true);assert.ok(!app.querySelector('.dl-review-controls').textContent.includes(q.options[0]));answerType(' '+q.options[0].toUpperCase()+' ');assert.equal(context.moduleSession.score,1);context.curriculumReviewAnswer(0);assert.equal(context.moduleSession.score,1);assert.equal(app.querySelector('.dl-review-controls'),null);assert.equal(app.querySelector('.picture-choices'),null);
 open('type');answerType('wrong');assert.equal(context.moduleSession.score,0);assert.equal(context.moduleSession.answered,true);
 open('type');const input=app.querySelector('input');input.value='Kase';input.selectionStart=1;input.selectionEnd=2;button('ä').click();assert.equal(input.value,'Käse');
@@ -67,13 +68,13 @@ assert.equal(app.querySelector('.dl-review-controls'),null);assert.equal(dockBut
 q=open('match');const columns=app.querySelector('.dl-review-match-columns');assert.equal(columns.children.length,2);assert.equal(columns.children[0].children.length,3);assert.equal(columns.children[1].children.length,3);
 q.clipOrder.forEach((word,i)=>{button('Listen '+String.fromCharCode(65+i)).click();button(word).click()});refreshDock();assert.equal(dockButton.textContent,'Check matches');assert.equal(dockButton.disabled,false);dockButton.click();assert.equal(app.querySelector('.dl-review-match-columns'),null);assert.equal(dockButton.textContent,'Next question');
 // Every replacement is answerable and advances through the same native footer.
-for(const target of ['schön','auch','Tür','Tschüss']){
+for(const target of ['auch','Tür','Tschüss']){
  context.curriculumReview('A1',0);const session=context.moduleSession;session.idx=session.questions.findIndex(q=>q.dlReviewAudio===target);context.curriculumReviewRender();
  assert.equal(buttons().some(b=>b.textContent==='Speak now'),false);
  button(target).click();assert.equal(session.score,1);refreshDock();assert.equal(dockButton.textContent,'Next question');dockButton.click();assert.equal(session.answered,false);
 }
 context.curriculumReview('A1',1);context.curriculumReviewRender();refreshDock();assert.equal(dock.style.display,'none');
-console.log('PASS: real shared dock, disabled checks, repeated refresh, match columns, submitted bank cleanup, feedback visibility, all three microphone-free replacements through Next, navigation cleanup');
+console.log('PASS: real shared dock, disabled checks, repeated refresh, match columns, submitted bank cleanup, feedback visibility, microphone-free choices through Next, navigation cleanup');
 
 q=open('compare');const groups=app.querySelectorAll('.dl-review-compare-group');assert.equal(groups.length,2);
 assert.equal(groups[0].attributes['aria-label'],'Listen to both words');assert.equal(groups[1].attributes['aria-label'],'Choose your answer');
@@ -103,3 +104,8 @@ open('type');context.moduleSession.n=3;const write=current();write.dlReviewMode=
 context.curriculumReviewRender();assert.equal(buttons().some(b=>b.textContent==='Listen to the word'),false);assert.equal(button('Check answer').disabled,true);
 let written=app.querySelector('input');written.value=' HAST ';written.oninput();refreshDock();assert.equal(dockButton.disabled,false);dockButton.click();assert.equal(context.moduleSession.score,1);assert.equal(app.querySelector('input'),null);assert.equal(dockButton.textContent,'Next question');
 console.log('PASS: written review requires no audio, accepts normalized answer with shuffled correct index, cleans controls and advances through native dock');
+
+q=open('tiles');for(const ch of q.options[q.answer])app.querySelectorAll('button').find(b=>b.textContent===ch&&!b.disabled).click();button('Check answer').click();assert.equal(context.moduleSession.score,1);assert.equal(app.querySelector('.dl-review-controls'),null);
+q=open('gap');const inline=app.querySelector('input');assert.equal(inline.placeholder,undefined);inline.value='o';inline.oninput();button('Check answer').click();assert.equal(context.moduleSession.score,0);
+q=open('gap');button('ö').click();button('Check answer').click();assert.equal(context.moduleSession.score,1);assert.equal(app.querySelector('.dl-review-controls'),null);
+console.log('PASS: module spelling tile/gap scoring and native cleanup');
