@@ -112,3 +112,5 @@
 - `js/spelling-preview.js`, loaded last, provides the menu's isolated Spelling preview dialog: six tile, missing-letter, dictation and meaning-recall samples. It owns transient state only; it does not alter lesson banks, scores, XP or storage. Native dialog isolation keeps existing lessons intact. The dialog lives under #app to reuse shared result-badge styles, follows visualViewport resize events for keyboard-safe navigation, and removes listeners when closed.
 
 - Menu cleanup in `js/extracted-batch6-19.js` matches Review as a whole word, so Spelling preview is retained. The preview also restores its entry after menu rebuilds.
+
+- The shared fixed-next handler in `js/extracted-batch7-11.js` excludes dialog controls: modal previews own their navigation, since body-level proxy docks render behind native modal dialogs.

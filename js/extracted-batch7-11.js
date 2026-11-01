@@ -13,7 +13,7 @@
   const candidates=Array.from(root.querySelectorAll('button')).filter(b=>{
    const name=(b.textContent||'').trim().replace(/^[^\p{L}]+/u,'').trim();
    const checking=/^check answer$/i.test(name);
-   if((!label.test(name)&&!checking)||(b.disabled&&!checking)||b.hidden||b.closest('[hidden],.findit-room-choices,.dashboard-primary,.dashboard-shortcuts,nav'))return false;
+   if((!label.test(name)&&!checking)||(b.disabled&&!checking)||b.hidden||b.closest('dialog,[hidden],.findit-room-choices,.dashboard-primary,.dashboard-shortcuts,nav'))return false;
    const box=b.getBoundingClientRect();return box.width>0&&box.height>0;
   });
   // Only pin an advance button in an active question/feedback screen, not a home menu.
