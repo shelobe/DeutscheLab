@@ -49,6 +49,7 @@ Priority: P0 = current focus; P1 = next; P2 = follow-on; P3 = later. This is an 
 - [ ] Lesson appears after its prerequisites.
 - [ ] Questions test the intended skill, not hints, trivia or unrelated conjugation.
 - [ ] Mix recognition, comprehension and production appropriate to the lesson.
+- [ ] Let taught objectives determine the lesson question count and mix; expand or reduce practice for complete coverage and useful reinforcement, avoiding filler, unnecessary repetition and tests of another lesson’s primary skill.
 - [ ] Accept legitimate German variants; give precise feedback and corrections.
 - [ ] Include listening/speaking only where relevant and preserve push-to-talk.
 - [ ] Keep lesson teaching, practice and module review aligned.
