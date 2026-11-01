@@ -25,9 +25,9 @@
    {type:'sound-choice',prompt:'Which audio says “Mütter”?',options:['Audio 1','Audio 2','Audio 3'],answer:2,dlAudioWords:['Mutter','Meter','Mütter'],dlTarget:'Mütter',why:'Mütter has ü; Mutter has u.'},
    {type:'sound-choice',prompt:'Which audio says “Mädchen”?',options:['Audio 1','Audio 2','Audio 3'],answer:1,dlAudioWords:['Machen','Mädchen','Möchten'],dlTarget:'Mädchen',why:'Mädchen (girl) contains ä. Listen for the different vowel compared with machen.'},
    {type:'grammar',prompt:'In Mädchen, which English vowel is ä closest to?',options:['The e in “bed”','The oo in “moon”','The ee in “see”'],answer:0,why:'The ä in Mädchen is similar to the short e in English bed. The German sound can vary by word and accent.'},
-   {type:'grammar',prompt:'Which pair changes meaning when an umlaut is added?',options:['schon → schön','Haus → Haus','und → und'],answer:0,why:'Schon means already; schön means beautiful or nice.'},
-   {type:'grammar',prompt:'Which spelling uses ß correctly?',options:['groß','groB','gröss'],answer:0,why:'Groß means big; ß represents the s sound after the long o.'},
-   {type:'grammar',prompt:'Which statement about German ß is correct?',options:['It is a distinct letter, not a capital B','It is pronounced like English B','It always makes a sh sound'],answer:0,why:'ß is a separate German letter called Eszett; it typically represents a sharp s sound.'}
+   {type:'grammar',prompt:'Listen and choose the meaning of the word.',options:['Already','Beautiful','Five'],answer:0,dlReviewAudio:'schon',dlEnriched:true,why:'Schon means already. Schön, with ö, means beautiful or nice.'},
+   {type:'grammar',prompt:'Listen, then write the word you hear.',options:['Fuß','Fluss','fünf'],answer:0,dlReviewAudio:'Fuß',dlWriteAnswer:'Fuß',dlStrictSpelling:true,dlEnriched:true,why:'Fuß means foot. Its long u is followed by ß.'},
+   {type:'grammar',prompt:'Listen, then write the word you hear.',options:['Fluss','Fuß','fünf'],answer:0,dlReviewAudio:'Fluss',dlWriteAnswer:'Fluss',dlStrictSpelling:true,dlEnriched:true,why:'Fluss means river. Its short u is followed by ss.'}
   ];
   session.idx=0;session.score=0;session.results=[];
   fullRender();
