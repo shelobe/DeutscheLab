@@ -18,17 +18,145 @@
   if(!session||unit?.title!=='Umlauts and ß')return;
   // One varied ten-question sequence: vowels, spelling, meaning, and ß.
   session.questions=[
-   {type:'grammar',prompt:'Which letter is used in the German word for “five”?',options:['ü','u','ö'],answer:0,why:'Fünf is spelled with ü, which has a distinct vowel sound.'},
-   {type:'sound-choice',prompt:'Which audio says “schön”?',options:['Audio 1','Audio 2','Audio 3'],answer:1,dlAudioWords:['schon','schön','Sohn'],dlTarget:'schön',why:'Schön has ö; schon and Sohn have an o sound.'},
-   {type:'grammar',prompt:'What sound does ß represent in Straße?',options:['An s sound','A b sound','A z sound'],answer:0,why:'ß is called Eszett or sharp S. It represents an unvoiced s sound, not a b sound.'},
-   {type:'grammar',prompt:'Choose the correctly spelled German word for “street.”',options:['Straße','StraBe','Sträße'],answer:0,why:'Straße uses ß after a long vowel. The letter ß is not the letter B.'},
-   {type:'sound-choice',prompt:'Which audio says “Mütter”?',options:['Audio 1','Audio 2','Audio 3'],answer:2,dlAudioWords:['Mutter','Meter','Mütter'],dlTarget:'Mütter',why:'Mütter has ü; Mutter has u.'},
-   {type:'sound-choice',prompt:'Which audio says “Mädchen”?',options:['Audio 1','Audio 2','Audio 3'],answer:1,dlAudioWords:['Machen','Mädchen','Möchten'],dlTarget:'Mädchen',why:'Mädchen (girl) contains ä. Listen for the different vowel compared with machen.'},
-   {type:'grammar',prompt:'In Mädchen, which English vowel is ä closest to?',options:['The e in “bed”','The oo in “moon”','The ee in “see”'],answer:0,why:'The ä in Mädchen is similar to the short e in English bed. The German sound can vary by word and accent.'},
-   {type:'grammar',prompt:'Listen and choose the meaning of the word.',options:['Already','Beautiful','Five'],answer:0,dlReviewAudio:'schon',dlEnriched:true,why:'Schon means already. Schön, with ö, means beautiful or nice.'},
-   {type:'grammar',prompt:'Listen, then write the word you hear.',options:['Fuß','Fluss','fünf'],answer:0,dlReviewAudio:'Fuß',dlWriteAnswer:'Fuß',dlStrictSpelling:true,dlEnriched:true,why:'Fuß means foot. Its long u is followed by ß.'},
-   {type:'grammar',prompt:'Listen, then write the word you hear.',options:['Fluss','Fuß','fünf'],answer:0,dlReviewAudio:'Fluss',dlWriteAnswer:'Fluss',dlStrictSpelling:true,dlEnriched:true,why:'Fluss means river. Its short u is followed by ss.'}
-  ];
+  {
+    "type": "grammar",
+    "prompt": "Listen and choose the word you hear.",
+    "options": [
+      "Mädchen",
+      "Madchen",
+      "Mödchen"
+    ],
+    "answer": 0,
+    "dlReviewAudio": "Mädchen",
+    "dlEnriched": true,
+    "why": "Mädchen means girl and contains ä. The dots change the vowel sound."
+  },
+  {
+    "type": "grammar",
+    "prompt": "Listen and choose the meaning of the word.",
+    "options": [
+      "Beautiful",
+      "Already",
+      "Five"
+    ],
+    "answer": 0,
+    "dlReviewAudio": "schön",
+    "dlEnriched": true,
+    "why": "Schön means beautiful or nice; schon means already."
+  },
+  {
+    "type": "grammar",
+    "prompt": "Listen and choose the word you hear.",
+    "options": [
+      "fünf",
+      "funf",
+      "fönf"
+    ],
+    "answer": 0,
+    "dlReviewAudio": "fünf",
+    "dlEnriched": true,
+    "why": "Fünf means five. Ü has a different sound from u and ö."
+  },
+  {
+    "type": "grammar",
+    "prompt": "Listen, then write the word you hear.",
+    "options": [
+      "Straße",
+      "Strabe",
+      "Sträße"
+    ],
+    "answer": 0,
+    "dlReviewAudio": "Straße",
+    "dlEnriched": true,
+    "why": "Straße means street. Its long a is followed by ß, which makes an s sound.",
+    "dlWriteAnswer": "Straße",
+    "dlStrictSpelling": true
+  },
+  {
+    "type": "grammar",
+    "prompt": "Listen and choose the word you hear.",
+    "options": [
+      "Käse",
+      "Kase",
+      "Köse"
+    ],
+    "answer": 0,
+    "dlReviewAudio": "Käse",
+    "dlEnriched": true,
+    "why": "Käse means cheese and contains ä, a separate vowel sound."
+  },
+  {
+    "type": "grammar",
+    "prompt": "Listen and choose the meaning of the word.",
+    "options": [
+      "Already",
+      "Beautiful",
+      "Five"
+    ],
+    "answer": 0,
+    "dlReviewAudio": "schon",
+    "dlEnriched": true,
+    "why": "Schon means already; schön, with ö, means beautiful or nice."
+  },
+  {
+    "type": "grammar",
+    "prompt": "Listen, then write the word you hear.",
+    "options": [
+      "Fuß",
+      "Fluss",
+      "fünf"
+    ],
+    "answer": 0,
+    "dlReviewAudio": "Fuß",
+    "dlEnriched": true,
+    "why": "Fuß means foot. Its long u is followed by ß.",
+    "dlWriteAnswer": "Fuß",
+    "dlStrictSpelling": true
+  },
+  {
+    "type": "grammar",
+    "prompt": "Listen, then write the word you hear.",
+    "options": [
+      "Fluss",
+      "Fuß",
+      "fünf"
+    ],
+    "answer": 0,
+    "dlReviewAudio": "Fluss",
+    "dlEnriched": true,
+    "why": "Fluss means river. Its short u is followed by ss.",
+    "dlWriteAnswer": "Fluss",
+    "dlStrictSpelling": true
+  },
+  {
+    "type": "grammar",
+    "prompt": "Complete the German word meaning “to be called”: hei__en.",
+    "options": [
+      "ß",
+      "ss",
+      "s"
+    ],
+    "answer": 0,
+    "dlEnriched": true,
+    "why": "Heißen uses ß after ei, a diphthong. This follows the same spelling rule as ß after a long vowel."
+  },
+  {
+    "type": "grammar",
+    "prompt": "Listen, then write the word you hear.",
+    "options": [
+      "groß",
+      "gross",
+      "groB"
+    ],
+    "answer": 0,
+    "dlReviewAudio": "groß",
+    "dlEnriched": true,
+    "why": "Groß means big. Its long o is followed by ß. Use the Special characters control if needed.",
+    "dlWriteAnswer": "groß",
+    "dlStrictSpelling": true
+  }
+];
+
   session.idx=0;session.score=0;session.results=[];
   fullRender();
  };
