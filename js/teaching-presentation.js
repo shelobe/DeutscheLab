@@ -18,6 +18,7 @@
    if(!word||!row.querySelector('button,audio'))continue;
    // The group-pronoun sentence section already has its approved external layout.
    if(row.closest('.dl-pronoun-sentence-examples'))continue;
+   if(!singleWord(word)&&card.classList.contains('dl-integrated-greeting-audio')){row.classList.add('dl-compact-phrase-audio');continue;}
    if(!singleWord(word)){
     if(row.closest('.dl-separated-audio-examples'))continue;
     if(!separate){separate=document.createElement('div');separate.className='dl-separated-audio-examples';const h=document.createElement('h3');h.textContent='Phrases and sentences';separate.append(h);guide.after(separate);}
@@ -94,21 +95,9 @@
    if(duplicate||repeatsInline)meaning.hidden=true;
   }
  }
- function greetingContext(id){
-  if(typeof FULL_UNITS==='undefined'||FULL_UNITS[id]?.level!=='A1'||FULL_UNITS[id]?.title!=='Greetings and polite expressions')return;
-  const card=root.querySelector('.dl-flow-card');if(!card)return;
-  const labels={'guten morgen':'Greeting someone in the morning','guten tag':'Greeting someone during the day','guten abend':'Greeting someone in the evening','bis bald':'Saying goodbye when you expect to meet again','einen kaffee bitte':'Making a polite request','es tut mir leid':'Apologizing','gern geschehen':'Responding to thanks','wie geht es dir':'Asking how someone is · informal','danke gut':'Replying to “How are you?”','auf wiedersehen':'Saying goodbye politely'};
-  for(const entry of card.querySelectorAll('.dl-separated-example')){
-   if(entry.querySelector('.dl-example-context'))continue;
-   const row=entry.querySelector('.vocab-row'),label=labels[normal(row?.querySelector('.vocab-copy strong')?.textContent)];
-   if(!row||!label)continue;
-   const heading=document.createElement('h4');heading.className='dl-example-context';heading.textContent=label;
-   entry.append(heading,row);entry.classList.add('dl-context-example');
-  }
- }
  const intro=window.dlLessonIntro,study=window.fullStudy;
- if(typeof intro==='function')window.dlLessonIntro=function(){const result=intro.apply(this,arguments);enhance();greetingContext(arguments[0]);return result;};
- if(typeof study==='function')window.fullStudy=function(){const result=study.apply(this,arguments);enhance();greetingContext(arguments[0]);return result;};
+ if(typeof intro==='function')window.dlLessonIntro=function(){const result=intro.apply(this,arguments);enhance();return result;};
+ if(typeof study==='function')window.fullStudy=function(){const result=study.apply(this,arguments);enhance();return result;};
  // Custom article/pronunciation screens also render outside the lesson wrappers.
  new MutationObserver(enhance).observe(root,{childList:true,subtree:true});
  enhance();

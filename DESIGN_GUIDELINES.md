@@ -138,5 +138,5 @@ This document records established product decisions. The current `main` branch i
 
 - Single-word audio boxes show the German word and Listen control without repeating translations or pronunciation explanations already given in the matching teaching item. Keep any unique meaning that is not taught there. Phrase/sentence examples retain their translations and context.
 
-## Limited phrase-context trial
-- Greetings and polite expressions only: every phrase/sentence audio box has a short descriptive context heading outside and directly above it, including time-of-day greetings, farewells, wellbeing, polite requests, apologies and responses to thanks. Keep headings close to their matching audio and leave more space between pairs so following phrases cannot appear to belong to the previous heading. This remains a local trial, not approval for a global rollout.
+## Greetings and polite expressions: integrated audio
+- In this lesson, phrase/sentence audio belongs inside its matching learning information box alongside word audio. Use smaller German phrase text (1.05em), existing translations and Listen controls. Remove the external phrase bank and trial context headings; retain useful teaching and avoid repeated translations already explained beside playback. This lesson-specific decision supersedes the general external-phrase placement rule here; other lessons keep their existing layout.

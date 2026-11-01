@@ -85,7 +85,7 @@ console.log(`PASS: ${guides} authored guides, ${reminders} Remember cards, ${not
   root.append(card);d.fullStudy(id);refresh();
   const g=card.querySelector('.dl-lesson-guide'),rows=card.querySelectorAll('.vocab-row');
   for(const r of rows){const text=r.querySelector('.vocab-copy strong')?.textContent;if(!text)continue;const word=(text.match(/[\p{L}\p{N}]+(?:[-’'][\p{L}\p{N}]+)*/gu)||[]).length===1;
-   if(word){assert.equal(r.closest('.dl-lesson-guide'),g,units[id].title+': word outside teaching box: '+text)}else assert.equal(r.closest('.dl-lesson-guide'),null,units[id].title+': phrase inside teaching box: '+text);
+   if(word){assert.equal(r.closest('.dl-lesson-guide'),g,units[id].title+': word outside teaching box: '+text)}else if(units[id].title==='Greetings and polite expressions'){assert.equal(r.closest('.dl-lesson-guide'),g,'Greeting phrases stay inside teaching');assert(r.classList.contains('dl-compact-phrase-audio'));assert.equal(card.querySelector('.dl-separated-audio-examples'),null);}else assert.equal(r.closest('.dl-lesson-guide'),null,units[id].title+': phrase inside teaching box: '+text);
   }
   if(units[id].title==='Umlauts and ß'){
    assert.equal(rows.length,8);

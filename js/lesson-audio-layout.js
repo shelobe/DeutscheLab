@@ -46,6 +46,7 @@
  function placeAudio(id){
   const u=FULL_UNITS[id],card=app.querySelector('.dl-flow-card');if(!u||!card||card.classList.contains('dl-inline-lesson-audio'))return;
   const guide=card.querySelector('.dl-lesson-guide,.dl-pronoun-guide,.dl-conversation-cards,.dl-accusative-guide,#dl-order-guide');if(!guide)return;
+  if(u.level==='A1'&&u.title==='Greetings and polite expressions')card.classList.add('dl-integrated-greeting-audio');
   if(u.title==='Personal pronouns: he, she, it'){
    for(const section of guide.querySelectorAll('section')){
     if((section.querySelector('h3')?.textContent||'').trim()==='Useful words in the examples')section.remove();

@@ -27,6 +27,5 @@ body.lesson-screen #app .dl-flow-card.dl-inline-lesson-audio{padding-bottom:24px
 #app .dl-separated-example .vocab-row{margin:0}
 #app .dl-separated-example .dl-phrase-usage{display:block;margin-top:8px;line-height:1.5}
 
-/* Limited Greetings and goodbyes context-heading trial. */
-#app .dl-separated-example.dl-context-example{margin-top:10px}
-#app .dl-context-example .dl-example-context{font-size:1rem;font-weight:700;line-height:1.4;color:#bfe6df;margin:0 0 8px}
+/* Integrated playback in Greetings and polite expressions. */
+#app .dl-integrated-greeting-audio .dl-compact-phrase-audio .vocab-copy strong{font-size:1.05em;font-weight:700;line-height:1.4}
