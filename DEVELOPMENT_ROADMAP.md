@@ -38,7 +38,7 @@ This roadmap tracks planned work; an item marked "Needs audit" is not a verified
 | GAME-03 | Supermarket | Integrate approved dairy art and relevant item interactions | P2 | Chat | Backlog | Inspect repository artwork, hotspots and existing game behavior |
 | TECH-01 | Stability | Investigate any remaining shared Build a Sentence behavior issues | P1 | Work | Needs audit | Reproduce specific reported behavior; follow active implementation in CODE_MAP.md |
 | TECH-02 | Stability | Review mobile navigation, saved progress, audio and sync regressions | P1 | Work | Needs audit | Batch targeted code checks and user-reported reproduction steps; no unsolicited live browser testing |
-| CUR-07 | Curriculum | Consider optional hints in other practice areas | P2 | Chat / Work | Backlog | Review the sentence-pattern hint trial first; identify suitable activities and write brief rule-based hints, hidden until tapped. User is considering expansion; no global rollout approved. Keep assessed module reviews free of hints. |
+| CUR-07 | Curriculum | Apply approved hint-button design to suitable practice areas when requested | P2 | Chat / Work | Backlog | Button design/placement approved: compact 💡 Hint beside the question, opening over the activity. No global implementation requested. Identify suitable hints in a later batch; keep assessed module reviews free of hints. Consider smaller, more polished pop-up styling separately. |
 | CUR-06 | Curriculum | Expand A2 and B1 after A1 quality baseline | P3 | Work / Chat | Backlog | Plan progression using audited A1 objectives |
 
 Priority: P0 = current focus; P1 = next; P2 = follow-on; P3 = later. This is an initial planning list, not a claim that each item is currently defective.
@@ -92,3 +92,8 @@ Copy this section for each batch:
 - People and names: Sentence patterns retains six questions; two now arrange sentence chunks with optional collapsed Hint disclosures, native Check and feedback.
 - Validation: syntax checks and DOM-double handler checks for correct/incorrect ordering, incomplete Check gating, Undo, Start over and collapsed hints. No browser testing. Status: Ready for user test.
 - Possible follow-up: CUR-07, optional hints elsewhere after reviewing this trial.
+
+### Hint design decision — 2026-11-01
+- User approves the current compact question-side 💡 Hint button as the global design reference; existing two-question implementation stays unchanged.
+- Possible refinement: make the pop-up more compact and visually polished. Its current appearance is not finalized.
+- Documentation only. Global rollout and pop-up changes remain deferred until requested.
