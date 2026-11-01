@@ -187,3 +187,7 @@ This document records established product decisions. The current `main` branch i
 ## Early preposition meanings
 - Before the dedicated preposition lesson, briefly explain a new preposition’s meaning in its actual phrase beside the relevant teaching example, inside the existing card. Reinforce that meaning in relevant correct and incorrect answer explanations, including reviews using the same bank. Avoid adding unrelated reminder boxes or repeating the full grammar lesson.
 - Introduce in/aus for residence/origin, contextual im/am/um time and place phrases, mit Karte, für Ihre Hilfe and destination nach. Teach zu Hause and nach Hause as whole phrases and distinguish being at home from going home. Explain additional uses when their meaning changes; defer case rules to the dedicated lessons.
+
+## Introductory sentence patterns
+- People and names: Sentence patterns introduces subject + verb + remaining information with named parts in familiar name, residence and origin examples. Explain that a multiword subject occupies one position, so the verb is second in position rather than necessarily the second written word.
+- Scope this first explanation to subject-first statements. Point ahead to Basic word order for other openings and the question lessons for question formation. Preserve existing playable examples and brief in/aus meanings; omit generic filler teaching cards.

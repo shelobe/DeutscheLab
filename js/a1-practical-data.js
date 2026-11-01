@@ -2456,33 +2456,57 @@ window.DL_A1_PRACTICAL_PACKS = {
  },
  "A1|People and names: Sentence patterns": {
   "sections": [
-   [
-    "What you will be able to do",
-    "Build short sentences using the examples below."
-   ],
-   [
-    "When to use it",
-    "Use the supplied vocabulary to complete sentence patterns."
-   ],
-   [
-    "How the pattern works",
-    "Introduce a person with Das ist …; introduce yourself with Mein Name ist … or Ich heiße … ."
-   ],
-   [
-    "Build on it",
-    "Names use heißen; homes use wohnen in (in means “in”); origins use kommen aus (aus means “from”). The subject controls the verb form.\nIn means “in” here; wohnen in tells where someone lives. Aus means “from” here; kommen aus tells where someone comes from."
-   ],
-   [
-    "Expressions you will practice",
     [
-     "Das ist meine Freundin. — This is my friend.",
-     "Mein Name ist Lea. — My name is Lea.",
-     "Er heißt Thomas. — His name is Thomas.",
-     "Sie wohnt in Hamburg. — She lives in Hamburg.",
-     "Wir kommen aus Deutschland. — We come from Germany.",
-     "Ich bin neu hier. — I am new here."
+      "What you will be able to do",
+      "Build short statements to introduce people and say their names, where they live and where they come from."
+    ],
+    [
+      "Start with the subject",
+      [
+        "Subject + verb + remaining information.",
+        "The subject tells us who or what the sentence is about. In the statements practiced here, it comes first.",
+        "The verb comes next and changes to match the subject: er heißt, sie wohnt, wir kommen."
+      ]
+    ],
+    [
+      "See the pattern",
+      [
+        "Er | heißt | Thomas.\nSubject: Er (he). Verb: heißt (is called). Remaining information: Thomas (the name).",
+        "Sie | wohnt | in Hamburg.\nSubject: Sie (she). Verb: wohnt (lives). Remaining information: in Hamburg (where).",
+        "Wir | kommen | aus Deutschland.\nSubject: Wir (we). Verb: kommen (come). Remaining information: aus Deutschland (from where)."
+      ]
+    ],
+    [
+      "One position can contain several words",
+      [
+        "Mein Name | ist | Lea.\nMein Name (my name) is the whole subject. It fills the first position; ist fills the second position, even though it is the third written word.",
+        "For these statements, count sentence parts rather than individual words."
+      ]
+    ],
+    [
+      "Names, home and origin",
+      [
+        "Das ist … — This is …\nIntroduce another person: Das ist meine Freundin.",
+        "Mein Name ist … — My name is …\nGive your name. You can also use Ich heiße … .",
+        "wohnen in — to live in\nIn means “in” here; use it for where someone lives.",
+        "kommen aus — to come from\nAus means “from” here; use it for someone’s origin."
+      ]
+    ],
+    [
+      "Expressions you will practice",
+      [
+        "Das ist meine Freundin. — This is my friend.",
+        "Mein Name ist Lea. — My name is Lea.",
+        "Er heißt Thomas. — His name is Thomas.",
+        "Sie wohnt in Hamburg. — She lives in Hamburg.",
+        "Wir kommen aus Deutschland. — We come from Germany.",
+        "Ich bin neu hier. — I am new here."
+      ]
+    ],
+    [
+      "Coming up",
+      "These examples start with the subject. German statements can also start with other information while the verb stays in second position. The later Basic word order lesson teaches that change; the question lessons explain how to form questions."
     ]
-   ]
   ],
   "questions": [
    {
@@ -2550,7 +2574,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "um"
     ],
     "answer": 0,
-    "why": "Aus means “from” here. Use kommen aus to say where someone comes from. Aus means “from” here; kommen aus tells where someone comes from.",
+    "why": "Aus means “from” here. Use kommen aus to say where someone comes from.",
     "german": "Wir kommen aus Deutschland.",
     "english": "We come from Germany.",
     "dlSkill": "sentence"
