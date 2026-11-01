@@ -96,3 +96,12 @@ This document records established product decisions. The current `main` branch i
 - Written-answer character keys are collapsed under a Special characters disclosure by default. General written German accepts ae/oe/ue for ä/ö/ü and ss for expected ß, with standard spelling in feedback. Do not accept plain a/o/u for umlauts. Sound, spelling and dictation tasks retain strict character checks.
 
 - Module cards use a visible rounded Show lessons + / Hide lessons − disclosure beneath the description, consistently across completion states and levels. Preserve native summary/details interaction and separate completion badges.
+
+## Documentation synchronization with implementation commits
+- For every application change, review whether it changes an established visual layout, lesson teaching pattern, interaction, navigation behavior, audio convention, or other design rule. This check is mandatory even for small Chat changes.
+- Treat current implementation on `main` as the source of truth for what the app does. Compare affected code and recently updated equivalent screens before applying a guideline; do not revive an older layout just because it remains documented.
+- When a change introduces, revises, or retires a lasting design convention, update `DESIGN_GUIDELINES.md` **in the same GitHub commit** as the implementation. Document the approved end state, not a speculative design or temporary workaround.
+- If the implementation does not alter a documented convention, leave the guidelines unchanged; avoid unrelated rewrites or automatic documentation churn.
+- Before committing, check that changed implementation and relevant guidelines agree. If they conflict, resolve the discrepancy against the latest approved implementation and user decisions, without silently changing unrelated screens.
+- Record significant changes to feature ownership, file locations or script loading in `CODE_MAP.md` in the same commit when applicable. Keep roadmap task statuses and handoffs in `DEVELOPMENT_ROADMAP.md` when a tracked milestone changes.
+- Apply this rule to both regular Chat and Work development. It is a required development practice, **not** a background watcher: GitHub edits made outside this workflow will not automatically rewrite documentation. A separate GitHub Action would be needed to flag such edits.
