@@ -25,7 +25,7 @@
   }
   if(mode==='tiles'){
    display=add('p','');display.className='dl-spelling-word';display.setAttribute('aria-live','polite');
-   bank=add('div','');bank.className='dl-spelling-tiles';
+   bank=add('div','');bank.className='dl-spelling-tiles dl-spelling-letter-bank';
    letters.forEach((ch,i)=>{button(ch,()=>{chosen.push(i);update()},bank).setAttribute('aria-label','Letter '+ch)});
    const tools=add('div','');tools.className='dl-spelling-tiles';
    button('Undo',()=>{chosen.pop();update()},tools);button('Start over',()=>{chosen=[];update()},tools);
@@ -44,6 +44,7 @@
  const style=document.createElement('style');style.textContent=`
  #app .dl-spelling-activity{display:grid;gap:12px;width:100%}
  #app .dl-spelling-audio,#app .dl-spelling-tiles{display:flex;flex-wrap:wrap;gap:8px}
+ #app .dl-spelling-letter-bank{box-sizing:border-box;width:100%;padding:10px;border:1px solid #759e9b;border-radius:14px;background:rgba(112,201,192,.06)}
  #app .dl-spelling-activity button{margin:0;min-width:44px;min-height:44px}
  #app .dl-spelling-word{font:700 1.8rem/1.3 Arial,sans-serif;margin:12px 0;overflow-wrap:anywhere}
  #app .dl-spelling-gap{display:flex;align-items:baseline;gap:0}

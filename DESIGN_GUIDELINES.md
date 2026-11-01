@@ -158,6 +158,8 @@ This document records established product decisions. The current `main` branch i
 - Lesson Back retains the existing leave warning and returns to Lessons. Preview Back now also warns before discarding the current preview and returning to Lessons; cancel keeps the current activity intact. Other lessons remain unchanged.
 
 
+- Spelling tile banks have a subtle rounded teal frame around the selectable letters. Keep Undo and Start over outside the frame, and retain wrapping and comfortable tap targets.
+
 ## Lesson results pilot: Umlauts and ß only
 - This A1 lesson alone uses the new completion page; other lessons and module reviews retain their existing completion behavior pending approval.
 - Randomly choose approved Hoppel or Fuchsie artwork for each completion: celebratory at 80–100%, gently encouraging below 80%. Keep the same character when returning from mistake review. Use the approved transparent half-body images directly above the rounded score card.
