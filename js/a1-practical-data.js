@@ -2480,10 +2480,10 @@ window.DL_A1_PRACTICAL_PACKS = {
     [
       "Names, home and origin",
       [
-        "Das ist … — This is …\nIntroduce another person: Das ist meine Freundin.",
-        "Mein Name ist … — My name is …\nGive your name. You can also use Ich heiße … .",
-        "wohnen in — to live in\nIn means “in” here; use it for where someone lives.",
-        "kommen aus — to come from\nAus means “from” here; use it for someone’s origin."
+        "Das ist … — This is …\nIntroduce another person.",
+        "Mein Name ist … — My name is …\nGive your name. Ich heiße … is another way to say it.",
+        "wohnen in — to live in\nIn = “in”. Say where someone lives.",
+        "kommen aus — to come from\nAus = “from”. Say where someone comes from."
       ]
     ],
     [

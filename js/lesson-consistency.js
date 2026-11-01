@@ -53,7 +53,14 @@
    h.textContent=title;
    if(Array.isArray(body)){for(const line of body){
     const li=document.createElement('li');
-    if(u.level==='A1'&&u.title==='Countries, nationalities and languages'&&line.includes(' — ')){
+    if(u.level==='A1'&&u.title==='People and names: Sentence patterns'&&['Names, home and origin','Expressions you will practice'].includes(title)&&line.includes(' — ')){
+     const [phrase,...notes]=line.split('\n'),split=phrase.indexOf(' — ');
+     const de=document.createElement('strong'),en=document.createElement('span');
+     de.textContent=phrase.slice(0,split);en.textContent=phrase.slice(split+3);
+     de.style.display=en.style.display='block';en.style.fontWeight='400';
+     li.append(de,en);
+     if(notes.length){const usage=document.createElement('span');usage.className='dl-phrase-usage';usage.textContent=notes.join(' ');usage.style.cssText='display:block;font-weight:400;margin-top:6px';li.append(usage);}
+    }else if(u.level==='A1'&&u.title==='Countries, nationalities and languages'&&line.includes(' — ')){
      const split=line.indexOf(' — '),de=document.createElement('strong'),en=document.createElement('span');
      de.textContent=line.slice(0,split);en.textContent=line.slice(split+3);en.style.display='block';li.append(de,en);
     }else if(line.includes(' — ')){
