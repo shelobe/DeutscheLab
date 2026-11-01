@@ -183,3 +183,7 @@ This document records established product decisions. The current `main` branch i
 - Provide Listen buttons beside or directly beneath newly introduced German forms or phrases, inside the matching teaching section. When the text is already displayed, use a Listen-only control without duplicating the phrase or translation. Retain existing integrated audio rows where appropriate and reuse the shared German speech function. For example, Forms of sein has one control per bilingual form; grouped er/sie/es playback speaks each complete form.
 
 - People and names: Sentence patterns omits the unrelated Freund/Freundin and meine Remember box; keep its focus on introductions, residence, origins and subject–verb agreement. Do not add a replacement reminder unless it provides a relevant rule.
+
+## Early preposition meanings
+- Before the dedicated preposition lesson, briefly explain a new preposition’s meaning in its actual phrase beside the relevant teaching example, inside the existing card. Reinforce that meaning in relevant correct and incorrect answer explanations, including reviews using the same bank. Avoid adding unrelated reminder boxes or repeating the full grammar lesson.
+- Introduce in/aus for residence/origin, contextual im/am/um time and place phrases, mit Karte, für Ihre Hilfe and destination nach. Teach zu Hause and nach Hause as whole phrases and distinguish being at home from going home. Explain additional uses when their meaning changes; defer case rules to the dedicated lessons.

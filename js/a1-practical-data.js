@@ -388,7 +388,7 @@ window.DL_A1_PRACTICAL_PACKS = {
    [
     "Home",
     [
-     "Ich wohne in Berlin. — I live in Berlin.\nUse wohnen in to say where you live now.",
+     "Ich wohne in Berlin. — I live in Berlin.\nUse wohnen in to say where you live now. In means “in” here.\nIn means “in” here; wohnen in tells where someone lives.",
      "Wo wohnst du? — Where do you live?\nUse it with one person you address informally.",
      "Wo wohnen Sie? — Where do you live?\nUse it when addressing someone politely."
     ]
@@ -460,7 +460,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Wie heißt du?"
     ],
     "answer": 0,
-    "why": "Wohnen describes your current home.",
+    "why": "Wohnen describes your current home. In means “in” here; wohnen in tells where someone lives.",
     "dlSkill": "situation",
     "dlTopic": "home"
    },
@@ -500,7 +500,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Where do you live?"
     ],
     "answer": 0,
-    "why": "Ich wohne in Berlin gives the speaker’s current home.",
+    "why": "Ich wohne in Berlin gives the speaker’s current home. In means “in” here; wohnen in tells where someone lives.",
     "dlSkill": "listen",
     "dlReviewAudio": "Ich wohne in Berlin.",
     "dlTopic": "home"
@@ -516,7 +516,7 @@ window.DL_A1_PRACTICAL_PACKS = {
    [
     "Where are you from?",
     [
-     "Ich komme aus Kanada. — I come from Canada.\nUse kommen aus to say where you are from.",
+     "Ich komme aus Kanada. — I come from Canada.\nUse kommen aus to say where you are from. Aus means “from” here.\nAus means “from” here; kommen aus tells where someone comes from.",
      "Woher kommst du? — Where are you from?\nUse it with one person you address informally.",
      "Woher kommen Sie? — Where are you from?\nUse it when addressing someone politely.",
      "Ich komme aus Deutschland. — I come from Germany.",
@@ -570,7 +570,7 @@ window.DL_A1_PRACTICAL_PACKS = {
    ],
    [
     "Where you live versus where you are from",
-    "Ich komme aus Kanada, aber ich wohne in Berlin. — I come from Canada, but I live in Berlin.\n\nYour origin and your current home can be different. Aber means but."
+    "Ich komme aus Kanada, aber ich wohne in Berlin. — I come from Canada, but I live in Berlin.\n\nYour origin and your current home can be different. Aber means but.\nIn means “in” here; wohnen in tells where someone lives."
    ]
   ],
   "examples": [
@@ -645,7 +645,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Ich heiße Lea."
     ],
     "answer": 0,
-    "why": "Woher asks your origin.",
+    "why": "Woher asks your origin. Aus means “from” here; kommen aus tells where someone comes from.",
     "dlSkill": "situation",
     "dlTopic": "country-origin"
    },
@@ -738,7 +738,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "My name is Lea and I live in Berlin."
     ],
     "answer": 0,
-    "why": "Komme aus gives origin; wohne in gives current home. Aber means but.",
+    "why": "Komme aus gives origin; wohne in gives current home. Aber means but. In means “in” here; wohnen in tells where someone lives. Aus means “from” here; kommen aus tells where someone comes from.",
     "dlSkill": "listen",
     "dlReviewAudio": "Ich komme aus Kanada, aber ich wohne in Berlin.",
     "dlTopic": "country-origin"
@@ -897,7 +897,7 @@ window.DL_A1_PRACTICAL_PACKS = {
     [
      "hier — here",
      "müde — tired",
-     "zu Hause — at home",
+     "zu Hause — at home\nLearn zu Hause as a complete phrase meaning “at home”.\nZu Hause means “at home”.",
      "Wir sind zu Hause. — We are at home."
     ]
    ],
@@ -1936,7 +1936,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "was"
     ],
     "answer": 0,
-    "why": "Wo asks where.",
+    "why": "Wo asks where. In means “in” here; wohnen in tells where someone lives.",
     "dlSkill": "situation"
    },
    {
@@ -2098,7 +2098,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "wohin"
     ],
     "answer": 0,
-    "why": "Wo asks where.",
+    "why": "Wo asks where. In means “in” here; wohnen in tells where someone lives.",
     "dlSkill": "situation"
    },
    {
@@ -2158,8 +2158,8 @@ window.DL_A1_PRACTICAL_PACKS = {
     "Match the reply",
     [
      "Wie heißt du? → Ich heiße Lea.",
-     "Wo wohnst du? → Ich wohne in Berlin.",
-     "Wann kommst du? → Am Montag. (On Monday.)"
+     "Wo wohnst du? → Ich wohne in Berlin.\nIn means “in” here; wohnen in tells where someone lives.",
+     "Wann kommst du? → Am Montag. (On Monday.)\nAm means “on” with a weekday."
     ]
    ],
    [
@@ -2190,7 +2190,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Ja, ich habe Zeit."
     ],
     "answer": 0,
-    "why": "Wo asks where.",
+    "why": "Wo asks where. In means “in” here; wohnen in tells where someone lives.",
     "dlSkill": "situation"
    },
    {
@@ -2470,7 +2470,7 @@ window.DL_A1_PRACTICAL_PACKS = {
    ],
    [
     "Build on it",
-    "Names use heißen; homes use wohnen in; origins use kommen aus. The subject controls the verb form."
+    "Names use heißen; homes use wohnen in (in means “in”); origins use kommen aus (aus means “from”). The subject controls the verb form.\nIn means “in” here; wohnen in tells where someone lives. Aus means “from” here; kommen aus tells where someone comes from."
    ],
    [
     "Expressions you will practice",
@@ -2536,7 +2536,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "um"
     ],
     "answer": 0,
-    "why": "Wohnen in gives a location.",
+    "why": "Wohnen in gives a location. In means “in” here; wohnen in tells where someone lives.",
     "german": "Sie wohnt in Hamburg.",
     "english": "She lives in Hamburg.",
     "dlSkill": "sentence"
@@ -2550,7 +2550,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "um"
     ],
     "answer": 0,
-    "why": "Kommen aus gives an origin.",
+    "why": "Aus means “from” here. Use kommen aus to say where someone comes from. Aus means “from” here; kommen aus tells where someone comes from.",
     "german": "Wir kommen aus Deutschland.",
     "english": "We come from Germany.",
     "dlSkill": "sentence"
@@ -2613,7 +2613,7 @@ window.DL_A1_PRACTICAL_PACKS = {
    ],
    [
     "Build on it",
-    "Names use heißen; homes use wohnen in; origins use kommen aus. The subject controls the verb form."
+    "Names use heißen; homes use wohnen in (in means “in”); origins use kommen aus (aus means “from”). The subject controls the verb form.\nIn means “in” here; wohnen in tells where someone lives. Aus means “from” here; kommen aus tells where someone comes from."
    ],
    [
     "Expressions you will practice",
@@ -2683,7 +2683,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Das ist meine Freundin."
     ],
     "answer": 0,
-    "why": "Wohnen in gives a location.",
+    "why": "Wohnen in gives a location. In means “in” here; wohnen in tells where someone lives.",
     "german": "Sie wohnt in Hamburg.",
     "english": "She lives in Hamburg.",
     "dlSkill": "situation"
@@ -2697,7 +2697,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Mein Name ist Lea."
     ],
     "answer": 0,
-    "why": "Kommen aus gives an origin.",
+    "why": "Aus means “from” here. Use kommen aus to say where someone comes from. Aus means “from” here; kommen aus tells where someone comes from.",
     "german": "Wir kommen aus Deutschland.",
     "english": "We come from Germany.",
     "dlSkill": "situation"
@@ -2767,7 +2767,7 @@ window.DL_A1_PRACTICAL_PACKS = {
     [
      "Die Küche ist klein. — The kitchen is small.",
      "Das Fenster ist offen. — The window is open.",
-     "Der Tisch steht im Wohnzimmer. — The table is in the living room.",
+     "Der Tisch steht im Wohnzimmer. — The table is in the living room.\nIm means “in the” here: im Wohnzimmer means “in the living room”.",
      "Mein Bett ist bequem. — My bed is comfortable.",
      "Die Lampe ist hell. — The lamp is bright.",
      "Das Bad ist sauber. — The bathroom is clean."
@@ -2775,7 +2775,7 @@ window.DL_A1_PRACTICAL_PACKS = {
    ],
    [
     "Remember",
-    "Steht describes where the table stands; im means in dem. It gives a location, not a direction."
+    "Steht describes where the table stands; im means in dem. It gives a location, not a direction. Im means “in the” here: im Wohnzimmer means “in the living room”."
    ]
   ],
   "questions": [
@@ -2816,7 +2816,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "The bathroom is clean."
     ],
     "answer": 0,
-    "why": "Steht describes where the table stands; im means in dem. It gives a location, not a direction.",
+    "why": "Steht describes where the table stands; im means in dem. It gives a location, not a direction. Im means “in the” here: im Wohnzimmer means “in the living room”.",
     "german": "Der Tisch steht im Wohnzimmer.",
     "english": "The table is in the living room.",
     "dlSkill": "meaning"
@@ -2858,7 +2858,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "The table is in the living room."
     ],
     "answer": 0,
-    "why": "Steht describes where the table stands; im means in dem. It gives a location, not a direction.",
+    "why": "Steht describes where the table stands; im means in dem. It gives a location, not a direction. Im means “in the” here: im Wohnzimmer means “in the living room”.",
     "german": "Das Bad ist sauber.",
     "english": "The bathroom is clean.",
     "dlSkill": "meaning"
@@ -2914,7 +2914,7 @@ window.DL_A1_PRACTICAL_PACKS = {
     [
      "Die Küche ist klein. — The kitchen is small.",
      "Das Fenster ist offen. — The window is open.",
-     "Der Tisch steht im Wohnzimmer. — The table is in the living room.",
+     "Der Tisch steht im Wohnzimmer. — The table is in the living room.\nIm means “in the” here: im Wohnzimmer means “in the living room”.",
      "Mein Bett ist bequem. — My bed is comfortable.",
      "Die Lampe ist hell. — The lamp is bright.",
      "Das Bad ist sauber. — The bathroom is clean."
@@ -2922,7 +2922,7 @@ window.DL_A1_PRACTICAL_PACKS = {
    ],
    [
     "Remember",
-    "Steht describes where the table stands; im means in dem. It gives a location, not a direction."
+    "Steht describes where the table stands; im means in dem. It gives a location, not a direction. Im means “in the” here: im Wohnzimmer means “in the living room”."
    ]
   ],
   "questions": [
@@ -2963,7 +2963,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "um"
     ],
     "answer": 0,
-    "why": "Im means in dem; it describes the table’s location.",
+    "why": "Im means in dem; it describes the table’s location. Im means “in the” here: im Wohnzimmer means “in the living room”.",
     "german": "Der Tisch steht im Wohnzimmer.",
     "english": "The table is in the living room.",
     "dlSkill": "sentence"
@@ -3061,7 +3061,7 @@ window.DL_A1_PRACTICAL_PACKS = {
     [
      "Die Küche ist klein. — The kitchen is small.",
      "Das Fenster ist offen. — The window is open.",
-     "Der Tisch steht im Wohnzimmer. — The table is in the living room.",
+     "Der Tisch steht im Wohnzimmer. — The table is in the living room.\nIm means “in the” here: im Wohnzimmer means “in the living room”.",
      "Mein Bett ist bequem. — My bed is comfortable.",
      "Die Lampe ist hell. — The lamp is bright.",
      "Das Bad ist sauber. — The bathroom is clean."
@@ -3069,7 +3069,7 @@ window.DL_A1_PRACTICAL_PACKS = {
    ],
    [
     "Remember",
-    "Steht describes where the table stands; im means in dem. It gives a location, not a direction."
+    "Steht describes where the table stands; im means in dem. It gives a location, not a direction. Im means “in the” here: im Wohnzimmer means “in the living room”."
    ]
   ],
   "questions": [
@@ -3110,7 +3110,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Das Bad ist sauber."
     ],
     "answer": 0,
-    "why": "Im means in dem; it describes the table’s location.",
+    "why": "Im means in dem; it describes the table’s location. Im means “in the” here: im Wohnzimmer means “in the living room”.",
     "german": "Der Tisch steht im Wohnzimmer.",
     "english": "The table is in the living room.",
     "dlSkill": "situation"
@@ -3642,16 +3642,16 @@ window.DL_A1_PRACTICAL_PACKS = {
    ],
    [
     "Build on it",
-    "Aufstehen separates: Ich stehe früh auf. Lesen changes its vowel: sie liest."
+    "Aufstehen separates: Ich stehe früh auf. Lesen changes its vowel: sie liest. Am means “on” with a weekday. Nach Hause means “home” as a destination; zu Hause means “at home”."
    ],
    [
     "Expressions you will practice",
     [
      "Ich stehe früh auf. — I get up early.",
-     "Er arbeitet am Montag. — He works on Monday.",
+     "Er arbeitet am Montag. — He works on Monday.\nAm means “on” with a weekday.",
      "Wir lernen jeden Abend. — We study every evening.",
      "Sie liest ein Buch. — She is reading a book.",
-     "Ich gehe nach Hause. — I am going home.",
+     "Ich gehe nach Hause. — I am going home.\nNach Hause means “home” as a destination; zu Hause means “at home”.",
      "Die Kinder spielen draußen. — The children are playing outside."
     ]
    ],
@@ -3684,7 +3684,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "I am going home."
     ],
     "answer": 0,
-    "why": "Aufstehen separates: Ich stehe früh auf. Lesen changes its vowel: sie liest.",
+    "why": "Aufstehen separates: Ich stehe früh auf. Lesen changes its vowel: sie liest. Am means “on” with a weekday. Nach Hause means “home” as a destination; zu Hause means “at home”.",
     "german": "Er arbeitet am Montag.",
     "english": "He works on Monday.",
     "dlSkill": "meaning"
@@ -3726,7 +3726,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "He works on Monday."
     ],
     "answer": 0,
-    "why": "Aufstehen separates: Ich stehe früh auf. Lesen changes its vowel: sie liest.",
+    "why": "Aufstehen separates: Ich stehe früh auf. Lesen changes its vowel: sie liest. Am means “on” with a weekday. Nach Hause means “home” as a destination; zu Hause means “at home”.",
     "german": "Ich gehe nach Hause.",
     "english": "I am going home.",
     "dlSkill": "meaning"
@@ -3789,16 +3789,16 @@ window.DL_A1_PRACTICAL_PACKS = {
    ],
    [
     "Build on it",
-    "Aufstehen separates: Ich stehe früh auf. Lesen changes its vowel: sie liest."
+    "Aufstehen separates: Ich stehe früh auf. Lesen changes its vowel: sie liest. Am means “on” with a weekday. Nach Hause means “home” as a destination; zu Hause means “at home”."
    ],
    [
     "Expressions you will practice",
     [
      "Ich stehe früh auf. — I get up early.",
-     "Er arbeitet am Montag. — He works on Monday.",
+     "Er arbeitet am Montag. — He works on Monday.\nAm means “on” with a weekday.",
      "Wir lernen jeden Abend. — We study every evening.",
      "Sie liest ein Buch. — She is reading a book.",
-     "Ich gehe nach Hause. — I am going home.",
+     "Ich gehe nach Hause. — I am going home.\nNach Hause means “home” as a destination; zu Hause means “at home”.",
      "Die Kinder spielen draußen. — The children are playing outside."
     ]
    ],
@@ -3831,7 +3831,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "im"
     ],
     "answer": 0,
-    "why": "Use am with a weekday.",
+    "why": "Use am with a weekday. Am means “on” with a weekday.",
     "german": "Er arbeitet am Montag.",
     "english": "He works on Monday.",
     "dlSkill": "sentence"
@@ -3873,7 +3873,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "aus"
     ],
     "answer": 0,
-    "why": "Nach Hause expresses going home.",
+    "why": "Nach Hause expresses going home. Nach Hause means “home” as a destination; zu Hause means “at home”.",
     "german": "Ich gehe nach Hause.",
     "english": "I am going home.",
     "dlSkill": "sentence"
@@ -3936,16 +3936,16 @@ window.DL_A1_PRACTICAL_PACKS = {
    ],
    [
     "Build on it",
-    "Aufstehen separates: Ich stehe früh auf. Lesen changes its vowel: sie liest."
+    "Aufstehen separates: Ich stehe früh auf. Lesen changes its vowel: sie liest. Am means “on” with a weekday. Nach Hause means “home” as a destination; zu Hause means “at home”."
    ],
    [
     "Expressions you will practice",
     [
      "Ich stehe früh auf. — I get up early.",
-     "Er arbeitet am Montag. — He works on Monday.",
+     "Er arbeitet am Montag. — He works on Monday.\nAm means “on” with a weekday.",
      "Wir lernen jeden Abend. — We study every evening.",
      "Sie liest ein Buch. — She is reading a book.",
-     "Ich gehe nach Hause. — I am going home.",
+     "Ich gehe nach Hause. — I am going home.\nNach Hause means “home” as a destination; zu Hause means “at home”.",
      "Die Kinder spielen draußen. — The children are playing outside."
     ]
    ],
@@ -3978,7 +3978,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Ich gehe nach Hause."
     ],
     "answer": 0,
-    "why": "Use am with a weekday.",
+    "why": "Use am with a weekday. Am means “on” with a weekday.",
     "german": "Er arbeitet am Montag.",
     "english": "He works on Monday.",
     "dlSkill": "situation"
@@ -4020,7 +4020,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Er arbeitet am Montag."
     ],
     "answer": 0,
-    "why": "Nach Hause expresses going home.",
+    "why": "Nach Hause expresses going home. Nach Hause means “home” as a destination; zu Hause means “at home”.",
     "german": "Ich gehe nach Hause.",
     "english": "I am going home.",
     "dlSkill": "situation"
@@ -4083,22 +4083,22 @@ window.DL_A1_PRACTICAL_PACKS = {
    ],
    [
     "Build on it",
-    "Beginnt says when an event starts; der Termin means the appointment. Es ist … Uhr tells the current time."
+    "Beginnt says when an event starts; der Termin means the appointment. Es ist … Uhr tells the current time. Am means “on” with a weekday. Zu Hause means “at home”."
    ],
    [
     "Expressions you will practice",
     [
      "Es ist acht Uhr. — It is eight o’clock.",
-     "Wir treffen uns am Freitag. — We are meeting on Friday.",
-     "Der Kurs beginnt um neun. — The class starts at nine.",
+     "Wir treffen uns am Freitag. — We are meeting on Friday.\nAm means “on” with a weekday.",
+     "Der Kurs beginnt um neun. — The class starts at nine.\nUm means “at” with a clock time.",
      "Heute habe ich Zeit. — I have time today.",
-     "Morgen bin ich zu Hause. — I will be at home tomorrow.",
+     "Morgen bin ich zu Hause. — I will be at home tomorrow.\nZu Hause means “at home”.",
      "Der Termin ist am Dienstag. — The appointment is on Tuesday."
     ]
    ],
    [
     "Remember",
-    "Time can begin a statement: Heute habe ich Zeit. The verb stays second, before the subject."
+    "Time can begin a statement: Heute habe ich Zeit. The verb stays second, before the subject. Um means “at” with a clock time. Am means “on” with a weekday."
    ]
   ],
   "questions": [
@@ -4125,7 +4125,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "I will be at home tomorrow."
     ],
     "answer": 0,
-    "why": "Beginnt says when an event starts; der Termin means the appointment. Es ist … Uhr tells the current time.",
+    "why": "Beginnt says when an event starts; der Termin means the appointment. Es ist … Uhr tells the current time. Am means “on” with a weekday. Zu Hause means “at home”.",
     "german": "Wir treffen uns am Freitag.",
     "english": "We are meeting on Friday.",
     "dlSkill": "meaning"
@@ -4139,7 +4139,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "The appointment is on Tuesday."
     ],
     "answer": 0,
-    "why": "Time can begin a statement: Heute habe ich Zeit. The verb stays second, before the subject.",
+    "why": "Time can begin a statement: Heute habe ich Zeit. The verb stays second, before the subject. Um means “at” with a clock time. Am means “on” with a weekday.",
     "german": "Der Kurs beginnt um neun.",
     "english": "The class starts at nine.",
     "dlSkill": "meaning"
@@ -4167,7 +4167,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "We are meeting on Friday."
     ],
     "answer": 0,
-    "why": "Beginnt says when an event starts; der Termin means the appointment. Es ist … Uhr tells the current time.",
+    "why": "Beginnt says when an event starts; der Termin means the appointment. Es ist … Uhr tells the current time. Am means “on” with a weekday. Zu Hause means “at home”.",
     "german": "Morgen bin ich zu Hause.",
     "english": "I will be at home tomorrow.",
     "dlSkill": "meaning"
@@ -4181,7 +4181,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "The class starts at nine."
     ],
     "answer": 0,
-    "why": "Time can begin a statement: Heute habe ich Zeit. The verb stays second, before the subject.",
+    "why": "Time can begin a statement: Heute habe ich Zeit. The verb stays second, before the subject. Um means “at” with a clock time. Am means “on” with a weekday.",
     "german": "Der Termin ist am Dienstag.",
     "english": "The appointment is on Tuesday.",
     "dlSkill": "meaning"
@@ -4230,22 +4230,22 @@ window.DL_A1_PRACTICAL_PACKS = {
    ],
    [
     "Build on it",
-    "Beginnt says when an event starts; der Termin means the appointment. Es ist … Uhr tells the current time."
+    "Beginnt says when an event starts; der Termin means the appointment. Es ist … Uhr tells the current time. Am means “on” with a weekday. Zu Hause means “at home”."
    ],
    [
     "Expressions you will practice",
     [
      "Es ist acht Uhr. — It is eight o’clock.",
-     "Wir treffen uns am Freitag. — We are meeting on Friday.",
-     "Der Kurs beginnt um neun. — The class starts at nine.",
+     "Wir treffen uns am Freitag. — We are meeting on Friday.\nAm means “on” with a weekday.",
+     "Der Kurs beginnt um neun. — The class starts at nine.\nUm means “at” with a clock time.",
      "Heute habe ich Zeit. — I have time today.",
-     "Morgen bin ich zu Hause. — I will be at home tomorrow.",
+     "Morgen bin ich zu Hause. — I will be at home tomorrow.\nZu Hause means “at home”.",
      "Der Termin ist am Dienstag. — The appointment is on Tuesday."
     ]
    ],
    [
     "Remember",
-    "Time can begin a statement: Heute habe ich Zeit. The verb stays second, before the subject."
+    "Time can begin a statement: Heute habe ich Zeit. The verb stays second, before the subject. Um means “at” with a clock time. Am means “on” with a weekday."
    ]
   ],
   "questions": [
@@ -4272,7 +4272,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "im"
     ],
     "answer": 0,
-    "why": "Use am for a weekday.",
+    "why": "Use am for a weekday. Am means “on” with a weekday.",
     "german": "Wir treffen uns am Freitag.",
     "english": "We are meeting on Friday.",
     "dlSkill": "sentence"
@@ -4286,7 +4286,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "im"
     ],
     "answer": 0,
-    "why": "Use um with a clock time, including neun without Uhr.",
+    "why": "Use um with a clock time, including neun without Uhr. Um means “at” with a clock time.",
     "german": "Der Kurs beginnt um neun.",
     "english": "The class starts at nine.",
     "dlSkill": "sentence"
@@ -4314,7 +4314,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "ist"
     ],
     "answer": 0,
-    "why": "After Morgen, put bin before ich.",
+    "why": "After Morgen, put bin before ich. Zu Hause means “at home”.",
     "german": "Morgen bin ich zu Hause.",
     "english": "I will be at home tomorrow.",
     "dlSkill": "sentence"
@@ -4328,7 +4328,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "im"
     ],
     "answer": 0,
-    "why": "An appointment on a weekday uses am.",
+    "why": "An appointment on a weekday uses am. Am means “on” with a weekday.",
     "german": "Der Termin ist am Dienstag.",
     "english": "The appointment is on Tuesday.",
     "dlSkill": "sentence"
@@ -4377,22 +4377,22 @@ window.DL_A1_PRACTICAL_PACKS = {
    ],
    [
     "Build on it",
-    "Beginnt says when an event starts; der Termin means the appointment. Es ist … Uhr tells the current time."
+    "Beginnt says when an event starts; der Termin means the appointment. Es ist … Uhr tells the current time. Am means “on” with a weekday. Zu Hause means “at home”."
    ],
    [
     "Expressions you will practice",
     [
      "Es ist acht Uhr. — It is eight o’clock.",
-     "Wir treffen uns am Freitag. — We are meeting on Friday.",
-     "Der Kurs beginnt um neun. — The class starts at nine.",
+     "Wir treffen uns am Freitag. — We are meeting on Friday.\nAm means “on” with a weekday.",
+     "Der Kurs beginnt um neun. — The class starts at nine.\nUm means “at” with a clock time.",
      "Heute habe ich Zeit. — I have time today.",
-     "Morgen bin ich zu Hause. — I will be at home tomorrow.",
+     "Morgen bin ich zu Hause. — I will be at home tomorrow.\nZu Hause means “at home”.",
      "Der Termin ist am Dienstag. — The appointment is on Tuesday."
     ]
    ],
    [
     "Remember",
-    "Time can begin a statement: Heute habe ich Zeit. The verb stays second, before the subject."
+    "Time can begin a statement: Heute habe ich Zeit. The verb stays second, before the subject. Um means “at” with a clock time. Am means “on” with a weekday."
    ]
   ],
   "questions": [
@@ -4419,7 +4419,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Morgen bin ich zu Hause."
     ],
     "answer": 0,
-    "why": "Use am for a weekday.",
+    "why": "Use am for a weekday. Am means “on” with a weekday.",
     "german": "Wir treffen uns am Freitag.",
     "english": "We are meeting on Friday.",
     "dlSkill": "situation"
@@ -4433,7 +4433,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Der Termin ist am Dienstag."
     ],
     "answer": 0,
-    "why": "Use um with a clock time, including neun without Uhr.",
+    "why": "Use um with a clock time, including neun without Uhr. Um means “at” with a clock time.",
     "german": "Der Kurs beginnt um neun.",
     "english": "The class starts at nine.",
     "dlSkill": "situation"
@@ -4461,7 +4461,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Wir treffen uns am Freitag."
     ],
     "answer": 0,
-    "why": "After Morgen, put bin before ich.",
+    "why": "After Morgen, put bin before ich. Zu Hause means “at home”.",
     "german": "Morgen bin ich zu Hause.",
     "english": "I will be at home tomorrow.",
     "dlSkill": "situation"
@@ -4475,7 +4475,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Der Kurs beginnt um neun."
     ],
     "answer": 0,
-    "why": "An appointment on a weekday uses am.",
+    "why": "An appointment on a weekday uses am. Am means “on” with a weekday.",
     "german": "Der Termin ist am Dienstag.",
     "english": "The appointment is on Tuesday.",
     "dlSkill": "situation"
@@ -4534,12 +4534,12 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Ich brauche neue Schuhe. — I need new shoes.",
      "Wir kaufen zwei Äpfel. — We are buying two apples.",
      "Haben Sie eine kleinere Größe? — Do you have a smaller size?",
-     "Ich bezahle mit Karte. — I am paying by card."
+     "Ich bezahle mit Karte. — I am paying by card.\nMit means “with”; mit Karte means “by card” when paying."
     ]
    ],
    [
     "Remember",
-    "Mit Karte means by card. Brauchen expresses a need; teuer means expensive."
+    "Mit Karte means by card. Brauchen expresses a need; teuer means expensive. Mit means “with”; mit Karte means “by card” when paying."
    ]
   ],
   "questions": [
@@ -4580,7 +4580,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "I am paying by card."
     ],
     "answer": 0,
-    "why": "Mit Karte means by card. Brauchen expresses a need; teuer means expensive.",
+    "why": "Mit Karte means by card. Brauchen expresses a need; teuer means expensive. Mit means “with”; mit Karte means “by card” when paying.",
     "german": "Ich brauche neue Schuhe.",
     "english": "I need new shoes.",
     "dlSkill": "meaning"
@@ -4622,7 +4622,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "I need new shoes."
     ],
     "answer": 0,
-    "why": "Mit Karte means by card. Brauchen expresses a need; teuer means expensive.",
+    "why": "Mit Karte means by card. Brauchen expresses a need; teuer means expensive. Mit means “with”; mit Karte means “by card” when paying.",
     "german": "Ich bezahle mit Karte.",
     "english": "I am paying by card.",
     "dlSkill": "meaning"
@@ -4681,12 +4681,12 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Ich brauche neue Schuhe. — I need new shoes.",
      "Wir kaufen zwei Äpfel. — We are buying two apples.",
      "Haben Sie eine kleinere Größe? — Do you have a smaller size?",
-     "Ich bezahle mit Karte. — I am paying by card."
+     "Ich bezahle mit Karte. — I am paying by card.\nMit means “with”; mit Karte means “by card” when paying."
     ]
    ],
    [
     "Remember",
-    "Mit Karte means by card. Brauchen expresses a need; teuer means expensive."
+    "Mit Karte means by card. Brauchen expresses a need; teuer means expensive. Mit means “with”; mit Karte means “by card” when paying."
    ]
   ],
   "questions": [
@@ -4769,7 +4769,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "nach"
     ],
     "answer": 0,
-    "why": "Mit gives the payment method.",
+    "why": "Mit gives the payment method. Mit means “with”; mit Karte means “by card” when paying.",
     "german": "Ich bezahle mit Karte.",
     "english": "I am paying by card.",
     "dlSkill": "sentence"
@@ -4828,12 +4828,12 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Ich brauche neue Schuhe. — I need new shoes.",
      "Wir kaufen zwei Äpfel. — We are buying two apples.",
      "Haben Sie eine kleinere Größe? — Do you have a smaller size?",
-     "Ich bezahle mit Karte. — I am paying by card."
+     "Ich bezahle mit Karte. — I am paying by card.\nMit means “with”; mit Karte means “by card” when paying."
     ]
    ],
    [
     "Remember",
-    "Mit Karte means by card. Brauchen expresses a need; teuer means expensive."
+    "Mit Karte means by card. Brauchen expresses a need; teuer means expensive. Mit means “with”; mit Karte means “by card” when paying."
    ]
   ],
   "questions": [
@@ -4916,7 +4916,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Ich brauche neue Schuhe."
     ],
     "answer": 0,
-    "why": "Mit gives the payment method.",
+    "why": "Mit gives the payment method. Mit means “with”; mit Karte means “by card” when paying.",
     "german": "Ich bezahle mit Karte.",
     "english": "I am paying by card.",
     "dlSkill": "situation"
@@ -5413,7 +5413,7 @@ window.DL_A1_PRACTICAL_PACKS = {
     [
      "Meine Schwester ist älter. — My sister is older.",
      "Sein Bruder wohnt hier. — His brother lives here.",
-     "Unsere Eltern sind zu Hause. — Our parents are at home.",
+     "Unsere Eltern sind zu Hause. — Our parents are at home.\nZu Hause means “at home”.",
      "Ich besuche meine Oma. — I am visiting my grandma.",
      "Wir spielen zusammen. — We play together.",
      "Ihre Tochter ist fünf Jahre alt. — Her daughter is five years old."
@@ -5421,7 +5421,7 @@ window.DL_A1_PRACTICAL_PACKS = {
    ],
    [
     "Remember",
-    "Älter means older. State age with sein: Ihre Tochter ist fünf Jahre alt."
+    "Älter means older. State age with sein: Ihre Tochter ist fünf Jahre alt. Zu Hause means “at home”."
    ]
   ],
   "questions": [
@@ -5462,7 +5462,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Her daughter is five years old."
     ],
     "answer": 0,
-    "why": "Älter means older. State age with sein: Ihre Tochter ist fünf Jahre alt.",
+    "why": "Älter means older. State age with sein: Ihre Tochter ist fünf Jahre alt. Zu Hause means “at home”.",
     "german": "Unsere Eltern sind zu Hause.",
     "english": "Our parents are at home.",
     "dlSkill": "meaning"
@@ -5504,7 +5504,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Our parents are at home."
     ],
     "answer": 0,
-    "why": "Älter means older. State age with sein: Ihre Tochter ist fünf Jahre alt.",
+    "why": "Älter means older. State age with sein: Ihre Tochter ist fünf Jahre alt. Zu Hause means “at home”.",
     "german": "Ihre Tochter ist fünf Jahre alt.",
     "english": "Her daughter is five years old.",
     "dlSkill": "meaning"
@@ -5560,7 +5560,7 @@ window.DL_A1_PRACTICAL_PACKS = {
     [
      "Meine Schwester ist älter. — My sister is older.",
      "Sein Bruder wohnt hier. — His brother lives here.",
-     "Unsere Eltern sind zu Hause. — Our parents are at home.",
+     "Unsere Eltern sind zu Hause. — Our parents are at home.\nZu Hause means “at home”.",
      "Ich besuche meine Oma. — I am visiting my grandma.",
      "Wir spielen zusammen. — We play together.",
      "Ihre Tochter ist fünf Jahre alt. — Her daughter is five years old."
@@ -5568,7 +5568,7 @@ window.DL_A1_PRACTICAL_PACKS = {
    ],
    [
     "Remember",
-    "Älter means older. State age with sein: Ihre Tochter ist fünf Jahre alt."
+    "Älter means older. State age with sein: Ihre Tochter ist fünf Jahre alt. Zu Hause means “at home”."
    ]
   ],
   "questions": [
@@ -5609,7 +5609,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "seid"
     ],
     "answer": 0,
-    "why": "Eltern is plural: unsere Eltern sind.",
+    "why": "Eltern is plural: unsere Eltern sind. Zu Hause means “at home”.",
     "german": "Unsere Eltern sind zu Hause.",
     "english": "Our parents are at home.",
     "dlSkill": "sentence"
@@ -5707,7 +5707,7 @@ window.DL_A1_PRACTICAL_PACKS = {
     [
      "Meine Schwester ist älter. — My sister is older.",
      "Sein Bruder wohnt hier. — His brother lives here.",
-     "Unsere Eltern sind zu Hause. — Our parents are at home.",
+     "Unsere Eltern sind zu Hause. — Our parents are at home.\nZu Hause means “at home”.",
      "Ich besuche meine Oma. — I am visiting my grandma.",
      "Wir spielen zusammen. — We play together.",
      "Ihre Tochter ist fünf Jahre alt. — Her daughter is five years old."
@@ -5715,7 +5715,7 @@ window.DL_A1_PRACTICAL_PACKS = {
    ],
    [
     "Remember",
-    "Älter means older. State age with sein: Ihre Tochter ist fünf Jahre alt."
+    "Älter means older. State age with sein: Ihre Tochter ist fünf Jahre alt. Zu Hause means “at home”."
    ]
   ],
   "questions": [
@@ -5756,7 +5756,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Ihre Tochter ist fünf Jahre alt."
     ],
     "answer": 0,
-    "why": "Eltern is plural: unsere Eltern sind.",
+    "why": "Eltern is plural: unsere Eltern sind. Zu Hause means “at home”.",
     "german": "Unsere Eltern sind zu Hause.",
     "english": "Our parents are at home.",
     "dlSkill": "situation"
@@ -6288,7 +6288,7 @@ window.DL_A1_PRACTICAL_PACKS = {
    ],
    [
     "Build on it",
-    "Am Nachmittag means in the afternoon; im Sommer means in summer. When time comes first, the verb follows."
+    "Am Nachmittag means in the afternoon; im Sommer means in summer. When time comes first, the verb follows.\nIm means “in” with months and seasons."
    ],
    [
     "Expressions you will practice",
@@ -6330,7 +6330,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "We need an umbrella."
     ],
     "answer": 0,
-    "why": "Am Nachmittag means in the afternoon; im Sommer means in summer. When time comes first, the verb follows.",
+    "why": "Am Nachmittag means in the afternoon; im Sommer means in summer. When time comes first, the verb follows.\nIm means “in” with months and seasons.",
     "german": "Die Sonne scheint.",
     "english": "The sun is shining.",
     "dlSkill": "meaning"
@@ -6372,7 +6372,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "The sun is shining."
     ],
     "answer": 0,
-    "why": "Am Nachmittag means in the afternoon; im Sommer means in summer. When time comes first, the verb follows.",
+    "why": "Am Nachmittag means in the afternoon; im Sommer means in summer. When time comes first, the verb follows.\nIm means “in” with months and seasons.",
     "german": "Wir brauchen einen Regenschirm.",
     "english": "We need an umbrella.",
     "dlSkill": "meaning"
@@ -6435,7 +6435,7 @@ window.DL_A1_PRACTICAL_PACKS = {
    ],
    [
     "Build on it",
-    "Am Nachmittag means in the afternoon; im Sommer means in summer. When time comes first, the verb follows."
+    "Am Nachmittag means in the afternoon; im Sommer means in summer. When time comes first, the verb follows.\nIm means “in” with months and seasons."
    ],
    [
     "Expressions you will practice",
@@ -6582,7 +6582,7 @@ window.DL_A1_PRACTICAL_PACKS = {
    ],
    [
     "Build on it",
-    "Am Nachmittag means in the afternoon; im Sommer means in summer. When time comes first, the verb follows."
+    "Am Nachmittag means in the afternoon; im Sommer means in summer. When time comes first, the verb follows.\nIm means “in” with months and seasons."
    ],
    [
     "Expressions you will practice",
@@ -7659,7 +7659,7 @@ window.DL_A1_PRACTICAL_PACKS = {
     "Useful descriptions",
     [
      "hier — here",
-     "zu Hause — at home",
+     "zu Hause — at home\nLearn zu Hause as a complete phrase meaning “at home”.\nZu Hause means “at home”.",
      "älter — older"
     ]
    ],
@@ -7667,7 +7667,7 @@ window.DL_A1_PRACTICAL_PACKS = {
     "Useful examples",
     [
      "Meine Schwester ist älter. — My sister is older.",
-     "Unsere Eltern sind zu Hause. — Our parents are at home."
+     "Unsere Eltern sind zu Hause. — Our parents are at home.\nZu Hause means “at home”."
     ]
    ]
   ],
@@ -7703,7 +7703,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Mein Bruder ist älter."
     ],
     "answer": 0,
-    "why": "Eltern means parents.",
+    "why": "Eltern means parents. Zu Hause means “at home”.",
     "dlSkill": "situation"
    },
    {
@@ -8233,7 +8233,7 @@ window.DL_A1_PRACTICAL_PACKS = {
    ],
    [
     "At the checkout",
-    "Ich bezahle mit Karte means I pay by card. Bar means cash. Zusammen means altogether."
+    "Ich bezahle mit Karte means I pay by card. Mit means “with”; mit Karte means “by card” when paying. Bar means cash. Zusammen means altogether."
    ],
    [
     "Useful examples",
@@ -8420,9 +8420,9 @@ window.DL_A1_PRACTICAL_PACKS = {
    [
     "When an event happens",
     [
-     "um acht Uhr — at eight o’clock",
-     "am Montag — on Monday",
-     "im Mai — in May",
+     "um acht Uhr — at eight o’clock\nUm means “at” with a clock time.",
+     "am Montag — on Monday\nAm means “on” with a weekday.",
+     "im Mai — in May\nIm means “in” with months and seasons.",
      "heute — today; morgen — tomorrow"
     ]
    ],
@@ -8470,7 +8470,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "im"
     ],
     "answer": 0,
-    "why": "Use am with a weekday.",
+    "why": "Use am with a weekday. Am means “on” with a weekday.",
     "dlSkill": "use"
    },
    {
@@ -8543,7 +8543,7 @@ window.DL_A1_PRACTICAL_PACKS = {
     "Useful examples",
     [
      "Der Termin ist am dritten Mai. — The appointment is on 3 May.",
-     "Mein Geburtstag ist im Juni. — My birthday is in June."
+     "Mein Geburtstag ist im Juni. — My birthday is in June.\nIm means “in” with months and seasons."
     ]
    ]
   ],
@@ -8616,7 +8616,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "um Mai"
     ],
     "answer": 0,
-    "why": "Im Mai gives a month without a particular date.",
+    "why": "Im Mai gives a month without a particular date. Im means “in” with months and seasons.",
     "dlSkill": "situation"
    }
   ]
@@ -8638,7 +8638,7 @@ window.DL_A1_PRACTICAL_PACKS = {
    [
     "Split the verb in a statement",
     [
-     "Ich stehe um sieben Uhr auf. — I get up at seven.",
+     "Ich stehe um sieben Uhr auf. — I get up at seven.\nUm means “at” with a clock time.",
      "Wir kaufen heute ein. — We shop today.",
      "Du rufst Anna an. — You call Anna."
     ]
@@ -8864,7 +8864,7 @@ window.DL_A1_PRACTICAL_PACKS = {
    ],
    [
     "Two verbs",
-    "Ich möchte bezahlen means I would like to pay. Wir wollen nach Hause gehen means We want to go home. The infinitive goes to the end."
+    "Ich möchte bezahlen means I would like to pay. Wir wollen nach Hause gehen means We want to go home. The infinitive goes to the end.\nNach Hause means “home” as a destination; zu Hause means “at home”."
    ],
    [
     "Useful examples",
@@ -8947,7 +8947,7 @@ window.DL_A1_PRACTICAL_PACKS = {
     [
      "in Berlin — in Berlin",
      "im Park — in the park",
-     "zu Hause — at home"
+     "zu Hause — at home\nLearn zu Hause as a complete phrase meaning “at home”.\nZu Hause means “at home”."
     ]
    ],
    [
@@ -10050,12 +10050,12 @@ window.DL_A1_PRACTICAL_PACKS = {
    ],
    [
     "Language to use",
-    "A time expression can come first. Keep the verb in second position: Am Montag arbeite ich. Morgens means in the mornings; abends means in the evenings."
+    "A time expression can come first. Keep the verb in second position: Am Montag arbeite ich. Morgens means in the mornings; abends means in the evenings.\nAm means “on” with a weekday."
    ],
    [
     "Useful examples",
     [
-     "Ich frühstücke um acht. — I have breakfast at eight.",
+     "Ich frühstücke um acht. — I have breakfast at eight.\nUm means “at” with a clock time.",
      "Am Montag arbeite ich. — I work on Monday.",
      "Abends lese ich. — I read in the evenings.",
      "Ich gehe um zehn ins Bett. — I go to bed at ten."
@@ -10126,7 +10126,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Abends lese ich."
     ],
     "answer": 0,
-    "why": "Use the complete phrase Ich frühstücke um acht..",
+    "why": "Use the complete phrase Ich frühstücke um acht.. Um means “at” with a clock time.",
     "dlSkill": "situation"
    }
   ]
@@ -10144,10 +10144,10 @@ window.DL_A1_PRACTICAL_PACKS = {
    [
     "Useful examples",
     [
-     "Ich stehe um sieben Uhr auf. — I get up at seven.",
+     "Ich stehe um sieben Uhr auf. — I get up at seven.\nUm means “at” with a clock time.",
      "Morgens trinke ich Kaffee. — I drink coffee in the mornings.",
      "Wir lernen jeden Abend. — We study every evening.",
-     "Ich arbeite am Montag. — I work on Monday."
+     "Ich arbeite am Montag. — I work on Monday.\nAm means “on” with a weekday."
     ]
    ]
   ],
@@ -10215,7 +10215,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Wir lernen jeden Abend."
     ],
     "answer": 0,
-    "why": "Use the complete phrase Ich stehe um sieben Uhr auf..",
+    "why": "Use the complete phrase Ich stehe um sieben Uhr auf.. Um means “at” with a clock time.",
     "dlSkill": "situation"
    }
   ]
@@ -10649,7 +10649,7 @@ window.DL_A1_PRACTICAL_PACKS = {
    ],
    [
     "Use am",
-    "Am Montag means on Monday. Am Wochenende means at the weekend. Heute means today and morgen means tomorrow; do not put am before heute or morgen."
+    "Am Montag means on Monday. Am Wochenende means at the weekend. Heute means today and morgen means tomorrow; do not put am before heute or morgen.\nAm means “on” with a weekday."
    ],
    [
     "Useful examples",
@@ -10691,7 +10691,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "im"
     ],
     "answer": 0,
-    "why": "Use am with a weekday.",
+    "why": "Use am with a weekday. Am means “on” with a weekday.",
     "dlSkill": "use"
    },
    {
@@ -10730,7 +10730,7 @@ window.DL_A1_PRACTICAL_PACKS = {
    [
     "A message",
     [
-     "Hallo Lea! Hast du am Samstag um drei Uhr Zeit? Wir trinken Kaffee. Liebe Grüße, Anna.",
+     "Hallo Lea! Hast du am Samstag um drei Uhr Zeit? Wir trinken Kaffee. Liebe Grüße, Anna.\nAm means “on” with a weekday. Um means “at” with a clock time.",
      "Hello Lea! Do you have time on Saturday at three? We are having coffee. Best wishes, Anna."
     ]
    ],
@@ -10851,7 +10851,7 @@ window.DL_A1_PRACTICAL_PACKS = {
     [
      "Mein Vorname ist Lea. — My first name is Lea.",
      "Mein Nachname ist Weber. — My surname is Weber.",
-     "Ich wohne in Berlin. — I live in Berlin.",
+     "Ich wohne in Berlin. — I live in Berlin.\nIn means “in” here; wohnen in tells where someone lives.",
      "Meine Postleitzahl ist 10115. — My postcode is 10115.",
      "Meine Telefonnummer ist 030 123456. — My telephone number is 030 123456."
     ]
