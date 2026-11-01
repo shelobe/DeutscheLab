@@ -57,7 +57,7 @@
   const priorPassed=!!state.learning?.fullScores?.[session.id]?.passed;
   const name=Math.random()<.5?'Hoppel':'Fuchsie';
   result={id:session.id,level:unit.level,title:unit.title,total,score:session.score,percent:Math.round(session.score/total*100),passed,name,
-   image:'./assets/results/'+(name==='Hoppel'?'hoppel':'fuchsie')+'-'+(passed?'celebrate':'encourage')+'.png',
+   image:'./assets/results/'+(name==='Hoppel'?'hoppel':'fuchsie')+'-'+(passed?'celebrate':'encourage')+'.webp',
    missed:session.questions.flatMap((question,i)=>session.results[i]===false?[{question}]:[])};
   // Suppress the legacy auto-return to Lessons while preserving its score/mistake saves.
   activeLessonScreen=null;document.body.classList.remove('lesson-screen');
