@@ -125,3 +125,5 @@ This document records established product decisions. The current `main` branch i
 - In the group-pronoun lesson, order the cards as Who is in the group?, Remember, Choose by your role. Render sentence examples outside the teaching guide, with German and Listen once per example, then translation and context. Do not apply the guide’s last-card highlight to examples or the role card.
 
 - Group-pronoun sentence contexts describe the situation without trailing “use wir/ihr/sie” instructions. Keep the lesson card’s bottom padding compact; reserve fixed-button clearance outside the card rather than as empty interior space.
+
+- Group-pronoun word and sentence audio rows use a muted teal background with a lighter teal border and distinct Listen button, separating playback from blue teaching cards while retaining light, readable text.
