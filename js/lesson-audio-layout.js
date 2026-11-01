@@ -123,7 +123,18 @@
   const rows=[...card.querySelectorAll('.vocab-row')].filter(row=>row.parentElement===card);
   const heading=[...card.querySelectorAll('h3')].find(h=>h.parentElement===card&&h.textContent.trim()==='See it in German');
   const seen=new Set(),insertions=new Map();
-  const put=(section,row,de)=>{const key=normalize(de);if(seen.has(key)){row.remove();return}seen.add(key);let list=insertions.get(section);if(!list){list=document.createElement('div');list.className='dl-section-audio';section.append(list);insertions.set(section,list)}list.append(row)};
+  const put=(section,row,de)=>{
+   const key=normalize(de);if(seen.has(key)){row.remove();return}seen.add(key);
+   const phraseOnly=/^(Choose a greeting|Say goodbye)$/.test(section.querySelector('h3')?.textContent||'');
+   // Match a whole word/phrase in the teaching, never text from already placed audio.
+   const item=phraseOnly?null:[...section.querySelectorAll('li')].find(li=>{
+    const text=normalize([...li.childNodes].filter(n=>!n.classList?.contains('dl-section-audio')).map(n=>n.textContent).join(' '));
+    return (' '+text+' ').includes(' '+key+' ');
+   });
+   const host=item||section;let list=insertions.get(host);
+   if(!list){list=document.createElement('div');list.className='dl-section-audio';host.append(list);insertions.set(host,list)}
+   list.append(row);
+  };
   for(const [title,examples] of (u.level==='A1'?greetingAudio[u.title]:null)||[]){
    const section=sections.find(s=>s.querySelector('h3')?.textContent===title);if(section)for(const [de,en]of examples)put(section,audioRow(de,en),de);
   }

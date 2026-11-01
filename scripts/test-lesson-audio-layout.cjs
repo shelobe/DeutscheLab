@@ -1,7 +1,7 @@
 const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
 class E{
  constructor(tag){this.tagName=tag.toUpperCase();this.children=[];this.className='';this._text='';this.classList={contains:c=>this.className.split(' ').includes(c),add:c=>this.className+=' '+c}}
- get parentElement(){return this.parent}get textContent(){return this._text+this.children.map(c=>c.textContent).join(' ')}set textContent(t){this._text=t;this.children=[]}
+ get childNodes(){return this.children}get parentElement(){return this.parent}get textContent(){return this._text+this.children.map(c=>c.textContent).join(' ')}set textContent(t){this._text=t;this.children=[]}
  append(...nodes){for(const n of nodes){n.remove();n.parent=this;this.children.push(n)}}
  remove(){if(this.parent){this.parent.children=this.parent.children.filter(n=>n!==this);this.parent=null}}
  after(n){n.remove();const p=this.parent;p.children.splice(p.children.indexOf(this)+1,0,n);n.parent=p}
@@ -30,3 +30,15 @@ assert.equal(guide.children[0].querySelectorAll('.vocab-row').length,2);
 assert.equal(guide.children[1].querySelectorAll('.vocab-row').length,1);
 guide.children[1].querySelector('button').click();assert.equal(heard.at(-1),'Das ist Paul.');
 console.log('PASS: two people/name cards contain grouped playable examples');
+
+guide=fixture([['Words to use','Two different words']],[['Apfel','apple'],['Brot','bread']]);
+const wordSection=guide.querySelector('section'),wordList=el('ul'),apple=el('li'),bread=el('li');
+apple.append(el('strong','Apfel — apple'));bread.append(el('strong','Brot — bread'));wordList.append(apple,bread);wordSection.append(wordList);
+c.fullStudy(2);
+assert.equal(apple.querySelector('.vocab-row strong').textContent,'Apfel','Apple audio is under the apple bullet');
+assert.equal(bread.querySelector('.vocab-row strong').textContent,'Brot','Bread audio is under the bread bullet');
+assert.equal(apple.querySelectorAll('.vocab-row').length,1);
+assert.equal(bread.querySelectorAll('.vocab-row').length,1);
+apple.querySelector('button').click();assert.equal(heard.at(-1),'Apfel');
+c.fullStudy(2);assert.equal(card.querySelectorAll('.vocab-row').length,2,'Reopening wrappers does not duplicate matched-item playback');
+console.log('PASS: matched audio stays directly beneath each applicable teaching bullet');

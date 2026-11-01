@@ -36,10 +36,12 @@
    ['Consonant combinations',[1,2,3,4,5,6]],
    ['Single letters',[0,11,12,13,14]]
   ];
-  const heardWords=new Set();
   const explanations=groups.map(([title,indices])=>{
-   const words=indices.map(i=>drills[i]).filter(d=>{if(heardWords.has(d.word))return false;heardWords.add(d.word);return true});
-   return '<section><h3>'+title+'</h3><ul>'+indices.map(i=>'<li><strong>'+drills[i].sound+'</strong> — '+drills[i].detail+'</li>').join('')+'</ul><div class="dl-section-audio">'+words.map(d=>'<div class="vocab-row"><div class="vocab-copy"><strong>'+d.word+'</strong><span>'+d.meaning+'</span></div><button type="button" class="secondary" data-dl-pron-word="'+d.word+'" aria-label="Listen to '+d.word+'">Listen</button></div>').join('')+'</div></section>';
+   return '<section><h3>'+title+'</h3><ul>'+indices.map(i=>{
+    const d=drills[i];
+    const audio='<div class="dl-section-audio"><div class="vocab-row"><div class="vocab-copy"><strong>'+d.word+'</strong><span>'+d.meaning+'</span></div><button type="button" class="secondary" data-dl-pron-word="'+d.word+'" aria-label="Listen to '+d.word+'">Listen</button></div></div>';
+    return '<li><strong>'+d.sound+'</strong><span class="dl-phrase-usage">'+d.detail+'</span>'+audio+'</li>';
+   }).join('')+'</ul></section>';
   }).join('');
   root.innerHTML='<div class="dl-flow"><div class="dl-flow-top"><button class="secondary" id="dl-pron-back">Back</button></div><section class="dl-flow-card dl-pronunciation-intro"><div class="dl-flow-label">A1 · German pronunciation</div><h2>What you\'ll learn</h2><p>Recognize and say these '+drills.length+' German sounds.</p><div class="dl-pronoun-guide dl-lesson-guide">'+explanations+'</div><button class="dl-flow-action" id="dl-pron-begin">Start practice</button></section></div>';
   root.querySelectorAll('[data-dl-pron-word]').forEach(button=>button.onclick=()=>speak(button.dataset.dlPronWord));

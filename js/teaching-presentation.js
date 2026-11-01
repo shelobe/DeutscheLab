@@ -33,7 +33,7 @@
    const meaning=row.querySelector('.vocab-copy span');
    if(!word||!meaning?.textContent.trim())continue;
    // Hide only an exact bilingual duplicate already taught in this card.
-   const teaching=normal([...section.querySelectorAll('li,p,h3')].filter(n=>!n.querySelector('.vocab-row')&&!n.closest('.vocab-row')).map(n=>n.textContent).join(' '));
+   const teaching=normal([...section.querySelectorAll('li,p,h3,strong')].filter(n=>!n.querySelector('.vocab-row')&&!n.closest('.vocab-row')).map(n=>n.textContent).join(' '));
    const duplicate=teaching.includes(normal(word))&&teaching.includes(normal(meaning.textContent));
    if(duplicate)meaning.hidden=true;
   }
