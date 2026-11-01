@@ -91,3 +91,8 @@
 
 ## Mixed umlaut lesson listening
 - `js/extracted-batch6-14.js` supplies ten umlaut tasks: three shuffled recording/word matches, three same/different comparisons and four written tasks. `js/umlaut-listening-tasks.js` loads after answer audio and renders only the two custom lesson formats, using the native Check answer/dlCheck scoring, shared fixed dock and enriched feedback cleanup. Word matching does not speak printed answers; comparison requires both clips played. `scripts/test-umlaut-listening-tasks.cjs` checks handlers, scoring delegation, shuffled matching and stale controls without a browser.
+
+## A1 pets and sound additions
+- `js/a1-practical-data.js` provides the Pets: Haustiere teaching/questions and Bis bald! in Greetings and goodbyes.
+- `js/a1-practical-course.js` places Pets: Haustiere between direct objects and accusative pronouns, retaining stable existing lesson IDs.
+- `js/extracted-batch7-1.js` adds the final-d Hund/Hunde sound drill; the drill count is derived from the drills array.
