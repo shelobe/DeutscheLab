@@ -121,6 +121,7 @@
   "goal": "Use basic direct-object articles and pronouns.",
   "lessons": [
    "Accusative: direct objects",
+   "Pets: Haustiere",
    "Accusative pronouns"
   ]
  },
