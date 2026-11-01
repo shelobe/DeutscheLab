@@ -21,3 +21,12 @@ guide=fixture([['Choose a greeting','Greetings'],['Say goodbye','Farewells'],['A
 guide=fixture([['Names','Names'],['Home','Current home'],['Coming up','Learn conjugation later']]);c.fullStudy(3);assert.equal(card.querySelectorAll('.vocab-row').length,6);assert.equal(following(guide,'Names').children.length,3);assert.equal(following(guide,'Home').children.length,3);assert.ok(!card.textContent.includes('Woher kommst du?'),'Origins audio belongs in Lesson 3');assert.ok(guide.textContent.includes('Learn conjugation later'));
 guide=fixture([['A question','Wo wohnst du? means Where do you live?'],['Remember','Useful rule']],[['Wo wohnst du?','Where do you live?'],['Ich wohne hier.','I live here.']]);const old=card.querySelector('.vocab-row');c.fullStudy(2);assert.equal(following(guide,'A question').children[0],old,'Move existing rows intact');old.querySelector('button').click();assert.equal(heard.at(-1),'Wo wohnst du?');assert.equal(card.querySelectorAll('.vocab-row').length,2,'Unmatched examples remain available');assert.equal(following(guide,'Examples').children.length,1);assert(card.querySelector('.dl-flow-action'),'Start practice is preserved');
 console.log('PASS: greeting groups/playback, correct placement, deduplication, A2 isolation, preserved existing handlers, unmatched examples and Start practice.');
+
+units.push({level:'A1',title:'People and names: Vocabulary and meaning'});
+guide=fixture([['Introduce yourself','Ich heiße Lea. Mein Name ist Lea.'],['Introduce someone else','Das ist Paul.']],[['Ich heiße Lea.','My name is Lea.'],['Mein Name ist Lea.','My name is Lea.'],['Das ist Paul.','This is Paul.']]);
+c.fullStudy(units.length-1);
+assert.equal(guide.children.length,2,'Only two connected cards');
+assert.equal(guide.children[0].querySelectorAll('.vocab-row').length,2);
+assert.equal(guide.children[1].querySelectorAll('.vocab-row').length,1);
+guide.children[1].querySelector('button').click();assert.equal(heard.at(-1),'Das ist Paul.');
+console.log('PASS: two people/name cards contain grouped playable examples');

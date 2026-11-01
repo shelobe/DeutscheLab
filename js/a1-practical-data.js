@@ -2266,147 +2266,109 @@ window.DL_A1_PRACTICAL_PACKS = {
  "A1|People and names: Vocabulary and meaning": {
   "sections": [
    [
-    "What you will be able to do",
-    "Recognize the meaning of the expressions below."
-   ],
-   [
-    "When to use it",
-    "Connect each useful German expression to its meaning."
-   ],
-   [
-    "How the pattern works",
-    "Introduce a person with Das ist …; introduce yourself with Mein Name ist … or Ich heiße … ."
-   ],
-   [
-    "Build on it",
-    "Names use heißen; homes use wohnen in; origins use kommen aus. The subject controls the verb form."
-   ],
-   [
-    "Expressions you will practice",
+    "Introduce yourself",
     [
-     "Das ist meine Freundin. — This is my friend.",
-     "Mein Name ist Lea. — My name is Lea.",
-     "Er heißt Thomas. — His name is Thomas.",
-     "Sie wohnt in Hamburg. — She lives in Hamburg.",
-     "Wir kommen aus Deutschland. — We come from Germany.",
-     "Ich bin neu hier. — I am new here."
+     "You already know Ich heiße … . Mein Name ist … is another way to give your name. Both mean “My name is …”.",
+     "Why mein, not meine? Name is masculine: der Name. Before a masculine noun used this way, “my” is mein: mein Name.",
+     "With a feminine noun, use meine here: meine Mutter means my mother. A later possessives lesson explains these endings in more detail."
     ]
    ],
    [
-    "Remember",
-    "Freundin is a female friend; Freund is a male friend. Meine goes with feminine Freundin."
+    "Introduce someone else",
+    [
+     "Use Das ist … to tell someone another person’s name. Das ist Paul means This is Paul.",
+     "Talking about yourself: Ich heiße … or Mein Name ist … . Introducing another person: Das ist … ."
+    ]
    ]
   ],
   "questions": [
    {
-    "type": "translate",
-    "prompt": "What does “Das ist meine Freundin.” mean?",
+    "type": "grammar",
+    "prompt": "You are Lea. Give your name using Mein Name.",
     "options": [
-     "This is my friend.",
-     "My name is Lea.",
-     "She lives in Hamburg."
+     "Mein Name ist Lea.",
+     "Das ist Lea.",
+     "Das ist Paul."
     ],
     "answer": 0,
-    "why": "Introduce a person with Das ist …; introduce yourself with Mein Name ist … or Ich heiße … .",
-    "german": "Das ist meine Freundin.",
-    "english": "This is my friend.",
-    "dlSkill": "meaning"
+    "why": "Mein Name ist gives your own name.",
+    "dlSkill": "situation"
    },
    {
-    "type": "translate",
+    "type": "grammar",
+    "prompt": "You introduce Paul to a friend. What do you say?",
+    "options": [
+     "Das ist Paul.",
+     "Mein Name ist Paul.",
+     "Ich heiße Paul."
+    ],
+    "answer": 0,
+    "why": "Das ist introduces another person; the other phrases give your own name.",
+    "dlSkill": "situation"
+   },
+   {
+    "type": "grammar",
     "prompt": "What does “Mein Name ist Lea.” mean?",
     "options": [
      "My name is Lea.",
-     "His name is Thomas.",
-     "We come from Germany."
+     "This is Lea.",
+     "This is Paul."
     ],
     "answer": 0,
-    "why": "Names use heißen; homes use wohnen in; origins use kommen aus. The subject controls the verb form.",
-    "german": "Mein Name ist Lea.",
-    "english": "My name is Lea.",
+    "why": "Mein Name means my name.",
     "dlSkill": "meaning"
    },
    {
-    "type": "translate",
-    "prompt": "What does “Er heißt Thomas.” mean?",
+    "type": "grammar",
+    "prompt": "Which phrase gives the same information as “Ich heiße Lea.”?",
     "options": [
-     "His name is Thomas.",
-     "She lives in Hamburg.",
-     "I am new here."
+     "Mein Name ist Lea.",
+     "Das ist Lea.",
+     "Das ist Paul."
     ],
     "answer": 0,
-    "why": "Freundin is a female friend; Freund is a male friend. Meine goes with feminine Freundin.",
-    "german": "Er heißt Thomas.",
-    "english": "His name is Thomas.",
-    "dlSkill": "meaning"
+    "why": "Ich heiße Lea and Mein Name ist Lea both give your name.",
+    "dlSkill": "situation"
    },
    {
-    "type": "translate",
-    "prompt": "What does “Sie wohnt in Hamburg.” mean?",
+    "type": "grammar",
+    "prompt": "Write the missing word: Mein ___ ist Lea.",
     "options": [
-     "She lives in Hamburg.",
-     "We come from Germany.",
-     "This is my friend."
+     "Name",
+     "Paul",
+     "Lea"
     ],
     "answer": 0,
-    "why": "Introduce a person with Das ist …; introduce yourself with Mein Name ist … or Ich heiße … .",
-    "german": "Sie wohnt in Hamburg.",
-    "english": "She lives in Hamburg.",
-    "dlSkill": "meaning"
+    "why": "Mein Name ist Lea means My name is Lea.",
+    "dlSkill": "write",
+    "dlWriteAnswer": "Name"
    },
    {
-    "type": "translate",
-    "prompt": "What does “Wir kommen aus Deutschland.” mean?",
+    "type": "grammar",
+    "prompt": "Listen and choose the meaning of the sentence.",
     "options": [
-     "We come from Germany.",
-     "I am new here.",
+     "This is Paul.",
+     "My name is Paul.",
      "My name is Lea."
     ],
     "answer": 0,
-    "why": "Names use heißen; homes use wohnen in; origins use kommen aus. The subject controls the verb form.",
-    "german": "Wir kommen aus Deutschland.",
-    "english": "We come from Germany.",
-    "dlSkill": "meaning"
-   },
-   {
-    "type": "translate",
-    "prompt": "What does “Ich bin neu hier.” mean?",
-    "options": [
-     "I am new here.",
-     "This is my friend.",
-     "His name is Thomas."
-    ],
-    "answer": 0,
-    "why": "Freundin is a female friend; Freund is a male friend. Meine goes with feminine Freundin.",
-    "german": "Ich bin neu hier.",
-    "english": "I am new here.",
-    "dlSkill": "meaning"
+    "why": "Das ist Paul introduces Paul to someone else.",
+    "dlSkill": "listen",
+    "dlReviewAudio": "Das ist Paul."
    }
   ],
   "examples": [
    [
-    "Das ist meine Freundin.",
-    "This is my friend."
+    "Ich heiße Lea.",
+    "My name is Lea."
    ],
    [
     "Mein Name ist Lea.",
     "My name is Lea."
    ],
    [
-    "Er heißt Thomas.",
-    "His name is Thomas."
-   ],
-   [
-    "Sie wohnt in Hamburg.",
-    "She lives in Hamburg."
-   ],
-   [
-    "Wir kommen aus Deutschland.",
-    "We come from Germany."
-   ],
-   [
-    "Ich bin neu hier.",
-    "I am new here."
+    "Das ist Paul.",
+    "This is Paul."
    ]
   ]
  },

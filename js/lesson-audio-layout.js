@@ -71,6 +71,9 @@
     section.classList.add('dl-audio-only-section');section.append(list);
    }
   }
+  if(u.level==='A1'&&u.title==='People and names: Vocabulary and meaning'){
+   for(const [section,list]of insertions)section.append(list);
+  }
   if(insertions.size){heading?.remove();card.classList.add('dl-inline-lesson-audio');}
  }
  const previousIntro=dlLessonIntro,previousStudy=fullStudy;

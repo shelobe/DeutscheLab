@@ -86,3 +86,5 @@
 
 ## Written-answer keyboard tools
 - `js/written-answer-tools.js` loads before lesson consistency and module reviews, providing directional keyboard-substitute checks, strict sound/spelling detection, standard-spelling feedback and collapsed Special characters disclosures for lesson/review key rows. General lesson/review writing, deep-dive/extended writing and picture-answer comparisons use it; dictation stays strict. `scripts/test-written-answer-tools.cjs` checks matching, strict exceptions, toggle structure and feedback.
+
+- People and names vocabulary now teaches self-introductions versus introducing another person in two cards. Its brief mein/meine explanation points to possessives; audio stays inside those two cards, and practice/reviews use the same focused bank.
