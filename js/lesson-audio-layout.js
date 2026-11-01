@@ -46,6 +46,56 @@
  function placeAudio(id){
   const u=FULL_UNITS[id],card=app.querySelector('.dl-flow-card');if(!u||!card||card.classList.contains('dl-inline-lesson-audio'))return;
   const guide=card.querySelector('.dl-lesson-guide,.dl-pronoun-guide,.dl-conversation-cards,.dl-accusative-guide,#dl-order-guide');if(!guide)return;
+  if(u.level==='A1'&&u.title==='People and names: Understanding in context'){
+   // Render this applied lesson as short exchanges, not repeated phrase bullets.
+   const nativeRows=[...card.querySelectorAll('.vocab-row')];
+   const playback=(de,en)=>{
+    const row=nativeRows.find(row=>normalize(row.querySelector('.vocab-copy strong')?.textContent)===normalize(de))||audioRow(de,en);
+    const copy=row.querySelector('.vocab-copy');let meaning=copy.querySelector('span');
+    if(!meaning){meaning=document.createElement('span');copy.append(meaning);}
+    meaning.textContent=en;meaning.hidden=false;meaning.style.display='block';
+    return row;
+   };
+   const section=(title)=>{
+    const box=document.createElement('section'),h=document.createElement('h3');h.textContent=title;box.append(h);guide.append(box);return box;
+   };
+   const paragraph=(box,text)=>{const p=document.createElement('p');p.textContent=text;box.append(p);};
+   const label=(box,text)=>{const p=document.createElement('p');p.className='dl-context-label';p.textContent=text;box.append(p);};
+   guide.replaceChildren();
+   guide.classList.add('dl-context-readable');
+   const goal=section('Use what you know');
+   paragraph(goal,'Understand who someone is, where they live and where they come from. Choose a reply that answers the question.');
+   const recap=section('Three things to listen for');
+   for(const [de,en,note] of [
+    ['Mein Name ist … / Ich heiße …','My name is …','The speaker gives their own name.'],
+    ['wohnen in','to live in','Current home. In means “in” here.'],
+    ['kommen aus','to come from','Origin. Aus means “from” here.']
+   ]){
+    const item=document.createElement('div');item.className='dl-context-item';
+    const strong=document.createElement('strong'),meaning=document.createElement('span');strong.textContent=de;meaning.textContent=en;meaning.style.display='block';
+    item.append(strong,meaning);paragraph(item,note);recap.append(item);
+   }
+   for(const [title,question,translation,reply,english] of [
+    ['Ask a name','Wie heißt du?','What is your name?','Mein Name ist Lea.','My name is Lea.'],
+    ['Ask about a current home','Wo wohnst du?','Where do you live?','Ich wohne in Hamburg.','I live in Hamburg.'],
+    ['Ask about origin','Woher kommst du?','Where are you from?','Ich komme aus Deutschland.','I come from Germany.']
+   ]){
+    const box=section(title);label(box,'Question');box.append(playback(question,translation));label(box,'Reply');box.append(playback(reply,english));
+   }
+   const contrast=section('Home and origin can be different');
+   contrast.append(playback('Ich komme aus Deutschland, aber ich wohne in Hamburg.','I come from Germany, but I live in Hamburg.'));
+   paragraph(contrast,'From: Germany.');paragraph(contrast,'Lives now: Hamburg.');paragraph(contrast,'Aber means “but”.');
+   const friend=section('Introducing another person');
+   friend.append(playback('Das ist meine Freundin. Sie wohnt in Hamburg.','This is my friend. She lives in Hamburg.'));
+   paragraph(friend,'The speaker introduces a female friend. Sie refers to that friend.');
+   const name=section('Giving someone else’s name');
+   name.append(playback('Er heißt Thomas.','His name is Thomas.'));
+   paragraph(name,'Er refers to another person, rather than the speaker.');
+   for(const row of nativeRows)if(!guide.contains(row))row.remove();
+   [...card.querySelectorAll('h3')].filter(h=>h.parentElement===card&&h.textContent.trim()==='See it in German').forEach(h=>h.remove());
+   card.classList.add('dl-inline-lesson-audio');
+   return;
+  }
   if(u.level==='A1'&&u.title==='Greetings and polite expressions')card.classList.add('dl-integrated-greeting-audio');
   if(u.level==='A1'&&u.title==='The verb sein: to be'){
    const forms=[...guide.querySelectorAll('section')].find(section=>section.querySelector('h3')?.textContent.trim()==='Forms of sein');
@@ -213,5 +263,6 @@
  style.textContent+=' #app .dl-group-pronoun-guide .dl-pronoun-sentence-examples{background:transparent;border:0;box-shadow:none;padding:0;margin-top:24px}.dl-group-pronoun-guide .dl-pronoun-sentence-examples>ul{list-style:none;padding-left:0}.dl-group-pronoun-guide .dl-pronoun-sentence-examples>ul>li{margin:0 0 24px}';
  style.textContent+=' #app .dl-group-pronoun-guide .dl-pronoun-guide section:last-child:not(.dl-lesson-remember){background:#293f58;border:1px solid #405c72;box-shadow:none}#app .dl-group-pronoun-guide .dl-pronoun-sentence-examples{margin:24px 0;padding:0;border:0;background:transparent;box-shadow:none}#app .dl-group-pronoun-guide .dl-pronoun-sentence-examples h3{font-size:1.3rem;color:#9bdcd1;margin:0 0 14px}.dl-group-pronoun-guide .dl-sentence-example{margin:0 0 24px}.dl-group-pronoun-guide .dl-sentence-example p{margin:8px 0;line-height:1.5}.dl-group-pronoun-guide .dl-sentence-translation{font-weight:600}.dl-group-pronoun-guide .dl-sentence-example .vocab-row{display:flex;align-items:center;gap:12px}.dl-group-pronoun-guide .dl-sentence-example .vocab-copy{flex:1;min-width:0}.dl-group-pronoun-guide .dl-sentence-example .vocab-copy strong{font-size:1.1em}';
  style.textContent+=' #app .dl-group-pronoun-guide .dl-pronoun-verb-note{padding:15px 17px;border-radius:15px;background:#293f58;border:1px solid #405c72;margin-top:16px}#app .dl-group-pronoun-guide .dl-pronoun-verb-note p{margin:0;line-height:1.5}body.lesson-screen #app .dl-flow-card.dl-group-pronoun-guide{padding-bottom:24px;margin-bottom:100px}.dl-group-pronoun-guide .dl-sentence-example:last-of-type{margin-bottom:0}';
+ style.textContent+=' #app .dl-context-readable .dl-context-item{margin:16px 0}#app .dl-context-readable .dl-context-item strong{display:block}#app .dl-context-readable .dl-context-item p{margin:6px 0 0}#app .dl-context-readable .dl-context-label{font-size:.9em;font-weight:700;color:#b4ddd6;margin:16px 0 6px}#app .dl-context-readable .vocab-copy span{display:block;font-weight:400;margin-top:6px;line-height:1.45}#app .dl-context-readable .vocab-row{margin:0 0 12px}';
  document.head.append(style);
 })();

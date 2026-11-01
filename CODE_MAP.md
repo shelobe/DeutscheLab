@@ -141,3 +141,5 @@
 - `js/lesson-audio-layout.js` consolidates People and names: Sentence patterns expression examples into their original bilingual Listen rows, removing duplicate plain bullets. `teaching-presentation.js` retains the translations because no duplicate teaching copy remains.
 
 - `js/a1-practical-data.js` separates People and names: Sentence patterns (eight construction/preposition questions) from Understanding in context (ten practical meaning/reply questions and short exchanges). `a1-practical-course.js` already selects review questions round-robin across their module’s lesson banks; stable lesson IDs and module membership are unchanged.
+
+- `js/lesson-audio-layout.js` supplies the scoped readable introduction for People and names: Understanding in context: short recap, Question/Reply cards, home/origin contrast and third-person introductions. It reuses matching native audio rows and creates question playback with the existing audioRow helper; shared presentation remains the final style pass. Question banks remain in a1-practical-data.js.
