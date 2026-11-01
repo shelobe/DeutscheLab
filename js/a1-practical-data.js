@@ -750,9 +750,9 @@ window.DL_A1_PRACTICAL_PACKS = {
     [
       "Who is in the group?",
       [
-        "wir — we: you include yourself and at least one other person.",
-        "ihr — you all: you speak directly to several people informally.",
-        "sie — they: you talk about other people as a group."
+        "wir — we\nUse it when you include yourself in the group.",
+        "ihr — you all\nUse it when speaking directly to several people informally.",
+        "sie — they\nUse it when talking about other people as a group."
       ]
     ],
     [
@@ -764,6 +764,14 @@ window.DL_A1_PRACTICAL_PACKS = {
       ]
     ],
     [
+      "Use them in sentences",
+      [
+        "Wir lernen Deutsch. — We are learning German.\nYou and Paul are talking about yourselves: use wir.",
+        "Ihr lernt Deutsch. — You are learning German.\nYou are speaking to Anna and Paul, your friends: use ihr.",
+        "Sie lernen Deutsch. — They are learning German.\nYou are telling someone about Anna and Paul: use sie. It is capitalized here because it starts the sentence."
+      ]
+    ],
+    [
       "Remember",
       [
         "sie — she: Anna.",
@@ -771,6 +779,10 @@ window.DL_A1_PRACTICAL_PACKS = {
         "Sie — polite you: one person or several. Always capitalized.",
         "At the start of a sentence, all three are written Sie. Use context to tell who is meant."
       ]
+    ],
+    [
+      "Verb forms in these examples",
+      "Lernen means to learn. The forms are supplied here: wir lernen, ihr lernt, sie lernen. The regular-verb lesson explains the endings."
     ]
   ],
   "examples": [

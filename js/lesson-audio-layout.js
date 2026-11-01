@@ -36,7 +36,7 @@
   const meaning=document.createElement('span');meaning.textContent=en;
   const button=document.createElement('button');button.type='button';button.className='secondary';button.textContent='Listen';button.setAttribute('aria-label','Listen to '+de);
   button.onclick=()=>speak(typeof dlAudioExample==='function'?dlAudioExample(de):de);
-  copy.append(word,meaning);row.append(copy,button);return row;
+  copy.append(word);if(en)copy.append(meaning);row.append(copy,button);return row;
  }
  function targetFor(sections,de,en){
   const candidates=sections.filter(s=>! /remember|coming up|what you will|useful examples|key examples/i.test(s.querySelector('h3')?.textContent||''));
@@ -63,23 +63,30 @@
    const items=[...guide.querySelectorAll('li')];
    card.classList.add('dl-group-pronoun-guide');
    for(const li of items){
-    const text=li.textContent;
+    // Preserve the phrase/usage line break supplied by the shared guide.
+    const phrase=li.querySelector('strong');
+    const host=phrase||li;
+    const text=host.textContent;
     const match=text.match(/^(wir|ihr|sie|Sie)(?=\s*[—:])/);
     if(!match)continue;
     const word=document.createElement('strong');word.className='dl-pronoun-keyword';word.textContent=match[1];
-    li.textContent='';li.append(word,document.createTextNode(text.slice(match[1].length)));
+    host.textContent='';host.append(word,document.createTextNode(text.slice(match[1].length)));
    }
    const targets=[['wir','we'],['ihr','you all'],['sie','they']];
    let placed=0;
    for(const [pronoun,meaning] of targets){
     const li=items.find(item=>normalize(item.textContent).startsWith(pronoun+' '+meaning));
     if(!li)continue;
-    const row=audioRow(pronoun,meaning);
+    const row=audioRow(pronoun,'');
     row.classList.add('dl-pronoun-inline-audio');
     li.append(row);
     placed++;
    }
    if(placed===targets.length){
+    for(const sentence of ['Wir lernen Deutsch.','Ihr lernt Deutsch.','Sie lernen Deutsch.']){
+     const li=items.find(item=>item.textContent.startsWith(sentence+' — '));
+     if(li){const row=audioRow(sentence,'');row.classList.add('dl-pronoun-inline-audio');li.append(row);}
+    }
     for(const row of [...card.querySelectorAll('.vocab-row')]){
      if(row.classList.contains('dl-pronoun-inline-audio'))continue;
      const word=normalize(row.querySelector('.vocab-copy strong')?.textContent||row.querySelector('strong')?.textContent);
@@ -152,5 +159,6 @@
  style.textContent='.dl-audio-only-section .dl-section-audio{margin:12px 0 0}.dl-audio-only-section .vocab-row{background:transparent;border:0;border-radius:0;padding:12px 0;box-shadow:none}.dl-section-audio{display:grid;gap:10px;margin:0 0 20px;min-width:0}.dl-section-audio .vocab-row{margin:0;min-width:0}.dl-section-audio .vocab-copy{min-width:0;overflow-wrap:anywhere}.dl-section-audio button{flex-shrink:0;min-height:44px}body.lesson-screen .dl-flow-card.dl-inline-lesson-audio{padding-bottom:100px}body.lesson-screen .dl-flow-card.dl-inline-lesson-audio>.dl-flow-action{position:fixed;bottom:max(12px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);width:min(calc(100vw - 48px),640px);z-index:1000;margin:0;box-shadow:0 8px 30px rgba(0,0,0,.45)}';
  style.textContent+=' .dl-pronoun-inline-audio{margin:10px 0 4px}.dl-pronoun-inline-audio .vocab-copy{min-width:0}.dl-pronoun-inline-audio button{flex-shrink:0;min-height:44px}';
  style.textContent+=' .dl-group-pronoun-guide .dl-pronoun-keyword{font-size:1.2em;font-weight:800;line-height:1.35}.dl-group-pronoun-guide .dl-pronoun-inline-audio .vocab-copy strong{font-size:1.3em;font-weight:800;line-height:1.35}';
+ style.textContent+=' .dl-group-pronoun-guide .dl-phrase-usage{display:block;margin-top:6px;font-weight:400}.dl-group-pronoun-guide .dl-pronoun-inline-audio .vocab-copy strong{overflow-wrap:anywhere}';
  document.head.append(style);
 })();
