@@ -2503,102 +2503,166 @@ window.DL_A1_PRACTICAL_PACKS = {
     ]
   ],
   "questions": [
-   {
-    "type": "grammar",
-    "prompt": "Das ___ meine Freundin.",
-    "options": [
-     "ist",
-     "sind",
-     "bist"
-    ],
-    "answer": 0,
-    "why": "Das ist introduces one person.",
-    "german": "Das ist meine Freundin.",
-    "english": "This is my friend.",
-    "dlSkill": "sentence"
-   },
-   {
-       "type": "grammar",
-       "prompt": "Build: “My name is Lea.” Start with the subject.",
-       "options": [
-           "Mein Name ist Lea.",
-           "Mein Name Lea ist.",
-           "ist Mein Name Lea."
-       ],
-       "answer": 0,
-       "why": "Mein Name is the whole subject in position 1. Ist is the verb in position 2. A position can contain several words.",
-       "german": "Mein Name ist Lea.",
-       "english": "My name is Lea.",
-       "dlSkill": "sentence",
-       "dlSentenceChunks": [
-           "Mein Name",
-           "ist",
-           "Lea"
-       ],
-       "dlSentenceHint": "Mein Name stays together as the subject in position 1. Put the verb in position 2."
-   },
-   {
-    "type": "grammar",
-    "prompt": "Er ___ Thomas.",
-    "options": [
-     "heißt",
-     "heiße",
-     "heißen"
-    ],
-    "answer": 0,
-    "why": "Er uses heißt.",
-    "german": "Er heißt Thomas.",
-    "english": "His name is Thomas.",
-    "dlSkill": "sentence"
-   },
-   {
-       "type": "grammar",
-       "prompt": "Build: “She lives in Hamburg.” Start with the subject.",
-       "options": [
-           "Sie wohnt in Hamburg.",
-           "Sie in Hamburg wohnt.",
-           "wohnt Sie in Hamburg."
-       ],
-       "answer": 0,
-       "why": "Sie is the subject in position 1. Wohnt is the verb in position 2. In means “in” here; in Hamburg tells where she lives.",
-       "german": "Sie wohnt in Hamburg.",
-       "english": "She lives in Hamburg.",
-       "dlSkill": "sentence",
-       "dlSentenceChunks": [
-           "Sie",
-           "wohnt",
-           "in Hamburg"
-       ],
-       "dlSentenceHint": "Put the subject first, then the verb in position 2."
-   },
-   {
-    "type": "grammar",
-    "prompt": "Wir kommen ___ Deutschland.",
-    "options": [
-     "aus",
-     "in",
-     "um"
-    ],
-    "answer": 0,
-    "why": "Aus means “from” here. Use kommen aus to say where someone comes from.",
-    "german": "Wir kommen aus Deutschland.",
-    "english": "We come from Germany.",
-    "dlSkill": "sentence"
-   },
-   {
-    "type": "grammar",
-    "prompt": "Ich ___ neu hier.",
-    "options": [
-     "bin",
-     "ist",
-     "sind"
-    ],
-    "answer": 0,
-    "why": "Use ich bin when describing yourself.",
-    "german": "Ich bin neu hier.",
-    "english": "I am new here.",
-    "dlSkill": "sentence"
-   }
+    {
+      "type": "grammar",
+      "prompt": "Build: “My name is Lea.” Start with the subject.",
+      "options": [
+        "Mein Name ist Lea.",
+        "Mein Name Lea ist.",
+        "ist Mein Name Lea."
+      ],
+      "answer": 0,
+      "why": "Mein Name is the whole subject in position 1. Ist is the verb in position 2. A position can contain several words.",
+      "german": "Mein Name ist Lea.",
+      "english": "My name is Lea.",
+      "dlSkill": "sentence",
+      "dlSentenceChunks": [
+        "Mein Name",
+        "ist",
+        "Lea"
+      ],
+      "dlSentenceHint": "Mein Name stays together as the subject in position 1. Put the verb in position 2."
+    },
+    {
+      "type": "grammar",
+      "prompt": "Build: “She lives in Hamburg.” Start with the subject.",
+      "options": [
+        "Sie wohnt in Hamburg.",
+        "Sie in Hamburg wohnt.",
+        "wohnt Sie in Hamburg."
+      ],
+      "answer": 0,
+      "why": "Sie is the subject in position 1. Wohnt is the verb in position 2. In means “in” here; in Hamburg tells where she lives.",
+      "german": "Sie wohnt in Hamburg.",
+      "english": "She lives in Hamburg.",
+      "dlSkill": "sentence",
+      "dlSentenceChunks": [
+        "Sie",
+        "wohnt",
+        "in Hamburg"
+      ],
+      "dlSentenceHint": "Put the subject first, then the verb in position 2."
+    },
+    {
+      "type": "grammar",
+      "prompt": "Which word is the verb in “Er heißt Thomas.”?",
+      "options": [
+        "heißt",
+        "Er",
+        "Thomas"
+      ],
+      "answer": 0,
+      "why": "Heißt is the verb: it means “is called”. Er is the subject in position 1; heißt takes position 2.",
+      "german": "Er heißt Thomas.",
+      "english": "His name is Thomas.",
+      "dlSkill": "sentence",
+      "dlTopic": "verb-position"
+    },
+    {
+      "type": "grammar",
+      "prompt": "Choose the statement that starts with Ich and uses the correct word order.",
+      "options": [
+        "Ich bin neu hier.",
+        "Ich neu hier bin.",
+        "Ich neu bin hier."
+      ],
+      "answer": 0,
+      "why": "Ich is the subject in position 1. Bin is the verb in position 2; neu hier means “new here”.",
+      "german": "Ich bin neu hier.",
+      "english": "I am new here.",
+      "dlSkill": "sentence",
+      "dlTopic": "verb-position"
+    },
+    {
+      "type": "grammar",
+      "prompt": "You introduce your female friend to someone. Which sentence fits?",
+      "options": [
+        "Das ist meine Freundin.",
+        "Mein Name ist Lea.",
+        "Ich bin neu hier."
+      ],
+      "answer": 0,
+      "why": "Das ist … means “This is …” and introduces another person.",
+      "german": "Das ist meine Freundin.",
+      "english": "This is my friend.",
+      "dlSkill": "sentence",
+      "dlTopic": "introductions"
+    },
+    {
+      "type": "grammar",
+      "prompt": "You want to give your own name. Which sentence fits?",
+      "options": [
+        "Mein Name ist Lea.",
+        "Er heißt Thomas.",
+        "Das ist meine Freundin."
+      ],
+      "answer": 0,
+      "why": "Mein Name ist … gives your own name. Ich heiße … is another way to introduce yourself.",
+      "german": "Mein Name ist Lea.",
+      "english": "My name is Lea.",
+      "dlSkill": "sentence",
+      "dlTopic": "introductions"
+    },
+    {
+      "type": "grammar",
+      "prompt": "You are telling someone where she lives now. Which sentence fits?",
+      "options": [
+        "Sie wohnt in Hamburg.",
+        "Wir kommen aus Deutschland.",
+        "Er heißt Thomas."
+      ],
+      "answer": 0,
+      "why": "Wohnen in describes where someone lives. In means “in” here; in Hamburg is her current home location.",
+      "german": "Sie wohnt in Hamburg.",
+      "english": "She lives in Hamburg.",
+      "dlSkill": "sentence",
+      "dlTopic": "residence-origin"
+    },
+    {
+      "type": "grammar",
+      "prompt": "You and your group want to say where you come from. Which sentence fits?",
+      "options": [
+        "Wir kommen aus Deutschland.",
+        "Sie wohnt in Hamburg.",
+        "Mein Name ist Lea."
+      ],
+      "answer": 0,
+      "why": "Kommen aus describes origin. Aus means “from” here; this sentence gives your group’s origin.",
+      "german": "Wir kommen aus Deutschland.",
+      "english": "We come from Germany.",
+      "dlSkill": "sentence",
+      "dlTopic": "residence-origin"
+    },
+    {
+      "type": "grammar",
+      "prompt": "Complete: Sie wohnt ___ Hamburg.",
+      "options": [
+        "in",
+        "aus",
+        "um"
+      ],
+      "answer": 0,
+      "why": "In means “in” here. Use wohnen in to say where someone lives.",
+      "german": "Sie wohnt in Hamburg.",
+      "english": "She lives in Hamburg.",
+      "dlSkill": "sentence",
+      "dlTopic": "prepositions"
+    },
+    {
+      "type": "grammar",
+      "prompt": "Complete: Wir kommen ___ Deutschland.",
+      "options": [
+        "aus",
+        "in",
+        "um"
+      ],
+      "answer": 0,
+      "why": "Aus means “from” here. Use kommen aus to say where someone comes from.",
+      "german": "Wir kommen aus Deutschland.",
+      "english": "We come from Germany.",
+      "dlSkill": "sentence",
+      "dlTopic": "prepositions"
+    }
   ],
   "examples": [
    [
