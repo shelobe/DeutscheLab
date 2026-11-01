@@ -126,6 +126,15 @@
   if(u.level==='A1'&&u.title==='People and names: Vocabulary and meaning'){
    for(const [section,list]of insertions)section.append(list);
   }
+  if(u.title==='Personal pronouns: he, she, it'){
+   // Playback has moved beside its teaching; discard empty example shells.
+   for(const section of [...guide.querySelectorAll('section')]){
+    const title=(section.querySelector('h3')?.textContent||'').trim();
+    if(!/^(?:Useful examples|Key examples|Examples)$/.test(title))continue;
+    const hasText=[...section.children].some(child=>child.tagName!=='H3'&&child.textContent.trim());
+    if(!hasText&&!section.querySelector('.vocab-row,button,audio,input'))section.remove();
+   }
+  }
   if(insertions.size){heading?.remove();card.classList.add('dl-inline-lesson-audio');}
  }
  const previousIntro=dlLessonIntro,previousStudy=fullStudy;

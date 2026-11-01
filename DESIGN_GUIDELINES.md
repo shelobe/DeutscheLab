@@ -110,3 +110,7 @@ This document records established product decisions. The current `main` branch i
 - Teach **Bis bald!** as a friendly “See you soon!” farewell in Greetings and goodbyes, with a playable example and a practical farewell question.
 - Teach **Pets: Haustiere** after direct-object articles and before accusative pronouns; use common pets and real ownership questions, distinguishing einen Hund, eine Katze, plural quantities and keine Haustiere.
 - Include final **d** pronounced /t/ in the dedicated A1 pronunciation introduction and practice, contrasting Hund and Hunde. Retain the shared pronunciation controls and completion behavior.
+
+## Module 3 pronoun lesson boundaries
+- Lesson 2 teaches and assesses er/sie/es; Lesson 3 owns wir/ihr/sie for groups. Keep she/they/formal-you contrasts brief and contextual. Formal Sie is a politeness contrast, not a group-only pronoun.
+- Omit the removed Useful words in the examples card in Lesson 2. Delete empty example cards after moving playback beside teaching; do not restore their removed content. Preserve the remaining playable examples and individual group-pronoun audio.
