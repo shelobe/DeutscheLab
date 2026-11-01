@@ -44,7 +44,7 @@ assert.ok(!card.querySelectorAll('h3').some(h=>h.textContent==='Useful examples'
 console.log('PASS: actual greeting guide has five bold bilingual phrases with separate usage lines and no redundant Useful examples card.');
 
 assert.ok(!greeting.sections.some(([,body])=>Array.isArray(body)&&body.some(line=>line.includes("… ."))),"Phrase placeholders have no stray period after the ellipsis");
-for(const [title,usageCount]of [['Greetings and goodbyes',5],['Introducing yourself: heißen and wohnen',6]]){
+for(const [title,usageCount]of [['Greetings and goodbyes',7],['Introducing yourself: heißen and wohnen',6]]){
  const pack=c.window.DL_A1_PRACTICAL_PACKS['A1|'+title];c.window.DL_LESSON_ENRICHMENT['A1|'+title]=pack;
  units.push({level:'A1',title,dlPracticalCourse:true});c.dlLessonIntro(units.length-1);
  assert.equal(card.querySelectorAll('.dl-phrase-usage').length,usageCount,title+' keeps phrase and usage formatting');

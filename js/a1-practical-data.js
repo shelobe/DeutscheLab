@@ -135,7 +135,7 @@ window.DL_A1_PRACTICAL_PACKS = {
   "sections": [
    [
     "What you will be able to do",
-    "Greet someone, say goodbye, ask how they are and use please and thank you."
+    "Greet someone, say goodbye, ask how they are, make polite requests, apologize and reply to thanks."
    ],
    [
     "Choose a greeting",
@@ -164,7 +164,10 @@ window.DL_A1_PRACTICAL_PACKS = {
     "Being polite",
     [
      "Danke. — Thank you.\nUse it when someone helps you or gives you something.",
-     "Bitte. — Please / you’re welcome.\nUse it to make a request, or reply when someone thanks you. In a request: Einen Kaffee, bitte. — A coffee, please."
+     "Bitte. — Please.\nUse it to make a request: Einen Kaffee, bitte. — A coffee, please.",
+     "Entschuldigung. — Excuse me.\nUse it to politely get someone’s attention or to excuse a small interruption.",
+     "Es tut mir leid. — I’m sorry.\nUse it to apologize or express regret about something that happened.",
+     "Gern geschehen. — You’re welcome.\nUse it as a friendly reply when someone thanks you."
     ]
    ]
   ],
@@ -207,11 +210,23 @@ window.DL_A1_PRACTICAL_PACKS = {
    ],
    [
     "Bitte.",
-    "Please / you’re welcome"
+    "Please"
    ],
    [
     "Einen Kaffee, bitte.",
     "A coffee, please."
+   ],
+   [
+    "Entschuldigung.",
+    "Excuse me."
+   ],
+   [
+    "Es tut mir leid.",
+    "I’m sorry."
+   ],
+   [
+    "Gern geschehen.",
+    "You’re welcome."
    ]
   ],
   "questions": [
@@ -258,14 +273,14 @@ window.DL_A1_PRACTICAL_PACKS = {
     "type": "grammar",
     "prompt": "Someone thanks you. Choose a reply.",
     "options": [
-     "Bitte!",
+     "Gern geschehen!",
      "Guten Abend!",
      "Tschüss!"
     ],
     "answer": 0,
-    "why": "Bitte means You’re welcome when replying to thanks.",
+    "why": "Gern geschehen is a friendly reply to thanks, meaning You’re welcome.",
     "dlSkill": "situation",
-    "dlTopic": "politeness"
+    "dlTopic": "thanks-response"
    },
    {
     "type": "grammar",
@@ -321,6 +336,32 @@ window.DL_A1_PRACTICAL_PACKS = {
     "dlSkill": "listen",
     "dlReviewAudio": "Guten Abend",
     "dlTopic": "greeting"
+   },
+   {
+    "type": "grammar",
+    "prompt": "You need to get a stranger’s attention politely. What do you say?",
+    "options": [
+     "Entschuldigung.",
+     "Gern geschehen.",
+     "Danke, gut."
+    ],
+    "answer": 0,
+    "why": "Entschuldigung means excuse me and politely gets someone’s attention.",
+    "dlSkill": "situation",
+    "dlTopic": "excuse-me"
+   },
+   {
+    "type": "grammar",
+    "prompt": "You upset a friend and want to apologize. What do you say?",
+    "options": [
+     "Es tut mir leid.",
+     "Gern geschehen.",
+     "Guten Morgen."
+    ],
+    "answer": 0,
+    "why": "Es tut mir leid means I’m sorry and expresses regret.",
+    "dlSkill": "situation",
+    "dlTopic": "apology"
    }
   ]
  },
