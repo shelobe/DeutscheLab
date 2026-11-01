@@ -6799,16 +6799,16 @@ window.DL_LESSON_ENRICHMENT = {
     "beautiful — ö"
    ],
    [
+    "schon",
+    "already — o, without an umlaut"
+   ],
+   [
     "fünf",
     "five — ü"
    ],
    [
     "Straße",
     "street — ß, pronounced with an s sound"
-   ],
-   [
-    "schon / schön",
-    "already / beautiful — different vowels"
    ],
    [
     "Fuß / Fluss",
