@@ -164,8 +164,7 @@ window.DL_A1_PRACTICAL_PACKS = {
     "Being polite",
     [
      "Danke. — Thank you.\nUse it when someone helps you or gives you something.",
-     "Bitte. — You’re welcome.\nUse it as a reply when someone thanks you.",
-     "Bitte. — Please.\nUse it when making a request: Einen Kaffee, bitte. — A coffee, please."
+     "Bitte. — Please / you’re welcome.\nUse it to make a request, or reply when someone thanks you. In a request: Einen Kaffee, bitte. — A coffee, please."
     ]
    ]
   ],
