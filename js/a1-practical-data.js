@@ -150,6 +150,7 @@ window.DL_A1_PRACTICAL_PACKS = {
     "Say goodbye",
     [
      "Tschüss — bye / goodbye (informal)",
+     "Bis bald! — See you soon! (friendly, when you expect to meet again)",
      "Auf Wiedersehen — goodbye (polite/formal)"
     ]
    ],
@@ -197,6 +198,10 @@ window.DL_A1_PRACTICAL_PACKS = {
     "Goodbye (polite/formal)"
    ],
    [
+    "Bis bald!",
+    "See you soon!"
+   ],
+   [
     "Wie geht es dir?",
     "How are you?"
    ],
@@ -230,6 +235,7 @@ window.DL_A1_PRACTICAL_PACKS = {
    ]
   ],
   "questions": [
+   {"type":"grammar","prompt":"You expect to see your friend again soon. What do you say as you leave?","options":["Bis bald!","Guten Morgen!","Es tut mir leid."],"answer":0,"why":"Bis bald! means See you soon and is a friendly goodbye.","dlSkill":"situation","dlTopic":"farewell"},
    {
     "type": "grammar",
     "prompt": "It is morning. Greet your neighbor.",
@@ -7821,6 +7827,148 @@ window.DL_A1_PRACTICAL_PACKS = {
    }
   ]
  },
+ "A1|Pets: Haustiere": {
+  "sections": [
+    [
+      "What you will be able to do",
+      "Name common pets and say which animals you have or do not have."
+    ],
+    [
+      "Meet the pets",
+      [
+        "der Hund → die Hunde — dog → dogs",
+        "die Katze → die Katzen — cat → cats",
+        "das Haustier → die Haustiere — pet → pets",
+        "der Vogel → die Vögel — bird → birds",
+        "der Fisch → die Fische — fish → fish"
+      ]
+    ],
+    [
+      "Say what you have",
+      [
+        "Ich habe einen Hund. — I have a dog.",
+        "Ich habe eine Katze. — I have a cat.",
+        "Ich habe zwei Katzen. — I have two cats.",
+        "Ich habe keine Haustiere. — I have no pets.",
+        "Hast du Haustiere? — Do you have pets?"
+      ]
+    ],
+    [
+      "Remember",
+      "With haben, a masculine singular pet uses einen Hund; feminine uses eine Katze. Plural pets have no ein/eine: zwei Katzen. Keine Haustiere means no pets."
+    ]
+  ],
+  "examples": [
+    [
+      "Ich habe einen Hund.",
+      "I have a dog."
+    ],
+    [
+      "Ich habe eine Katze.",
+      "I have a cat."
+    ],
+    [
+      "Ich habe zwei Katzen.",
+      "I have two cats."
+    ],
+    [
+      "Ich habe keine Haustiere.",
+      "I have no pets."
+    ],
+    [
+      "Hast du Haustiere?",
+      "Do you have pets?"
+    ]
+  ],
+  "questions": [
+    {
+      "type": "grammar",
+      "prompt": "Your friend asks: Hast du Haustiere? You have two cats. Answer.",
+      "options": [
+        "Ja, ich habe zwei Katzen.",
+        "Ja, ich habe einen Hund.",
+        "Nein, ich habe keine Haustiere."
+      ],
+      "answer": 0,
+      "why": "Zwei Katzen means two cats; plural has no ein or eine.",
+      "dlSkill": "situation"
+    },
+    {
+      "type": "grammar",
+      "prompt": "Complete: Ich habe ___ Hund.",
+      "options": [
+        "einen",
+        "ein",
+        "eine"
+      ],
+      "answer": 0,
+      "why": "Hund is masculine and the object of habe, so use einen.",
+      "dlSkill": "use"
+    },
+    {
+      "type": "grammar",
+      "prompt": "Complete: Ich habe ___ Katze.",
+      "options": [
+        "eine",
+        "einen",
+        "ein"
+      ],
+      "answer": 0,
+      "why": "Katze is feminine; eine stays eine as a direct object.",
+      "dlSkill": "use"
+    },
+    {
+      "type": "grammar",
+      "prompt": "You do not have any pets. Choose your answer.",
+      "options": [
+        "Ich habe keine Haustiere.",
+        "Ich habe zwei Haustiere.",
+        "Ich habe einen Hund."
+      ],
+      "answer": 0,
+      "why": "Keine Haustiere means no pets.",
+      "dlSkill": "situation"
+    },
+    {
+      "type": "grammar",
+      "prompt": "Write the German word for cat.",
+      "options": [
+        "Katze",
+        "Hund",
+        "Vogel"
+      ],
+      "answer": 0,
+      "why": "Die Katze means cat.",
+      "dlSkill": "write",
+      "dlWriteAnswer": "Katze"
+    },
+    {
+      "type": "grammar",
+      "prompt": "Listen and choose the pet you hear.",
+      "options": [
+        "Hund",
+        "Katze",
+        "Fisch"
+      ],
+      "answer": 0,
+      "why": "Hund means dog.",
+      "dlSkill": "listen",
+      "dlReviewAudio": "Hund"
+    },
+    {
+      "type": "grammar",
+      "prompt": "What does Ich habe zwei Katzen mean?",
+      "options": [
+        "I have two cats.",
+        "I have a cat.",
+        "I have two dogs."
+      ],
+      "answer": 0,
+      "why": "Zwei means two and Katzen is the plural of Katze.",
+      "dlSkill": "reading"
+    }
+  ]
+},
  "A1|Accusative pronouns": {
   "sections": [
    [
