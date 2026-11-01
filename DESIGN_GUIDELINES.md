@@ -94,3 +94,5 @@ This document records established product decisions. The current `main` branch i
 - German-text answer choices play their phrase when selected in lessons and module reviews, so learners hear and read together. English choices stay silent. Preserve existing separate Check answer controls; custom dictation, comparison and matching submissions must not play synthetic answer choices.
 
 - Written-answer character keys are collapsed under a Special characters disclosure by default. General written German accepts ae/oe/ue for ä/ö/ü and ss for expected ß, with standard spelling in feedback. Do not accept plain a/o/u for umlauts. Sound, spelling and dictation tasks retain strict character checks.
+
+- Module cards use a visible rounded Show lessons + / Hide lessons − disclosure beneath the description, consistently across completion states and levels. Preserve native summary/details interaction and separate completion badges.

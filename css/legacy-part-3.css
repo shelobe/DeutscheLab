@@ -62,3 +62,16 @@
 .dl-alphabet-audio-item span{display:block;min-height:2.5em;font-size:.84rem;line-height:1.4}
 .dl-alphabet-audio-item button{width:100%;margin-top:9px;padding:9px 5px!important;font-size:.82rem!important;white-space:normal!important}
 @media(max-width:380px){.curriculum-path-module .curriculum-module-number{width:40px!important;height:40px!important;flex-basis:40px!important}.curriculum-path-module>summary{padding:14px 11px!important}}
+
+/* Readable module disclosure labels; summary retains native keyboard/tap behavior. */
+#app .curriculum-path-module>summary{grid-template-columns:minmax(0,1fr)!important;gap:14px!important;list-style:none}
+#app .curriculum-path-module>summary::-webkit-details-marker{display:none}
+#app .curriculum-path-module>summary::marker{content:''}
+#app .dl-module-disclosure{justify-self:start;display:inline-flex;padding:10px 16px;border:1px solid #70c9c0;border-radius:12px;background:#304e60;color:#d6fff4;font-size:1rem;font-weight:700;line-height:1.4;min-height:44px;box-sizing:border-box}
+#app .dl-module-disclosure>span{align-items:center;gap:16px}
+#app .dl-module-show{display:inline-flex}
+#app .dl-module-hide{display:none}
+#app .curriculum-path-module[open] .dl-module-show{display:none}
+#app .curriculum-path-module[open] .dl-module-hide{display:inline-flex}
+#app .dl-module-disclosure b{font-size:1.45rem;line-height:1}
+#app .curriculum-path-module>summary:focus-visible .dl-module-disclosure{outline:3px solid #b1ffe5;outline-offset:3px}
