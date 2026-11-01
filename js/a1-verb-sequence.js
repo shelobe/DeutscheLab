@@ -14,11 +14,11 @@
  const q=(prompt,options,why)=>({type:'grammar',prompt,options,answer:0,why});
  packs['A1|'+FULL_UNITS[first].title]={sections:[
   ['Who is speaking?',['ich — I: use it to talk about yourself.','du — you: use it for one friend, family member or child.','Sie — you: use it politely for a stranger or customer, or in a professional conversation.']],
-  ['One person or a group?','Du addresses one person informally. Formal Sie can address one person or several people. You will learn informal you for a group (ihr) in the next lesson.'],
+  ['One person or a group?','Du addresses one person informally. Formal Sie can address one person or several people. Lesson 3 introduces informal you for a group (ihr).'],
   ['Formal or informal?','When you are unsure, start with Sie. “Wir können uns duzen” means “We can use du with each other.” This is an invitation to speak informally.'],
   ['Examples to recognize',['Ich lerne Deutsch. — I am learning German.','Du lernst Deutsch. — You are learning German (informal).','Sie lernen Deutsch. — You are learning German (formal).']],
   ['What to focus on','For now, identify who the pronoun refers to. You do not need to work out lerne, lernst or lernen yet; the regular verb lesson in the next module explains those endings.'],
-  ['Remember','Formal Sie always has a capital S, even in the middle of a sentence. Lowercase sie means she or they; the next lesson explains these meanings. Any word is capitalized at the start of a sentence, so use the context too.']
+  ['Remember','Formal Sie always has a capital S, even in the middle of a sentence. Lesson 2 introduces sie meaning she; Lesson 3 introduces sie meaning they. Any word is capitalized at the start of a sentence, so use the context too.']
  ],examples:[['ich','I'],['du','you (one person, informal)'],['Sie','you (formal, one person or several)'],['Wir können uns duzen.','We can use du with each other.']],questions:[
   q('You are talking about yourself. Which pronoun fits?',['ich','du','Sie'],'Ich means I.'),
   q('Which pronoun means informal you when speaking to one close friend?',['du','Sie','ich'],'Du addresses one person informally.'),
@@ -32,19 +32,18 @@
  packs['A1|'+FULL_UNITS[third].title]={sections:[
   ['Talking about one person',['er — he: Paul ist hier. Er ist hier. — Paul is here. He is here.','sie — she: Anna ist hier. Sie ist hier. — Anna is here. She is here.','es — it: Das Kind spielt. Es spielt. — The child is playing.']],
   ['Why es with das Kind?','Das Kind means the child. The German noun Kind is grammatically neuter, so es can replace it even though a child is a person. Later lessons explain noun gender and pronouns for other animals and objects.'],
-  ['Talking about a group',['wir — we: the speaker and at least one other person.','ihr — you all: several people you address informally.','sie — they: a group you are talking about, such as Anna and Paul.']],
-  ['Compare the meanings',['Anna → sie — she','Anna und Paul → sie — they','You and your friend, speaking about yourselves → wir — we','Speaking informally to two friends → ihr — you all']],
+  ['Talking about someone, not to them',['Use er or sie when talking about another person: Paul → er; Anna → sie.','When speaking directly to that person, use du or formal Sie, as in Lesson 1.']],
   ['Useful words in the examples',['hier — here','ist hier — is here','das Kind — the child','spielt — is playing']],
-  ['Remember','Lowercase sie can mean she or they. Use the people named in the context for now. Capitalized Sie can mean formal you, but a pronoun at the beginning of a sentence is also capitalized. The regular-verb lesson explains how verb endings help distinguish sie lernt (she learns) and sie lernen (they learn).']
- ],examples:[['Paul ist hier. Er ist hier.','Paul is here. He is here.'],['Anna ist hier. Sie ist hier.','Anna is here. She is here.'],['Das Kind spielt. Es spielt.','The child is playing.'],['wir · ihr · sie','we · you all · they']],questions:[
+  ['Remember','Here, sie means she: Anna ist hier. Sie ist hier. A sentence starts with a capital letter, so capital S alone does not mean formal you. Lesson 3 introduces sie meaning they; use context to tell who is meant.']
+ ],examples:[['Paul ist hier. Er ist hier.','Paul is here. He is here.'],['Anna ist hier. Sie ist hier.','Anna is here. She is here.'],['Das Kind spielt. Es spielt.','The child is playing.']],questions:[
   q('Paul ist hier. ___ ist hier.',['Er','Sie','Es'],'Paul is referred to with er (he).'),
   q('Anna ist hier. ___ ist hier.',['Sie','Er','Es'],'Anna is referred to with sie (she). It is capitalized at the start of this sentence.'),
   q('Das Kind spielt. ___ spielt.',['Es','Er','Sie'],'Das Kind is grammatically neuter, so es can replace it.'),
-  q('You and a friend are talking about yourselves. Which pronoun means we?',['wir','ihr','sie'],'Wir includes the speaker and another person.'),
-  q('You address two friends informally. Which pronoun fits?',['ihr','du','wir'],'Ihr is informal you for several people.'),
-  q('You are talking about Anna and Paul together. Which pronoun means they?',['sie','er','es'],'Lowercase sie can refer to a group: they.'),
-  q('In “Anna ist hier,” which pronoun could replace Anna?',['sie','er','wir'],'Use sie (she) for Anna.'),
-  q('Which pronoun refers to one male person you are talking about?',['er','ihr','wir'],'Er means he; ihr means you all and wir means we.')
+  q('You are talking about Anna, not speaking to her. Which pronoun means she?',['sie','du','Sie'],'Lowercase sie means she; du and formal Sie address someone directly.'),
+  q('In “Das Kind spielt. Es spielt,” who does Es refer to?',['The child','Paul','The speaker'],'Es replaces the grammatically neuter noun das Kind.'),
+  q('Read “Anna ist hier. Sie ist hier.” What does Sie mean here?',['She','You (formal)','I'],'The context identifies Anna, so Sie means she. It is capitalized because the sentence begins here.'),
+  q('In “Anna ist hier,” which pronoun could replace Anna?',['sie','er','es'],'Use sie (she) for Anna.'),
+  q('Which pronoun refers to one male person you are talking about?',['er','sie','es'],'Er means he; sie means she in this lesson and es replaces a neuter noun.')
  ]};
  packs['A1|Present-tense verbs']={sections:[
   ['Find the stem','For a regular verb, remove -en: lernen → lern-. Add the ending for the subject. Lernen means to learn.'],
@@ -89,3 +88,4 @@
  let stem=id(stemTitle);
  if(stem<0){stem=FULL_UNITS.length;FULL_UNITS.push({level:'A1',title:stemTitle,rule:'Learn present-tense stem-vowel changes with du and er/sie/es.',examples:stemPack.examples,checkpoint:stemPack.questions[0]});}
 })();
+
