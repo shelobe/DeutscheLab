@@ -109,9 +109,9 @@
 - All shared flow teaching cards opt into `dl-integrated-teaching-audio`; phrase rows use `dl-compact-phrase-audio`. Alignment styles compensate for teaching-list indentation. The custom group-pronoun sentence examples remain within their teaching section.
 
 ## Spelling activity preview
-- `js/spelling-preview.js`, loaded last, provides the menu's isolated Spelling preview dialog: six tile, missing-letter, dictation and meaning-recall samples. It owns transient state only; it does not alter lesson banks, scores, XP or storage. Preview Back confirms before returning to Lessons. Native dialog isolation keeps existing lessons intact. The dialog lives under #app to reuse shared result-badge styles, follows visualViewport resize events for keyboard-safe navigation, and removes listeners when closed.
+- `js/spelling-preview.js` is retained as inactive demo code and is no longer loaded by `index.html`. Its former isolated Spelling preview dialog provided: six tile, missing-letter, dictation and meaning-recall samples. It owns transient state only; it does not alter lesson banks, scores, XP or storage. Preview Back confirms before returning to Lessons. Native dialog isolation keeps existing lessons intact. The dialog lives under #app to reuse shared result-badge styles, follows visualViewport resize events for keyboard-safe navigation, and removes listeners when closed.
 
-- Menu cleanup in `js/extracted-batch6-19.js` matches Review as a whole word, so Spelling preview is retained. The preview also restores its entry after menu rebuilds.
+- The static Spelling preview button and its script reference are removed from `index.html`; leaving the demo script unloaded also disables its menu-restoration observer. Implemented lesson spelling activities use their separate active scripts.
 
 - The shared fixed-next handler in `js/extracted-batch7-11.js` excludes dialog controls: modal previews own their navigation, since body-level proxy docks render behind native modal dialogs.
 

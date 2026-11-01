@@ -147,7 +147,7 @@ This document records established product decisions. The current `main` branch i
 - Applied globally through the shared teaching presentation and audio grouping. Preserve bespoke content, original audio nodes/handlers, navigation and saved progress.
 
 ## Spelling preview scope
-- Spelling preview is a separate, unsaved menu demo for reviewing candidate activities. Existing lessons and review banks remain unchanged. Letter tiles, missing-letter and recall samples are experimental; their inclusion does not approve a curriculum-wide rollout.
+- Spelling preview is retired from the hamburger menu now that the approved spelling activities are integrated. Do not restore its menu entry or load its standalone demo script. The retained preview code and historical conventions below do not authorize a new rollout; existing lesson spelling activities remain active.
 
 - The isolated preview follows existing screen-bottom Back/Check → Next navigation and shared result-badge styling. It fills the visible viewport and resizes above the mobile keyboard. Missing-letter blanks use a single input underline, without underscore placeholder text; focus highlights that underline and shows the text cursor without a surrounding box. A complete answer enables Check without a separate Listen prerequisite. These corrections apply only to the preview.
 
