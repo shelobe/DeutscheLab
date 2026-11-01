@@ -500,8 +500,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Ich spreche Englisch. — I speak English.",
      "Welche Sprachen sprichst du? — Which languages do you speak?",
      "Sprichst du Englisch? — Do you speak English?",
-     "Ja, ich spreche Englisch. — Yes, I speak English.",
-     "Use ich spreche to talk about yourself and du sprichst to ask one person informally."
+     "Ja, ich spreche Englisch. — Yes, I speak English."
     ]
    ],
    [
