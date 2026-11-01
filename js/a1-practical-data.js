@@ -775,9 +775,9 @@ window.DL_A1_PRACTICAL_PACKS = {
     [
       "See it in a sentence",
       [
-        "Wir lernen Deutsch. — We are learning German.\nYou and Paul are talking about yourselves: use wir.",
-        "Ihr lernt Deutsch. — You are learning German.\nYou are speaking to Anna and Paul, your friends: use ihr.",
-        "Sie lernen Deutsch. — They are learning German.\nYou are telling someone about Anna and Paul: use sie. It is capitalized here because it starts the sentence."
+        "Wir lernen Deutsch. — We are learning German.\nYou and Paul are talking about yourselves.",
+        "Ihr lernt Deutsch. — You are learning German.\nYou are speaking to Anna and Paul, your friends.",
+        "Sie lernen Deutsch. — They are learning German.\nYou are telling someone about Anna and Paul. It is capitalized here because it starts the sentence."
       ]
     ]
   ],

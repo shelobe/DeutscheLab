@@ -118,8 +118,10 @@ This document records established product decisions. The current `main` branch i
 ## Group-pronoun lesson format trial
 - In Personal pronouns: we, you all, they, keep individual Listen rows inside the matching explanation card beneath each pronoun. Enlarge and bold the German pronouns in teaching bullets and playback rows. Use short role bullets and separate she/they/polite-you reminders, with sentence-start capitalization explained separately. This is a lesson-scoped trial; other lessons retain their current audio placement until a global rollout is approved.
 
-- In the group-pronoun trial, show German–English phrase lines above separate usage explanations. Playback boxes show only German plus Listen; do not repeat English already taught above. Include contextual, translated wir/ihr/sie sentences with playback and use a short forward reference to the Present-tense verbs lesson rather than a separate verb-explanation box.
+- In the group-pronoun trial, show German–English phrase lines above separate usage explanations. Playback boxes show only German plus Listen; do not repeat English already taught above. Include contextual, translated wir/ihr/sie sentences with playback and use a short forward reference to the Present-tense verbs lesson in its own short Note information box, without a verb explanation.
 
 - Keep sentence examples in a separate, unboxed “See it in a sentence” section after the teaching cards. Retain translations, context and playback there; the main pronoun card stays focused on meaning, usage and word audio.
 
 - In the group-pronoun lesson, order the cards as Who is in the group?, Remember, Choose by your role. Render sentence examples outside the teaching guide, with German and Listen once per example, then translation and context. Do not apply the guide’s last-card highlight to examples or the role card.
+
+- Group-pronoun sentence contexts describe the situation without trailing “use wir/ihr/sie” instructions. Keep the lesson card’s bottom padding compact; reserve fixed-button clearance outside the card rather than as empty interior space.

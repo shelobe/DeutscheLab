@@ -97,7 +97,10 @@
       const context=document.createElement('p');context.className='dl-phrase-usage';context.textContent=li.querySelector('.dl-phrase-usage')?.textContent||'';
       item.append(row,translation,context);examples.append(item);
      }
-     const note=document.createElement('p');note.className='muted';note.textContent='You’ll learn more about verb endings in the Present-tense verbs lesson.';examples.append(note);
+     const note=document.createElement('section');note.className='dl-pronoun-verb-note';
+     const noteTitle=document.createElement('h3');noteTitle.textContent='Note';
+     const noteText=document.createElement('p');noteText.textContent='You’ll learn more about verb endings in the Present-tense verbs lesson.';
+     note.append(noteTitle,noteText);examples.append(note);
      guide.after(examples);sentenceSection.remove();
     }
     for(const row of [...card.querySelectorAll('.vocab-row')]){
@@ -175,5 +178,6 @@
  style.textContent+=' .dl-group-pronoun-guide .dl-phrase-usage{display:block;margin-top:6px;font-weight:400}.dl-group-pronoun-guide .dl-pronoun-inline-audio .vocab-copy strong{overflow-wrap:anywhere}';
  style.textContent+=' #app .dl-group-pronoun-guide .dl-pronoun-sentence-examples{background:transparent;border:0;box-shadow:none;padding:0;margin-top:24px}.dl-group-pronoun-guide .dl-pronoun-sentence-examples>ul{list-style:none;padding-left:0}.dl-group-pronoun-guide .dl-pronoun-sentence-examples>ul>li{margin:0 0 24px}';
  style.textContent+=' #app .dl-group-pronoun-guide .dl-pronoun-guide section:last-child:not(.dl-lesson-remember){background:#293f58;border:1px solid #405c72;box-shadow:none}#app .dl-group-pronoun-guide .dl-pronoun-sentence-examples{margin:24px 0;padding:0;border:0;background:transparent;box-shadow:none}#app .dl-group-pronoun-guide .dl-pronoun-sentence-examples h3{font-size:1.3rem;color:#9bdcd1;margin:0 0 14px}.dl-group-pronoun-guide .dl-sentence-example{margin:0 0 24px}.dl-group-pronoun-guide .dl-sentence-example p{margin:8px 0;line-height:1.5}.dl-group-pronoun-guide .dl-sentence-translation{font-weight:600}.dl-group-pronoun-guide .dl-sentence-example .vocab-row{display:flex;align-items:center;gap:12px}.dl-group-pronoun-guide .dl-sentence-example .vocab-copy{flex:1;min-width:0}.dl-group-pronoun-guide .dl-sentence-example .vocab-copy strong{font-size:1.1em}';
+ style.textContent+=' #app .dl-group-pronoun-guide .dl-pronoun-verb-note{padding:15px 17px;border-radius:15px;background:#293f58;border:1px solid #405c72;margin-top:16px}#app .dl-group-pronoun-guide .dl-pronoun-verb-note p{margin:0;line-height:1.5}body.lesson-screen #app .dl-flow-card.dl-group-pronoun-guide{padding-bottom:24px;margin-bottom:100px}.dl-group-pronoun-guide .dl-sentence-example:last-of-type{margin-bottom:0}';
  document.head.append(style);
 })();
