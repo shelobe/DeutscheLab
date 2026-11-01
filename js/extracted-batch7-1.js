@@ -53,6 +53,7 @@
   if(attempted.size!==drills.length)return;
   ensureLearning();state.learning.pronunciationLesson3Completed=true;save();
   clearPronunciationScreen();
+  if(window.dlShowPracticeCompletion){window.dlShowPracticeCompletion({title:'German pronunciation',count:drills.length+' sounds practiced',retry:startPronunciationPractice,continueAction:()=>curriculumView('A1')});return;}
   const root=document.getElementById('app');
   root.innerHTML='<section class="card dl-pronunciation"><h2>Lesson 3 complete!</h2><p>Geschafft! You completed all '+drills.length+' German sounds. Lesson 3 is now marked completed in Module 1.</p><div class="dl-sound-navigation"><button class="secondary" id="dl-pron-repeat">Review sounds</button><button id="dl-pron-home">Return to Module 1</button></div></section>';
   root.querySelector('#dl-pron-repeat').onclick=startPronunciationPractice;

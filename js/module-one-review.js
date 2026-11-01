@@ -112,7 +112,8 @@
    const check=primary(button('Check answer',()=>{if(selected!==null)submit(selected===q.answer)}));check.disabled=true;
   }else if(q.dlReviewMode==='match'){
    heading.textContent='Match each sound to its written word.';
-   note('Tap Listen, then choose the word you hear. Each word can be used once.');
+   controls.classList.add('dl-umlaut-line-match');
+   status.textContent='Listen, then choose its word. Use each word once.';
    let selected=null;const picks=new Map(),heard=new Set(),audioButtons=[],wordButtons=[];
    const columns=document.createElement('div');columns.className='dl-review-match-columns';controls.append(columns);
    const recordings=document.createElement('div'),words=document.createElement('div');
@@ -121,12 +122,17 @@
    q.wordOrder.forEach(word=>{const b=button(word,()=>{
     if(selected===null||!heard.has(selected))return;
     for(const [i,value] of picks)if(value===word)picks.delete(i);
-    picks.set(selected,word);status.textContent=clipLabel(selected)+' matched to '+word+'.';selected=null;update();
+    picks.set(selected,word);status.textContent=picks.size===q.words.length?'All paired. Check your answers.':'Match saved. Choose another recording.';selected=null;update();
    },words);b.className='dl-review-answer-button';wordButtons.push(b)});
+   const lines=document.createElement('div');lines.className='dl-umlaut-match-lines';lines.setAttribute('aria-hidden','true');columns.append(lines);
    const check=primary(button('Check matches',()=>{if(picks.size===q.words.length)submit(q.clipOrder.every((word,i)=>picks.get(i)===word))}));
    function update(){
-    audioButtons.forEach((b,i)=>{b.textContent=clipLabel(i)+(picks.has(i)?' → '+picks.get(i):'');b.setAttribute('aria-pressed',String(selected===i))});
+    audioButtons.forEach((b,i)=>{b.textContent=clipLabel(i);b.setAttribute('aria-pressed',String(selected===i));b.setAttribute('aria-label',clipLabel(i)+(picks.has(i)?', matched to '+picks.get(i):''))});
     wordButtons.forEach(b=>{b.setAttribute('aria-pressed',String([...picks.values()].includes(b.textContent)))});
+    const colors=['#83cfc3','#dfbb79','#b5a5d6'];
+    const height=q.clipOrder.length*64+(q.clipOrder.length-1)*12;
+    lines.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 '+height+'" preserveAspectRatio="none" width="100%" height="100%">'+[...picks].map(([i,word])=>{const y1=i*76+32,y2=q.wordOrder.indexOf(word)*76+32;return '<path d="M 0 '+y1+' C 18 '+y1+', 26 '+y2+', 44 '+y2+'" fill="none" stroke="'+colors[i%colors.length]+'" stroke-width="3" vector-effect="non-scaling-stroke"/>'}).join('')+'</svg>';
+    
     check.disabled=picks.size!==q.words.length;
    }
    update();

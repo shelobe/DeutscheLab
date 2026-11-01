@@ -160,17 +160,19 @@ This document records established product decisions. The current `main` branch i
 
 - Spelling tile banks have a subtle rounded teal frame around the selectable letters. Keep Undo and Start over outside the frame, and retain wrapping and comfortable tap targets.
 
-## Lesson results pilot: Umlauts and ß only
-- This A1 lesson alone uses the new completion page; other lessons and module reviews retain their existing completion behavior pending approval.
+## Shared lesson and module-review results
+- All scored curriculum lessons and module reviews use the approved completion page. Pronunciation practice uses the same page with a sounds-practiced completion count, without inventing an accuracy score.
 - Randomly choose approved Hoppel or Fuchsie artwork for each completion: celebratory at 80–100%, gently encouraging below 80%. Keep the same character when returning from mistake review. Use the approved transparent half-body images directly above the rounded score card.
 - Show a short encouraging message, percentage, and correct/total count. Offer optional read-only review of this attempt’s missed questions, with correct answers, explanations and relevant playback; no second scoring or progress updates.
 - Anchor Back to Lessons on the left and Continue (80%+) or Try again (below 80%) on the right. Continue opens the next lesson in the module, then the Module 1 pronunciation lesson when applicable, otherwise Lessons.
-- Preserve native completion saves, prior passes, answer sounds, XP and mistake tracking. Calculate the pilot pass threshold from its actual ten-question total (8/10), preserving any previously earned pass. No global rollout is approved.
+- Preserve native completion saves, prior passes, answer sounds, XP and mistake tracking. Calculate each lesson’s pass threshold from its actual question total, preserving any previously earned pass. The global rollout is approved.
 
-- Results-pilot artwork is slightly enlarged and centered, with its base tucked 10px behind the card’s top border. Keep a little more space below the lesson label so the score card sits lower; retain the compact short-screen variant and fixed navigation.
+- Results artwork is slightly enlarged and centered, with its base tucked 10px behind the card’s top border. Keep a little more space below the lesson label so the score card sits lower; retain the compact short-screen variant and fixed navigation.
 
 ## Home greeting
 - Fritzi (ending in i) uses the approved transparent waving image directly in the home dashboard markup. Load its final proportion-preserving styles in the document head before any home renderer executes; do not swap the old avatar or retrofit its class after rendering.
 
-- Umlaut results use a more prominent character (up to 304px / 33dvh) with additional space below the lesson label, retaining the 10px card overlap and compact short-screen treatment.
-- Umlaut recording-to-word matching uses stable 64px rows and colored curved lines between selected pairs. Audio labels remain Listen A/B/C; accessible labels retain pair names. Reserve status-message space, keep one selected border and preserve keyboard focus, reassignment, native scoring and fixed Check controls.
+- Shared results use a more prominent character (up to 304px / 33dvh) with additional space below the lesson label, retaining the 10px card overlap and compact short-screen treatment.
+- Lesson and module-review recording-to-word matching uses stable 64px rows and colored curved lines between selected pairs. Audio labels remain Listen A/B/C; accessible labels retain pair names. Reserve status-message space, keep one selected border and preserve keyboard focus, reassignment, native scoring and fixed Check controls.
+
+- The shared results retain native lesson/review saves, mastery and prior passes. Lesson passing uses 80% of its actual question total. Module reviews retain native core-score rules. Optional read-only mistake review returns to the same character/result; Continue advances to the next lesson or module when available. Recording-to-word questions in lessons and reviews share stable labels, rows and curved pair connectors; ordinary multiple-choice questions retain their existing controls.

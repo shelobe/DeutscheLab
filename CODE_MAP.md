@@ -122,11 +122,14 @@
 - The listening-task and module-review tests exercise the actual shared helper, strict umlauts, repeated tiles, native submissions, cleanup and footer. Preview Back tests cover canceled and confirmed exits to Lessons.
 
 
-## Umlaut lesson results pilot
-- `js/umlaut-results.js` and `css/umlaut-results.css` load last in `index.html`. The fullFinish wrapper intercepts only A1 Umlauts and ß, delegates native completion with activeLessonScreen cleared to suppress its automatic menu return, and normalizes the saved pass threshold to 80% of the actual total while preserving earlier passes. Other lessons delegate untouched.
-- Four approved transparent PNGs live in `assets/results/`: hoppel-celebrate, hoppel-encourage, fuchsie-celebrate and fuchsie-encourage. A random character is selected once per completion, with expression chosen by score.
+## Shared curriculum results
+- `js/umlaut-results.js` and `css/umlaut-results.css` load last in `index.html`. The fullFinish wrapper handles all scored curriculum lessons, delegates native completion with activeLessonScreen cleared to suppress its automatic menu return, and normalizes the saved pass threshold to 80% of the actual total while preserving earlier passes. The final curriculumReviewRender wrapper delegates native review saving/migration before showing shared results; its answer wrapper captures this attempt’s missed question objects.
+- Four approved transparent WebP images live in `assets/results/`: hoppel-celebrate, hoppel-encourage, fuchsie-celebrate and fuchsie-encourage. A random character is selected once per completion, with expression chosen by score.
 - Optional mistake review holds this attempt’s question objects in transient state, shows corrections/explanations/playback and returns to the same result. It never starts another scored session. The scoped fixed footer owns result navigation.
 - `scripts/test-umlaut-results.cjs` exercises the real legacy completion function and auto-return wrapper with a DOM double: threshold boundaries, both characters, prior passes, saved mistakes, read-only review, navigation and other-lesson isolation. No browser is launched.
 
 ## Home greeting
 - `js/extracted-batch6-12.js` renders Fritzi’s approved waving image and `dl-fritzi-greeting` class directly. `index.html` loads its scoped home styles in the head before dashboard rendering; no post-render avatar replacement observer is needed.
+
+- `js/module-one-review.js` uses the same fixed-row colored SVG connectors as `js/umlaut-listening-tasks.js`, styled in `css/umlaut-results.css`. Matching labels never grow after selection; reassignment and native checking remain unchanged.
+- `js/extracted-batch7-1.js` calls `dlShowPracticeCompletion` after native pronunciation completion saves; the shared result reports sounds practiced rather than a correctness percentage.
