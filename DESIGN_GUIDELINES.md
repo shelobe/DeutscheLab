@@ -149,3 +149,5 @@ This document records established product decisions. The current `main` branch i
 - Spelling preview is a separate, unsaved menu demo for reviewing candidate activities. Existing lessons and review banks remain unchanged. Letter tiles, missing-letter and recall samples are experimental; their inclusion does not approve a curriculum-wide rollout.
 
 - The isolated preview follows existing screen-bottom Back/Check → Next navigation and shared result-badge styling. It fills the visible viewport and resizes above the mobile keyboard. Missing-letter placeholders reflect the number of missing characters. A complete answer enables Check without a separate Listen prerequisite. These corrections apply only to the preview.
+
+- Preview missing-letter activities place a native editable blank inline between the fixed word parts; typing and special-character keys fill that position, and Backspace clears it. Feedback uses compact shared badges with the existing avatar visibly above the frame and without excess space above it. This remains a preview-only convention.

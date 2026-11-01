@@ -35,9 +35,11 @@
    const actions=el('div','',work);actions.className='sp-tools';
    btn('Undo',()=>{chosen.pop();update()},actions);btn('Start over',()=>{chosen=[];update()},actions);
   }else{
-   const label=el('label',q.mode==='gap'?q.before+'_'.repeat(Array.from(q.answer).length)+q.after:'Your answer',work);label.htmlFor='sp-answer';label.className=q.mode==='gap'?'sp-word':'';
-   input=el('input','',work);input.id='sp-answer';input.type='text';input.autocomplete='off';input.autocapitalize='none';input.spellcheck=false;input.setAttribute('autocorrect','off');input.setAttribute('aria-label',q.mode==='gap'?'Missing letters':'Your answer');
-   input.oninput=()=>update();input.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();check.click()}};
+   const label=el('label',q.mode==='gap'?'':'Your answer',work);label.htmlFor='sp-answer';label.className=q.mode==='gap'?'sp-word sp-gap-word':'';
+   if(q.mode==='gap')el('span',q.before,label);
+   input=el('input','',q.mode==='gap'?label:work);
+   if(q.mode==='gap'){input.className='sp-gap-input';input.placeholder='_'.repeat(Array.from(q.answer).length);input.size=Array.from(q.answer).length;el('span',q.after,label)}input.id='sp-answer';input.type='text';input.autocomplete='off';input.autocapitalize='none';input.spellcheck=false;input.setAttribute('autocorrect','off');input.setAttribute('aria-label',q.mode==='gap'?'Missing letters':'Your answer');
+   input.oninput=()=>{if(q.mode==='gap')input.size=Math.max(Array.from(q.answer).length,Array.from(input.value).length);update()};input.onkeydown=e=>{if(e.key==='Enter'){e.preventDefault();check.click()}};
    const keys=el('details','',work);el('summary','Special characters',keys);
    const row=el('div','',keys);row.className='sp-tiles';
    for(const ch of ['ä','ö','ü','ß'])btn(ch,()=>{input.setRangeText(ch,input.selectionStart,input.selectionEnd,'end');input.focus();update()},row);
@@ -89,8 +91,15 @@
  #dl-spelling-preview button:disabled{opacity:.4;cursor:default}
  #dl-spelling-preview .sp-word{display:block;font-size:1.8rem;font-weight:bold;letter-spacing:.08em;margin:12px 0;overflow-wrap:anywhere}
  #dl-spelling-preview input{box-sizing:border-box;width:100%;font:inherit;padding:14px;background:#152c40;color:white;border:1px solid #8cbab7;border-radius:12px;margin:10px 0}
+ #dl-spelling-preview .sp-gap-word{display:flex;align-items:baseline;gap:0;letter-spacing:0}
+ #dl-spelling-preview input.sp-gap-input{display:inline-block;flex:none;width:auto;min-width:1.1ch;max-width:50%;font:inherit;font-size:inherit;font-weight:inherit;text-align:center;line-height:1.25;padding:0 2px;margin:0;background:transparent;border:0;border-bottom:2px solid #8cbab7;border-radius:0;color:inherit}
+ #dl-spelling-preview input.sp-gap-input::placeholder{color:#b9d8de;opacity:1}
+ #dl-spelling-preview input.sp-gap-input:focus{outline:2px solid #79e1cf;outline-offset:3px;border-radius:3px}
+ #dl-spelling-preview .sp-feedback .dl-result-badge{min-height:92px!important;margin-top:36px!important}
+ #dl-spelling-preview .sp-feedback .dl-result-badge img{height:158px!important;width:140px!important;bottom:-2px!important}
+ #dl-spelling-preview .sp-feedback .dl-result-label{font-size:clamp(1.5rem,5.8vw,2rem)!important}
  #dl-spelling-preview details{margin:12px 0}
- #dl-spelling-preview .sp-feedback{padding:65px 0 8px}
+ #dl-spelling-preview .sp-feedback{padding:24px 0 8px}
  #dl-spelling-preview .sp-feedback>p{margin:12px 0}
  #dl-spelling-preview [hidden]{display:none!important}
  `;
