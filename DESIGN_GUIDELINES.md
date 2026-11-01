@@ -90,3 +90,5 @@ This document records established product decisions. The current `main` branch i
 - For bilingual phrase bullets with usage advice, bold the German–English phrase line and put the usage explanation on a separate line consistently. Remove redundant example-only cards when the same examples are already taught and playable above.
 
 - Teaching-card headings use a consistent larger 1.3rem bold style across lesson guides, pronunciation, conversation, article/case and word-order explanations so titles stand apart from body text. Avoid a separate full stop after an ellipsis placeholder.
+
+- German-text answer choices play their phrase when selected in lessons and module reviews, so learners hear and read together. English choices stay silent. Preserve existing separate Check answer controls; custom dictation, comparison and matching submissions must not play synthetic answer choices.

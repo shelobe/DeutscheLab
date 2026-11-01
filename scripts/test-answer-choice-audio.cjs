@@ -1,0 +1,11 @@
+const fs=require('node:fs'),vm=require('node:vm'),assert=require('node:assert/strict');
+const played=[];let selected=0,submitted=0;
+const c={FULL_UNITS:[],window:null,dlAnswered:false,fullSession:null,moduleSession:null,speak:t=>played.push(t),dlChoose:()=>selected++,curriculumReviewAnswer:()=>submitted++};c.window=c;vm.createContext(c);
+vm.runInContext(fs.readFileSync('js/a1-practical-data.js','utf8'),c);c.DL_LESSON_ENRICHMENT=c.DL_A1_PRACTICAL_PACKS;
+vm.runInContext(fs.readFileSync('js/answer-choice-audio.js','utf8'),c);
+for(const text of ['Woher kommst du?','Wie heißt du?','Wo wohnst du?','Englisch','Ja, ich spreche Englisch.','Ich wohne Berlin.'])assert.equal(c.dlGermanAnswerPhrase(text),text);
+for(const text of ['Where are you from?','I live in Berlin.','An American woman','masculine','Same word','3'])assert.equal(c.dlGermanAnswerPhrase(text),'');
+c.fullSession={idx:0,questions:[{options:['Woher kommst du?','Where are you from?']}]};c.dlChoose(0);assert.equal(played.pop(),'Woher kommst du?');assert.equal(selected,1);c.dlChoose(1);assert.equal(played.length,0);c.dlAnswered=true;c.dlChoose(0);assert.equal(played.length,0);
+c.moduleSession={idx:0,answered:false,questions:[{options:['Ich spreche Englisch.']}]};c.curriculumReviewAnswer(0);assert.equal(played.pop(),'Ich spreche Englisch.');assert.equal(submitted,1);
+c.moduleSession.questions[0].dlReviewMode='write';c.curriculumReviewAnswer(0);assert.equal(played.length,0);
+console.log('PASS: German choice playback; English exclusion; selection/check preservation; review playback; written-task isolation');

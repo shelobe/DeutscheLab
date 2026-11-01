@@ -80,3 +80,6 @@
 - Revised sectioned teaching and grouped playback preserve phrase/usage formatting and audio-only greeting/farewell cards. The 15-question Module 2 review samples all seven communication goals plus every remaining lesson, without using the retired question bank. Course/load-order, migration, guide and audio tests cover the consolidation.
 
 - Module 2 lesson boundaries: Introducing yourself teaches names and current home only. Countries, nationalities and languages owns origins, Woher, and the home/origin contrast, with the noun-ending forward reference in a separate note. Review pools cover names/home from Lesson 2 and country-origin/languages from Lesson 3; stable IDs and membership remain unchanged.
+
+## German answer-choice playback
+- `js/answer-choice-audio.js` loads after module review wrappers. It wraps `dlChoose` and `curriculumReviewAnswer` to speak German selected text while preserving native selection/checking. It identifies language from taught bilingual examples and German/English word cues; `dlAnswerLanguage` can explicitly override ambiguity. Custom non-choice review submissions are excluded. `scripts/test-answer-choice-audio.cjs` checks language selection, native delegation and custom-task isolation without a browser.
