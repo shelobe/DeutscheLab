@@ -26,12 +26,12 @@ function dock(){return ids['dl-umlaut-results'].children.at(-1)}
 for(random of [0,.99])for(let score=0;score<=10;score++){
  complete(score);assert.equal(c.state.learning.fullScores[0].passed,score>=8);assert.equal(c.state.learning.fullScores[0].total,10);
  assert.equal(c.state.learning.fullScores[0].last,score);assert.equal(c.state.learning.fullMistakes.length,10-score);assert.equal(c.fullSession,null);assert.equal(c.activeLessonScreen,null);
- assert(app.innerHTML.includes(score*10+'%'));assert(app.innerHTML.includes((random<.5?'hoppel':'fuchsie')+'-'+(score>=8?'celebrate':'encourage')+'.png'));
+ assert(app.innerHTML.includes(score*10+'%'));assert(app.innerHTML.includes((random<.5?'hoppel':'fuchsie')+'-'+(score>=8?'celebrate':'encourage')+'.webp'));
  assert.equal(dock().children[1].textContent,score>=8?'Continue':'Try again');assert.equal(route.length,0,'Completion remains on results');
  if(score===10)assert(!ids['dl-umlaut-review-mistakes']);
 }
 assert.equal(nativeCalls,22);
-complete(6,true);assert(c.state.learning.fullScores[0].passed,'Earlier pass survives a lower attempt');assert(app.innerHTML.includes('encourage.png'));
+complete(6,true);assert(c.state.learning.fullScores[0].passed,'Earlier pass survives a lower attempt');assert(app.innerHTML.includes('encourage.webp'));
 complete(0);const initial=app.innerHTML,beforeSaves=saves;
 ids['dl-umlaut-review-mistakes'].onclick();assert(app.innerHTML.includes('schon · schön'));assert(app.innerHTML.includes('Reason 0'));
 ids['dl-umlaut-mistake-audio'].children[0].onclick();assert.deepEqual(route.at(-1),['audio','schon']);

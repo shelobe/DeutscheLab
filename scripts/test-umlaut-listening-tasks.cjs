@@ -54,3 +54,12 @@ let allowed=false,closed=0,lessons=0,warnings=0;
 const backContext={window:{confirm(message){warnings++;assert(message.includes('lost'));return allowed}},close(){closed++},lessonMenu(){lessons++}};vm.createContext(backContext);const goBack=vm.runInContext(back,backContext);
 goBack();assert.equal(closed,0);assert.equal(lessons,0);allowed=true;goBack();assert.equal(closed,1);assert.equal(lessons,1);assert.equal(warnings,2);
 console.log('PASS: ten-question pilot bank and Back warning cancellation/confirmed Lessons destination');
+
+open({dlLessonMode:'match',words:['Käse','fünf','Mädchen'],options:['Correct','Wrong'],answer:0});
+const labels=['Listen A','Listen B','Listen C'];
+labels.forEach(label=>{button(label).click();button(played.at(-1)).click();assert(button(label),'Audio label must stay unchanged')});
+const links=app.querySelector('.dl-umlaut-match-lines');assert.equal((links.innerHTML.match(/<path /g)||[]).length,3);
+button('Listen A').click();const firstWord=played.at(-1);button('Listen B').click();button(firstWord).click();
+assert(check.disabled,'Reassigning a used word leaves its previous recording unmatched');assert.equal((links.innerHTML.match(/<path /g)||[]).length,2);
+assert(button('Listen B').attributes['aria-label'].includes(firstWord));
+console.log('PASS: stable audio labels, SVG connectors, accessible pairing and reassignment');

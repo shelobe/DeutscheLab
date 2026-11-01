@@ -171,3 +171,6 @@ This document records established product decisions. The current `main` branch i
 
 ## Home greeting
 - Fritzi (ending in i) uses the approved transparent waving image directly in the home dashboard markup. Load its final proportion-preserving styles in the document head before any home renderer executes; do not swap the old avatar or retrofit its class after rendering.
+
+- Umlaut results use a more prominent character (up to 304px / 33dvh) with additional space below the lesson label, retaining the 10px card overlap and compact short-screen treatment.
+- Umlaut recording-to-word matching uses stable 64px rows and colored curved lines between selected pairs. Audio labels remain Listen A/B/C; accessible labels retain pair names. Reserve status-message space, keep one selected border and preserve keyboard focus, reassignment, native scoring and fixed Check controls.
