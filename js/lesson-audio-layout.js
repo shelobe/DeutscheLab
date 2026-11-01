@@ -2,6 +2,12 @@
 (function(){
  const normalize=s=>String(s||'').normalize('NFC').toLocaleLowerCase('de-DE').replace(/[^\p{L}\p{N}]+/gu,' ').trim();
  const greetingAudio={
+  'Umlauts and ß':[
+   ['Ä — a separate vowel',[['Mädchen','girl — ä']]],
+   ['Ö — round your lips',[['schön','beautiful — ö'],['schon','already — o, without an umlaut']]],
+   ['Ü — a different rounded vowel',[['fünf','five — ü']]],
+   ['ß — Eszett, or sharp S',[['Straße','street — ß, pronounced with an s sound'],['Fuß / Fluss','foot / river — long u + ß / short u + ss'],['heißen','to be called — ei + ß']]]
+  ],
   'People and names: Vocabulary and meaning':[
    ['Introduce yourself',[['Ich heiße Lea.','My name is Lea.'],['Mein Name ist Lea.','My name is Lea.']]],
    ['Introduce someone else',[['Das ist Paul.','This is Paul.']]]
