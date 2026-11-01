@@ -38,6 +38,7 @@ This roadmap tracks planned work; an item marked "Needs audit" is not a verified
 | GAME-03 | Supermarket | Integrate approved dairy art and relevant item interactions | P2 | Chat | Backlog | Inspect repository artwork, hotspots and existing game behavior |
 | TECH-01 | Stability | Investigate any remaining shared Build a Sentence behavior issues | P1 | Work | Needs audit | Reproduce specific reported behavior; follow active implementation in CODE_MAP.md |
 | TECH-02 | Stability | Review mobile navigation, saved progress, audio and sync regressions | P1 | Work | Needs audit | Batch targeted code checks and user-reported reproduction steps; no unsolicited live browser testing |
+| CUR-08 | Curriculum | Make incorrect-answer feedback specific to the exact question and error | P1 | Chat / Work | Backlog | Audit existing feedback across A1; replace generic or mismatched explanations with the relevant rule, correction, and reason. Preserve already-specific feedback and existing answer handling. |
 | CUR-07 | Curriculum | Apply approved hint-button design to suitable practice areas when requested | P2 | Chat / Work | Backlog | Button design/placement approved: compact 💡 Hint beside the question, opening over the activity. No global implementation requested. Identify suitable hints in a later batch; keep assessed module reviews free of hints. Consider smaller, more polished pop-up styling separately. |
 | CUR-06 | Curriculum | Expand A2 and B1 after A1 quality baseline | P3 | Work / Chat | Backlog | Plan progression using audited A1 objectives |
 
