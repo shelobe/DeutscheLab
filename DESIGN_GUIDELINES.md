@@ -105,3 +105,8 @@ This document records established product decisions. The current `main` branch i
 - Before committing, check that changed implementation and relevant guidelines agree. If they conflict, resolve the discrepancy against the latest approved implementation and user decisions, without silently changing unrelated screens.
 - Record significant changes to feature ownership, file locations or script loading in `CODE_MAP.md` in the same commit when applicable. Keep roadmap task statuses and handoffs in `DEVELOPMENT_ROADMAP.md` when a tracked milestone changes.
 - Apply this rule to both regular Chat and Work development. It is a required development practice, **not** a background watcher: GitHub edits made outside this workflow will not automatically rewrite documentation. A separate GitHub Action would be needed to flag such edits.
+
+## A1 pets, farewells and final-consonant pronunciation
+- Teach **Bis bald!** as a friendly “See you soon!” farewell in Greetings and goodbyes, with a playable example and a practical farewell question.
+- Teach **Pets: Haustiere** after direct-object articles and before accusative pronouns; use common pets and real ownership questions, distinguishing einen Hund, eine Katze, plural quantities and keine Haustiere.
+- Include final **d** pronounced /t/ in the dedicated A1 pronunciation introduction and practice, contrasting Hund and Hunde. Retain the shared pronunciation controls and completion behavior.
