@@ -83,9 +83,9 @@ This document records established product decisions. The current `main` branch i
 
 - Prioritize readable teaching over compactness: put distinct phrases, forms or instructional statements on separate bullets. Include a Remember card only when it provides a specific useful rule, contrast or memory aid; omit generic practice advice.
 
-- Audio placement is based on the German text: a single word stays inside its information box, directly beneath the applicable word and its explanation. Phrases and sentences go in a separate, unboxed examples section outside the information boxes. Never collect single-word Listen boxes beneath an entire list of unrelated words. Retain existing playback handlers and the anchored Start practice action.
+- Keep word, phrase and sentence playback inside its matching information box, directly beneath the relevant teaching item. Preserve bullets while aligning audio boxes to shared card edges. Retain playback handlers and anchored navigation.
 
-- For single-word vocabulary, avoid duplicate plain/audio banks: keep each word, meaning, explanation and its Listen box together inside the information box. Multiword expressions, including greetings and article–noun phrases, follow the separate phrase/sentence examples layout; do not keep their audio inside a teaching box.
+- Avoid duplicate plain/audio banks. Keep teaching, useful context and playback together; hide only translations already explained directly above.
 
 - For bilingual phrase bullets with usage advice, bold the German–English phrase line and put the usage explanation on a separate line consistently. Remove redundant example-only cards when the same examples are already taught and playable above.
 
@@ -118,11 +118,11 @@ This document records established product decisions. The current `main` branch i
 ## Shared teaching presentation (approved global rollout)
 - In Personal pronouns: we, you all, they, keep individual Listen rows inside the matching explanation card beneath each pronoun. Enlarge and bold the German pronouns in teaching bullets and playback rows. Use short role bullets and separate she/they/polite-you reminders, with sentence-start capitalization explained separately. This layout is approved for other applicable teaching screens; preserve bespoke content, tables and interaction controls.
 
-- Teaching may explain phrases, but their playable examples belong outside the information boxes. Single-word Listen boxes omit English already taught directly above; separate phrase and sentence examples retain their translations and any useful context. Keep the brief verb forward reference in its own Note information box.
+- Phrase teaching and playback belong together inside their matching information box. Keep useful context outside the teal audio row and omit repeated translations.
 
-- Keep sentence examples in a separate, unboxed “See it in a sentence” section after the teaching cards. Retain translations, context and playback there; the main pronoun card stays focused on meaning, usage and word audio.
+- Sentence-example sections may use their own teaching card when they add new context; avoid a duplicate external phrase bank.
 
-- In the group-pronoun lesson, order the cards as Who is in the group?, Remember, Choose by your role. Render sentence examples outside the teaching guide, with German and Listen once per example, then translation and context. Do not apply the guide’s last-card highlight to examples or the role card.
+- In the group-pronoun lesson, retain Who is in the group?, Remember, Choose by your role and the sentence-example teaching card. Preserve meaningful contexts and playback.
 
 - Group-pronoun sentence contexts describe the situation without trailing “use wir/ihr/sie” instructions. Keep the lesson card’s bottom padding compact; reserve fixed-button clearance outside the card rather than as empty interior space.
 
@@ -132,15 +132,15 @@ This document records established product decisions. The current `main` branch i
 
 - Shared teaching styles live in `css/teaching-presentation.css`; `js/teaching-presentation.js` applies semantic markers to established guide layouts and dynamically rendered screens. Keep bilingual phrase lines bold, usage on its own line and German playback text enlarged. Preserve original audio handlers, lesson content, progress and navigation. Do not classify the sentence builder’s “Your sentence” display as an informational Note.
 
-- Single-word Listen boxes must sit directly under the relevant word and its explanation within the information box. This applies to every word/sound bullet, including repeated words illustrating different sounds (Straße for st and ß). Phrase/sentence audio must remain outside those boxes, regardless of whether it matches a teaching bullet. Do not use a card-bottom audio group as a substitute for word-level placement.
+- Every Listen box sits directly beneath its relevant explanation, including repeated words illustrating different sounds. Do not collect unrelated audio at a card bottom.
 
-- `js/teaching-presentation.js` enforces the final word/phrase split after existing lesson grouping and on custom-screen rendering. A word is one written token (normal trailing punctuation does not make it a phrase; hyphenated compounds stay one word). Multiword text is a phrase/sentence. Keep English visible for external examples, preserve their playback handlers and context, and remove emptied duplicate example shells. The umlaut/ß comparisons use individual word entries and individual Listen boxes, including separate Fuß and Fluss rows.
+- `js/teaching-presentation.js` applies final in-card placement across shared guides. One-token words keep the word style; multiword phrases and sentences use smaller 1.05em German playback text. Preserve handlers and remove empty duplicate shells.
 
 - Single-word audio boxes show the German word and Listen control without repeating translations or pronunciation explanations already given in the matching teaching item. Keep any unique meaning that is not taught there. Phrase/sentence examples retain their translations and context.
 
-## Approved integrated teaching audio — global rollout pending
+## Approved integrated teaching audio — global rollout
 - Approved reference: Greetings and polite expressions, including the audio-box alignment trial in commit 79de276af031ba17c86ccb6ec196f87e483020e9.
 - Target convention for applicable lesson teaching: keep word, phrase and sentence playback inside the matching learning information box, directly beneath the relevant explanation. Preserve teaching bullets, but align all audio boxes to the same left and right edges within each card, independent of bullet indentation.
 - Use smaller German phrase/sentence text (1.05em) to fit with teaching content. Keep Listen controls and original playback handlers. Omit translations or explanations inside audio boxes when already provided directly above; retain unique meanings and useful context.
 - Avoid duplicate external phrase banks and repeated context headings. Preserve bespoke teaching, navigation, progress and accessibility.
-- This approved target supersedes earlier rules requiring every phrase/sentence outside information boxes. Implementation currently covers Greetings and polite expressions only. Global application is deferred to the next work session; inspect each affected lesson and validate before committing the rollout.
+- Applied globally through the shared teaching presentation and audio grouping. Preserve bespoke content, original audio nodes/handlers, navigation and saved progress.

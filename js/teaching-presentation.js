@@ -12,24 +12,11 @@
   return [...(node.childNodes||node.children)].map(textWithoutAudio).join(' ');
  }
  function arrangeAudio(card,guide){
-  let separate=card.querySelector('.dl-separated-audio-examples');
+  card.classList.add('dl-integrated-teaching-audio');
   for(const row of [...card.querySelectorAll('.vocab-row')]){
    const word=row.querySelector('.vocab-copy strong')?.textContent;
    if(!word||!row.querySelector('button,audio'))continue;
-   // The group-pronoun sentence section already has its approved external layout.
-   if(row.closest('.dl-pronoun-sentence-examples'))continue;
-   if(!singleWord(word)&&card.classList.contains('dl-integrated-greeting-audio')){row.classList.add('dl-compact-phrase-audio');continue;}
-   if(!singleWord(word)){
-    if(row.closest('.dl-separated-audio-examples'))continue;
-    if(!separate){separate=document.createElement('div');separate.className='dl-separated-audio-examples';const h=document.createElement('h3');h.textContent='Phrases and sentences';separate.append(h);guide.after(separate);}
-    const translation=row.querySelector('.vocab-copy span');if(translation)translation.hidden=false;
-    const li=row.closest('li'),box=row.closest('section');
-    const exampleOnly=/^(?:useful examples|key examples|examples|examples to follow|examples to recognize|expressions you will practice|use them in a sentence)$/i.test(headingOf(box||{})?.textContent?.trim()||'');
-    const usage=exampleOnly?li?.querySelector('.dl-phrase-usage'):null;
-    const entry=document.createElement('article');entry.className='dl-separated-example';entry.append(row);if(usage)entry.append(usage);separate.append(entry);
-    if(exampleOnly&&li)li.remove();
-    continue;
-   }
+   if(!singleWord(word))row.classList.add('dl-compact-phrase-audio');
    if(row.closest('li')?.closest(guideSelector)===guide)continue;
    const key=' '+normal(word)+' ';
    const current=row.closest('section');
@@ -60,7 +47,7 @@
   const note=/^(note|a note|coming up|looking ahead)\b/i.test(title);
   box.classList.toggle('dl-teaching-remember',remember);
   box.classList.toggle('dl-teaching-note',note);
-  const wordAudio=[...box.querySelectorAll('.vocab-row')].some(row=>singleWord(row.querySelector('.vocab-copy strong')?.textContent));
+  const wordAudio=!!box.querySelector('.vocab-row');
   box.classList.toggle('dl-teaching-examples',!wordAudio&&/^(?:useful examples|key examples|examples|see it in a sentence)$/i.test(title));
  }
  function enhance(){
@@ -88,7 +75,7 @@
    const item=row.closest('li');
    const localTeaching=normal(textWithoutAudio(item||section));
    const localWords=new Set(localTeaching.split(' '));
-   const repeatsInline=singleWord(word)&&localTeaching.split(' ').includes(normal(word))&&normal(meaning.textContent).split(' ').every(token=>localWords.has(token));
+   const repeatsInline=(' '+localTeaching+' ').includes(' '+normal(word)+' ')&&normal(meaning.textContent).split(' ').every(token=>localWords.has(token));
    // Retain unique meanings and all external phrase/sentence context.
    const teaching=normal([...section.querySelectorAll('li,p,h3,strong')].filter(n=>!n.querySelector('.vocab-row')&&!n.closest('.vocab-row')).map(n=>n.textContent).join(' '));
    const duplicate=teaching.includes(normal(word))&&teaching.includes(normal(meaning.textContent));

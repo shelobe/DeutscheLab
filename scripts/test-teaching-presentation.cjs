@@ -49,12 +49,12 @@ console.log(`PASS: ${guides} authored guides, ${reminders} Remember cards, ${not
  const handler=phrase.querySelector('button').onclick;
  callback();
  assert.equal(word.parentElement,li,'Single word remains directly under its teaching item');
- assert.equal(phrase.closest('.dl-lesson-guide'),null,'Sentence audio leaves information box');
- assert(phrase.closest('.dl-separated-audio-examples'));
+ assert.equal(phrase.closest('.dl-lesson-guide'),g,'Sentence audio remains inside information box');
+ assert(phrase.classList.contains('dl-compact-phrase-audio'));
  assert(!phrase.querySelector('.vocab-copy span').hidden);
  assert.equal(phrase.querySelector('button').onclick,handler);
  for(let i=0;i<5;i++)callback();
- assert.equal(flow.querySelectorAll('.dl-separated-audio-examples').length,1);
+ assert.equal(flow.querySelectorAll('.dl-separated-audio-examples').length,0);
  assert.equal(flow.querySelectorAll('.vocab-row').length,2);
  phrase.querySelector('button').click();assert.equal(heard.at(-1),'Wir lernen Deutsch.');
  let auditedRows=0;
@@ -64,11 +64,11 @@ console.log(`PASS: ${guides} authored guides, ${reminders} Remember cards, ${not
   const rows=[];
   for(const [de,en]of pack.examples||[]){const li=el('li'),r=audio(de,en);li.append(el('strong',de+' — '+en),r);ul.append(li);rows.push([de,r,li]);}
   callback();callback();
-  for(const [de,r,li]of rows){if(isWord(de)){assert.equal(r.parentElement,li,de+' should stay under its word');assert.equal(r.closest('.dl-lesson-guide'),g)}else{assert.equal(r.closest('.dl-lesson-guide'),null,de+' must be outside the box');assert(r.closest('.dl-separated-audio-examples'))}auditedRows++;}
+  for(const [de,r,li]of rows){if(isWord(de)){assert.equal(r.parentElement,li,de+' should stay under its word');assert.equal(r.closest('.dl-lesson-guide'),g)}else{assert.equal(r.closest('.dl-lesson-guide'),g,de+' stays inside teaching');assert(r.classList.contains('dl-compact-phrase-audio'))}auditedRows++;}
   assert.equal(card.querySelectorAll('.vocab-row').length,rows.length,'No rows lost or duplicated');
  }
  assert(auditedRows>200);
- console.log('PASS: single words inside matching items; phrases/sentences outside; '+auditedRows+' authored examples classified; repeat rendering and playback preserved.');
+ console.log('PASS: word/phrase audio inside matching items; '+auditedRows+' authored examples classified; repeat rendering and playback preserved.');
 }
 
 {
@@ -85,7 +85,7 @@ console.log(`PASS: ${guides} authored guides, ${reminders} Remember cards, ${not
   root.append(card);d.fullStudy(id);refresh();
   const g=card.querySelector('.dl-lesson-guide'),rows=card.querySelectorAll('.vocab-row');
   for(const r of rows){const text=r.querySelector('.vocab-copy strong')?.textContent;if(!text)continue;const word=(text.match(/[\p{L}\p{N}]+(?:[-’'][\p{L}\p{N}]+)*/gu)||[]).length===1;
-   if(word){assert.equal(r.closest('.dl-lesson-guide'),g,units[id].title+': word outside teaching box: '+text)}else if(units[id].title==='Greetings and polite expressions'){assert.equal(r.closest('.dl-lesson-guide'),g,'Greeting phrases stay inside teaching');assert(r.classList.contains('dl-compact-phrase-audio'));assert.equal(card.querySelector('.dl-separated-audio-examples'),null);}else assert.equal(r.closest('.dl-lesson-guide'),null,units[id].title+': phrase inside teaching box: '+text);
+   if(word){assert.equal(r.closest('.dl-lesson-guide'),g,units[id].title+': word outside teaching box: '+text)}else {assert.equal(r.closest('.dl-lesson-guide'),g,units[id].title+': phrase stays inside teaching');assert(r.classList.contains('dl-compact-phrase-audio'));assert.equal(card.querySelector('.dl-separated-audio-examples'),null);}
   }
   if(units[id].title==='Umlauts and ß'){
    assert.equal(rows.length,8);

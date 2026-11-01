@@ -96,7 +96,9 @@
      const noteTitle=document.createElement('h3');noteTitle.textContent='Note';
      const noteText=document.createElement('p');noteText.textContent='You’ll learn more about verb endings in the Present-tense verbs lesson.';
      note.append(noteTitle,noteText);examples.append(note);
-     guide.after(examples);sentenceSection.remove();
+     title.remove();
+     [...sentenceSection.children].filter(n=>n.tagName!=='H3').forEach(n=>n.remove());
+     sentenceSection.append(examples);
     }
     for(const row of [...card.querySelectorAll('.vocab-row')]){
      if(row.classList.contains('dl-pronoun-inline-audio'))continue;
