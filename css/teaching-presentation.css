@@ -29,3 +29,9 @@ body.lesson-screen #app .dl-flow-card.dl-inline-lesson-audio{padding-bottom:24px
 
 /* Integrated playback in Greetings and polite expressions. */
 #app .dl-integrated-greeting-audio .dl-compact-phrase-audio .vocab-copy strong{font-size:1.05em;font-weight:700;line-height:1.4}
+
+/* Local alignment trial: retain list indentation for teaching, not playback. */
+#app .dl-integrated-greeting-audio .dl-lesson-guide ul{padding-left:1.3em}
+#app .dl-integrated-greeting-audio .dl-lesson-guide li>.dl-section-audio{margin-left:-1.3em}
+#app .dl-integrated-greeting-audio .dl-lesson-guide li>.vocab-row{margin-left:-1.3em;width:calc(100% + 1.3em);box-sizing:border-box}
+#app .dl-integrated-greeting-audio .dl-section-audio>.vocab-row{width:100%;box-sizing:border-box}
