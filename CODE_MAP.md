@@ -135,3 +135,5 @@
 - `js/extracted-batch7-1.js` calls `dlShowPracticeCompletion` after native pronunciation completion saves; the shared result reports sounds practiced rather than a correctness percentage.
 
 - `js/lesson-consistency.js` renders the scoped See the pattern table for People and names: Sentence patterns from pipe-separated teaching rows in `js/a1-practical-data.js`; other teaching lists keep their existing renderer.
+
+- `js/lesson-consistency.js` renders `dlSentenceChunks` questions only within People and names: Sentence patterns, using `dlSentenceHint` for closed optional hints. Selection maps to the native shuffled answer index; native dlCheck handles feedback/scoring and removes `.dl-chunk-practice`. Authored question options remain available to module reviews without hints.

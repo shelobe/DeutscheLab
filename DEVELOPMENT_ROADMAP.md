@@ -38,6 +38,7 @@ This roadmap tracks planned work; an item marked "Needs audit" is not a verified
 | GAME-03 | Supermarket | Integrate approved dairy art and relevant item interactions | P2 | Chat | Backlog | Inspect repository artwork, hotspots and existing game behavior |
 | TECH-01 | Stability | Investigate any remaining shared Build a Sentence behavior issues | P1 | Work | Needs audit | Reproduce specific reported behavior; follow active implementation in CODE_MAP.md |
 | TECH-02 | Stability | Review mobile navigation, saved progress, audio and sync regressions | P1 | Work | Needs audit | Batch targeted code checks and user-reported reproduction steps; no unsolicited live browser testing |
+| CUR-07 | Curriculum | Consider optional hints in other practice areas | P2 | Chat / Work | Backlog | Review the sentence-pattern hint trial first; identify suitable activities and write brief rule-based hints, hidden until tapped. User is considering expansion; no global rollout approved. Keep assessed module reviews free of hints. |
 | CUR-06 | Curriculum | Expand A2 and B1 after A1 quality baseline | P3 | Work / Chat | Backlog | Plan progression using audited A1 objectives |
 
 Priority: P0 = current focus; P1 = next; P2 = follow-on; P3 = later. This is an initial planning list, not a claim that each item is currently defective.
@@ -85,3 +86,8 @@ Copy this section for each batch:
 - Single-word Listen boxes belong directly beneath the matching word/explanation inside its information box. All phrase and sentence audio belongs outside those boxes in a separate examples area.
 - Replaced the prior overly broad in-card grouping rule, corrected the guidelines/code map, and split umlaut/ß word comparisons into individually matched entries.
 - Real-renderer DOM checks cover 119 authored guides and 490 rendered playback rows, including repeated rendering. Browser/device verification remains pending; status is Ready for user test.
+
+### Sentence-pattern chunk and hint trial — 2026-11-01
+- People and names: Sentence patterns retains six questions; two now arrange sentence chunks with optional collapsed Hint disclosures, native Check and feedback.
+- Validation: syntax checks and DOM-double handler checks for correct/incorrect ordering, incomplete Check gating, Undo, Start over and collapsed hints. No browser testing. Status: Ready for user test.
+- Possible follow-up: CUR-07, optional hints elsewhere after reviewing this trial.

@@ -95,7 +95,7 @@
   const s=fullSession,q=s?.questions?.[s.idx];
   if(!q?.dlEnriched||!dlAnswered)return result;
   if(typed&&q.dlWriteAnswer)window.dlSpellingNote?.(document.querySelector('#dl-result .dl-flow-feedback'),typed,q.dlWriteAnswer,window.dlStrictSpelling?.(q,FULL_UNITS[s.id]));
-  app.querySelectorAll('.dl-practical-input,.dl-practical-audio').forEach(el=>el.remove());
+  app.querySelectorAll('.dl-practical-input,.dl-practical-audio,.dl-chunk-practice').forEach(el=>el.remove());
   const box=document.querySelector('#dl-result .dl-flow-feedback');if(!box)return result;
   const add=(className,label,text)=>{if(!text||box.textContent.includes(text)||box.querySelector('.'+className))return;const p=document.createElement('p');p.className=className;p.textContent=label+text;box.append(p);};
   if(dlSelected!==q.answer&&!box.querySelector('.dl-enriched-answer')){const correction=document.createElement('p');correction.className='dl-enriched-answer';correction.textContent='Correct answer: '+q.options[q.answer];box.append(correction);}
@@ -112,6 +112,32 @@
   if(!q?.dlEnriched)return result;
   const card=app.querySelector('.dl-flow-card'),heading=card?.querySelector('h2');
   if(!card||!heading)return result;
+  if(q.dlSentenceChunks&&FULL_UNITS[s.id]?.title==='People and names: Sentence patterns'){
+   const choices=card.querySelector('.dl-flow-options'),check=document.getElementById('dl-check');
+   if(!choices||!check)return result;
+   const area=document.createElement('div');area.className='dl-chunk-practice';
+   const built=document.createElement('div');built.className='game-built';built.setAttribute('aria-live','polite');
+   const bank=document.createElement('div');bank.className='game-wordbank';
+   const picks=[];const order=shuffle(q.dlSentenceChunks.map((_,i)=>i));
+   for(const i of order){
+    const button=document.createElement('button');button.type='button';button.className='secondary';button.textContent=q.dlSentenceChunks[i];button.dataset.chunkIndex=i;
+    button.onclick=()=>{if(fullSession!==s||dlAnswered||picks.includes(i))return;picks.push(i);refresh();};bank.append(button);
+   }
+   const controls=document.createElement('div');controls.className='dl-chunk-edit';
+   for(const [label,action] of [['Undo last chunk',()=>picks.pop()],['Start over',()=>{picks.length=0;}]]){const b=document.createElement('button');b.type='button';b.className='secondary';b.textContent=label;b.onclick=()=>{if(fullSession!==s||dlAnswered)return;action();refresh();};controls.append(b);}
+   const hint=document.createElement('details'),summary=document.createElement('summary'),text=document.createElement('p');
+   hint.className='dl-chunk-hint';summary.textContent='Hint';text.textContent=q.dlSentenceHint;hint.append(summary,text);
+   area.append(built,bank,controls,hint);choices.replaceWith(area);
+   function refresh(){
+    const chosen=picks.map(i=>q.dlSentenceChunks[i]).join(' ');
+    built.textContent=chosen||'Tap the sentence chunks below';
+    bank.querySelectorAll('button').forEach(b=>{b.disabled=picks.includes(Number(b.dataset.chunkIndex));});
+    const ready=picks.length===q.dlSentenceChunks.length;
+    dlSelected=ready?(chosen===q.dlSentenceChunks.join(' ')?q.answer:(q.answer+1)%q.options.length):null;
+    check.disabled=!ready;window.dlRefreshFixedNext?.();
+   }
+   refresh();
+  }
   if(q.dlReviewAudio){
    const audio=document.createElement('div');audio.className='dl-practical-audio';
    const listen=document.createElement('button'),slow=document.createElement('button');
@@ -143,5 +169,6 @@
  const style=document.createElement('style');
  style.textContent='#app :is(.dl-lesson-guide,.dl-pronoun-guide,.dl-conversation-card,.dl-conversation-section,.dl-accusative-guide,.dl-article-teaching,#dl-order-guide) h3{font-size:1.3rem!important;font-weight:800;line-height:1.3;margin-bottom:12px}#app .dl-sound-focus>strong{font-size:1.3rem;line-height:1.3}.dl-lesson-guide .dl-lesson-remember{border:2px solid #70c9c0;background:#20434a}.dl-lesson-guide p,.dl-lesson-guide li{line-height:1.6}.dl-lesson-guide ul{padding-left:1.3em;margin:0}.dl-lesson-guide li+li{margin-top:.5em}.dl-practical-input{display:grid;gap:12px;margin:20px 0}.dl-practical-input input{box-sizing:border-box;width:100%;padding:14px;border:1px solid #70c9c0;border-radius:12px;background:#20374e;color:#fff;font:inherit}.dl-practical-keys{display:flex;gap:8px}.dl-practical-keys button{margin:0;min-height:44px}.dl-practical-audio{display:flex;flex-direction:column;gap:8px;margin:16px 0}.dl-practical-audio>button{margin:0;min-height:56px}.dl-practical-audio>.secondary{align-self:flex-start;font-size:.9rem;min-height:44px}';
  style.textContent+=' #app .dl-sentence-pattern-table{width:100%;table-layout:fixed;border-collapse:collapse;font-size:.95rem;line-height:1.45;margin:12px 0}#app .dl-sentence-pattern-table th,#app .dl-sentence-pattern-table td{padding:10px 6px;text-align:left;vertical-align:top;border-bottom:1px solid #526b80;overflow-wrap:anywhere}#app .dl-sentence-pattern-table th{font-size:.85em}#app .dl-sentence-pattern-table th:nth-child(2),#app .dl-sentence-pattern-table td:nth-child(2){background:#214d4d;color:#b5f1df;font-weight:800}#app .dl-sentence-pattern-table th:nth-child(3){width:40%}';
+ style.textContent+=' .dl-chunk-edit{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.dl-chunk-edit button{min-height:44px}.dl-chunk-hint{margin:12px 0}.dl-chunk-hint summary{cursor:pointer;min-height:44px;display:list-item;font-weight:700}.dl-chunk-hint p{margin:8px 0}';
  document.head.append(style);
 })();

@@ -2518,18 +2518,24 @@ window.DL_A1_PRACTICAL_PACKS = {
     "dlSkill": "sentence"
    },
    {
-    "type": "grammar",
-    "prompt": "Mein ___ ist Lea.",
-    "options": [
-     "Name",
-     "Haus",
-     "Tag"
-    ],
-    "answer": 0,
-    "why": "Mein Name ist … introduces your name.",
-    "german": "Mein Name ist Lea.",
-    "english": "My name is Lea.",
-    "dlSkill": "sentence"
+       "type": "grammar",
+       "prompt": "Build: “My name is Lea.” Start with the subject.",
+       "options": [
+           "Mein Name ist Lea.",
+           "Mein Name Lea ist.",
+           "ist Mein Name Lea."
+       ],
+       "answer": 0,
+       "why": "Mein Name is the whole subject in position 1. Ist is the verb in position 2. A position can contain several words.",
+       "german": "Mein Name ist Lea.",
+       "english": "My name is Lea.",
+       "dlSkill": "sentence",
+       "dlSentenceChunks": [
+           "Mein Name",
+           "ist",
+           "Lea"
+       ],
+       "dlSentenceHint": "Mein Name stays together as the subject in position 1. Put the verb in position 2."
    },
    {
     "type": "grammar",
@@ -2546,18 +2552,24 @@ window.DL_A1_PRACTICAL_PACKS = {
     "dlSkill": "sentence"
    },
    {
-    "type": "grammar",
-    "prompt": "Sie wohnt ___ Hamburg.",
-    "options": [
-     "in",
-     "aus",
-     "um"
-    ],
-    "answer": 0,
-    "why": "Wohnen in gives a location. In means “in” here; wohnen in tells where someone lives.",
-    "german": "Sie wohnt in Hamburg.",
-    "english": "She lives in Hamburg.",
-    "dlSkill": "sentence"
+       "type": "grammar",
+       "prompt": "Build: “She lives in Hamburg.” Start with the subject.",
+       "options": [
+           "Sie wohnt in Hamburg.",
+           "Sie in Hamburg wohnt.",
+           "wohnt Sie in Hamburg."
+       ],
+       "answer": 0,
+       "why": "Sie is the subject in position 1. Wohnt is the verb in position 2. In means “in” here; in Hamburg tells where she lives.",
+       "german": "Sie wohnt in Hamburg.",
+       "english": "She lives in Hamburg.",
+       "dlSkill": "sentence",
+       "dlSentenceChunks": [
+           "Sie",
+           "wohnt",
+           "in Hamburg"
+       ],
+       "dlSentenceHint": "Put the subject first, then the verb in position 2."
    },
    {
     "type": "grammar",
