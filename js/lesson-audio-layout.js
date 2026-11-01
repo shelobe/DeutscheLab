@@ -68,6 +68,13 @@
    if(seen.has(normalize(de))){row.remove();continue}
    const en=row.querySelector('.vocab-copy span')?.textContent||'';
    let section=targetFor(sections,de,en)||fallback;
+   // The short pronoun "du" is excluded by the generic fuzzy matcher.
+   // Place its audio with the teaching card specifically explaining "du".
+   if(u.title==='Personal pronouns: ich, du, and Sie'&&normalize(de)==='du'){
+    const duCard=sections.find(sec=>/\bdu\b/i.test(sec.querySelector('h3')?.textContent||''))
+      ||sections.find(sec=>/\bdu\s*[—–:-]\s*you\b/i.test(sec.textContent||''));
+    if(duCard)section=duCard;
+   }
    if(!section){section=document.createElement('section');const h=document.createElement('h3');h.textContent='Examples';section.append(h);guide.append(section);fallback=section;}
    put(section,row,de);
   }
