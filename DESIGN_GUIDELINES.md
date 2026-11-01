@@ -166,3 +166,5 @@ This document records established product decisions. The current `main` branch i
 - Show a short encouraging message, percentage, and correct/total count. Offer optional read-only review of this attempt’s missed questions, with correct answers, explanations and relevant playback; no second scoring or progress updates.
 - Anchor Back to Lessons on the left and Continue (80%+) or Try again (below 80%) on the right. Continue opens the next lesson in the module, then the Module 1 pronunciation lesson when applicable, otherwise Lessons.
 - Preserve native completion saves, prior passes, answer sounds, XP and mistake tracking. Calculate the pilot pass threshold from its actual ten-question total (8/10), preserving any previously earned pass. No global rollout is approved.
+
+- Results-pilot artwork is slightly enlarged and centered, with its base tucked 10px behind the card’s top border. Keep a little more space below the lesson label so the score card sits lower; retain the compact short-screen variant and fixed navigation.
