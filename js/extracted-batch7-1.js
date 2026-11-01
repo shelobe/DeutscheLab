@@ -14,6 +14,7 @@
   {sound:'au → /aʊ/',word:'Haus',meaning:'house',example:'auch',detail:'German au glides from ah toward oo, roughly like English ow in cow.'},
   {sound:'w → /v/',word:'Wasser',meaning:'water',example:'wir',detail:'German w sounds like English v, not English w. Touch your upper teeth lightly to your lower lip.'},
   {sound:'v → /f/ (often)',word:'Vater',meaning:'father',example:'vier',detail:'In many common German words, v sounds like English f. Some borrowed words use v instead, so learn them individually.'},
+  {sound:'final d → /t/',word:'Hund',meaning:'dog',example:'Hunde',detail:'At the end of a German word, written d is pronounced like English t. Compare Hund (final t sound) with Hunde, where d is pronounced as d because a vowel follows.'},
   {sound:'ß → /s/',word:'Straße',meaning:'street',example:'heißen',detail:'The letter ß represents a voiceless s sound, not a b. It generally follows a long vowel or diphthong.'},
  ];
  let soundIndex=0;
@@ -33,7 +34,7 @@
   const groups=[
    ['Vowel combinations',[7,8,9,10]],
    ['Consonant combinations',[1,2,3,4,5,6]],
-   ['Single letters',[0,11,12,13]]
+   ['Single letters',[0,11,12,13,14]]
   ];
   const heardWords=new Set();
   const explanations=groups.map(([title,indices])=>{
