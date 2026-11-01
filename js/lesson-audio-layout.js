@@ -57,6 +57,36 @@
     if((section.querySelector('h3')?.textContent||'').trim()==='Useful words in the examples')section.remove();
    }
   }
+  if(u.title==='Personal pronouns: we, you all, they'){
+   // Replace the bundled pronoun playback with individual controls at the
+   // matching teaching lines, rather than leaving an orphan Examples card.
+   const items=[...guide.querySelectorAll('li')];
+   const targets=[['wir','we'],['ihr','you all'],['sie','they']];
+   let placed=0;
+   for(const [pronoun,meaning] of targets){
+    const li=items.find(item=>normalize(item.textContent).startsWith(pronoun+' '+meaning));
+    if(!li)continue;
+    const row=audioRow(pronoun,meaning);
+    row.classList.add('dl-pronoun-inline-audio');
+    li.append(row);
+    placed++;
+   }
+   if(placed===targets.length){
+    for(const row of [...card.querySelectorAll('.vocab-row')]){
+     if(row.classList.contains('dl-pronoun-inline-audio'))continue;
+     const word=normalize(row.querySelector('.vocab-copy strong')?.textContent||row.querySelector('strong')?.textContent);
+     if(word==='wir ihr sie'||word==='wir'||word==='ihr'||word==='sie')row.remove();
+    }
+    for(const section of [...guide.querySelectorAll('section')]){
+     const heading=(section.querySelector('h3')?.textContent||'').trim();
+     if(heading==='Examples'&&!section.textContent.trim().replace(/^Examples/,'').trim())section.remove();
+    }
+    [...card.querySelectorAll('h3')].filter(h=>h.parentElement===card&&h.textContent.trim()==='See it in German').forEach(h=>h.remove());
+    card.classList.add('dl-inline-lesson-audio');
+    return;
+   }
+   guide.querySelectorAll('.dl-pronoun-inline-audio').forEach(row=>row.remove());
+  }
   const sections=[...guide.querySelectorAll('section')];if(!sections.length)return;
   // Only move the native example bank; preserve bespoke controls and their handlers.
   const rows=[...card.querySelectorAll('.vocab-row')].filter(row=>row.parentElement===card);
@@ -103,5 +133,6 @@
  fullStudy=function(id){const result=previousStudy.apply(this,arguments);placeAudio(id);return result};
  const style=document.createElement('style');
  style.textContent='.dl-audio-only-section .dl-section-audio{margin:12px 0 0}.dl-audio-only-section .vocab-row{background:transparent;border:0;border-radius:0;padding:12px 0;box-shadow:none}.dl-section-audio{display:grid;gap:10px;margin:0 0 20px;min-width:0}.dl-section-audio .vocab-row{margin:0;min-width:0}.dl-section-audio .vocab-copy{min-width:0;overflow-wrap:anywhere}.dl-section-audio button{flex-shrink:0;min-height:44px}body.lesson-screen .dl-flow-card.dl-inline-lesson-audio{padding-bottom:100px}body.lesson-screen .dl-flow-card.dl-inline-lesson-audio>.dl-flow-action{position:fixed;bottom:max(12px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);width:min(calc(100vw - 48px),640px);z-index:1000;margin:0;box-shadow:0 8px 30px rgba(0,0,0,.45)}';
+ style.textContent+=' .dl-pronoun-inline-audio{margin:10px 0 4px}.dl-pronoun-inline-audio .vocab-copy{min-width:0}.dl-pronoun-inline-audio button{flex-shrink:0;min-height:44px}';
  document.head.append(style);
 })();
