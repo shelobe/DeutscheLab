@@ -102,7 +102,7 @@
   const s=fullSession,q=s?.questions?.[s.idx];
   if(!q?.dlEnriched||!dlAnswered)return result;
   if(typed&&q.dlWriteAnswer)window.dlSpellingNote?.(document.querySelector('#dl-result .dl-flow-feedback'),typed,q.dlWriteAnswer,window.dlStrictSpelling?.(q,FULL_UNITS[s.id]));
-  app.querySelectorAll('.dl-practical-input,.dl-practical-audio,.dl-chunk-practice').forEach(el=>el.remove());
+  app.querySelectorAll('.dl-practical-input,.dl-practical-audio,.dl-chunk-practice,.dl-chunk-hint-button').forEach(el=>el.remove());
   const box=document.querySelector('#dl-result .dl-flow-feedback');if(!box)return result;
   const add=(className,label,text)=>{if(!text||box.textContent.includes(text)||box.querySelector('.'+className))return;const p=document.createElement('p');p.className=className;p.textContent=label+text;box.append(p);};
   if(dlSelected!==q.answer&&!box.querySelector('.dl-enriched-answer')){const correction=document.createElement('p');correction.className='dl-enriched-answer';correction.textContent='Correct answer: '+q.options[q.answer];box.append(correction);}
@@ -132,8 +132,18 @@
    }
    const controls=document.createElement('div');controls.className='dl-chunk-edit';
    for(const [label,action] of [['Undo last chunk',()=>picks.pop()],['Start over',()=>{picks.length=0;}]]){const b=document.createElement('button');b.type='button';b.className='secondary';b.textContent=label;b.onclick=()=>{if(fullSession!==s||dlAnswered)return;action();refresh();};controls.append(b);}
-   const hint=document.createElement('details'),summary=document.createElement('summary'),text=document.createElement('p');
-   hint.className='dl-chunk-hint';summary.textContent='';const icon=document.createElement('span');icon.textContent='💡';icon.setAttribute('aria-hidden','true');const hintLabel=document.createElement('span');hintLabel.textContent='Hint';summary.append(icon,hintLabel);text.textContent=q.dlSentenceHint;hint.append(summary,text);
+   const hintButton=document.createElement('button');hintButton.type='button';hintButton.className='secondary dl-chunk-hint-button';hintButton.textContent='💡 Hint';hintButton.setAttribute('aria-haspopup','dialog');
+   const hint=document.createElement('dialog');hint.className='dl-chunk-hint-dialog';hint.setAttribute('aria-labelledby','dl-chunk-hint-title');
+   const title=document.createElement('h3');title.id='dl-chunk-hint-title';title.textContent='💡 Hint';
+   const text=document.createElement('p');text.textContent=q.dlSentenceHint;
+   const close=document.createElement('button');close.type='button';close.textContent='Close';close.autofocus=true;
+   close.onclick=()=>hint.close();
+   hint.addEventListener('click',e=>{if(e.target===hint){const r=hint.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)hint.close();}});
+   hint.addEventListener('close',()=>hintButton.focus());
+   hintButton.onclick=()=>{if(fullSession===s&&!dlAnswered)hint.showModal();};
+   hint.append(title,text,close);
+   const questionHeader=document.createElement('div');questionHeader.className='dl-chunk-question-header';
+   heading.before(questionHeader);questionHeader.append(heading,hintButton);
    area.append(built,bank,controls,hint);choices.replaceWith(area);
    function refresh(){
     const chosen=picks.map(i=>q.dlSentenceChunks[i]).join(' ');
@@ -178,5 +188,6 @@
  style.textContent+=' #app .dl-sentence-pattern-table{width:100%;table-layout:fixed;border-collapse:collapse;font-size:.95rem;line-height:1.45;margin:12px 0}#app .dl-sentence-pattern-table th,#app .dl-sentence-pattern-table td{padding:10px 6px;text-align:left;vertical-align:top;border-bottom:1px solid #526b80;overflow-wrap:anywhere}#app .dl-sentence-pattern-table th{font-size:.85em}#app .dl-sentence-pattern-table th:nth-child(2),#app .dl-sentence-pattern-table td:nth-child(2){background:#214d4d;color:#b5f1df;font-weight:800}#app .dl-sentence-pattern-table th:nth-child(3){width:40%}';
  style.textContent+=' .dl-chunk-edit{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.dl-chunk-edit button{min-height:44px}.dl-chunk-hint{margin:12px 0}.dl-chunk-hint summary{cursor:pointer;min-height:44px;display:list-item;font-weight:700}.dl-chunk-hint p{margin:8px 0}';
  style.textContent+=' #app .dl-chunk-hint{margin:16px 0 0;border:1px solid #b59a61;border-radius:14px;background:#443e30;color:#fff0cd;overflow:hidden}#app .dl-chunk-hint summary{display:flex;align-items:center;gap:10px;min-height:48px;box-sizing:border-box;padding:12px 15px;list-style:none;cursor:pointer;font-weight:700}#app .dl-chunk-hint summary::-webkit-details-marker{display:none}#app .dl-chunk-hint summary::after{content:"+";margin-left:auto;font-size:1.3em}#app .dl-chunk-hint[open] summary::after{content:"−"}#app .dl-chunk-hint summary:focus-visible{outline:2px solid #f4d58d;outline-offset:-4px;border-radius:12px}#app .dl-chunk-hint[open] summary{border-bottom:1px solid #746443}#app .dl-chunk-hint p{margin:0;padding:12px 15px 15px;line-height:1.5}';
+ style.textContent+=' #app .dl-chunk-question-header{display:flex;align-items:flex-start;gap:10px;margin-bottom:16px}#app .dl-chunk-question-header h2{flex:1;min-width:0;margin-bottom:0}#app .dl-chunk-hint-button{flex:0 0 auto;min-height:44px;margin:0;padding:10px 12px;border:1px solid #b59a61;border-radius:12px;background:#443e30;color:#fff0cd;font-size:.9rem;white-space:nowrap}#app .dl-chunk-hint-dialog{box-sizing:border-box;width:min(400px,calc(100vw - 40px));max-height:calc(100dvh - 48px);overflow:auto;padding:22px;border:1px solid #b59a61;border-radius:18px;background:#443e30;color:#fff0cd;box-shadow:0 16px 50px #0008}#app .dl-chunk-hint-dialog::backdrop{background:#081522b3}#app .dl-chunk-hint-dialog h3{margin:0 0 12px}#app .dl-chunk-hint-dialog p{line-height:1.5;margin:0 0 18px}#app .dl-chunk-hint-dialog button{min-height:44px;margin:0}';
  document.head.append(style);
 })();
