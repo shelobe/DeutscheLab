@@ -758,17 +758,18 @@ window.DL_A1_PRACTICAL_PACKS = {
     [
       "Choose by your role",
       [
-        "You and Paul talk about yourselves → wir (we).",
-        "You speak to Anna and Paul, your friends → ihr (you all).",
-        "You tell someone about Anna and Paul → sie (they)."
+        "wir — You’re part of the group.",
+        "ihr — You’re speaking to the group informally.",
+        "sie — You’re talking about the group."
       ]
     ],
     [
       "Remember",
       [
-        "Lowercase sie can mean she (Lesson 2) or they (this lesson). Anna → sie (she); Anna und Paul → sie (they).",
-        "Formal Sie means polite you for one person or several (Lesson 1). It is not the same as lowercase sie meaning they. At the start of a sentence both are capitalized, so use context.",
-        "Verb endings are taught in the regular-verb lesson; here, focus on who is speaking, being addressed or being discussed."
+        "sie — she: Anna.",
+        "sie — they: Anna and Paul.",
+        "Sie — polite you: one person or several. Always capitalized.",
+        "At the start of a sentence, all three are written Sie. Use context to tell who is meant."
       ]
     ]
   ],
