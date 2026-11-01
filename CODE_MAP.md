@@ -110,3 +110,5 @@
 
 ## Spelling activity preview
 - `js/spelling-preview.js`, loaded last, provides the menu's isolated Spelling preview dialog: six tile, missing-letter, dictation and meaning-recall samples. It owns transient state only; it does not alter lesson banks, scores, XP or storage. Native dialog isolation keeps existing lessons intact.
+
+- Menu cleanup in `js/extracted-batch6-19.js` matches Review as a whole word, so Spelling preview is retained. The preview also restores its entry after menu rebuilds.

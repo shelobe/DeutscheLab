@@ -15,7 +15,7 @@
  };
  const menu=document.getElementById('sideMenu');if(menu){
   const buttons=[...menu.querySelectorAll('button')];
-  for(const b of buttons){if(/Find It!|Noun Articles|Picture practice|Dialogue|Review|Practice games/i.test(b.textContent||''))b.remove()}
+  for(const b of buttons){if(/Find It!|Noun Articles|Picture practice|Dialogue|\bReview\b|Practice games/i.test(b.textContent||''))b.remove()}
   let hub=buttons.find(b=>/Practice Hub/i.test(b.textContent||''));
   if(hub){const headings=[...menu.querySelectorAll('.dl-menu-group')];const practice=headings.find(h=>/PRACTICE/i.test(h.textContent));if(practice)practice.after(hub)}
   const accountHeading=[...menu.querySelectorAll('.dl-menu-group')].find(h=>/ACCOUNT/i.test(h.textContent));if(accountHeading){const profile=buttons.find(b=>/Profile/i.test(b.textContent||''));if(profile)accountHeading.after(profile)}
