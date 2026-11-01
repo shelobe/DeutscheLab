@@ -6792,7 +6792,6 @@ window.DL_LESSON_ENRICHMENT = {
    [
     "ß is a consonant called Eszett or scharfes S. It makes an unvoiced s sound, like the s in English “see”. It is not B or an umlaut.",
     "Straße — street\nß represents an s sound.",
-    "groß — big\nß represents an s sound.",
     "heißen — to be called\nThe ei combination is a diphthong, so this word uses ß."
    ]
   ],
