@@ -179,6 +179,5 @@ This document records established product decisions. The current `main` branch i
 
 ## Verb-form explanations
 - In stem-plus-ending examples, write lern + e = lerne without a dash after the plus sign. Keep hyphens when naming endings on their own, such as -e, -st and -t.
-- Introduce sein as irregular before listing its forms, using English be → am, is, are as a brief comparison. Learn each form together with its pronoun.
-
-- In Forms of sein, place a Listen-only button directly beneath each existing bilingual form without duplicating the phrase. Grouped er/sie/es playback speaks each complete form; retain the shared German speech function.
+- Briefly explain irregular verb forms when first introduced, before listing their forms. Use an English comparison where helpful; for example, sein uses different forms just as English be becomes am, is or are. Teach each form together with its pronoun.
+- Provide Listen buttons beside or directly beneath newly introduced German forms or phrases, inside the matching teaching section. When the text is already displayed, use a Listen-only control without duplicating the phrase or translation. Retain existing integrated audio rows where appropriate and reuse the shared German speech function. For example, Forms of sein has one control per bilingual form; grouped er/sie/es playback speaks each complete form.
