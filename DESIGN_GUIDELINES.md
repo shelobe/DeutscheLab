@@ -168,3 +168,6 @@ This document records established product decisions. The current `main` branch i
 - Preserve native completion saves, prior passes, answer sounds, XP and mistake tracking. Calculate the pilot pass threshold from its actual ten-question total (8/10), preserving any previously earned pass. No global rollout is approved.
 
 - Results-pilot artwork is slightly enlarged and centered, with its base tucked 10px behind the card’s top border. Keep a little more space below the lesson label so the score card sits lower; retain the compact short-screen variant and fixed navigation.
+
+## Home greeting
+- Fritzi (ending in i) uses the approved transparent waving image directly in the home dashboard markup. Load its final proportion-preserving styles in the document head before any home renderer executes; do not swap the old avatar or retrofit its class after rendering.

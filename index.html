@@ -4,6 +4,12 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap" rel="stylesheet">
 
+<style id="dl-fritzi-home-greeting-style">
+#app .dashboard-hero{position:relative;overflow:visible;min-height:100px;gap:8px;margin-top:48px;padding:20px 18px 20px calc(50% + 24px)}
+#app .dashboard-hero img.dl-fritzi-greeting{position:absolute;left:-12px;bottom:-1px;transform:translateY(9.6%);width:64%;max-width:280px;height:auto;max-height:none;object-fit:contain;object-position:center bottom;border:0;border-radius:0;background:transparent;margin:0;filter:drop-shadow(0 5px 7px rgba(0,0,0,.15))}
+#app .dashboard-hero > :not(img){min-width:0}
+@media(max-width:370px){#app .dashboard-hero{padding:18px 12px 18px calc(50% + 24px);min-height:110px}#app .dashboard-hero img.dl-fritzi-greeting{width:64%;height:auto}}
+</style>
 </head><body><main><header class="app-header"><button class="menu-toggle" onclick="toggleMenu(true)" aria-label="Open navigation menu" aria-controls="sideMenu" aria-expanded="false">☰</button></header><div id="menuBackdrop" class="menu-backdrop" onclick="toggleMenu(false)" hidden></div><nav id="sideMenu" class="side-menu" aria-label="Main navigation" aria-hidden="true"><div class="menu-heading"><strong>DeutschLab</strong><button class="menu-close secondary" onclick="toggleMenu(false)" aria-label="Close menu">✕</button></div><p class="muted">LEARN</p><button onclick="navigateTo('home')">⌂ Home</button><button onclick="navigateTo('placement')">◈ Placement test</button><button onclick="navigateTo('lessonMenu')">▤ Lessons</button><button onclick="navigateTo('articleHome')">◉ Noun Articles</button><p class="muted">PRACTICE</p><button onclick="navigateTo('review')">↻ Review</button><button onclick="navigateTo('conversation')">☏ Dialogue</button><button onclick="navigateTo('aiTutor')">✦ AI Tutor & Voice</button><button onclick="dlOpenSpellingPreview()">✎ Spelling preview</button></nav><div id="app"></div></main><script src="./js/legacy-part-3.js"></script><script src="./js/extracted-batch7-20.js"></script><script src="./js/extracted-batch6-1.js"></script><script src="./js/extracted-batch3-2.js"></script><script src="./js/extracted-batch3-4.js?v=14"></script>
 
 <script src="./js/extracted-batch5-2.js"></script>
@@ -23,7 +29,7 @@
 
 <script src="./js/extracted-batch6-17.js"></script>
 
-<script src="./js/extracted-batch6-12.js"></script>
+<script src="./js/extracted-batch6-12.js?v=2"></script>
 
 <script src="./js/extracted-batch7-12.js"></script>
 
@@ -284,26 +290,4 @@
 <script id="dl-curriculum-single-source-fix" src="./js/extracted-batch7-65.js"></script><script src="./js/extracted-batch7-6.js"></script>
 <script src="./js/extracted-batch7-15.js"></script>
 <script src="./js/extracted-batch7-16.js"></script>
-<script id="dl-refresh-always-home" src="./js/extracted-batch7-66.js"></script><script id="dl-hamburger-lessons-unified" src="./js/extracted-batch7-67.js"></script><script id="dl-continue-learning-target-fix" src="./js/extracted-batch7-68.js"></script><script id="dl-home-continue-direct-routing" src="./js/extracted-batch7-69.js"></script><script id="dl-module-review-exit-guard" src="./js/extracted-batch7-70.js"></script><script src="./js/pronoun-curriculum.js"></script><script src="./js/build-sentence-unified.js?v=33"></script><script src="./js/header-consistency.js?v=5"></script><script src="./js/a1-word-order.js?v=1"></script><script src="./js/lesson-enrichment-data.js?v=4"></script><script src="./js/a1-verb-sequence.js?v=4"></script><script src="./js/a1-practical-data.js?v=26"></script><script src="./js/a1-practical-course.js?v=6"></script><script src="./js/written-answer-tools.js?v=1"></script><script src="./js/lesson-consistency.js?v=10"></script><script src="./js/lesson-audio-layout.js?v=23"></script><script src="./js/spelling-activities.js?v=2"></script><script src="./js/module-one-review.js?v=10"></script><script src="./js/answer-choice-audio.js?v=1"></script><script src="./js/umlaut-listening-tasks.js?v=2"></script><link rel="stylesheet" href="./css/teaching-presentation.css?v=6"><script src="./js/teaching-presentation.js?v=9"></script><style id="dl-fritzy-home-greeting-style">
-#app .dashboard-hero{position:relative;overflow:visible;min-height:100px;gap:8px;margin-top:48px;padding:20px 18px 20px calc(50% + 24px)}
-#app .dashboard-hero img.dl-fritzy-greeting{position:absolute;left:-12px;bottom:-1px;transform:translateY(9.6%);width:64%;max-width:280px;height:auto;max-height:none;object-fit:contain;object-position:center bottom;border:0;border-radius:0;background:transparent;margin:0;filter:drop-shadow(0 5px 7px rgba(0,0,0,.15))}
-#app .dashboard-hero > :not(img){min-width:0}
-@media(max-width:370px){#app .dashboard-hero{padding:18px 12px 18px calc(50% + 24px);min-height:110px}#app .dashboard-hero img.dl-fritzy-greeting{width:64%;height:auto}}
-</style>
-<script id="dl-fritzy-home-greeting-script">
-(function(){
- const imagePath='./file_00000000a03881f59dcf8afaaf442a15.png';
- function updateGreeting(){
-  const hero=document.querySelector('#app .dashboard-hero');
-  if(!hero)return;
-  const img=hero.querySelector('img');
-  if(!img)return;
-  if(!img.classList.contains('dl-fritzy-greeting'))img.classList.add('dl-fritzy-greeting');
-  if(img.getAttribute('src')!==imagePath)img.setAttribute('src',imagePath);
-  if(img.getAttribute('alt')!=='Fritzy waving hello')img.setAttribute('alt','Fritzy waving hello');
- }
- const app=document.getElementById('app');
- if(app)new MutationObserver(updateGreeting).observe(app,{childList:true,subtree:true});
- updateGreeting();
-})();
-</script><script src="./js/spelling-preview.js?v=7"></script><link rel="stylesheet" href="./css/umlaut-results.css?v=2"><script src="./js/umlaut-results.js?v=2"></script></body></html>
+<script id="dl-refresh-always-home" src="./js/extracted-batch7-66.js"></script><script id="dl-hamburger-lessons-unified" src="./js/extracted-batch7-67.js"></script><script id="dl-continue-learning-target-fix" src="./js/extracted-batch7-68.js"></script><script id="dl-home-continue-direct-routing" src="./js/extracted-batch7-69.js"></script><script id="dl-module-review-exit-guard" src="./js/extracted-batch7-70.js"></script><script src="./js/pronoun-curriculum.js"></script><script src="./js/build-sentence-unified.js?v=33"></script><script src="./js/header-consistency.js?v=5"></script><script src="./js/a1-word-order.js?v=1"></script><script src="./js/lesson-enrichment-data.js?v=4"></script><script src="./js/a1-verb-sequence.js?v=4"></script><script src="./js/a1-practical-data.js?v=26"></script><script src="./js/a1-practical-course.js?v=6"></script><script src="./js/written-answer-tools.js?v=1"></script><script src="./js/lesson-consistency.js?v=10"></script><script src="./js/lesson-audio-layout.js?v=23"></script><script src="./js/spelling-activities.js?v=2"></script><script src="./js/module-one-review.js?v=10"></script><script src="./js/answer-choice-audio.js?v=1"></script><script src="./js/umlaut-listening-tasks.js?v=2"></script><link rel="stylesheet" href="./css/teaching-presentation.css?v=6"><script src="./js/teaching-presentation.js?v=9"></script><script src="./js/spelling-preview.js?v=7"></script><link rel="stylesheet" href="./css/umlaut-results.css?v=2"><script src="./js/umlaut-results.js?v=2"></script></body></html>

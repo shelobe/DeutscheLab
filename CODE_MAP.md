@@ -127,3 +127,6 @@
 - Four approved transparent PNGs live in `assets/results/`: hoppel-celebrate, hoppel-encourage, fuchsie-celebrate and fuchsie-encourage. A random character is selected once per completion, with expression chosen by score.
 - Optional mistake review holds this attempt’s question objects in transient state, shows corrections/explanations/playback and returns to the same result. It never starts another scored session. The scoped fixed footer owns result navigation.
 - `scripts/test-umlaut-results.cjs` exercises the real legacy completion function and auto-return wrapper with a DOM double: threshold boundaries, both characters, prior passes, saved mistakes, read-only review, navigation and other-lesson isolation. No browser is launched.
+
+## Home greeting
+- `js/extracted-batch6-12.js` renders Fritzi’s approved waving image and `dl-fritzi-greeting` class directly. `index.html` loads its scoped home styles in the head before dashboard rendering; no post-render avatar replacement observer is needed.

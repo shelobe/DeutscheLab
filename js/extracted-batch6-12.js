@@ -10,7 +10,7 @@ function home(){
  const title=units[idx]?.title||'Your first lesson';
  const xp=typeof practiceState==='function'?practiceState():null;
  const daily=xp?.activity?.[new Date().toLocaleDateString('en-CA')]||0;
- app.innerHTML=`<section class="dashboard-hero"><img src="hund.png" alt="Fritzi the German shepherd"><div><h2>Willkommen zurück!</h2><p>Ready for a little German today?</p></div></section>
+ app.innerHTML=`<section class="dashboard-hero"><img class="dl-fritzi-greeting" src="./file_00000000a03881f59dcf8afaaf442a15.png" alt="Fritzi waving hello" width="1374" height="1145"><div><h2>Willkommen zurück!</h2><p>Ready for a little German today?</p></div></section>
  <section class="dashboard-primary"><div class="path-eyebrow">YOUR LEARNING PATH · ${level}</div><h2>${done===units.length?'Great work! Course complete':`Lesson ${idx+1}: ${safeText(title)}`}</h2><p class="path-small">${done} of ${units.length} lessons completed</p><div class="path-track" role="progressbar" aria-valuemin="0" aria-valuemax="${units.length}" aria-valuenow="${done}"><div style="width:${Math.round(done/units.length*100)}%"></div></div><button class="dashboard-main-btn" onclick="friendlyCourse('${level}')">${done===units.length?'Review your lessons':done?'Continue learning':'Start lesson 1'}</button></section>
  <h3 class="section-label">What would you like to do?</h3><div class="dashboard-shortcuts">
  <button class="secondary" onclick="friendlyCourse('${level}')">📖 My lessons<small>${level} · ${units.length} lessons</small></button>
