@@ -147,3 +147,5 @@ This document records established product decisions. The current `main` branch i
 
 ## Spelling preview scope
 - Spelling preview is a separate, unsaved menu demo for reviewing candidate activities. Existing lessons and review banks remain unchanged. Letter tiles, missing-letter and recall samples are experimental; their inclusion does not approve a curriculum-wide rollout.
+
+- The isolated preview follows existing screen-bottom Back/Check → Next navigation and shared result-badge styling. It fills the visible viewport and resizes above the mobile keyboard. Missing-letter placeholders reflect the number of missing characters. A complete answer enables Check without a separate Listen prerequisite. These corrections apply only to the preview.
