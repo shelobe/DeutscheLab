@@ -97,7 +97,7 @@
  function greetingContext(id){
   if(typeof FULL_UNITS==='undefined'||FULL_UNITS[id]?.level!=='A1'||FULL_UNITS[id]?.title!=='Greetings and goodbyes')return;
   const card=root.querySelector('.dl-flow-card');if(!card)return;
-  const labels={'wie geht es dir':'Asking how someone is · informal','danke gut':'Replying to “How are you?”','auf wiedersehen':'Saying goodbye politely'};
+  const labels={'guten morgen':'Greeting someone in the morning','guten tag':'Greeting someone during the day','guten abend':'Greeting someone in the evening','bis bald':'Saying goodbye when you expect to meet again','einen kaffee bitte':'Making a polite request','es tut mir leid':'Apologizing','gern geschehen':'Responding to thanks','wie geht es dir':'Asking how someone is · informal','danke gut':'Replying to “How are you?”','auf wiedersehen':'Saying goodbye politely'};
   for(const entry of card.querySelectorAll('.dl-separated-example')){
    if(entry.querySelector('.dl-example-context'))continue;
    const row=entry.querySelector('.vocab-row'),label=labels[normal(row?.querySelector('.vocab-copy strong')?.textContent)];
