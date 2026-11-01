@@ -119,3 +119,5 @@ This document records established product decisions. The current `main` branch i
 - In Personal pronouns: we, you all, they, keep individual Listen rows inside the matching explanation card beneath each pronoun. Enlarge and bold the German pronouns in teaching bullets and playback rows. Use short role bullets and separate she/they/polite-you reminders, with sentence-start capitalization explained separately. This is a lesson-scoped trial; other lessons retain their current audio placement until a global rollout is approved.
 
 - In the group-pronoun trial, show German–English phrase lines above separate usage explanations. Playback boxes show only German plus Listen; do not repeat English already taught above. Include contextual, translated wir/ihr/sie sentences with playback and explain supplied verb forms without assessing conjugation before it is taught.
+
+- Keep sentence examples in a separate, unboxed “See it in a sentence” section after the teaching cards. Retain translations, context and playback there; the main pronoun card stays focused on meaning, usage and word audio.

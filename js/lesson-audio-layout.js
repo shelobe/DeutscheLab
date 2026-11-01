@@ -94,6 +94,7 @@
     }
     for(const section of [...guide.querySelectorAll('section')]){
      const heading=(section.querySelector('h3')?.textContent||'').trim();
+     if(heading==='See it in a sentence')section.classList.add('dl-pronoun-sentence-examples');
      if(heading==='Examples'&&!section.textContent.trim().replace(/^Examples/,'').trim())section.remove();
     }
     [...card.querySelectorAll('h3')].filter(h=>h.parentElement===card&&h.textContent.trim()==='See it in German').forEach(h=>h.remove());
@@ -160,5 +161,6 @@
  style.textContent+=' .dl-pronoun-inline-audio{margin:10px 0 4px}.dl-pronoun-inline-audio .vocab-copy{min-width:0}.dl-pronoun-inline-audio button{flex-shrink:0;min-height:44px}';
  style.textContent+=' .dl-group-pronoun-guide .dl-pronoun-keyword{font-size:1.2em;font-weight:800;line-height:1.35}.dl-group-pronoun-guide .dl-pronoun-inline-audio .vocab-copy strong{font-size:1.3em;font-weight:800;line-height:1.35}';
  style.textContent+=' .dl-group-pronoun-guide .dl-phrase-usage{display:block;margin-top:6px;font-weight:400}.dl-group-pronoun-guide .dl-pronoun-inline-audio .vocab-copy strong{overflow-wrap:anywhere}';
+ style.textContent+=' #app .dl-group-pronoun-guide .dl-pronoun-sentence-examples{background:transparent;border:0;box-shadow:none;padding:0;margin-top:24px}.dl-group-pronoun-guide .dl-pronoun-sentence-examples>ul{list-style:none;padding-left:0}.dl-group-pronoun-guide .dl-pronoun-sentence-examples>ul>li{margin:0 0 24px}';
  document.head.append(style);
 })();

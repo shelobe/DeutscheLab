@@ -764,14 +764,6 @@ window.DL_A1_PRACTICAL_PACKS = {
       ]
     ],
     [
-      "Use them in sentences",
-      [
-        "Wir lernen Deutsch. — We are learning German.\nYou and Paul are talking about yourselves: use wir.",
-        "Ihr lernt Deutsch. — You are learning German.\nYou are speaking to Anna and Paul, your friends: use ihr.",
-        "Sie lernen Deutsch. — They are learning German.\nYou are telling someone about Anna and Paul: use sie. It is capitalized here because it starts the sentence."
-      ]
-    ],
-    [
       "Remember",
       [
         "sie — she: Anna.",
@@ -783,6 +775,14 @@ window.DL_A1_PRACTICAL_PACKS = {
     [
       "Verb forms in these examples",
       "Lernen means to learn. The forms are supplied here: wir lernen, ihr lernt, sie lernen. The regular-verb lesson explains the endings."
+    ],
+    [
+      "See it in a sentence",
+      [
+        "Wir lernen Deutsch. — We are learning German.\nYou and Paul are talking about yourselves: use wir.",
+        "Ihr lernt Deutsch. — You are learning German.\nYou are speaking to Anna and Paul, your friends: use ihr.",
+        "Sie lernen Deutsch. — They are learning German.\nYou are telling someone about Anna and Paul: use sie. It is capitalized here because it starts the sentence."
+      ]
     ]
   ],
   "examples": [
