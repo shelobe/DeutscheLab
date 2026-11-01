@@ -66,7 +66,23 @@
    }}
    else{p.textContent=body;p.style.whiteSpace='pre-line'}
    if(title==='Remember'||title==='Coming up'||title==='Note: mein or meine?')section.classList.add('dl-lesson-remember');
-   section.append(h,p);guide.append(section);
+   if(u.level==='A1'&&u.title==='People and names: Sentence patterns'&&title==='See the pattern'){
+    const table=document.createElement('table');table.className='dl-sentence-pattern-table';
+    const thead=document.createElement('thead'),headRow=document.createElement('tr'),tbody=document.createElement('tbody');
+    for(const label of ['1 · Subject','2 · Verb','Remaining information']){
+     const th=document.createElement('th');th.scope='col';th.textContent=label;headRow.append(th);
+    }
+    thead.append(headRow);
+    for(const line of body){
+     const tr=document.createElement('tr');
+     for(const text of line.split(' | ')){const td=document.createElement('td');td.textContent=text;tr.append(td);}
+     tbody.append(tr);
+    }
+    table.append(thead,tbody);
+    const note=document.createElement('p');note.textContent='A position can contain several words: “Mein Name” fills position 1.';
+    section.append(h,table,note);
+   }else section.append(h,p);
+   guide.append(section);
   }
   anchor.replaceWith(guide);
   if(previousGuide&&paragraph?.tagName==='P')paragraph.remove();
@@ -126,5 +142,6 @@
  dlLessonIntro=function(id){const result=previousIntro.apply(this,arguments);improveIntro(id);return result;};
  const style=document.createElement('style');
  style.textContent='#app :is(.dl-lesson-guide,.dl-pronoun-guide,.dl-conversation-card,.dl-conversation-section,.dl-accusative-guide,.dl-article-teaching,#dl-order-guide) h3{font-size:1.3rem!important;font-weight:800;line-height:1.3;margin-bottom:12px}#app .dl-sound-focus>strong{font-size:1.3rem;line-height:1.3}.dl-lesson-guide .dl-lesson-remember{border:2px solid #70c9c0;background:#20434a}.dl-lesson-guide p,.dl-lesson-guide li{line-height:1.6}.dl-lesson-guide ul{padding-left:1.3em;margin:0}.dl-lesson-guide li+li{margin-top:.5em}.dl-practical-input{display:grid;gap:12px;margin:20px 0}.dl-practical-input input{box-sizing:border-box;width:100%;padding:14px;border:1px solid #70c9c0;border-radius:12px;background:#20374e;color:#fff;font:inherit}.dl-practical-keys{display:flex;gap:8px}.dl-practical-keys button{margin:0;min-height:44px}.dl-practical-audio{display:flex;flex-direction:column;gap:8px;margin:16px 0}.dl-practical-audio>button{margin:0;min-height:56px}.dl-practical-audio>.secondary{align-self:flex-start;font-size:.9rem;min-height:44px}';
+ style.textContent+=' #app .dl-sentence-pattern-table{width:100%;table-layout:fixed;border-collapse:collapse;font-size:.95rem;line-height:1.45;margin:12px 0}#app .dl-sentence-pattern-table th,#app .dl-sentence-pattern-table td{padding:10px 6px;text-align:left;vertical-align:top;border-bottom:1px solid #526b80;overflow-wrap:anywhere}#app .dl-sentence-pattern-table th{font-size:.85em}#app .dl-sentence-pattern-table th:nth-child(2),#app .dl-sentence-pattern-table td:nth-child(2){background:#214d4d;color:#b5f1df;font-weight:800}#app .dl-sentence-pattern-table th:nth-child(3){width:40%}';
  document.head.append(style);
 })();

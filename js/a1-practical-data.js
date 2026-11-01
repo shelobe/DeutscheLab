@@ -2461,26 +2461,20 @@ window.DL_A1_PRACTICAL_PACKS = {
       "Build short statements to introduce people and say their names, where they live and where they come from."
     ],
     [
-      "Start with the subject",
+      "The verb takes second position",
       [
-        "Subject + verb + remaining information.",
-        "The subject tells us who or what the sentence is about. In the statements practiced here, it comes first.",
-        "The verb comes next and changes to match the subject: er heißt, sie wohnt, wir kommen."
+        "In a basic German statement, the verb takes second position.",
+        "In this lesson, start with the subject, followed by the verb and the remaining information.",
+        "The subject tells us who or what the sentence is about. The verb changes to match it: er heißt, sie wohnt, wir kommen."
       ]
     ],
     [
       "See the pattern",
       [
-        "Er | heißt | Thomas.\nSubject: Er (he). Verb: heißt (is called). Remaining information: Thomas (the name).",
-        "Sie | wohnt | in Hamburg.\nSubject: Sie (she). Verb: wohnt (lives). Remaining information: in Hamburg (where).",
-        "Wir | kommen | aus Deutschland.\nSubject: Wir (we). Verb: kommen (come). Remaining information: aus Deutschland (from where)."
-      ]
-    ],
-    [
-      "One position can contain several words",
-      [
-        "Mein Name | ist | Lea.\nMein Name (my name) is the whole subject. It fills the first position; ist fills the second position, even though it is the third written word.",
-        "For these statements, count sentence parts rather than individual words."
+        "Er | heißt | Thomas.",
+        "Sie | wohnt | in Hamburg.",
+        "Wir | kommen | aus Deutschland.",
+        "Mein Name | ist | Lea."
       ]
     ],
     [

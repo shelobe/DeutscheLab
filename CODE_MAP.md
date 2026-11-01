@@ -133,3 +133,5 @@
 
 - `js/module-one-review.js` uses the same fixed-row colored SVG connectors as `js/umlaut-listening-tasks.js`, styled in `css/umlaut-results.css`. Matching labels never grow after selection; reassignment and native checking remain unchanged.
 - `js/extracted-batch7-1.js` calls `dlShowPracticeCompletion` after native pronunciation completion saves; the shared result reports sounds practiced rather than a correctness percentage.
+
+- `js/lesson-consistency.js` renders the scoped See the pattern table for People and names: Sentence patterns from pipe-separated teaching rows in `js/a1-practical-data.js`; other teaching lists keep their existing renderer.

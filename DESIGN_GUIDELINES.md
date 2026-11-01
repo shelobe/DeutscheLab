@@ -191,3 +191,5 @@ This document records established product decisions. The current `main` branch i
 ## Introductory sentence patterns
 - People and names: Sentence patterns introduces subject + verb + remaining information with named parts in familiar name, residence and origin examples. Explain that a multiword subject occupies one position, so the verb is second in position rather than necessarily the second written word.
 - Scope this first explanation to subject-first statements. Point ahead to Basic word order for other openings and the question lessons for question formation. Preserve existing playable examples and brief in/aus meanings; omit generic filler teaching cards.
+
+- The introductory sentence-pattern lesson states directly that the verb takes second position in a basic German statement. See the pattern uses a three-column table (1 · Subject, 2 · Verb, Remaining information), with the verb column highlighted and four familiar examples. A short note beneath explains that Mein Name fills one position. Keep the table within phone width and preserve existing audio examples and later-lesson references.
