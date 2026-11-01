@@ -88,3 +88,6 @@
 - `js/written-answer-tools.js` loads before lesson consistency and module reviews, providing directional keyboard-substitute checks, strict sound/spelling detection, standard-spelling feedback and collapsed Special characters disclosures for lesson/review key rows. General lesson/review writing, deep-dive/extended writing and picture-answer comparisons use it; dictation stays strict. `scripts/test-written-answer-tools.cjs` checks matching, strict exceptions, toggle structure and feedback.
 
 - People and names vocabulary now teaches self-introductions versus introducing another person in two cards. Its brief mein/meine explanation points to possessives; audio stays inside those two cards, and practice/reviews use the same focused bank.
+
+## Mixed umlaut lesson listening
+- `js/extracted-batch6-14.js` supplies ten umlaut tasks: three shuffled recording/word matches, three same/different comparisons and four written tasks. `js/umlaut-listening-tasks.js` loads after answer audio and renders only the two custom lesson formats, using the native Check answer/dlCheck scoring, shared fixed dock and enriched feedback cleanup. Word matching does not speak printed answers; comparison requires both clips played. `scripts/test-umlaut-listening-tasks.cjs` checks handlers, scoring delegation, shuffled matching and stale controls without a browser.

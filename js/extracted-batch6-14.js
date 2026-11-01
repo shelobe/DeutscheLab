@@ -20,139 +20,158 @@
   session.questions=[
   {
     "type": "grammar",
-    "prompt": "Listen and choose the word you hear.",
+    "prompt": "Match each recording to its word.",
+    "why": "Listen to the whole word, then check its spelling.",
     "options": [
-      "Mädchen",
-      "Madchen",
-      "Mödchen"
+      "Correct match",
+      "Try again"
     ],
     "answer": 0,
-    "dlReviewAudio": "Mädchen",
     "dlEnriched": true,
-    "why": "Mädchen means girl and contains ä. The dots change the vowel sound."
+    "dlLessonMode": "match",
+    "words": [
+      "schon",
+      "schön"
+    ]
   },
   {
     "type": "grammar",
-    "prompt": "Listen and choose the meaning of the word.",
+    "prompt": "Do the recordings say the same word or different words?",
+    "why": "Both recordings say schon, meaning already.",
     "options": [
-      "Beautiful",
-      "Already",
-      "Five"
+      "Same word",
+      "Different words"
     ],
     "answer": 0,
-    "dlReviewAudio": "schön",
     "dlEnriched": true,
-    "why": "Schön means beautiful or nice; schon means already."
+    "dlLessonMode": "compare",
+    "clips": [
+      "schon",
+      "schon"
+    ]
   },
   {
     "type": "grammar",
-    "prompt": "Listen and choose the word you hear.",
+    "prompt": "Listen, then write the word you hear.",
     "options": [
-      "fünf",
-      "funf",
-      "fönf"
+      "Käse",
+      "Try again",
+      "Another answer"
     ],
     "answer": 0,
-    "dlReviewAudio": "fünf",
+    "why": "Käse means cheese and contains ä.",
     "dlEnriched": true,
-    "why": "Fünf means five. Ü has a different sound from u and ö."
+    "dlWriteAnswer": "Käse",
+    "dlStrictSpelling": true,
+    "dlReviewAudio": "Käse"
+  },
+  {
+    "type": "grammar",
+    "prompt": "Match each recording to its word.",
+    "why": "Listen to the whole word, then check its spelling.",
+    "options": [
+      "Correct match",
+      "Try again"
+    ],
+    "answer": 0,
+    "dlEnriched": true,
+    "dlLessonMode": "match",
+    "words": [
+      "Fuß",
+      "Fluss"
+    ]
+  },
+  {
+    "type": "grammar",
+    "prompt": "Do the recordings say the same word or different words?",
+    "why": "Schon means already; schön means beautiful. The vowel sounds differ.",
+    "options": [
+      "Same word",
+      "Different words"
+    ],
+    "answer": 1,
+    "dlEnriched": true,
+    "dlLessonMode": "compare",
+    "clips": [
+      "schon",
+      "schön"
+    ]
   },
   {
     "type": "grammar",
     "prompt": "Listen, then write the word you hear.",
     "options": [
       "Straße",
-      "Strabe",
-      "Sträße"
+      "Try again",
+      "Another answer"
     ],
     "answer": 0,
-    "dlReviewAudio": "Straße",
+    "why": "Straße means street; its long a is followed by ß.",
     "dlEnriched": true,
-    "why": "Straße means street. Its long a is followed by ß, which makes an s sound.",
     "dlWriteAnswer": "Straße",
-    "dlStrictSpelling": true
+    "dlStrictSpelling": true,
+    "dlReviewAudio": "Straße"
   },
   {
     "type": "grammar",
-    "prompt": "Listen and choose the word you hear.",
+    "prompt": "Match each recording to its word.",
+    "why": "Listen to the whole word, then check its spelling.",
     "options": [
+      "Correct match",
+      "Try again"
+    ],
+    "answer": 0,
+    "dlEnriched": true,
+    "dlLessonMode": "match",
+    "words": [
+      "Mädchen",
       "Käse",
-      "Kase",
-      "Köse"
-    ],
-    "answer": 0,
-    "dlReviewAudio": "Käse",
-    "dlEnriched": true,
-    "why": "Käse means cheese and contains ä, a separate vowel sound."
-  },
-  {
-    "type": "grammar",
-    "prompt": "Listen and choose the meaning of the word.",
-    "options": [
-      "Already",
-      "Beautiful",
-      "Five"
-    ],
-    "answer": 0,
-    "dlReviewAudio": "schon",
-    "dlEnriched": true,
-    "why": "Schon means already; schön, with ö, means beautiful or nice."
-  },
-  {
-    "type": "grammar",
-    "prompt": "Listen, then write the word you hear.",
-    "options": [
-      "Fuß",
-      "Fluss",
       "fünf"
-    ],
-    "answer": 0,
-    "dlReviewAudio": "Fuß",
-    "dlEnriched": true,
-    "why": "Fuß means foot. Its long u is followed by ß.",
-    "dlWriteAnswer": "Fuß",
-    "dlStrictSpelling": true
+    ]
   },
   {
     "type": "grammar",
-    "prompt": "Listen, then write the word you hear.",
+    "prompt": "Do the recordings say the same word or different words?",
+    "why": "Fuß has a long u; Fluss has a short u. They mean foot and river.",
     "options": [
-      "Fluss",
+      "Same word",
+      "Different words"
+    ],
+    "answer": 1,
+    "dlEnriched": true,
+    "dlLessonMode": "compare",
+    "clips": [
       "Fuß",
-      "fünf"
-    ],
-    "answer": 0,
-    "dlReviewAudio": "Fluss",
-    "dlEnriched": true,
-    "why": "Fluss means river. Its short u is followed by ss.",
-    "dlWriteAnswer": "Fluss",
-    "dlStrictSpelling": true
-  },
-  {
-    "type": "grammar",
-    "prompt": "Complete the German word meaning “to be called”: hei__en.",
-    "options": [
-      "ß",
-      "ss",
-      "s"
-    ],
-    "answer": 0,
-    "dlEnriched": true,
-    "why": "Heißen uses ß after ei, a diphthong. This follows the same spelling rule as ß after a long vowel."
+      "Fluss"
+    ]
   },
   {
     "type": "grammar",
     "prompt": "Listen, then write the word you hear.",
     "options": [
       "groß",
-      "gross",
-      "groB"
+      "Try again",
+      "Another answer"
     ],
     "answer": 0,
-    "dlReviewAudio": "groß",
+    "why": "Groß means big; its long o is followed by ß.",
     "dlEnriched": true,
-    "why": "Groß means big. Its long o is followed by ß. Use the Special characters control if needed.",
     "dlWriteAnswer": "groß",
+    "dlStrictSpelling": true,
+    "dlReviewAudio": "groß"
+  },
+  {
+    "type": "grammar",
+    "prompt": "Write the German word meaning “to be called”.",
+    "options": [
+      "heißen",
+      "Try again",
+      "Another answer"
+    ],
+    "answer": 0,
+    "why": "Heißen uses ß after the diphthong ei.",
+    "dlEnriched": true,
+    "dlWriteAnswer": "heißen",
     "dlStrictSpelling": true
   }
 ];
