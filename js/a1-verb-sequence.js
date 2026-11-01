@@ -68,6 +68,7 @@
  const stemTitle='Verbs that change a vowel';
  const stemPack={sections:[
   ['When the vowel changes','Some common present-tense verbs change a vowel in the stem with du and er/sie/es. The normal endings still matter. These changes do not happen with ich, wir, ihr or sie/Sie.'],
+  ['Why the vowel changes','These vowel changes come from older forms of German and remain in some common verbs today. Not every verb follows this pattern, so learn each changing verb together with its du and er/sie/es forms.'],
   ['e → i: sprechen (to speak)',['ich spreche — I speak','du sprichst — you speak','er/sie/es spricht — he/she/it speaks','wir sprechen — we speak','ihr sprecht — you all speak','sie/Sie sprechen — they speak / you speak (formal)']],
   ['e → ie: lesen (to read)',['ich lese — I read','du liest — you read','er/sie/es liest — he/she/it reads','wir lesen — we read','ihr lest — you all read','sie/Sie lesen — they read / you read (formal)']],
   ['a → ä: fahren (to travel or drive)',['ich fahre — I travel/drive','du fährst — you travel/drive','er/sie/es fährt — he/she/it travels/drives','wir fahren — we travel/drive','ihr fahrt — you all travel/drive','sie/Sie fahren — they travel/drive / you travel/drive (formal)']],
