@@ -2482,10 +2482,6 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Wir kommen aus Deutschland. — We come from Germany.",
      "Ich bin neu hier. — I am new here."
     ]
-   ],
-   [
-    "Remember",
-    "Freundin is a female friend; Freund is a male friend. Meine goes with feminine Freundin."
    ]
   ],
   "questions": [
