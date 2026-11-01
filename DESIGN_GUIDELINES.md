@@ -127,3 +127,5 @@ This document records established product decisions. The current `main` branch i
 - Group-pronoun sentence contexts describe the situation without trailing “use wir/ihr/sie” instructions. Keep the lesson card’s bottom padding compact; reserve fixed-button clearance outside the card rather than as empty interior space.
 
 - Group-pronoun word and sentence audio rows use a muted teal background with a lighter teal border and distinct Listen button, separating playback from blue teaching cards while retaining light, readable text.
+
+- In this group-pronoun trial only, Remember uses muted amber with warm cream text; Note uses muted plum with pale lavender text. Retain the established rounded card shapes and typography. Other lessons keep their existing colors pending approval of a global rollout.
