@@ -83,7 +83,7 @@ This document records established product decisions. The current `main` branch i
 
 - Prioritize readable teaching over compactness: put distinct phrases, forms or instructional statements on separate bullets. Include a Remember card only when it provides a specific useful rule, contrast or memory aid; omit generic practice advice.
 
-- Place German example/translation/Listen rows immediately beneath the relevant teaching card, outside its explanation box. Include audio for taught greetings. Avoid a duplicate audio bank at the bottom; keep Start practice anchored after moving examples.
+- Place word/phrase Listen rows inside the relevant teaching card. When a bilingual phrase is already taught above, omit its repeated English from playback; retain translations that are only supplied in the playback row. Keep standalone sentence examples in a separate, unboxed examples section with translations, context and playback. Include audio for taught greetings, avoid duplicate audio banks, and keep Start practice anchored.
 
 - When a teaching card only lists the same phrases and meanings as its audio rows, prefer one titled card containing the playable rows. Preserve explanations that provide additional usage or grammar information.
 
@@ -115,10 +115,10 @@ This document records established product decisions. The current `main` branch i
 - Lesson 2 teaches and assesses er/sie/es; Lesson 3 owns wir/ihr/sie for groups. Keep she/they/formal-you contrasts brief and contextual. Formal Sie is a politeness contrast, not a group-only pronoun.
 - Omit the removed Useful words in the examples card in Lesson 2. Delete empty example cards after moving playback beside teaching; do not restore their removed content. Preserve the remaining playable examples and individual group-pronoun audio.
 
-## Group-pronoun lesson format trial
-- In Personal pronouns: we, you all, they, keep individual Listen rows inside the matching explanation card beneath each pronoun. Enlarge and bold the German pronouns in teaching bullets and playback rows. Use short role bullets and separate she/they/polite-you reminders, with sentence-start capitalization explained separately. This is a lesson-scoped trial; other lessons retain their current audio placement until a global rollout is approved.
+## Shared teaching presentation (approved global rollout)
+- In Personal pronouns: we, you all, they, keep individual Listen rows inside the matching explanation card beneath each pronoun. Enlarge and bold the German pronouns in teaching bullets and playback rows. Use short role bullets and separate she/they/polite-you reminders, with sentence-start capitalization explained separately. This layout is approved for other applicable teaching screens; preserve bespoke content, tables and interaction controls.
 
-- In the group-pronoun trial, show German–English phrase lines above separate usage explanations. Playback boxes show only German plus Listen; do not repeat English already taught above. Include contextual, translated wir/ihr/sie sentences with playback and use a short forward reference to the Present-tense verbs lesson in its own short Note information box, without a verb explanation.
+- In lesson teaching, show German–English phrase lines above separate usage explanations. Playback boxes show only German plus Listen; do not repeat English already taught above. Include contextual, translated wir/ihr/sie sentences with playback and use a short forward reference to the Present-tense verbs lesson in its own short Note information box, without a verb explanation.
 
 - Keep sentence examples in a separate, unboxed “See it in a sentence” section after the teaching cards. Retain translations, context and playback there; the main pronoun card stays focused on meaning, usage and word audio.
 
@@ -126,6 +126,8 @@ This document records established product decisions. The current `main` branch i
 
 - Group-pronoun sentence contexts describe the situation without trailing “use wir/ihr/sie” instructions. Keep the lesson card’s bottom padding compact; reserve fixed-button clearance outside the card rather than as empty interior space.
 
-- Group-pronoun word and sentence audio rows use a muted teal background with a lighter teal border and distinct Listen button, separating playback from blue teaching cards while retaining light, readable text.
+- Playable word and sentence audio rows throughout the app use a muted teal background with a lighter teal border and distinct Listen button, separating playback from blue teaching cards while retaining light, readable text.
 
-- In this group-pronoun trial only, Remember uses muted amber with warm cream text; Note uses muted plum with pale lavender text. Retain the established rounded card shapes and typography. Other lessons keep their existing colors pending approval of a global rollout.
+- Remember uses muted amber with warm cream text; Note uses muted plum with pale lavender text. Retain the established rounded card shapes and typography. Apply these semantic colors across levels and custom pronunciation, conversation, article/case and word-order guides. Identify a card by its heading, not by its position. Coming up and A note on… are Note cards; ordinary final cards are not automatically highlighted.
+
+- Shared teaching styles live in `css/teaching-presentation.css`; `js/teaching-presentation.js` applies semantic markers to established guide layouts and dynamically rendered screens. Keep bilingual phrase lines bold, usage on its own line and German playback text enlarged. Preserve original audio handlers, lesson content, progress and navigation. Do not classify the sentence builder’s “Your sentence” display as an informational Note.

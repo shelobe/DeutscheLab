@@ -56,11 +56,11 @@
     if(u.level==='A1'&&u.title==='Countries, nationalities and languages'&&line.includes(' — ')){
      const split=line.indexOf(' — '),de=document.createElement('strong'),en=document.createElement('span');
      de.textContent=line.slice(0,split);en.textContent=line.slice(split+3);en.style.display='block';li.append(de,en);
-    }else if(line.includes(' — ')&&line.includes('\n')){
+    }else if(line.includes(' — ')){
      const [phrase,...notes]=line.split('\n');
      const strong=document.createElement('strong');strong.textContent=phrase;
      const usage=document.createElement('span');usage.className='dl-phrase-usage';usage.textContent=notes.join(' ');usage.style.display='block';usage.style.fontWeight='400';
-     li.append(strong,usage);
+     li.append(strong);if(notes.length)li.append(usage);
     }else li.textContent=line;
     p.append(li);
    }}

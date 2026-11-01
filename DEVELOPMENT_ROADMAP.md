@@ -31,7 +31,7 @@ This roadmap tracks planned work; an item marked "Needs audit" is not a verified
 | CUR-01 | Curriculum | Establish A1 lesson-by-lesson quality inventory and remaining gaps | P0 | Work | Needs audit | Inventory current A1 lessons and map each to learning outcomes; avoid assuming previously revised lessons are broken |
 | CUR-02 | Curriculum | Review A1 lesson sequence and prerequisite coverage | P0 | Work | Needs audit | Compare actual module sequence against taught concepts and review coverage |
 | CUR-03 | Curriculum | Improve repetitive or answer-revealing questions in selected A1 lessons | P1 | Chat | Backlog | Select 3–5 related lessons; review teaching, exercises and review questions together |
-| CUR-04 | Curriculum | Standardize lesson explanations, examples, audio rows and useful Remember cards | P1 | Chat | Backlog | Use existing established lesson format; preserve bespoke guides |
+| CUR-04 | Curriculum | Standardize lesson explanations, examples, audio rows and useful Remember cards | P1 | Chat | Ready for user test | Global shared presentation implemented; verify colors and in-card audio on Android; bespoke teaching retained |
 | CUR-05 | Curriculum | Validate module reviews against all taught objectives | P1 | Work | Needs audit | Check question coverage, difficulty and format variety |
 | GAME-01 | Supermarket | Complete dairy department artwork consistent with fruit/vegetable scene | P1 | Chat | Backlog | Use approved existing scene as visual reference; prepare asset for user approval |
 | GAME-02 | Supermarket | Align shopping list with available departments and items | P1 | Chat | Needs audit | Inspect current item inventory and shopping-list generation before changing |
@@ -74,3 +74,9 @@ Copy this section for each batch:
 - **Secondary next step:** GAME-01 — prepare dairy-department artwork using the existing fruit-and-vegetable department as the visual reference. Asset approval comes before integration.
 - At the end of each session, update this file with the active task, completed commits, test results and the next precise action.
 - Keep detailed technical implementation locations in `CODE_MAP.md`; keep lasting visual conventions in `DESIGN_GUIDELINES.md`. Do not duplicate either here.
+
+### CUR-04 — Shared teaching presentation rollout
+- Approved global rollout from the group-pronoun lesson: teal audio, amber Remember, plum Note, larger phrase/playback text, separate usage lines and contextual examples.
+- Shared presentation files apply the conventions to existing lesson, pronunciation, conversation, article/case and word-order guides. Grouping preserves playback handlers; sentence examples stay distinct from explanation cards.
+- Validation: JavaScript parsing, real script-order/course/progress checks, lesson/review/audio regression suites, and DOM-only presentation checks across 119 authored guides. Updated two stale test counts for the previously added pets lesson and final-d drill.
+- Status: Ready for user test. No browser testing performed. Next checkpoint: Android spot-check of the global presentation; curriculum content audit remains CUR-01.

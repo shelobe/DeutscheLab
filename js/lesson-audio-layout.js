@@ -1,4 +1,4 @@
-/* Keep lesson playback beside the explanation it illustrates. */
+/* Keep lesson playback inside the explanation it illustrates. */
 (function(){
  const normalize=s=>String(s||'').normalize('NFC').toLocaleLowerCase('de-DE').replace(/[^\p{L}\p{N}]+/gu,' ').trim();
  const greetingAudio={
@@ -39,7 +39,7 @@
   copy.append(word);if(en)copy.append(meaning);row.append(copy,button);return row;
  }
  function targetFor(sections,de,en){
-  const candidates=sections.filter(s=>! /remember|coming up|what you will|useful examples|key examples/i.test(s.querySelector('h3')?.textContent||''));
+  const candidates=sections.filter(s=>! /remember|coming up|\\bnote\\b|what you will|useful examples|key examples/i.test(s.querySelector('h3')?.textContent||''));
   const word=normalize(de),meaning=normalize(en);
   let best=null,bestScore=0;
   for(const section of candidates){
@@ -123,7 +123,7 @@
   const rows=[...card.querySelectorAll('.vocab-row')].filter(row=>row.parentElement===card);
   const heading=[...card.querySelectorAll('h3')].find(h=>h.parentElement===card&&h.textContent.trim()==='See it in German');
   const seen=new Set(),insertions=new Map();
-  const put=(section,row,de)=>{const key=normalize(de);if(seen.has(key)){row.remove();return}seen.add(key);let list=insertions.get(section);if(!list){list=document.createElement('div');list.className='dl-section-audio';section.after(list);insertions.set(section,list)}list.append(row)};
+  const put=(section,row,de)=>{const key=normalize(de);if(seen.has(key)){row.remove();return}seen.add(key);let list=insertions.get(section);if(!list){list=document.createElement('div');list.className='dl-section-audio';section.append(list);insertions.set(section,list)}list.append(row)};
   for(const [title,examples] of (u.level==='A1'?greetingAudio[u.title]:null)||[]){
    const section=sections.find(s=>s.querySelector('h3')?.textContent===title);if(section)for(const [de,en]of examples)put(section,audioRow(de,en),de);
   }
@@ -179,7 +179,5 @@
  style.textContent+=' #app .dl-group-pronoun-guide .dl-pronoun-sentence-examples{background:transparent;border:0;box-shadow:none;padding:0;margin-top:24px}.dl-group-pronoun-guide .dl-pronoun-sentence-examples>ul{list-style:none;padding-left:0}.dl-group-pronoun-guide .dl-pronoun-sentence-examples>ul>li{margin:0 0 24px}';
  style.textContent+=' #app .dl-group-pronoun-guide .dl-pronoun-guide section:last-child:not(.dl-lesson-remember){background:#293f58;border:1px solid #405c72;box-shadow:none}#app .dl-group-pronoun-guide .dl-pronoun-sentence-examples{margin:24px 0;padding:0;border:0;background:transparent;box-shadow:none}#app .dl-group-pronoun-guide .dl-pronoun-sentence-examples h3{font-size:1.3rem;color:#9bdcd1;margin:0 0 14px}.dl-group-pronoun-guide .dl-sentence-example{margin:0 0 24px}.dl-group-pronoun-guide .dl-sentence-example p{margin:8px 0;line-height:1.5}.dl-group-pronoun-guide .dl-sentence-translation{font-weight:600}.dl-group-pronoun-guide .dl-sentence-example .vocab-row{display:flex;align-items:center;gap:12px}.dl-group-pronoun-guide .dl-sentence-example .vocab-copy{flex:1;min-width:0}.dl-group-pronoun-guide .dl-sentence-example .vocab-copy strong{font-size:1.1em}';
  style.textContent+=' #app .dl-group-pronoun-guide .dl-pronoun-verb-note{padding:15px 17px;border-radius:15px;background:#293f58;border:1px solid #405c72;margin-top:16px}#app .dl-group-pronoun-guide .dl-pronoun-verb-note p{margin:0;line-height:1.5}body.lesson-screen #app .dl-flow-card.dl-group-pronoun-guide{padding-bottom:24px;margin-bottom:100px}.dl-group-pronoun-guide .dl-sentence-example:last-of-type{margin-bottom:0}';
- style.textContent+=' #app .dl-group-pronoun-guide .vocab-row.dl-pronoun-inline-audio{background:#204b4a;border:1px solid #568c83}#app .dl-group-pronoun-guide .dl-pronoun-inline-audio .vocab-copy strong{color:#e4fff6}#app .dl-group-pronoun-guide .dl-pronoun-inline-audio button{background:#32665f;border:1px solid #77aea2;color:#fff}#app .dl-group-pronoun-guide .dl-pronoun-inline-audio button:hover{background:#3b766c}';
- style.textContent+=' #app .dl-group-pronoun-guide .dl-lesson-remember{background:#58432a;border:2px solid #b99358;color:#fff1d5;box-shadow:none}#app .dl-group-pronoun-guide .dl-lesson-remember h3{color:#ffdda0}#app .dl-group-pronoun-guide .dl-pronoun-verb-note{background:#49374f;border:1px solid #a184ad;color:#f4e7fa}#app .dl-group-pronoun-guide .dl-pronoun-verb-note h3{color:#e7c8f2}';
  document.head.append(style);
 })();
