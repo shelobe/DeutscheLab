@@ -156,3 +156,11 @@ This document records established product decisions. The current `main` branch i
 - Trial letter tiles and inline missing-letter entry in this one A1 lesson and its Module 1 review. Use only taught words: Käse and Straße for lesson tile construction, schön for the inline ö blank, and retain full-word fünf and heißen writing. Keep the lesson at ten questions and Module 1 review at fifteen.
 - Use native lesson/review checking, scoring, progress, sounds, feedback characters and fixed action controls. Letter tiles track individual positions so repeated letters work. Missing letters use one underline and a cursor, with collapsed special-character keys. Do not require a separate Listen action to enable a completed answer.
 - Lesson Back retains the existing leave warning and returns to Lessons. Preview Back now also warns before discarding the current preview and returning to Lessons; cancel keeps the current activity intact. Other lessons remain unchanged.
+
+
+## Lesson results pilot: Umlauts and ß only
+- This A1 lesson alone uses the new completion page; other lessons and module reviews retain their existing completion behavior pending approval.
+- Randomly choose approved Hoppel or Fuchsie artwork for each completion: celebratory at 80–100%, gently encouraging below 80%. Keep the same character when returning from mistake review. Use the approved transparent half-body images directly above the rounded score card.
+- Show a short encouraging message, percentage, and correct/total count. Offer optional read-only review of this attempt’s missed questions, with correct answers, explanations and relevant playback; no second scoring or progress updates.
+- Anchor Back to Lessons on the left and Continue (80%+) or Try again (below 80%) on the right. Continue opens the next lesson in the module, then the Module 1 pronunciation lesson when applicable, otherwise Lessons.
+- Preserve native completion saves, prior passes, answer sounds, XP and mistake tracking. Calculate the pilot pass threshold from its actual ten-question total (8/10), preserving any previously earned pass. No global rollout is approved.

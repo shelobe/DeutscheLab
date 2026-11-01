@@ -120,3 +120,10 @@
 - `js/extracted-batch6-14.js` keeps ten Umlauts and ß questions, replacing one same-word comparison with schön/ö and two dictations with Käse/Straße tiles. `umlaut-listening-tasks.js` binds these controls to dlCheck and the native dock.
 - `module-one-review.js` retains fifteen questions, replacing Käse dictation with tiles and schön choice with an inline ö blank. Native review score, progress, cleanup and Next remain authoritative. Other module banks are unchanged.
 - The listening-task and module-review tests exercise the actual shared helper, strict umlauts, repeated tiles, native submissions, cleanup and footer. Preview Back tests cover canceled and confirmed exits to Lessons.
+
+
+## Umlaut lesson results pilot
+- `js/umlaut-results.js` and `css/umlaut-results.css` load last in `index.html`. The fullFinish wrapper intercepts only A1 Umlauts and ß, delegates native completion with activeLessonScreen cleared to suppress its automatic menu return, and normalizes the saved pass threshold to 80% of the actual total while preserving earlier passes. Other lessons delegate untouched.
+- Four approved transparent PNGs live in `assets/results/`: hoppel-celebrate, hoppel-encourage, fuchsie-celebrate and fuchsie-encourage. A random character is selected once per completion, with expression chosen by score.
+- Optional mistake review holds this attempt’s question objects in transient state, shows corrections/explanations/playback and returns to the same result. It never starts another scored session. The scoped fixed footer owns result navigation.
+- `scripts/test-umlaut-results.cjs` exercises the real legacy completion function and auto-return wrapper with a DOM double: threshold boundaries, both characters, prior passes, saved mistakes, read-only review, navigation and other-lesson isolation. No browser is launched.

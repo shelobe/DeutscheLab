@@ -1,0 +1,19 @@
+/* Scoped to the results pilot; existing lessons and feedback keep their styles. */
+#app #dl-umlaut-results{max-width:520px;margin:0 auto;padding:6px 12px calc(88px + env(safe-area-inset-bottom));text-align:center;box-sizing:border-box}
+#dl-umlaut-results .dl-umlaut-results-label{font-size:.9rem;line-height:1.3;margin:0 0 8px;color:#d0e5df}
+#dl-umlaut-results .dl-umlaut-results-character{position:relative;z-index:1;margin:0 auto -1px;width:min(70%,240px)}
+#dl-umlaut-results .dl-umlaut-results-character img{display:block;width:100%;height:auto;max-height:26dvh;object-fit:contain;object-position:center bottom;border:0;border-radius:0;background:transparent}
+#dl-umlaut-results .dl-umlaut-results-card{position:relative;border:2px solid #739e96;border-radius:22px;padding:18px 16px;background:#213e47;color:#f5f2e9;box-shadow:0 8px 24px #10263133}
+#dl-umlaut-results h2{font-size:1.55rem;line-height:1.2;margin:0 0 8px}
+#dl-umlaut-results .dl-umlaut-results-message{font-size:.95rem;line-height:1.35;margin:0 0 10px}
+#dl-umlaut-results .dl-umlaut-results-score{display:block;font-size:clamp(2.6rem,11vw,3.8rem);line-height:1.05;color:#f1dba3}
+#dl-umlaut-results .dl-umlaut-results-count{margin:6px 0 12px}
+#dl-umlaut-results .dl-umlaut-results-perfect{margin:10px 0 0;color:#ccebd9}
+#dl-umlaut-results button{min-height:48px;white-space:normal;line-height:1.25;margin:0;font:inherit}
+#dl-umlaut-results .dl-umlaut-results-dock{position:fixed;bottom:0;left:0;right:0;z-index:120;display:flex;gap:12px;justify-content:space-between;padding:12px max(14px,calc((100vw - 520px)/2)) calc(12px + env(safe-area-inset-bottom));background:#142d38;border-top:1px solid #54756f;box-sizing:border-box}
+#dl-umlaut-results .dl-umlaut-results-dock button{flex:1;max-width:250px;min-width:0}
+#dl-umlaut-results.dl-umlaut-mistake{text-align:left;padding-top:14px}
+#dl-umlaut-results.dl-umlaut-mistake h2{font-size:1.25rem}
+#dl-umlaut-results .dl-umlaut-correction{padding:12px;border-radius:12px;background:#2b5358}
+#dl-umlaut-mistake-audio{display:flex;gap:8px;flex-wrap:wrap}
+@media(max-height:700px){#dl-umlaut-results .dl-umlaut-results-character img{max-height:21dvh}#dl-umlaut-results .dl-umlaut-results-card{padding:12px}#dl-umlaut-results h2{font-size:1.3rem}#dl-umlaut-results .dl-umlaut-results-message{margin-bottom:6px}#dl-umlaut-results .dl-umlaut-results-score{font-size:2.6rem}}
