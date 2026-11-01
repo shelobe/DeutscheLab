@@ -95,3 +95,19 @@ console.log(`PASS: ${guides} authored guides, ${reminders} Remember cards, ${not
  }
  console.log('PASS: real consistency/audio/presentation renderers across '+units.length+' authored guides; '+total+' rendered audio rows follow word/phrase placement without repeated-render duplicates.');
 }
+
+{
+ clear();
+ const g=el('div','','dl-lesson-guide'),s=box('Listen for the difference',''),ul=el('ul');
+ for(const [teaching,word,meaning] of [
+  ['J often sounds like English y: Januar (January), Jahr (year).','Januar','January — J sounds like English Y'],
+  ['W sounds like English v: Wasser (water).','Wasser','water — W sounds like English V'],
+  ['V often sounds like English f in familiar native words: Vater (father).','Vater','father — V often sounds like English F']
+ ]){
+  const li=el('li'),r=audio(word,meaning);li.append(el('span',teaching),r);ul.append(li);
+ }
+ const unique=audio('Hund','dog');const li=el('li');li.append(el('span','Hund has a final d sound.'),unique);ul.append(li);
+ s.append(ul);g.append(s);root.append(g);callback();callback();
+ for(const r of g.querySelectorAll('.vocab-row'))assert.equal(r.querySelector('.vocab-copy span').hidden,r!==unique,'Hide repeated sound explanations; retain unique translations');
+ console.log('PASS: Januar/Wasser/Vater redundant audio captions hidden; unique meaning retained.');
+}

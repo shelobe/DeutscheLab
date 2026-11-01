@@ -82,10 +82,16 @@
    const word=row.querySelector('.vocab-copy strong')?.textContent;
    const meaning=row.querySelector('.vocab-copy span');
    if(!word||!meaning?.textContent.trim())continue;
-   // Hide only an exact bilingual duplicate already taught in this card.
+   // Inline word rows need no repeated translation or sound explanation.
+   // Compare against the matching teaching item, excluding every audio row.
+   const item=row.closest('li');
+   const localTeaching=normal(textWithoutAudio(item||section));
+   const localWords=new Set(localTeaching.split(' '));
+   const repeatsInline=singleWord(word)&&localTeaching.split(' ').includes(normal(word))&&normal(meaning.textContent).split(' ').every(token=>localWords.has(token));
+   // Retain unique meanings and all external phrase/sentence context.
    const teaching=normal([...section.querySelectorAll('li,p,h3,strong')].filter(n=>!n.querySelector('.vocab-row')&&!n.closest('.vocab-row')).map(n=>n.textContent).join(' '));
    const duplicate=teaching.includes(normal(word))&&teaching.includes(normal(meaning.textContent));
-   if(duplicate)meaning.hidden=true;
+   if(duplicate||repeatsInline)meaning.hidden=true;
   }
  }
  const intro=window.dlLessonIntro,study=window.fullStudy;
