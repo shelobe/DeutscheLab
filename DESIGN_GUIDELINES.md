@@ -204,3 +204,5 @@ This document records established product decisions. The current `main` branch i
 
 ## Understanding-in-context readability
 - People and names: Understanding in context uses a short purpose card, a three-item recap and separately titled question/reply examples. Label Question and Reply above individual bilingual Listen boxes; each German sentence appears once with English directly beneath it. Keep home/origin contrast and introducing another person in short separate cards with brief explanations. Avoid dense bilingual bullets, duplicate reply text and repeated grammar walkthroughs. Preserve playback, questions, progress and fixed navigation.
+
+- Sentence-chunk hints use a compact rounded muted-amber disclosure card with a small decorative lightbulb, Hint label and +/− indicator. Start closed; keep the explanation inside the same card when expanded. Retain native details/summary keyboard behavior and a visible focus outline. Do not change approved questions or hint wording when refining its presentation.
