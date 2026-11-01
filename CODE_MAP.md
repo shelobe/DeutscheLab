@@ -139,3 +139,5 @@
 - `js/lesson-consistency.js` renders `dlSentenceChunks` questions only within People and names: Sentence patterns, using `dlSentenceHint` for closed optional hints. Selection maps to the native shuffled answer index; native dlCheck handles feedback/scoring and removes `.dl-chunk-practice`. Authored question options remain available to module reviews without hints.
 
 - `js/lesson-audio-layout.js` consolidates People and names: Sentence patterns expression examples into their original bilingual Listen rows, removing duplicate plain bullets. `teaching-presentation.js` retains the translations because no duplicate teaching copy remains.
+
+- `js/a1-practical-data.js` separates People and names: Sentence patterns (eight construction/preposition questions) from Understanding in context (ten practical meaning/reply questions and short exchanges). `a1-practical-course.js` already selects review questions round-robin across their module’s lesson banks; stable lesson IDs and module membership are unchanged.
