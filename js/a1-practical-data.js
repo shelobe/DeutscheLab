@@ -756,14 +756,6 @@ window.DL_A1_PRACTICAL_PACKS = {
       ]
     ],
     [
-      "Choose by your role",
-      [
-        "wir — You’re part of the group.",
-        "ihr — You’re speaking to the group informally.",
-        "sie — You’re talking about the group."
-      ]
-    ],
-    [
       "Remember",
       [
         "sie — she: Anna.",
@@ -773,8 +765,12 @@ window.DL_A1_PRACTICAL_PACKS = {
       ]
     ],
     [
-      "Verb forms in these examples",
-      "Lernen means to learn. The forms are supplied here: wir lernen, ihr lernt, sie lernen. The regular-verb lesson explains the endings."
+      "Choose by your role",
+      [
+        "wir — You’re part of the group.",
+        "ihr — You’re speaking to the group informally.",
+        "sie — You’re talking about the group."
+      ]
     ],
     [
       "See it in a sentence",

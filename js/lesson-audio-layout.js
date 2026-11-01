@@ -83,9 +83,22 @@
     placed++;
    }
    if(placed===targets.length){
-    for(const sentence of ['Wir lernen Deutsch.','Ihr lernt Deutsch.','Sie lernen Deutsch.']){
-     const li=items.find(item=>item.textContent.startsWith(sentence+' — '));
-     if(li){const row=audioRow(sentence,'');row.classList.add('dl-pronoun-inline-audio');li.append(row);}
+    const sentenceSection=[...guide.querySelectorAll('section')].find(s=>s.querySelector('h3')?.textContent.trim()==='See it in a sentence');
+    if(sentenceSection){
+     const examples=document.createElement('div');examples.className='dl-pronoun-sentence-examples';
+     const title=document.createElement('h3');title.textContent='See it in a sentence';examples.append(title);
+     for(const li of sentenceSection.querySelectorAll('li')){
+      const phrase=li.querySelector('strong')?.textContent||'';
+      const split=phrase.indexOf(' — ');if(split<0)continue;
+      const de=phrase.slice(0,split),en=phrase.slice(split+3);
+      const item=document.createElement('article');item.className='dl-sentence-example';
+      const row=audioRow(de,'');row.classList.add('dl-pronoun-inline-audio');
+      const translation=document.createElement('p');translation.className='dl-sentence-translation';translation.textContent=en;
+      const context=document.createElement('p');context.className='dl-phrase-usage';context.textContent=li.querySelector('.dl-phrase-usage')?.textContent||'';
+      item.append(row,translation,context);examples.append(item);
+     }
+     const note=document.createElement('p');note.className='muted';note.textContent='You’ll learn more about verb endings in the Present-tense verbs lesson.';examples.append(note);
+     guide.after(examples);sentenceSection.remove();
     }
     for(const row of [...card.querySelectorAll('.vocab-row')]){
      if(row.classList.contains('dl-pronoun-inline-audio'))continue;
@@ -94,7 +107,6 @@
     }
     for(const section of [...guide.querySelectorAll('section')]){
      const heading=(section.querySelector('h3')?.textContent||'').trim();
-     if(heading==='See it in a sentence')section.classList.add('dl-pronoun-sentence-examples');
      if(heading==='Examples'&&!section.textContent.trim().replace(/^Examples/,'').trim())section.remove();
     }
     [...card.querySelectorAll('h3')].filter(h=>h.parentElement===card&&h.textContent.trim()==='See it in German').forEach(h=>h.remove());
@@ -162,5 +174,6 @@
  style.textContent+=' .dl-group-pronoun-guide .dl-pronoun-keyword{font-size:1.2em;font-weight:800;line-height:1.35}.dl-group-pronoun-guide .dl-pronoun-inline-audio .vocab-copy strong{font-size:1.3em;font-weight:800;line-height:1.35}';
  style.textContent+=' .dl-group-pronoun-guide .dl-phrase-usage{display:block;margin-top:6px;font-weight:400}.dl-group-pronoun-guide .dl-pronoun-inline-audio .vocab-copy strong{overflow-wrap:anywhere}';
  style.textContent+=' #app .dl-group-pronoun-guide .dl-pronoun-sentence-examples{background:transparent;border:0;box-shadow:none;padding:0;margin-top:24px}.dl-group-pronoun-guide .dl-pronoun-sentence-examples>ul{list-style:none;padding-left:0}.dl-group-pronoun-guide .dl-pronoun-sentence-examples>ul>li{margin:0 0 24px}';
+ style.textContent+=' #app .dl-group-pronoun-guide .dl-pronoun-guide section:last-child:not(.dl-lesson-remember){background:#293f58;border:1px solid #405c72;box-shadow:none}#app .dl-group-pronoun-guide .dl-pronoun-sentence-examples{margin:24px 0;padding:0;border:0;background:transparent;box-shadow:none}#app .dl-group-pronoun-guide .dl-pronoun-sentence-examples h3{font-size:1.3rem;color:#9bdcd1;margin:0 0 14px}.dl-group-pronoun-guide .dl-sentence-example{margin:0 0 24px}.dl-group-pronoun-guide .dl-sentence-example p{margin:8px 0;line-height:1.5}.dl-group-pronoun-guide .dl-sentence-translation{font-weight:600}.dl-group-pronoun-guide .dl-sentence-example .vocab-row{display:flex;align-items:center;gap:12px}.dl-group-pronoun-guide .dl-sentence-example .vocab-copy{flex:1;min-width:0}.dl-group-pronoun-guide .dl-sentence-example .vocab-copy strong{font-size:1.1em}';
  document.head.append(style);
 })();
