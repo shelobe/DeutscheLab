@@ -107,3 +107,6 @@
 - Word/phrase placement regression checks execute the real consistency, audio-layout and final presentation renderers across 119 authored guides (490 rendered audio rows), verifying placement and repeated-render deduplication. Native playback functions remain attached to the original nodes. `lesson-enrichment-data.js` authors separate umlaut/ß word explanations and separate Fuß/Fluss examples; these no longer rely on a forced card-bottom audio group.
 
 - All shared flow teaching cards opt into `dl-integrated-teaching-audio`; phrase rows use `dl-compact-phrase-audio`. Alignment styles compensate for teaching-list indentation. The custom group-pronoun sentence examples remain within their teaching section.
+
+## Spelling activity preview
+- `js/spelling-preview.js`, loaded last, provides the menu's isolated Spelling preview dialog: six tile, missing-letter, dictation and meaning-recall samples. It owns transient state only; it does not alter lesson banks, scores, XP or storage. Native dialog isolation keeps existing lessons intact.

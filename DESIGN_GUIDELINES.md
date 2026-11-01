@@ -144,3 +144,6 @@ This document records established product decisions. The current `main` branch i
 - Use smaller German phrase/sentence text (1.05em) to fit with teaching content. Keep Listen controls and original playback handlers. Omit translations or explanations inside audio boxes when already provided directly above; retain unique meanings and useful context.
 - Avoid duplicate external phrase banks and repeated context headings. Preserve bespoke teaching, navigation, progress and accessibility.
 - Applied globally through the shared teaching presentation and audio grouping. Preserve bespoke content, original audio nodes/handlers, navigation and saved progress.
+
+## Spelling preview scope
+- Spelling preview is a separate, unsaved menu demo for reviewing candidate activities. Existing lessons and review banks remain unchanged. Letter tiles, missing-letter and recall samples are experimental; their inclusion does not approve a curriculum-wide rollout.
