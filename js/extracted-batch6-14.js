@@ -149,16 +149,16 @@
     "type": "grammar",
     "prompt": "Listen, then write the word you hear.",
     "options": [
-      "groß",
+      "fünf",
       "Try again",
       "Another answer"
     ],
     "answer": 0,
-    "why": "Groß means big; its long o is followed by ß.",
+    "why": "Fünf means five and contains the rounded vowel ü.",
     "dlEnriched": true,
-    "dlWriteAnswer": "groß",
+    "dlWriteAnswer": "fünf",
     "dlStrictSpelling": true,
-    "dlReviewAudio": "groß"
+    "dlReviewAudio": "fünf"
   },
   {
     "type": "grammar",
