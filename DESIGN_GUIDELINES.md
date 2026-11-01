@@ -137,3 +137,6 @@ This document records established product decisions. The current `main` branch i
 - `js/teaching-presentation.js` enforces the final word/phrase split after existing lesson grouping and on custom-screen rendering. A word is one written token (normal trailing punctuation does not make it a phrase; hyphenated compounds stay one word). Multiword text is a phrase/sentence. Keep English visible for external examples, preserve their playback handlers and context, and remove emptied duplicate example shells. The umlaut/ß comparisons use individual word entries and individual Listen boxes, including separate Fuß and Fluss rows.
 
 - Single-word audio boxes show the German word and Listen control without repeating translations or pronunciation explanations already given in the matching teaching item. Keep any unique meaning that is not taught there. Phrase/sentence examples retain their translations and context.
+
+## Limited phrase-context trial
+- Greetings and goodbyes only: short descriptive headings sit outside and directly above the audio boxes for Wie geht es dir?, Danke, gut., and Auf Wiedersehen. Keep headings close to their matching audio and leave more space between pairs. Straightforward phrases retain their existing layout. This is a local trial, not approval for a global rollout.
