@@ -176,3 +176,7 @@ This document records established product decisions. The current `main` branch i
 - Lesson and module-review recording-to-word matching uses stable 64px rows and colored curved lines between selected pairs. Audio labels remain Listen A/B/C; accessible labels retain pair names. Reserve status-message space, keep one selected border and preserve keyboard focus, reassignment, native scoring and fixed Check controls.
 
 - The shared results retain native lesson/review saves, mastery and prior passes. Lesson passing uses 80% of its actual question total. Module reviews retain native core-score rules. Optional read-only mistake review returns to the same character/result; Continue advances to the next lesson or module when available. Recording-to-word questions in lessons and reviews share stable labels, rows and curved pair connectors; ordinary multiple-choice questions retain their existing controls.
+
+## Verb-form explanations
+- In stem-plus-ending examples, write lern + e = lerne without a dash after the plus sign. Keep hyphens when naming endings on their own, such as -e, -st and -t.
+- Introduce sein as irregular before listing its forms, using English be → am, is, are as a brief comparison. Learn each form together with its pronoun.

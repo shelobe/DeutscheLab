@@ -47,12 +47,12 @@
  packs['A1|Present-tense verbs']={sections:[
   ['Find the stem','For a regular verb, remove -en: lernen → lern-. Add the ending for the subject. Lernen means to learn.'],
   ['Regular endings',[
-   'ich → lern + -e = lerne — I learn',
-   'du → lern + -st = lernst — you learn (one person, informal)',
-   'er/sie/es → lern + -t = lernt — he/she/it learns',
-   'wir → lern + -en = lernen — we learn',
-   'ihr → lern + -t = lernt — you all learn (informal)',
-   'sie/Sie → lern + -en = lernen — they learn / you learn (formal)'
+   'ich → lern + e = lerne — I learn',
+   'du → lern + st = lernst — you learn (one person, informal)',
+   'er/sie/es → lern + t = lernt — he/she/it learns',
+   'wir → lern + en = lernen — we learn',
+   'ihr → lern + t = lernt — you all learn (informal)',
+   'sie/Sie → lern + en = lernen — they learn / you learn (formal)'
   ]],
   ['Use the pattern',['Ich lerne Deutsch. — I am learning German.','Du lernst Deutsch. — You are learning German.','Wir lernen Deutsch. — We are learning German.']],
   ['Some verbs change','Some verbs also change a vowel in the stem with du and er/sie/es. You do not need to memorize those changes here. A later lesson in this module teaches them in “Verbs that change a vowel.”'],

@@ -878,6 +878,10 @@ window.DL_A1_PRACTICAL_PACKS = {
     "Say who someone is, how they feel and where they are."
    ],
    [
+    "Why the forms look different",
+    "Sein is irregular, so it doesn’t follow the regular verb pattern. Like English be → am, is, are, German uses different forms depending on the subject: ich bin, du bist, er ist. Learn each form together with its pronoun."
+   ],
+   [
     "Forms of sein",
     [
      "ich bin — I am",
