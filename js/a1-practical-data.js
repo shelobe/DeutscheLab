@@ -552,12 +552,10 @@ window.DL_A1_PRACTICAL_PACKS = {
     [
      "Ich spreche … — I speak …",
      "Ich spreche Englisch. — I speak English.",
-     "Ich spreche Englisch und ein bisschen Deutsch. — I speak English and a little German.",
      "Welche Sprachen sprichst du? — Which languages do you speak?",
      "Sprichst du Englisch? — Do you speak English?",
      "Ja, ich spreche Englisch. — Yes, I speak English.",
-     "Use ich spreche to talk about yourself and du sprichst to ask one person informally.",
-     "Ein bisschen means a little; und means and."
+     "Use ich spreche to talk about yourself and du sprichst to ask one person informally."
     ]
    ],
    [
@@ -569,7 +567,9 @@ window.DL_A1_PRACTICAL_PACKS = {
     [
      "Ich bin Amerikanerin. — I am an American woman.",
      "Ich bin Amerikaner. — I am an American man.",
-     "German nationality nouns and language names begin with capital letters."
+     "German nationality nouns and language names begin with capital letters.",
+     "Amerikaner refers to a man; Amerikanerin refers to a woman. Here, adding -in changes the noun to the female form.",
+     "The later Work and occupations lesson explains this common pattern with more examples and practice."
     ]
    ]
   ],
@@ -615,10 +615,6 @@ window.DL_A1_PRACTICAL_PACKS = {
     "I am an American man."
    ],
    [
-    "Ich spreche Englisch und ein bisschen Deutsch.",
-    "I speak English and a little German."
-   ],
-   [
     "Welche Sprachen sprichst du?",
     "Which languages do you speak?"
    ],
@@ -660,19 +656,6 @@ window.DL_A1_PRACTICAL_PACKS = {
    },
    {
     "type": "grammar",
-    "prompt": "You know a little German. What do you say?",
-    "options": [
-     "Ich spreche ein bisschen Deutsch.",
-     "Ich komme aus Deutsch.",
-     "Ich heiße Deutsch."
-    ],
-    "answer": 0,
-    "why": "Ein bisschen means a little.",
-    "dlSkill": "situation",
-    "dlTopic": "languages"
-   },
-   {
-    "type": "grammar",
     "prompt": "Write the German language name for English.",
     "options": [
      "Englisch",
@@ -710,33 +693,6 @@ window.DL_A1_PRACTICAL_PACKS = {
     "why": "Answer the language question with Ja, ich spreche Englisch.",
     "dlTopic": "languages",
     "dlSkill": "situation"
-   },
-   {
-    "type": "grammar",
-    "prompt": "Read: “Ich spreche Englisch und ein bisschen Deutsch.” What does the person speak?",
-    "options": [
-     "English and a little German",
-     "Only German",
-     "French and English"
-    ],
-    "answer": 0,
-    "why": "Und means and; ein bisschen Deutsch means a little German.",
-    "dlTopic": "languages",
-    "dlSkill": "reading"
-   },
-   {
-    "type": "grammar",
-    "prompt": "Write the missing word: Ich spreche Englisch und ein ___ Deutsch.",
-    "options": [
-     "bisschen",
-     "komme",
-     "heiße"
-    ],
-    "answer": 0,
-    "why": "Ein bisschen means a little.",
-    "dlTopic": "languages",
-    "dlSkill": "write",
-    "dlWriteAnswer": "bisschen"
    }
   ]
  },
@@ -10354,7 +10310,19 @@ window.DL_A1_PRACTICAL_PACKS = {
    ],
    [
     "Language to use",
-    "Als introduces a role; bei introduces an employer. Lehrer is a male teacher, Lehrerin a female teacher. Büro means office; Arbeit means work."
+    "Als introduces a role; bei introduces an employer. Büro means office; Arbeit means work."
+   ],
+   [
+    "Nouns for men and women",
+    [
+     "der Lehrer — male teacher",
+     "die Lehrerin — female teacher",
+     "der Amerikaner — American man",
+     "die Amerikanerin — American woman",
+     "Many nouns for people add -in to the male form to name a woman: Lehrer → Lehrerin; Amerikaner → Amerikanerin.",
+     "This is a common pattern, not a rule for every noun. Learn each noun with its article.",
+     "Ich arbeite als Lehrerin. — I work as a teacher (woman)."
+    ]
    ],
    [
     "Useful examples",
@@ -10382,6 +10350,10 @@ window.DL_A1_PRACTICAL_PACKS = {
    [
     "Ich suche Arbeit.",
     "I am looking for work."
+   ],
+   [
+    "Ich arbeite als Lehrerin.",
+    "I work as a teacher (woman)."
    ]
   ],
   "questions": [
@@ -10432,6 +10404,43 @@ window.DL_A1_PRACTICAL_PACKS = {
     "answer": 0,
     "why": "Use the complete phrase Was machst du beruflich?.",
     "dlSkill": "situation"
+   },
+   {
+    "type": "grammar",
+    "prompt": "Which word refers to a female teacher?",
+    "options": [
+     "Lehrerin",
+     "Lehrer",
+     "Büro"
+    ],
+    "answer": 0,
+    "why": "Lehrerin adds -in to Lehrer to refer to a woman.",
+    "dlSkill": "use"
+   },
+   {
+    "type": "grammar",
+    "prompt": "An American woman introduces her nationality. Choose her sentence.",
+    "options": [
+     "Ich bin Amerikanerin.",
+     "Ich bin Amerikaner.",
+     "Ich arbeite im Büro."
+    ],
+    "answer": 0,
+    "why": "Amerikanerin is the noun for an American woman.",
+    "dlSkill": "use"
+   },
+   {
+    "type": "grammar",
+    "prompt": "Write the noun for a female teacher: Ich arbeite als ___.",
+    "options": [
+     "Lehrerin",
+     "Lehrer",
+     "Arbeit"
+    ],
+    "answer": 0,
+    "why": "The female form is Lehrerin.",
+    "dlSkill": "write",
+    "dlWriteAnswer": "Lehrerin"
    }
   ]
  },
