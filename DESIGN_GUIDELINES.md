@@ -138,5 +138,9 @@ This document records established product decisions. The current `main` branch i
 
 - Single-word audio boxes show the German word and Listen control without repeating translations or pronunciation explanations already given in the matching teaching item. Keep any unique meaning that is not taught there. Phrase/sentence examples retain their translations and context.
 
-## Greetings and polite expressions: integrated audio
-- In this lesson, phrase/sentence audio belongs inside its matching learning information box alongside word audio. Use smaller German phrase text (1.05em), existing translations and Listen controls. Remove the external phrase bank and trial context headings; retain useful teaching and avoid repeated translations already explained beside playback. This lesson-specific decision supersedes the general external-phrase placement rule here; other lessons keep their existing layout.
+## Approved integrated teaching audio — global rollout pending
+- Approved reference: Greetings and polite expressions, including the audio-box alignment trial in commit 79de276af031ba17c86ccb6ec196f87e483020e9.
+- Target convention for applicable lesson teaching: keep word, phrase and sentence playback inside the matching learning information box, directly beneath the relevant explanation. Preserve teaching bullets, but align all audio boxes to the same left and right edges within each card, independent of bullet indentation.
+- Use smaller German phrase/sentence text (1.05em) to fit with teaching content. Keep Listen controls and original playback handlers. Omit translations or explanations inside audio boxes when already provided directly above; retain unique meanings and useful context.
+- Avoid duplicate external phrase banks and repeated context headings. Preserve bespoke teaching, navigation, progress and accessibility.
+- This approved target supersedes earlier rules requiring every phrase/sentence outside information boxes. Implementation currently covers Greetings and polite expressions only. Global application is deferred to the next work session; inspect each affected lesson and validate before committing the rollout.
