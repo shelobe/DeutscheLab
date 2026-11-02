@@ -9,7 +9,7 @@
   {sound:'ch (soft) → /ç/',word:'ich',meaning:'I',example:'Milch',detail:'The soft ch after i or other front vowels is made by raising the middle of your tongue toward the roof of your mouth. It is not English sh.'},
   {sound:'ch (back) → /x/',word:'Buch',meaning:'book',example:'Bach',detail:'After a, o, or u, ch is usually a throaty friction sound made farther back in the mouth. Compare Buch with the softer ch in ich.'},
   {sound:'ei → /aɪ/',word:'mein',meaning:'my',example:'drei',detail:'German ei sounds like English eye. The second letter’s English name is the clue: eI → English I (eye).'},
-  {sound:'ie → /iː/',word:'Liebe',meaning:'love',example:'sieben',detail:'German ie usually makes a long ee sound, unlike ei. The second letter’s English name is the clue: iE → English E (ee). Hold the vowel a little longer.'},
+  {sound:'ie → /iː/',word:'sieben',meaning:'seven',example:'Liebe',detail:'German ie usually makes a long ee sound, unlike ei. The second letter’s English name is the clue: iE → English E (ee). Hold the vowel a little longer.'},
   {sound:'eu → /ɔʏ/',word:'neun',meaning:'nine',example:'heute',detail:'German eu makes a diphthong similar to English oy. The spelling äu often has the same sound.'},
   {sound:'au → /aʊ/',word:'Haus',meaning:'house',example:'auch',detail:'German au glides from ah toward oo, roughly like English ow in cow.'},
   {sound:'w → /v/',word:'Wasser',meaning:'water',example:'wir',detail:'German w sounds like English v, not English w. Touch your upper teeth lightly to your lower lip.'},

@@ -244,3 +244,10 @@ Scope: authored course definitions and lesson question banks, not browser/runtim
 - Retained all 15 questions, answers, topic coverage and existing checking/audio behavior. Scope is this lesson only.
 - Validation: JavaScript parsing, 30 randomized effective banks in actual script order, short-only typing/topic/answer checks, unchanged teaching and other packs, punctuation/feedback-length assertions and answer-choice audio checks pass. No browser/device testing.
 - Status: Ready for user test. Commit reference: the commit adding this entry.
+
+
+### Module 1 Lesson 3 — ie speaking example (2026-11-01)
+- User reports Liebe being transcribed as lieber on their phone. Keep the speaking format as guided sound practice; completion tracks attempts rather than pronunciation accuracy.
+- Swap only the ie drill examples: speaking target sieben (seven), additional listening example Liebe (love). Keep the same ie explanation, 15 drills, microphone handling and progress rules.
+- Validation: JavaScript syntax and existing pronunciation renderer/recognition regression checks pass. Device recognition of sieben is unverified and awaits user test. No browser testing.
+- Status: Ready for user test. Commit reference: the commit adding this entry.
