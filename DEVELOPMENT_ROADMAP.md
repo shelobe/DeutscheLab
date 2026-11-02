@@ -93,7 +93,8 @@ Copy this section for each batch:
 
 ## Current handoff
 - **Completed:** Authored-content audit of all 22 A1 modules; findings and conversational coverage proposals are recorded below. Runtime, review sampling, audio and learning outcomes remain unverified.
-- **Primary checkpoint:** CUR-03 — Module 1 refinements and Module 2 Lesson 1 questions are ready for user test (batches below). Next content task: Module 2 Lesson 2 (Introducing yourself). Inspect current teaching and effective questions in each batch; preserve already-refined exercises.
+- **Approved by user (2026-11-01):** All Module 1 lesson questions/practice (Lessons 1–3) and Module 2 Lesson 1 (Greetings and polite expressions). Current question refinements are accepted; preserve them unless a new issue is reported. This approval does not complete the deferred module-review/final-assessment work.
+- **Primary next step:** CUR-03 — Module 2 Lesson 2 (Introducing yourself: heißen and wohnen). Inspect current teaching and effective questions before the next scoped refinement.
 - **After lesson questions are finished:** CUR-05 — audit and improve module reviews and the final A1 assessment. Do not start this deferred pass now.
 - **Secondary next step:** GAME-01 — prepare dairy-department artwork using the existing fruit-and-vegetable department as the visual reference. Asset approval comes before integration.
 - At the end of each session, update this file with the active task, completed commits, test results and the next precise action.
@@ -271,3 +272,11 @@ Scope: authored course definitions and lesson question banks, not browser/runtim
 - User observed Module 1 Lesson 3’s anchored navigation becoming obscured by an Android/Chrome dictionary panel for “Pronunciation”; the panel persisted across subsequent speaking exercises.
 - Trigger is not reliably reproducible. Possible association with tapping disabled Next sound or a screen transition/automatic advance; neither cause is confirmed. User reports normal tapping, not intentionally long-pressing text.
 - Status: Monitor / unconfirmed. If it recurs, inspect disabled-control hit testing, text selection and transition timing before proposing a fix. No app changes or auto-advance changes requested or made for this note.
+
+
+### User approval checkpoint — Module 1 and Module 2 Lesson 1 (2026-11-01)
+- User confirms they are happy with all Module 1 lesson questions/practice and Module 2 Lesson 1 questions.
+- Status: Done / user approved for current lesson-question refinement scope. Module 1 covers Alphabet and spelling, Umlauts and ß, and German pronunciation; Module 2 Lesson 1 is Greetings and polite expressions.
+- Earlier Ready for user test entries for these lesson changes are superseded by this approval. Preserve their detailed change/validation history.
+- The intermittent pronunciation dictionary-overlay/navigation issue remains a separate monitor note with an unconfirmed trigger; approval does not establish a fix.
+- Next lesson-question batch: Module 2 Lesson 2, Introducing yourself: heißen and wohnen. Module reviews and final A1 assessment remain deferred until individual lesson questions are finished.
