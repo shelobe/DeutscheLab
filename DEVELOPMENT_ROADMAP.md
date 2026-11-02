@@ -149,3 +149,13 @@ Scope: authored lesson data and course definitions; no runtime or browser verifi
 - **A1-AUD-17, Feedback:** Authored explanation for “Wir trinken Wasser” refers instead to “Ich möchte einen Tee”; P1: inspect and correct mismatched explanations throughout these modules.
 - **Review follow-up:** Review draws from lesson banks; inspect effective runtime sampling and coverage before claiming review mastery. No changes approved.
 **Next audit checkpoint:** Modules 13–16 (shopping, dates/appointments, daily routines/separable verbs, hobbies/modals). Audit actual authored teaching, questions, sequencing and feedback; no implementation without approval.
+
+
+### A1 audit batch 6: Modules 13–16 (2026-11-01)
+Scope: authored course definitions and questions only; runtime/review behavior not verified. No app implementation changes.
+- **A1-AUD-18, Module 13 — Shopping/prices/clothing:** Useful price, quantity, size and payment contexts; enrichment stages repeat six model sentences across meaning, blank completion and situational selection. P1: add novel shopping exchanges and independent requests.
+- **A1-AUD-19, Module 14 — Dates/appointments:** Useful half-hour, date, preposition, appointment and invitation tasks, including written answers. P1: check independent scheduling exchanges and transfer to unfamiliar dates/times.
+- **A1-AUD-20, Module 15 — Routines/separable verbs:** Explicit separable-verb teaching and guided prefix completions exist, but enrichment reuses familiar sentences. P1: assess and strengthen independent construction with unfamiliar subjects, time phrases and separable verbs.
+- **A1-AUD-21, Module 16 — Hobbies/modals:** Dedicated *können/müssen* and polite-request exercises exist, but hobby enrichment relies heavily on recognition and predictable completion. P1: test independent modal-verb use and realistic ability/obligation/preference responses.
+- **Cross-module consensus (Modules 1–16):** A1 topic coverage, teaching and broad sequence are generally sound. Highest-impact improvement is practice quality: reduce repetitive recognition/answer-revealing tasks; strengthen independent recall, construction, transfer and authentic communication. Preserve effective existing questions; do not rebuild the curriculum wholesale.
+- **Paused checkpoint:** Audit through Module 16 at authored-content level; Modules 17–22 remain. Next user-selected task is to improve exercises starting in earlier A1 lessons. Audit findings are proposals, not authorization for lesson edits. No browser testing.
