@@ -170,3 +170,16 @@ Scope: authored course definitions and lesson question banks, not browser/runtim
 - **A1-AUD-26, Module 21 — Past events (P1):** Perfekt, participles, war and hatte introduced; prompts emphasize missing auxiliaries/participles and reading recognition. Add guided-to-independent short past-event accounts.
 - **A1-AUD-27, Module 22 — Putting A1 into practice (P1):** Three linked review lessons largely use basic reading/meaning recognition; need cross-topic independent communication tasks. Separate 21-question final-review runtime selection not verified and should be inspected before redesign.
 **Audit checkpoint:** All 22 A1 modules have now received an authored-content audit. Overall sequencing and teaching broadly appropriate; primary improvement opportunity is question quality, authentic application, recall and transfer. Findings are not implementation instructions. Runtime, review sampling, audio and learning outcomes remain unverified. User intends to improve earlier modules first. No browser testing.
+
+
+### A1 conversational coverage follow-up (2026-11-01)
+**Status:** Proposed improvements for later review, not approved implementation. Based on authored-content audit; some phrases may already appear and should be checked before adding duplicates.
+- **High — Follow-up questions:** Teach and practice reciprocal questions (*Und du?*, *Was ist mit dir?*) after giving personal answers.
+- **High — Conversation repair:** Practice asking for repetition/slower speech, clarifying an unknown word, understanding the reply and continuing the exchange.
+- **High — Natural reactions:** Introduce context-appropriate reactions such as *Ach so!*, *Das ist schön!*, *Wirklich?*, *Schade!*
+- **High — Making plans:** Propose a day/time, accept, decline politely and suggest alternatives.
+- **High — Preferences:** Express likes/dislikes, preference and refusal in everyday contexts.
+- **High — Small talk:** Combine introductions, work, family, hobbies and weather in short exchanges with follow-up questions.
+- **Medium — Everyday problems:** Explain missing, broken, incorrect or unavailable items/services and request help.
+- **Medium — Polite interactions:** Practice apologies, responses to thanks, asking permission and natural conversation closings.
+**Design direction:** Do not create eight new modules by default. Integrate skills into relevant existing A1 lessons, and consider expanding Module 20 (*Useful everyday conversations*) into a stronger conversation-focused section. Make multi-turn dialogues recur throughout A1, with guided-to-independent progression and unfamiliar scenarios. Example: invite someone on Saturday; decline; suggest Sunday; agree on a time. Avoid duplicate teaching; first map each proposed skill against current lessons. No app edits authorized.
