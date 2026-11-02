@@ -571,7 +571,7 @@ window.DL_A1_PRACTICAL_PACKS = {
    },
    {
     "type": "grammar",
-    "prompt": "Ask a friend their name using informal du.",
+    "prompt": "How would you ask a friend their name?",
     "options": [
      "Wie heißt du",
      "Wie heißen Sie",
