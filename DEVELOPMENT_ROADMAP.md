@@ -265,3 +265,9 @@ Scope: authored course definitions and lesson question banks, not browser/runtim
 - Existing ä tiles, o/ö listening, ß/ss tasks and dictation remain. Unfamiliar-word transfer and review changes stay deferred.
 - Validation: modified JavaScript syntax; actual script-order lesson-bank checks; targeted Tür/ü and feedback-audio checks; listening-handler checks; real teaching/audio/presentation rendering across 119 guides, including Tür’s own audio row and repeat-render deduplication; module-review checks pass. Updated the presentation test’s expected lesson audio count and supplied missing DOM-double replaceChildren/contains methods. No browser/device test.
 - Status: Requested Lesson 2 refinements complete; awaiting user confirmation on device. Commit reference: the commit adding this entry. Next planned lesson-question batch remains Module 2 Lesson 2.
+
+
+### Side note — intermittent pronunciation navigation/dictionary overlay (2026-11-01)
+- User observed Module 1 Lesson 3’s anchored navigation becoming obscured by an Android/Chrome dictionary panel for “Pronunciation”; the panel persisted across subsequent speaking exercises.
+- Trigger is not reliably reproducible. Possible association with tapping disabled Next sound or a screen transition/automatic advance; neither cause is confirmed. User reports normal tapping, not intentionally long-pressing text.
+- Status: Monitor / unconfirmed. If it recurs, inspect disabled-control hit testing, text selection and transition timing before proposing a fix. No app changes or auto-advance changes requested or made for this note.
