@@ -2,6 +2,20 @@
 
 Updated: 2026-11-01. Source of truth: `main` in `shelobe/DeutscheLab`.
 
+## Current lesson-question status
+
+This summary and Current handoff are authoritative for resuming work. Dated batch records below preserve history; their old counts, examples and next steps do not override this summary.
+
+| Scope | Current status | Next action |
+|---|---|---|
+| A1 authored-content audit, all 22 modules | Complete | Use recorded findings during scoped improvements; this is not proof of course-wide runtime or learning-outcome validation. |
+| Module 1 Lessons 1–3 | Done / user approved | Preserve approved questions and speaking practice. |
+| Module 2 Lesson 1 | Done / user approved | Preserve approved questions and concise feedback. |
+| Module 2 Lesson 2 — Introducing yourself: heißen and wohnen | Next / not yet revised in this question-refinement pass | Inspect current teaching and effective questions before editing. |
+| Module 2 Lessons 3–5 and Modules 3–22 | Pending in this question-refinement pass | Continue in course order; preserve previous useful work. |
+| Dedicated module-review/final-assessment improvement | Deferred | Begin after individual lesson questions are finished; include the recorded gradual-recall plan. |
+| Intermittent pronunciation dictionary overlay | Monitor / unconfirmed | Investigate if reproducible; no fix claimed. |
+
 ## Current priorities
 1. **Primary: curriculum and learning quality.** Refine A1 sequencing, teaching, practice, question quality, and module-review alignment before broad A2/B1 expansion.
 2. **Secondary: supermarket game and artwork.** Continue smaller, self-contained improvements in regular ChatGPT when Work allotment is unavailable.
@@ -28,9 +42,9 @@ This roadmap tracks planned work; an item marked "Needs audit" is not a verified
 
 | ID | Track | Task | Priority | Mode | Status | Next action |
 |---|---|---|---|---|---|---|
-| CUR-01 | Curriculum | Establish A1 lesson-by-lesson quality inventory and remaining gaps | P0 | Work | Authored-content audit complete | All 22 A1 modules audited; findings recorded below. Runtime behavior, review sampling, audio and learning outcomes remain unverified. Use findings during scoped lesson improvements. |
+| CUR-01 | Curriculum | Establish A1 lesson-by-lesson quality inventory and remaining gaps | P0 | Work | Authored-content audit complete | All 22 A1 modules audited; findings recorded below. Course-wide runtime behavior, review sampling, audio and learning outcomes are not comprehensively verified; scoped checks and user approvals are recorded below. Use findings during scoped lesson improvements. |
 | CUR-02 | Curriculum | Review A1 lesson sequence and prerequisite coverage | P1 | Work | Initial authored-content audit complete; follow-ups pending | Broad sequence is appropriate; four targeted investigations remain below. Check relevant prerequisites during lesson refinement. |
-| CUR-03 | Curriculum | Improve repetitive or answer-revealing questions in selected A1 lessons | P0 | Chat | Current focus | Start with the earliest A1 modules and proceed lesson by lesson. Inspect current teaching and effective questions; improve coverage, variety, recall, application and specific feedback. Preserve effective existing exercises. |
+| CUR-03 | Curriculum | Improve repetitive or answer-revealing questions in selected A1 lessons | P0 | Chat | In progress — Module 1 and Module 2 Lesson 1 user approved | Next: Module 2 Lesson 2, Introducing yourself: heißen and wohnen. Continue in course order; preserve approved questions. |
 | CUR-04 | Curriculum | Standardize lesson explanations, examples, audio rows and useful Remember cards | P1 | Chat | Ready for user test | Global shared presentation implemented; verify colors and in-card audio on Android; bespoke teaching retained |
 | CUR-05 | Curriculum | Validate module reviews and final A1 assessment against taught objectives | P1 | Work | Deferred until lesson questions are finished | After individual lesson questions are refined, audit and improve coverage, retention, mixed-topic application, variety and resistance to guessing. |
 | GAME-01 | Supermarket | Complete dairy department artwork consistent with fruit/vegetable scene | P1 | Chat | Backlog | Use approved existing scene as visual reference; prepare asset for user approval |
@@ -38,7 +52,7 @@ This roadmap tracks planned work; an item marked "Needs audit" is not a verified
 | GAME-03 | Supermarket | Integrate approved dairy art and relevant item interactions | P2 | Chat | Backlog | Inspect repository artwork, hotspots and existing game behavior |
 | TECH-01 | Stability | Investigate any remaining shared Build a Sentence behavior issues | P1 | Work | Needs audit | Reproduce specific reported behavior; follow active implementation in CODE_MAP.md |
 | TECH-02 | Stability | Review mobile navigation, saved progress, audio and sync regressions | P1 | Work | Needs audit | Batch targeted code checks and user-reported reproduction steps; no unsolicited live browser testing |
-| CUR-08 | Curriculum | Make incorrect-answer feedback specific to the exact question and error | P1 | Chat / Work | Backlog | Audit existing feedback across A1; replace generic or mismatched explanations with the relevant rule, correction, and reason. Preserve already-specific feedback and existing answer handling. |
+| CUR-08 | Curriculum | Make incorrect-answer feedback specific to the exact question and error | P1 | Chat / Work | In progress — approved scopes improved; remaining lessons pending | Continue checking relevant explanations during each lesson batch. Module 1 and Module 2 Lesson 1 feedback changes are user approved; retain specific, concise explanations. The Er heißt Thomas finding remains unverified. |
 | CUR-07 | Curriculum | Apply approved hint-button design to suitable practice areas when requested | P2 | Chat / Work | Backlog | Button design/placement approved: compact 💡 Hint beside the question, opening over the activity. No global implementation requested. Identify suitable hints in a later batch; keep assessed module reviews free of hints. Consider smaller, more polished pop-up styling separately. |
 | CUR-06 | Curriculum | Expand A2 and B1 after A1 quality baseline | P3 | Work / Chat | Backlog | Plan progression using audited A1 objectives |
 
@@ -51,7 +65,7 @@ Priority: P0 = current focus; P1 = next; P2 = follow-on; P3 = later. This is an 
 
 | ID | Area / evidence | Finding or concern | Suggested improvement | Priority | Status |
 |---|---|---|---|---|---|
-| A1-AUD-01 | Early greetings and introductions; authored situational multiple-choice questions | Good practical situations, but correct German expressions are frequently supplied as choices; independent recall not yet established | Preserve contextual recognition tasks, then add short completion or typed responses after teaching, where appropriate | P1 | Investigate runtime mix |
+| A1-AUD-01 | Early greetings and introductions; authored situational multiple-choice questions | Good practical situations, but correct German expressions are frequently supplied as choices; independent recall not yet established | Preserve contextual recognition tasks, then add short completion or typed responses after teaching, where appropriate | P1 | Partially addressed: Module 2 Lesson 1 user approved; other early introduction lessons pending |
 | A1-AUD-02 | The verb sein and The verb haben; authored blanks such as `Ich ___ müde` and `Du ___ Zeit` | Multiple questions emphasize pronoun-to-form selection; risk of mechanical repetition | Retain foundational conjugation checks, then add meaning-based prompts, sentence construction and short original responses | P1 | Authored pattern observed; audit full question path |
 | A1-AUD-03 | People and names: Sentence patterns | Authored word-order distractors and explanations identify verb-second position; recent sentence-chunk exercise adds construction | Preserve these strengths; assess whether the chunk approach can be selectively reused after confirming its current behavior | P2 | Positive reference / follow-up |
 | A1-AUD-04 | People and names: Understanding in context | Appropriate situations but several questions supply whole German sentences, potentially permitting recognition without retrieval | Check the proportion of recognition vs production; introduce recall/short response only where it adds learning value | P1 | Investigate runtime mix |
@@ -92,13 +106,17 @@ Copy this section for each batch:
 - Next checkpoint:
 
 ## Current handoff
-- **Completed:** Authored-content audit of all 22 A1 modules; findings and conversational coverage proposals are recorded below. Runtime, review sampling, audio and learning outcomes remain unverified.
+- **Completed:** Authored-content audit of all 22 A1 modules; findings and conversational coverage proposals are recorded below. Course-wide runtime, review sampling, audio and learning outcomes are not comprehensively verified; scoped checks and user approvals are recorded below.
 - **Approved by user (2026-11-01):** All Module 1 lesson questions/practice (Lessons 1–3) and Module 2 Lesson 1 (Greetings and polite expressions). Current question refinements are accepted; preserve them unless a new issue is reported. This approval does not complete the deferred module-review/final-assessment work.
 - **Primary next step:** CUR-03 — Module 2 Lesson 2 (Introducing yourself: heißen and wohnen). Inspect current teaching and effective questions before the next scoped refinement.
 - **After lesson questions are finished:** CUR-05 — audit and improve module reviews and the final A1 assessment. Do not start this deferred pass now.
 - **Secondary next step:** GAME-01 — prepare dairy-department artwork using the existing fruit-and-vegetable department as the visual reference. Asset approval comes before integration.
 - At the end of each session, update this file with the active task, completed commits, test results and the next precise action.
 - Keep detailed technical implementation locations in `CODE_MAP.md`; keep lasting visual conventions in `DESIGN_GUIDELINES.md`. Do not duplicate either here.
+
+## Historical batch records and audit evidence
+
+These are dated snapshots, including superseded designs, question counts and resume points. Consult Current lesson-question status and Current handoff above for what is approved and what comes next. Unconfirmed issues and unrelated areas retain their existing status; lesson-question approval does not approve every global layout or game.
 
 ### CUR-04 — Shared teaching presentation rollout
 - Approved global rollout from the group-pronoun lesson: teal audio, amber Remember, plum Note, larger phrase/playback text, separate usage lines and contextual examples.
@@ -140,7 +158,7 @@ Scope: authored teaching and questions, not verified runtime behavior. No app ch
 - **A1-AUD-11, Module 7 - questions and answers:** Useful verb-first yes/no explanation, but only four authored questions and limited direct word-order assessment. **P1, investigate:** verify other exercises/review before adding complete yes/no and information-question construction.
 - **A1-AUD-12, Module 8 - negation:** Nicht/kein and gender contrasts taught with practical examples; mostly supplied-form completion. **P2, investigate:** add scenario-based negative responses and independent sentences if existing reviews do not already cover them.
 
-Preserve: noun gender guidance, number listening/writing, verb-first question instruction, practical negation. Next audit: Modules 9-12 (family, home, accusative/pets, food), followed by review and runtime exercise coverage. These are recommendations, not approved implementation changes.
+Preserve: noun gender guidance, number listening/writing, verb-first question instruction, practical negation. Historical next audit step (now complete): Modules 9-12 (family, home, accusative/pets, food), followed by review and runtime exercise coverage. These are recommendations, not approved implementation changes.
 
 
 ### A1 audit batch 5: Modules 9–12 (2026-11-01)
@@ -151,7 +169,7 @@ Scope: authored lesson data and course definitions; no runtime or browser verifi
 - **A1-AUD-16, Module 12 — Food:** Five lessons; repeated six-sentence pattern across three enrichment stages. P1: expand applied restaurant dialogue and new food-preference scenarios.
 - **A1-AUD-17, Feedback:** Authored explanation for “Wir trinken Wasser” refers instead to “Ich möchte einen Tee”; P1: inspect and correct mismatched explanations throughout these modules.
 - **Review follow-up:** Review draws from lesson banks; inspect effective runtime sampling and coverage before claiming review mastery. No changes approved.
-**Next audit checkpoint:** Modules 13–16 (shopping, dates/appointments, daily routines/separable verbs, hobbies/modals). Audit actual authored teaching, questions, sequencing and feedback; no implementation without approval.
+**Historical next audit checkpoint (audit now complete):** Modules 13–16 (shopping, dates/appointments, daily routines/separable verbs, hobbies/modals). Audit actual authored teaching, questions, sequencing and feedback; no implementation without approval.
 
 
 ### A1 audit batch 6: Modules 13–16 (2026-11-01)
@@ -161,7 +179,7 @@ Scope: authored course definitions and questions only; runtime/review behavior n
 - **A1-AUD-20, Module 15 — Routines/separable verbs:** Explicit separable-verb teaching and guided prefix completions exist, but enrichment reuses familiar sentences. P1: assess and strengthen independent construction with unfamiliar subjects, time phrases and separable verbs.
 - **A1-AUD-21, Module 16 — Hobbies/modals:** Dedicated *können/müssen* and polite-request exercises exist, but hobby enrichment relies heavily on recognition and predictable completion. P1: test independent modal-verb use and realistic ability/obligation/preference responses.
 - **Cross-module consensus (Modules 1–16):** A1 topic coverage, teaching and broad sequence are generally sound. Highest-impact improvement is practice quality: reduce repetitive recognition/answer-revealing tasks; strengthen independent recall, construction, transfer and authentic communication. Preserve effective existing questions; do not rebuild the curriculum wholesale.
-- **Paused checkpoint:** Audit through Module 16 at authored-content level; Modules 17–22 remain. Next user-selected task is to improve exercises starting in earlier A1 lessons. Audit findings are proposals, not authorization for lesson edits. No browser testing.
+- **Historical paused checkpoint (superseded by completed audit):** Audit through Module 16 at authored-content level; Modules 17–22 remain. Next user-selected task is to improve exercises starting in earlier A1 lessons. Audit findings are proposals, not authorization for lesson edits. No browser testing.
 
 
 ### A1 audit batch 7: Modules 17–22 (2026-11-01)
@@ -198,8 +216,9 @@ Scope: authored course definitions and lesson question banks, not browser/runtim
 - Umlauts retains ten varied tasks, including matching, comparison, tiles, inline completion and writing. Replaces the final meaning-recall prompt with strict heißen dictation; expands generic feedback into the exact vowel/letter contrast for each matching task and the schön blank.
 - Historical eu/soft-ch flag clarified: both are taught in the current German pronunciation lesson, and the current Module 1 review includes neun matching and ich comparison. No duplicate curriculum additions are needed for that older finding.
 - Validation: all 149 previously tracked JavaScript files parse; the new module lesson test also parses and passes. Real script-order test exercises 40 randomized alphabet starts and the effective umlaut bank. Existing umlaut interaction, module review, pronunciation, answer-audio and global results tests pass. The unrelated lesson-audio-layout test fails at its existing 0-versus-14 assertion on both the unchanged baseline f0905db and this batch; not caused or corrected by these edits.
-- Status: Ready for user test. No browser or Android test performed. Commit reference: the commit introducing this batch entry.
-- Next checkpoint: User checks Module 1 lesson questions on Android; then continue to Module 2 lesson questions. Module reviews/final assessment remain deferred until lesson questions are finished. Preserve already useful exercises and verify each reported mismatch before editing it.
+- Current status: Done / user approved (2026-11-01); see approval checkpoint.
+- Status when this batch was recorded: Ready for user test. No browser or Android test performed. Commit reference: the commit introducing this batch entry.
+- Historical next checkpoint (superseded; use Current handoff): User checks Module 1 lesson questions on Android; then continue to Module 2 lesson questions. Module reviews/final assessment remain deferred until lesson questions are finished. Preserve already useful exercises and verify each reported mismatch before editing it.
 
 
 ### CUR-03 — Module 1 new-word prediction follow-up (2026-11-01)
@@ -207,8 +226,9 @@ Scope: authored course definitions and lesson question banks, not browser/runtim
 - Approved replacement: show an unfamiliar written word, emphasize its initial letter and ask the learner to predict that letter’s sound before hearing the word. Three replacements use Jacke (J → English y), Weg (W → English v), and vier (v → English f). Meanings are supplied in feedback, not assessed.
 - Each prediction provides guarded word playback after the native answer check, on both correct and incorrect answers. Retain the other seven alphabet tasks, all umlaut tasks, separate pronunciation practice and module review.
 - Validation: real script order and 40 randomized lesson starts; scoped renderer checks initial-letter emphasis, no pre-answer audio, right/wrong post-answer playback, native score preservation and duplicate/stale-control guards. Module-review, umlaut interaction, answer-audio and global-results regression checks pass. JavaScript syntax checks pass. No browser/device testing.
-- Status: Ready for user test; this entry supersedes the previous batch’s three audio-choice slots. Commit reference: the commit adding this follow-up.
-- Next checkpoint: Check the three prediction questions on Android, then continue to Module 2 lesson questions. Reviews/final assessment remain deferred.
+- Current status: Done / user approved (2026-11-01); see approval checkpoint.
+- Status when this batch was recorded: Ready for user test; this entry supersedes the previous batch’s three audio-choice slots. Commit reference: the commit adding this follow-up.
+- Historical next checkpoint (superseded; use Current handoff): Check the three prediction questions on Android, then continue to Module 2 lesson questions. Reviews/final assessment remain deferred.
 
 
 ### Module 1 — Jacke speaking substitution (2026-11-01)
@@ -216,7 +236,8 @@ Scope: authored course definitions and lesson question banks, not browser/runtim
 - Teach Jacke as the introductory J example and use Jacke for the existing J speaking task. Replace the new-word prediction Jacke with Jahr; keep Jahr out of earlier alphabet questions so it remains unfamiliar for that prediction. Hear Jahr remains available after checking, with no microphone requirement for Jahr.
 - Supersedes earlier alphabet word assignments; W/V tasks, ten-question total, umlaut lesson, separate pronunciation practice and module review remain unchanged.
 - Validation: JavaScript syntax and actual script-order/module-one lesson checks pass, including Jacke teaching/speaking and prediction-only Jahr. No browser testing; recognition of Jacke awaits user-device confirmation.
-- Status: Ready for user test. Commit reference: the commit adding this entry.
+- Current status: Done / user approved (2026-11-01); see approval checkpoint.
+- Status when this batch was recorded: Ready for user test. Commit reference: the commit adding this entry.
 
 
 ### CUR-03 — Module 2 Lesson 1: Greetings and polite expressions (2026-11-01)
@@ -225,8 +246,9 @@ Scope: authored course definitions and lesson question banks, not browser/runtim
 - Written recall is limited to Danke and gut. Tschüss becomes a contextual choice; longer expressions remain choices/partial completion. Feedback explains each expression’s role, including the distinction between getting attention, apologizing and replying to thanks.
 - Deferred review decision: after lesson questions are refined, add gradual recall of earlier material in module reviews and assess the separate Review area’s current scheduling before proposing ongoing spaced recall. Progress from supported completion to full-expression typing; consider length-sensitive minor typo tolerance with visible spelling correction, while rejecting wrong expressions/grammar and preserving strict sound/spelling checks. No recall scheduler, typo tolerance or dedicated review redesign implemented in this batch.
 - Validation: modified JavaScript parses; actual script order and 30 randomized effective greeting banks verified for all seven communication goals, shuffled answer mappings, short-only typing and retained listening. Compared all other teaching packs and this lesson’s teaching/examples with the unchanged baseline. Existing Module 1 lesson/review, answer-audio, written-answer and results checks pass. No browser/device test.
-- Status: Ready for user test. Commit reference: the commit adding this entry.
-- Next checkpoint: user checks Module 2 Lesson 1; then inspect and refine Lesson 2 (Introducing yourself). Keep module-review/final-assessment redesign deferred.
+- Current status: Done / user approved (2026-11-01); see approval checkpoint.
+- Status when this batch was recorded: Ready for user test. Commit reference: the commit adding this entry.
+- Historical next checkpoint (superseded; use Current handoff): user checks Module 2 Lesson 1; then inspect and refine Lesson 2 (Introducing yourself). Keep module-review/final-assessment redesign deferred.
 
 
 ### Module 1 Lesson 2 — Focused sound/spelling replacements (2026-11-01)
@@ -235,8 +257,9 @@ Scope: authored course definitions and lesson question banks, not browser/runtim
 - Replaced Fuß/Fluss matching/comparison with separate Fu_/Flu_ completions, choosing ß/ss from the heard long/short vowel. Added the agreed Straße ß-sound question (S versus B/Z).
 - Nine questions total after removing redundancy: four focused choices, two retained Käse/Straße tile tasks, one retained ä/ü recording match and two retained strict fünf/heißen dictations. Specific feedback and guarded replay follow the focused choices. Teaching, pronunciation Lesson 3 and module review unchanged.
 - Validation: JavaScript syntax; actual script-order lesson-bank checks; 80 randomized o/ö/answer-order trials; ß/ss mappings, sound choice, post-check replay and duplicate/stale guards. Existing matching/tile/gap handler, Module 1 review, answer-audio and results regression checks pass. No browser/device testing.
-- Status: Ready for user test. Commit reference: the commit adding this entry.
-- Next checkpoint: User checks these Module 1 Lesson 2 replacements; Module 2 Lesson 2 remains the next unedited content batch. Dedicated review improvement remains deferred.
+- Current status: Done / user approved (2026-11-01); see approval checkpoint.
+- Status when this batch was recorded: Ready for user test. Commit reference: the commit adding this entry.
+- Historical next checkpoint (superseded; use Current handoff): User checks these Module 1 Lesson 2 replacements; Module 2 Lesson 2 remains the next unedited content batch. Dedicated review improvement remains deferred.
 
 
 ### Module 2 Lesson 1 — Concise feedback and punctuation fix (2026-11-01)
@@ -244,20 +267,22 @@ Scope: authored course definitions and lesson question banks, not browser/runtim
 - Shortened the longer greeting/politeness explanations to the tested expression’s meaning or use; removed end punctuation from all three choices in that one question. Correct punctuation remains in teaching and feedback.
 - Retained all 15 questions, answers, topic coverage and existing checking/audio behavior. Scope is this lesson only.
 - Validation: JavaScript parsing, 30 randomized effective banks in actual script order, short-only typing/topic/answer checks, unchanged teaching and other packs, punctuation/feedback-length assertions and answer-choice audio checks pass. No browser/device testing.
-- Status: Ready for user test. Commit reference: the commit adding this entry.
+- Current status: Done / user approved (2026-11-01); see approval checkpoint.
+- Status when this batch was recorded: Ready for user test. Commit reference: the commit adding this entry.
 
 
 ### Module 1 Lesson 3 — ie speaking example (2026-11-01)
 - User reports Liebe being transcribed as lieber on their phone. Keep the speaking format as guided sound practice; completion tracks attempts rather than pronunciation accuracy.
 - Swap only the ie drill examples: speaking target sieben (seven), additional listening example Liebe (love). Keep the same ie explanation, 15 drills, microphone handling and progress rules.
 - Validation: JavaScript syntax and existing pronunciation renderer/recognition regression checks pass. Device recognition of sieben is unverified and awaits user test. No browser testing.
-- Status: Ready for user test. Commit reference: the commit adding this entry.
+- Current status: Done / user approved (2026-11-01); see approval checkpoint.
+- Status when this batch was recorded: Ready for user test. Commit reference: the commit adding this entry.
 
 
 ### Module 1 Lesson 2 — Silent spelling choices and matching follow-up (2026-11-01)
 - User reports that selecting ß in the ß/ss completion speaks the symbol unnecessarily. Disable automatic answer-choice playback only for ß/ss-only choice banks; retain dedicated word playback and ordinary German-word answer playback.
 - User asks whether the remaining Mädchen/Käse/fünf match meaningfully tests umlauts. Assessment: limited diagnostic value, because learners can match whole words using length/consonants rather than the target vowel. Replacement remains under discussion; no matching-question changes made in this batch.
-- Validation: JavaScript parsing, existing answer-choice audio checks and a targeted check that both spelling choices stay silent while selection and full-word playback work. No browser/device test. Status: Ready for user test.
+- Validation: JavaScript parsing, existing answer-choice audio checks and a targeted check that both spelling choices stay silent while selection and full-word playback work. No browser/device test. Current status: Done / user approved (2026-11-01).
 
 
 ### Module 1 Lesson 2 — Tür teaching and final matching replacement (2026-11-01)
@@ -265,7 +290,7 @@ Scope: authored course definitions and lesson question banks, not browser/runtim
 - Replaced the remaining Mädchen/Käse/fünf match with one concealed Tür recording and T_r completion using shuffled u/ü choices. Feedback gives the correct word/meaning and replay. Nine questions retained; no whole-word matching remains in this lesson.
 - Existing ä tiles, o/ö listening, ß/ss tasks and dictation remain. Unfamiliar-word transfer and review changes stay deferred.
 - Validation: modified JavaScript syntax; actual script-order lesson-bank checks; targeted Tür/ü and feedback-audio checks; listening-handler checks; real teaching/audio/presentation rendering across 119 guides, including Tür’s own audio row and repeat-render deduplication; module-review checks pass. Updated the presentation test’s expected lesson audio count and supplied missing DOM-double replaceChildren/contains methods. No browser/device test.
-- Status: Requested Lesson 2 refinements complete; awaiting user confirmation on device. Commit reference: the commit adding this entry. Next planned lesson-question batch remains Module 2 Lesson 2.
+- Current status: Done / user approved (2026-11-01). Original implementation status: Lesson 2 refinements complete; awaiting user confirmation on device. Commit reference: the commit adding this entry. Next planned lesson-question batch remains Module 2 Lesson 2.
 
 
 ### Side note — intermittent pronunciation navigation/dictionary overlay (2026-11-01)
