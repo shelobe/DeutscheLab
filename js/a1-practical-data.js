@@ -11610,7 +11610,7 @@ window.DL_A1_PRACTICAL_PACKS = {
    [
     "Listen for the difference",
     [
-     "J often sounds like English y: Januar (January).",
+     "J often sounds like English y: Jacke (jacket).",
      "W sounds like English v: Wasser (water).",
      "V often sounds like English f in familiar native words: Vater (father)."
     ]
@@ -11626,8 +11626,8 @@ window.DL_A1_PRACTICAL_PACKS = {
   ],
   "examples": [
    [
-    "Januar",
-    "January — J sounds like English Y"
+    "Jacke",
+    "jacket — J sounds like English Y"
    ],
    [
     "Wasser",

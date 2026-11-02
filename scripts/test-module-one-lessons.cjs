@@ -25,19 +25,20 @@ for(let attempt=0;attempt<40;attempt++){
  assert.equal(bank.filter(q=>q.type==='speak-word').length,3);
  for(const q of bank){assert.ok(q.why);assert.ok(q.options[q.answer]);assert.equal(new Set(q.options).size,q.options.length);}
  const predictions=bank.filter(q=>q.dlPredictionWord);
- assert.deepEqual(predictions.map(q=>q.dlPredictionWord),['Jacke','Weg','vier']);
+ assert.deepEqual(predictions.map(q=>q.dlPredictionWord),['Jahr','Weg','vier']);
  for(const q of predictions){
   assert.ok(!q.dlReviewAudio&&!q.dlAudioWords,'No target playback before answering');
   assert.ok(q.options[q.answer].includes(q.dlPredictionLetter==='J'?'Y in yes':q.dlPredictionLetter==='W'?'V in van':'F in fish'));
   answerPositions.add(q.answer);
  }
- assert.deepEqual(bank.filter(q=>q.type==='speak-word').map(q=>q.dlSpeakWord),['Jahr','Winter','Vogel']);
+ assert.deepEqual(bank.filter(q=>q.type==='speak-word').map(q=>q.dlSpeakWord),['Jacke','Winter','Vogel']);
+ assert.equal(bank.filter(q=>q.prompt.includes('Jahr')).length,1,'Jahr stays unfamiliar until its prediction');
  assert.ok(bank.every(q=>!/[äöüß]/i.test(q.prompt)),'No umlauts in Lesson 1');
  assert.ok(!bank.some(q=>/letter.*count|how many letters|word meaning/i.test(q.prompt)));
 }
 assert.equal(answerPositions.size,3,'Prediction correct positions must vary');
 const intro=plain(run('DL_LESSON_ENRICHMENT["A1|Alphabet and spelling"]'));
-assert.deepEqual(intro.examples.map(x=>x[0]),['Januar','Wasser','Vater']);
+assert.deepEqual(intro.examples.map(x=>x[0]),['Jacke','Wasser','Vater']);
 assert.ok(!/Jahr|Winter|Vogel/.test(JSON.stringify(intro.sections)),'Transfer words are reserved for practice');
 run('fullBegin('+moduleIds[1]+')');
 const umlaut=plain(run('fullSession.questions'));

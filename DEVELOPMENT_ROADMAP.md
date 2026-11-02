@@ -208,3 +208,11 @@ Scope: authored course definitions and lesson question banks, not browser/runtim
 - Validation: real script order and 40 randomized lesson starts; scoped renderer checks initial-letter emphasis, no pre-answer audio, right/wrong post-answer playback, native score preservation and duplicate/stale-control guards. Module-review, umlaut interaction, answer-audio and global-results regression checks pass. JavaScript syntax checks pass. No browser/device testing.
 - Status: Ready for user test; this entry supersedes the previous batch’s three audio-choice slots. Commit reference: the commit adding this follow-up.
 - Next checkpoint: Check the three prediction questions on Android, then continue to Module 2 lesson questions. Reviews/final assessment remain deferred.
+
+
+### Module 1 — Jacke speaking substitution (2026-11-01)
+- User-device finding: microphone does not reliably recognize Jahr.
+- Teach Jacke as the introductory J example and use Jacke for the existing J speaking task. Replace the new-word prediction Jacke with Jahr; keep Jahr out of earlier alphabet questions so it remains unfamiliar for that prediction. Hear Jahr remains available after checking, with no microphone requirement for Jahr.
+- Supersedes earlier alphabet word assignments; W/V tasks, ten-question total, umlaut lesson, separate pronunciation practice and module review remain unchanged.
+- Validation: JavaScript syntax and actual script-order/module-one lesson checks pass, including Jacke teaching/speaking and prediction-only Jahr. No browser testing; recognition of Jacke awaits user-device confirmation.
+- Status: Ready for user test. Commit reference: the commit adding this entry.

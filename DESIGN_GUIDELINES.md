@@ -211,5 +211,7 @@ This document records established product decisions. The current `main` branch i
 
 
 ## Alphabet sound predictions
-- The three Alphabet and spelling sound-prediction questions show a new word (Jacke, Weg or vier), underline its initial letter and ask which English example sound it represents. Offer text choices, without a target recording before the answer is checked.
+- The three Alphabet and spelling sound-prediction questions show a new word (Jahr, Weg or vier), underline its initial letter and ask which English example sound it represents. Offer text choices, without a target recording before the answer is checked.
 - After native Check and feedback, offer Hear followed by the word on both correct and incorrect answers. Playback supports learning the applied rule; no microphone is required for these questions. Preserve the separate existing speaking tasks, normal scoring, fixed navigation and feedback artwork. This replaces the three widely different audio-choice questions only.
+
+- Alphabet J example (2026-11-01): teach Jacke (jacket) and use Jacke for microphone practice. Reserve Jahr for the written sound prediction with post-answer playback; do not require learners to say Jahr into the microphone.
