@@ -44,6 +44,25 @@ This roadmap tracks planned work; an item marked "Needs audit" is not a verified
 
 Priority: P0 = current focus; P1 = next; P2 = follow-on; P3 = later. This is an initial planning list, not a claim that each item is currently defective.
 
+
+## A1 audit findings register — update between audit batches (2026-11-01)
+
+**Purpose:** Keep an evidence-based record of issues, proposed improvements and decisions while the A1 audit proceeds. **Finding** means observed in authored repository data; **investigate** means not yet verified across runtime/custom question handlers. No recommendations below authorize automatic code changes.
+
+| ID | Area / evidence | Finding or concern | Suggested improvement | Priority | Status |
+|---|---|---|---|---|---|
+| A1-AUD-01 | Early greetings and introductions; authored situational multiple-choice questions | Good practical situations, but correct German expressions are frequently supplied as choices; independent recall not yet established | Preserve contextual recognition tasks, then add short completion or typed responses after teaching, where appropriate | P1 | Investigate runtime mix |
+| A1-AUD-02 | The verb sein and The verb haben; authored blanks such as `Ich ___ müde` and `Du ___ Zeit` | Multiple questions emphasize pronoun-to-form selection; risk of mechanical repetition | Retain foundational conjugation checks, then add meaning-based prompts, sentence construction and short original responses | P1 | Authored pattern observed; audit full question path |
+| A1-AUD-03 | People and names: Sentence patterns | Authored word-order distractors and explanations identify verb-second position; recent sentence-chunk exercise adds construction | Preserve these strengths; assess whether the chunk approach can be selectively reused after confirming its current behavior | P2 | Positive reference / follow-up |
+| A1-AUD-04 | People and names: Understanding in context | Appropriate situations but several questions supply whole German sentences, potentially permitting recognition without retrieval | Check the proportion of recognition vs production; introduce recall/short response only where it adds learning value | P1 | Investigate runtime mix |
+| A1-AUD-05 | Forms and personal details | Form fields, residence and spelling requests have clear practical relevance | Preserve coverage; use as a model for functional A1 tasks | P2 | Positive reference |
+| A1-AUD-06 | Specific incorrect-answer explanations (CUR-08) | A previously inspected authored `Er heißt Thomas` explanation discussed `Freund/Freundin`, rather than the tested sentence; content may be overridden in the active lesson | Audit final effective question bank and feedback; replace unrelated explanations with mistake-specific reasons while preserving already useful explanations | P1 | Needs verification in current runtime |
+| A1-AUD-07 | A1 course overall | Structure covers a broad set of practical topics, but 101 lessons and module reviews have not been exhaustively audited | Continue lesson-by-lesson objective/teaching/question inventory, module-review alignment, CEFR A1 coverage, listening/speaking and retention checks | P0 | In progress |
+
+**Already tracked separately:** CUR-02's four follow-ups (early modal chunks, separable-verb prerequisites, concentrated dative, and independent Perfekt production) remain below; do not duplicate or treat them as confirmed defects.
+
+**Next audit checkpoint:** Continue beyond the initial introductions/verbs sample, comparing actual authored guides, effective question selection/custom handlers, and module-review tasks. Record each concrete issue, existing strength, recommendation, evidence and disposition here before moving to the next batch.
+
 ## A1 quality checklist (apply to each lesson batch)
 - [ ] Specific communicative learning objective is stated.
 - [ ] All assessed words, phrases and grammar have been taught with usable examples.
