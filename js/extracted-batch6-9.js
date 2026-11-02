@@ -26,15 +26,47 @@
    const correct=choices[right],options=shuffle(choices);
    return {type:'grammar',prompt,options,answer:options.indexOf(correct),why,dlEnriched:true};
   });
-  const listening=speaking.map(([word,,why])=>{
-   const words=shuffle(speaking.map(([text])=>text));
-   return {type:'sound-choice',prompt:'Which audio says “'+word+'”?',options:words.map((_,i)=>'Audio '+(i+1)),answer:words.indexOf(word),why,dlAudioWords:words,dlTarget:word,dlEnriched:true};
+  // Predict a taught letter sound in a new word before hearing that word.
+  const predictions=[
+   ['Jacke','J','Like English Y in yes',['Like English J in jam','Like English W in water'],'Jacke begins with the y sound in English yes. Apply the same German J rule as in Januar. Jacke means jacket.'],
+   ['Weg','W','Like English V in van',['Like English W in water','Like English F in fish'],'Weg begins with the English v sound. Apply the same German W rule as in Wasser. Weg means way or path.'],
+   ['vier','V','Like English F in fish',['Like English V in van','Like English Y in yes'],'In vier, v sounds like English f, just as in Vater. This is common in native German words, but some borrowed words use a v sound. Vier means four.']
+  ].map(([word,letter,correct,others,why])=>{
+   const options=shuffle([correct,...others]);
+   return {type:'grammar',prompt:'Look at this new word: '+word+'. How does the '+letter+' sound?',options,answer:options.indexOf(correct),why,dlEnriched:true,dlPredictionWord:word,dlPredictionLetter:letter};
   });
   const speakingChecks=speaking.map(([word,meaning,why])=>({type:'speak-word',prompt:'Listen, then say this German word aloud',options:['Recognized','Try again'],answer:0,dlSpeakWord:word,dlSpeakMeaning:meaning,why}));
-  // Keep rule application, listening and spoken production; avoid duplicate rule recall.
-  fullSession.questions=[...knowledge.slice(0,2),listening[0],speakingChecks[0],knowledge[2],listening[1],speakingChecks[1],listening[2],speakingChecks[2],knowledge[3]];
+  // Keep existing checks and speaking; replace only the three broad audio-choice slots.
+  fullSession.questions=[...knowledge.slice(0,2),predictions[0],speakingChecks[0],knowledge[2],predictions[1],speakingChecks[1],predictions[2],speakingChecks[2],knowledge[3]];
   fullSession.idx=0;fullSession.score=0;fullSession.results=[];
   fullRender();
+  return result;
+ };
+ // The target recording is available only after the native answer is checked.
+ const priorCheck=dlCheck;
+ dlCheck=function(){
+  const result=priorCheck.apply(this,arguments);
+  const session=fullSession,q=session?.questions?.[session.idx];
+  if(FULL_UNITS[session?.id]!==lesson||!q?.dlPredictionWord||!dlAnswered)return result;
+  const feedback=document.querySelector('#dl-result .dl-flow-feedback');
+  if(!feedback||feedback.querySelector('.dl-prediction-playback'))return result;
+  const button=document.createElement('button');button.type='button';button.className='secondary dl-prediction-playback';button.textContent='🔊 Hear '+q.dlPredictionWord;
+  button.onclick=()=>{if(fullSession===session&&session.questions[session.idx]===q&&dlAnswered)speak(q.dlPredictionWord);};
+  feedback.append(button);
+  return result;
+ };
+ const priorRender=fullRender;
+ fullRender=function(){
+  const result=priorRender.apply(this,arguments);
+  const session=fullSession,q=session?.questions?.[session.idx];
+  if(FULL_UNITS[session?.id]!==lesson||!q?.dlPredictionWord)return result;
+  const heading=document.querySelector('.dl-flow-card h2');
+  if(heading){
+   const word=document.createElement('span'),initial=document.createElement('strong');
+   initial.textContent=q.dlPredictionWord[0];initial.style.textDecoration='underline';
+   word.append(initial,document.createTextNode(q.dlPredictionWord.slice(1)));
+   heading.replaceChildren(document.createTextNode('Look at this new word: '),word,document.createElement('br'),document.createTextNode('How does the '+q.dlPredictionLetter+' sound?'));
+  }
   return result;
  };
  const oldStudy=fullStudy;

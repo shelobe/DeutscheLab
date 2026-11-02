@@ -199,3 +199,12 @@ Scope: authored course definitions and lesson question banks, not browser/runtim
 - Validation: all 149 previously tracked JavaScript files parse; the new module lesson test also parses and passes. Real script-order test exercises 40 randomized alphabet starts and the effective umlaut bank. Existing umlaut interaction, module review, pronunciation, answer-audio and global results tests pass. The unrelated lesson-audio-layout test fails at its existing 0-versus-14 assertion on both the unchanged baseline f0905db and this batch; not caused or corrected by these edits.
 - Status: Ready for user test. No browser or Android test performed. Commit reference: the commit introducing this batch entry.
 - Next checkpoint: User checks Module 1 lesson questions on Android; then continue to Module 2 lesson questions. Module reviews/final assessment remain deferred until lesson questions are finished. Preserve already useful exercises and verify each reported mismatch before editing it.
+
+
+### CUR-03 — Module 1 new-word prediction follow-up (2026-11-01)
+- User feedback: selecting among recordings of Jahr/Winter/Vogel is too easy because the complete words differ greatly; it does not directly establish use of the intended letter-sound rule.
+- Approved replacement: show an unfamiliar written word, emphasize its initial letter and ask the learner to predict that letter’s sound before hearing the word. Three replacements use Jacke (J → English y), Weg (W → English v), and vier (v → English f). Meanings are supplied in feedback, not assessed.
+- Each prediction provides guarded word playback after the native answer check, on both correct and incorrect answers. Retain the other seven alphabet tasks, all umlaut tasks, separate pronunciation practice and module review.
+- Validation: real script order and 40 randomized lesson starts; scoped renderer checks initial-letter emphasis, no pre-answer audio, right/wrong post-answer playback, native score preservation and duplicate/stale-control guards. Module-review, umlaut interaction, answer-audio and global-results regression checks pass. JavaScript syntax checks pass. No browser/device testing.
+- Status: Ready for user test; this entry supersedes the previous batch’s three audio-choice slots. Commit reference: the commit adding this follow-up.
+- Next checkpoint: Check the three prediction questions on Android, then continue to Module 2 lesson questions. Reviews/final assessment remain deferred.
