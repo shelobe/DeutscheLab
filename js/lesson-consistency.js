@@ -158,8 +158,8 @@
   if(q.dlLanguageChoices&&FULL_UNITS[s.id]?.title==='Countries, nationalities and languages'){
    const choices=card.querySelector('.dl-flow-options'),check=document.getElementById('dl-check');
    if(choices&&check){
-    const area=document.createElement('div');area.className='dl-practical-input';
-    const instruction=document.createElement('p');instruction.textContent='Select two languages.';area.append(instruction);
+    const area=document.createElement('div');area.className='dl-practical-input dl-language-selection';
+    const instruction=document.createElement('p');instruction.textContent='Select two languages. Tap a selected language again to deselect it.';area.append(instruction);
     const selected=new Set(),buttons=[];
     function refresh(){
      const ready=selected.size===2;
@@ -167,7 +167,7 @@
      const label=pair?pair.map(i=>q.dlLanguageChoices[i]).join(' and '):null;
      dlSelected=ready?q.options.indexOf(label):null;
      check.disabled=!ready;
-     buttons.forEach((b,i)=>{b.setAttribute('aria-pressed',String(selected.has(i)));b.classList.toggle('selected',selected.has(i));b.disabled=ready&&!selected.has(i);});
+     buttons.forEach((b,i)=>{b.setAttribute('aria-pressed',String(selected.has(i)));b.textContent=(selected.has(i)?'✓ ':'')+q.dlLanguageChoices[i];b.classList.toggle('selected',selected.has(i));b.disabled=ready&&!selected.has(i);});
      window.dlRefreshFixedNext?.();
     }
     q.dlLanguageChoices.forEach((text,i)=>{
@@ -181,7 +181,7 @@
   if(q.dlReviewAudio){
    const audio=document.createElement('div');audio.className='dl-practical-audio';
    const listen=document.createElement('button'),slow=document.createElement('button');
-   listen.type=slow.type='button';listen.textContent='Listen to the word';slow.textContent='Listen slowly';slow.className='secondary';
+   listen.type=slow.type='button';listen.textContent=q.dlLanguageChoices?'Listen to the speaker':'Listen to the word';slow.textContent='Listen slowly';slow.className='secondary';
    listen.onclick=()=>{if(fullSession===s&&!dlAnswered)speak(q.dlReviewAudio)};
    slow.onclick=()=>{if(fullSession===s&&!dlAnswered)speak(q.dlReviewAudio,.7)};
    audio.append(listen,slow);heading.after(audio);
@@ -212,5 +212,6 @@
  style.textContent+=' .dl-chunk-edit{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.dl-chunk-edit button{min-height:44px}.dl-chunk-hint{margin:12px 0}.dl-chunk-hint summary{cursor:pointer;min-height:44px;display:list-item;font-weight:700}.dl-chunk-hint p{margin:8px 0}';
  style.textContent+=' #app .dl-chunk-hint{margin:16px 0 0;border:1px solid #b59a61;border-radius:14px;background:#443e30;color:#fff0cd;overflow:hidden}#app .dl-chunk-hint summary{display:flex;align-items:center;gap:10px;min-height:48px;box-sizing:border-box;padding:12px 15px;list-style:none;cursor:pointer;font-weight:700}#app .dl-chunk-hint summary::-webkit-details-marker{display:none}#app .dl-chunk-hint summary::after{content:"+";margin-left:auto;font-size:1.3em}#app .dl-chunk-hint[open] summary::after{content:"−"}#app .dl-chunk-hint summary:focus-visible{outline:2px solid #f4d58d;outline-offset:-4px;border-radius:12px}#app .dl-chunk-hint[open] summary{border-bottom:1px solid #746443}#app .dl-chunk-hint p{margin:0;padding:12px 15px 15px;line-height:1.5}';
  style.textContent+=' #app .dl-chunk-question-header{display:flex;align-items:flex-start;gap:10px;margin-bottom:16px}#app .dl-chunk-question-header h2{flex:1;min-width:0;margin-bottom:0}#app .dl-chunk-hint-button{flex:0 0 auto;min-height:44px;margin:0;padding:10px 12px;border:1px solid #b59a61;border-radius:12px;background:#443e30;color:#fff0cd;font-size:.9rem;white-space:nowrap}#app .dl-chunk-hint-dialog{box-sizing:border-box;width:min(400px,calc(100vw - 40px));max-height:calc(100dvh - 48px);overflow:auto;padding:22px;border:1px solid #b59a61;border-radius:18px;background:#443e30;color:#fff0cd;box-shadow:0 16px 50px #0008}#app .dl-chunk-hint-dialog::backdrop{background:#081522b3}#app .dl-chunk-hint-dialog h3{margin:0 0 12px}#app .dl-chunk-hint-dialog p{line-height:1.5;margin:0 0 18px}#app .dl-chunk-hint-dialog button{min-height:44px;margin:0}';
+ style.textContent+=' #app .dl-language-selection>button{margin:0;min-height:48px;border:2px solid transparent}#app .dl-language-selection>button[aria-pressed="true"]{background:#68cdbb!important;color:#102b35!important;border-color:#c2f6e8!important;box-shadow:0 0 0 1px #c2f6e8;font-weight:800}#app .dl-language-selection>button:focus-visible{outline:3px solid #f4d58d;outline-offset:3px}';
  document.head.append(style);
 })();

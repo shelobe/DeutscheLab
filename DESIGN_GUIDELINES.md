@@ -245,3 +245,5 @@ This document records established product decisions. The current `main` branch i
 ## Module 2 Lesson 3 practice
 - Countries, nationalities and languages uses twelve varied questions, including nationality recognition, polite origin questions, language listening and a two-language listening selection. Teach Frankreich and und with playback before the combined recording. Do not require full French/German language-name spelling at this stage; later recall can revisit it. Keep the short existing Englisch/aus recall tasks and origin/home listening contrast.
 - The two-language lesson task uses English toggle buttons, requires exactly two selections, and delegates checking, feedback and saving to the native lesson flow. Module reviews use equivalent language-pair choices. Keep the transcript hidden until feedback. Teach aus den USA as a phrase without requiring article rules yet.
+
+- Two-language selections visibly show a checkmark and teal selected state using aria-pressed. Selected choices remain tappable to deselect; explain this next to the activity. Keep compact button spacing and label the combined recording Listen to the speaker.
