@@ -25,7 +25,7 @@ for(let attempt=0;attempt<40;attempt++){
  assert.equal(bank.filter(q=>q.type==='speak-word').length,3);
  for(const q of bank){assert.ok(q.why);assert.ok(q.options[q.answer]);assert.equal(new Set(q.options).size,q.options.length);}
  const predictions=bank.filter(q=>q.dlPredictionWord);
- assert.deepEqual(predictions.map(q=>q.dlPredictionWord),['Jahr','Weg','vier']);
+ assert.deepEqual(predictions.map(q=>q.dlPredictionWord).sort(),['Jahr','Wald','Weg','vier'].sort());
  for(const q of predictions){
   assert.ok(!q.dlReviewAudio&&!q.dlAudioWords,'No target playback before answering');
   assert.ok(q.options[q.answer].includes(q.dlPredictionLetter==='J'?'Y in yes':q.dlPredictionLetter==='W'?'V in van':'F in fish'));
@@ -55,7 +55,7 @@ assert.ok(!umlaut.some(q=>q.dlLessonMode==='compare'));
 const door=umlaut.find(q=>q.dlReviewAudio==='Tür');assert.equal(door.prompt,'Listen and complete: T_r.');assert.equal(door.options[door.answer],'ü');assert.equal(door.dlFeedbackAudio,'Tür');
 for(const word of ['Fuß','Fluss'])assert.ok(umlaut.some(q=>q.dlReviewAudio===word&&q.options[q.answer]===(word==='Fuß'?'ß':'ss')));
 assert.deepEqual(plain(run('FULL_UNITS.map(u=>({title:u.title,level:u.level}))')),beforeUnits);
-console.log('PASS: actual script order; 40 alphabet sessions with 4 existing applied checks, 3 new-word predictions and 3 retained speaking tasks; practice-only words; nine focused umlaut tasks; answer-specific feedback; strict heißen dictation; stable lesson IDs.');
+console.log('PASS: actual script order; 40 alphabet sessions with 3 existing applied checks, 4 new-word predictions and 3 retained speaking tasks; practice-only words; nine focused umlaut tasks; answer-specific feedback; strict heißen dictation; stable lesson IDs.');
 
 // Exercise the actual scoped prediction renderer and post-check audio handler.
 class NodeDouble{

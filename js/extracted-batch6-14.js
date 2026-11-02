@@ -44,7 +44,8 @@
       "dlEnriched": true,
       "dlStrictSpelling": true,
       "dlLessonMode": "tiles",
-      "spellingWord": "Käse"
+      "spellingWord": "Käse",
+      "spellingDistractors": ["a"]
     },
     {
       "type": "grammar",

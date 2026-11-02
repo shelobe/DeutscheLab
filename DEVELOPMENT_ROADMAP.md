@@ -9,7 +9,7 @@ This summary and Current handoff are authoritative for resuming work. Dated batc
 | Scope | Current status | Next action |
 |---|---|---|
 | A1 authored-content audit, all 22 modules | Complete | Use recorded findings during scoped improvements; this is not proof of course-wide runtime or learning-outcome validation. |
-| Module 1 Lessons 1–3 | Done / user approved | Preserve approved questions and speaking practice. |
+| Module 1 Lessons 1–3 | User-approved baseline; two authorized follow-ups ready for user test | Check Wald prediction and Käse distractor; other approved content preserved. |
 | Module 2 Lesson 1 | Done / user approved | Preserve approved questions and concise feedback. |
 | Module 2 Lesson 2 — Introducing yourself: heißen and wohnen | Ready for user test | Ten revised questions; await device feedback. |
 | Module 2 Lesson 3 — Countries, nationalities and languages | Next / not yet revised in this pass | Inspect current teaching and effective questions before editing. |
@@ -321,3 +321,11 @@ Scope: authored course definitions and lesson question banks, not browser/runtim
 - Lesson 2: nine tasks cover ä with Käse tiles, o/ö listening, ü with taught Tür and fünf dictation, and ß/ss spelling/sound. Broad word matching is removed. Tile banks constrain the possible spelling, so they are supported practice rather than independent dictation; retain the format variety and approved scope.
 - Lesson 3: fifteen guided speaking drills; ie target sieben, extra example Liebe. Completion records attempts, not validated pronunciation mastery. Recognition limitations and the intermittent dictionary-overlay monitor note remain.
 - Assessment: no blocking content issue identified in this code-level pass. Preserve the user’s Module 1 approval. Minor observations above are follow-ups, not approved edits; dedicated review/retention work remains deferred.
+
+
+### Module 1 — Two approved minor improvements (2026-11-01)
+- Replaced the visually obvious Wasser/Winter same-starting-sound item with Wald initial-sound prediction (English V/W/F choices), using existing letter emphasis and playback after checking. Lesson 1 remains ten tasks: three applied checks, four predictions and three speaking tasks.
+- Added one a distractor to the Käse tile activity. Shared helper supports optional spare tiles; answer length/readiness follow Käse’s four letters, not the five bank tiles. Strict ä scoring, Undo and Start over remain. Other tile activities opt out and retain their original banks.
+- Resolves the two minor points recorded in the Module 1 re-review. Other approved Module 1 content is unchanged.
+- Validation: modified JavaScript syntax, actual script-order Module 1 checks, umlaut handlers, distractor-specific correct/incorrect scoring and target-length/Undo/reset checks, and existing Module 1 review tests pass. No browser/device testing.
+- Status: Ready for user test for these two refinements; prior Module 1 approval remains the baseline. Module 2 Lesson 2 still awaits user test; next content task remains Module 2 Lesson 3.

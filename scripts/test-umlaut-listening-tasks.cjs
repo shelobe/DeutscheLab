@@ -87,3 +87,12 @@ dataContext.dlAnswered=true;dataContext.dlCheck();dataContext.dlCheck();assert.e
 const replay=feedback.children[0],target=dataContext.fullSession.questions[0].dlFeedbackAudio;
 replay.click();assert.deepEqual(replayed,[target]);dataContext.fullSession.idx++;replay.click();assert.equal(replayed.length,1);
 console.log('PASS: 80 randomized vowel/choice banks; long/short vowel ß/ss mapping; no duplicate comparison; ß sound; post-check-only replay and stale/duplicate guards.');
+
+const cheese={dlLessonMode:'tiles',spellingWord:'Käse',spellingDistractors:['a'],options:['Käse','Try again'],answer:0};
+open(cheese);
+assert.equal(app.querySelector('.dl-spelling-letter-bank').children.length,5);
+assert.equal(app.querySelector('.dl-spelling-word').textContent,'_ _ _ _');
+for(const ch of 'Kase')button(ch).click();assert(!check.disabled,'Four-letter answer is ready despite spare tile');check.onclick();assert.equal(submissions.at(-1),1,'Plain a is incorrect');
+open(cheese);for(const ch of 'Käse')button(ch).click();assert(!check.disabled);button('Undo').click();assert(check.disabled);button('e').click();assert(!check.disabled);button('Start over').click();assert(check.disabled);
+for(const ch of 'Käse')button(ch).click();check.onclick();assert.equal(submissions.at(-1),0);
+console.log('PASS: optional distractor tile; correct target-length gating and blanks; a rejected/ä accepted; Undo/Start over with a spare tile.');

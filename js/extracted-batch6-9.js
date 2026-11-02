@@ -10,7 +10,7 @@
   ['In Jacke (jacket), how does J sound?', ['Like English Y in yes','Like English J in jam','Like English V in van'],0,'Jacke starts with the y sound in English yes. German J does not make the English j sound in jam.'],
   ['In Winter (winter), how does W sound?', ['Like English V in van','Like English W in water','Like English F in fish'],0,'Winter starts with the English v sound, just like Wasser. German W is not pronounced like English w.'],
   ['In Vogel (bird), how does V sound?', ['Like English F in fish','Like English V in van','Like English Y in yes'],0,'Vogel starts with an f sound, just like Vater. German V often has this sound in common native words; it does not always sound like English v.'],
-  ['Which pair begins with the same sound?', ['Wasser and Winter','Vater and Winter','Jacke and Vater'],0,'Wasser and Winter both begin with the English v sound. Vater begins with f; Jacke begins with y. Match the spoken sound, rather than applying English letter sounds.']
+  ['Look at this new word: Wald. How does the W sound?', ['Like English V in van','Like English W in water','Like English F in fish'],0,'Wald starts with the English v sound, just like Wasser. Wald means forest.','Wald']
  ];
  const speaking=[
   ['Jacke','jacket','German J sounds like English Y. Listen to Jacke, then say it aloud.'],
@@ -22,9 +22,9 @@
  fullBegin=function(id){
   const result=oldBegin.apply(this,arguments);
   if(FULL_UNITS[id]!==lesson||!fullSession)return result;
-  const knowledge=shuffle(questions).map(([prompt,choices,right,why])=>{
+  const knowledge=shuffle(questions).map(([prompt,choices,right,why,predictionWord])=>{
    const correct=choices[right],options=shuffle(choices);
-   return {type:'grammar',prompt,options,answer:options.indexOf(correct),why,dlEnriched:true};
+   return {type:'grammar',prompt,options,answer:options.indexOf(correct),why,dlEnriched:true,...(predictionWord?{dlPredictionWord:predictionWord,dlPredictionLetter:'W'}:{})};
   });
   // Predict a taught letter sound in a new word before hearing that word.
   const predictions=[

@@ -7,16 +7,17 @@
   const button=(text,fn,parent=host)=>{const b=add('button',text,parent);b.type='button';b.onclick=()=>{if(alive())fn()};return b};
   host.classList.add('dl-spelling-activity');
   const word=q.spellingWord||q.options[q.answer];let chosen=[],input,bank,display;
-  const letters=shuffle(Array.from(word));
+  const targetLength=Array.from(word).length;
+  const letters=shuffle([...Array.from(word),...(q.spellingDistractors||[])]);
   const audio=add('div','');audio.className='dl-spelling-audio';
   button('Listen',()=>speak(word),audio);button('Slow',()=>speak(word,.7),audio);
   const value=()=>mode==='tiles'?chosen.map(i=>letters[i]).join(''):input.value;
   function update(){
    if(!alive())return;
    if(mode==='tiles'){
-    display.textContent=chosen.map(i=>letters[i]).join('')||'_ '.repeat(letters.length).trim();
-    Array.from(bank.children).forEach((b,i)=>b.disabled=chosen.includes(i));
-    check.disabled=chosen.length!==letters.length;
+    display.textContent=chosen.map(i=>letters[i]).join('')||'_ '.repeat(targetLength).trim();
+    Array.from(bank.children).forEach((b,i)=>b.disabled=chosen.includes(i)||chosen.length>=targetLength);
+    check.disabled=chosen.length!==targetLength;
    }else{
     input.style.width=Math.max(1,Array.from(input.value).length,Array.from(q.spellingAnswer).length)*.8+'em';
     check.disabled=!input.value.trim();
@@ -26,7 +27,7 @@
   if(mode==='tiles'){
    display=add('p','');display.className='dl-spelling-word';display.setAttribute('aria-live','polite');
    bank=add('div','');bank.className='dl-spelling-tiles dl-spelling-letter-bank';
-   letters.forEach((ch,i)=>{button(ch,()=>{chosen.push(i);update()},bank).setAttribute('aria-label','Letter '+ch)});
+   letters.forEach((ch,i)=>{button(ch,()=>{if(chosen.length<targetLength){chosen.push(i);update()}},bank).setAttribute('aria-label','Letter '+ch)});
    const tools=add('div','');tools.className='dl-spelling-tiles';
    button('Undo',()=>{chosen.pop();update()},tools);button('Start over',()=>{chosen=[];update()},tools);
   }else{
