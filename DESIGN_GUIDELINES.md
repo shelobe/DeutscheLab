@@ -237,3 +237,5 @@ This document records established product decisions. The current `main` branch i
 - Teach Tür (door) with playback inside the Ü section before its T_r → u/ü question. Retain fünf as the other ü example. Use familiar taught examples for this first lesson; unfamiliar-word transfer can be considered later. The Tür question replaces the remaining broad word match and keeps the lesson at nine tasks.
 
 - Käse’s letter-tile activity includes one extra a tile alongside ä. Use four answer positions and enable Check after four letters, leaving one tile unused. Keep strict spelling, Undo and Start over. Other tile activities retain their current banks.
+
+- Individual-letter answer banks (including o/ö, u/ü, a/ä and J/W/V) remain silent when an answer is selected, just like ß/ss choices. Dedicated Listen controls supply the audio; ordinary word and phrase answer playback remains enabled.

@@ -329,3 +329,8 @@ Scope: authored course definitions and lesson question banks, not browser/runtim
 - Resolves the two minor points recorded in the Module 1 re-review. Other approved Module 1 content is unchanged.
 - Validation: modified JavaScript syntax, actual script-order Module 1 checks, umlaut handlers, distractor-specific correct/incorrect scoring and target-length/Undo/reset checks, and existing Module 1 review tests pass. No browser/device testing.
 - Status: Ready for user test for these two refinements; prior Module 1 approval remains the baseline. Module 2 Lesson 2 still awaits user test; next content task remains Module 2 Lesson 3.
+
+
+### Module 1 — Silent letter-only answer choices (2026-11-01)
+- Extended the ß/ss auto-playback exclusion to banks consisting entirely of individual German letters (including plain vowels, umlauts and consonants). Selecting either letter is silent; dedicated Listen buttons and normal complete-word choice playback remain.
+- Validation: syntax, existing answer-choice audio checks, and targeted o/ö, u/ü, a/ä, J/W/V and ß/ss silence/selection checks pass; full-word Tür still plays. No browser/device testing. Status: Ready for user test.
