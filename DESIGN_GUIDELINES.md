@@ -239,3 +239,5 @@ This document records established product decisions. The current `main` branch i
 - Käse’s letter-tile activity includes one extra a tile alongside ä. Use four answer positions and enable Check after four letters, leaving one tile unused. Keep strict spelling, Undo and Start over. Other tile activities retain their current banks.
 
 - Individual-letter answer banks (including o/ö, u/ü, a/ä and J/W/V) remain silent when an answer is selected, just like ß/ss choices. Dedicated Listen controls supply the audio; ordinary word and phrase answer playback remains enabled.
+
+- Shared results and their mistake-review headers prefix lesson names with module.lesson (for example, 2.2), derived from the current level’s canonical path. Pronunciation practice is 1.3. Module-review results prefix the review name with the module number; reviews have no lesson number.

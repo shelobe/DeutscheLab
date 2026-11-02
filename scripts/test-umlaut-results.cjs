@@ -32,8 +32,8 @@ for(random of [0,.99])for(let score=0;score<=10;score++){
 }
 assert.equal(nativeCalls,22);
 complete(6,true);assert(c.state.learning.fullScores[0].passed,'Earlier pass survives a lower attempt');assert(app.innerHTML.includes('encourage.webp'));
-complete(0);const initial=app.innerHTML,beforeSaves=saves;
-ids['dl-umlaut-review-mistakes'].onclick();assert(app.innerHTML.includes('schon · schön'));assert(app.innerHTML.includes('Reason 0'));
+complete(0);const initial=app.innerHTML,beforeSaves=saves;assert(initial.includes('1.1 · Umlauts and ß'));
+ids['dl-umlaut-review-mistakes'].onclick();assert(app.innerHTML.includes('1.1 · Umlauts and ß · Mistake'));assert(app.innerHTML.includes('schon · schön'));assert(app.innerHTML.includes('Reason 0'));
 ids['dl-umlaut-mistake-audio'].children[0].onclick();assert.deepEqual(route.at(-1),['audio','schon']);
 for(let i=1;i<10;i++){dock().children[1].onclick();assert(app.innerHTML.includes('Reason '+i))}
 dock().children[1].onclick();assert.equal(app.innerHTML,initial);assert.equal(saves,beforeSaves,'Mistake review never saves or scores');
@@ -59,10 +59,10 @@ for(const level of ['A1','A2','B1','B2']){
  const s=c2.moduleSession={level,n:0,idx:0,score:0,questions:questions.slice(0,5)};
  c2.curriculumReviewAnswer(1);assert.equal(s.dlResultMissed.length,1);assert.equal(s.dlResultMissed[0].question.why,'Reason 0');
  s.idx=5;s.score=4;c2.curriculumReviewRender();
- assert.equal(c2.moduleSession,null);assert(c2.state.learning.moduleReviews[level+'-0'].passed);assert(ids['dl-umlaut-results']);assert(app.innerHTML.includes('80%'));assert(ids['dl-umlaut-review-mistakes']);
+ assert(app.innerHTML.includes('1 · Test module · Review'));assert.equal(c2.moduleSession,null);assert(c2.state.learning.moduleReviews[level+'-0'].passed);assert(ids['dl-umlaut-results']);assert(app.innerHTML.includes('80%'));assert(ids['dl-umlaut-review-mistakes']);
 }
 c2.window.dlShowPracticeCompletion({title:'German pronunciation',count:'15 sounds practiced',continueAction(){}});
-assert(app.innerHTML.includes('15 sounds practiced'));assert(!app.innerHTML.includes('%'));assert(!app.innerHTML.includes('Every answer correct'));
+assert(app.innerHTML.includes('1.3 · German pronunciation'));assert(app.innerHTML.includes('15 sounds practiced'));assert(!app.innerHTML.includes('%'));assert(!app.innerHTML.includes('Every answer correct'));
 console.log('PASS: global lessons with variable totals, native module saving across four levels, missed-question capture and unscored practice completion');
 
 const enhanced=c2.moduleSession={level:'A1',n:0,idx:6,score:5,questions:[...questions.slice(0,5),{dlStretch:true}],dlReviewEnhanced:true,dlCoreCount:5,dlCoreScore:4,dlMissed:[]};

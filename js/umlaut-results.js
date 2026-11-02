@@ -20,10 +20,18 @@
   if(r.level==='A1'&&group===groups[0]&&!state.learning?.pronunciationLesson3Completed&&typeof dlPronunciationIntro==='function')return dlPronunciationIntro();
   curriculumView(r.level);
  }
+ function resultTitle(r){
+  const groups=STRUCTURED_PATH[r.level]||[];
+  if(r.moduleIndex!==undefined)return (r.moduleIndex+1)+' · '+r.title;
+  if(r.practiceNumber)return r.practiceNumber+' · '+r.title;
+  const moduleIndex=groups.findIndex(g=>g.ids.includes(r.id));
+  if(moduleIndex<0)return r.title;
+  return (moduleIndex+1)+'.'+(groups[moduleIndex].ids.indexOf(r.id)+1)+' · '+r.title;
+ }
  function showResults(){
   const r=result;if(!r)return;
   app.innerHTML=`<section id="dl-umlaut-results" aria-labelledby="dl-umlaut-results-heading">
-   <p class="dl-umlaut-results-label">${esc(r.title)}</p>
+   <p class="dl-umlaut-results-label">${esc(resultTitle(r))}</p>
    <div class="dl-umlaut-results-character"><img src="${r.image}" alt="${r.name} ${r.passed?'celebrating your progress':'offering encouragement'}" width="1312" height="1199"></div>
    <div class="dl-umlaut-results-card"><h2 id="dl-umlaut-results-heading">${r.passed?'Great work!':'Keep practicing!'}</h2>
     <p class="dl-umlaut-results-message">${esc(r.message||(r.passed?'You completed the lesson.':'You’re getting there—try another round.'))}</p>
@@ -40,7 +48,7 @@
   const answer=q.spellingWord||q.dlWriteAnswer||q.dlReviewExpected||q.correct||((q.dlLessonMode==='match'||q.dlReviewMode==='match')?q.words.join(' · '):q.options?.[q.answer])||'';
   const clips=q.words||q.clips||[q.dlReviewAudio||q.spellingWord||q.dlReviewExpected].filter(Boolean);
   app.innerHTML=`<section id="dl-umlaut-results" class="dl-umlaut-mistake" aria-labelledby="dl-umlaut-results-heading">
-   <p class="dl-umlaut-results-label">${esc(r.title)} · Mistake ${index+1} of ${r.missed.length}</p>
+   <p class="dl-umlaut-results-label">${esc(resultTitle(r))} · Mistake ${index+1} of ${r.missed.length}</p>
    <div class="dl-umlaut-results-card"><h2 id="dl-umlaut-results-heading">${esc(q.prompt)}</h2>
     <p class="dl-umlaut-correction"><strong>Correct answer:</strong> ${esc(answer)}</p>
     <p>${esc(q.why||'')}</p><div id="dl-umlaut-mistake-audio"></div>
@@ -86,7 +94,7 @@
   const score=s.dlReviewEnhanced?s.dlCoreScore:s.score;
   const group=STRUCTURED_PATH[s.level]?.[s.n],passed=score/total>=.8;
   const name=Math.random()<.5?'Hoppel':'Fuchsie';
-  result={level:s.level,title:(group?.title||'Module '+(s.n+1))+' · Review',total,score,percent:Math.round(score/total*100),passed,name,
+  result={level:s.level,moduleIndex:s.n,title:(group?.title||'Module '+(s.n+1))+' · Review',total,score,percent:Math.round(score/total*100),passed,name,
    image:'./assets/results/'+(name==='Hoppel'?'hoppel':'fuchsie')+'-'+(passed?'celebrate':'encourage')+'.webp',
    message:passed?'You completed the module review.':'Review your mistakes and try another round.',
    missed:s.dlResultMissed||s.dlMissed?.map(q=>({question:q}))||[],
@@ -97,7 +105,7 @@
  };
  window.dlShowPracticeCompletion=function({title,count,retry,continueAction}){
   const name=Math.random()<.5?'Hoppel':'Fuchsie';
-  result={level:'A1',title,name,passed:true,unscored:true,count,message:'You completed the practice.',missed:[],
+  result={level:'A1',practiceNumber:'1.3',title,name,passed:true,unscored:true,count,message:'You completed the practice.',missed:[],
    image:'./assets/results/'+(name==='Hoppel'?'hoppel':'fuchsie')+'-celebrate.webp',retryAction:retry,continueAction};
   showResults();
  };
