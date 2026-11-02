@@ -87,6 +87,10 @@
 
 - Module 2 lesson boundaries: Introducing yourself teaches names and current home only. Countries, nationalities and languages owns origins, Woher, and the home/origin contrast, with the noun-ending forward reference in a separate note. Review pools cover names/home from Lesson 2 and country-origin/languages from Lesson 3; stable IDs and membership remain unchanged.
 
+## Module 2 Lesson 1 questions
+- `js/a1-practical-data.js`, pack `A1|Greetings and polite expressions`, supplies 15 tasks: situation choices, missing-word choices, one retained evening-greeting listening task and two short written answers (Danke/gut). Long-expression writing is deferred. `lesson-consistency.js` supplies the existing choice shuffling, written inputs and native scoring/feedback path; no new renderer or lesson ID.
+- Keep all seven `dlTopic` communication goals so existing module-review sampling can continue reading the bank. The dedicated review redesign remains deferred.
+
 ## German answer-choice playback
 - `js/answer-choice-audio.js` loads after module review wrappers. It wraps `dlChoose` and `curriculumReviewAnswer` to speak German selected text while preserving native selection/checking. It identifies language from taught bilingual examples and German/English word cues; `dlAnswerLanguage` can explicitly override ambiguity. Custom non-choice review submissions are excluded. `scripts/test-answer-choice-audio.cjs` checks language selection, native delegation and custom-task isolation without a browser.
 

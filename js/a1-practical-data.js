@@ -235,7 +235,19 @@ window.DL_A1_PRACTICAL_PACKS = {
    ]
   ],
   "questions": [
-   {"type":"grammar","prompt":"You expect to see your friend again soon. What do you say as you leave?","options":["Bis bald!","Guten Morgen!","Es tut mir leid."],"answer":0,"why":"Bis bald! means See you soon and is a friendly goodbye.","dlSkill":"situation","dlTopic":"farewell"},
+   {
+    "type": "grammar",
+    "prompt": "You expect to see your friend again soon. What do you say as you leave?",
+    "options": [
+     "Bis bald!",
+     "Guten Morgen!",
+     "Es tut mir leid."
+    ],
+    "answer": 0,
+    "why": "Bis bald! means See you soon and is a friendly goodbye.",
+    "dlSkill": "situation",
+    "dlTopic": "farewell"
+   },
    {
     "type": "grammar",
     "prompt": "It is morning. Greet your neighbor.",
@@ -264,16 +276,17 @@ window.DL_A1_PRACTICAL_PACKS = {
    },
    {
     "type": "grammar",
-    "prompt": "A friend asks “Wie geht es dir?” Choose a reply.",
+    "prompt": "A friend asks “Wie geht es dir?” Complete “Fine, thanks”: Danke, ___.",
     "options": [
-     "Danke, gut.",
-     "Auf Wiedersehen.",
-     "Guten Morgen."
+     "gut",
+     "bitte",
+     "bald"
     ],
     "answer": 0,
-    "why": "Danke, gut means Fine, thanks and answers how you are.",
-    "dlSkill": "situation",
-    "dlTopic": "wellbeing"
+    "why": "Danke, gut means “Fine, thanks.” Gut means good here and tells your friend how you are; Danke adds thanks.",
+    "dlSkill": "write",
+    "dlTopic": "wellbeing",
+    "dlWriteAnswer": "gut"
    },
    {
     "type": "grammar",
@@ -284,7 +297,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Tschüss!"
     ],
     "answer": 0,
-    "why": "Gern geschehen is a friendly reply to thanks, meaning You’re welcome.",
+    "why": "Gern geschehen means “You’re welcome” and replies to Danke. Guten Abend greets someone in the evening; Tschüss says goodbye.",
     "dlSkill": "situation",
     "dlTopic": "thanks-response"
    },
@@ -317,16 +330,15 @@ window.DL_A1_PRACTICAL_PACKS = {
    },
    {
     "type": "grammar",
-    "prompt": "You leave a friend. Write the informal goodbye.",
+    "prompt": "You are leaving a friend. Which expression means “Bye”?",
     "options": [
      "Tschüss",
      "Hallo",
      "Danke"
     ],
     "answer": 0,
-    "why": "Tschüss is an informal goodbye.",
-    "dlSkill": "write",
-    "dlWriteAnswer": "Tschüss",
+    "why": "Tschüss is an informal goodbye. Hallo starts a greeting; Danke expresses thanks.",
+    "dlSkill": "situation",
     "dlTopic": "farewell"
    },
    {
@@ -352,7 +364,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Danke, gut."
     ],
     "answer": 0,
-    "why": "Entschuldigung means excuse me and politely gets someone’s attention.",
+    "why": "Entschuldigung means “Excuse me” here: use it to get someone’s attention politely. Gern geschehen replies to thanks; Danke, gut answers how you are.",
     "dlSkill": "situation",
     "dlTopic": "excuse-me"
    },
@@ -365,8 +377,60 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Guten Morgen."
     ],
     "answer": 0,
-    "why": "Es tut mir leid means I’m sorry and expresses regret.",
+    "why": "Es tut mir leid means “I’m sorry” and expresses regret about upsetting your friend. Gern geschehen replies to thanks; Guten Morgen is a morning greeting.",
     "dlSkill": "situation",
+    "dlTopic": "apology"
+   },
+   {
+    "type": "grammar",
+    "prompt": "You arrive for an appointment at 2 p.m. Choose a daytime greeting.",
+    "options": [
+     "Guten Tag!",
+     "Guten Morgen!",
+     "Guten Abend!"
+    ],
+    "answer": 0,
+    "why": "Guten Tag is a daytime greeting. Guten Morgen is used in the morning; Guten Abend is used in the evening.",
+    "dlSkill": "situation",
+    "dlTopic": "greeting"
+   },
+   {
+    "type": "grammar",
+    "prompt": "Complete the evening greeting: Guten ___!",
+    "options": [
+     "Abend",
+     "Morgen",
+     "Tag"
+    ],
+    "answer": 0,
+    "why": "Guten Abend means “Good evening.” Morgen would make “Good morning”; Tag would make the daytime greeting “Good day.”",
+    "dlSkill": "use",
+    "dlTopic": "greeting"
+   },
+   {
+    "type": "grammar",
+    "prompt": "You have greeted a friend. Now ask how they are.",
+    "options": [
+     "Wie geht es dir?",
+     "Gern geschehen.",
+     "Auf Wiedersehen."
+    ],
+    "answer": 0,
+    "why": "Wie geht es dir? asks “How are you?” when speaking informally to one person. Gern geschehen replies to thanks; Auf Wiedersehen ends the conversation.",
+    "dlSkill": "situation",
+    "dlTopic": "wellbeing"
+   },
+   {
+    "type": "grammar",
+    "prompt": "You want to say “I’m sorry.” Complete: Es tut mir ___.",
+    "options": [
+     "leid",
+     "gut",
+     "bald"
+    ],
+    "answer": 0,
+    "why": "The whole expression is Es tut mir leid: “I’m sorry.” Learn it as a useful phrase. Gut belongs in Danke, gut; bald belongs in Bis bald.",
+    "dlSkill": "use",
     "dlTopic": "apology"
    }
   ]

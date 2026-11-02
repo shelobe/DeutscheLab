@@ -93,7 +93,7 @@ Copy this section for each batch:
 
 ## Current handoff
 - **Completed:** Authored-content audit of all 22 A1 modules; findings and conversational coverage proposals are recorded below. Runtime, review sampling, audio and learning outcomes remain unverified.
-- **Primary checkpoint:** CUR-03 — Module 1 lesson-question refinement is ready for user test (batch below). After that check, continue with Module 2 and move forward lesson by lesson. Inspect current teaching and effective questions in each batch; preserve already-refined exercises.
+- **Primary checkpoint:** CUR-03 — Module 1 refinements and Module 2 Lesson 1 questions are ready for user test (batches below). Next content task: Module 2 Lesson 2 (Introducing yourself). Inspect current teaching and effective questions in each batch; preserve already-refined exercises.
 - **After lesson questions are finished:** CUR-05 — audit and improve module reviews and the final A1 assessment. Do not start this deferred pass now.
 - **Secondary next step:** GAME-01 — prepare dairy-department artwork using the existing fruit-and-vegetable department as the visual reference. Asset approval comes before integration.
 - At the end of each session, update this file with the active task, completed commits, test results and the next precise action.
@@ -216,3 +216,13 @@ Scope: authored course definitions and lesson question banks, not browser/runtim
 - Supersedes earlier alphabet word assignments; W/V tasks, ten-question total, umlaut lesson, separate pronunciation practice and module review remain unchanged.
 - Validation: JavaScript syntax and actual script-order/module-one lesson checks pass, including Jacke teaching/speaking and prediction-only Jahr. No browser testing; recognition of Jacke awaits user-device confirmation.
 - Status: Ready for user test. Commit reference: the commit adding this entry.
+
+
+### CUR-03 — Module 2 Lesson 1: Greetings and polite expressions (2026-11-01)
+- Scope: only this lesson’s question bank in a1-practical-data.js. Existing teaching, examples, audio, lesson IDs and scoring/renderers are preserved.
+- Expanded 11 questions to 15: adds a daytime greeting scenario, evening-greeting completion, asking a friend how they are, and apology completion. Retains meaningful farewell, polite-request, thanks-response, excuse-me and apology situations plus the existing listening task.
+- Written recall is limited to Danke and gut. Tschüss becomes a contextual choice; longer expressions remain choices/partial completion. Feedback explains each expression’s role, including the distinction between getting attention, apologizing and replying to thanks.
+- Deferred review decision: after lesson questions are refined, add gradual recall of earlier material in module reviews and assess the separate Review area’s current scheduling before proposing ongoing spaced recall. Progress from supported completion to full-expression typing; consider length-sensitive minor typo tolerance with visible spelling correction, while rejecting wrong expressions/grammar and preserving strict sound/spelling checks. No recall scheduler, typo tolerance or dedicated review redesign implemented in this batch.
+- Validation: modified JavaScript parses; actual script order and 30 randomized effective greeting banks verified for all seven communication goals, shuffled answer mappings, short-only typing and retained listening. Compared all other teaching packs and this lesson’s teaching/examples with the unchanged baseline. Existing Module 1 lesson/review, answer-audio, written-answer and results checks pass. No browser/device test.
+- Status: Ready for user test. Commit reference: the commit adding this entry.
+- Next checkpoint: user checks Module 2 Lesson 1; then inspect and refine Lesson 2 (Introducing yourself). Keep module-review/final-assessment redesign deferred.

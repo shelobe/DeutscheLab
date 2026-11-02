@@ -215,3 +215,8 @@ This document records established product decisions. The current `main` branch i
 - After native Check and feedback, offer Hear followed by the word on both correct and incorrect answers. Playback supports learning the applied rule; no microphone is required for these questions. Preserve the separate existing speaking tasks, normal scoring, fixed navigation and feedback artwork. This replaces the three widely different audio-choice questions only.
 
 - Alphabet J example (2026-11-01): teach Jacke (jacket) and use Jacke for microphone practice. Reserve Jahr for the written sound prediction with post-answer playback; do not require learners to say Jahr into the microphone.
+
+
+## Early greetings practice and later recall
+- Module 2 Lesson 1 introduces polite expressions through situational recognition and short completion. Keep typing limited to short answers (currently Danke/gut); do not require full typing of Entschuldigung, Es tut mir leid or Gern geschehen in this first encounter.
+- During the later review improvement phase, revisit earlier expressions with partial-to-full typed recall and consider limited typo tolerance with visible spelling correction. Long-expression recall and typo-tolerant grading are planned work, not currently implemented by this lesson change. Preserve exact checking for sound/spelling objectives.
