@@ -257,3 +257,11 @@ Scope: authored course definitions and lesson question banks, not browser/runtim
 - User reports that selecting ß in the ß/ss completion speaks the symbol unnecessarily. Disable automatic answer-choice playback only for ß/ss-only choice banks; retain dedicated word playback and ordinary German-word answer playback.
 - User asks whether the remaining Mädchen/Käse/fünf match meaningfully tests umlauts. Assessment: limited diagnostic value, because learners can match whole words using length/consonants rather than the target vowel. Replacement remains under discussion; no matching-question changes made in this batch.
 - Validation: JavaScript parsing, existing answer-choice audio checks and a targeted check that both spelling choices stay silent while selection and full-word playback work. No browser/device test. Status: Ready for user test.
+
+
+### Module 1 Lesson 2 — Tür teaching and final matching replacement (2026-11-01)
+- Added Tür (door) to the Ü teaching section with its own integrated audio example, alongside fünf. The learner encounters Tür before being assessed on it.
+- Replaced the remaining Mädchen/Käse/fünf match with one concealed Tür recording and T_r completion using shuffled u/ü choices. Feedback gives the correct word/meaning and replay. Nine questions retained; no whole-word matching remains in this lesson.
+- Existing ä tiles, o/ö listening, ß/ss tasks and dictation remain. Unfamiliar-word transfer and review changes stay deferred.
+- Validation: modified JavaScript syntax; actual script-order lesson-bank checks; targeted Tür/ü and feedback-audio checks; listening-handler checks; real teaching/audio/presentation rendering across 119 guides, including Tür’s own audio row and repeat-render deduplication; module-review checks pass. Updated the presentation test’s expected lesson audio count and supplied missing DOM-double replaceChildren/contains methods. No browser/device test.
+- Status: Requested Lesson 2 refinements complete; awaiting user confirmation on device. Commit reference: the commit adding this entry. Next planned lesson-question batch remains Module 2 Lesson 2.

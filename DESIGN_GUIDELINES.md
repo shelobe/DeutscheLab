@@ -233,3 +233,5 @@ This document records established product decisions. The current `main` branch i
 - In the question asking learners to ask how a friend is, show all three choices without final punctuation so the question mark does not reveal the answer. Keep proper German punctuation in teaching examples and feedback.
 
 - ß/ss-only spelling answer choices stay silent when tapped. Use the dedicated Listen controls for word audio; preserve normal German-word choice playback elsewhere.
+
+- Teach Tür (door) with playback inside the Ü section before its T_r → u/ü question. Retain fünf as the other ü example. Use familiar taught examples for this first lesson; unfamiliar-word transfer can be considered later. The Tür question replaces the remaining broad word match and keeps the lesson at nine tasks.

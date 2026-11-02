@@ -71,7 +71,7 @@ for(let trial=0;trial<80;trial++){
  assert.equal(vowel.options[vowel.answer],vowel.dlReviewAudio==='schon'?'o':'ö');
  assert.equal(vowel.prompt,'Listen and complete: sch_n.');
  assert.ok(!questions.some(q=>q.dlLessonMode==='compare'));
- assert.equal(questions.filter(q=>q.dlLessonMode==='match').length,1);
+ assert.equal(questions.filter(q=>q.dlLessonMode==='match').length,0);
  for(const [word,ending]of [['Fuß','ß'],['Fluss','ss']]){
   const q=questions.find(q=>q.dlReviewAudio===word);assert.equal(q.options[q.answer],ending);
   assert.ok(!q.prompt.includes(word),'Audio answer must stay concealed');

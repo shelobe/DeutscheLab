@@ -2,11 +2,12 @@
 (function(){
  const umlautUnit=FULL_UNITS.find(u=>u.title==='Umlauts and ß');
  if(umlautUnit){
-  umlautUnit.rule='German has three umlaut vowels: ä, ö and ü. Ä can sound similar to the e in English “bed” (as in Mädchen, girl, or Käse, cheese). Ö is a rounded front vowel, as in schön (beautiful). Ü is another rounded front vowel, as in fünf (five). ß, called Eszett, represents a sharp s sound, as in Straße (street); it is not the letter B.';
+  umlautUnit.rule='German has three umlaut vowels: ä, ö and ü. Ä can sound similar to the e in English “bed” (as in Mädchen, girl, or Käse, cheese). Ö is a rounded front vowel, as in schön (beautiful). Ü is another rounded front vowel, as in fünf (five) and Tür (door). ß, called Eszett, represents a sharp s sound, as in Straße (street); it is not the letter B.';
   umlautUnit.examples=[
    ['Mädchen','girl — ä'],
    ['schön','beautiful — ö'],
    ['fünf','five — ü'],
+   ['Tür','door — long ü'],
    ['Straße','street — ß'],
    ['schon / schön','already / beautiful — different vowels']
   ];
@@ -88,20 +89,16 @@
     },
     {
       "type": "grammar",
-      "prompt": "Match each recording to its word.",
-      "why": "Mädchen (girl) and Käse (cheese) contain ä; fünf (five) contains rounded ü. Listen to the vowel in each complete word, rather than matching by word length.",
+      "prompt": "Listen and complete: T_r.",
       "options": [
-        "Correct match",
-        "Try again"
+        "u",
+        "ü"
       ],
-      "answer": 0,
+      "answer": 1,
+      "why": "The word is Tür (door). Its long rounded vowel is written ü, rather than plain u.",
       "dlEnriched": true,
-      "dlLessonMode": "match",
-      "words": [
-        "Mädchen",
-        "Käse",
-        "fünf"
-      ]
+      "dlReviewAudio": "Tür",
+      "dlFeedbackAudio": "Tür"
     },
     {
       "type": "grammar",

@@ -72,6 +72,8 @@ console.log(`PASS: ${guides} authored guides, ${reminders} Remember cards, ${not
 }
 
 {
+ Element.prototype.replaceChildren=function(...nodes){for(const n of this.children)n.parentElement=null;this.children=[];this._text='';this.append(...nodes)};
+ Element.prototype.contains=function(n){return n===this||this.children.some(c=>c.contains(n))};
  Object.defineProperty(Element.prototype,'childNodes',{get(){return this._text?[{textContent:this._text},...this.children]:this.children}});
  Element.prototype.replaceWith=function(n){const p=this.parentElement,i=p.children.indexOf(this);n.remove();p.children[i]=n;n.parentElement=p;this.parentElement=null;};
  const packs={...packsContext.window.DL_LESSON_ENRICHMENT,...packsContext.window.DL_A1_PRACTICAL_PACKS};
@@ -88,7 +90,8 @@ console.log(`PASS: ${guides} authored guides, ${reminders} Remember cards, ${not
    if(word){assert.equal(r.closest('.dl-lesson-guide'),g,units[id].title+': word outside teaching box: '+text)}else {assert.equal(r.closest('.dl-lesson-guide'),g,units[id].title+': phrase stays inside teaching');assert(r.classList.contains('dl-compact-phrase-audio'));assert.equal(card.querySelector('.dl-separated-audio-examples'),null);}
   }
   if(units[id].title==='Umlauts and ß'){
-   assert.equal(rows.length,8);
+   assert.equal(rows.length,9);
+   assert(rows.some(r=>r.querySelector('.vocab-copy strong').textContent==='Tür'),'Tür needs its own audio row');
    for(const r of rows){const word=r.querySelector('.vocab-copy strong').textContent;const item=r.closest('li');assert(item,'Umlaut word requires its own explanation bullet: '+word);assert(item.querySelector('strong').textContent.startsWith(word+' — '),'Audio must match the word above: '+word);assert.equal(item.querySelectorAll('.vocab-row').length,1);}
   }
   const count=rows.length;d.fullStudy(id);refresh();assert.equal(card.querySelectorAll('.vocab-row').length,count,'Repeat rendering duplicates '+units[id].title);total+=count;

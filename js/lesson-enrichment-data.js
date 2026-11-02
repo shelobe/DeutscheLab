@@ -6784,7 +6784,8 @@ window.DL_LESSON_ENRICHMENT = {
    "Ü — a different rounded vowel",
    [
     "Ü is a distinct vowel, not an English u. Try saying ee while rounding your lips.",
-    "fünf — five\nListen to the rounded vowel ü."
+    "fünf — five\nListen to the rounded vowel ü.",
+    "Tür — door\nListen to the long rounded ü vowel."
    ]
   ],
   [
@@ -6824,6 +6825,10 @@ window.DL_LESSON_ENRICHMENT = {
   [
    "fünf",
    "five — ü"
+  ],
+  [
+   "Tür",
+   "door — long ü"
   ],
   [
    "Straße",

@@ -43,7 +43,7 @@ assert.ok(!/Jahr|Winter|Vogel/.test(JSON.stringify(intro.sections)),'Transfer wo
 run('fullBegin('+moduleIds[1]+')');
 const umlaut=plain(run('fullSession.questions'));
 assert.equal(umlaut.length,9);
-assert.equal(umlaut.filter(q=>q.dlLessonMode==='match').length,1);
+assert.equal(umlaut.filter(q=>q.dlLessonMode==='match').length,0);
 assert.equal(umlaut.filter(q=>q.dlLessonMode==='tiles').length,2);
 assert.equal(umlaut.filter(q=>q.dlLessonMode==='gap').length,0);
 for(const q of umlaut.filter(q=>q.dlLessonMode==='match'))for(const word of q.words)assert.ok(q.why.toLocaleLowerCase('de-DE').includes(word.toLocaleLowerCase('de-DE')),'Feedback identifies '+word);
@@ -52,6 +52,7 @@ assert.equal(recall.dlReviewAudio,'heißen');assert.equal(recall.dlStrictSpellin
 assert.ok(!/to be called|heißen/.test(recall.prompt),'Do not reveal the dictated answer');
 assert.ok(umlaut.find(q=>q.dlSoundFocus==='o-ö').why.toLowerCase().includes('schon'));
 assert.ok(!umlaut.some(q=>q.dlLessonMode==='compare'));
+const door=umlaut.find(q=>q.dlReviewAudio==='Tür');assert.equal(door.prompt,'Listen and complete: T_r.');assert.equal(door.options[door.answer],'ü');assert.equal(door.dlFeedbackAudio,'Tür');
 for(const word of ['Fuß','Fluss'])assert.ok(umlaut.some(q=>q.dlReviewAudio===word&&q.options[q.answer]===(word==='Fuß'?'ß':'ss')));
 assert.deepEqual(plain(run('FULL_UNITS.map(u=>({title:u.title,level:u.level}))')),beforeUnits);
 console.log('PASS: actual script order; 40 alphabet sessions with 4 existing applied checks, 3 new-word predictions and 3 retained speaking tasks; practice-only words; nine focused umlaut tasks; answer-specific feedback; strict heißen dictation; stable lesson IDs.');
