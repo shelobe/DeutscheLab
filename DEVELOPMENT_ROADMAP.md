@@ -127,3 +127,14 @@ These are **audit candidates, not confirmed defects or approved changes**. Revie
 4. **Past-tense production:** Module 21 introduces *Perfekt*, *haben/sein* auxiliaries and participles. Confirm that exercises support independent descriptions of completed activities rather than recognition alone.
 
 **Resume point:** Audit each of these against actual lesson packs and assessments; record evidence and distinguish existing coverage from genuine gaps. No code changes authorized by this note.
+
+### A1 audit batch 4: Modules 5-8 (2026-11-01)
+Scope: authored teaching and questions, not verified runtime behavior. No app changes.
+
+- **A1-AUD-08, Module 5 - nouns/articles/plurals:** Strong article-with-noun instruction and logical progression. Mostly three-option recognition. **P1, investigate:** add article+noun recall and short descriptive sentence production after verifying existing runtime exercises and reviews.
+- **A1-AUD-09, Module 6 - numbers/ages:** Useful prices, ticket examples, number-word structure; authored audio and written prompts exist. **P1, investigate:** verify effective audio/typing and number-range coverage; consider varied dictated prices/quantities if gaps remain.
+- **A1-AUD-10, Module 7 - question words:** Repeated low-context word selection (wer/was/wo, wann/warum/wie, wo/woher/wohin). **P1, observed in authored bank:** preserve recognition introduction, then add realistic full-question construction and answer matching.
+- **A1-AUD-11, Module 7 - questions and answers:** Useful verb-first yes/no explanation, but only four authored questions and limited direct word-order assessment. **P1, investigate:** verify other exercises/review before adding complete yes/no and information-question construction.
+- **A1-AUD-12, Module 8 - negation:** Nicht/kein and gender contrasts taught with practical examples; mostly supplied-form completion. **P2, investigate:** add scenario-based negative responses and independent sentences if existing reviews do not already cover them.
+
+Preserve: noun gender guidance, number listening/writing, verb-first question instruction, practical negation. Next audit: Modules 9-12 (family, home, accusative/pets, food), followed by review and runtime exercise coverage. These are recommendations, not approved implementation changes.
