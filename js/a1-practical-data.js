@@ -283,7 +283,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "bald"
     ],
     "answer": 0,
-    "why": "Danke, gut means “Fine, thanks.” Gut means good here and tells your friend how you are; Danke adds thanks.",
+    "why": "Danke, gut means “Fine, thanks.” Gut tells your friend that you are doing well.",
     "dlSkill": "write",
     "dlTopic": "wellbeing",
     "dlWriteAnswer": "gut"
@@ -297,7 +297,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Tschüss!"
     ],
     "answer": 0,
-    "why": "Gern geschehen means “You’re welcome” and replies to Danke. Guten Abend greets someone in the evening; Tschüss says goodbye.",
+    "why": "Gern geschehen means “You’re welcome” and is a friendly reply to thanks.",
     "dlSkill": "situation",
     "dlTopic": "thanks-response"
    },
@@ -337,7 +337,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Danke"
     ],
     "answer": 0,
-    "why": "Tschüss is an informal goodbye. Hallo starts a greeting; Danke expresses thanks.",
+    "why": "Tschüss means “Bye” and is an informal goodbye.",
     "dlSkill": "situation",
     "dlTopic": "farewell"
    },
@@ -364,7 +364,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Danke, gut."
     ],
     "answer": 0,
-    "why": "Entschuldigung means “Excuse me” here: use it to get someone’s attention politely. Gern geschehen replies to thanks; Danke, gut answers how you are.",
+    "why": "Entschuldigung means “Excuse me” and politely gets someone’s attention.",
     "dlSkill": "situation",
     "dlTopic": "excuse-me"
    },
@@ -377,7 +377,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Guten Morgen."
     ],
     "answer": 0,
-    "why": "Es tut mir leid means “I’m sorry” and expresses regret about upsetting your friend. Gern geschehen replies to thanks; Guten Morgen is a morning greeting.",
+    "why": "Es tut mir leid means “I’m sorry” and expresses regret about upsetting your friend.",
     "dlSkill": "situation",
     "dlTopic": "apology"
    },
@@ -390,7 +390,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Guten Abend!"
     ],
     "answer": 0,
-    "why": "Guten Tag is a daytime greeting. Guten Morgen is used in the morning; Guten Abend is used in the evening.",
+    "why": "Guten Tag is a daytime greeting, suitable for arriving at an afternoon appointment.",
     "dlSkill": "situation",
     "dlTopic": "greeting"
    },
@@ -403,7 +403,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "Tag"
     ],
     "answer": 0,
-    "why": "Guten Abend means “Good evening.” Morgen would make “Good morning”; Tag would make the daytime greeting “Good day.”",
+    "why": "Guten Abend means “Good evening.” The missing word is Abend.",
     "dlSkill": "use",
     "dlTopic": "greeting"
    },
@@ -411,12 +411,12 @@ window.DL_A1_PRACTICAL_PACKS = {
     "type": "grammar",
     "prompt": "You have greeted a friend. Now ask how they are.",
     "options": [
-     "Wie geht es dir?",
-     "Gern geschehen.",
-     "Auf Wiedersehen."
+     "Wie geht es dir",
+     "Gern geschehen",
+     "Auf Wiedersehen"
     ],
     "answer": 0,
-    "why": "Wie geht es dir? asks “How are you?” when speaking informally to one person. Gern geschehen replies to thanks; Auf Wiedersehen ends the conversation.",
+    "why": "Wie geht es dir? means “How are you?” Use it informally with one person.",
     "dlSkill": "situation",
     "dlTopic": "wellbeing"
    },
@@ -429,7 +429,7 @@ window.DL_A1_PRACTICAL_PACKS = {
      "bald"
     ],
     "answer": 0,
-    "why": "The whole expression is Es tut mir leid: “I’m sorry.” Learn it as a useful phrase. Gut belongs in Danke, gut; bald belongs in Bis bald.",
+    "why": "Es tut mir leid means “I’m sorry.” The missing word is leid.",
     "dlSkill": "use",
     "dlTopic": "apology"
    }

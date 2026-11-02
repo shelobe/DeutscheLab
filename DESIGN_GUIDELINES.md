@@ -226,3 +226,8 @@ This document records established product decisions. The current `main` branch i
 - For schon/schön, play one concealed recording and show sch_n with o/ö choices. Vary whether the recording says schon or schön and shuffle answer positions. Reveal the whole spelling and meaning in feedback, with replay.
 - For Fuß and Fluss, supply Fu_ or Flu_ and offer ß/ss choices. Feedback links the heard long/short vowel to the spelling; avoid using the extra l as a listening shortcut in a word-pair comparison.
 - Assess the sound of ß separately with the Straße question (S in see versus B in book/Z in zoo), offering word playback after checking. Keep native Check/Next, feedback artwork, score saving and the actual-total pass threshold.
+
+
+## Concise greeting feedback and neutral choice punctuation
+- Module 2 Lesson 1 feedback explains only the tested expression and its relevant meaning or use. Avoid appending definitions of the other answer choices.
+- In the question asking learners to ask how a friend is, show all three choices without final punctuation so the question mark does not reveal the answer. Keep proper German punctuation in teaching examples and feedback.

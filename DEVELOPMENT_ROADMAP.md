@@ -236,3 +236,11 @@ Scope: authored course definitions and lesson question banks, not browser/runtim
 - Validation: JavaScript syntax; actual script-order lesson-bank checks; 80 randomized o/ö/answer-order trials; ß/ss mappings, sound choice, post-check replay and duplicate/stale guards. Existing matching/tile/gap handler, Module 1 review, answer-audio and results regression checks pass. No browser/device testing.
 - Status: Ready for user test. Commit reference: the commit adding this entry.
 - Next checkpoint: User checks these Module 1 Lesson 2 replacements; Module 2 Lesson 2 remains the next unedited content batch. Dedicated review improvement remains deferred.
+
+
+### Module 2 Lesson 1 — Concise feedback and punctuation fix (2026-11-01)
+- User screenshots identified excessive distractor definitions in feedback and a question mark revealing the correct how-are-you choice.
+- Shortened the longer greeting/politeness explanations to the tested expression’s meaning or use; removed end punctuation from all three choices in that one question. Correct punctuation remains in teaching and feedback.
+- Retained all 15 questions, answers, topic coverage and existing checking/audio behavior. Scope is this lesson only.
+- Validation: JavaScript parsing, 30 randomized effective banks in actual script order, short-only typing/topic/answer checks, unchanged teaching and other packs, punctuation/feedback-length assertions and answer-choice audio checks pass. No browser/device testing.
+- Status: Ready for user test. Commit reference: the commit adding this entry.
