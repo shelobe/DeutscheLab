@@ -93,7 +93,7 @@ Copy this section for each batch:
 
 ## Current handoff
 - **Completed:** Authored-content audit of all 22 A1 modules; findings and conversational coverage proposals are recorded below. Runtime, review sampling, audio and learning outcomes remain unverified.
-- **Primary next step:** CUR-03 — refine individual lesson questions, starting with the earliest A1 modules and continuing forward. Check current teaching and effective questions before proposing each scoped change; preserve already-refined exercises.
+- **Primary checkpoint:** CUR-03 — Module 1 lesson-question refinement is ready for user test (batch below). After that check, continue with Module 2 and move forward lesson by lesson. Inspect current teaching and effective questions in each batch; preserve already-refined exercises.
 - **After lesson questions are finished:** CUR-05 — audit and improve module reviews and the final A1 assessment. Do not start this deferred pass now.
 - **Secondary next step:** GAME-01 — prepare dairy-department artwork using the existing fruit-and-vegetable department as the visual reference. Asset approval comes before integration.
 - At the end of each session, update this file with the active task, completed commits, test results and the next precise action.
@@ -189,3 +189,13 @@ Scope: authored course definitions and lesson question banks, not browser/runtim
 
 ### A1 improvement sequencing decision (2026-11-01)
 **Order of work:** First refine and expand the questions within individual A1 lessons (coverage, difficulty, variety, independent recall, application and feedback). **After lesson questions are finished**, conduct a dedicated audit and improvement pass on module reviews and the final A1 assessment, checking lesson coverage, retention, mixed-topic application, question variety and resistance to guessing. This is a deferred task, not authorization to edit reviews now.
+
+
+### CUR-03 — Module 1 lesson question refinement (2026-11-01)
+- Scope: Alphabet and spelling; Umlauts and ß. Separate German pronunciation practice and the module review remain unchanged.
+- Alphabet retains ten tasks: four applied sound-rule checks, three shuffled recording choices, and the existing Jahr/Winter/Vogel speaking tasks. Replaces three duplicate abstract rule questions with listening; no letter-count or meaning quiz. Introductory examples remain Januar/Wasser/Vater; Jahr is removed from the introduction to preserve transfer to practice-only examples.
+- Umlauts retains ten varied tasks, including matching, comparison, tiles, inline completion and writing. Replaces the final meaning-recall prompt with strict heißen dictation; expands generic feedback into the exact vowel/letter contrast for each matching task and the schön blank.
+- Historical eu/soft-ch flag clarified: both are taught in the current German pronunciation lesson, and the current Module 1 review includes neun matching and ich comparison. No duplicate curriculum additions are needed for that older finding.
+- Validation: all 149 previously tracked JavaScript files parse; the new module lesson test also parses and passes. Real script-order test exercises 40 randomized alphabet starts and the effective umlaut bank. Existing umlaut interaction, module review, pronunciation, answer-audio and global results tests pass. The unrelated lesson-audio-layout test fails at its existing 0-versus-14 assertion on both the unchanged baseline f0905db and this batch; not caused or corrected by these edits.
+- Status: Ready for user test. No browser or Android test performed. Commit reference: the commit introducing this batch entry.
+- Next checkpoint: User checks Module 1 lesson questions on Android; then continue to Module 2 lesson questions. Module reviews/final assessment remain deferred until lesson questions are finished. Preserve already useful exercises and verify each reported mismatch before editing it.

@@ -11610,7 +11610,7 @@ window.DL_A1_PRACTICAL_PACKS = {
    [
     "Listen for the difference",
     [
-     "J often sounds like English y: Januar (January), Jahr (year).",
+     "J often sounds like English y: Januar (January).",
      "W sounds like English v: Wasser (water).",
      "V often sounds like English f in familiar native words: Vater (father)."
     ]

@@ -5,14 +5,12 @@
  lesson.rule='German uses the same 26 basic letters as English, but some are pronounced differently. German J sounds like English Y in yes; W sounds like English V; and V often sounds like English F. Listen to Januar, Wasser and Vater, then practice recognizing those sounds. German also has additional letters, which you will learn in Lesson 2.';
  lesson.examples=[['Januar','January — J sounds like English Y'],['Wasser','water — W sounds like English V'],['Vater','father — V often sounds like English F']];
  lesson.checkpoint={prompt:'In the German word Wasser, which letter makes the English V sound?',options:['W','J','V'],answer:0,why:'German W is pronounced like English V, as in Wasser.'};
+ // Apply each taught sound rule to a word reserved for practice.
  const questions=[
-  ['Which letter in German usually sounds like English Y?', ['J','W','V'],0,'German J sounds like English Y, as in Jahr (year).'],
-  ['In the new word Jahr (year), how does the first letter sound?', ['Like English Y','Like English J','Like English V'],0,'J in Jahr sounds like English Y.'],
-  ['Which German letter usually sounds like English V?', ['W','J','V'],0,'German W sounds like English V.'],
-  ['In Winter (winter), how is the first letter pronounced?', ['Like English V','Like English W','Like English F'],0,'W in Winter sounds like English V.'],
-  ['Which German letter often sounds like English F?', ['V','W','J'],0,'German V often sounds like English F, as in Vogel (bird).'],
-  ['In Vogel (bird), which English sound begins the word?', ['F','V','Y'],0,'The V in Vogel is usually pronounced like English F.'],
-  ['Which pair starts with the same German letter sound?', ['Wasser and Winter','Vater and Jahr','Jahr and Wasser'],0,'Wasser and Winter both begin with German W, which sounds like English V.']
+  ['In Jahr (year), how does J sound?', ['Like English Y in yes','Like English J in jam','Like English V in van'],0,'Jahr starts with the y sound in English yes, just like Januar. German J does not make the English j sound in jam.'],
+  ['In Winter (winter), how does W sound?', ['Like English V in van','Like English W in water','Like English F in fish'],0,'Winter starts with the English v sound, just like Wasser. German W is not pronounced like English w.'],
+  ['In Vogel (bird), how does V sound?', ['Like English F in fish','Like English V in van','Like English Y in yes'],0,'Vogel starts with an f sound, just like Vater. German V often has this sound in common native words; it does not always sound like English v.'],
+  ['Which pair begins with the same sound?', ['Wasser and Winter','Vater and Winter','Jahr and Vater'],0,'Wasser and Winter both begin with the English v sound. Vater begins with f; Jahr begins with y. Match the spoken sound, rather than applying English letter sounds.']
  ];
  const speaking=[
   ['Jahr','year','German J sounds like English Y. Listen to Jahr, then say it aloud.'],
@@ -26,11 +24,15 @@
   if(FULL_UNITS[id]!==lesson||!fullSession)return result;
   const knowledge=shuffle(questions).map(([prompt,choices,right,why])=>{
    const correct=choices[right],options=shuffle(choices);
-   return {type:'grammar',prompt,options,answer:options.indexOf(correct),why};
+   return {type:'grammar',prompt,options,answer:options.indexOf(correct),why,dlEnriched:true};
+  });
+  const listening=speaking.map(([word,,why])=>{
+   const words=shuffle(speaking.map(([text])=>text));
+   return {type:'sound-choice',prompt:'Which audio says “'+word+'”?',options:words.map((_,i)=>'Audio '+(i+1)),answer:words.indexOf(word),why,dlAudioWords:words,dlTarget:word,dlEnriched:true};
   });
   const speakingChecks=speaking.map(([word,meaning,why])=>({type:'speak-word',prompt:'Listen, then say this German word aloud',options:['Recognized','Try again'],answer:0,dlSpeakWord:word,dlSpeakMeaning:meaning,why}));
-  // Alternate recognition and spoken production, with each new word introduced by its meaning.
-  fullSession.questions=[...knowledge.slice(0,2),speakingChecks[0],...knowledge.slice(2,4),speakingChecks[1],...knowledge.slice(4,6),speakingChecks[2],...knowledge.slice(6)];
+  // Keep rule application, listening and spoken production; avoid duplicate rule recall.
+  fullSession.questions=[...knowledge.slice(0,2),listening[0],speakingChecks[0],knowledge[2],listening[1],speakingChecks[1],listening[2],speakingChecks[2],knowledge[3]];
   fullSession.idx=0;fullSession.score=0;fullSession.results=[];
   fullRender();
   return result;

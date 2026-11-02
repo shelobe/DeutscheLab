@@ -39,6 +39,12 @@
 ## Legacy Module 2 review
 - `js/extracted-batch5-8.js`: `personalPronounReview` supplies 18 questions, six for each current Module 2 lesson. Every run covers ich/du/formal Sie, conversation requests and understanding, and er/sie/es plus she/they distinctions. Question and option order shuffle without dropping topics. Other modules retain their existing selection and all reviews keep native scoring, feedback and mastery handling.
 
+## Module 1 lesson questions
+- `js/extracted-batch6-9.js` owns the effective Alphabet and spelling `fullBegin` bank: ten tasks (four applied J/W/V checks, three shuffled audio choices and the existing three spoken-word tasks). Existing sound-choice and speech handlers remain authoritative; the lesson bank does not modify module reviews.
+- `js/a1-practical-data.js` keeps Januar/Wasser/Vater in the alphabet introduction and reserves Jahr/Winter/Vogel for practice.
+- `js/extracted-batch6-14.js` owns the ten mixed Umlauts and ß lesson tasks. Matching feedback names the specific vowel/spelling contrasts; heißen is strict listening dictation using the normal/slow audio and written-answer handlers. Existing matching, tile and gap renderers remain in place.
+- `scripts/test-module-one-lessons.cjs` loads the real index script order and exercises both effective lesson banks, randomized correct-answer mappings, practice-word separation and stable lesson IDs without a browser.
+
 ## Module 1 review
 - `js/module-one-review.js` loads after the existing lesson wrappers and replaces only A1 Module 1's review bank/rendering with 15 tasks: five listening choices, two dictations, three recording comparisons, three audio-to-word matches, one letter-tile task and one inline missing-letter task. Each five-question block includes two listening choices and one of each other format.
 - Dictation always includes Wein and Liebe (EI/IE), uses a text input plus ä/ö/ü/ß keys, and accepts capitalization differences while requiring the actual German spelling. Matching requires all clips assigned; comparison requires both played. Written words and audio identities are concealed where they are the answer.
