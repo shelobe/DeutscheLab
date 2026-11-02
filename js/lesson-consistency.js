@@ -155,6 +155,29 @@
    }
    refresh();
   }
+  if(q.dlLanguageChoices&&FULL_UNITS[s.id]?.title==='Countries, nationalities and languages'){
+   const choices=card.querySelector('.dl-flow-options'),check=document.getElementById('dl-check');
+   if(choices&&check){
+    const area=document.createElement('div');area.className='dl-practical-input';
+    const instruction=document.createElement('p');instruction.textContent='Select two languages.';area.append(instruction);
+    const selected=new Set(),buttons=[];
+    function refresh(){
+     const ready=selected.size===2;
+     const pair=ready?q.dlLanguagePairs.find(p=>p.every(i=>selected.has(i))):null;
+     const label=pair?pair.map(i=>q.dlLanguageChoices[i]).join(' and '):null;
+     dlSelected=ready?q.options.indexOf(label):null;
+     check.disabled=!ready;
+     buttons.forEach((b,i)=>{b.setAttribute('aria-pressed',String(selected.has(i)));b.classList.toggle('selected',selected.has(i));b.disabled=ready&&!selected.has(i);});
+     window.dlRefreshFixedNext?.();
+    }
+    q.dlLanguageChoices.forEach((text,i)=>{
+     const button=document.createElement('button');button.type='button';button.className='secondary';button.textContent=text;
+     button.onclick=()=>{if(fullSession!==s||dlAnswered)return;if(selected.has(i))selected.delete(i);else if(selected.size<2)selected.add(i);refresh();};
+     buttons.push(button);area.append(button);
+    });
+    choices.replaceWith(area);refresh();
+   }
+  }
   if(q.dlReviewAudio){
    const audio=document.createElement('div');audio.className='dl-practical-audio';
    const listen=document.createElement('button'),slow=document.createElement('button');

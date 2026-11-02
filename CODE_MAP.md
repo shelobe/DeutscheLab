@@ -162,3 +162,6 @@
 - `js/a1-practical-data.js`, pack `A1|Introducing yourself: heißen and wohnen`, has ten questions: six situations (including both informal/polite name/home questions), two short completions (heiße/wohne), and two listening meanings. Choices omit final punctuation; teaching/feedback retain it. Name/home topics remain intact for existing review sampling; origins stay in Lesson 3.
 
 - Alphabet’s former Wasser/Winter same-sound question is now a Wald initial-sound prediction using the existing post-answer-only playback. `spelling-activities.js` accepts optional `spellingDistractors`; placeholder length and readiness use the target word length, not total tiles. Only the Käse lesson task opts in with one extra a tile; other tile banks retain their existing letters.
+
+## Module 2 Lesson 3 refinement
+- `js/a1-practical-data.js` supplies twelve Countries, nationalities and languages questions and the supporting Frankreich/und examples. `js/lesson-consistency.js` renders its scoped `dlLanguageChoices` task as two selections, mapping the chosen pair back to the shuffled native option index; review banks retain ordinary pair choices and native scoring. Existing practical-input cleanup removes submitted toggles.

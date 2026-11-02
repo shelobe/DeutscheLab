@@ -627,242 +627,325 @@ window.DL_A1_PRACTICAL_PACKS = {
  },
  "A1|Countries, nationalities and languages": {
   "sections": [
-   [
-    "What you will be able to do",
-    "Say where you come from, describe your nationality, and ask and answer which languages someone speaks."
-   ],
-   [
-    "Where are you from?",
     [
-     "Ich komme aus Kanada. — I come from Canada.\nUse kommen aus to say where you are from. Aus means “from” here.\nAus means “from” here; kommen aus tells where someone comes from.",
-     "Woher kommst du? — Where are you from?\nUse it with one person you address informally.",
-     "Woher kommen Sie? — Where are you from?\nUse it when addressing someone politely.",
-     "Ich komme aus Deutschland. — I come from Germany.",
-     "Ich komme aus den USA. — I come from the USA."
-    ]
-   ],
-   [
-    "What does woher mean?",
+      "What you will be able to do",
+      "Say where you come from, describe your nationality, and ask and answer which languages someone speaks."
+    ],
     [
-     "Woher? — Where … from?",
-     "Woher kommst du? asks where you are from, rather than where you live.",
-     "For now, learn this as a complete question. A later lesson explains question words and how to build your own questions."
-    ]
-   ],
-   [
-    "Example languages",
+      "Where are you from?",
+      [
+        "Ich komme aus Kanada. — I come from Canada.\nUse kommen aus to say where you are from. Aus means “from” here.",
+        "Woher kommst du? — Where are you from?\nUse it with one person you address informally.",
+        "Woher kommen Sie? — Where are you from?\nUse it when addressing someone politely.",
+        "Ich komme aus Deutschland. — I come from Germany.",
+        "Ich komme aus den USA. — I come from the USA.\nLearn aus den USA together as a phrase for now. A later lesson explains why den is included.",
+        "Frankreich — France"
+      ]
+    ],
     [
-     "Deutsch — German",
-     "Englisch — English",
-     "Französisch — French"
-    ]
-   ],
-   [
-    "Talk about the languages you speak",
+      "What does woher mean?",
+      [
+        "Woher? — Where … from?",
+        "Woher kommst du? asks where you are from, rather than where you live.",
+        "For now, learn this as a complete question. A later lesson explains question words and how to build your own questions."
+      ]
+    ],
     [
-     "Ich spreche … — I speak …",
-     "Ich spreche Englisch. — I speak English.",
-     "Welche Sprachen sprichst du? — Which languages do you speak?",
-     "Sprichst du Englisch? — Do you speak English?",
-     "Ja, ich spreche Englisch. — Yes, I speak English."
-    ]
-   ],
-   [
-    "Coming up",
-    "Some German verbs change their vowel with du and er/sie/es. With sprechen, e changes to i: ich spreche → du sprichst. For now, learn these as useful phrases. A later lesson explains this pattern and gives you more practice."
-   ],
-   [
-    "Nationality",
+      "Example languages",
+      [
+        "Deutsch — German",
+        "Englisch — English",
+        "Französisch — French"
+      ]
+    ],
     [
-     "Ich bin Amerikanerin. — I am an American woman.",
-     "Ich bin Amerikaner. — I am an American man.",
-     "German nationality nouns and language names begin with capital letters."
-    ]
-   ],
-   [
-    "A note on noun endings",
+      "Talk about the languages you speak",
+      [
+        "Ich spreche … — I speak …",
+        "Ich spreche Englisch. — I speak English.",
+        "Welche Sprachen sprichst du? — Which languages do you speak?",
+        "Sprichst du Englisch? — Do you speak English?",
+        "Ja, ich spreche Englisch. — Yes, I speak English.",
+        "Ich spreche Deutsch und Englisch. — I speak German and English.\nUnd means “and”."
+      ]
+    ],
     [
-     "Amerikaner refers to a man; Amerikanerin refers to a woman. Here, adding -in changes the noun to the female form.",
-     "The later Work and occupations lesson explains this common pattern with more examples and practice."
+      "Coming up",
+      "Some German verbs change their vowel with du and er/sie/es. With sprechen, e changes to i: ich spreche → du sprichst. For now, learn these as useful phrases. A later lesson explains this pattern and gives you more practice."
+    ],
+    [
+      "Nationality",
+      [
+        "Ich bin Amerikanerin. — I am an American woman.",
+        "Ich bin Amerikaner. — I am an American man.",
+        "German nationality nouns and language names begin with capital letters."
+      ]
+    ],
+    [
+      "A note on noun endings",
+      [
+        "Amerikaner refers to a man; Amerikanerin refers to a woman. Here, adding -in changes the noun to the female form.",
+        "The later Work and occupations lesson explains this common pattern with more examples and practice."
+      ]
+    ],
+    [
+      "Where you live versus where you are from",
+      "Ich komme aus Kanada, aber ich wohne in Berlin. — I come from Canada, but I live in Berlin.\n\nYour origin and your current home can be different. Aber means but.\nIn means “in” here; wohnen in tells where someone lives."
     ]
-   ],
-   [
-    "Where you live versus where you are from",
-    "Ich komme aus Kanada, aber ich wohne in Berlin. — I come from Canada, but I live in Berlin.\n\nYour origin and your current home can be different. Aber means but.\nIn means “in” here; wohnen in tells where someone lives."
-   ]
   ],
   "examples": [
-   [
-    "Ich komme aus Deutschland.",
-    "I come from Germany."
-   ],
-   [
-    "Ich komme aus Kanada.",
-    "I come from Canada."
-   ],
-   [
-    "Ich komme aus den USA.",
-    "I come from the USA."
-   ],
-   [
-    "Woher kommst du?",
-    "Where are you from?"
-   ],
-   [
-    "Deutsch",
-    "German"
-   ],
-   [
-    "Englisch",
-    "English"
-   ],
-   [
-    "Französisch",
-    "French"
-   ],
-   [
-    "Ich spreche Englisch.",
-    "I speak English."
-   ],
-   [
-    "Ich bin Amerikanerin.",
-    "I am an American woman."
-   ],
-   [
-    "Ich bin Amerikaner.",
-    "I am an American man."
-   ],
-   [
-    "Welche Sprachen sprichst du?",
-    "Which languages do you speak?"
-   ],
-   [
-    "Sprichst du Englisch?",
-    "Do you speak English?"
-   ],
-   [
-    "Ja, ich spreche Englisch.",
-    "Yes, I speak English."
-   ],
-   [
-    "Woher kommen Sie?",
-    "Where are you from? (polite)"
-   ],
-   [
-    "Ich komme aus Kanada, aber ich wohne in Berlin.",
-    "I come from Canada, but I live in Berlin."
-   ]
+    [
+      "Ich komme aus Deutschland.",
+      "I come from Germany."
+    ],
+    [
+      "Ich komme aus Kanada.",
+      "I come from Canada."
+    ],
+    [
+      "Ich komme aus den USA.",
+      "I come from the USA."
+    ],
+    [
+      "Woher kommst du?",
+      "Where are you from?"
+    ],
+    [
+      "Deutsch",
+      "German"
+    ],
+    [
+      "Englisch",
+      "English"
+    ],
+    [
+      "Französisch",
+      "French"
+    ],
+    [
+      "Ich spreche Englisch.",
+      "I speak English."
+    ],
+    [
+      "Ich bin Amerikanerin.",
+      "I am an American woman."
+    ],
+    [
+      "Ich bin Amerikaner.",
+      "I am an American man."
+    ],
+    [
+      "Welche Sprachen sprichst du?",
+      "Which languages do you speak?"
+    ],
+    [
+      "Sprichst du Englisch?",
+      "Do you speak English?"
+    ],
+    [
+      "Ja, ich spreche Englisch.",
+      "Yes, I speak English."
+    ],
+    [
+      "Woher kommen Sie?",
+      "Where are you from? (polite)"
+    ],
+    [
+      "Ich komme aus Kanada, aber ich wohne in Berlin.",
+      "I come from Canada, but I live in Berlin."
+    ],
+    [
+      "Frankreich",
+      "France"
+    ],
+    [
+      "Ich spreche Deutsch und Englisch.",
+      "I speak German and English."
+    ]
   ],
   "questions": [
-   {
-    "type": "grammar",
-    "prompt": "Someone asks “Woher kommst du?” Choose an answer.",
-    "options": [
-     "Ich komme aus Kanada.",
-     "Ich wohne hier.",
-     "Ich heiße Lea."
-    ],
-    "answer": 0,
-    "why": "Woher asks your origin. Aus means “from” here; kommen aus tells where someone comes from.",
-    "dlSkill": "situation",
-    "dlTopic": "country-origin"
-   },
-   {
-    "type": "grammar",
-    "prompt": "Complete: Ich komme ___ Deutschland.",
-    "options": [
-     "aus",
-     "in",
-     "wie"
-    ],
-    "answer": 0,
-    "why": "Aus gives origin.",
-    "dlSkill": "use",
-    "dlTopic": "country-origin"
-   },
-   {
-    "type": "grammar",
-    "prompt": "Write the German language name for English.",
-    "options": [
-     "Englisch",
-     "Deutsch",
-     "Französisch"
-    ],
-    "answer": 0,
-    "why": "Englisch means English.",
-    "dlSkill": "write",
-    "dlWriteAnswer": "Englisch",
-    "dlTopic": "languages"
-   },
-   {
-    "type": "grammar",
-    "prompt": "Ask a friend which languages they speak.",
-    "options": [
-     "Welche Sprachen sprichst du?",
-     "Woher kommst du?",
-     "Wie heißt du?"
-    ],
-    "answer": 0,
-    "why": "Welche Sprachen sprichst du? asks which languages someone speaks.",
-    "dlTopic": "languages",
-    "dlSkill": "situation"
-   },
-   {
-    "type": "grammar",
-    "prompt": "A friend asks “Sprichst du Englisch?” Choose a suitable reply.",
-    "options": [
-     "Ja, ich spreche Englisch.",
-     "Ich komme aus Kanada.",
-     "Ich heiße Lea."
-    ],
-    "answer": 0,
-    "why": "Answer the language question with Ja, ich spreche Englisch.",
-    "dlTopic": "languages",
-    "dlSkill": "situation"
-   },
-   {
-    "type": "grammar",
-    "prompt": "Ask a friend where they are from.",
-    "options": [
-     "Woher kommst du?",
-     "Wo wohnst du?",
-     "Wie heißt du?"
-    ],
-    "answer": 0,
-    "why": "Woher kommst du? asks about origin; Wo wohnst du? asks about current home.",
-    "dlSkill": "situation",
-    "dlTopic": "country-origin"
-   },
-   {
-    "type": "grammar",
-    "prompt": "Write the missing word: Ich komme ___ Kanada.",
-    "options": [
-     "aus",
-     "in",
-     "wie"
-    ],
-    "answer": 0,
-    "why": "Ich komme aus gives your origin.",
-    "dlSkill": "write",
-    "dlWriteAnswer": "aus",
-    "dlTopic": "country-origin"
-   },
-   {
-    "type": "grammar",
-    "prompt": "Listen and choose the meaning of the sentence.",
-    "options": [
-     "I come from Canada, but I live in Berlin.",
-     "I live in Canada, but I come from Berlin.",
-     "My name is Lea and I live in Berlin."
-    ],
-    "answer": 0,
-    "why": "Komme aus gives origin; wohne in gives current home. Aber means but. In means “in” here; wohnen in tells where someone lives. Aus means “from” here; kommen aus tells where someone comes from.",
-    "dlSkill": "listen",
-    "dlReviewAudio": "Ich komme aus Kanada, aber ich wohne in Berlin.",
-    "dlTopic": "country-origin"
-   }
+    {
+      "type": "grammar",
+      "prompt": "Someone asks “Woher kommst du?” Choose an answer.",
+      "options": [
+        "Ich komme aus Kanada",
+        "Ich wohne hier",
+        "Ich heiße Lea"
+      ],
+      "answer": 0,
+      "why": "Woher asks your origin. Aus means “from” here; kommen aus tells where someone comes from.",
+      "dlSkill": "situation",
+      "dlTopic": "country-origin"
+    },
+    {
+      "type": "grammar",
+      "prompt": "How would you ask a customer where they are from?",
+      "options": [
+        "Woher kommen Sie",
+        "Woher kommst du",
+        "Wo wohnen Sie"
+      ],
+      "answer": 0,
+      "why": "Woher kommen Sie? asks where someone is from when addressing them politely.",
+      "dlTopic": "country-origin",
+      "dlSkill": "situation"
+    },
+    {
+      "type": "grammar",
+      "prompt": "Write the German language name for English.",
+      "options": [
+        "Englisch",
+        "Deutsch",
+        "Französisch"
+      ],
+      "answer": 0,
+      "why": "Englisch means English.",
+      "dlSkill": "write",
+      "dlWriteAnswer": "Englisch",
+      "dlTopic": "languages"
+    },
+    {
+      "type": "grammar",
+      "prompt": "Ask a friend which languages they speak.",
+      "options": [
+        "Welche Sprachen sprichst du",
+        "Woher kommst du",
+        "Wie heißt du"
+      ],
+      "answer": 0,
+      "why": "Welche Sprachen sprichst du? asks which languages someone speaks.",
+      "dlTopic": "languages",
+      "dlSkill": "situation"
+    },
+    {
+      "type": "grammar",
+      "prompt": "A friend asks “Sprichst du Englisch?” Choose a suitable reply.",
+      "options": [
+        "Ja, ich spreche Englisch",
+        "Ich komme aus Kanada",
+        "Ich heiße Lea"
+      ],
+      "answer": 0,
+      "why": "Answer the language question with Ja, ich spreche Englisch.",
+      "dlTopic": "languages",
+      "dlSkill": "situation"
+    },
+    {
+      "type": "grammar",
+      "prompt": "Ask a friend where they are from.",
+      "options": [
+        "Woher kommst du",
+        "Wo wohnst du",
+        "Wie heißt du"
+      ],
+      "answer": 0,
+      "why": "Woher kommst du? asks about origin; Wo wohnst du? asks about current home.",
+      "dlSkill": "situation",
+      "dlTopic": "country-origin"
+    },
+    {
+      "type": "grammar",
+      "prompt": "Write the missing word: Ich komme ___ Kanada.",
+      "options": [
+        "aus",
+        "in",
+        "wie"
+      ],
+      "answer": 0,
+      "why": "Ich komme aus gives your origin.",
+      "dlSkill": "write",
+      "dlWriteAnswer": "aus",
+      "dlTopic": "country-origin"
+    },
+    {
+      "type": "grammar",
+      "prompt": "Listen and choose the meaning of the sentence.",
+      "options": [
+        "I come from Canada, but I live in Berlin",
+        "I live in Canada, but I come from Berlin",
+        "My name is Lea and I live in Berlin"
+      ],
+      "answer": 0,
+      "why": "Komme aus gives origin; wohne in gives current home. Aber means but. In means “in” here; wohnen in tells where someone lives. Aus means “from” here; kommen aus tells where someone comes from.",
+      "dlSkill": "listen",
+      "dlReviewAudio": "Ich komme aus Kanada, aber ich wohne in Berlin.",
+      "dlTopic": "country-origin"
+    },
+    {
+      "type": "grammar",
+      "prompt": "An American woman introduces her nationality. Which sentence fits?",
+      "options": [
+        "Ich bin Amerikanerin",
+        "Ich bin Amerikaner",
+        "Ich spreche Englisch"
+      ],
+      "answer": 0,
+      "why": "Ich bin Amerikanerin means “I am an American woman.”",
+      "dlTopic": "nationality",
+      "dlSkill": "situation"
+    },
+    {
+      "type": "grammar",
+      "prompt": "An American man introduces his nationality. Which sentence fits?",
+      "options": [
+        "Ich bin Amerikaner",
+        "Ich bin Amerikanerin",
+        "Ich komme aus Deutschland"
+      ],
+      "answer": 0,
+      "why": "Ich bin Amerikaner means “I am an American man.”",
+      "dlTopic": "nationality",
+      "dlSkill": "situation"
+    },
+    {
+      "type": "grammar",
+      "prompt": "Listen and choose the language you hear.",
+      "options": [
+        "German",
+        "French",
+        "English"
+      ],
+      "answer": 0,
+      "why": "Deutsch means German.",
+      "dlTopic": "languages",
+      "dlSkill": "listen",
+      "dlReviewAudio": "Deutsch"
+    },
+    {
+      "type": "grammar",
+      "prompt": "Listen. Which languages does this person speak?",
+      "options": [
+        "German and English",
+        "French and German",
+        "French and English"
+      ],
+      "answer": 0,
+      "why": "The speaker comes from France and speaks German and English. Country of origin and spoken languages can differ.",
+      "dlTopic": "languages",
+      "dlSkill": "listen",
+      "dlReviewAudio": "Ich komme aus Frankreich. Ich spreche Deutsch und Englisch.",
+      "dlLanguageChoices": [
+        "German",
+        "French",
+        "English"
+      ],
+      "dlLanguagePairs": [
+        [
+          0,
+          2
+        ],
+        [
+          1,
+          0
+        ],
+        [
+          1,
+          2
+        ]
+      ]
+    }
   ]
- },
+},
  "A1|Personal pronouns: we, you all, they": {
   "sections": [
     [
