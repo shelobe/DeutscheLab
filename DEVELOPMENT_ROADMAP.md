@@ -138,3 +138,14 @@ Scope: authored teaching and questions, not verified runtime behavior. No app ch
 - **A1-AUD-12, Module 8 - negation:** Nicht/kein and gender contrasts taught with practical examples; mostly supplied-form completion. **P2, investigate:** add scenario-based negative responses and independent sentences if existing reviews do not already cover them.
 
 Preserve: noun gender guidance, number listening/writing, verb-first question instruction, practical negation. Next audit: Modules 9-12 (family, home, accusative/pets, food), followed by review and runtime exercise coverage. These are recommendations, not approved implementation changes.
+
+
+### A1 audit batch 5: Modules 9–12 (2026-11-01)
+Scope: authored lesson data and course definitions; no runtime or browser verification. No app changes.
+- **A1-AUD-13, Module 9 — Family:** Seven lessons; sensible noun-to-possessive sequence, but six repeated example sentences recur across meaning, blanks and situational selection. P1: introduce unfamiliar family contexts and independent short descriptions. Review pre-accusative reference to *meine Oma*.
+- **A1-AUD-14, Module 10 — Home:** Four lessons; six meaning-recognition, six supplied-blank and six contextual choice prompts in enrichment stages. P1: test independent room/furniture descriptions and location sentences.
+- **A1-AUD-15, Module 11 — Accusative and pets:** Three lessons; positive mix of writing, listening, reading and practical scenarios. P2: verify independent subject/object identification, article choice and pronoun substitution in unfamiliar contexts.
+- **A1-AUD-16, Module 12 — Food:** Five lessons; repeated six-sentence pattern across three enrichment stages. P1: expand applied restaurant dialogue and new food-preference scenarios.
+- **A1-AUD-17, Feedback:** Authored explanation for “Wir trinken Wasser” refers instead to “Ich möchte einen Tee”; P1: inspect and correct mismatched explanations throughout these modules.
+- **Review follow-up:** Review draws from lesson banks; inspect effective runtime sampling and coverage before claiming review mastery. No changes approved.
+**Next audit checkpoint:** Modules 13–16 (shopping, dates/appointments, daily routines/separable verbs, hobbies/modals). Audit actual authored teaching, questions, sequencing and feedback; no implementation without approval.
