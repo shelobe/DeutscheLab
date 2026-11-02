@@ -2543,118 +2543,142 @@ window.DL_A1_PRACTICAL_PACKS = {
  },
  "A1|People and names: Vocabulary and meaning": {
   "sections": [
-   [
-    "Introduce yourself",
     [
-     "Ich heiße … / Mein Name ist … — My name is …\nUse either phrase to give your own name."
-    ]
-   ],
-   [
-    "Introduce someone else",
+      "Introduce yourself",
+      [
+        "Ich heiße … / Mein Name ist … — My name is …\nUse either phrase to give your own name."
+      ]
+    ],
     [
-     "Das ist … — This is …\nUse this to introduce another person."
-    ]
-   ],
-   [
-    "Note: mein or meine?",
+      "Introduce someone else",
+      [
+        "Das ist … — This is …\nUse this to introduce another person."
+      ]
+    ],
     [
-     "Mein Name — my name\nName is masculine: der Name.",
-     "Meine Mutter — my mother\nMutter is feminine: die Mutter.",
-     "You’ll learn more about these endings in the possessives lesson."
+      "Note: mein or meine?",
+      [
+        "Mein Name — my name\nName is masculine: der Name.",
+        "Meine Mutter — my mother\nMutter is feminine: die Mutter.",
+        "You’ll learn more about these endings in the possessives lesson."
+      ]
     ]
-   ]
   ],
   "questions": [
-   {
-    "type": "grammar",
-    "prompt": "You are Lea. Give your name using Mein Name.",
-    "options": [
-     "Mein Name ist Lea.",
-     "Das ist Lea.",
-     "Das ist Paul."
-    ],
-    "answer": 0,
-    "why": "Mein Name ist gives your own name.",
-    "dlSkill": "situation"
-   },
-   {
-    "type": "grammar",
-    "prompt": "You introduce Paul to a friend. What do you say?",
-    "options": [
-     "Das ist Paul.",
-     "Mein Name ist Paul.",
-     "Ich heiße Paul."
-    ],
-    "answer": 0,
-    "why": "Das ist introduces another person; the other phrases give your own name.",
-    "dlSkill": "situation"
-   },
-   {
-    "type": "grammar",
-    "prompt": "What does “Mein Name ist Lea.” mean?",
-    "options": [
-     "My name is Lea.",
-     "This is Lea.",
-     "This is Paul."
-    ],
-    "answer": 0,
-    "why": "Mein Name means my name.",
-    "dlSkill": "meaning"
-   },
-   {
-    "type": "grammar",
-    "prompt": "Which phrase gives the same information as “Ich heiße Lea.”?",
-    "options": [
-     "Mein Name ist Lea.",
-     "Das ist Lea.",
-     "Das ist Paul."
-    ],
-    "answer": 0,
-    "why": "Ich heiße Lea and Mein Name ist Lea both give your name.",
-    "dlSkill": "situation"
-   },
-   {
-    "type": "grammar",
-    "prompt": "Write the missing word: Mein ___ ist Lea.",
-    "options": [
-     "Name",
-     "Paul",
-     "Lea"
-    ],
-    "answer": 0,
-    "why": "Mein Name ist Lea means My name is Lea.",
-    "dlSkill": "write",
-    "dlWriteAnswer": "Name"
-   },
-   {
-    "type": "grammar",
-    "prompt": "Listen and choose the meaning of the sentence.",
-    "options": [
-     "This is Paul.",
-     "My name is Paul.",
-     "My name is Lea."
-    ],
-    "answer": 0,
-    "why": "Das ist Paul introduces Paul to someone else.",
-    "dlSkill": "listen",
-    "dlReviewAudio": "Das ist Paul."
-   }
+    {
+      "type": "grammar",
+      "prompt": "Someone says “Ich heiße Lukas.” What have they told you?",
+      "options": [
+        "Their name",
+        "Where they live",
+        "Someone else’s name"
+      ],
+      "answer": 0,
+      "why": "Ich heiße gives the speaker’s own name.",
+      "dlSkill": "meaning"
+    },
+    {
+      "type": "grammar",
+      "prompt": "You introduce Paul to a friend. What do you say?",
+      "options": [
+        "Das ist Paul.",
+        "Mein Name ist Paul.",
+        "Ich heiße Paul."
+      ],
+      "answer": 0,
+      "why": "Das ist introduces another person; the other phrases give your own name.",
+      "dlSkill": "situation"
+    },
+    {
+      "type": "grammar",
+      "prompt": "You’re introducing your friend Anna. Complete: “___ Anna.”",
+      "options": [
+        "Das ist",
+        "Mein Name ist",
+        "Ich heiße"
+      ],
+      "answer": 0,
+      "why": "Das ist means “This is” and introduces another person.",
+      "dlSkill": "situation"
+    },
+    {
+      "type": "grammar",
+      "prompt": "Which means the same as “Ich heiße Lea.”?",
+      "options": [
+        "Mein Name ist Lea.",
+        "Das ist Lea.",
+        "Wie heißt Lea?"
+      ],
+      "answer": 0,
+      "why": "Ich heiße Lea and Mein Name ist Lea both give your own name. Das ist Lea introduces someone else; Wie heißt Lea? asks for a name.",
+      "dlSkill": "situation"
+    },
+    {
+      "type": "grammar",
+      "prompt": "Complete to say “My name is Mia”: Mein ___ ist Mia.",
+      "options": [
+        "Name",
+        "Paul",
+        "Mia"
+      ],
+      "answer": 0,
+      "why": "Mein Name ist Mia means “My name is Mia”.",
+      "dlSkill": "write",
+      "dlWriteAnswer": "Name"
+    },
+    {
+      "type": "grammar",
+      "prompt": "Listen and choose the meaning of the sentence.",
+      "options": [
+        "This is Paul.",
+        "My name is Paul.",
+        "My name is Lea."
+      ],
+      "answer": 0,
+      "why": "Das ist Paul introduces Paul to someone else.",
+      "dlSkill": "listen",
+      "dlReviewAudio": "Das ist Paul."
+    },
+    {
+      "type": "grammar",
+      "prompt": "Complete the introduction: Das ist ___ Mutter.",
+      "options": [
+        "mein",
+        "meine",
+        "Name"
+      ],
+      "answer": 1,
+      "why": "Use meine with Mutter: die Mutter is feminine. Das ist meine Mutter means “This is my mother”.",
+      "dlSkill": "use"
+    },
+    {
+      "type": "grammar",
+      "prompt": "Complete: ___ Name ist Mia.",
+      "options": [
+        "Mein",
+        "Meine",
+        "Das"
+      ],
+      "answer": 0,
+      "why": "Use mein with Name: der Name is masculine. Mein Name ist Mia means “My name is Mia”.",
+      "dlSkill": "use"
+    }
   ],
   "examples": [
-   [
-    "Ich heiße Lea.",
-    "My name is Lea."
-   ],
-   [
-    "Mein Name ist Lea.",
-    "My name is Lea."
-   ],
-   [
-    "Das ist Paul.",
-    "This is Paul."
-   ]
+    [
+      "Ich heiße Lea.",
+      "My name is Lea."
+    ],
+    [
+      "Mein Name ist Lea.",
+      "My name is Lea."
+    ],
+    [
+      "Das ist Paul.",
+      "This is Paul."
+    ]
   ]
- },
+},
  "A1|People and names: Sentence patterns": {
    "sections": [
      [
