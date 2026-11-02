@@ -98,3 +98,13 @@ Copy this section for each batch:
 - User approves the current compact question-side 💡 Hint button as the global design reference; existing two-question implementation stays unchanged.
 - Possible refinement: make the pop-up more compact and visually polished. Its current appearance is not finalized.
 - Documentation only. Global rollout and pop-up changes remain deferred until requested.
+
+### CUR-02 follow-up — Four A1 sequencing and learning-effectiveness investigations (2026-11-01)
+These are **audit candidates, not confirmed defects or approved changes**. Review current teaching, questions and module reviews before proposing edits.
+
+1. **Modal verbs introduced late:** The dedicated *können* / *müssen* lesson is in Module 16, after food, shopping and routines. Check whether practical chunks such as *Kann ich …?* should appear earlier without moving formal conjugation instruction.
+2. **Separable-verb prerequisites and practice:** Module 15 introduces *aufstehen* and *einkaufen*, including end-position prefixes. Verify that learners receive sufficient guided sentence construction before assessments and can independently apply the pattern.
+3. **Concentrated dative material:** Module 18 contains prepositions, dative articles and dative pronouns. Evaluate cognitive load, prerequisite clarity, and spacing/practice between these concepts before considering redistribution.
+4. **Past-tense production:** Module 21 introduces *Perfekt*, *haben/sein* auxiliaries and participles. Confirm that exercises support independent descriptions of completed activities rather than recognition alone.
+
+**Resume point:** Audit each of these against actual lesson packs and assessments; record evidence and distinguish existing coverage from genuine gaps. No code changes authorized by this note.
