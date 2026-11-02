@@ -154,7 +154,7 @@ This document records established product decisions. The current `main` branch i
 - Preview missing-letter activities place a native editable blank inline between the fixed word parts; typing and special-character keys fill that position, and Backspace clears it. Feedback uses the existing unit-explain wrapper and shared result badge without preview-specific badge or avatar size overrides. Correct preview answers call the existing feedbackSound(true), respecting the app's Answer sounds setting. Inline blanks use explicit character-sized widths rather than browser input size hints. This remains a preview-only convention.
 
 ## Spelling pilot: Umlauts and ß
-- Trial letter tiles and inline missing-letter entry in this one A1 lesson and its Module 1 review. Use only taught words: Käse and Straße for lesson tile construction, schön for the inline ö blank, and retain full-word fünf and heißen writing. Keep the lesson at ten questions and Module 1 review at fifteen.
+- Umlauts and ß now has nine lesson questions; Module 1 review remains at fifteen. Retain Käse/Straße letter tiles and full-word fünf/heißen writing. In the lesson, replace the overlapping schon/schön matching, comparison and inline-gap tasks with one missing-vowel choice; retain the review’s existing inline-gap helper and formats.
 - Use native lesson/review checking, scoring, progress, sounds, feedback characters and fixed action controls. Letter tiles track individual positions so repeated letters work. Missing letters use one underline and a cursor, with collapsed special-character keys. Do not require a separate Listen action to enable a completed answer.
 - Lesson Back retains the existing leave warning and returns to Lessons. Preview Back now also warns before discarding the current preview and returning to Lessons; cancel keeps the current activity intact. Other lessons remain unchanged.
 
@@ -220,3 +220,9 @@ This document records established product decisions. The current `main` branch i
 ## Early greetings practice and later recall
 - Module 2 Lesson 1 introduces polite expressions through situational recognition and short completion. Keep typing limited to short answers (currently Danke/gut); do not require full typing of Entschuldigung, Es tut mir leid or Gern geschehen in this first encounter.
 - During the later review improvement phase, revisit earlier expressions with partial-to-full typed recall and consider limited typo tolerance with visible spelling correction. Long-expression recall and typo-tolerant grading are planned work, not currently implemented by this lesson change. Preserve exact checking for sound/spelling objectives.
+
+
+## Focused Umlauts and ß questions
+- For schon/schön, play one concealed recording and show sch_n with o/ö choices. Vary whether the recording says schon or schön and shuffle answer positions. Reveal the whole spelling and meaning in feedback, with replay.
+- For Fuß and Fluss, supply Fu_ or Flu_ and offer ß/ss choices. Feedback links the heard long/short vowel to the spelling; avoid using the extra l as a listening shortcut in a word-pair comparison.
+- Assess the sound of ß separately with the Straße question (S in see versus B in book/Z in zoo), offering word playback after checking. Keep native Check/Next, feedback artwork, score saving and the actual-total pass threshold.

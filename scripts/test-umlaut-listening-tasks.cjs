@@ -46,14 +46,14 @@ open({dlLessonMode:'gap',spellingWord:'schön',spellingBefore:'sch',spellingAfte
 button('ö').click();check.onclick();assert.equal(submissions.at(-1),0);assert.equal(app.querySelector('.dl-practical-input'),null);
 console.log('PASS: tiles, repeated letters, Undo, strict inline umlaut scoring, native submission and cleanup');
 
-const dataContext={FULL_UNITS:[{title:'Umlauts and ß'}],fullSession:{},fullBegin(){},fullRender(){}};
+const dataContext={FULL_UNITS:[{title:'Umlauts and ß'}],fullSession:{},fullBegin(){},fullRender(){},dlCheck(){}};
 vm.createContext(dataContext);vm.runInContext(fs.readFileSync('js/extracted-batch6-14.js','utf8'),dataContext);dataContext.fullBegin(0);
-const bank=dataContext.fullSession.questions;assert.equal(bank.length,10);assert.equal(bank.filter(q=>q.dlLessonMode==='tiles').length,2);assert.equal(bank.filter(q=>q.dlLessonMode==='gap').length,1);assert(bank.some(q=>q.dlWriteAnswer==='fünf'));assert(bank.some(q=>q.dlWriteAnswer==='heißen'));
+const bank=dataContext.fullSession.questions;assert.equal(bank.length,9);assert.equal(bank.filter(q=>q.dlLessonMode==='tiles').length,2);assert.equal(bank.filter(q=>q.dlLessonMode==='gap').length,0);assert(bank.some(q=>q.dlWriteAnswer==='fünf'));assert(bank.some(q=>q.dlWriteAnswer==='heißen'));
 const previewSource=fs.readFileSync('js/spelling-preview.js','utf8');const back=previewSource.match(/btn\('Back',(\(\)=>\{.*?\}),foot\);/)[1];
 let allowed=false,closed=0,lessons=0,warnings=0;
 const backContext={window:{confirm(message){warnings++;assert(message.includes('lost'));return allowed}},close(){closed++},lessonMenu(){lessons++}};vm.createContext(backContext);const goBack=vm.runInContext(back,backContext);
 goBack();assert.equal(closed,0);assert.equal(lessons,0);allowed=true;goBack();assert.equal(closed,1);assert.equal(lessons,1);assert.equal(warnings,2);
-console.log('PASS: ten-question pilot bank and Back warning cancellation/confirmed Lessons destination');
+console.log('PASS: nine-question focused bank and Back warning cancellation/confirmed Lessons destination');
 
 open({dlLessonMode:'match',words:['Käse','fünf','Mädchen'],options:['Correct','Wrong'],answer:0});
 const labels=['Listen A','Listen B','Listen C'];
@@ -63,3 +63,27 @@ button('Listen A').click();const firstWord=played.at(-1);button('Listen B').clic
 assert(check.disabled,'Reassigning a used word leaves its previous recording unmatched');assert.equal((links.innerHTML.match(/<path /g)||[]).length,2);
 assert(button('Listen B').attributes['aria-label'].includes(firstWord));
 console.log('PASS: stable audio labels, SVG connectors, accessible pairing and reassignment');
+
+const heardVowels=new Set();
+for(let trial=0;trial<80;trial++){
+ dataContext.fullBegin(0);const questions=dataContext.fullSession.questions;
+ const vowel=questions.find(q=>q.dlSoundFocus==='o-ö');heardVowels.add(vowel.dlReviewAudio);
+ assert.equal(vowel.options[vowel.answer],vowel.dlReviewAudio==='schon'?'o':'ö');
+ assert.equal(vowel.prompt,'Listen and complete: sch_n.');
+ assert.ok(!questions.some(q=>q.dlLessonMode==='compare'));
+ assert.equal(questions.filter(q=>q.dlLessonMode==='match').length,1);
+ for(const [word,ending]of [['Fuß','ß'],['Fluss','ss']]){
+  const q=questions.find(q=>q.dlReviewAudio===word);assert.equal(q.options[q.answer],ending);
+  assert.ok(!q.prompt.includes(word),'Audio answer must stay concealed');
+ }
+ const sharp=questions.find(q=>q.prompt==='In Straße, how is ß pronounced?');assert.equal(sharp.options[sharp.answer],'Like S in see');
+}
+assert.deepEqual([...heardVowels].sort(),['schon','schön']);
+const feedback=new Element('div'),replayed=[];
+dataContext.document={querySelector:()=>feedback,createElement:t=>new Element(t)};
+dataContext.speak=word=>replayed.push(word);
+dataContext.fullSession.id=0;dataContext.dlAnswered=false;dataContext.dlCheck();assert.equal(feedback.children.length,0);
+dataContext.dlAnswered=true;dataContext.dlCheck();dataContext.dlCheck();assert.equal(feedback.children.length,1);
+const replay=feedback.children[0],target=dataContext.fullSession.questions[0].dlFeedbackAudio;
+replay.click();assert.deepEqual(replayed,[target]);dataContext.fullSession.idx++;replay.click();assert.equal(replayed.length,1);
+console.log('PASS: 80 randomized vowel/choice banks; long/short vowel ß/ss mapping; no duplicate comparison; ß sound; post-check-only replay and stale/duplicate guards.');

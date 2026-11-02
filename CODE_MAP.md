@@ -42,7 +42,7 @@
 ## Module 1 lesson questions
 - `js/extracted-batch6-9.js` owns the effective Alphabet and spelling `fullBegin` bank: ten tasks (four existing applied J/W/V checks, three new-word sound predictions using Jahr/Weg/vier, and the existing three spoken-word tasks). The scoped prediction renderer underlines the initial letter; its dlCheck wrapper adds guarded playback only after checking. Native checking and speech handlers remain authoritative; the lesson bank does not modify module reviews.
 - `js/a1-practical-data.js` keeps Jacke/Wasser/Vater in the alphabet introduction. Jacke replaces Jahr in microphone practice; Jahr is reserved for the new-word prediction, while Winter/Vogel remain other practice examples.
-- `js/extracted-batch6-14.js` owns the ten mixed Umlauts and ß lesson tasks. Matching feedback names the specific vowel/spelling contrasts; heißen is strict listening dictation using the normal/slow audio and written-answer handlers. Existing matching, tile and gap renderers remain in place.
+- `js/extracted-batch6-14.js` owns nine focused Umlauts and ß lesson tasks: one randomized schon/schön vowel choice, separate Fuß/Fluss ß/ss completions, one ß-sound choice, two tile tasks, one ä/ü matching task and two strict written dictations. Its scoped dlCheck wrapper offers guarded post-answer playback for the four targeted sound choices. Existing native choices, audio, matching, tile and writing renderers remain authoritative.
 - `scripts/test-module-one-lessons.cjs` loads the real index script order and exercises both effective lesson banks, randomized correct-answer mappings, practice-word separation, initial-letter emphasis, post-answer-only playback for right/wrong answers, duplicate/stale control guards and stable lesson IDs without a browser.
 
 ## Module 1 review
@@ -100,7 +100,7 @@
 - People and names vocabulary now teaches self-introductions versus introducing another person in two cards. Its brief mein/meine explanation points to possessives; audio stays inside those two cards, and practice/reviews use the same focused bank.
 
 ## Mixed umlaut lesson listening
-- `js/extracted-batch6-14.js` supplies ten umlaut tasks: three shuffled recording/word matches, two same/different comparisons, two letter-tile tasks, one inline missing-letter task and two written tasks. `js/umlaut-listening-tasks.js` loads after answer audio and renders only the two custom lesson formats, using the native Check answer/dlCheck scoring, shared fixed dock and enriched feedback cleanup. Word matching does not speak printed answers; comparison requires both clips played. `scripts/test-umlaut-listening-tasks.cjs` checks handlers, scoring delegation, shuffled matching and stale controls without a browser.
+- `js/extracted-batch6-14.js` supplies nine umlaut tasks: four targeted sound/spelling choices, two letter-tile tasks, one shuffled recording/word match and two written tasks. The o/ö recording and answer order vary per attempt; ß/ss choices target vowel length without revealing the full spelling. `js/umlaut-listening-tasks.js` loads after answer audio and renders only the two custom lesson formats, using the native Check answer/dlCheck scoring, shared fixed dock and enriched feedback cleanup. Word matching does not speak printed answers; comparison requires both clips played. `scripts/test-umlaut-listening-tasks.cjs` checks handlers, scoring delegation, shuffled matching, 80 randomized focused banks, ß/ss mappings and guarded feedback playback without a browser.
 
 ## A1 pets and sound additions
 - `js/a1-practical-data.js` provides the Pets: Haustiere teaching/questions and Bis bald! in Greetings and polite expressions.
@@ -127,7 +127,7 @@
 
 ## Spelling pilot controls
 - `js/spelling-activities.js` loads before `module-one-review.js` and `umlaut-listening-tasks.js`. Its `dlMountSpelling` creates tiles/inline blanks and delegates submission to native handlers; it does not save progress or render separate feedback.
-- `js/extracted-batch6-14.js` keeps ten Umlauts and ß questions, replacing one same-word comparison with schön/ö and two dictations with Käse/Straße tiles. `umlaut-listening-tasks.js` binds these controls to dlCheck and the native dock.
+- `js/extracted-batch6-14.js` now has nine Umlauts and ß questions; Käse/Straße tiles are retained, while the overlapping schön gap, schon/schön matching and comparisons are replaced with targeted native choices. The shared inline-gap helper remains in use by module reviews. `umlaut-listening-tasks.js` binds these controls to dlCheck and the native dock.
 - `module-one-review.js` retains fifteen questions, replacing Käse dictation with tiles and schön choice with an inline ö blank. Native review score, progress, cleanup and Next remain authoritative. Other module banks are unchanged.
 - The listening-task and module-review tests exercise the actual shared helper, strict umlauts, repeated tiles, native submissions, cleanup and footer. Preview Back tests cover canceled and confirmed exits to Lessons.
 

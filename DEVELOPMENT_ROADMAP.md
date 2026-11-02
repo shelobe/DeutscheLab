@@ -226,3 +226,13 @@ Scope: authored course definitions and lesson question banks, not browser/runtim
 - Validation: modified JavaScript parses; actual script order and 30 randomized effective greeting banks verified for all seven communication goals, shuffled answer mappings, short-only typing and retained listening. Compared all other teaching packs and this lesson’s teaching/examples with the unchanged baseline. Existing Module 1 lesson/review, answer-audio, written-answer and results checks pass. No browser/device test.
 - Status: Ready for user test. Commit reference: the commit adding this entry.
 - Next checkpoint: user checks Module 2 Lesson 1; then inspect and refine Lesson 2 (Introducing yourself). Keep module-review/final-assessment redesign deferred.
+
+
+### Module 1 Lesson 2 — Focused sound/spelling replacements (2026-11-01)
+- User finding: broad word matching and same/different comparisons can be solved through unrelated sound differences; Fuß/Fluss includes an extra l, while several schon/schön tasks overlap.
+- Implemented one concealed schon/schön recording with sch_n and shuffled o/ö choices; both target recordings vary across attempts. Removed the overlapping inline schön gap and schon/schön comparisons/matching.
+- Replaced Fuß/Fluss matching/comparison with separate Fu_/Flu_ completions, choosing ß/ss from the heard long/short vowel. Added the agreed Straße ß-sound question (S versus B/Z).
+- Nine questions total after removing redundancy: four focused choices, two retained Käse/Straße tile tasks, one retained ä/ü recording match and two retained strict fünf/heißen dictations. Specific feedback and guarded replay follow the focused choices. Teaching, pronunciation Lesson 3 and module review unchanged.
+- Validation: JavaScript syntax; actual script-order lesson-bank checks; 80 randomized o/ö/answer-order trials; ß/ss mappings, sound choice, post-check replay and duplicate/stale guards. Existing matching/tile/gap handler, Module 1 review, answer-audio and results regression checks pass. No browser/device testing.
+- Status: Ready for user test. Commit reference: the commit adding this entry.
+- Next checkpoint: User checks these Module 1 Lesson 2 replacements; Module 2 Lesson 2 remains the next unedited content batch. Dedicated review improvement remains deferred.
