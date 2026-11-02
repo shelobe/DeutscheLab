@@ -183,3 +183,7 @@ Scope: authored course definitions and lesson question banks, not browser/runtim
 - **Medium — Everyday problems:** Explain missing, broken, incorrect or unavailable items/services and request help.
 - **Medium — Polite interactions:** Practice apologies, responses to thanks, asking permission and natural conversation closings.
 **Design direction:** Do not create eight new modules by default. Integrate skills into relevant existing A1 lessons, and consider expanding Module 20 (*Useful everyday conversations*) into a stronger conversation-focused section. Make multi-turn dialogues recur throughout A1, with guided-to-independent progression and unfamiliar scenarios. Example: invite someone on Saturday; decline; suggest Sunday; agree on a time. Avoid duplicate teaching; first map each proposed skill against current lessons. No app edits authorized.
+
+
+### A1 improvement sequencing decision (2026-11-01)
+**Order of work:** First refine and expand the questions within individual A1 lessons (coverage, difficulty, variety, independent recall, application and feedback). **After lesson questions are finished**, conduct a dedicated audit and improvement pass on module reviews and the final A1 assessment, checking lesson coverage, retention, mixed-topic application, question variety and resistance to guessing. This is a deferred task, not authorization to edit reviews now.
