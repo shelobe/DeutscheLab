@@ -11,8 +11,9 @@ This summary and Current handoff are authoritative for resuming work. Dated batc
 | A1 authored-content audit, all 22 modules | Complete | Use recorded findings during scoped improvements; this is not proof of course-wide runtime or learning-outcome validation. |
 | Module 1 Lessons 1–3 | Done / user approved | Preserve approved questions and speaking practice. |
 | Module 2 Lesson 1 | Done / user approved | Preserve approved questions and concise feedback. |
-| Module 2 Lesson 2 — Introducing yourself: heißen and wohnen | Next / not yet revised in this question-refinement pass | Inspect current teaching and effective questions before editing. |
-| Module 2 Lessons 3–5 and Modules 3–22 | Pending in this question-refinement pass | Continue in course order; preserve previous useful work. |
+| Module 2 Lesson 2 — Introducing yourself: heißen and wohnen | Ready for user test | Ten revised questions; await device feedback. |
+| Module 2 Lesson 3 — Countries, nationalities and languages | Next / not yet revised in this pass | Inspect current teaching and effective questions before editing. |
+| Module 2 Lessons 4–5 and Modules 3–22 | Pending in this question-refinement pass | Continue in course order; preserve previous useful work. |
 | Dedicated module-review/final-assessment improvement | Deferred | Begin after individual lesson questions are finished; include the recorded gradual-recall plan. |
 | Intermittent pronunciation dictionary overlay | Monitor / unconfirmed | Investigate if reproducible; no fix claimed. |
 
@@ -44,7 +45,7 @@ This roadmap tracks planned work; an item marked "Needs audit" is not a verified
 |---|---|---|---|---|---|---|
 | CUR-01 | Curriculum | Establish A1 lesson-by-lesson quality inventory and remaining gaps | P0 | Work | Authored-content audit complete | All 22 A1 modules audited; findings recorded below. Course-wide runtime behavior, review sampling, audio and learning outcomes are not comprehensively verified; scoped checks and user approvals are recorded below. Use findings during scoped lesson improvements. |
 | CUR-02 | Curriculum | Review A1 lesson sequence and prerequisite coverage | P1 | Work | Initial authored-content audit complete; follow-ups pending | Broad sequence is appropriate; four targeted investigations remain below. Check relevant prerequisites during lesson refinement. |
-| CUR-03 | Curriculum | Improve repetitive or answer-revealing questions in selected A1 lessons | P0 | Chat | In progress — Module 1 and Module 2 Lesson 1 user approved | Next: Module 2 Lesson 2, Introducing yourself: heißen and wohnen. Continue in course order; preserve approved questions. |
+| CUR-03 | Curriculum | Improve repetitive or answer-revealing questions in selected A1 lessons | P0 | Chat | In progress — Module 1 and Module 2 Lesson 1 user approved | Module 2 Lesson 2 revised and awaiting user test. Next: Module 2 Lesson 3, Countries, nationalities and languages. Continue in course order; preserve approved questions. |
 | CUR-04 | Curriculum | Standardize lesson explanations, examples, audio rows and useful Remember cards | P1 | Chat | Ready for user test | Global shared presentation implemented; verify colors and in-card audio on Android; bespoke teaching retained |
 | CUR-05 | Curriculum | Validate module reviews and final A1 assessment against taught objectives | P1 | Work | Deferred until lesson questions are finished | After individual lesson questions are refined, audit and improve coverage, retention, mixed-topic application, variety and resistance to guessing. |
 | GAME-01 | Supermarket | Complete dairy department artwork consistent with fruit/vegetable scene | P1 | Chat | Backlog | Use approved existing scene as visual reference; prepare asset for user approval |
@@ -108,7 +109,8 @@ Copy this section for each batch:
 ## Current handoff
 - **Completed:** Authored-content audit of all 22 A1 modules; findings and conversational coverage proposals are recorded below. Course-wide runtime, review sampling, audio and learning outcomes are not comprehensively verified; scoped checks and user approvals are recorded below.
 - **Approved by user (2026-11-01):** All Module 1 lesson questions/practice (Lessons 1–3) and Module 2 Lesson 1 (Greetings and polite expressions). Current question refinements are accepted; preserve them unless a new issue is reported. This approval does not complete the deferred module-review/final-assessment work.
-- **Primary next step:** CUR-03 — Module 2 Lesson 2 (Introducing yourself: heißen and wohnen). Inspect current teaching and effective questions before the next scoped refinement.
+- **Current user-test checkpoint:** Module 2 Lesson 2 (Introducing yourself: heißen and wohnen), revised to ten questions.
+- **Primary next content step:** CUR-03 — Module 2 Lesson 3 (Countries, nationalities and languages). Inspect current teaching and effective questions before the next scoped refinement.
 - **After lesson questions are finished:** CUR-05 — audit and improve module reviews and the final A1 assessment. Do not start this deferred pass now.
 - **Secondary next step:** GAME-01 — prepare dairy-department artwork using the existing fruit-and-vegetable department as the visual reference. Asset approval comes before integration.
 - At the end of each session, update this file with the active task, completed commits, test results and the next precise action.
@@ -305,3 +307,17 @@ Scope: authored course definitions and lesson question banks, not browser/runtim
 - Earlier Ready for user test entries for these lesson changes are superseded by this approval. Preserve their detailed change/validation history.
 - The intermittent pronunciation dictionary-overlay/navigation issue remains a separate monitor note with an unconfirmed trigger; approval does not establish a fix.
 - Next lesson-question batch: Module 2 Lesson 2, Introducing yourself: heißen and wohnen. Module reviews and final A1 assessment remain deferred until individual lesson questions are finished.
+
+
+### Module 2 Lesson 2 — Question refinement (2026-11-01)
+- Expanded six tasks to ten: adds informal du questions for names and residence, short wohne recall and name-related listening. Retains the existing polite questions, reply/meaning situations, heiße completion and residence listening. Names/home each have five tasks; six situation choices, two short writing tasks and two listening tasks.
+- Removed duplicate in explanation from the Home teaching card, shortened residence feedback and normalized end punctuation in choices. Teaching examples/feedback retain correct German punctuation. Origins stay in Lesson 3; no long-expression writing or new grading rules.
+- Validation: modified JavaScript syntax; actual script order and 30 randomized effective banks; names/home and informal/polite coverage; typing and listening fields, concise explanations and punctuation checked. Twenty existing Module 2 review sampling runs retain all communication goals. Answer-audio and written-answer regression checks pass. No browser/device testing.
+- Status: Ready for user test; not user approved yet. Commit reference: the commit adding this entry. Next content batch: Module 2 Lesson 3.
+
+### Module 1 re-review after Lesson 2 refinement (2026-11-01)
+- Read the current effective alphabet/umlaut question overrides and pronunciation drills. Re-ran real script-order Module 1 lesson checks, pronunciation recognition/teaching checks and umlaut handler/randomized-bank checks; all pass. No browser/device testing; no Module 1 code changes made.
+- Lesson 1: ten tasks cover J/W/V application, unfamiliar-word prediction and spoken production. Jahr is prediction-only; Jacke is the speaking example. Remaining minor weakness: the Wasser/Winter same-starting-sound question also exposes matching initial letters; this is a lighter check rather than strong evidence of listening.
+- Lesson 2: nine tasks cover ä with Käse tiles, o/ö listening, ü with taught Tür and fünf dictation, and ß/ss spelling/sound. Broad word matching is removed. Tile banks constrain the possible spelling, so they are supported practice rather than independent dictation; retain the format variety and approved scope.
+- Lesson 3: fifteen guided speaking drills; ie target sieben, extra example Liebe. Completion records attempts, not validated pronunciation mastery. Recognition limitations and the intermittent dictionary-overlay monitor note remain.
+- Assessment: no blocking content issue identified in this code-level pass. Preserve the user’s Module 1 approval. Minor observations above are follow-ups, not approved edits; dedicated review/retention work remains deferred.

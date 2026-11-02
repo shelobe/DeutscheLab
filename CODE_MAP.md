@@ -157,3 +157,6 @@
 - Sentence-chunk hints in `js/lesson-consistency.js` now use a question-header button and a native modal dialog inside the transient activity. Close returns focus to Hint; activity cleanup removes both the dialog and header button after checking. Other hint controls are unchanged.
 
 - Umlauts and ß teaching includes Tür (door) under Ü in `lesson-enrichment-data.js`, with its own example/audio row. The native T_r choice uses shuffled u/ü options and post-check replay; no recording-to-word matching remains in this lesson. Shared matching remains available to reviews. Teaching presentation tests include the Tür row and complete DOM-double APIs for the real grouping pass.
+
+## Module 2 Lesson 2 question refinement
+- `js/a1-practical-data.js`, pack `A1|Introducing yourself: heißen and wohnen`, has ten questions: six situations (including both informal/polite name/home questions), two short completions (heiße/wohne), and two listening meanings. Choices omit final punctuation; teaching/feedback retain it. Name/home topics remain intact for existing review sampling; origins stay in Lesson 3.

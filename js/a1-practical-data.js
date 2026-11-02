@@ -452,7 +452,7 @@ window.DL_A1_PRACTICAL_PACKS = {
    [
     "Home",
     [
-     "Ich wohne in Berlin. — I live in Berlin.\nUse wohnen in to say where you live now. In means “in” here.\nIn means “in” here; wohnen in tells where someone lives.",
+     "Ich wohne in Berlin. — I live in Berlin.\nUse wohnen in to say where you live now. In means “in” here.",
      "Wo wohnst du? — Where do you live?\nUse it with one person you address informally.",
      "Wo wohnen Sie? — Where do you live?\nUse it when addressing someone politely."
     ]
@@ -493,9 +493,9 @@ window.DL_A1_PRACTICAL_PACKS = {
     "type": "grammar",
     "prompt": "A friend asks “Wie heißt du?” Choose your reply.",
     "options": [
-     "Ich heiße Lea.",
-     "Ich wohne in Berlin.",
-     "Wo wohnst du?"
+     "Ich heiße Lea",
+     "Ich wohne in Berlin",
+     "Wo wohnst du"
     ],
     "answer": 0,
     "why": "Ich heiße Lea gives your name.",
@@ -506,9 +506,9 @@ window.DL_A1_PRACTICAL_PACKS = {
     "type": "grammar",
     "prompt": "Ask a stranger their name politely.",
     "options": [
-     "Wie heißen Sie?",
-     "Wie heißt du?",
-     "Ich wohne in Berlin."
+     "Wie heißen Sie",
+     "Wie heißt du",
+     "Ich wohne in Berlin"
     ],
     "answer": 0,
     "why": "Use Wie heißen Sie? to ask a name politely.",
@@ -519,12 +519,12 @@ window.DL_A1_PRACTICAL_PACKS = {
     "type": "grammar",
     "prompt": "A form asks where you live now. Which sentence supplies that information?",
     "options": [
-     "Ich wohne in Berlin.",
-     "Ich heiße Lea.",
-     "Wie heißt du?"
+     "Ich wohne in Berlin",
+     "Ich heiße Lea",
+     "Wie heißt du"
     ],
     "answer": 0,
-    "why": "Wohnen describes your current home. In means “in” here; wohnen in tells where someone lives.",
+    "why": "Ich wohne in Berlin gives your current home. In means “in” here.",
     "dlSkill": "situation",
     "dlTopic": "home"
    },
@@ -532,12 +532,12 @@ window.DL_A1_PRACTICAL_PACKS = {
     "type": "grammar",
     "prompt": "Ask a stranger where they live politely.",
     "options": [
-     "Wo wohnen Sie?",
-     "Wo wohnst du?",
-     "Wie heißen Sie?"
+     "Wo wohnen Sie",
+     "Wo wohnst du",
+     "Wie heißen Sie"
     ],
     "answer": 0,
-    "why": "Wo wohnen Sie? asks where someone lives using polite Sie.",
+    "why": "Wo wohnen Sie? means “Where do you live?” Use Sie to address someone politely.",
     "dlSkill": "situation",
     "dlTopic": "home"
    },
@@ -559,15 +559,69 @@ window.DL_A1_PRACTICAL_PACKS = {
     "type": "grammar",
     "prompt": "Listen and choose the meaning of the sentence.",
     "options": [
-     "I live in Berlin.",
-     "My name is Lea.",
-     "Where do you live?"
+     "I live in Berlin",
+     "My name is Lea",
+     "Where do you live"
     ],
     "answer": 0,
-    "why": "Ich wohne in Berlin gives the speaker’s current home. In means “in” here; wohnen in tells where someone lives.",
+    "why": "Ich wohne in Berlin means “I live in Berlin” and gives the speaker’s current home.",
     "dlSkill": "listen",
     "dlReviewAudio": "Ich wohne in Berlin.",
     "dlTopic": "home"
+   },
+   {
+    "type": "grammar",
+    "prompt": "Ask a friend their name using informal du.",
+    "options": [
+     "Wie heißt du",
+     "Wie heißen Sie",
+     "Wo wohnst du"
+    ],
+    "answer": 0,
+    "why": "Wie heißt du? asks “What is your name?” Use du with a friend.",
+    "dlSkill": "situation",
+    "dlTopic": "names"
+   },
+   {
+    "type": "grammar",
+    "prompt": "Ask a friend where they live using informal du.",
+    "options": [
+     "Wo wohnst du",
+     "Wo wohnen Sie",
+     "Wie heißt du"
+    ],
+    "answer": 0,
+    "why": "Wo wohnst du? asks “Where do you live?” Use du with a friend.",
+    "dlSkill": "situation",
+    "dlTopic": "home"
+   },
+   {
+    "type": "grammar",
+    "prompt": "Write the missing word: Ich ___ in Berlin. (I live in Berlin.)",
+    "options": [
+     "wohne",
+     "heiße",
+     "wohnst"
+    ],
+    "answer": 0,
+    "why": "Ich wohne in Berlin means “I live in Berlin.” Wohne completes the taught phrase.",
+    "dlSkill": "write",
+    "dlTopic": "home",
+    "dlWriteAnswer": "wohne"
+   },
+   {
+    "type": "grammar",
+    "prompt": "Listen and choose the meaning of this introduction.",
+    "options": [
+     "My name is Lea",
+     "I live in Berlin",
+     "What is your name"
+    ],
+    "answer": 0,
+    "why": "Ich heiße Lea means “My name is Lea.”",
+    "dlSkill": "listen",
+    "dlTopic": "names",
+    "dlReviewAudio": "Ich heiße Lea."
    }
   ]
  },
