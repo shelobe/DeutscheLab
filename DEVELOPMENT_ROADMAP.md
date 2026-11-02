@@ -9,10 +9,10 @@ This summary and Current handoff are authoritative for resuming work. Dated batc
 | Scope | Current status | Next action |
 |---|---|---|
 | A1 authored-content audit, all 22 modules | Complete | Use recorded findings during scoped improvements; this is not proof of course-wide runtime or learning-outcome validation. |
-| Module 1 Lessons 1–3 | User-approved baseline; two authorized follow-ups ready for user test | Check Wald prediction and Käse distractor; other approved content preserved. |
+| Module 1 Lessons 1–3 | Finalized / user approved | Preserve current lessons, including Wald, Käse distractor and silent letter choices; dictionary overlay remains a separate monitor note. |
 | Module 2 Lesson 1 | Done / user approved | Preserve approved questions and concise feedback. |
-| Module 2 Lesson 2 — Introducing yourself: heißen and wohnen | Ready for user test | Ten revised questions; await device feedback. |
-| Module 2 Lesson 3 — Countries, nationalities and languages | Next / not yet revised in this pass | Inspect current teaching and effective questions before editing. |
+| Module 2 Lesson 2 — Introducing yourself: heißen and wohnen | Refinements implemented; no outstanding reported issue | Ten questions; friend name/home prompts no longer supply du. No separate explicit final approval recorded. |
+| Module 2 Lesson 3 — Countries, nationalities and languages | Done / user approved | Twelve questions; two-language selection visibility fixed and accepted. Preserve current content. |
 | Module 2 Lessons 4–5 and Modules 3–22 | Pending in this question-refinement pass | Continue in course order; preserve previous useful work. |
 | Dedicated module-review/final-assessment improvement | Deferred | Begin after individual lesson questions are finished; include the recorded gradual-recall plan. |
 | Intermittent pronunciation dictionary overlay | Monitor / unconfirmed | Investigate if reproducible; no fix claimed. |
@@ -45,7 +45,7 @@ This roadmap tracks planned work; an item marked "Needs audit" is not a verified
 |---|---|---|---|---|---|---|
 | CUR-01 | Curriculum | Establish A1 lesson-by-lesson quality inventory and remaining gaps | P0 | Work | Authored-content audit complete | All 22 A1 modules audited; findings recorded below. Course-wide runtime behavior, review sampling, audio and learning outcomes are not comprehensively verified; scoped checks and user approvals are recorded below. Use findings during scoped lesson improvements. |
 | CUR-02 | Curriculum | Review A1 lesson sequence and prerequisite coverage | P1 | Work | Initial authored-content audit complete; follow-ups pending | Broad sequence is appropriate; four targeted investigations remain below. Check relevant prerequisites during lesson refinement. |
-| CUR-03 | Curriculum | Improve repetitive or answer-revealing questions in selected A1 lessons | P0 | Chat | In progress — Module 1 and Module 2 Lesson 1 user approved | Module 2 Lesson 2 revised and awaiting user test. Next: Module 2 Lesson 3, Countries, nationalities and languages. Continue in course order; preserve approved questions. |
+| CUR-03 | Curriculum | Improve repetitive or answer-revealing questions in selected A1 lessons | P0 | Chat | In progress — Module 1 finalized; Module 2 Lessons 1 and 3 user approved | Lesson 2 refinements implemented; no outstanding reported issue. Next: Module 2 Lesson 4, People and names: Vocabulary and meaning. Continue in course order; preserve approved questions. |
 | CUR-04 | Curriculum | Standardize lesson explanations, examples, audio rows and useful Remember cards | P1 | Chat | Ready for user test | Global shared presentation implemented; verify colors and in-card audio on Android; bespoke teaching retained |
 | CUR-05 | Curriculum | Validate module reviews and final A1 assessment against taught objectives | P1 | Work | Deferred until lesson questions are finished | After individual lesson questions are refined, audit and improve coverage, retention, mixed-topic application, variety and resistance to guessing. |
 | GAME-01 | Supermarket | Complete dairy department artwork consistent with fruit/vegetable scene | P1 | Chat | Backlog | Use approved existing scene as visual reference; prepare asset for user approval |
@@ -108,9 +108,9 @@ Copy this section for each batch:
 
 ## Current handoff
 - **Completed:** Authored-content audit of all 22 A1 modules; findings and conversational coverage proposals are recorded below. Course-wide runtime, review sampling, audio and learning outcomes are not comprehensively verified; scoped checks and user approvals are recorded below.
-- **Approved by user (2026-11-01):** All Module 1 lesson questions/practice (Lessons 1–3) and Module 2 Lesson 1 (Greetings and polite expressions). Current question refinements are accepted; preserve them unless a new issue is reported. This approval does not complete the deferred module-review/final-assessment work.
-- **Current user-test checkpoint:** Module 2 Lesson 2 (Introducing yourself: heißen and wohnen), revised to ten questions.
-- **Primary next content step:** CUR-03 — Module 2 Lesson 3 (Countries, nationalities and languages). Inspect current teaching and effective questions before the next scoped refinement.
+- **Approved by user (2026-11-01):** Module 1 Lessons 1–3 finalized, Module 2 Lesson 1 and Module 2 Lesson 3 accepted. Preserve these unless a new issue is reported. Dedicated module-review/final-assessment improvements remain deferred.
+- **Session checkpoint:** Lesson 2.3 accepted after the language-selection visibility fix. Lesson 2.2 has ten questions and both friend prompts corrected; no outstanding issue reported, but no separate explicit final approval recorded.
+- **Primary next content step:** CUR-03 — Module 2 Lesson 4 (People and names: Vocabulary and meaning). Inspect latest teaching and effective questions; review and recommend changes before implementation.
 - **After lesson questions are finished:** CUR-05 — audit and improve module reviews and the final A1 assessment. Do not start this deferred pass now.
 - **Secondary next step:** GAME-01 — prepare dairy-department artwork using the existing fruit-and-vegetable department as the visual reference. Asset approval comes before integration.
 - At the end of each session, update this file with the active task, completed commits, test results and the next precise action.
@@ -334,3 +334,13 @@ Scope: authored course definitions and lesson question banks, not browser/runtim
 ### Module 1 — Silent letter-only answer choices (2026-11-01)
 - Extended the ß/ss auto-playback exclusion to banks consisting entirely of individual German letters (including plain vowels, umlauts and consonants). Selecting either letter is silent; dedicated Listen buttons and normal complete-word choice playback remain.
 - Validation: syntax, existing answer-choice audio checks, and targeted o/ö, u/ü, a/ä, J/W/V and ß/ss silence/selection checks pass; full-word Tür still plays. No browser/device testing. Status: Ready for user test.
+
+
+### End-of-night handoff — 2026-11-01
+- Module 1 finalized by user, including the approved minor refinements and silent letter-only selection. Dictionary-overlay report remains Monitor / unconfirmed; no fix claimed.
+- Lesson 2.2: removed explicit informal du cues from friend name/home prompts; ten questions retained. Commits: 1442a10ad64741c3d8c407b58a8ffe42cb63a9e0 and 8848ea91a495b387e74e84d3219f8542402b90f7. Syntax checked; user continued to Lesson 2.3 without reporting another Lesson 2.2 issue.
+- Shared results: module.lesson prefix for lesson names and mistake-review headers, 1.3 for pronunciation, module number for module reviews. Commit: c516746764600d359d1fc02a78ebec5a888b0405. Native results regression checks and number-label assertions passed without a browser.
+- Lesson 2.3: twelve questions; added nationality recognition, polite origin question, Deutsch listening and combined country/language listening with two selections. Replaced redundant origin choice; retained short Englisch/aus recall and origin/home listening. Removed repeated aus teaching, explained aus den USA as a chunk, taught Frankreich and und with examples. Commit: e3184a93f5af9662db899b76b3b51ab4f002e072.
+- User reported invisible selection state in the new task. Fixed with explicit teal/checkmarked selections, deselection instructions, compact spacing and Listen to the speaker label. Commit: ff7ff63f13f10154ebf42c624534c91bc351b47e.
+- Validation actually run: JavaScript parsing and 50 shuffled DOM-double selection runs covering correct/wrong pairs, readiness, deselection, disabled third choice, post-answer guard and visible checkmark labels. No browser testing. User then confirmed “2.3 is good.” Status: Done / user approved.
+- Next session: review Lesson 2.4, People and names: Vocabulary and meaning. Do not reopen approved Module 1 or Lesson 2.3 without a reported issue. Module reviews/final assessment and broader hint rollout remain deferred.

@@ -165,3 +165,6 @@
 
 ## Module 2 Lesson 3 refinement
 - `js/a1-practical-data.js` supplies twelve Countries, nationalities and languages questions and the supporting Frankreich/und examples. `js/lesson-consistency.js` renders its scoped `dlLanguageChoices` task as two selections, mapping the chosen pair back to the shuffled native option index; review banks retain ordinary pair choices and native scoring. Existing practical-input cleanup removes submitted toggles.
+
+- Shared results `resultTitle` in `js/umlaut-results.js` derives module.lesson from canonical level membership, uses 1.3 for pronunciation, and prefixes module reviews with their module number. Both result and mistake headers reuse it.
+- The Lesson 2.3 language toggles use aria-pressed, checkmarked labels and scoped teal selected styles in `js/lesson-consistency.js`. Two selections enable native Check; selected buttons remain tappable for deselection. Lesson 2.2 friend prompts omit explicit du cues.
