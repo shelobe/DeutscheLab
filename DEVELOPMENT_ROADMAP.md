@@ -1,6 +1,6 @@
 # DeutschLab — Development Roadmap and Working Backlog
 
-Updated: 2026-10-31. Source of truth: `main` in `shelobe/DeutscheLab`.
+Updated: 2026-11-01. Source of truth: `main` in `shelobe/DeutscheLab`.
 
 ## Current priorities
 1. **Primary: curriculum and learning quality.** Refine A1 sequencing, teaching, practice, question quality, and module-review alignment before broad A2/B1 expansion.
@@ -28,11 +28,11 @@ This roadmap tracks planned work; an item marked "Needs audit" is not a verified
 
 | ID | Track | Task | Priority | Mode | Status | Next action |
 |---|---|---|---|---|---|---|
-| CUR-01 | Curriculum | Establish A1 lesson-by-lesson quality inventory and remaining gaps | P0 | Work | Needs audit | Inventory current A1 lessons and map each to learning outcomes; avoid assuming previously revised lessons are broken |
-| CUR-02 | Curriculum | Review A1 lesson sequence and prerequisite coverage | P0 | Work | Needs audit | Compare actual module sequence against taught concepts and review coverage |
-| CUR-03 | Curriculum | Improve repetitive or answer-revealing questions in selected A1 lessons | P1 | Chat | Backlog | Select 3–5 related lessons; review teaching, exercises and review questions together |
+| CUR-01 | Curriculum | Establish A1 lesson-by-lesson quality inventory and remaining gaps | P0 | Work | Authored-content audit complete | All 22 A1 modules audited; findings recorded below. Runtime behavior, review sampling, audio and learning outcomes remain unverified. Use findings during scoped lesson improvements. |
+| CUR-02 | Curriculum | Review A1 lesson sequence and prerequisite coverage | P1 | Work | Initial authored-content audit complete; follow-ups pending | Broad sequence is appropriate; four targeted investigations remain below. Check relevant prerequisites during lesson refinement. |
+| CUR-03 | Curriculum | Improve repetitive or answer-revealing questions in selected A1 lessons | P0 | Chat | Current focus | Start with the earliest A1 modules and proceed lesson by lesson. Inspect current teaching and effective questions; improve coverage, variety, recall, application and specific feedback. Preserve effective existing exercises. |
 | CUR-04 | Curriculum | Standardize lesson explanations, examples, audio rows and useful Remember cards | P1 | Chat | Ready for user test | Global shared presentation implemented; verify colors and in-card audio on Android; bespoke teaching retained |
-| CUR-05 | Curriculum | Validate module reviews against all taught objectives | P1 | Work | Needs audit | Check question coverage, difficulty and format variety |
+| CUR-05 | Curriculum | Validate module reviews and final A1 assessment against taught objectives | P1 | Work | Deferred until lesson questions are finished | After individual lesson questions are refined, audit and improve coverage, retention, mixed-topic application, variety and resistance to guessing. |
 | GAME-01 | Supermarket | Complete dairy department artwork consistent with fruit/vegetable scene | P1 | Chat | Backlog | Use approved existing scene as visual reference; prepare asset for user approval |
 | GAME-02 | Supermarket | Align shopping list with available departments and items | P1 | Chat | Needs audit | Inspect current item inventory and shopping-list generation before changing |
 | GAME-03 | Supermarket | Integrate approved dairy art and relevant item interactions | P2 | Chat | Backlog | Inspect repository artwork, hotspots and existing game behavior |
@@ -45,9 +45,9 @@ This roadmap tracks planned work; an item marked "Needs audit" is not a verified
 Priority: P0 = current focus; P1 = next; P2 = follow-on; P3 = later. This is an initial planning list, not a claim that each item is currently defective.
 
 
-## A1 audit findings register — update between audit batches (2026-11-01)
+## A1 audit findings register — authored-content audit completed (2026-11-01)
 
-**Purpose:** Keep an evidence-based record of issues, proposed improvements and decisions while the A1 audit proceeds. **Finding** means observed in authored repository data; **investigate** means not yet verified across runtime/custom question handlers. No recommendations below authorize automatic code changes.
+**Purpose:** Keep an evidence-based record of issues, proposed improvements and decisions from the completed authored-content audit and subsequent verification. **Finding** means observed in authored repository data; **investigate** means not yet verified across runtime/custom question handlers. No recommendations below authorize automatic code changes.
 
 | ID | Area / evidence | Finding or concern | Suggested improvement | Priority | Status |
 |---|---|---|---|---|---|
@@ -57,11 +57,11 @@ Priority: P0 = current focus; P1 = next; P2 = follow-on; P3 = later. This is an 
 | A1-AUD-04 | People and names: Understanding in context | Appropriate situations but several questions supply whole German sentences, potentially permitting recognition without retrieval | Check the proportion of recognition vs production; introduce recall/short response only where it adds learning value | P1 | Investigate runtime mix |
 | A1-AUD-05 | Forms and personal details | Form fields, residence and spelling requests have clear practical relevance | Preserve coverage; use as a model for functional A1 tasks | P2 | Positive reference |
 | A1-AUD-06 | Specific incorrect-answer explanations (CUR-08) | A previously inspected authored `Er heißt Thomas` explanation discussed `Freund/Freundin`, rather than the tested sentence; content may be overridden in the active lesson | Audit final effective question bank and feedback; replace unrelated explanations with mistake-specific reasons while preserving already useful explanations | P1 | Needs verification in current runtime |
-| A1-AUD-07 | A1 course overall | Structure covers a broad set of practical topics, but 101 lessons and module reviews have not been exhaustively audited | Continue lesson-by-lesson objective/teaching/question inventory, module-review alignment, CEFR A1 coverage, listening/speaking and retention checks | P0 | In progress |
+| A1-AUD-07 | A1 course overall | All 22 modules received an authored-content audit; broad teaching and sequence are sound. Runtime behavior, review sampling, audio and learning outcomes remain unverified. | Improve individual lesson questions starting in early modules; defer the dedicated module-review and final-assessment pass until lesson questions are finished. | P0 | Authored-content audit complete; improvement phase next |
 
 **Already tracked separately:** CUR-02's four follow-ups (early modal chunks, separable-verb prerequisites, concentrated dative, and independent Perfekt production) remain below; do not duplicate or treat them as confirmed defects.
 
-**Next audit checkpoint:** Continue beyond the initial introductions/verbs sample, comparing actual authored guides, effective question selection/custom handlers, and module-review tasks. Record each concrete issue, existing strength, recommendation, evidence and disposition here before moving to the next batch.
+**Current checkpoint:** Authored-content audit complete across all 22 A1 modules; detailed batches below preserve the evidence. Refine individual lesson questions from the earliest modules onward, checking current teaching and effective question handlers in each scoped batch. Module reviews and the final A1 assessment follow after lesson questions are finished.
 
 ## A1 quality checklist (apply to each lesson batch)
 - [ ] Specific communicative learning objective is stated.
@@ -92,7 +92,9 @@ Copy this section for each batch:
 - Next checkpoint:
 
 ## Current handoff
-- **Primary next step:** CUR-01 — inventory the current A1 course, identify which lessons have already been refined, and rank remaining gaps before making broad edits.
+- **Completed:** Authored-content audit of all 22 A1 modules; findings and conversational coverage proposals are recorded below. Runtime, review sampling, audio and learning outcomes remain unverified.
+- **Primary next step:** CUR-03 — refine individual lesson questions, starting with the earliest A1 modules and continuing forward. Check current teaching and effective questions before proposing each scoped change; preserve already-refined exercises.
+- **After lesson questions are finished:** CUR-05 — audit and improve module reviews and the final A1 assessment. Do not start this deferred pass now.
 - **Secondary next step:** GAME-01 — prepare dairy-department artwork using the existing fruit-and-vegetable department as the visual reference. Asset approval comes before integration.
 - At the end of each session, update this file with the active task, completed commits, test results and the next precise action.
 - Keep detailed technical implementation locations in `CODE_MAP.md`; keep lasting visual conventions in `DESIGN_GUIDELINES.md`. Do not duplicate either here.
