@@ -6,6 +6,8 @@
  for(const u of FULL_UNITS)for(const pair of u.examples||[])if(Array.isArray(pair))add(pair[0],pair[1]);
  for(const pack of Object.values(window.DL_LESSON_ENRICHMENT||{}))for(const pair of pack.examples||[])add(pair[0],pair[1]);
  function phrase(text,q){
+  // Spelling-symbol choices use the question’s dedicated word recording.
+  if(q?.options?.length&&q.options.every(option=>/^(?:ß|ss)$/i.test(String(option).trim())))return '';
   if(q?.dlAnswerLanguage==='en')return '';
   const value=String(text||'').split(/\s+[—–]\s+/)[0].replace(/\s*\([^)]*\)/g,'').trim();
   if(!value||!/[\p{L}]/u.test(value))return '';

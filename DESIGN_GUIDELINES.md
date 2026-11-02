@@ -231,3 +231,5 @@ This document records established product decisions. The current `main` branch i
 ## Concise greeting feedback and neutral choice punctuation
 - Module 2 Lesson 1 feedback explains only the tested expression and its relevant meaning or use. Avoid appending definitions of the other answer choices.
 - In the question asking learners to ask how a friend is, show all three choices without final punctuation so the question mark does not reveal the answer. Keep proper German punctuation in teaching examples and feedback.
+
+- ß/ss-only spelling answer choices stay silent when tapped. Use the dedicated Listen controls for word audio; preserve normal German-word choice playback elsewhere.
