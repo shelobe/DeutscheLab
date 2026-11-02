@@ -584,7 +584,7 @@ window.DL_A1_PRACTICAL_PACKS = {
    },
    {
     "type": "grammar",
-    "prompt": "Ask a friend where they live using informal du.",
+    "prompt": "How would you ask a friend where they live?",
     "options": [
      "Wo wohnst du",
      "Wo wohnen Sie",
