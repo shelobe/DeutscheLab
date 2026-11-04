@@ -18,16 +18,16 @@
   ['Formal or informal?','When you are unsure, start with Sie. “Wir können uns duzen” means “We can use du with each other.” This is an invitation to speak informally.'],
   ['Examples to recognize',['Ich lerne Deutsch. — I am learning German.','Du lernst Deutsch. — You are learning German (informal).','Sie lernen Deutsch. — You are learning German (formal).']],
   ['What to focus on','For now, identify who the pronoun refers to. You do not need to work out lerne, lernst or lernen yet; the regular verb lesson in the next module explains those endings.'],
-  ['Remember','Formal Sie always has a capital S, even in the middle of a sentence. Lesson 2 introduces sie meaning she; Lesson 3 introduces sie meaning they. Any word is capitalized at the start of a sentence, so use the context too.']
- ],examples:[['ich','I'],['du','you (one person, informal)'],['Sie','you (formal, one person or several)'],['Wir können uns duzen.','We can use du with each other.']],questions:[
+  ['Remember','Unlike English I, German ich is lowercase unless it starts a sentence. Formal Sie always has a capital S, even in the middle of a sentence. Lesson 2 introduces sie meaning she; Lesson 3 introduces sie meaning they. Any word is capitalized at the start of a sentence, so use the context too.']
+ ],examples:[['ich','I'],['du','you (one person, informal)'],['Sie','you (formal, one person or several)'],['Ich lerne Deutsch.','I am learning German.'],['Du lernst Deutsch.','You are learning German (informal).'],['Sie lernen Deutsch.','You are learning German (formal).'],['Wir können uns duzen.','We can use du with each other.']],questions:[
   q('You are talking about yourself. Which pronoun fits?',['ich','du','Sie'],'Ich means I.'),
-  q('Which pronoun means informal you when speaking to one close friend?',['du','Sie','ich'],'Du addresses one person informally.'),
+  q('Speaking to a close friend: ___ lernst Deutsch.',['Du','Ich','Sie'],'Du means you when addressing one person informally. Du lernst Deutsch means “You are learning German”.'),
   q('You politely address a customer you do not know. Which pronoun fits?',['Sie','du','ich'],'Use formal Sie with an unfamiliar customer.'),
   q('You politely address two customers together. Which pronoun fits?',['Sie','du','ich'],'Formal Sie works for one person or several.'),
   q('Which spelling means formal you in the middle of a sentence?',['Sie','sie','ich'],'Formal Sie keeps its capital S.'),
   q('Someone says “Wir können uns duzen.” What are they suggesting?',['Use informal du with each other','Keep using formal Sie','Talk only about yourself'],'This phrase invites you to use du with each other.'),
-  q('You speak to a family member informally. Which pronoun fits?',['du','Sie','ich'],'Use du with one family member.'),
-  q('In “Ich lerne Deutsch,” who is learning?',['The speaker','The person being addressed','Several customers'],'Ich means I: the speaker is talking about themself.')
+  {...q('Listen. Who is learning German?',['The person being addressed','The speaker','Several people'],'Du means you: the speaker is addressing one person informally.'),dlSkill:'listen',dlReviewAudio:'Du lernst Deutsch.'},
+  q('In “Ich lerne Deutsch,” who is learning?',['The speaker','The listener','Another person'],'Ich means I: the speaker is talking about themself.')
  ]};
  packs['A1|'+FULL_UNITS[third].title]={sections:[
   ['Talking about one person',['er — he: Paul ist hier. Er ist hier. — Paul is here. He is here.','sie — she: Anna ist hier. Sie ist hier. — Anna is here. She is here.','es — it: Das Kind spielt. Es spielt. — The child is playing.']],
