@@ -168,3 +168,7 @@
 
 - Shared results `resultTitle` in `js/umlaut-results.js` derives module.lesson from canonical level membership, uses 1.3 for pronunciation, and prefixes module reviews with their module number. Both result and mistake headers reuse it.
 - The Lesson 2.3 language toggles use aria-pressed, checkmarked labels and scoped teal selected styles in `js/lesson-consistency.js`. Two selections enable native Check; selected buttons remain tappable for deselection. Lesson 2.2 friend prompts omit explicit du cues.
+
+## Automatic code asset versions
+- `scripts/version-code-assets.py` replaces local JavaScript/CSS URL v parameters in index.html with SHA-256 content hashes, preserving tag order and other query parameters.
+- `.github/workflows/version-code-assets.yml` runs on main pushes, commits changed references and explicitly requests a Pages build because bot-token commits do not trigger Pages automatically. Unchanged assets retain their versions. Existing open sessions refresh only when reloaded; there is no update notification.
