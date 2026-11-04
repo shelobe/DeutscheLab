@@ -224,6 +224,22 @@
    if(!section){section=document.createElement('section');const h=document.createElement('h3');h.textContent='Examples';section.append(h);guide.append(section);fallback=section;}
    put(section,row,de);
   }
+  if(u.level==='A1'&&u.title==='Everyday conversations: Understanding in context'){
+   for(const title of ['Ask for help','Say what you do not understand']){
+    const section=sections.find(box=>box.querySelector('h3')?.textContent.trim()===title);
+    if(!section)continue;
+    const playback=[...section.querySelectorAll('.vocab-row')];
+    if(!playback.length)continue;
+    const list=document.createElement('div');list.className='dl-section-audio';
+    for(const row of playback){
+     const meaning=row.querySelector('.vocab-copy span');
+     if(meaning){meaning.hidden=false;meaning.style.display='block';}
+     list.append(row);
+    }
+    [...section.children].filter(child=>child.tagName!=='H3').forEach(child=>child.remove());
+    section.append(list);
+   }
+  }
   if(u.level==='A1'&&u.title==='People and names: Sentence patterns'){
    const expressions=sections.find(section=>section.querySelector('h3')?.textContent.trim()==='Expressions you will practice');
    if(expressions&&rows.length){
