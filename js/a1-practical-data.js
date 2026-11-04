@@ -11798,116 +11798,175 @@ window.DL_A1_PRACTICAL_PACKS = {
  },
  "A1|Everyday conversations: Understanding in context": {
   "sections": [
-   [
-    "What you will be able to do",
-    "Ask for help, slower speech or repetition when you do not understand."
-   ],
-   [
-    "Ask for help",
     [
-     "Können Sie mir helfen? — Can you help me?",
-     "Sprechen Sie bitte langsam. — Please speak slowly.",
-     "Können Sie das bitte wiederholen? — Could you please repeat that?"
-    ]
-   ],
-   [
-    "Say what you do not understand",
+      "What you will be able to do",
+      "Ask for help, slower speech or repetition when you do not understand."
+    ],
     [
-     "Ich verstehe die Frage nicht. — I do not understand the question.",
-     "Ich verstehe das Wort nicht. — I do not understand the word.",
-     "Ich verstehe den Satz nicht. — I do not understand the sentence."
-    ]
-   ],
-   [
-    "Word by word",
+      "Ask for help",
+      [
+        "Können Sie mir helfen? — Can you help me?",
+        "Sprechen Sie bitte langsam. — Please speak slowly.",
+        "Können Sie das bitte wiederholen? — Could you please repeat that?"
+      ]
+    ],
     [
-     "ich — I; verstehe — understand; nicht — not",
-     "die Frage — the question; das Wort — the word; der Satz — the sentence",
-     "Sie — formal you; mir — me; helfen — help",
-     "bitte — please; langsam — slowly; wiederholen — repeat"
-    ]
-   ],
-   [
-    "Learn useful chunks first",
-    "You can use these requests now without knowing every grammar rule. Later lessons explain modal verbs and the forms mir and den Satz."
-   ],
-   [
-    "Useful examples",
+      "Say what you do not understand",
+      [
+        "Ich verstehe die Frage nicht. — I do not understand the question.",
+        "Ich verstehe das Wort nicht. — I do not understand the word.",
+        "Ich verstehe den Satz nicht. — I do not understand the sentence."
+      ]
+    ],
     [
-     "Können Sie das bitte wiederholen? — Could you please repeat that?"
+      "Word by word",
+      [
+        "ich — I",
+        "verstehe — understand",
+        "nicht — not",
+        "die Frage — the question",
+        "das Wort — the word",
+        "der Satz — the sentence",
+        "Sie — formal you",
+        "mir — me",
+        "helfen — help",
+        "bitte — please",
+        "langsam — slowly",
+        "wiederholen — repeat"
+      ]
+    ],
+    [
+      "Coming up",
+      "You can use these requests now without knowing every grammar rule. Later lessons explain modal verbs and the forms mir and den Satz."
     ]
-   ]
   ],
   "examples": [
-   [
-    "Können Sie das bitte wiederholen?",
-    "Could you please repeat that?"
-   ]
+    [
+      "Können Sie mir helfen?",
+      "Can you help me?"
+    ],
+    [
+      "Sprechen Sie bitte langsam.",
+      "Please speak slowly."
+    ],
+    [
+      "Können Sie das bitte wiederholen?",
+      "Could you please repeat that?"
+    ],
+    [
+      "Ich verstehe die Frage nicht.",
+      "I do not understand the question."
+    ],
+    [
+      "Ich verstehe das Wort nicht.",
+      "I do not understand the word."
+    ],
+    [
+      "Ich verstehe den Satz nicht.",
+      "I do not understand the sentence."
+    ]
   ],
   "questions": [
-   {
-    "type": "grammar",
-    "prompt": "Someone speaks too quickly. Choose a useful request.",
-    "options": [
-     "Sprechen Sie bitte langsam.",
-     "Ich verstehe das Wort nicht.",
-     "Ich verstehe den Satz nicht."
-    ],
-    "answer": 0,
-    "why": "Langsam means slowly.",
-    "dlSkill": "situation"
-   },
-   {
-    "type": "grammar",
-    "prompt": "You did not catch what someone said. Ask for repetition.",
-    "options": [
-     "Können Sie das bitte wiederholen?",
-     "Können Sie mir helfen?",
-     "Ich verstehe die Frage nicht."
-    ],
-    "answer": 0,
-    "why": "Wiederholen means repeat.",
-    "dlSkill": "situation"
-   },
-   {
-    "type": "grammar",
-    "prompt": "You understand the sentence except one word. What do you say?",
-    "options": [
-     "Ich verstehe das Wort nicht.",
-     "Ich verstehe den Satz nicht.",
-     "Ich verstehe die Frage nicht."
-    ],
-    "answer": 0,
-    "why": "Das Wort means the word.",
-    "dlSkill": "situation"
-   },
-   {
-    "type": "grammar",
-    "prompt": "Write the missing word: Sprechen Sie bitte ___. (slowly)",
-    "options": [
-     "langsam",
-     "bitte",
-     "nicht"
-    ],
-    "answer": 0,
-    "why": "Langsam means slowly.",
-    "dlSkill": "write",
-    "dlWriteAnswer": "langsam"
-   },
-   {
-    "type": "grammar",
-    "prompt": "Read: “Ich verstehe den Satz nicht.” What is not understood?",
-    "options": [
-     "The sentence",
-     "The question",
-     "The word"
-    ],
-    "answer": 0,
-    "why": "Den Satz refers to the sentence.",
-    "dlSkill": "reading"
-   }
+    {
+      "type": "grammar",
+      "prompt": "Someone speaks too quickly. Choose a useful request.",
+      "options": [
+        "Sprechen Sie bitte langsam.",
+        "Ich verstehe das Wort nicht.",
+        "Ich verstehe den Satz nicht."
+      ],
+      "answer": 0,
+      "why": "Langsam means slowly.",
+      "dlSkill": "situation"
+    },
+    {
+      "type": "grammar",
+      "prompt": "You did not catch what someone said. Ask for repetition.",
+      "options": [
+        "Können Sie das bitte wiederholen?",
+        "Können Sie mir helfen?",
+        "Ich verstehe die Frage nicht."
+      ],
+      "answer": 0,
+      "why": "Wiederholen means repeat.",
+      "dlSkill": "situation"
+    },
+    {
+      "type": "grammar",
+      "prompt": "You understand the sentence except one word. What do you say?",
+      "options": [
+        "Ich verstehe das Wort nicht.",
+        "Ich verstehe den Satz nicht.",
+        "Ich verstehe die Frage nicht."
+      ],
+      "answer": 0,
+      "why": "Das Wort means the word.",
+      "dlSkill": "situation"
+    },
+    {
+      "type": "grammar",
+      "prompt": "Write the missing word: Sprechen Sie bitte ___. (slowly)",
+      "options": [
+        "langsam",
+        "bitte",
+        "nicht"
+      ],
+      "answer": 0,
+      "why": "Langsam means slowly.",
+      "dlSkill": "write",
+      "dlWriteAnswer": "langsam"
+    },
+    {
+      "type": "grammar",
+      "prompt": "Read: “Ich verstehe den Satz nicht.” What is not understood?",
+      "options": [
+        "The sentence",
+        "The question",
+        "The word"
+      ],
+      "answer": 0,
+      "why": "Den Satz refers to the sentence.",
+      "dlSkill": "reading"
+    },
+    {
+      "type": "grammar",
+      "prompt": "You need assistance from a staff member. What do you ask?",
+      "options": [
+        "Können Sie mir helfen?",
+        "Sprechen Sie bitte langsam.",
+        "Können Sie das bitte wiederholen?"
+      ],
+      "answer": 0,
+      "why": "Können Sie mir helfen? means “Can you help me?” Use it to politely ask someone for assistance.",
+      "dlSkill": "situation"
+    },
+    {
+      "type": "grammar",
+      "prompt": "You heard the question clearly, but don’t understand its meaning. What do you say?",
+      "options": [
+        "Ich verstehe die Frage nicht.",
+        "Ich verstehe das Wort nicht.",
+        "Ich verstehe den Satz nicht."
+      ],
+      "answer": 0,
+      "why": "Ich verstehe die Frage nicht means “I do not understand the question”. Die Frage means the question.",
+      "dlSkill": "situation"
+    },
+    {
+      "type": "grammar",
+      "prompt": "Listen. What does the speaker want?",
+      "options": [
+        "Repetition",
+        "Help",
+        "Slower speech"
+      ],
+      "answer": 0,
+      "why": "Können Sie das bitte wiederholen? asks someone to repeat what they said. Wiederholen means repeat.",
+      "dlSkill": "listen",
+      "dlReviewAudio": "Können Sie das bitte wiederholen?"
+    }
   ]
- },
+},
  "A1|Understanding instructions": {
   "sections": [
    [
