@@ -344,3 +344,13 @@ Scope: authored course definitions and lesson question banks, not browser/runtim
 - User reported invisible selection state in the new task. Fixed with explicit teal/checkmarked selections, deselection instructions, compact spacing and Listen to the speaker label. Commit: ff7ff63f13f10154ebf42c624534c91bc351b47e.
 - Validation actually run: JavaScript parsing and 50 shuffled DOM-double selection runs covering correct/wrong pairs, readiness, deselection, disabled third choice, post-answer guard and visible checkmark labels. No browser testing. User then confirmed “2.3 is good.” Status: Done / user approved.
 - Next session: review Lesson 2.4, People and names: Vocabulary and meaning. Do not reopen approved Module 1 or Lesson 2.3 without a reported issue. Module reviews/final assessment and broader hint rollout remain deferred.
+
+
+### End-of-night handoff — 2026-11-03 / early 2026-11-04 (Module 3)
+- Recovered from the November 3–4 Module 3 audit conversation. Module 3 Lessons 3.1–3.4 each have eight questions (32 total); lesson sequencing was reviewed. This is a code/conversation handoff, not a claim of device testing or user approval of the entire module.
+- Lesson 3.1: corrected teaching punctuation (period after first statement; removed semicolon). Reported commit ce4d634.
+- Lesson 3.2: reduced repetitive Anna-style question wording; restored the missing Seeds for later box beneath Remember. Reported commit 0b29412. Outstanding ambiguity: reword the task with context “Das Kind spielt. What does ‘Es spielt’ mean here?”; verify effective bank before editing.
+- Lesson 3.3: expanded to eight questions with Lena/Tom examples and audio; added Seeds for later. Reported commit 94daa3e.
+- Lesson 3.4: expanded to eight questions; added six-phrase playback and separate vocabulary bullets, added Seeds for later and removed a duplicate teaching card. Each phrase now has a bilingual Listen box. Reported commit 02b74ba.
+- Final Module 3 audit follow-ups (NOT marked complete): ensure key pronoun/request distinctions are tested; include at least three listening questions across the module; retain both written-answer targets wir and langsam; avoid repeated customer scenarios; resolve the 3.2 es/child ambiguity. Verify actual effective questions before applying any recommendations.
+- Status: Module 3 lesson edits reported completed in the prior session; final audit refinements pending. No changes to module reviews were approved by this handoff. Next step: review these five findings and then proceed with lesson-question audit before revising module reviews.
