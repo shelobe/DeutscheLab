@@ -2,6 +2,9 @@
 (function(){
  const normalize=s=>String(s||'').normalize('NFC').toLocaleLowerCase('de-DE').replace(/[^\p{L}\p{N}]+/gu,' ').trim();
  const greetingAudio={
+  'Personal pronouns: ich, du, and Sie':[
+   ['Who is speaking?',[['ich',''],['du',''],['Sie','']]]
+  ],
   'People and names: Vocabulary and meaning':[
    ['Introduce yourself',[['Ich heiße Lea.','My name is Lea.'],['Mein Name ist Lea.','My name is Lea.']]],
    ['Introduce someone else',[['Das ist Paul.','This is Paul.']]]
