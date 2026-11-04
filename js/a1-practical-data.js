@@ -11841,6 +11841,10 @@ window.DL_A1_PRACTICAL_PACKS = {
     ]
    ],
    [
+    "Note",
+    "German often uses K where a similar English word uses C: Kaffee (coffee) and Kamera (camera). This is a common pattern, not a rule for every word."
+   ],
+   [
     "Use your ears",
     "Listen to the examples and repeat them. Spellings can look familiar while their sounds differ from English. The pronunciation drill introduces more combinations such as ei and ie."
    ],
