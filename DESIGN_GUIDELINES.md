@@ -253,3 +253,6 @@ This document records established product decisions. The current `main` branch i
 
 ## Form-reading question layout
 - In Forms and personal details, the completed-form reading question shows each label/value pair on its own line, with space between the instruction, form fields and final question. Preserve native answer choices and anchored Check/Next controls. Questions opting into dlFormPrompt retain their authored line breaks.
+
+## Supermarkt item audio
+- Tapping an existing grocery hotspot or item plays its German catalog name with its article through the shared speech function, including items outside the shopping list and repeat taps on collected items. Keep existing shopping checks, cart contents, correct chime and incorrect haptics. Collected item buttons remain tappable for replay without adding duplicates. Preserve artwork and hotspot placement.

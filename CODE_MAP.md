@@ -172,3 +172,6 @@
 ## Automatic code asset versions
 - `scripts/version-code-assets.py` replaces local JavaScript/CSS URL v parameters in index.html with SHA-256 content hashes, preserving tag order and other query parameters.
 - `.github/workflows/version-code-assets.yml` runs on main pushes, commits changed references and explicitly requests a Pages build because bot-token commits do not trigger Pages automatically. Unchanged assets retain their versions. Existing open sessions refresh only when reloaded; there is no update notification.
+
+## Supermarkt
+- `js/extracted-batch3-5.js` owns the grocery catalog, scene hotspots and `supermarktPick`. Item taps call shared `speak(item.name)` before the already-collected/list checks, allowing name replay without duplicate cart additions. Existing chime, haptics, saved shopping state and checkout remain unchanged.
