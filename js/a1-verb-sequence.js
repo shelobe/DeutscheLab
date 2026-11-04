@@ -19,7 +19,7 @@
   ['Examples to recognize',['Ich lerne Deutsch. — I am learning German.','Du lernst Deutsch. — You are learning German (informal).','Sie lernen Deutsch. — You are learning German (formal).']],
   ['What to focus on','For now, identify who the pronoun refers to. You do not need to work out lerne, lernst or lernen yet; the regular verb lesson in the next module explains those endings.'],
   ['Remember',['ich means I. Unlike English I, it is lowercase unless it begins a sentence.','Formal Sie always has a capital S, even in the middle of a sentence.','At the start of a sentence, capitalization alone cannot tell you what Sie means. Use the context.']],
-  ['Coming up','Lesson 2 introduces sie meaning she; Lesson 3 introduces sie meaning they.']
+  ['Coming up','Lesson 2 introduces sie meaning she. Lesson 3 introduces sie meaning they.']
  ],examples:[['ich','I'],['du','you (one person, informal)'],['Sie','you (formal, one person or several)'],['Ich lerne Deutsch.','I am learning German.'],['Du lernst Deutsch.','You are learning German (informal).'],['Sie lernen Deutsch.','You are learning German (formal).'],['Wir können uns duzen.','We can use du with each other.']],questions:[
   q('You are talking about yourself. Which pronoun fits?',['ich','du','Sie'],'Ich means I.'),
   q('Speaking to a close friend: ___ lernst Deutsch.',['Du','Ich','Sie'],'Du means you when addressing one person informally. Du lernst Deutsch means “You are learning German”.'),
