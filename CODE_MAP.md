@@ -175,3 +175,5 @@
 
 ## Supermarkt
 - `js/extracted-batch3-5.js` owns the grocery catalog, scene hotspots and `supermarktPick`. Item taps call shared `speak(item.name)` before the already-collected/list checks, allowing name replay without duplicate cart additions. Existing chime, haptics, saved shopping state and checkout remain unchanged.
+
+- `teaching-presentation.js` classifies preview headings as `dl-teaching-preview` and displays Seeds for later. `teaching-presentation.css` supplies semantic heading icons without changing lesson data or playback. Repeated presentation passes preserve preview classification.

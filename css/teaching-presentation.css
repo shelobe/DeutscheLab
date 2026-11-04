@@ -35,3 +35,8 @@ body.lesson-screen #app .dl-flow-card.dl-inline-lesson-audio{padding-bottom:24px
 #app .dl-integrated-teaching-audio .dl-shared-teaching li>.dl-section-audio{margin-left:-1.3em}
 #app .dl-integrated-teaching-audio .dl-shared-teaching li>.vocab-row{margin-left:-1.3em;width:calc(100% + 1.3em);box-sizing:border-box}
 #app .dl-integrated-teaching-audio .dl-section-audio>.vocab-row{width:100%;box-sizing:border-box}
+
+/* Semantic icons supplement visible headings and existing colors. */
+#app .dl-teaching-remember > :is(h2,h3,h4,strong)::before{content:"💡 ";}
+#app .dl-teaching-note:not(.dl-teaching-preview) > :is(h2,h3,h4,strong)::before{content:"📝 ";}
+#app .dl-teaching-preview > :is(h2,h3,h4,strong)::before{content:"🌱 ";}

@@ -44,7 +44,10 @@
   const heading=headingOf(box);if(!heading)return;
   const title=heading.textContent.trim();
   const remember=/^(remember|keep in mind)\b/i.test(title);
-  const note=/^(note|a note|coming up|looking ahead)\b/i.test(title);
+  const preview=/^(coming up|looking ahead|seeds for later)\b/i.test(title);
+  const note=preview||/^(note|a note)\b/i.test(title);
+  if(preview&&title!=='Seeds for later')heading.textContent='Seeds for later';
+  box.classList.toggle('dl-teaching-preview',preview);
   box.classList.toggle('dl-teaching-remember',remember);
   box.classList.toggle('dl-teaching-note',note);
   const wordAudio=!!box.querySelector('.vocab-row');

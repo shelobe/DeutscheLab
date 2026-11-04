@@ -256,3 +256,6 @@ This document records established product decisions. The current `main` branch i
 
 ## Supermarkt item audio
 - Tapping an existing grocery hotspot or item plays its German catalog name with its article through the shared speech function, including items outside the shopping list and repeat taps on collected items. Keep existing shopping checks, cart contents, correct chime and incorrect haptics. Collected item buttons remain tappable for replay without adding duplicates. Preserve artwork and hotspot placement.
+
+## Semantic teaching headings
+- Use 💡 Remember for key reminders, 📝 Note for clarification, and 🌱 Seeds for later for previews of later lessons. Keep headings and established amber/plum colors; icons supplement the labels. Shared presentation displays Coming up/Looking ahead cards as Seeds for later. Preview content belongs in its own card, never mixed into Remember. Lesson 3.1 follows this separation.
