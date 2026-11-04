@@ -100,6 +100,16 @@
    return;
   }
   if(u.level==='A1'&&u.title==='Greetings and polite expressions')card.classList.add('dl-integrated-greeting-audio');
+  if(u.level==='A1'&&u.title==='Present-tense verbs'){
+   const forms=[...guide.querySelectorAll('section')].find(section=>section.querySelector('h3')?.textContent.trim()==='Regular endings');
+   const spoken=['ich lerne','du lernst','er lernt. sie lernt. es lernt','wir lernen','ihr lernt','sie lernen. Sie lernen'];
+   [...(forms?.querySelectorAll('li')||[])].forEach((li,index)=>{
+    if(!spoken[index]||li.querySelector('.dl-regular-verb-listen'))return;
+    const button=document.createElement('button');button.type='button';button.className='secondary dl-regular-verb-listen';button.textContent='Listen';
+    button.setAttribute('aria-label','Listen to '+spoken[index]);button.style.cssText='display:block;margin:8px 0 0;min-height:44px';
+    button.onclick=()=>speak(spoken[index]);li.append(button);
+   });
+  }
   if(u.level==='A1'&&u.title==='The verb sein: to be'){
    const forms=[...guide.querySelectorAll('section')].find(section=>section.querySelector('h3')?.textContent.trim()==='Forms of sein');
    const spoken=['ich bin','du bist','er ist. sie ist. es ist','wir sind','ihr seid','sie sind. Sie sind'];

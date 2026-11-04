@@ -47,27 +47,185 @@
   {...q('Listen. Who does Sie refer to?',['Anna','The speaker','The listener'],'The recording introduces Anna, then refers to her with Sie (she).'),dlSkill:'listen',dlReviewAudio:'Anna ist hier. Sie ist hier.'},
   q('Thomas has arrived. You tell a friend, “He is here.” Which sentence fits?',['Er ist hier.','Ich bin hier.','Du bist hier.'],'Er ist hier means “He is here” and refers to Thomas.')
  ]};
- packs['A1|Present-tense verbs']={sections:[
-  ['Find the stem','For a regular verb, remove -en: lernen → lern-. Add the ending for the subject. Lernen means to learn.'],
-  ['Regular endings',[
-   'ich → lern + e = lerne — I learn',
-   'du → lern + st = lernst — you learn (one person, informal)',
-   'er/sie/es → lern + t = lernt — he/she/it learns',
-   'wir → lern + en = lernen — we learn',
-   'ihr → lern + t = lernt — you all learn (informal)',
-   'sie/Sie → lern + en = lernen — they learn / you learn (formal)'
-  ]],
-  ['Use the pattern',['Ich lerne Deutsch. — I am learning German.','Du lernst Deutsch. — You are learning German.','Wir lernen Deutsch. — We are learning German.']],
-  ['Some verbs change','Some verbs also change a vowel in the stem with du and er/sie/es. You do not need to memorize those changes here. A later lesson in this module teaches them in “Verbs that change a vowel.”'],
-  ['Remember','Choose the subject first, then the ending. Lowercase sie lernt means she learns; sie lernen means they learn. Formal Sie always uses lernen.']
- ],examples:[['Ich lerne Deutsch.','I am learning German.'],['Du lernst Deutsch.','You are learning German.'],['Wir lernen Deutsch.','We are learning German.']],questions:[
-  q('Ich ___ Deutsch.',['lerne','lernst','lernt'],'Ich takes -e: ich lerne.'),
-  q('Du ___ Deutsch.',['lernst','lernen','lerne'],'Du takes -st: du lernst.'),
-  q('Anna lernt Deutsch. Which sentence talks about her?',['Sie lernt Deutsch.','Sie lernen Deutsch.','Du lernst Deutsch.'],'Anna is one person: sie lernt.'),
-  q('Wir ___ Deutsch.',['lernen','lernt','lerne'],'Wir takes -en: wir lernen.'),
-  q('You are talking to several friends: Ihr ___ Deutsch.',['lernt','lernst','lernen'],'Informal plural ihr takes -t: ihr lernt.'),
-  q('Anna und Paul ___ Deutsch.',['lernen','lernt','lernst'],'They are plural: sie lernen.')
- ]};
+ packs['A1|Present-tense verbs']={
+  "sections": [
+    [
+      "Find the stem",
+      "The subject tells us who or what the sentence is about. For a regular verb, remove -en to find its stem: lernen → lern-. Lernen means to learn. Add the ending that matches the subject."
+    ],
+    [
+      "Regular endings",
+      [
+        "ich → lern + e = lerne — I learn",
+        "du → lern + st = lernst — you learn (one person, informal)",
+        "er/sie/es → lern + t = lernt — he/she/it learns",
+        "wir → lern + en = lernen — we learn",
+        "ihr → lern + t = lernt — you all learn (informal)",
+        "sie/Sie → lern + en = lernen — they learn / you learn (formal)"
+      ]
+    ],
+    [
+      "Use the pattern",
+      [
+        "Ich lerne Deutsch. — I am learning German.",
+        "Du lernst Deutsch. — You are learning German.",
+        "Wir lernen Deutsch. — We are learning German."
+      ]
+    ],
+    [
+      "Try another regular verb",
+      "Wohnen means to live (reside). Remove -en: wohnen → wohn-. Add the same endings: ich wohne, du wohnst, er/sie/es wohnt, wir wohnen, ihr wohnt, sie/Sie wohnen."
+    ],
+    [
+      "Wohnen in familiar sentences",
+      [
+        "Ich wohne in Berlin. — I live in Berlin.",
+        "Du wohnst in Hamburg. — You live in Hamburg (informal).",
+        "Mia wohnt in Berlin. — Mia lives in Berlin.",
+        "Sie wohnen in Hamburg. — They live in Hamburg.",
+        "Wo wohnen Sie? — Where do you live? (polite)"
+      ]
+    ],
+    [
+      "Remember",
+      [
+        "Choose the subject first, then the matching verb ending.",
+        "sie lernt means she learns; sie lernen means they learn.",
+        "Formal Sie uses lernen or wohnen, whether addressing one person or several."
+      ]
+    ],
+    [
+      "Coming up",
+      "Some verbs change a vowel in the stem with du and er/sie/es. The later Verbs that change a vowel lesson in this module explains these changes."
+    ]
+  ],
+  "examples": [
+    [
+      "Ich lerne Deutsch.",
+      "I am learning German."
+    ],
+    [
+      "Du lernst Deutsch.",
+      "You are learning German."
+    ],
+    [
+      "Wir lernen Deutsch.",
+      "We are learning German."
+    ],
+    [
+      "Ich wohne in Berlin.",
+      "I live in Berlin."
+    ],
+    [
+      "Du wohnst in Hamburg.",
+      "You live in Hamburg (informal)."
+    ],
+    [
+      "Mia wohnt in Berlin.",
+      "Mia lives in Berlin."
+    ],
+    [
+      "Sie wohnen in Hamburg.",
+      "They live in Hamburg."
+    ],
+    [
+      "Wo wohnen Sie?",
+      "Where do you live? (polite)"
+    ]
+  ],
+  "questions": [
+    {
+      "type": "grammar",
+      "prompt": "Ich ___ Deutsch.",
+      "options": [
+        "lerne",
+        "lernst",
+        "lernt"
+      ],
+      "answer": 0,
+      "why": "Ich takes -e: ich lerne."
+    },
+    {
+      "type": "grammar",
+      "prompt": "Du ___ Deutsch.",
+      "options": [
+        "lernst",
+        "lernen",
+        "lerne"
+      ],
+      "answer": 0,
+      "why": "Du takes -st: du lernst."
+    },
+    {
+      "type": "grammar",
+      "prompt": "Mia ___ in Berlin.",
+      "options": [
+        "wohnt",
+        "wohnen",
+        "wohnst"
+      ],
+      "answer": 0,
+      "why": "Mia is one person: she (sie) takes -t. Wohn + t = wohnt."
+    },
+    {
+      "type": "grammar",
+      "prompt": "Wir ___ Deutsch.",
+      "options": [
+        "lernen",
+        "lernt",
+        "lerne"
+      ],
+      "answer": 0,
+      "why": "Wir takes -en: wir lernen."
+    },
+    {
+      "type": "grammar",
+      "prompt": "You are talking to several friends: Ihr ___ Deutsch.",
+      "options": [
+        "lernt",
+        "lernst",
+        "lernen"
+      ],
+      "answer": 0,
+      "why": "Informal plural ihr takes -t: ihr lernt."
+    },
+    {
+      "type": "grammar",
+      "prompt": "Ben und Lena ___ in Hamburg.",
+      "options": [
+        "wohnen",
+        "wohnt",
+        "wohnst"
+      ],
+      "answer": 0,
+      "why": "Ben and Lena are they (sie), which takes -en: sie wohnen."
+    },
+    {
+      "type": "grammar",
+      "prompt": "Speaking politely to a customer: Wo ___ Sie?",
+      "options": [
+        "wohnen",
+        "wohnt",
+        "wohnst"
+      ],
+      "answer": 0,
+      "why": "Formal Sie takes -en: Wo wohnen Sie? means Where do you live?"
+    },
+    {
+      "type": "grammar",
+      "prompt": "Complete: Ich ___ in Berlin. (live)",
+      "options": [
+        "wohne",
+        "wohnst",
+        "wohnt"
+      ],
+      "answer": 0,
+      "why": "Ich takes -e: wohn + e = wohne. Ich wohne in Berlin means I live in Berlin.",
+      "dlSkill": "write",
+      "dlWriteAnswer": "wohne"
+    }
+  ]
+};
  const stemTitle='Verbs that change a vowel';
  const stemPack={sections:[
   ['When the vowel changes','Some common present-tense verbs change a vowel in the stem with du and er/sie/es. The normal endings still matter. These changes do not happen with ich, wir, ihr or sie/Sie.'],
