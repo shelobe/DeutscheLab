@@ -11182,111 +11182,228 @@ window.DL_A1_PRACTICAL_PACKS = {
  },
  "A1|Forms and personal details": {
   "sections": [
-   [
-    "What you will be able to do",
-    "Identify the information a simple form requests."
-   ],
-   [
-    "Form fields",
     [
-     "Vorname — first name",
-     "Nachname — surname",
-     "Straße / Hausnummer — street / house number",
-     "Postleitzahl (PLZ) — postcode",
-     "Wohnort — town/city where you live",
-     "Geburtsdatum — date of birth",
-     "Telefonnummer — telephone number",
-     "E-Mail-Adresse — email address"
-    ]
-   ],
-   [
-    "Example form",
+      "What you will be able to do",
+      "Identify the information a simple form requests."
+    ],
     [
-     "Vorname: Lea — First name",
-     "Nachname: Weber — Surname",
-     "Wohnort: Berlin — City of residence",
-     "Geburtsdatum: 03.05.1995 — Date of birth"
-    ]
-   ],
-   [
-    "A useful request",
+      "Form fields",
+      [
+        "Vorname — first name",
+        "Nachname — surname",
+        "Straße — street",
+        "Hausnummer — house number",
+        "Postleitzahl (PLZ) — postcode",
+        "Wohnort — town/city where you live",
+        "Geburtsdatum — date of birth",
+        "Telefonnummer — telephone number",
+        "E-Mail-Adresse — email address"
+      ]
+    ],
     [
-     "Können Sie das bitte buchstabieren? — Could you please spell that?",
-     "Use this polite question when you need someone to spell a name or address."
-    ]
-   ],
-   [
-    "Useful examples",
+      "Example form",
+      [
+        "Vorname: Lea — First name",
+        "Nachname: Weber — Surname",
+        "Wohnort: Berlin — City of residence",
+        "Geburtsdatum: 03.05.1995 — Date of birth"
+      ]
+    ],
     [
-     "Mein Vorname ist Lea. — My first name is Lea.",
-     "Mein Nachname ist Weber. — My surname is Weber.",
-     "Ich wohne in Berlin. — I live in Berlin.\nIn means “in” here; wohnen in tells where someone lives.",
-     "Meine Postleitzahl ist 10115. — My postcode is 10115.",
-     "Meine Telefonnummer ist 030 123456. — My telephone number is 030 123456."
+      "Note: German date format",
+      "German dates use day.month.year. For example, 03.05.1995 means May 3, 1995: 03 is the day and 05 is the month."
+    ],
+    [
+      "A useful request",
+      [
+        "Können Sie das bitte buchstabieren? — Could you please spell that?",
+        "Use this polite question when you need someone to spell a name or address."
+      ]
+    ],
+    [
+      "Useful examples",
+      [
+        "Mein Vorname ist Lea. — My first name is Lea.",
+        "Mein Nachname ist Weber. — My surname is Weber.",
+        "Ich wohne in Berlin. — I live in Berlin.\nIn means “in” here; wohnen in tells where someone lives.",
+        "Meine Postleitzahl ist 10115. — My postcode is 10115.",
+        "Meine Telefonnummer ist 030 123456. — My telephone number is 030 123456."
+      ]
     ]
-   ]
   ],
   "examples": [
-   ["Mein Vorname ist Lea.", "My first name is Lea."],
-   ["Mein Nachname ist Weber.", "My surname is Weber."],
-   ["Ich wohne in Berlin.", "I live in Berlin."],
-   ["Meine Postleitzahl ist 10115.", "My postcode is 10115."],
-   ["Können Sie das bitte buchstabieren?", "Could you please spell that?"]
+    [
+      "Vorname",
+      "first name"
+    ],
+    [
+      "Nachname",
+      "surname"
+    ],
+    [
+      "Straße",
+      "street"
+    ],
+    [
+      "Hausnummer",
+      "house number"
+    ],
+    [
+      "Postleitzahl",
+      "postcode"
+    ],
+    [
+      "Wohnort",
+      "town/city where you live"
+    ],
+    [
+      "Geburtsdatum",
+      "date of birth"
+    ],
+    [
+      "Telefonnummer",
+      "telephone number"
+    ],
+    [
+      "E-Mail-Adresse",
+      "email address"
+    ],
+    [
+      "Mein Vorname ist Lea.",
+      "My first name is Lea."
+    ],
+    [
+      "Mein Nachname ist Weber.",
+      "My surname is Weber."
+    ],
+    [
+      "Ich wohne in Berlin.",
+      "I live in Berlin."
+    ],
+    [
+      "Meine Postleitzahl ist 10115.",
+      "My postcode is 10115."
+    ],
+    [
+      "Können Sie das bitte buchstabieren?",
+      "Could you please spell that?"
+    ],
+    [
+      "Meine Telefonnummer ist 030 123456.",
+      "My telephone number is 030 123456."
+    ]
   ],
   "questions": [
-   {"type":"grammar","prompt":"Where would you enter 12 in the address Lindenstraße 12?","options":["Hausnummer","Wohnort","Postleitzahl"],"answer":0,"why":"Hausnummer is the house number.","dlSkill":"situation"},
-   {"type":"grammar","prompt":"You need someone to spell their surname. What do you ask politely?","options":["Können Sie das bitte buchstabieren?","Wo wohnen Sie?","Wie spät ist es?"],"answer":0,"why":"Buchstabieren means to spell out.","dlSkill":"situation"},
-   {
-    "type": "grammar",
-    "prompt": "A form asks for Wohnort. What should you enter?",
-    "options": [
-     "The city where you live",
-     "Your first name",
-     "Your age"
-    ],
-    "answer": 0,
-    "why": "Wohnort means place of residence.",
-    "dlSkill": "situation"
-   },
-   {
-    "type": "grammar",
-    "prompt": "Read: “Vorname: Lea; Nachname: Weber”. What is the surname?",
-    "options": [
-     "Weber",
-     "Lea",
-     "Vorname"
-    ],
-    "answer": 0,
-    "why": "Nachname identifies the surname.",
-    "dlSkill": "reading"
-   },
-   {
-    "type": "grammar",
-    "prompt": "Which field asks when you were born?",
-    "options": [
-     "Geburtsdatum",
-     "Hausnummer",
-     "Telefonnummer"
-    ],
-    "answer": 0,
-    "why": "Geburtsdatum is date of birth.",
-    "dlSkill": "use"
-   },
-   {
-    "type": "grammar",
-    "prompt": "Write the German field label for first name.",
-    "options": [
-     "Vorname",
-     "Nachname",
-     "Wohnort"
-    ],
-    "answer": 0,
-    "why": "Vorname means first name.",
-    "dlSkill": "write",
-    "dlWriteAnswer": "Vorname"
-   }
+    {
+      "type": "grammar",
+      "prompt": "Where would you enter 12 in the address Lindenstraße 12?",
+      "options": [
+        "Hausnummer",
+        "Wohnort",
+        "Postleitzahl"
+      ],
+      "answer": 0,
+      "why": "Hausnummer is the house number.",
+      "dlSkill": "situation"
+    },
+    {
+      "type": "grammar",
+      "prompt": "You need someone to spell their surname. What do you ask politely?",
+      "options": [
+        "Können Sie das bitte buchstabieren?",
+        "Wo wohnen Sie?",
+        "Wie spät ist es?"
+      ],
+      "answer": 0,
+      "why": "Buchstabieren means to spell out.",
+      "dlSkill": "situation"
+    },
+    {
+      "type": "grammar",
+      "prompt": "A form asks for Wohnort. What should you enter?",
+      "options": [
+        "The city where you live",
+        "Your first name",
+        "Your age"
+      ],
+      "answer": 0,
+      "why": "Wohnort means place of residence.",
+      "dlSkill": "situation"
+    },
+    {
+      "type": "grammar",
+      "prompt": "Read the form: Vorname: Lea; Nachname: Weber; Wohnort: Berlin. What is the surname?",
+      "options": [
+        "Weber",
+        "Lea",
+        "Berlin"
+      ],
+      "answer": 0,
+      "why": "Nachname means surname. Weber is entered under Nachname.",
+      "dlSkill": "reading"
+    },
+    {
+      "type": "grammar",
+      "prompt": "Which field asks when you were born?",
+      "options": [
+        "Geburtsdatum",
+        "Hausnummer",
+        "Telefonnummer"
+      ],
+      "answer": 0,
+      "why": "Geburtsdatum is date of birth.",
+      "dlSkill": "use"
+    },
+    {
+      "type": "grammar",
+      "prompt": "You’re filling out a form. What belongs under “Vorname”?",
+      "options": [
+        "Your first name",
+        "Your surname",
+        "The city where you live"
+      ],
+      "answer": 0,
+      "why": "Vorname means first name. This field asks for your given name.",
+      "dlSkill": "situation"
+    },
+    {
+      "type": "grammar",
+      "prompt": "You live at Lindenstraße 12. Which field should contain Lindenstraße?",
+      "options": [
+        "Straße",
+        "Hausnummer",
+        "Wohnort"
+      ],
+      "answer": 0,
+      "why": "Straße means street. Enter Lindenstraße as the street and 12 as the Hausnummer (house number).",
+      "dlSkill": "situation"
+    },
+    {
+      "type": "grammar",
+      "prompt": "Which field asks for your ZIP/postal code?",
+      "options": [
+        "Postleitzahl (PLZ)",
+        "Telefonnummer",
+        "Hausnummer"
+      ],
+      "answer": 0,
+      "why": "Postleitzahl means postal code. PLZ is its common abbreviation on German forms.",
+      "dlSkill": "situation"
+    },
+    {
+      "type": "grammar",
+      "prompt": "You want a reply by email. Which field should you complete?",
+      "options": [
+        "E-Mail-Adresse",
+        "Wohnort",
+        "Telefonnummer"
+      ],
+      "answer": 0,
+      "why": "E-Mail-Adresse asks for your email address so someone can reply by email.",
+      "dlSkill": "situation"
+    }
   ]
- },
+},
  "A1|Schedules and notices": {
   "sections": [
    [
