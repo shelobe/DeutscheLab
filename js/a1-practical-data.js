@@ -962,7 +962,8 @@ window.DL_A1_PRACTICAL_PACKS = {
         "sie — she: Anna.",
         "sie — they: Anna and Paul.",
         "Sie — polite you: one person or several. Always capitalized.",
-        "At the start of a sentence, all three are written Sie. Use context to tell who is meant."
+        "At the start of a sentence, all three are written Sie. Use context to tell who is meant.",
+        "sie can mean she or they. The surrounding sentence tells you whether it refers to one person or a group."
       ]
     ],
     [
@@ -978,8 +979,13 @@ window.DL_A1_PRACTICAL_PACKS = {
       [
         "Wir lernen Deutsch. — We are learning German.\nYou and Paul are talking about yourselves.",
         "Ihr lernt Deutsch. — You are learning German.\nYou are speaking to Anna and Paul, your friends.",
-        "Sie lernen Deutsch. — They are learning German.\nYou are telling someone about Anna and Paul. It is capitalized here because it starts the sentence."
+        "Sie lernen Deutsch. — They are learning German.\nYou are telling someone about Anna and Paul. It is capitalized here because it starts the sentence.",
+        "Lena und Tom sind hier. — Lena and Tom are here.\nLena and Tom are two people. Und means and; sind hier means are here. A following Sie can refer to both of them."
       ]
+    ],
+    [
+      "Coming up",
+      "For now, focus on who each pronoun refers to. The Present-tense verbs lesson in the next module explains the endings in lernen and lernt."
     ]
   ],
   "examples": [
@@ -1023,14 +1029,14 @@ window.DL_A1_PRACTICAL_PACKS = {
     },
     {
       "type": "grammar",
-      "prompt": "You talk about Anna and Paul, who are not in your group. Choose the pronoun.",
+      "prompt": "You’re telling someone about Mia and Ben. Which pronoun replaces their names?",
       "options": [
         "sie",
         "wir",
-        "ich"
+        "ihr"
       ],
       "answer": 0,
-      "why": "Lowercase sie means they when referring to Anna and Paul together.",
+      "why": "Sie means they when referring to Mia and Ben together. Wir includes the speaker; ihr addresses a group informally.",
       "dlSkill": "use"
     },
     {
@@ -1060,14 +1066,39 @@ window.DL_A1_PRACTICAL_PACKS = {
     },
     {
       "type": "grammar",
-      "prompt": "Anna and Paul are talking about themselves. Which German pronoun means we?",
+      "prompt": "Listen. Who is being addressed?",
       "options": [
-        "wir",
-        "ihr",
-        "sie"
+        "Several people informally",
+        "One person informally",
+        "The speaker"
       ],
       "answer": 0,
-      "why": "From their own perspective they use wir. Someone else talking about them would use sie.",
+      "why": "Ihr addresses several people informally. Ihr lernt Deutsch means “You are learning German” when speaking to a group.",
+      "dlSkill": "listen",
+      "dlReviewAudio": "Ihr lernt Deutsch."
+    },
+    {
+      "type": "grammar",
+      "prompt": "Read: “Lena und Tom sind hier. Sie lernen Deutsch.” What does Sie mean here?",
+      "options": [
+        "They",
+        "She",
+        "You, formally"
+      ],
+      "answer": 0,
+      "why": "Sie refers to Lena and Tom together, so it means they. It is capitalized because it begins the sentence.",
+      "dlSkill": "reading"
+    },
+    {
+      "type": "grammar",
+      "prompt": "You and a friend introduce yourselves together. Complete: ___ lernen Deutsch.",
+      "options": [
+        "Wir",
+        "Ihr",
+        "Sie"
+      ],
+      "answer": 0,
+      "why": "Wir means we and includes you and your friend: Wir lernen Deutsch means “We are learning German”.",
       "dlSkill": "use"
     }
   ]

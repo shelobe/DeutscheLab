@@ -158,10 +158,6 @@
       const context=document.createElement('p');context.className='dl-phrase-usage';context.textContent=li.querySelector('.dl-phrase-usage')?.textContent||'';
       item.append(row,translation,context);examples.append(item);
      }
-     const note=document.createElement('section');note.className='dl-pronoun-verb-note';
-     const noteTitle=document.createElement('h3');noteTitle.textContent='Note';
-     const noteText=document.createElement('p');noteText.textContent='You’ll learn more about verb endings in the Present-tense verbs lesson.';
-     note.append(noteTitle,noteText);examples.append(note);
      title.remove();
      [...sentenceSection.children].filter(n=>n.tagName!=='H3').forEach(n=>n.remove());
      sentenceSection.append(examples);
