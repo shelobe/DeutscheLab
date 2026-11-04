@@ -2648,7 +2648,7 @@ window.DL_A1_PRACTICAL_PACKS = {
         "Name"
       ],
       "answer": 1,
-      "why": "Use meine with Mutter: die Mutter is feminine. Das ist meine Mutter means “This is my mother”.",
+      "why": "Mein means “my”. Here, add -e because Mutter is a feminine noun (die Mutter): mein + e = meine. Das ist meine Mutter means “This is my mother”.",
       "dlSkill": "use"
     },
     {
