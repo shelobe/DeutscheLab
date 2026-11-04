@@ -119,6 +119,7 @@
   if(!q?.dlEnriched)return result;
   const card=app.querySelector('.dl-flow-card'),heading=card?.querySelector('h2');
   if(!card||!heading)return result;
+  if(q.dlFormPrompt)heading.style.whiteSpace='pre-line';
   if(q.dlSentenceChunks&&FULL_UNITS[s.id]?.title==='People and names: Sentence patterns'){
    const choices=card.querySelector('.dl-flow-options'),check=document.getElementById('dl-check');
    if(!choices||!check)return result;

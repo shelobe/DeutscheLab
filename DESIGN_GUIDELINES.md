@@ -250,3 +250,6 @@ This document records established product decisions. The current `main` branch i
 
 ## Phone-number teaching audio
 - Forms and personal details keeps the written phone number normally formatted. Its Listen example speaks explicit German digit words with brief punctuation pauses and a longer break after the area code; the introductory phrase keeps normal playback speed. Reuse the existing speech function and voice settings. Avoid repeating the previously taught in/wohnen in definition in this lesson.
+
+## Form-reading question layout
+- In Forms and personal details, the completed-form reading question shows each label/value pair on its own line, with space between the instruction, form fields and final question. Preserve native answer choices and anchored Check/Next controls. Questions opting into dlFormPrompt retain their authored line breaks.

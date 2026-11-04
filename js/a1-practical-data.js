@@ -11332,7 +11332,8 @@ window.DL_A1_PRACTICAL_PACKS = {
     },
     {
       "type": "grammar",
-      "prompt": "Read the form: Vorname: Lea; Nachname: Weber; Wohnort: Berlin. What is the surname?",
+      "prompt": "Read the form:\n\nVorname: Lea\nNachname: Weber\nWohnort: Berlin\n\nWhat is the surname?",
+      "dlFormPrompt": true,
       "options": [
         "Weber",
         "Lea",
