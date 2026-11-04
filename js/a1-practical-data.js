@@ -2552,7 +2552,15 @@ window.DL_A1_PRACTICAL_PACKS = {
     [
       "Introduce someone else",
       [
-        "Das ist … — This is …\nUse this to introduce another person."
+        "Das ist … — This is …\nUse this to introduce another person.",
+        "Das ist meine Freundin Anna. — This is my friend Anna.\nIntroduce someone by giving their relationship to you and their name. Freundin means a female friend; meine Freundin can also mean “my girlfriend”, depending on context."
+      ]
+    ],
+    [
+      "Respond to an introduction",
+      [
+        "Freut mich! — Nice to meet you!\nUse this friendly phrase when you meet someone for the first time.",
+        "Hallo Anna, freut mich! — Hello Anna, nice to meet you!\nGreet the person by name and respond to the introduction."
       ]
     ],
     [
@@ -2591,26 +2599,27 @@ window.DL_A1_PRACTICAL_PACKS = {
     },
     {
       "type": "grammar",
-      "prompt": "You’re introducing your friend Anna. Complete: “___ Anna.”",
+      "prompt": "Listen. Who is Anna?",
       "options": [
-        "Das ist",
-        "Mein Name ist",
-        "Ich heiße"
+        "The speaker’s friend",
+        "The speaker herself",
+        "The speaker’s mother"
       ],
       "answer": 0,
-      "why": "Das ist means “This is” and introduces another person.",
-      "dlSkill": "situation"
+      "why": "Das ist meine Freundin Anna means “This is my friend Anna”. The speaker introduces another person and gives her relationship and name.",
+      "dlSkill": "listen",
+      "dlReviewAudio": "Das ist meine Freundin Anna."
     },
     {
       "type": "grammar",
-      "prompt": "Which means the same as “Ich heiße Lea.”?",
+      "prompt": "A friend introduces you to Anna for the first time. Choose a friendly reply.",
       "options": [
-        "Mein Name ist Lea.",
-        "Das ist Lea.",
-        "Wie heißt Lea?"
+        "Hallo Anna, freut mich!",
+        "Auf Wiedersehen, Anna!",
+        "Es tut mir leid, Anna."
       ],
       "answer": 0,
-      "why": "Ich heiße Lea and Mein Name ist Lea both give your own name. Das ist Lea introduces someone else; Wie heißt Lea? asks for a name.",
+      "why": "Freut mich! means “Nice to meet you!” It is a friendly response when you are introduced to someone.",
       "dlSkill": "situation"
     },
     {
@@ -2676,6 +2685,18 @@ window.DL_A1_PRACTICAL_PACKS = {
     [
       "Das ist Paul.",
       "This is Paul."
+    ],
+    [
+      "Das ist meine Freundin Anna.",
+      "This is my friend Anna."
+    ],
+    [
+      "Freut mich!",
+      "Nice to meet you!"
+    ],
+    [
+      "Hallo Anna, freut mich!",
+      "Hello Anna, nice to meet you!"
     ]
   ]
 },
