@@ -35,7 +35,8 @@
   ['Why es with das Kind?','Das Kind means the child. Kind is grammatically neuter, so es can replace das Kind. Here, es follows the noun’s grammatical gender; it does not describe the child’s sex. Later lessons explain noun gender and pronouns for other animals and objects.'],
   ['Another familiar phrase',['Er heißt Ben. — His name is Ben.','Use er to give another male person’s name. Ich heiße … gives your own name.']],
   ['Talking about someone',['About Paul: er — he','About Anna: sie — she','To that person: du — you (informal)','To that person: Sie — you (polite)']],
-  ['Remember',['Here, sie means she: it refers to Anna in Anna ist hier. Sie ist hier.','Every sentence starts with a capital letter. A capital S alone does not mean formal you.','Use the context to identify who Sie refers to. Lesson 3 introduces sie meaning they.']]
+  ['Remember',['Here, sie means she: it refers to Anna in Anna ist hier. Sie ist hier.','Every sentence starts with a capital letter. A capital S alone does not mean formal you.','Use the context to identify who Sie refers to.']],
+  ['Coming up','Lesson 3 introduces sie meaning they.']
  ],examples:[['Paul ist hier. Er ist hier.','Paul is here. He is here.'],['Anna ist hier. Sie ist hier.','Anna is here. She is here.'],['Das Kind spielt. Es spielt.','The child is playing. It is playing.'],['Er heißt Ben.','His name is Ben.']],questions:[
   q('Paul ist hier. ___ ist hier.',['Er','Sie','Es'],'Paul is referred to with er (he).'),
   q('Mia ist hier. ___ ist hier.',['Sie','Er','Es'],'Sie refers to Mia (she). It is capitalized because it begins the sentence.'),
