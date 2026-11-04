@@ -30,19 +30,19 @@
   q('In “Ich lerne Deutsch,” who is learning?',['The speaker','The listener','Another person'],'Ich means I: the speaker is talking about themself.')
  ]};
  packs['A1|'+FULL_UNITS[third].title]={sections:[
-  ['Talking about one person',['er — he: Paul ist hier. Er ist hier. — Paul is here. He is here.','sie — she: Anna ist hier. Sie ist hier. — Anna is here. She is here.','es — it: Das Kind spielt. Es spielt. — The child is playing.']],
-  ['Why es with das Kind?','Das Kind means the child. The German noun Kind is grammatically neuter, so es can replace it even though a child is a person. Later lessons explain noun gender and pronouns for other animals and objects.'],
+  ['Talking about one person',['er — he','Paul ist hier. Er ist hier. — Paul is here. He is here.','sie — she','Anna ist hier. Sie ist hier. — Anna is here. She is here.','es — it','Das Kind spielt. Es spielt. — The child is playing. It is playing.']],
+  ['Why es with das Kind?','Das Kind means the child. Kind is grammatically neuter, so es can replace das Kind. Here, es follows the noun’s grammatical gender; it does not describe the child’s sex. Later lessons explain noun gender and pronouns for other animals and objects.'],
   ['Talking about someone',['About Paul: er — he','About Anna: sie — she','To that person: du — you (informal)','To that person: Sie — you (polite)']],
-  ['Remember','Here, sie means she: Anna ist hier. Sie ist hier. A sentence starts with a capital letter, so capital S alone does not mean formal you. Lesson 3 introduces sie meaning they; use context to tell who is meant.']
- ],examples:[['Paul ist hier. Er ist hier.','Paul is here. He is here.'],['Anna ist hier. Sie ist hier.','Anna is here. She is here.'],['Das Kind spielt. Es spielt.','The child is playing.']],questions:[
+  ['Remember',['Here, sie means she: it refers to Anna in Anna ist hier. Sie ist hier.','Every sentence starts with a capital letter. A capital S alone does not mean formal you.','Use the context to identify who Sie refers to. Lesson 3 introduces sie meaning they.']]
+ ],examples:[['Paul ist hier. Er ist hier.','Paul is here. He is here.'],['Anna ist hier. Sie ist hier.','Anna is here. She is here.'],['Das Kind spielt. Es spielt.','The child is playing. It is playing.']],questions:[
   q('Paul ist hier. ___ ist hier.',['Er','Sie','Es'],'Paul is referred to with er (he).'),
   q('Anna ist hier. ___ ist hier.',['Sie','Er','Es'],'Anna is referred to with sie (she). It is capitalized at the start of this sentence.'),
   q('Das Kind spielt. ___ spielt.',['Es','Er','Sie'],'Das Kind is grammatically neuter, so es can replace it.'),
-  q('You are talking about Anna, not speaking to her. Which pronoun means she?',['sie','du','Sie'],'Lowercase sie means she; du and formal Sie address someone directly.'),
-  q('In “Das Kind spielt. Es spielt,” who does Es refer to?',['The child','Paul','The speaker'],'Es replaces the grammatically neuter noun das Kind.'),
+  q('You’re telling someone that Anna is here. Complete: ___ ist hier.',['Sie','Du','Ich'],'Sie refers to Anna: she is here. It starts with a capital letter because it begins the sentence.'),
+  q('Which means “The child is playing”?',['Es spielt.','Er ist hier.','Sie ist hier.'],'Es spielt means “It is playing” and can refer to das Kind. Es follows the grammatical gender of the neuter noun Kind.'),
   q('Read “Anna ist hier. Sie ist hier.” What does Sie mean here?',['She','You (formal)','I'],'The context identifies Anna, so Sie means she. It is capitalized because the sentence begins here.'),
-  q('In “Anna ist hier,” which pronoun could replace Anna?',['sie','er','es'],'Use sie (she) for Anna.'),
-  q('Which pronoun refers to one male person you are talking about?',['er','sie','es'],'Er means he; sie means she in this lesson and es replaces a neuter noun.')
+  {...q('Listen. Who does Sie refer to?',['Anna','The speaker','The listener'],'The recording introduces Anna, then refers to her with Sie (she).'),dlSkill:'listen',dlReviewAudio:'Anna ist hier. Sie ist hier.'},
+  q('Paul has arrived. You tell a friend, “He is here.” Which sentence fits?',['Er ist hier.','Ich bin hier.','Du bist hier.'],'Er ist hier means “He is here” and refers to Paul.')
  ]};
  packs['A1|Present-tense verbs']={sections:[
   ['Find the stem','For a regular verb, remove -en: lernen → lern-. Add the ending for the subject. Lernen means to learn.'],
