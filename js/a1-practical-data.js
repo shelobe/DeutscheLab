@@ -11225,7 +11225,7 @@ window.DL_A1_PRACTICAL_PACKS = {
       [
         "Mein Vorname ist Lea. — My first name is Lea.",
         "Mein Nachname ist Weber. — My surname is Weber.",
-        "Ich wohne in Berlin. — I live in Berlin.\nIn means “in” here; wohnen in tells where someone lives.",
+        "Ich wohne in Berlin. — I live in Berlin.",
         "Meine Postleitzahl ist 10115. — My postcode is 10115.",
         "Meine Telefonnummer ist 030 123456. — My telephone number is 030 123456."
       ]

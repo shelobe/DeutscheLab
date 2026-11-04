@@ -181,6 +181,16 @@
   const sections=[...guide.querySelectorAll('section')];if(!sections.length)return;
   // Only move the native example bank; preserve bespoke controls and their handlers.
   const rows=[...card.querySelectorAll('.vocab-row')].filter(row=>row.parentElement===card);
+  if(u.level==='A1'&&u.title==='Forms and personal details'){
+   for(const row of rows){
+    const text=row.querySelector('.vocab-copy strong')?.textContent||row.querySelector('strong')?.textContent;
+    if(text!=='Meine Telefonnummer ist 030 123456.')continue;
+    const button=row.querySelector('button');
+    // Explicit German digit words prevent TTS from treating the number as integers.
+    // Commas separate digits; a sentence boundary separates the area code.
+    if(button)button.onclick=()=>speak('Meine Telefonnummer ist null, drei, null. Eins, zwei, drei, vier, fünf, sechs.');
+   }
+  }
   const heading=[...card.querySelectorAll('h3')].find(h=>h.parentElement===card&&h.textContent.trim()==='See it in German');
   const seen=new Set(),insertions=new Map();
   const put=(section,row,de)=>{

@@ -247,3 +247,6 @@ This document records established product decisions. The current `main` branch i
 - The two-language lesson task uses English toggle buttons, requires exactly two selections, and delegates checking, feedback and saving to the native lesson flow. Module reviews use equivalent language-pair choices. Keep the transcript hidden until feedback. Teach aus den USA as a phrase without requiring article rules yet.
 
 - Two-language selections visibly show a checkmark and teal selected state using aria-pressed. Selected choices remain tappable to deselect; explain this next to the activity. Keep compact button spacing and label the combined recording Listen to the speaker.
+
+## Phone-number teaching audio
+- Forms and personal details keeps the written phone number normally formatted. Its Listen example speaks explicit German digit words with brief punctuation pauses and a longer break after the area code; the introductory phrase keeps normal playback speed. Reuse the existing speech function and voice settings. Avoid repeating the previously taught in/wohnen in definition in this lesson.
